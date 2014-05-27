@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="utf-8">
+    <head>
+        <link href="css/metro-bootstrap.css" rel="stylesheet">
+		<link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
+		<link href="css/iconFont.css" rel="stylesheet">
+		<link href="css/docs.css" rel="stylesheet">
+		<link href="js/prettify/prettify.css" rel="stylesheet">
+
+		<!-- Load JavaScript Libraries -->
+		<script src="js/jquery/jquery.min.js"></script>
+		<script src="js/jquery/jquery.widget.min.js"></script>
+		<script src="js/jquery/jquery.mousewheel.js"></script>
+		<script src="js/prettify/prettify.js"></script>
+		<script src="js/hitua.js"></script>
+
+		<!-- Metro UI CSS JavaScript plugins -->
+		<script src="js/load-metro.js"></script>
+
+		<!-- Local JavaScript -->
+		<script src="js/docs.js"></script>
+		<script src="js/github.info.js"></script>
+    </head>
+    <body class="metro">
+        <div class="example">
+			<div class="panel">
+				<div class="panel-header"><span class="title">Đường dẫn sản phẩm</span></div>
+				<div class="panel-content">
+					<form>
+						<div class="input-control text span6" data-role="input-control">
+							<input placeholder="Nhập đường dẫn" type="text">
+							<button type="button" class="btn-clear" tabindex="-1"></button>
+						</div>
+						<button class="primary">Xem trước</button>
+					</form>
+				</div>
+			</div>
+			<h1></h1>
+			<div class="panel">
+				<div class="panel-header"><span class="title">Các bước parse dữ liệu</span></div>
+				<div class="panel-content">
+					<div class="wizard" id="wizard">
+						<div class="steps">
+							<div class="step">
+								<div class="panel span10">
+									<div class="panel-header bg-lightBlue fg-white"><h5>Loại parser<h5/></div>
+									<div class="panel-content">
+										<div class="input-control radio" data-role="input-control">
+											<label>
+												<input type="radio" />
+												<span class="check"></span>
+												Dạng bảng
+											</label>
+										</div><br>
+										<div class="input-control radio" data-role="input-control">
+											<label>
+												<input type="radio" />
+												<span class="check"></span>
+												Dạng lưới
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="step">
+								<div class="panel span10">
+									<div class="panel-header bg-lightBlue fg-white"><h5>Khung thông tin<h5/></div>
+									<div class="panel-content">
+										<div class="input-control text span6" data-role="input-control">
+											<label>Xpath tới khung thông tin</label>
+											<input type="text">
+											<button type="button" class="btn-clear" tabindex="-1"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="step">
+								<div class="panel span10">
+									<div class="panel-header bg-lightBlue fg-white"><h5>Tên sản phẩm<h5/></div>
+									<div class="panel-content">
+										<div class="input-control text span6" data-role="input-control">
+											<label>Xpath tới tên sản phẩm</label>
+											<input type="text">
+											<button type="button" class="btn-clear" tabindex="-1"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="step">
+								<div class="panel span10">
+									<div class="panel-header bg-lightBlue fg-white"><h5>CPU<h5/></div>
+									<div class="panel-content">
+										<div class="input-control text span6" data-role="input-control">
+											<label>Xpath tới CPU</label>
+											<input type="text">
+											<button type="button" class="btn-clear" tabindex="-1"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="step">
+								<div class="panel span10">
+									<div class="panel-header bg-lightBlue fg-white"><h5>RAM<h5/></div>
+									<div class="panel-content">
+										<div class="input-control text span6" data-role="input-control">
+											<label>Xpath tới RAM</label>
+											<input type="text">
+											<button type="button" class="btn-clear" tabindex="-1"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="step">
+								<div class="panel span10">
+									<div class="panel-header bg-lightBlue fg-white"><h5>Card màn hình<h5/></div>
+									<div class="panel-content">
+										<div class="input-control text span6" data-role="input-control">
+											<label>Xpath tới card màn hình</label>
+											<input type="text">
+											<button type="button" class="btn-clear" tabindex="-1"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="step">
+								<div class="panel span10">
+									<div class="panel-header bg-lightBlue fg-white"><h5>Độ phân giải màn hình<h5/></div>
+									<div class="panel-content">
+										<div class="input-control text span6" data-role="input-control">
+											<label>Xpath tới độ phân giải màn hình</label>
+											<input type="text">
+											<button type="button" class="btn-clear" tabindex="-1"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="step">
+								<div class="panel span10">
+									<div class="panel-header bg-lightBlue fg-white"><h5>Giá sản phẩm<h5/></div>
+									<div class="panel-content">
+										<div class="input-control text span6" data-role="input-control">
+											<label>Xpath tới giá sản phẩm</label>
+											<input type="text">
+											<button type="button" class="btn-clear" tabindex="-1"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<script>
+						$(function(){
+							$('#wizard').wizard({
+								locale: 'en',
+								onCancel: function(){
+									$.Dialog({
+										title: 'Wizard',
+										content: 'Cancel button clicked',
+										shadow: true,
+										padding: 10
+									});
+								},
+								onHelp: function(){
+									$.Dialog({
+										title: 'Wizard',
+										content: 'Help button clicked',
+										shadow: true,
+										padding: 10
+									});
+								},
+								onFinish: function(){
+									$.Dialog({
+										title: 'Wizard',
+										content: 'Finish button clicked',
+										shadow: true,
+										padding: 10
+									});
+								}
+							});
+						});
+					</script>
+				</div>
+			</div>
+        </div>
+    </body>
+</html>
