@@ -1,0 +1,14 @@
+Nhom Triet:
+Dung: Li do dat ten bien trong CD:
+	 vi no la getter va setter  nen no co the la dau + ...va khong phai la bien . Vi bien no se la private nen se la dau ( - )
+Hoang:  CD ve tu dau trong mi hinh.
+Triet:Thuoc tinh va khoa ngoai trong ER....
+Nhom anh Bao :
+ Thanh: Xem ro mo hinh iteration.
+Khi nao can co has giua 2 class trong CD
+The hien ro cac quan he trong CD
+
+The hien chua ro MVC vs Iteration va cac quana he trong CD:
+Trong Usecase sai ve cac exception , Xem xet xem Error hay Exception.
+Nhom Thuc: Tranh su du thua du kieu trong db.Tranh tinh trang vong`.
+

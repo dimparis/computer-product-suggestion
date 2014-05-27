@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en-us" class="ie6 ielt8"><![endif]-->
+<!--[if IE 7 ]><html lang="en-us" class="ie7 ielt8"><![endif]-->
+<!--[if IE 8 ]><html lang="en-us" class="ie8"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en-us"><!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <title>HTML5 Shopping Cart</title>
+        
+        <!-- these two files are not required by the shopping cart, but are just for the purposes of this demo page -->
+        <link rel="stylesheet" href="demo-page-styles/styles.css" />
+        <script src="demo-page-scripts/html5-shim.js"></script>
+        <!-- / these two files are not required by the shopping cart, but are just for the purposes of this demo page -->
+        
+        <!-- shopping cart stylesheets -->
+        <link rel="stylesheet" href="AcidJs.ShoppingCart/styles/styles.min.css" />
+        <!-- / shopping cart stylesheets -->
+    </head>
+    <body>
+        <div>
+            <header>
+                <h1><a href="http://html5-cart.com/" title="HTML5 Shopping Cart" target="_blank">CPS Solutions</a></h1>
+                <nav>
+                    <ul>
+                        <li><a href="http://html5-cart.com/" title="HTML5 Shopping Cart" target="_blank" >Home</a></li>
+                        <li><a href="http://html5-cart.com/demos.html" title="Check the online demos" target="_blank">Online Demos</a></li>
+                        <li><a href="http://html5-cart.com/documentation.html" title="Check the online documentation" target="_blank">Online Documentation</a></li>
+                        <li><a href="http://html5-cart.com/purchase.html" title="Choose and purchase a license for HTML5 Cart" target="_blank">Purchase License</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="demo-body">
+                <div class="demo-top-bar">
+                    <div class="acidjs-shopping-cart-dropdown"><!-- this element will be used to render cart's dropdown --></div>
+                </div>   
+                <h2>Items List</h2>
+                <div class="acidjs-shopping-cart"><!-- this element will be used to render cart's items --></div>
+                
+            </div>
+            <footer>
+                <ul>
+                    <li>&copy; <a href="http://html5-cart.com/" title="HTML5 Shopping Cart" target="_blank">HTML5 Cart</a></li><li>
+                        <a href="http://wemakesites.net" title="WeMakeSites.NET" target="_blank">WeMakeSites.NET</a></li><li>
+                        <a href="https://twitter.com/wemakesitesnet" title="Follow @wemakesitesnet" target="_blank">@wemakesitesnet</a></li>
+                </ul>
+            </footer>
+        </div>
+        
+        <!-- shopping cart runtime -->
+        <script src="AcidJs.ShoppingCart/lib/json2/json2.js"></script>
+        <script src="AcidJs.ShoppingCart/lib/jQuery/jquery-1.9.1.min.js"></script>
+        <script src="AcidJs.ShoppingCart/classes/ShoppingCart.min.js"></script>
+        <script>
+        (function() {
+            "use strict";
+            
+            var
+                WINDOW = $(window),
+                EVENT = " >>> [CUSTOM EVENT LISTENER]: ";
+            
+           /*
+            * instantiate the shopping cart
+            **/
+           window.cart = new window.AcidJs.ShoppingCart({
+               currency: "GBP", // (String) [optional] default: "USD"
+               debug: true, // (Boolean) [optional] default: false; if set to true will display debug messages in browser's console
+               paymentProvider: "ExampleProvider", // (String) defined in the AcidJs.ShoppingCart/classes/ShoppingCart.PaymentProviderService.[PAYMENT_PROVIDER].js file
+               cartDataFile: "AcidJs.ShoppingCart/data/cart-01.json", // configuration file for this cart
+               lang: "en-us", // (String) [optional] default: "en-us"; language files are stored in the  AcidJs.ShoppingCart/lang/{lang}.json file
+               mode: "shop", // (String) "cart"|"shop" [optional] default: "cart"
+               daysToStoreCartDataInCookie: 7, // (Number) [optional] default: 1; days to store items data in a cookie
+               //colors: ["2d89ef"], // (Array) [optional] array of colors that will be used for each shop item; do not add "#" as it is added automatically; if not set, a default array of metro style colors will be used
+               thumbs: { // (Object) [optional] default: {width: 256, height: 256}; define width and height to the shop items
+                   width: 232,
+                   height: 300
+               }
+           });
+           
+           // attach handlers to the shopping cart's custom events events
+           WINDOW.on("acidjs-shopping-cart-templates-loaded", function(e, data) {
+               //return void
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-config-loaded", function(e, data) {
+               //return (Object) config data object
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-payment-provider-loaded", function(e, data) {
+               //return (Object) paymentProvider
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-payment-provider-ready", function(e, data) {
+               //return (String) paymentProvider
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-updated", function(e, data) {
+               //return (Object) chekout data object (the cart.checkout array)
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-return-from-payment-provider", function(e, data) {
+               //return (Object) checkout data
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-ready", function(e, data) {
+               //return void
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-before-checkout", function(e, data) {
+               //return (Object) chekout DTO (the cart.checkout array)
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-after-checkout-success", function(e, data) {
+               //return (Object) {"success": true}
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-after-checkout-cancel", function(e, data) {
+               //return (Object) {"success": false}
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-after-item-added", function(e, data) {
+               //return (Object) the DTO of the added item from the data.items array
+               window.console.log(EVENT, e.type, data);
+           });
+           
+           WINDOW.on("acidjs-shopping-cart-after-item-removed", function(e, data) {
+               //return (Object) the DTO of the removed item from the data.items array
+               window.console.log(EVENT, e.type, data);
+           });
+        })();
+        </script>
+        <!-- / shopping cart runtime -->
+    </body>
+</html>
