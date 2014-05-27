@@ -11,10 +11,14 @@
         <link rel="stylesheet" href="demo-page-styles/styles.css" />
         <script src="demo-page-scripts/html5-shim.js"></script>
         <!-- / these two files are not required by the shopping cart, but are just for the purposes of this demo page -->
-        
+       
         <!-- shopping cart stylesheets -->
         <link rel="stylesheet" href="AcidJs.ShoppingCart/styles/styles.min.css" />
         <!-- / shopping cart stylesheets -->
+		
+		<!-- / Bootstrap-->
+		 <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+		<script src="js/bootstrap.js"></script>
     </head>
     <body>
         <div>
@@ -33,6 +37,10 @@
                 <div class="demo-top-bar">
                     <div class="acidjs-shopping-cart-dropdown"><!-- this element will be used to render cart's dropdown --></div>
                 </div>   
+				<div> 
+						<center> Search : <input type="email" class="form-control" id="inputSearch" placeholder="Enter..."> </center>
+				</div>
+				
                 <h2>Items List</h2>
                 <div class="acidjs-shopping-cart"><!-- this element will be used to render cart's items --></div>
                 
