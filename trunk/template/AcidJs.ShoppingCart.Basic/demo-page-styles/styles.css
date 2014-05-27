@@ -1,0 +1,117 @@
+/*
+ * @stylesheet
+ * @info this stylesheet is related only to the demo page and is not required by the shopping cart
+ **/
+
+h1, h2, h3, h4, h5, h6,
+ul, ol, li,
+p
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-weight: normal;
+}
+
+header, footer, nav
+{
+    display: block;
+}
+
+nav li,
+.inline-list li,
+footer li
+{
+    display: inline-block;
+}
+
+html, body
+{
+    width: 100%;
+    height: 100%;
+}
+
+body
+{
+    font-family: Arial, Helvetica, Sans-serif;
+    cursor: default;
+}
+
+a
+{
+    outline: none;
+    color: #2d89ef;
+}
+
+body > div
+{
+    width: 974px;
+    margin: auto;
+}
+
+.demo-body
+{
+    float: none;
+    clear: both;
+}
+
+h1
+{
+    font-size: 28px;
+}
+
+header
+{
+    padding: 12px 0;
+}
+
+header h1 a
+{
+    text-decoration: none;
+    color: #404040;
+}
+
+nav li
+{
+    padding: 0 8px 0 0;
+    line-height: 26px;
+    font-size: 12px;
+}
+
+.demo-top-bar
+{
+    text-align: right;
+}
+
+h2
+{
+    padding: 4px 0;
+    margin: 0 0 4px;
+    border-bottom: dotted 1px #666;
+    color: #666;
+    font-size: 20px;
+}
+
+p
+{
+    padding: 8px 0;
+    font-size: 12px;
+    color: #333;
+}
+
+.inline-list li
+{
+    margin: 4px;
+}
+
+footer
+{
+   font-size: 12px;
+   padding: 8px 0;
+   text-align: center;
+}
+
+footer li
+{
+    padding: 0 4px;
+}
