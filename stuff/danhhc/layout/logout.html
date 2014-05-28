@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<link href="css/flatstrap.css" rel="stylesheet" media="screen">
+<link href="css/docs.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-theme.css" rel="stylesheet" media="screen">
+<head>
+</head>
+<body>
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<button style="float:right" type="button" class="btn btn-default" onclick="confirmLogout()">logout</button>
+	<script language="JavaScript">
+		function confirmLogout(){
+		var agree = confirm("Are you sure you wish to logout?");
+
+		if(agree){
+		return true;
+
+		}else{
+
+		return false;
+
+		}
+		}
+		
+</script> 
+</body>
+</html>
