@@ -47,9 +47,9 @@
             <td>
                 <h4>Vẫn không tìm thấy sản phẩm bạn muốn. Xin hãy cung cấp cho chúng tôi thông tin về sản phẩm.   <br />
 					   <br />
-					   Bạn có thể lựa chọn gửi cho chúng tôi cả hai hoặc một trong hai thông tin dưới đây:
+					   Bạn có thể lựa chọn gửi cho chúng tôi một trong hai thông tin dưới đây:
 					    <br />
-						- Nguồn gốc - địa chỉ email và đường dẫn tới trang web chứa sản phẩm bạn muốn được gợi ý.
+						- Nguồn gốc - Đường dẫn tới trang web chứa sản phẩm bạn muốn được gợi ý.
                     <br />
 						- Cấu hình -  cấu hình sản phẩm mà bạn muốn được gợi ý.
 					 <br />
@@ -73,15 +73,28 @@
 
 
     </div>
+
+  <div class="span5"><table class="table table-bordered" > 
+    <tr> <td>Tên và Email của ban. </td> </tr>
+  </div>
+	<table class="table table-bordered" > 
+				 <tr> <td>Email:</td>  <td><input type="email" class="form-control" id="Email1" placeholder="nguyenvana@gmail.com"> <font size="3" color="red">*</font></td></tr>
+				 <tr><td> </td></tr>
+				  <tr> <td>Tên:</td>  <td>    <input type="text" class="form-control" id="Email1" placeholder="nguyenvana"> <font size="3" color="red"></font> </td></tr>				 
+				 </table>
+		    </div>
+			
+<div class="span9">
        <ul class="nav nav-tabs" id="myTab">
+	
     <li><a href="#home" data-toggle="tab">Nguồn gốc</a></li>
     <li><a href="#profile" data-toggle="tab">Cấu hình</a></li>
     </ul>
-     <div class="span6">
+     <div class="span5">
     <div class="tab-content">
-    <div class="tab-pane active" id="home">  
-				 <table class="table table-bordered" > 
-				 <tr> <td>Email:</td>  <td><input type="email" class="form-control" id="Email1" placeholder="nguyenvana@gmail.com"> <font size="3" color="red">*</font></td></tr>
+	 
+    <div class="tab-pane active"  id="home">  
+				 <table class="table table-bordered" >
 				 <tr><td> </td></tr>
 				  <tr> <td>Đường dẫn:</td>  <td>    <input type="text" class="form-control" id="Email1" placeholder="http://www.thegioididong.com/laptop/asus-x550lc-74504g50g"> <font size="3" color="red">*</font> </td></tr>
 				  <tr><td> </td></tr> <tr> <td>Mô tả:</td>  <td>
@@ -105,8 +118,9 @@
 	</div>
     </div>
 	    </div>
+		 <button type="submit" class="btn-large btn-primary">Gửi</button>
+	</div>
 	
-	 <button type="submit" class="btn-large btn-primary">Gửi</button>
 	<script src="js/jquery.js"></script>
 		<script src="js/bootstrap.js"></script>
  
