@@ -46,6 +46,39 @@ $(window).bind('scroll', function () {
 		<link rel="stylesheet" href="sliderbar\slidebars\sliderbars-theme.css">
 		<!-- Example Styles -->
 		<link rel="stylesheet" href="sliderbar\example-styles.css">
+		
+	<link rel="stylesheet" type="text/css" href="css/loginstyle.css" />
+<style type="text/css">
+*{margin: 0;padding: 0;}
+body{
+font:16px "Times New Roman", Times, serif
+}
+#but_login{
+  position: fixed; 
+  top:00px;right: 0; 
+  width: 25px;height: 75px;
+  background: url('images/login.png');
+  cursor: pointer;
+  z-index:2000;
+}
+#light_box{
+    position: fixed;
+    width: 100%;height: 100%;
+    left: 0;top: 0;
+    background: black;
+    display: none;
+	z-index:2000;
+}
+
+#nut_login{
+    float: left;
+    padding: 1px 3px;
+    color: white;
+    cursor: pointer;
+    background: #0080FF;
+}
+</style>
+				
 </head>
 <body>		
 	<div class="sb-slidebar sb-left">
@@ -53,24 +86,27 @@ $(window).bind('scroll', function () {
 			<nav>
 				<ul class="sb-menu">
 						<li>
-						<img src="images/logo2x.png" width="118" height="40">
+						<img src="images/logo2x-w.png" width="118" height="40">
 					</li>
-					<li><a href="">Home</a></li>
+					<li>
+						<a href="" >
+							<img src="images/brand/home.png"  width="40" height="30"/>
+							Home
+						</a>
+					</li>
 					<li>
 						<a href="#" class="sb-toggle-submenu">
+						<img src="images/brand/brand.png"  width="40" height="30"/>
 							All Brand 
 							<span class="sb-caret"></span>
 						</a>
 						<ul class="sb-submenu" style="display: none;">
-							<li><a href=""><img src="images/laptop-icon.png"  width="40" height="30"/> Dell</a></li>
-							
-							
-							
-							<li><a href=""><img src="images/laptop-icon.png"  width="40" height="30"/>Lenovo</a></li>
-							<li><a href=""><img src="images/laptop-icon.png"  width="40" height="30"/>HP</a></li>
-							<li><a href=""><img src="images/laptop-icon.png"  width="40" height="30"/>Asus</a></li>
-							<li><a href=""><img src="images/laptop-icon.png"  width="40" height="30"/>Toshiba</a></li>
-							<li><a href=""><img src="images/laptop-icon.png"  width="40" height="30"/>Acer</a></li>						
+							<li><a href=""> Dell</a></li>					
+							<li><a href="">Lenovo</a></li>
+							<li><a href="">HP</a></li>
+							<li><a href="">Asus</a></li>
+							<li><a href="">>Apple</a></li>
+							<li><a href="">Acer</a></li>						
 						</ul>
 					</li>
 					<li><a href="">BestSeller</a></li>
@@ -79,142 +115,140 @@ $(window).bind('scroll', function () {
 					<li><a href="">Contact</a></li>
 				</ul>	
 			</nav>		
-		</div>
-		<div id="sb-site">
-		
-			<div class="menutop">
-	 <div class="header-top">
-	   <div class="wrap"> 
-			  <div class="header-top-left">
-   				    <div class="box1">
-   				        <select tabindex="4" class="dropdown">
-							<option value="" class="label" value="">Currency :</option>
-							<option value="1">$ Dollar</option>
-							<option value="2">€ Euro</option>
-						</select>
-   				    </div>
-   				    <div class="clear"></div>
-   			 </div>
-			<div class="cssmenu">
-				<ul>
-					<li><a href="niceLogin/login.html">Log In</a></li> |
-					<li><a href="register.html">Sign Up</a></li>
+	</div>
+	<div id="sb-site">		
+		<div class="menutop">
+		 <div class="header-top">
+		   <div class="wrap"> 
+				  <div class="header-top-left">
+						<div class="box1">
+							<select tabindex="4" class="dropdown">
+								<option value="" class="label" value="">Currency :</option>
+								<option value="1">$ Dollar</option>
+								<option value="2">€ Euro</option>
+							</select>
+						</div>
+						<div class="clear"></div>
+				 </div>
+				<div class="cssmenu">
+					<ul>
+						<li><a href="register.html">Sign Up</a></li>
+						<li id="loginbut"><a href="#">Log In</a></li> |						
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+			</div>
+			<div class="header-bottom">
+			<div class="wrap">
+					<div class="header-bottom-left">
+						<div class="logo">
+							<a href="#" class="sb-toggle-left"><img src="images/tag.png" alt=""/></a>
+								<a href="index.html"><img src="images/logo.png" alt=""/></a>			
+						</div>						
+						<div class="menu">
+							<ul class="megamenu skyblue">
+								<li class="active grid"><a href="index.html">Home</a></li>
+								<li><a class="color4" href="#">women</a>
+									<div class="megapanel">
+										<div class="row">
+											<div class="col1">
+												<div class="h_nav">
+													<h4>Contact Lenses</h4>
+													<ul>
+														<li><a href="womens.html">Daily-wear soft lenses</a></li>
+														<li><a href="womens.html">Extended-wear</a></li>
+														<li><a href="womens.html">Lorem ipsum </a></li>
+														<li><a href="womens.html">Planned replacement</a></li>
+													</ul>	
+												</div>							
+											</div>
+											<div class="col1">
+												<div class="h_nav">
+													<h4>Sun Glasses</h4>
+													<ul>
+														<li><a href="womens.html">Heart-Shaped</a></li>
+														<li><a href="womens.html">Square-Shaped</a></li>
+														<li><a href="womens.html">Round-Shaped</a></li>
+														<li><a href="womens.html">Oval-Shaped</a></li>
+													</ul>	
+												</div>							
+											</div>
+											<div class="col1">
+												<div class="h_nav">
+													<h4>Eye Glasses</h4>
+													<ul>
+														<li><a href="womens.html">Anti Reflective</a></li>
+														<li><a href="womens.html">Aspheric</a></li>
+														<li><a href="womens.html">Bifocal</a></li>
+														<li><a href="womens.html">Hi-index</a></li>
+														<li><a href="womens.html">Progressive</a></li>
+													</ul>	
+												</div>												
+											</div>
+										  </div>
+									</div>
+								</li>				
+								<li><a class="color5" href="#">Men</a>
+								<div class="megapanel">
+									<div class="col1">
+											<div class="h_nav">
+												<h4>Contact Lenses</h4>
+												<ul>
+													<li><a href="mens.html">Daily-wear soft lenses</a></li>
+													<li><a href="mens.html">Extended-wear</a></li>
+													<li><a href="mens.html">Lorem ipsum </a></li>
+													<li><a href="mens.html">Planned replacement</a></li>
+												</ul>	
+											</div>							
+										</div>
+										<div class="col1">
+											<div class="h_nav">
+												<h4>Sun Glasses</h4>
+												<ul>
+													<li><a href="mens.html">Heart-Shaped</a></li>
+													<li><a href="mens.html">Square-Shaped</a></li>
+													<li><a href="mens.html">Round-Shaped</a></li>
+													<li><a href="mens.html">Oval-Shaped</a></li>
+												</ul>	
+											</div>							
+										</div>
+										<div class="col1">
+											<div class="h_nav">
+												<h4>Eye Glasses</h4>
+												<ul>
+													<li><a href="mens.html">Anti Reflective</a></li>
+													<li><a href="mens.html">Aspheric</a></li>
+													<li><a href="mens.html">Bifocal</a></li>
+													<li><a href="mens.html">Hi-index</a></li>
+													<li><a href="mens.html">Progressive</a></li>
+												</ul>	
+											</div>												
+										</div>
+								</div>
+								</li>
+								<li><a class="color6" href="other.html">Other</a></li>
+								<li><a class="color7" href="other.html">Purchase</a></li>
+							</ul>
+						</div>
+					</div>
+			 <div class="header-bottom-right" style="float:right">
+				<ul class="icon1 sub-icon1 profile_img" style="margin-left:225px">
+					<li><a class="active-icon c2" href="#"> </a>
+						<ul class="sub-icon1 list">
+							<li><h3>No Products</h3><a href=""></a></li>
+							<li><p>Lorem ipsum dolor sit amet, consectetuer  <a href="">adipiscing elit, sed diam</a></p></li>
+						</ul>
+					</li>
 				</ul>
+				<ul class="last"><li><a href="#">Cart(0)</a></li></ul>
 			</div>
 			<div class="clear"></div>
- 		</div>
-	</div>
-	<div class="header-bottom">
-	    <div class="wrap">
-			<div class="header-bottom-left">
-				<div class="logo">
-				<a href="#" class="sb-toggle-left"><img src="images/tag.png" alt=""/></a>
-					<a href="index.html"><img src="images/logo.png" alt=""/></a>			
-				</div>
-				
-				<div class="menu">
-	            <ul class="megamenu skyblue">
-			<li class="active grid"><a href="index.html">Home</a></li>
-			<li><a class="color4" href="#">women</a>
-				<div class="megapanel">
-					<div class="row">
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Contact Lenses</h4>
-								<ul>
-									<li><a href="womens.html">Daily-wear soft lenses</a></li>
-									<li><a href="womens.html">Extended-wear</a></li>
-									<li><a href="womens.html">Lorem ipsum </a></li>
-									<li><a href="womens.html">Planned replacement</a></li>
-								</ul>	
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Sun Glasses</h4>
-								<ul>
-									<li><a href="womens.html">Heart-Shaped</a></li>
-									<li><a href="womens.html">Square-Shaped</a></li>
-									<li><a href="womens.html">Round-Shaped</a></li>
-									<li><a href="womens.html">Oval-Shaped</a></li>
-								</ul>	
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Eye Glasses</h4>
-								<ul>
-									<li><a href="womens.html">Anti Reflective</a></li>
-									<li><a href="womens.html">Aspheric</a></li>
-									<li><a href="womens.html">Bifocal</a></li>
-									<li><a href="womens.html">Hi-index</a></li>
-									<li><a href="womens.html">Progressive</a></li>
-								</ul>	
-							</div>												
-						</div>
-					  </div>
-					</div>
-				</li>				
-				<li><a class="color5" href="#">Men</a>
-				<div class="megapanel">
-					<div class="col1">
-							<div class="h_nav">
-								<h4>Contact Lenses</h4>
-								<ul>
-									<li><a href="mens.html">Daily-wear soft lenses</a></li>
-									<li><a href="mens.html">Extended-wear</a></li>
-									<li><a href="mens.html">Lorem ipsum </a></li>
-									<li><a href="mens.html">Planned replacement</a></li>
-								</ul>	
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Sun Glasses</h4>
-								<ul>
-									<li><a href="mens.html">Heart-Shaped</a></li>
-									<li><a href="mens.html">Square-Shaped</a></li>
-									<li><a href="mens.html">Round-Shaped</a></li>
-									<li><a href="mens.html">Oval-Shaped</a></li>
-								</ul>	
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Eye Glasses</h4>
-								<ul>
-									<li><a href="mens.html">Anti Reflective</a></li>
-									<li><a href="mens.html">Aspheric</a></li>
-									<li><a href="mens.html">Bifocal</a></li>
-									<li><a href="mens.html">Hi-index</a></li>
-									<li><a href="mens.html">Progressive</a></li>
-								</ul>	
-							</div>												
-						</div>
-					</div>
-				</li>
-				<li><a class="color6" href="other.html">Other</a></li>
-				<li><a class="color7" href="other.html">Purchase</a></li>
-			</ul>
+		 </div>
 			</div>
+		
 		</div>
-	 <div class="header-bottom-right" style="float:right">
-		<ul class="icon1 sub-icon1 profile_img" style="margin-left:225px">
-			<li><a class="active-icon c2" href="#"> </a>
-				<ul class="sub-icon1 list">
-					<li><h3>No Products</h3><a href=""></a></li>
-					<li><p>Lorem ipsum dolor sit amet, consectetuer  <a href="">adipiscing elit, sed diam</a></p></li>
-				</ul>
-			</li>
-		</ul>
-	    <ul class="last"><li><a href="#">Cart(0)</a></li></ul>
-    </div>
-     <div class="clear"></div>
-     </div>
-	</div>
 	
-	</div>
-
     
 	
 	
@@ -251,7 +285,9 @@ $(window).bind('scroll', function () {
             </div>
             <!--/slide -->
         </div>
-        <div class="timers"></div>
+		
+		<!-- timer /// <div class="timers"></div>  -->
+        
         <div class="slidePrev"><span></span></div>
         <div class="slideNext"><span></span></div>
     </div>
@@ -488,32 +524,72 @@ $(window).bind('scroll', function () {
 	</div>
 	</div>
 	</div>
-   <div class="footer">
-
-		<div class="footer-bottom">
-			<div class="wrap">
-	             <div class="copy">
-			        <p>© 2014 Template by <a href="http://w3layouts.com" target="_blank">w3layouts</a></p>
-		         </div>
-				<div class="f-list2">
-				 <ul>
-					<li class="active"><a href="about.html">About Us</a></li> |
-					<li><a href="delivery.html">Delivery & Returns</a></li> |
-					<li><a href="delivery.html">Terms & Conditions</a></li> |
-					<li><a href="contact.html">Contact Us</a></li> 
-				 </ul>
-			    </div>
-			    <div class="clear"></div>
-		      </div>
-	     </div>
+	
+	   <div class="footer">
+			<div class="footer-bottom">
+				<div class="wrap">
+					 <div class="copy">
+						<p>© 2014 Template by <a href="http://w3layouts.com" target="_blank">w3layouts</a></p>
+					 </div>
+					<div class="f-list2">
+					 <ul>
+						<li class="active"><a href="about.html">About Us</a></li> |
+						<li><a href="delivery.html">Delivery & Returns</a></li> |
+						<li><a href="delivery.html">Terms & Conditions</a></li> |
+						<li><a href="contact.html">Contact Us</a></li> 
+					 </ul>
+					</div>
+					<div class="clear"></div>
+				  </div>
+			 </div>
+		</div>	
 	</div>
-		
-		</div>
-		
-						
-
+	
+	<div class="logincontainer" style="display:none;">
+	<section id="content">
+		<form action="">
+			<h1>Login Form</h1>
+			<div>
+				<input type="text" placeholder="Username" required="" id="username" />
+			</div>
+			<div>
+				<input type="password" placeholder="Password" required="" id="password" />
+			</div>
+			<div>
+				<input type="submit" value="Log in" />
+				<a href="#">Lost your password?</a>
+				<a href="#">Register</a>
+			</div>
+		</form><!-- form -->
+		<div class="button">
+			<a href="#">Back to home page</a>
+		</div><!-- button -->
+	</section><!-- content -->
+	</div><!-- container -->
+	
+		<script type="text/javascript">
+		$(function(){
+			$('body').append('<div id="light_box"></div>')
+			$('#loginbut').click(function(){
+				//$('#light_box').css({'display':'block','opacity':'0'}).animate({opacity:0.6},200)
+				$('#light_box').css('opacity','0.98').fadeIn(300)
+				$('.logincontainer').appendTo('#light_box').show()
+				formTop()
+			})
+			$('.button').click(function(){
+				$('#light_box').hide()
+			})
+			$(window).resize(function(){
+				formTop()
+			})
+			function formTop(){
+				$('.logincontainer').css('margin-top',($('#light_box').height()-$('.logincontainer').height())/2)
+			}
+			
+		})
+		</script>
 	 <!-- jQuery -->
-
+		
 		<!-- Slidebars -->
 		<script src="sliderbar\slidebars\slidebars.min.js"></script>
 		<script>		
