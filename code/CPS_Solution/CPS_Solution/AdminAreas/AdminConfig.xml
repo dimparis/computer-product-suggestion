@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <epsilon>100</epsilon>
+  <numberofrequestfor1user>5</numberofrequestfor1user>
+  <numberofrequestfor1product>10</numberofrequestfor1product>
+  <sessiontime>15</sessiontime>
+</config>
