@@ -39,10 +39,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -105,7 +114,72 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminAreas\AdminAreaRegistration.cs" />
+    <Compile Include="AdminAreas\Helpers\ParserHelper.cs" />
+    <Compile Include="AdminAreas\Models\LogInfo.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
+    <Compile Include="EntityFramework\Account.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\AttributeAlia.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\AttributeDictionary.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Codetype.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CPS_Solution.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPS_Solution.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CPS_Solution.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CPS_Solution.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\History.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\HistoryDetail.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\LogFile.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ParseAttribute.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ParseInfo.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Product.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ProductAlia.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ProductAttribute.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\RatingProduct.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\RecommendProduct.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Role.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\sysdiagram.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2819,6 +2893,119 @@
     <Content Include="AdminAreas\Dandelion\plugins\tipsy\tipsy.css" />
     <Content Include="AdminAreas\Dandelion\plugins\validate\jquery.validate.js" />
     <Content Include="AdminAreas\Dandelion\plugins\validate\jquery.validate.min.js" />
+    <Content Include="GFashion_Html Files\about-us.html" />
+    <Content Include="GFashion_Html Files\cart.html" />
+    <Content Include="GFashion_Html Files\checkout.html" />
+    <Content Include="GFashion_Html Files\components.html" />
+    <Content Include="GFashion_Html Files\contact-us-2.html" />
+    <Content Include="GFashion_Html Files\contact-us.html" />
+    <Content Include="GFashion_Html Files\css\flexslider.css" />
+    <Content Include="GFashion_Html Files\css\innerpage.css" />
+    <Content Include="GFashion_Html Files\css\isotope.css" />
+    <Content Include="GFashion_Html Files\css\jquery.nouislider.css" />
+    <Content Include="GFashion_Html Files\css\minified.css" />
+    <Content Include="GFashion_Html Files\css\owl.carousel.css" />
+    <Content Include="GFashion_Html Files\css\owl.theme.css" />
+    <Content Include="GFashion_Html Files\css\PIE.htc" />
+    <Content Include="GFashion_Html Files\css\responsive.css" />
+    <Content Include="GFashion_Html Files\fonts\glyphicons-halflings-regular-2.html" />
+    <Content Include="GFashion_Html Files\fonts\glyphicons-halflings-regular-3.html" />
+    <Content Include="GFashion_Html Files\fonts\glyphicons-halflings-regular-4.html" />
+    <Content Include="GFashion_Html Files\fonts\glyphicons-halflings-regular.html" />
+    <Content Include="GFashion_Html Files\fonts\glyphicons-halflings-regulard41d.html" />
+    <Content Include="GFashion_Html Files\font\fontawesome\fonts\fontawesome.svg" />
+    <Content Include="GFashion_Html Files\images\demo\Barn-Dress-Girl_t.jpg" />
+    <Content Include="GFashion_Html Files\images\demo\images-footer.jpg" />
+    <Content Include="GFashion_Html Files\images\demo\P2200214.jpg" />
+    <Content Include="GFashion_Html Files\images\men\accessories\000095-0014_2.jpg" />
+    <Content Include="GFashion_Html Files\images\men\accessories\000095-0014_2_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\accessories\255615-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\accessories\255615-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\blazer\105797-1056_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\blazer\105797-1056_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\blazer\677326-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\blazer\677326-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\jacket\217365-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\jacket\217365-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\jacket\271865-0286_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\jacket\271865-0286_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\jacket\634082-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\jacket\634082-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\jumper\271866-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\jumper\271866-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\shirt\217360-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\shirt\217360-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\shirt\803500-6989_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\shirt\803500-6989_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\shoes\000312-2259_1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\shoes\000312-2259_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\men\slide1.jpg" />
+    <Content Include="GFashion_Html Files\images\men\slide2.jpg" />
+    <Content Include="GFashion_Html Files\images\women\accessories\582120-0029_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\accessories\582120-0029_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\basic\589550-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\basic\589550-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\basic\688086-0286_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\basic\688086-0286_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\basic\848051-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\basic\848051-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\basic\848099-0067_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\basic\848099-0067_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\dress\256479-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\dress\256479-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\dress\278638-0083_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\dress\278638-0083_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\jeans\220008-0054_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\jeans\220008-0054_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\legging\104331-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\legging\104331-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\legging\714384-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\legging\714384-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\skirt\103314-0735_1_o.jpg" />
+    <Content Include="GFashion_Html Files\images\women\skirt\103314-0735_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\skirt\103314-0735_2_o.jpg" />
+    <Content Include="GFashion_Html Files\images\women\skirt\103314-0735_2_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\skirt\430041-0014_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\skirt\430041-0014_1_t.jpg" />
+    <Content Include="GFashion_Html Files\images\women\swimwear\116796-0001_1.jpg" />
+    <Content Include="GFashion_Html Files\images\women\swimwear\116796-0001_1_t.jpg" />
+    <Content Include="GFashion_Html Files\img\AjaxLoader2.gif" />
+    <Content Include="GFashion_Html Files\img\bg_pattern.jpg" />
+    <Content Include="GFashion_Html Files\img\favicon\apple-touch-icon-144x144-precomposed.html" />
+    <Content Include="GFashion_Html Files\img\favicon\apple-touch-icon-72x72-precomposed.html" />
+    <Content Include="GFashion_Html Files\img\favicon\apple-touch-icon-precomposed.html" />
+    <Content Include="GFashion_Html Files\img\favicon\favicon.html" />
+    <Content Include="GFashion_Html Files\img\grabbing.png" />
+    <Content Include="GFashion_Html Files\img\logo.png" />
+    <Content Include="GFashion_Html Files\img\mastercard.png" />
+    <Content Include="GFashion_Html Files\img\paypal.png" />
+    <Content Include="GFashion_Html Files\img\products\1.html" />
+    <Content Include="GFashion_Html Files\img\products\2.html" />
+    <Content Include="GFashion_Html Files\img\products\3.html" />
+    <Content Include="GFashion_Html Files\img\products\4.html" />
+    <Content Include="GFashion_Html Files\img\star.png" />
+    <Content Include="GFashion_Html Files\img\transparent.png" />
+    <Content Include="GFashion_Html Files\img\visacard.png" />
+    <Content Include="GFashion_Html Files\index-2.html" />
+    <Content Include="GFashion_Html Files\index-3.html" />
+    <Content Include="GFashion_Html Files\index.html" />
+    <Content Include="GFashion_Html Files\js\contact.js" />
+    <Content Include="GFashion_Html Files\js\gmap3.min.js" />
+    <Content Include="GFashion_Html Files\js\jquery.flexslider-min.js" />
+    <Content Include="GFashion_Html Files\js\jquery.isotope.min.js" />
+    <Content Include="GFashion_Html Files\js\jquery.min.js" />
+    <Content Include="GFashion_Html Files\js\jquery.nouislider.js" />
+    <Content Include="GFashion_Html Files\js\minified.js" />
+    <Content Include="GFashion_Html Files\js\modernizr.min.js" />
+    <Content Include="GFashion_Html Files\js\owl.carousel.js" />
+    <Content Include="GFashion_Html Files\js\products.js" />
+    <Content Include="GFashion_Html Files\product-2.html" />
+    <Content Include="GFashion_Html Files\product.html" />
+    <Content Include="GFashion_Html Files\products-2.html" />
+    <Content Include="GFashion_Html Files\products.html" />
+    <Content Include="GFashion_Html Files\rev-slider\img\slides\3303349658_cfaebb811f_o.jpg" />
+    <Content Include="GFashion_Html Files\rev-slider\img\slides\Street-Fashion.jpg" />
+    <Content Include="GFashion_Html Files\store-locator.html" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2833,9 +3020,7 @@
     <Folder Include="AdminAreas\Controllers\" />
     <Folder Include="AdminAreas\Dandelion\plugins\elfinder\files\.tmb\" />
     <Folder Include="AdminAreas\Dandelion\plugins\syntaxhighlighter\scripts\" />
-    <Folder Include="AdminAreas\Helpers\" />
     <Folder Include="AdminAreas\LogFiles\" />
-    <Folder Include="AdminAreas\Models\" />
     <Folder Include="AdminAreas\SavedTempParsePages\" />
     <Folder Include="AdminAreas\Scripts\" />
     <Folder Include="AdminAreas\Views\" />
@@ -2854,6 +3039,53 @@
     <Content Include="AdminAreas\Dandelion\plugins\photoswipe\README.md" />
     <Content Include="AdminAreas\Dandelion\plugins\prettyphoto\images\fullscreen\.DS_Store" />
     <Content Include="AdminAreas\Dandelion\plugins\syntaxhighlighter\prettify\closure.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityFramework\CPS_Solution.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+      <LastGenOutput>CPS_Solution.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityFramework\CPS_Solution.edmx.diagram">
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+    </Content>
+    <Content Include="EntityFramework\CPS_Solution.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+      <LastGenOutput>CPS_Solution.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GFashion_Html Files\._.DS_Store" />
+    <Content Include="GFashion_Html Files\font\fontawesome\fonts\fontawesome.eot" />
+    <Content Include="GFashion_Html Files\font\fontawesome\fonts\fontawesome.ttf" />
+    <Content Include="GFashion_Html Files\font\fontawesome\fonts\fontawesome.woff" />
+    <Content Include="GFashion_Html Files\font\fontawesome\fonts\fontawesomed41d.eot" />
+    <Content Include="GFashion_Html Files\images\demo\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\men\accessories\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\men\blazer\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\men\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\men\jacket\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\men\jumper\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\men\shirt\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\men\shoes\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\women\accessories\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\women\basic\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\women\dress\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\women\jeans\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\women\legging\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\women\skirt\Descr.WD3" />
+    <Content Include="GFashion_Html Files\images\women\swimwear\Descr.WD3" />
+    <Content Include="GFashion_Html Files\img\Descr.WD3" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

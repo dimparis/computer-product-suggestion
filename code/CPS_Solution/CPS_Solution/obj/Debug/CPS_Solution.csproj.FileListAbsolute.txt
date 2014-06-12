@@ -24,3 +24,8 @@ E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.WebPages.Razor
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Debug\CPS_Solution.csprojResolveAssemblyReference.cache
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Debug\CPS_Solution.dll
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Debug\CPS_Solution.pdb
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\EntityFramework.dll
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\HtmlAgilityPack.dll
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\EntityFramework.xml
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\HtmlAgilityPack.pdb
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\HtmlAgilityPack.xml
