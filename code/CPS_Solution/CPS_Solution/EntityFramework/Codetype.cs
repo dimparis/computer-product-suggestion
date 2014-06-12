@@ -16,12 +16,14 @@ namespace CPS_Solution.EntityFramework
     {
         public Codetype()
         {
+            this.AttributeDictionaries = new HashSet<AttributeDictionary>();
             this.ParseAttributes = new HashSet<ParseAttribute>();
         }
     
         public string ID { get; set; }
         public string Name { get; set; }
     
+        public virtual ICollection<AttributeDictionary> AttributeDictionaries { get; set; }
         public virtual ICollection<ParseAttribute> ParseAttributes { get; set; }
     }
 }

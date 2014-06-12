@@ -16,8 +16,9 @@ namespace CPS_Solution.EntityFramework
     {
         public int ID { get; set; }
         public string Codetype { get; set; }
-        public string Parselink { get; set; }
-        public string Name { get; set; }
+        public string ParseAttributelink { get; set; }
+        public string NameXPath { get; set; }
+        public string PagingXPath { get; set; }
         public bool IsActive { get; set; }
     
         public virtual Codetype Codetype1 { get; set; }

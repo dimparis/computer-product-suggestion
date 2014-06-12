@@ -15,7 +15,10 @@ namespace CPS_Solution.EntityFramework
     public partial class AttributeAlia
     {
         public int ID { get; set; }
-        public int AttributeDicID { get; set; }
+        public Nullable<int> AttributeDicID { get; set; }
         public string Name { get; set; }
+        public bool IsActive { get; set; }
+    
+        public virtual AttributeDictionary AttributeDictionary { get; set; }
     }
 }
