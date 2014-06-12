@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminAreas\AdminAreaRegistration.cs" />
+    <Compile Include="AdminAreas\Helpers\CompareStringHelper.cs" />
     <Compile Include="AdminAreas\Helpers\ParserHelper.cs" />
     <Compile Include="AdminAreas\Models\LogInfo.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
@@ -3044,27 +3045,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="EntityFramework\CPS_Solution.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CPS_Solution.edmx</DependentUpon>
-      <LastGenOutput>CPS_Solution.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="EntityFramework\CPS_Solution.edmx.diagram">
-      <DependentUpon>CPS_Solution.edmx</DependentUpon>
-    </Content>
-    <Content Include="EntityFramework\CPS_Solution.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CPS_Solution.edmx</DependentUpon>
-      <LastGenOutput>CPS_Solution.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="GFashion_Html Files\._.DS_Store" />
     <Content Include="GFashion_Html Files\font\fontawesome\fonts\fontawesome.eot" />
     <Content Include="GFashion_Html Files\font\fontawesome\fonts\fontawesome.ttf" />
@@ -3086,6 +3066,27 @@
     <Content Include="GFashion_Html Files\images\women\skirt\Descr.WD3" />
     <Content Include="GFashion_Html Files\images\women\swimwear\Descr.WD3" />
     <Content Include="GFashion_Html Files\img\Descr.WD3" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityFramework\CPS_Solution.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+      <LastGenOutput>CPS_Solution.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityFramework\CPS_Solution.edmx.diagram">
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+    </Content>
+    <Content Include="EntityFramework\CPS_Solution.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+      <LastGenOutput>CPS_Solution.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

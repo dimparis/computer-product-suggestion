@@ -14,9 +14,19 @@ namespace CPS_Solution.EntityFramework
     
     public partial class AttributeDictionary
     {
+        public AttributeDictionary()
+        {
+            this.AttributeAlias = new HashSet<AttributeAlia>();
+            this.ProductAttributes = new HashSet<ProductAttribute>();
+        }
+    
         public int ID { get; set; }
         public string Codetype { get; set; }
         public string Name { get; set; }
         public double WeightCriteraPoint { get; set; }
+    
+        public virtual ICollection<AttributeAlia> AttributeAlias { get; set; }
+        public virtual Codetype Codetype1 { get; set; }
+        public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
     }
 }

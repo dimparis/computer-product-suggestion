@@ -14,8 +14,16 @@ namespace CPS_Solution.EntityFramework
     
     public partial class History
     {
-        public int id { get; set; }
+        public History()
+        {
+            this.HistoryDetails = new HashSet<HistoryDetail>();
+        }
+    
+        public int ID { get; set; }
         public string Username { get; set; }
-        public System.DateTime SearchTime { get; set; }
+        public System.DateTime CompareTime { get; set; }
+    
+        public virtual Account Account { get; set; }
+        public virtual ICollection<HistoryDetail> HistoryDetails { get; set; }
     }
 }

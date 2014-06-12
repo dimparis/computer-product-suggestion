@@ -16,7 +16,9 @@ namespace CPS_Solution.EntityFramework
     {
         public Product()
         {
+            this.HistoryDetails = new HashSet<HistoryDetail>();
             this.ProductAlias = new HashSet<ProductAlia>();
+            this.ProductAttributes = new HashSet<ProductAttribute>();
             this.RatingProducts = new HashSet<RatingProduct>();
         }
     
@@ -25,11 +27,12 @@ namespace CPS_Solution.EntityFramework
         public string Description { get; set; }
         public string URL { get; set; }
         public Nullable<double> Price { get; set; }
-        public double TotalPoint { get; set; }
+        public double TotalWeightPoint { get; set; }
         public bool IsActive { get; set; }
     
+        public virtual ICollection<HistoryDetail> HistoryDetails { get; set; }
         public virtual ICollection<ProductAlia> ProductAlias { get; set; }
-        public virtual ProductAttribute ProductAttribute { get; set; }
+        public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
         public virtual ICollection<RatingProduct> RatingProducts { get; set; }
     }
 }

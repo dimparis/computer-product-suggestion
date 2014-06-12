@@ -18,6 +18,7 @@
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="AttributeDicID" ColumnName="AttributeDicID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -42,9 +43,9 @@
     <EntitySetMapping Name="Histories">
       <EntityTypeMapping TypeName="CPS_SolutionModel.History">
         <MappingFragment StoreEntitySet="History">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="SearchTime" ColumnName="SearchTime" />
+          <ScalarProperty Name="CompareTime" ColumnName="CompareTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -53,9 +54,7 @@
         <MappingFragment StoreEntitySet="HistoryDetail">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
-          <ScalarProperty Name="ProductID1" ColumnName="ProductID1" />
-          <ScalarProperty Name="ProductID2" ColumnName="ProductID2" />
-          <ScalarProperty Name="ProductID3" ColumnName="ProductID3" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -74,8 +73,9 @@
         <MappingFragment StoreEntitySet="ParseAttribute">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Codetype" ColumnName="Codetype" />
-          <ScalarProperty Name="Parselink" ColumnName="Parselink" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParseAttributelink" ColumnName="ParseAttributelink" />
+          <ScalarProperty Name="NameXPath" ColumnName="NameXPath" />
+          <ScalarProperty Name="PagingXPath" ColumnName="PagingXPath" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -103,7 +103,7 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="URL" ColumnName="URL" />
           <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="TotalPoint" ColumnName="TotalPoint" />
+          <ScalarProperty Name="TotalWeightPoint" ColumnName="TotalWeightPoint" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -114,6 +114,7 @@
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -121,11 +122,8 @@
       <EntityTypeMapping TypeName="CPS_SolutionModel.ProductAttribute">
         <MappingFragment StoreEntitySet="ProductAttribute">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="CPU" ColumnName="CPU" />
-          <ScalarProperty Name="HDD" ColumnName="HDD" />
-          <ScalarProperty Name="VGA" ColumnName="VGA" />
-          <ScalarProperty Name="RAM" ColumnName="RAM" />
-          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="AttributeID" ColumnName="AttributeID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -151,8 +149,8 @@
           <ScalarProperty Name="VGA" ColumnName="VGA" />
           <ScalarProperty Name="Display" ColumnName="Display" />
           <ScalarProperty Name="CPU" ColumnName="CPU" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="RecommendTime" ColumnName="RecommendTime" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

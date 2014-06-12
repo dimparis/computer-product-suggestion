@@ -14,6 +14,12 @@ namespace CPS_Solution.EntityFramework
     
     public partial class Account
     {
+        public Account()
+        {
+            this.Histories = new HashSet<History>();
+            this.RecommendProducts = new HashSet<RecommendProduct>();
+        }
+    
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
@@ -21,5 +27,7 @@ namespace CPS_Solution.EntityFramework
         public bool IsActive { get; set; }
     
         public virtual Role Role { get; set; }
+        public virtual ICollection<History> Histories { get; set; }
+        public virtual ICollection<RecommendProduct> RecommendProducts { get; set; }
     }
 }

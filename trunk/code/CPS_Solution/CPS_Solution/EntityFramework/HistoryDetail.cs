@@ -16,8 +16,9 @@ namespace CPS_Solution.EntityFramework
     {
         public int ID { get; set; }
         public int HistoryID { get; set; }
-        public Nullable<int> ProductID1 { get; set; }
-        public Nullable<int> ProductID2 { get; set; }
-        public Nullable<int> ProductID3 { get; set; }
+        public int ProductID { get; set; }
+    
+        public virtual History History { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

@@ -15,12 +15,10 @@ namespace CPS_Solution.EntityFramework
     public partial class ProductAttribute
     {
         public int ID { get; set; }
-        public int CPU { get; set; }
-        public int HDD { get; set; }
-        public int VGA { get; set; }
-        public int RAM { get; set; }
-        public int Display { get; set; }
+        public int ProductID { get; set; }
+        public int AttributeID { get; set; }
     
+        public virtual AttributeDictionary AttributeDictionary { get; set; }
         public virtual Product Product { get; set; }
     }
 }

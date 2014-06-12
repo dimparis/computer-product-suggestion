@@ -23,7 +23,9 @@ namespace CPS_Solution.EntityFramework
         public string VGA { get; set; }
         public string Display { get; set; }
         public string CPU { get; set; }
-        public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> RecommendTime { get; set; }
+        public Nullable<bool> IsApprove { get; set; }
+    
+        public virtual Account Account { get; set; }
     }
 }
