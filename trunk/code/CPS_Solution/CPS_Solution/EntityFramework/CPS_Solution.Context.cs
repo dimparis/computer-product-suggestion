@@ -26,8 +26,8 @@ namespace CPS_Solution.EntityFramework
         }
     
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<AttributeAlia> AttributeAlias { get; set; }
         public DbSet<AttributeDictionary> AttributeDictionaries { get; set; }
+        public DbSet<AttributeMapping> AttributeMappings { get; set; }
         public DbSet<Codetype> Codetypes { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<HistoryDetail> HistoryDetails { get; set; }

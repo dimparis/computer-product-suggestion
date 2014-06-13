@@ -16,17 +16,17 @@ namespace CPS_Solution.EntityFramework
     {
         public AttributeDictionary()
         {
-            this.AttributeAlias = new HashSet<AttributeAlia>();
+            this.AttributeMappings = new HashSet<AttributeMapping>();
             this.ProductAttributes = new HashSet<ProductAttribute>();
         }
     
         public int ID { get; set; }
-        public string Codetype { get; set; }
+        public string CodetypeID { get; set; }
         public string Name { get; set; }
         public double WeightCriteraPoint { get; set; }
     
-        public virtual ICollection<AttributeAlia> AttributeAlias { get; set; }
-        public virtual Codetype Codetype1 { get; set; }
+        public virtual Codetype Codetype { get; set; }
+        public virtual ICollection<AttributeMapping> AttributeMappings { get; set; }
         public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
     }
 }
