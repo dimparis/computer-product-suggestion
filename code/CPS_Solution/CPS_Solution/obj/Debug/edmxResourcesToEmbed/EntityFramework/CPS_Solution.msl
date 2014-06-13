@@ -12,23 +12,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="AttributeAlias">
-      <EntityTypeMapping TypeName="CPS_SolutionModel.AttributeAlia">
-        <MappingFragment StoreEntitySet="AttributeAlias">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="AttributeDicID" ColumnName="AttributeDicID" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AttributeDictionaries">
       <EntityTypeMapping TypeName="CPS_SolutionModel.AttributeDictionary">
         <MappingFragment StoreEntitySet="AttributeDictionary">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Codetype" ColumnName="Codetype" />
+          <ScalarProperty Name="CodetypeID" ColumnName="CodetypeID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="WeightCriteraPoint" ColumnName="WeightCriteraPoint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttributeMappings">
+      <EntityTypeMapping TypeName="CPS_SolutionModel.AttributeMapping">
+        <MappingFragment StoreEntitySet="AttributeMapping">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="AttributeDicID" ColumnName="AttributeDicID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -72,7 +72,7 @@
       <EntityTypeMapping TypeName="CPS_SolutionModel.ParseAttribute">
         <MappingFragment StoreEntitySet="ParseAttribute">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Codetype" ColumnName="Codetype" />
+          <ScalarProperty Name="CodetypeID" ColumnName="CodetypeID" />
           <ScalarProperty Name="ParseAttributelink" ColumnName="ParseAttributelink" />
           <ScalarProperty Name="NameXPath" ColumnName="NameXPath" />
           <ScalarProperty Name="PagingXPath" ColumnName="PagingXPath" />

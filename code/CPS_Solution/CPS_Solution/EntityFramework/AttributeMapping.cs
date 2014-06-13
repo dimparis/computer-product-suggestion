@@ -12,12 +12,12 @@ namespace CPS_Solution.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class AttributeAlia
+    public partial class AttributeMapping
     {
         public int ID { get; set; }
-        public Nullable<int> AttributeDicID { get; set; }
+        public int AttributeDicID { get; set; }
         public string Name { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         public virtual AttributeDictionary AttributeDictionary { get; set; }
     }

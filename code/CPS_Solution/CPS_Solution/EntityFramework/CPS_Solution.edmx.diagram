@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a981471e564e405bbea5f0bc7df91919" Name="Diagram1" ZoomLevel="82">
+      <Diagram DiagramId="e57f07cfd1a04653b8c333b5941fd613" Name="Diagram1">
         <EntityTypeShape EntityType="CPS_SolutionModel.Account" Width="1.5" PointX="1.5" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPS_SolutionModel.AttributeAlia" Width="1.5" PointX="6" PointY="21.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.AttributeDictionary" Width="1.5" PointX="3.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPS_SolutionModel.AttributeMapping" Width="1.5" PointX="6" PointY="21.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.Codetype" Width="1.5" PointX="1.5" PointY="21.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.History" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.HistoryDetail" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
@@ -24,8 +24,8 @@
         <AssociationConnector Association="CPS_SolutionModel.FK_Account_Role" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_History_Account" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_RecommendProduct_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="CPS_SolutionModel.FK_AttributeAlias_AttributeDictionary" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_AttributeDictionary_Codetype" ManuallyRouted="false" />
+        <AssociationConnector Association="CPS_SolutionModel.FK_AttributeMapping_AttributeDictionary" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_ProductAttribute_AttributeDictionary" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_ParseAttribute_Codetype" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_HistoryDetail_History" ManuallyRouted="false" />

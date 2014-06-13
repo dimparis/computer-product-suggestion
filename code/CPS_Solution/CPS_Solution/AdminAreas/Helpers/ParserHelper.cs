@@ -94,7 +94,7 @@ namespace CPS_Solution.AdminAreas.Helpers
                             Link = item.ParseAttributelink,
                             ElapsedTime = stopwatch.Elapsed.Milliseconds,
                             TotalItems = data.Count,
-                            ToDatabase = InserttoDb(data,Int32.Parse(item.Codetype))
+                            ToDatabase = InserttoDb(data,Int32.Parse(item.CodetypeID))
                         };
                     }
                 }
@@ -192,24 +192,24 @@ namespace CPS_Solution.AdminAreas.Helpers
                 var averageMatch = new List<int>();
                 int pId = -1;
                 bool wholeMatch = false;
-                    foreach (var attADalias in context.AttributeAlias) 
+                    foreach (var attADalias in context.AttributeMappings) 
                     {
                         if (pair.Key == attADalias.Name)
                         {
                             wholeMatch = true;
-                            pId = attADalias.AttributeDicID.Value;
+                            pId = attADalias.AttributeDicID;
                             break;
                         }
                         double matchPercent = CompareStringHelper.CompareString(attADalias.Name, pair.Key);
                         if (matchPercent > 0.9) 
                         {
                             // Good match 
-                            goodMatch.Add(attADalias.AttributeDicID.Value);
+                            goodMatch.Add(attADalias.AttributeDicID);
                         }
                         if (matchPercent > 0.7)
                         {
                             // Normal match 
-                            averageMatch.Add(attADalias.AttributeDicID.Value);
+                            averageMatch.Add(attADalias.AttributeDicID);
                         }
                     }
                     if (!wholeMatch)
@@ -240,18 +240,18 @@ namespace CPS_Solution.AdminAreas.Helpers
                     else 
                     {
                         //Add a new record
-                        var newADitem = new AttributeDictionary { Name = pair.Key, Codetype = codetypeID.ToString() };
+                        var newADitem = new AttributeDictionary { Name = pair.Key, CodetypeID = codetypeID.ToString() };
                         context.AttributeDictionaries.Add(newADitem);
                         try 
                         {
                             context.SaveChanges();
                             success++;
-                            var aliasDic = new AttributeAlia
+                            var aliasDic = new AttributeMapping
                             {
                                 AttributeDicID = newADitem.ID,
                                 Name = newADitem.Name
                             };
-                            context.AttributeAlias.Add(aliasDic);
+                            context.AttributeMappings.Add(aliasDic);
                             context.SaveChanges();
                         }
                         catch (DbUpdateException)

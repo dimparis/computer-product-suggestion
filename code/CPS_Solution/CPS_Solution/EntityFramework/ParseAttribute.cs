@@ -15,12 +15,12 @@ namespace CPS_Solution.EntityFramework
     public partial class ParseAttribute
     {
         public int ID { get; set; }
-        public string Codetype { get; set; }
+        public string CodetypeID { get; set; }
         public string ParseAttributelink { get; set; }
         public string NameXPath { get; set; }
         public string PagingXPath { get; set; }
         public bool IsActive { get; set; }
     
-        public virtual Codetype Codetype1 { get; set; }
+        public virtual Codetype Codetype { get; set; }
     }
 }

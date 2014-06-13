@@ -111,20 +111,36 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\SmartBuy\smart-buy\Code\Smart Buy\ smart-buy\Code\Smart Buy\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminAreas\AdminAreaRegistration.cs" />
+    <Compile Include="AdminAreas\Controllers\ParserController.cs" />
     <Compile Include="AdminAreas\Helpers\CompareStringHelper.cs" />
     <Compile Include="AdminAreas\Helpers\ParserHelper.cs" />
+    <Compile Include="AdminAreas\Models\Attribute.cs" />
+    <Compile Include="AdminAreas\Models\ConfigurationModel.cs" />
     <Compile Include="AdminAreas\Models\LogInfo.cs" />
+    <Compile Include="AdminAreas\Models\ParseCreator.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
+    <Compile Include="CommonClass\CustomMembershipProvider.cs" />
+    <Compile Include="CommonClass\CustomRoleProvinder.cs" />
+    <Compile Include="CommonClass\JsonContentNegotiator.cs" />
+    <Compile Include="CommonClass\MyAuthorizeAttribute.cs" />
     <Compile Include="EntityFramework\Account.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\AttributeAlia.cs">
+    <Compile Include="EntityFramework\AttributeDictionary.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\AttributeDictionary.cs">
+    <Compile Include="EntityFramework\AttributeMapping.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Codetype.cs">
@@ -3018,7 +3034,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdminAreas\Controllers\" />
     <Folder Include="AdminAreas\Dandelion\plugins\elfinder\files\.tmb\" />
     <Folder Include="AdminAreas\Dandelion\plugins\syntaxhighlighter\scripts\" />
     <Folder Include="AdminAreas\LogFiles\" />

@@ -2,8 +2,8 @@
 <Schema Namespace="CPS_SolutionModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="CPS_SolutionEntities" p1:LazyLoadingEnabled="true">
     <EntitySet Name="Accounts" EntityType="CPS_SolutionModel.Account" />
-    <EntitySet Name="AttributeAlias" EntityType="CPS_SolutionModel.AttributeAlia" />
     <EntitySet Name="AttributeDictionaries" EntityType="CPS_SolutionModel.AttributeDictionary" />
+    <EntitySet Name="AttributeMappings" EntityType="CPS_SolutionModel.AttributeMapping" />
     <EntitySet Name="Codetypes" EntityType="CPS_SolutionModel.Codetype" />
     <EntitySet Name="Histories" EntityType="CPS_SolutionModel.History" />
     <EntitySet Name="HistoryDetails" EntityType="CPS_SolutionModel.HistoryDetail" />
@@ -29,13 +29,13 @@
       <End Role="Account" EntitySet="Accounts" />
       <End Role="RecommendProduct" EntitySet="RecommendProducts" />
     </AssociationSet>
-    <AssociationSet Name="FK_AttributeAlias_AttributeDictionary" Association="CPS_SolutionModel.FK_AttributeAlias_AttributeDictionary">
-      <End Role="AttributeDictionary" EntitySet="AttributeDictionaries" />
-      <End Role="AttributeAlias" EntitySet="AttributeAlias" />
-    </AssociationSet>
     <AssociationSet Name="FK_AttributeDictionary_Codetype" Association="CPS_SolutionModel.FK_AttributeDictionary_Codetype">
       <End Role="Codetype" EntitySet="Codetypes" />
       <End Role="AttributeDictionary" EntitySet="AttributeDictionaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AttributeMapping_AttributeDictionary" Association="CPS_SolutionModel.FK_AttributeMapping_AttributeDictionary">
+      <End Role="AttributeDictionary" EntitySet="AttributeDictionaries" />
+      <End Role="AttributeMapping" EntitySet="AttributeMappings" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductAttribute_AttributeDictionary" Association="CPS_SolutionModel.FK_ProductAttribute_AttributeDictionary">
       <End Role="AttributeDictionary" EntitySet="AttributeDictionaries" />
@@ -79,27 +79,27 @@
     <NavigationProperty Name="Histories" Relationship="CPS_SolutionModel.FK_History_Account" FromRole="Account" ToRole="History" />
     <NavigationProperty Name="RecommendProducts" Relationship="CPS_SolutionModel.FK_RecommendProduct_Account" FromRole="Account" ToRole="RecommendProduct" />
   </EntityType>
-  <EntityType Name="AttributeAlia">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="AttributeDicID" Type="Int32" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
-    <Property Name="IsActive" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="AttributeDictionary" Relationship="CPS_SolutionModel.FK_AttributeAlias_AttributeDictionary" FromRole="AttributeAlias" ToRole="AttributeDictionary" />
-  </EntityType>
   <EntityType Name="AttributeDictionary">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="Codetype" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
+    <Property Name="CodetypeID" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
     <Property Name="WeightCriteraPoint" Type="Double" Nullable="false" />
-    <NavigationProperty Name="AttributeAlias" Relationship="CPS_SolutionModel.FK_AttributeAlias_AttributeDictionary" FromRole="AttributeDictionary" ToRole="AttributeAlias" />
-    <NavigationProperty Name="Codetype1" Relationship="CPS_SolutionModel.FK_AttributeDictionary_Codetype" FromRole="AttributeDictionary" ToRole="Codetype" />
+    <NavigationProperty Name="Codetype" Relationship="CPS_SolutionModel.FK_AttributeDictionary_Codetype" FromRole="AttributeDictionary" ToRole="Codetype" />
+    <NavigationProperty Name="AttributeMappings" Relationship="CPS_SolutionModel.FK_AttributeMapping_AttributeDictionary" FromRole="AttributeDictionary" ToRole="AttributeMapping" />
     <NavigationProperty Name="ProductAttributes" Relationship="CPS_SolutionModel.FK_ProductAttribute_AttributeDictionary" FromRole="AttributeDictionary" ToRole="ProductAttribute" />
+  </EntityType>
+  <EntityType Name="AttributeMapping">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="AttributeDicID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="AttributeDictionary" Relationship="CPS_SolutionModel.FK_AttributeMapping_AttributeDictionary" FromRole="AttributeMapping" ToRole="AttributeDictionary" />
   </EntityType>
   <EntityType Name="Codetype">
     <Key>
@@ -144,12 +144,12 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="Codetype" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
+    <Property Name="CodetypeID" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
     <Property Name="ParseAttributelink" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
     <Property Name="NameXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
     <Property Name="PagingXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="Codetype1" Relationship="CPS_SolutionModel.FK_ParseAttribute_Codetype" FromRole="ParseAttribute" ToRole="Codetype" />
+    <NavigationProperty Name="Codetype" Relationship="CPS_SolutionModel.FK_ParseAttribute_Codetype" FromRole="ParseAttribute" ToRole="Codetype" />
   </EntityType>
   <EntityType Name="ParseInfo">
     <Key>
@@ -214,9 +214,8 @@
   <EntityType Name="RecommendProduct">
     <Key>
       <PropertyRef Name="ID" />
-      <PropertyRef Name="Username" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="Username" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
     <Property Name="Parselink" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
     <Property Name="Name" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
@@ -283,18 +282,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_AttributeAlias_AttributeDictionary">
-    <End Role="AttributeDictionary" Type="CPS_SolutionModel.AttributeDictionary" Multiplicity="0..1" />
-    <End Role="AttributeAlias" Type="CPS_SolutionModel.AttributeAlia" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AttributeDictionary">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="AttributeAlias">
-        <PropertyRef Name="AttributeDicID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_AttributeDictionary_Codetype">
     <End Role="Codetype" Type="CPS_SolutionModel.Codetype" Multiplicity="1" />
     <End Role="AttributeDictionary" Type="CPS_SolutionModel.AttributeDictionary" Multiplicity="*" />
@@ -303,7 +290,19 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="AttributeDictionary">
-        <PropertyRef Name="Codetype" />
+        <PropertyRef Name="CodetypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AttributeMapping_AttributeDictionary">
+    <End Role="AttributeDictionary" Type="CPS_SolutionModel.AttributeDictionary" Multiplicity="1" />
+    <End Role="AttributeMapping" Type="CPS_SolutionModel.AttributeMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AttributeDictionary">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AttributeMapping">
+        <PropertyRef Name="AttributeDicID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -327,7 +326,7 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="ParseAttribute">
-        <PropertyRef Name="Codetype" />
+        <PropertyRef Name="CodetypeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
