@@ -11,7 +11,7 @@ using CPS_Solution.AdminAreas.Models;
 using System.Threading.Tasks;
 namespace CPS_Solution.AdminAreas.Controllers
 {
-     [MyAuthorize(Roles = "staff")]
+     //[MyAuthorize(Roles = "staff")]
     public class ParserController : Controller
     {
          private CPS_SolutionEntities context = new CPS_SolutionEntities();

@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Viewport metatags -->
+<meta name="HandheldFriendly" content="true" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<!-- CSS Reset -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/reset.css")" media="screen" />
+<!--  Fluid Grid System -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/fluid.css")" media="screen" />
+<!-- Theme Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/dandelion.theme.css")" media="screen" />
+<!--  Main Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/dandelion.css")" media="screen" />
+<!-- Demo Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/demo.css")" media="screen" />
+
+
+<!-- jQuery JavaScript File -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/jquery-1.7.2.min.js")"></script>
+<!-- jQuery-UI JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/jui/js/jquery-ui-1.8.20.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/jui/js/jquery.ui.timepicker.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/jui/js/jquery.ui.touch-punch.min.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/jui/css/jquery.ui.all.css")" media="screen" />
+<link rel="stylesheet" href="@Url.Content("~/AdminAreas/Dandelion/plugins/tipsy/tipsy.css")" />
+
+
+<!-- Plugin Files -->
+
+<!-- FileInput Plugin -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/jquery.fileinput.js")"></script>
+<!-- Placeholder Plugin -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/jquery.placeholder.js")"></script>
+<!-- Mousewheel Plugin -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/jquery.mousewheel.min.js")"></script>
+<!-- Scrollbar Plugin -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/jquery.tinyscrollbar.min.js")"></script>
+<!-- Tooltips Plugin -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/plugins/tipsy/jquery.tipsy-min.js")"></script>
+
+
+<!-- Demo JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/demo/demo.validation.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/demo/demo.dashboard.js")"></script>
+<!-- Core JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/core/dandelion.core.js")"></script>
+<!-- Customizer JavaScript File (remove if not needed) -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/core/dandelion.customizer.js")"></script>
+
+ @RenderSection("headScript", true)
+<title> CPS Solution</title>
+
+</head>
+ <body>
+
+	<!-- Main Wrapper. Set this to 'fixed' for fixed layout and 'fluid' for fluid layout' -->
+	<div id="da-wrapper" class="fluid">
+    
+        <!-- Header -->
+        <div id="da-header">
+        
+        	<div id="da-header-top">
+                
+                <!-- Container -->
+                <div class="da-container clearfix">
+                    
+                    <!-- Logo Container. All images put here will be vertically centere -->
+                    <div id="da-logo-wrap">
+                        <div id="da-logo">
+                            <div id="da-logo-img">
+                                <a href="dashboard.html">
+                                    <img src="@Url.Content("~/AdminAreas/Dandelion/images/logo.png")" alt="Dandelion Admin" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Header Toolbar Menu -->
+                    <div id="da-header-toolbar" class="clearfix">
+                        <div id="da-user-profile">
+                            <div id="da-user-avatar">
+                                <img src="images/pp.jpg" alt=" />
+                            </div>
+                            <div id="da-user-info">
+                                Welcome ,
+                                <span class="da-user-title">@User.Identity.Name</span>
+                            </div>
+                            <ul class="da-header-dropdown">
+                                  <li class="da-dropdown-caret">
+                                    <span class="caret-outer"></span>
+                                    <span class="caret-inner"></span>
+                                </li>
+                                <li class="da-dropdown-divider"></li>
+                                <li><a href="dashboard.html">Trang chủ</a></li>
+                                <li class="da-dropdown-divider"></li>
+                                <li><a href="#"> Đổi mật khẩu</a></li>
+                                 <li><a href="@Url.Action("LogOff", "Authentication")">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                        <div id="da-header-button-container">
+                        	<ul>                          
+                            	<li class="da-header-button logout">
+                                	 <a href="@Url.Action("LogOff", "Authentication")"><i class="icon-off"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                                    
+                </div>
+            </div>
+            
+            <div id="da-header-bottom">
+                <!-- Container -->
+                <div class="da-container clearfix">
+                
+        	
+                    <!-- Breadcrumbs -->
+                    <div id="da-breadcrumb">
+                        <ul>
+                            <li class="active"><span><img src="images/icons/black/16/home.png" alt="Home" />Dashboard</span></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+		
+		
+        <!-- Content -->
+        <div id="da-content">
+            
+            <!-- Container -->
+            <div class="da-container clearfix">
+                
+	            <!-- Sidebar Separator do not remove -->
+                <div id="da-sidebar-separator"></div>
+                
+                <!-- Sidebar -->
+                <div id="da-sidebar">
+                
+                    @RenderSection("sidebar", true)                   
+                </div>
+                             
+                <section id="main" class="clearfix">
+                 <!-- Main Content Wrapper -->
+                   @RenderSection("mainHeader", false)
+                   <div id="da-content-wrap" class="clearfix">
+                       <div id="da-content-area">
+                      @RenderBody()
+                           </div>
+                    </div>
+                </section>
+            </div>  
+        <!-- Footer -->
+        <div id="da-footer">
+        	<div class="da-container clearfix">
+            	<p>Copyright 2012. Dandelion Admin. All Rights Reserved.
+            </div>
+        </div>    
+    </div>
+        @RenderSection("footScript", false)
+</body>
+</html>

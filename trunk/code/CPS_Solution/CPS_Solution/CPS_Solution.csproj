@@ -129,11 +129,13 @@
     <Compile Include="AdminAreas\Models\ConfigurationModel.cs" />
     <Compile Include="AdminAreas\Models\LogInfo.cs" />
     <Compile Include="AdminAreas\Models\ParseCreator.cs" />
+    <Compile Include="App_Start\ConstantConfig.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
     <Compile Include="CommonClass\CustomMembershipProvider.cs" />
     <Compile Include="CommonClass\CustomRoleProvinder.cs" />
     <Compile Include="CommonClass\JsonContentNegotiator.cs" />
     <Compile Include="CommonClass\MyAuthorizeAttribute.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EntityFramework\Account.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
@@ -2910,6 +2912,7 @@
     <Content Include="AdminAreas\Dandelion\plugins\tipsy\tipsy.css" />
     <Content Include="AdminAreas\Dandelion\plugins\validate\jquery.validate.js" />
     <Content Include="AdminAreas\Dandelion\plugins\validate\jquery.validate.min.js" />
+    <Content Include="AdminAreas\Scripts\getXPath.js" />
     <Content Include="GFashion_Html Files\about-us.html" />
     <Content Include="GFashion_Html Files\cart.html" />
     <Content Include="GFashion_Html Files\checkout.html" />
@@ -3038,11 +3041,9 @@
     <Folder Include="AdminAreas\Dandelion\plugins\syntaxhighlighter\scripts\" />
     <Folder Include="AdminAreas\LogFiles\" />
     <Folder Include="AdminAreas\SavedTempParsePages\" />
-    <Folder Include="AdminAreas\Scripts\" />
-    <Folder Include="AdminAreas\Views\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -3102,6 +3103,21 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminAreas\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminAreas\Views\Shared\_AdminLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parser\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parser\CreateParser.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
