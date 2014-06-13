@@ -27,7 +27,7 @@ namespace CPS_Solution.AdminAreas.Helpers
             //Save file path
             document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
 
-            string fileName = "savedtmp.html";
+            string fileName = "tmp.html";
             string path = Path.Combine(ConstantManager.SavedPath, fileName);
             document.Save(path, new UTF8Encoding());
 

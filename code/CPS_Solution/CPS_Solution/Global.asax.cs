@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-
+using CPS_Solution.AdminAreas;
+using CPS_Solution.CommonClass;
+using CPS_Solution.App_Start;
 namespace CPS_Solution
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -19,6 +21,7 @@ namespace CPS_Solution
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ConstantConfig.Register(Server);
         }
     }
 }

@@ -1,0 +1,292 @@
+﻿@model CPS_Solution.AdminAreas.Models.ParseCreator
+@{
+    ViewBag.Title = "Tạo Parser";
+    Layout = "~/AdminAreas/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+@section headScript
+{
+    <!-- CSS Reset -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/reset.css")" media="screen" />
+<!--  Fluid Grid System -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/fluid.css")" media="screen" />
+<!-- Theme Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/dandelion.theme.css")" media="screen" />
+<!--  Main Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/dandelion.css")" media="screen" />
+<!-- Demo Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/AdminAreas/Dandelion/css/demo.css")" media="screen" />
+
+
+<!-- jQuery JavaScript File -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/jquery-1.7.2.min.js")"></script>
+    <!-- Demo JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/demo/demo.validation.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/demo/demo.dashboard.js")"></script>
+    
+<!-- Validation Plugin -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/plugins/validate/jquery.validate.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/core/plugins/dandelion.circularstat.min.js")"></script>
+<!-- Demo JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/demo/demo.validation.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/demo/demo.dashboard.js")"></script>
+<!-- Core JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/core/dandelion.core.js")"></script>
+<!-- Customizer JavaScript File (remove if not needed) -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/core/dandelion.customizer.js")"></script>
+}
+@section sidebar
+{
+      <!-- Main Navigation -->
+                    <div id="da-main-nav" class="da-button-container">
+                        <ul>
+                            <li class="active">
+                            	<a href="dashboard.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/home.png" alt="Dashboard" />
+                                    </span>
+                                	Dashboard
+                                </a>
+                            </li>
+                            <li>
+                            	<a href="#">
+                                	<!-- Nav Notification -->
+                                    <span class="da-nav-count">32</span>
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/graph.png" alt="Charts" />
+                                    </span>
+                                	Statistics and Charts
+                                </a>
+                                <ul class="closed">
+                                	<li><a href="statistic.html">Statistic Widgets</a></li>
+                                	<li><a href="charts.html">Chart Gallery</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                            	<a href="calendar.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/day_calendar.png" alt="Calendar" />
+                                    </span>
+                                	Calendar
+                                </a>
+                            </li>
+                            <li>
+                            	<a href="file.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/file_cabinet.png" alt="File Handling" />
+                                    </span>
+                                	File Handling
+                                </a>
+                            </li>
+                            <li>
+                            	<a href="table.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/table_1.png" alt="Table" />
+                                    </span>
+                                	Table
+                                </a>
+                            </li>
+                            <li>
+                            	<a href="#">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/create_write.png" alt="Form" />
+                                    </span>
+                                	Form
+                                </a>
+                                <ul>
+                                	<li><a href="form-layouts.html">Layouts</a></li>
+                                	<li><a href="form-elements.html">Elements</a></li>
+                                	<li><a href="form-validation.html">Validation</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                            	<a href="ui.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/settings.png" alt="" />
+                                    </span>
+                                    UI Elements
+                                </a>
+                            </li>
+                            <li>
+                            	<a href="widgets.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/cog_4.png" alt="Widgets" />
+                                    </span>
+                                    Widgets
+                                </a>
+                            </li>
+                            <li>
+                            	<a href="#">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/word_documents_1.png" alt="Layout and Typography" />
+                                    </span>
+                                    Layout and Typography
+                                </a>
+                                <ul class="closed">
+                                	<li><a href="grids.html">Grids and Panels</a></li>
+                                	<li><a href="typography.html">Typography</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                            	<a href="gallery.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/images_2.png" alt="Gallery" />
+                                    </span>
+                                    Gallery
+                                </a>
+                            </li>
+                            <li>
+                            	<a href="error.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/alert.png" alt="Error Pages" />
+                                    </span>
+                                    Error Page (404)
+                                </a>
+                            </li>
+                            <li>
+                            	<a href="icons.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="images/icons/black/32/pacman.png" alt="Icons" />
+                                    </span>
+                                    Icons
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+}
+@section mainHeader
+{
+}
+@section footScript
+{
+    <!-- Wizard Plugin -->
+<script type="text/javascript" src="@Url.Content("~/AdminAreas/Dandelion/js/core/plugins/dandelion.wizard.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/AdminAreas/Scripts/getXPath.js")"></script>
+}
+	<!-- Content Area -->
+                	
+                        <h1> Tạo Parser </h1>
+						 <div class="grid_4">
+                        	<div class="da-panel">
+                            	<div class="da-panel-header">
+                                	<span class="da-panel-title">
+                                        <img src="@Url.Content("~/AdminAreas/Dandelion/images/icons/black/16/pencil.png")" alt="">
+                                        Địa chỉ website cần parse
+                                    </span>
+                                </div>
+                                <div class="da-panel-content">
+                                    @using (Html.BeginForm("LoadWeb", "Parser", FormMethod.Post, new { id = "da-ex-validate1", @class = "da-form" }))
+                                    {
+                                    <div id="da-ex-val1-error" class="da-message error" style="display:none;"></div>
+                                      <div class="da-form-inline">
+                                            <div class="da-form-row">
+                                                <label>Link cần lấy<span class="required">*</span></label>
+													<div class="da-form-item large">
+                                                        @Html.TextBoxFor(x =>x.ParseLink, new {placeholder="Nhập link cần parse",Value = TempData["link"] ,required="required"})
+													</div>
+                                            </div>                                        
+                                        </div>
+                                        <div class="da-button-row">
+										    <input type="reset" value="Reset" class="da-button gray" />	
+                                        	<input type="submit" value="Summit" class="da-button green" />
+                                        </div>
+                                    }                                    	  
+                                </div>
+                            </div>
+                        </div>
+
+
+
+						@if(TempData["link"] != null)
+                    { 
+        	            <div class="grid_4">
+                        	<div class="da-panel">
+                            	<div class="da-panel-header">
+                                	<span class="da-panel-title">
+                                        <img src="@Url.Content("~/AdminAreas/Dandelion/images/icons/color/wand.png")" alt="" />
+                                       Các bước tạo parser
+                                    </span>
+                                    
+                                </div>
+                                <div class="da-panel-content">
+                                        @using (Html.BeginForm("CreateParser", "Parser", FormMethod.Post, new { id = "da-ex-wizard-form", @class = "da-form" }))
+                                        {
+                                        <input type="hidden" name="ParseLink" value="@TempData["link"]"/>
+										<fieldset class="da-form-inline">
+                                        	<legend>Loại Parser</legend>
+                                        	<div class="da-form-row">
+                                            	<label>Kiểu trình bày <span class="required">*</span></label>
+											    <div class="da-form-item large">
+                                                	<ul class="da-form-list normal">
+                                                    	<li><input type="radio" value ="table" name="viewType" id ="rad_tabularView" /> <label>Dạng bảng</label></li>
+                                                    	<li><input type="radio" value="grid" name="viewType" id="rad_gridView"  /> <label>Dạng lưới</label></li>
+                                                    </ul>
+                                                    <label for="package" class="error" generated="true" style="display:none"></label>
+                                                </div>
+                                         
+                                            </div>
+                                        	<div class="da-form-row">
+                                            	<label>Loại thành phần <span class="required">*</span></label>
+                                                <div class="da-form-item small">
+                                                    @Html.DropDownListFor(x => x.CodetypeId, ViewBag.Codetypes as List<SelectListItem>)
+                                                </div>
+                                            </div>
+                                        </fieldset>
+										
+                                    	<fieldset class="da-form-inline">
+                                        	<legend>Khung Thông Tin</legend>
+                                        	<div class="da-form-row">
+                                            	<label>Xpath tới khung thông tin <span class="required">*</span></label>
+                                                <div class="da-form-item large">
+                                                	<input type="text" id="xpathTile" class="required" />
+                                                </div>
+                                            </div>
+                                        </fieldset>
+										
+										<fieldset class="da-form-inline">
+                                        	<legend>Tên Sản Phẩm</legend>
+                                        	<div class="da-form-row">
+                                            	<label>Xpath tới tên sản phẩm <span class="required">*</span></label>
+                                                <div class="da-form-item large">
+                                                       @Html.TextBoxFor(x => x.ProductNameXpath, new { id = "xpathProductName" })
+                                                </div>
+                                            </div>
+                                        </fieldset>
+										
+										<fieldset class="da-form-inline">
+                                        	<legend>Phân Trang</legend>
+                                        	<div class="da-form-row">
+                                            	<label>Xpath tới phần phân trang</label>
+                                                <div class="da-form-item large">
+                                                	     @Html.TextBoxFor(x => x.PagingXpath, new { id = "xpathPaging"})
+                                                </div>
+                                            </div>
+                                        </fieldset>
+										
+                                    	<fieldset class="da-form-inline">
+                                        	<legend>Xác nhận</legend>
+                                        	<div class="da-form-row">
+													<h1>Bạn chắc chắc với những gì đã chọn? </h1>
+                                            </div>
+                                        </fieldset>
+                                        }
+                                </div>
+                            </div>
+                         </div>
+        <div class="grid_4">
+            <iframe id="webDiv" src="@Url.Content("~/Areas/AdminAreas/SavedTempParsePages/tmp.html")" width="1043" height="600"></iframe>
+        </div>       
+      }					     
