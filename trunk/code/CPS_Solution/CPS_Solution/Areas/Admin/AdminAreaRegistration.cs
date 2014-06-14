@@ -1,10 +1,16 @@
 ﻿using System.Web.Mvc;
 
-namespace CPS_Solution.AdminAreas
+namespace CPS_Solution.Areas.Admin
 {
     public class AdminAreaRegistration : AreaRegistration
     {
-        public override string AreaName { get { return "Admin"; } }
+        public override string AreaName
+        {
+            get
+            {
+                return "Admin";
+            }
+        }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
@@ -14,6 +20,5 @@ namespace CPS_Solution.AdminAreas
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }
-
     }
 }
