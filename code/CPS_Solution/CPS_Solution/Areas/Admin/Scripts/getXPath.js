@@ -4,18 +4,65 @@ var $tile = $('#xpathTile');
 var $productName = $('#xpathProductName');
 var $paging = $('#xpathPaging');
 
-$('#ParserForm').wizard({
-    nextButtonLabel: "Sau &raquo;",
-    prevButtonLabel: "&laquo; Trước",
+$('#Parseform').daWizard({
+    nextButtonLabel: "Sau",
+    prevButtonLabel: "Trước",
     submitButtonLabel: "Hoàn thành",
-    onStepLeave: validateStep,
-    onStepShown: showStep
+    onLeaveStep: validateStep,
+    onShowStep: showStep
 });
 
-$('form#da-ex-wizard-form button[class="da-button green"]').click(function (event) {
+$('form#Parseform button[class="da-button green"]').click(function (event) {
     event.stopImmediatePropagation();
     location.href = "/Admin/Parser";
 });
+
+function validateStep(wzr,fset) {
+    currentStep = getStep(fset.attr("data-step-id"));
+    if (typeof fset != "undefined") {
+        switch (fset.attr("data-name")) {
+            case "type":
+                displayType = $('input[type="radio"]:checked', fset).val();
+                if (displayType == "table") {
+                    $tile.prop("disabled", true);
+                } else {
+                    $tile.prop("disabled", false);
+                }
+                return true;
+            case "divInfo":
+                if (displayType == "grid" && $tile.val() == "") {
+                    alert("Phải chọn khung thông tin");
+                    return false;
+                }
+                return true;
+            case "productName":
+                if ($productName.val() == "") {
+                    alert("Phải chọn tên sản phẩm");
+                    return false;
+                }
+                return true;
+            case "paging":
+                return true;
+            default:
+                return true;
+        }
+    }
+    return true;
+}
+
+function showStep(fset) {
+    var test = fset.attr("data-step-id");
+    var step = getStep(test);
+    currentStep = step;
+}
+
+function getStep(str) {
+    if (str == null) {
+        return 0;
+    }
+    var last = str.length - 1;
+    return Number(str[last]);
+}
 
 var tmp = document.getElementById("webDiv");
 var myFrameDoc;
@@ -131,18 +178,22 @@ function getPath(clickedNode, root) {
 }
 
 function setTextBoxXpathValue(expression) {
+    if (currentStep == 2) {
         $productName.val(expression);
+    } else if (currentStep == 1) {
         $tile.val(expression);
+    } else if (currentStep == 3) {
         $paging.val(expression);
+    }
 }
 
 function getXPath(event) {
     event.preventDefault();
-    if (true) {
+    if (currentStep == 3) {
         getPaging(event);
         return;
     }
-    if (displayType == "table") {
+    if (displayType == "table" && currentStep != 1) {
         getTabularPath(event);
     } else if (displayType == "grid") {
         getGridPath(event);

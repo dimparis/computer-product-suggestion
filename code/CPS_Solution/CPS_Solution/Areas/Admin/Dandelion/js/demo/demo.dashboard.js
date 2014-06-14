@@ -11,6 +11,7 @@
 
 (function($) {
 	$(document).ready(function(e) {
+		$(".da-circular-stat").daCircularStat();
 		
 		var v = $("#da-ex-wizard-form").validate({ onsubmit: false });
 		$("#da-ex-wizard-form").daWizard({

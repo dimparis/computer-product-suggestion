@@ -5,13 +5,13 @@ using System.Web;
 using CPS_Solution.CommonClass;
 namespace CPS_Solution.App_Start
 {
-    public class ConstantConfig
+    public static class ConstantConfig
     {
         public static void Register(HttpServerUtility server) 
         {
-            ConstantManager.LogPath = server.MapPath("~/AdminAreas/LogFiles/");
-            ConstantManager.ConfigPath = server.MapPath("~/AdminAreas/AdminConfig.xml");
-            ConstantManager.SavedPath = server.MapPath("~/AdminAreas/SavedTempParsePages");
+            ConstantManager.LogPath = server.MapPath("~/Areas/Admin/LogFiles/");
+            ConstantManager.ConfigPath = server.MapPath("~/Areas/Admin/AdminConfig.xml");
+            ConstantManager.SavedPath = server.MapPath("~/Areas/Admin/SavedPages");
             ConstantManager.TrainingFilePath = server.MapPath("~/UploadedExcelFiles/ProductName.txt");
             ConstantManager.IsParserRunning = false;
         }

@@ -28,3 +28,4 @@ E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.WebPages.Deplo
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.WebPages.Razor.xml
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Release\CPS_Solution.dll
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Release\CPS_Solution.pdb
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Release\CPS_Solution.csprojResolveAssemblyReference.cache
