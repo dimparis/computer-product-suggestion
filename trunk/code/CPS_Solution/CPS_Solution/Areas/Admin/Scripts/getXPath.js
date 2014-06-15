@@ -3,11 +3,11 @@ var prevExp = "";
 var $tile = $('#xpathTile');
 var $productName = $('#xpathProductName');
 var $paging = $('#xpathPaging');
-
 $('#Parseform').daWizard({
-    nextButtonLabel: "Sau",
-    prevButtonLabel: "Trước",
-    submitButtonLabel: "Hoàn thành",
+    nextButtonLabel: 'Next',
+    prevButtonLabel: 'Prev',
+    submitButtonLabel: 'Submit',
+    forwardOnly: false,
     onLeaveStep: validateStep,
     onShowStep: showStep
 });
@@ -16,8 +16,7 @@ $('form#Parseform button[class="da-button green"]').click(function (event) {
     event.stopImmediatePropagation();
     location.href = "/Admin/Parser";
 });
-
-function validateStep(wzr,fset) {
+function validateStep(index, fset) {
     currentStep = getStep(fset.attr("data-step-id"));
     if (typeof fset != "undefined") {
         switch (fset.attr("data-name")) {
@@ -51,17 +50,12 @@ function validateStep(wzr,fset) {
 }
 
 function showStep(fset) {
-    var test = fset.attr("data-step-id");
-    var step = getStep(test);
+    var step = getStep(fset);
     currentStep = step;
 }
 
 function getStep(str) {
-    if (str == null) {
-        return 0;
-    }
-    var last = str.length - 1;
-    return Number(str[last]);
+    return Number(str);
 }
 
 var tmp = document.getElementById("webDiv");
