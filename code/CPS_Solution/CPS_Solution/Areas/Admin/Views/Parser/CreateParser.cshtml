@@ -186,14 +186,14 @@
                                     </span>
                                 </div>
                                 <div class="da-panel-content">
-                                    @using (Html.BeginForm("LoadWeb", "Parser", FormMethod.Post, new { id = "da-ex-validate1", @class = "da-form" }))
+                                    @using (Html.BeginForm("LoadWeb", "Parser", FormMethod.Post, new { @class = "da-form" }))
                                     {
                                     <div id="da-ex-val1-error" class="da-message error" style="display:none;"></div>
                                       <div class="da-form-inline">
                                             <div class="da-form-row">
                                                 <label>Link cần lấy<span class="required">*</span></label>
 													<div class="da-form-item large">
-                                                        @Html.TextBoxFor(x =>x.ParseLink, new {placeholder="Nhập link cần parse",Value = TempData["link"] ,required="required"})
+                                                        @Html.TextBoxFor(x =>x.ParseAttributelink, new {placeholder="Nhập link cần parse",Value = TempData["link"] ,required="required"})
 													</div>
                                             </div>                                        
                                         </div>
@@ -222,7 +222,7 @@
                                 <div class="da-panel-content">
                                         @using (Html.BeginForm("CreateParser", "Parser", FormMethod.Post, new { id = "Parseform", @class = "da-form" }))
                                         {
-                                        <input type="hidden" name="ParseLink" value="@TempData["link"]"/>
+                                        <input type="hidden" name="ParseAttributelink" value="@TempData["link"]"/>
 										<fieldset class="da-form-inline" data-name="type" data-step-id="0">
                                         	<legend>Loại Parser</legend>
                                         	<div class="da-form-row">
