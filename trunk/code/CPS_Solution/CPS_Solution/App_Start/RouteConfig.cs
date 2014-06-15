@@ -15,7 +15,8 @@ namespace CPS_Solution
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                 namespaces: new[] { "CPS_Solution.Controllers" }
             );
         }
     }

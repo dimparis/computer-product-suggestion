@@ -46,6 +46,12 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList">
+      <HintPath>..\..\..\..\SmartBuy\smart-buy\Code\Smart Buy\ smart-buy\Code\Smart Buy\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\..\..\..\SmartBuy\smart-buy\Code\Smart Buy\ smart-buy\Code\Smart Buy\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -124,12 +130,12 @@
     <Compile Include="App_Start\ConstantConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
+    <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
+    <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
     <Compile Include="Areas\Admin\Models\Attribute.cs" />
     <Compile Include="Areas\Admin\Models\ConfigurationModel.cs" />
     <Compile Include="Areas\Admin\Models\LogInfo.cs" />
     <Compile Include="Areas\Admin\Models\ParseCreator.cs" />
-    <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
-    <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
     <Compile Include="CommonClass\CustomMembershipProvider.cs" />
     <Compile Include="CommonClass\CustomRoleProvinder.cs" />
@@ -3078,6 +3084,24 @@
     <Content Include="GFashion_Html Files\img\Descr.WD3" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Dandelion\plugins\elfinder\connectors\php\connector.php" />
+    <Content Include="Areas\Admin\Dandelion\plugins\elfinder\connectors\php\elFinder.class.php" />
+    <Content Include="Areas\Admin\Dandelion\plugins\elfinder\connectors\python\connector.py" />
+    <Content Include="Areas\Admin\Dandelion\plugins\elfinder\connectors\python\elFinder.py" />
+    <Content Include="Areas\Admin\Dandelion\plugins\photoswipe\README.md" />
+    <Content Include="Areas\Admin\Dandelion\plugins\prettyphoto\images\fullscreen\.DS_Store" />
+    <Content Include="Areas\Admin\Dandelion\plugins\syntaxhighlighter\prettify\closure.map" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
@@ -3099,28 +3123,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Parser\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Parser\CreateParser.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Parser\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Parser\CreateParser.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Dandelion\plugins\elfinder\connectors\php\connector.php" />
-    <Content Include="Areas\Admin\Dandelion\plugins\elfinder\connectors\php\elFinder.class.php" />
-    <Content Include="Areas\Admin\Dandelion\plugins\elfinder\connectors\python\connector.py" />
-    <Content Include="Areas\Admin\Dandelion\plugins\elfinder\connectors\python\elFinder.py" />
-    <Content Include="Areas\Admin\Dandelion\plugins\photoswipe\README.md" />
-    <Content Include="Areas\Admin\Dandelion\plugins\prettyphoto\images\fullscreen\.DS_Store" />
-    <Content Include="Areas\Admin\Dandelion\plugins\syntaxhighlighter\prettify\closure.map" />
+    <Content Include="Areas\Admin\Views\Parser\EditParser.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

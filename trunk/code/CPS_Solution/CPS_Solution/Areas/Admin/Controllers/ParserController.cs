@@ -5,11 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-using CPS_Solution.AdminAreas.Helpers;
+using CPS_Solution.Areas.Admin.Helpers;
 using CPS_Solution.EntityFramework;
-using CPS_Solution.AdminAreas.Models;
+using CPS_Solution.Areas.Admin.Models;
 using System.Threading.Tasks;
-namespace CPS_Solution.AdminAreas.Controllers
+namespace CPS_Solution.Areas.Admin.Controllers
 {
      //[MyAuthorize(Roles = "staff")]
     public class ParserController : Controller
@@ -20,7 +20,8 @@ namespace CPS_Solution.AdminAreas.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var parseAtt = context.ParseAttributes.ToList();
+            return View(parseAtt);
         }
         [HttpPost]
         public RedirectToRouteResult LoadWeb(string parseLink)
@@ -46,7 +47,7 @@ namespace CPS_Solution.AdminAreas.Controllers
             }
 
             ViewBag.Codetypes = codetypeList;
-            return View();
+            return View("~/Areas/Admin/Views/Parser/CreateParser.cshtml");
         }
         [HttpPost]
         public RedirectToRouteResult CreateParser(ParseCreator model)
@@ -139,33 +140,32 @@ namespace CPS_Solution.AdminAreas.Controllers
             context.Dispose();
             base.Dispose(disposing);
         }
-        //[HttpPost]
-        //public ActionResult SetActive(int id)
-        //{
-        //    var parser = context.ProductAttributes.FirstOrDefault(x => x.ID == id);
-        //    bool statusFlag = false;
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (parser.IsActive = true)
-        //        {
-        //            parser.IsActive = false;
-        //            statusFlag = false;
-        //        }
-        //        else
-        //        {
-        //            parser.IsActive = true;
-        //            statusFlag = true;
-        //        }
-        //        context.SaveChanges();
-        //    }
+        [HttpPost]
+        public ActionResult SetActive(int id)
+        {
+            var parser = context.ParseAttributes.FirstOrDefault(x => x.ID == id);
+            bool statusFlag = false;
+            if (ModelState.IsValid)
+            {
+                if (parser.IsActive)
+                {
+                    parser.IsActive = false;
+                    statusFlag = false;
+                }
+                else
+                {
+                    parser.IsActive = true;
+                    statusFlag = true;
+                }
+                context.SaveChanges();
+            }
 
-        //    // Display the confirmation message
-        //    var results = new ParseInfo
-        //    {
-        //        IsActive = statusFlag
-        //    };
-
-        //    return Json(results);
-        //}
+            // Display the confirmation message
+            var results = new ParseAttribute
+            {
+                IsActive = statusFlag
+            };
+            return Json(results);
+        }
     }
 }

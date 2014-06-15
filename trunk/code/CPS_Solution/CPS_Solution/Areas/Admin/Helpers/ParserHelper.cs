@@ -1,16 +1,17 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HtmlAgilityPack;
 using CPS_Solution.CommonClass;
 using System.Diagnostics;
-using CPS_Solution.AdminAreas.Models;
+using CPS_Solution.Areas.Admin.Models;
 using CPS_Solution.EntityFramework;
 using System.IO;
 using System.Data.Entity.Infrastructure;
 using System.Text;
-namespace CPS_Solution.AdminAreas.Helpers
+namespace CPS_Solution.Areas.Admin.Helpers
 {
     public static class ParserHelper
     {

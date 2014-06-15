@@ -4,9 +4,9 @@ var $tile = $('#xpathTile');
 var $productName = $('#xpathProductName');
 var $paging = $('#xpathPaging');
 $('#Parseform').daWizard({
-    nextButtonLabel: 'Next',
-    prevButtonLabel: 'Prev',
-    submitButtonLabel: 'Submit',
+    nextButtonLabel: 'Sau',
+    prevButtonLabel: 'Trước',
+    submitButtonLabel: 'Hoàn thành',
     forwardOnly: false,
     onLeaveStep: validateStep,
     onShowStep: showStep

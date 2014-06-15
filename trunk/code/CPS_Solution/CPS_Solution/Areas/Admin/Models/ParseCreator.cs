@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-namespace CPS_Solution.AdminAreas.Models
+namespace CPS_Solution.Areas.Admin.Models
 {
     public class ParseCreator
     {
@@ -16,6 +16,6 @@ namespace CPS_Solution.AdminAreas.Models
         [Display(Name = "Phân trang")]
         public string PagingXpath { get; set; }
 
-        public int CodetypeId { get; set; }
+        public string CodetypeId { get; set; }
     }
 }

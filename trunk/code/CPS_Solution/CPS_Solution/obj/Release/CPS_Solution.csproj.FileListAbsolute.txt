@@ -4,6 +4,8 @@ E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\EntityFramework.dll
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\HtmlAgilityPack.dll
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\Microsoft.Web.Infrastructure.dll
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\Newtonsoft.Json.dll
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\PagedList.dll
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\PagedList.Mvc.dll
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Net.Http.Formatting.dll
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.Helpers.dll
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.Http.dll
@@ -16,6 +18,8 @@ E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.WebPages.Razor
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\EntityFramework.xml
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\HtmlAgilityPack.pdb
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\HtmlAgilityPack.xml
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\PagedList.xml
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\PagedList.Mvc.xml
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\Newtonsoft.Json.xml
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Net.Http.Formatting.xml
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.Helpers.xml
@@ -26,6 +30,6 @@ E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.Razor.xml
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.WebPages.xml
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.WebPages.Deployment.xml
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\bin\System.Web.WebPages.Razor.xml
+E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Release\CPS_Solution.csprojResolveAssemblyReference.cache
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Release\CPS_Solution.dll
 E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Release\CPS_Solution.pdb
-E:\Capstone Project\code\CPS_Solution\CPS_Solution\obj\Release\CPS_Solution.csprojResolveAssemblyReference.cache
