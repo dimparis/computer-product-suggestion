@@ -134,7 +134,7 @@
     <Property Name="CodetypeID" Type="nvarchar" Nullable="false" MaxLength="3" />
     <Property Name="ParseAttributelink" Type="nvarchar" Nullable="false" MaxLength="200" />
     <Property Name="NameXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
-    <Property Name="PagingXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="PagingXPath" Type="nvarchar" MaxLength="200" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="ParseInfo">

@@ -147,7 +147,7 @@
     <Property Name="CodetypeID" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
     <Property Name="ParseAttributelink" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
     <Property Name="NameXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
-    <Property Name="PagingXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="PagingXPath" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Codetype" Relationship="CPS_SolutionModel.FK_ParseAttribute_Codetype" FromRole="ParseAttribute" ToRole="Codetype" />
   </EntityType>
