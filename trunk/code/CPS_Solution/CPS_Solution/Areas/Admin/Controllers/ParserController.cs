@@ -24,10 +24,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return View(parseAtt);
         }
         [HttpPost]
-        public RedirectToRouteResult LoadWeb(string parseLink)
+        public RedirectToRouteResult LoadWeb(string ParseAttributelink)
         {
-            ParserHelper.LoadWeb(parseLink);
-            TempData["link"] = parseLink;
+            ParserHelper.LoadWeb(ParseAttributelink);
+            TempData["link"] = ParseAttributelink;
             return RedirectToAction("CreateParser");
         }
         public ActionResult CreateParser()
@@ -55,7 +55,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             var parser = new ParseAttribute
             {
                 CodetypeID = model.CodetypeId.ToString(),
-                ParseAttributelink = model.ParseLink,
+                ParseAttributelink = model.ParseAttributelink,
                 NameXPath = model.ProductNameXpath,
                 PagingXPath = model.PagingXpath,
                 

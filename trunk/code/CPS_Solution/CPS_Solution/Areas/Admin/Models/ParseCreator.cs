@@ -8,7 +8,7 @@ namespace CPS_Solution.Areas.Admin.Models
     public class ParseCreator
     {
         [Display(Name = "Link cần lấy")]
-        public string ParseLink { get; set; }
+        public string ParseAttributelink { get; set; }
 
         [Display(Name = "Tên sản phẩm")]
         public string ProductNameXpath { get; set; }

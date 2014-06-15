@@ -213,13 +213,13 @@
             @if (TempData["edit"] != null) 
             {
                 string statusMessage = TempData["edit"].ToString();
-                if (statusMessage == "Success") 
+                if (statusMessage == "success") 
                 {
                      <div class="da-message success">
                         Parser đã được cập nhật thành công.
                  </div>
                 }
-                else if (statusMessage == "Failed") 
+                else if (statusMessage == "failed") 
                 {
                  <div class="da-message error">
                        Cập nhật parser thất bại. Xin vui lòng thử lại.
