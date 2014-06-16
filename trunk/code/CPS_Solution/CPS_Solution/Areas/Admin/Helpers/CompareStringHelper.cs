@@ -22,7 +22,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             for (int i = 0; i < str.Length - 1; i++)
             {
-                string tmp = str.Substring(0, 2);
+                string tmp = str.Substring(i, 2);
                 pairs.Add(tmp);
             }
             return pairs;
@@ -56,7 +56,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
         {
 
             List<string> wordpair1 = WordPairs(str1.ToUpper());
-            List<string> wordpair2 = WordPairs(str1.ToUpper());
+            List<string> wordpair2 = WordPairs(str2.ToUpper());
             int union = wordpair1.Count + wordpair2.Count;
             int sameNum = 0;
             foreach (string p1 in wordpair1)
@@ -71,7 +71,8 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     }
                 }
             }
-            return (2 * sameNum) / union;
+            double percent = (sameNum*200)/union;
+            return percent;
         }
     }
 }

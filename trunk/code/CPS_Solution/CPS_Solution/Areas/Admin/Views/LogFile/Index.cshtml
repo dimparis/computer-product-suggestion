@@ -1,9 +1,6 @@
-﻿@using PagedList.Mvc
-@using CPS_Solution.CommonClass
-@model IEnumerable<CPS_Solution.EntityFramework.ParseAttribute>
-
+﻿@model IEnumerable<CPS_Solution.EntityFramework.LogFile>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Log File";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 @section headScript
@@ -37,26 +34,6 @@
 <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css")" />
     <!-- Core JavaScript Files -->
 <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
-
-
-<script type="text/javascript">
-        $(function () {
-            $(".da-button").click(function () {
-                // Get the id from the link
-                var recordToSet = $(this).attr("data-id");
-
-                if (recordToSet != '') {
-
-                    // Perform the ajax post
-                    $.post("/Parser/SetActive", { "id": recordToSet },
-                        function (data) {
-                            location.reload();
-                        });
-                }
-            });
-
-        });
-</script>
 }
 
 @section sidebar
@@ -201,64 +178,22 @@
 <!-- Demo JavaScript Files -->
 <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.tables.js")"></script>
 }
-<h2>Done /Admin</h2>
 <div class="grid_4">
-         <div class="da-panel-content">
-            @if (TempData["create"] != null) 
-            {
-                 <div class="da-message success">
-                        Parser mới đã được thêm vào hệ thống.
-                 </div>
-            }
-            @if (TempData["edit"] != null) 
-            {
-                string statusMessage = TempData["edit"].ToString();
-                if (statusMessage == "success") 
-                {
-                     <div class="da-message success">
-                        Parser đã được cập nhật thành công.
-                 </div>
-                }
-                else if (statusMessage == "failed") 
-                {
-                 <div class="da-message error">
-                       Cập nhật parser thất bại. Xin vui lòng thử lại.
-                 </div>
-                }
-            }
-        </div>
-</div>
-<br/>
-<br/>
- <div class="grid_4">
                         	<div class="da-panel collapsible">                                      	
                             	<div class="da-panel-header">
                                 	<span class="da-panel-title">
                                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/list.png")" alt="" />
-                                        Danh sách các parser  
-                                    </span>     
-                                         @using (Html.BeginForm("ParseData","Parser"))
-                                        {
-                                            if(ConstantManager.IsParserRunning)
-                                            {
-                                                 <input type="submit" value="Parser đang chạy" disabled="disabled" class="da-button blue"  style="position:absolute; right:75px;top:15px;width:120px" />
-                                            }else
-                                            {
-                                               <input type="submit" value="Chạy parser" class="da-button blue" style="position:absolute; right:75px;top:15px;width:120px" />
-                           
-                                            }
-                                        }                         
-  
+                                        Danh sách các Log File  
+                                    </span>                              
                                 </div>
                                 <div class="da-panel-content">
                                     <table id="da-ex-datatable-numberpaging" class="da-table">
                                         <thead>
                                             <tr>
                                                 <th>STT</th>
-                                                <th>Tên Thành Phần</th>
-                                                <th>Đường Dẫn</th>
-                                                <th>Thao Tác</th>
-                                                <th>Trạng Thái</th>
+                                                <th>Ngày được tạo</th>
+                                                <th>Giờ tạo</th>
+                                                <th>Thao tác</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -266,49 +201,18 @@
                                                 int counter = 1;
                                                 foreach (var item in Model)
                                                 {
-                                                    string att = item.CodetypeID;
-                                                    bool status = item.IsActive;
                                             <tr>
                                                 <td>@counter</td>
-                                                @if (att.Equals("C")) { 
-                                                 <td>CPU</td>
-                                                }
-                                                else if (att.Equals("H"))
-                                                {
-                                                <td>HDD</td>
-                                                } 
-                                                else if (att.Equals("V"))
-                                                {
-                                                <td>VGA</td>
-                                                }
-                                                 else if (att.Equals("D"))
-                                                {
-                                                <td>DISPLAY</td>
-                                                }
-                                                 else if (att.Equals("R"))
-                                                {
-                                                <td>RAM</td>
-                                                }
-                                               <td>@item.ParseAttributelink</td>
+                                               <td>@item.CreatedTime.Value.ToShortDateString()</td>
+                                               <td>@item.CreatedTime.Value.ToShortTimeString()</td>
                                                <td>
-                                                   @Html.ActionLink("Chỉnh sửa","EditParser", new { id= item.ID })
-                                               </td>
-                                                @if (status) 
-                                                {
-                                                   <td>
-                                                      <input type="submit" value="Hoạt động" class="da-button green" style="width:120px" data-id="@item.ID"/>
-                                                  </td>  
-                                                }else
-                                                {
-                                                <td>
-                                                     <input type="submit" value="Không hoạt động" class="da-button red"  data-id="@item.ID"/>
-                                                  </td>  
-                                                }                                               
+                                                     <a href="@Url.Content("~/Areas/Admin/LogFiles/" + item.Filename)">Xem</a>
+                                               </td>                                         
                                             </tr>
                                                     counter++;    
                                                 } 
                                               }
-                                                                                                                                               </tbody>
+                                      </tbody>
                                     </table>
                                 </div>
                             </div>
