@@ -172,7 +172,7 @@
 {
     <!-- Wizard Plugin -->
 <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Scripts/getXPath.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Scripts/getXPathProduct.js")"></script>
 }
 	<!-- Content Area -->
                 	
@@ -220,9 +220,33 @@
                                     
                                 </div>
                                 <div class="da-panel-content">
-                                        @using (Html.BeginForm("CreateParser", "Parser", FormMethod.Post, new { id = "Parseform", @class = "da-form" }))
+                                        @using (Html.BeginForm("CreateProductParser", "Recommend", FormMethod.Post, new { id = "Parseform", @class = "da-form" }))
                                         {
-                                        <input type="hidden" name="ParseProductLink" value="@TempData["link"]"/>									
+                                        <input type="hidden" name="ParseProductLink" value="@TempData["link"]"/>
+                                            
+                                        <fieldset class="da-form-inline" data-name="type" data-step-id="0">
+                                        	<legend>Loại Parser</legend>
+                                        	<div class="da-form-row">
+                                            	<label>Kiểu trình bày <span class="required">*</span></label>
+											    <div class="da-form-item large">
+                                                	<ul class="da-form-list normal">
+                                                    	<li><input type="radio" value ="table" name="viewType" id ="rad_tabularView" checked="checked" /> <label>Dạng bảng</label></li>
+                                                    	<li><input type="radio" value="grid" name="viewType" id="rad_gridView"  /> <label>Dạng lưới</label></li>
+                                                    </ul>
+                                                    <label for="package" class="error" generated="true" style="display:none"></label>
+                                                </div>
+                                         
+                                            </div>
+                                        </fieldset>									
+                                    	<fieldset class="da-form-inline" data-name="divInfo" data-step-id="1">
+                                        	<legend>Khung Thông Tin</legend>
+                                        	<div class="da-form-row">
+                                            	<label>Xpath tới khung thông tin</label>
+                                                <div class="da-form-item large">
+                                                	<input type="text" id="xpathTile"/>
+                                                </div>
+                                            </div>
+                                        </fieldset>    									
 										<fieldset class="da-form-inline" data-name="productName" data-step-id="2">
                                         	<legend>Tên Sản Phẩm</legend>
                                         	<div class="da-form-row">
@@ -233,7 +257,7 @@
                                             </div>
                                         </fieldset>
 										
-										<fieldset class="da-form-inline"  data-name="paging" data-step-id="3">
+										<fieldset class="da-form-inline"  data-name="cpu" data-step-id="3">
                                         	<legend>CPU</legend>
                                         	<div class="da-form-row">
                                             	<label>Xpath tới CPU</label>
@@ -242,7 +266,7 @@
                                                 </div>
                                             </div>
                                         </fieldset>
-                                         <fieldset class="da-form-inline"  data-name="paging" data-step-id="4">
+                                         <fieldset class="da-form-inline"  data-name="vga" data-step-id="4">
                                         	<legend>VGA</legend>
                                         	<div class="da-form-row">
                                             	<label>Xpath tới VGA</label>
@@ -251,7 +275,7 @@
                                                 </div>
                                             </div>
                                         </fieldset>
-                                         <fieldset class="da-form-inline"  data-name="paging" data-step-id="5">
+                                         <fieldset class="da-form-inline"  data-name="hdd" data-step-id="5">
                                         	<legend>HDD</legend>
                                         	<div class="da-form-row">
                                             	<label>Xpath tới Dung lượng đĩa cứng</label>
@@ -261,7 +285,7 @@
                                             </div>
                                         </fieldset>
                                             
-                                        <fieldset class="da-form-inline"  data-name="paging" data-step-id="6">
+                                        <fieldset class="da-form-inline"  data-name="ram" data-step-id="6">
                                         	<legend>RAM</legend>
                                         	<div class="da-form-row">
                                             	<label>Xpath tới Bộ nhớ</label>
@@ -270,7 +294,7 @@
                                                 </div>
                                             </div>
                                         </fieldset>
-                                        <fieldset class="da-form-inline"  data-name="paging" data-step-id="7">
+                                        <fieldset class="da-form-inline"  data-name="display" data-step-id="7">
                                         	<legend>Display</legend>
                                         	<div class="da-form-row">
                                             	<label>Xpath tới Màn hình</label>

@@ -37,6 +37,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 HDDXPath = model.HDDXpath,
                 RAMXPath = model.RAMXpath,
                 VGAXPath = model.VGAXpath,
+                DisplayXPath = model.DisplayXpath,
                 IsActive = "true",
 
             };
