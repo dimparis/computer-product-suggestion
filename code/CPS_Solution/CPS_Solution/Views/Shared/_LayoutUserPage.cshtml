@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Computer Product Suggestion</title>
+	<meta charset="UTF-8" />
+	
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/minified.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/owl.theme.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/responsive.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/jquery.nouislider.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/isotope.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/innerpage.css")" />
+
+    <script src="@Url.Content("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Template/GFashion/js/modernizr.min.js")"></script>
+
+	<script>
+	    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>');
+	</script>	
+</head>
+<body class="home">
+    <div id="page-wrapper">
+        <header id="site-header" role="banner">
+		<!-- HEADER TOP -->
+		<div class="header-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-7"></div>
+					<div class="col-xs-12 col-sm-6 col-md-5">
+						<ul class="actions unstyled clearfix">							
+							
+							<li data-toggle="sub-header" data-target="#sub-cart">
+								<!-- SHOPPING CART -->
+								<a href="javascript:void(0);" id="total-cart">
+									<i class="iconfont-shopping-cart round-icon"></i>
+								</a>
+								
+								<div id="sub-cart" class="sub-header">
+									<div class="cart-header">
+										<span>Danh sách sản phẩm đang trống.</span>
+										<small><a href="#">(Xem tất cả)</a></small>
+									</div>
+									<ul class="cart-items product-medialist unstyled clearfix">asdsd</ul>
+									<div class="cart-footer">
+										<div class="cart-total clearfix">
+											<span class="pull-left uppercase">Tổng số sản phẩm</span>
+											<span class="pull-right total">$ 0</span>
+										</div>
+										<div class="text-right">
+											<a href="#" class="btn btn-default btn-round view-cart">Xem sản phẩm</a>
+										</div>
+									</div>
+								</div>
+								<!-- // SHOPPING CART -->
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<!-- BEGIN ADD TO CART MESSAGE -->
+			<div class="cart-notification">
+				<ul class="unstyled"></ul>
+			</div>
+			<!-- END ADD TO CART MESSAGE -->
+		</div>
+		<!-- // HEADER TOP -->
+		<!-- MAIN HEADER -->
+		<div class="main-header-wrapper">
+			<div class="container">
+				<div class="main-header">
+					<!-- USER MENU -->
+					<div class="actions">
+						<div class="clearfix"></div>
+						<!-- USER RELATED MENU -->
+						<nav id="tiny-menu" class="clearfix">
+							<ul class="user-menu">
+								<li><a href="#">My Account</a></li>
+								<li><a href="#">Log Out</a></li>
+							</ul>
+						</nav>
+						<!-- // USER RELATED MENU -->
+					</div>
+				
+					<!-- SITE LOGO -->
+					<div class="logo-wrapper">
+						<a href="#" class="logo" title="Computer Product Suggestion">
+							<img src="~/Template/GFashion/img/logo.png" alt="Computer Product Suggestion" />
+						</a>
+					</div>
+					<!-- // SITE LOGO -->
+                    <!-- SITE NAVIGATION MENU -->
+                    <nav id="site-menu" role="navigation">
+                        <ul class="main-menu hidden-sm hidden-xs">
+                            <li class="active">
+                                <a href="#">Menu 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Menu 2</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- // SITE NAVIGATION MENU -->
+				</div>
+			</div>
+		</div>
+		<!-- // MAIN HEADER -->
+	</header>
+
+        <!-- BODY -->
+        @RenderBody()
+        <!-- //BODY -->
+    </div>
+    <!--Javascript-->
+    <script src="@Url.Content("~/Template/GFashion/js/minified.js")"></script>
+</body>
+</html>
