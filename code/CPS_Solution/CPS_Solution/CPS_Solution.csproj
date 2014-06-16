@@ -129,13 +129,17 @@
   <ItemGroup>
     <Compile Include="App_Start\ConstantConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\LogFileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
+    <Compile Include="Areas\Admin\Helpers\LogFileHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
     <Compile Include="Areas\Admin\Models\Attribute.cs" />
     <Compile Include="Areas\Admin\Models\ConfigurationModel.cs" />
     <Compile Include="Areas\Admin\Models\LogInfo.cs" />
     <Compile Include="Areas\Admin\Models\ParseCreator.cs" />
+    <Compile Include="Areas\Admin\Models\ProductParserCreator.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
     <Compile Include="CommonClass\CustomMembershipProvider.cs" />
     <Compile Include="CommonClass\CustomRoleProvinder.cs" />
@@ -3036,6 +3040,7 @@
     <Content Include="GFashion_Html Files\rev-slider\img\slides\Street-Fashion.jpg" />
     <Content Include="GFashion_Html Files\store-locator.html" />
     <Content Include="Global.asax" />
+    <Content Include="UploadedExcelFiles\ProductName.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -3130,6 +3135,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\LogFile\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Recommend\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Recommend\CreateProductParser.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
