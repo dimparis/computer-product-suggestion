@@ -1,0 +1,1101 @@
+﻿@using ImportExcel.Controllers;
+@using ImportExcel.Models;
+@{
+    Layout = null;
+    ViewBag.Title = "Index";
+    List<ProductMap> list = ViewBag.listproduct;
+    List<ProductMap> listError = ViewBag.listerror;
+    List<List<ProductMap>> listDup = ViewBag.listduplicate;
+    int countlistdup = 0;
+    if (listDup != null)
+    {
+        countlistdup = listDup.Count;
+    }
+    
+}
+
+<h2>Index</h2>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!-- Viewport metatags -->
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- iOS webapp metatags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+
+    <!-- iOS webapp icons -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png">
+
+
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="css/fluid.css" media="screen">
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="css/dandelion.theme.css" media="screen">
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="css/dandelion.css" media="screen">
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="css/demo.css" media="screen">
+
+
+
+
+
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="jui/js/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript" src="jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="jui/js/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="jui/css/jquery.ui.all.css" media="screen">
+    <!-- Plugin Files -->
+
+
+
+
+
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="js/jquery.fileinput.js"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="js/jquery.placeholder.js"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="js/jquery.tinyscrollbar.min.js"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="plugins/tipsy/tipsy.css">
+
+    <!-- Validation Plugin -->
+    <script type="text/javascript" src="plugins/validate/jquery.validate.min.js"></script>
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="js/demo/demo.tables.js"></script>
+    <script type="text/javascript" src="js/demo/demo.icons.js"></script>
+
+
+
+
+
+
+
+    <!-- jGrowl Plugin -->
+    <script type="text/javascript" src="plugins/jgrowl/jquery.jgrowl.min.js"></script>
+    <link rel="stylesheet" href="plugins/jgrowl/jquery.jgrowl.css" media="screen" />
+
+    <!-- Chosen Plugin -->
+
+    <script type="text/javascript" src="plugins/chosen/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="plugins/chosen/chosen.css" media="screen">
+
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="js/demo/demo.validation.js"></script>
+    <script type="text/javascript" src="js/demo/demo.ui.js"></script>
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="js/core/dandelion.core.js"></script>
+
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="js/core/dandelion.customizer.js"></script>
+
+    <title>Dandelion Admin - Form Validation</title>
+
+</head>
+
+<body>
+
+    <!-- Dandelion Customizer (remove if not needed) -->
+    <div id="da-customizer">
+        <div id="da-customizer-content">
+            <ul>
+                <li>
+
+
+                    <span class="da-customizer-title">Background Pattern</span>
+                    <span id="da-customizer-body-bg">
+                        <select id="da-body-pat">
+                            <option value="blueprint">Blueprint</option>
+                            <option value="bricks">Bricks</option>
+                            <option value="carbon">Carbon</option>
+                            <option value="circuit">Circuit</option>
+                            <option value="holes">Holes</option>
+                            <option value="mozaic">Mozaic</option>
+                            <option value="roof">Roof</option>
+                            <option value="stripes">Stripes</option>
+                        </select><select id="da-body-pat"><option value="blueprint">Blueprint</option>
+                            <option value="bricks">Bricks</option>
+                            <option value="carbon">Carbon</option>
+                            <option value="circuit">Circuit</option>
+                            <option value="holes">Holes</option>
+                            <option value="mozaic">Mozaic</option>
+                            <option value="roof">Roof</option>
+                            <option value="stripes">Stripes</option>
+                        </select><select id="da-body-pat"><option value="blueprint">Blueprint</option>
+                            <option value="bricks">Bricks</option>
+                            <option value="carbon">Carbon</option>
+                            <option value="circuit">Circuit</option>
+                            <option value="holes">Holes</option>
+                            <option value="mozaic">Mozaic</option>
+                            <option value="roof">Roof</option>
+                            <option value="stripes">Stripes</option>
+                        </select></span>
+                </li>
+                <li>
+                    <span>Header Pattern</span>
+                    <span id="da-customizer-header-bg">
+                        <select id="da-header-pat">
+                            <option value="carbon">Carbon</option>
+                            <option value="linen">Linen</option>
+                            <option value="leather">Leather</option>
+                            <option value="wood">Wood</option>
+                        </select><select id="da-header-pat"><option value="carbon">Carbon</option>
+                            <option value="linen">Linen</option>
+                            <option value="leather">Leather</option>
+                            <option value="wood">Wood</option>
+                        </select><select id="da-header-pat"><option value="carbon">Carbon</option>
+                            <option value="linen">Linen</option>
+                            <option value="leather">Leather</option>
+                            <option value="wood">Wood</option>
+                        </select></span>
+                </li>
+                <li>
+                    <span>Layout
+
+
+                        <span class="da-tooltip-w da-customizer-tooltip" original-title="This functionality can only provide you the CSS for background and header patterns. Instructions to switch between fixed or fluid layout can be found in the documentation.">[?]
+
+                        </span>
+                    </span>
+                    <ul id="da-customizer-layouts" class="clearfix">
+                        <li>
+
+                            <input type="radio" id="da-customizer-fluid" name="da-layout" checked="checked">
+                            <label for="da-customizer-fluid">Fluid</label>
+                        </li>
+                        <li>
+
+                            <input type="radio" id="da-customizer-fixed" name="da-layout">
+                            <label for="da-customizer-fixed">Fixed</label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div id="da-customizer-button">
+                <button class="da-button red">Get CSS</button>
+            </div>
+        </div>
+        <span id="da-customizer-pulldown"></span>
+    </div>
+
+
+    <!-- Main Wrapper. Set this to 'fixed' for fixed layout and 'fluid' for fluid layout' -->
+    <div id="da-wrapper" class="fluid">
+
+
+        <!-- Header -->
+        <div id="da-header">
+
+
+            <div id="da-header-top">
+
+
+                <!-- Container -->
+                <div class="da-container clearfix">
+
+
+                    <!-- Logo Container. All images put here will be vertically centere -->
+                    <div id="da-logo-wrap">
+                        <div id="da-logo">
+                            <div id="da-logo-img">
+                                <a href="dashboard.html">
+                                    <img src="images/logo.png" alt="Dandelion Admin">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Header Toolbar Menu -->
+                    <!-- Header Toolbar Menu -->
+                    <div id="da-header-toolbar" class="clearfix">
+                        <div id="da-user-profile">
+                            <div id="da-user-avatar">
+                                <img src="images/pp.jpg" alt="">
+                            </div>
+                            <div id="da-user-info">
+                                John Doe
+                                <span class="da-user-title">Creative Director</span>
+                            </div>
+                            <ul class="da-header-dropdown">
+                                <li class="da-dropdown-caret">
+                                    <span class="caret-outer"></span>
+                                    <span class="caret-inner"></span>
+                                </li>
+                                <li class="da-dropdown-divider"></li>
+                                <li><a href="dashboard.html">Dashboard</a></li>
+                                <li class="da-dropdown-divider"></li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li><a href="#">Change Password</a></li>
+                            </ul>
+                        </div>
+                        <div id="da-header-button-container">
+                            <ul>
+
+                                <li class="da-header-button notif">
+                                    <span class="da-button-count">32</span>
+                                    <a href="#">Notifications</a>
+                                    <ul class="da-header-dropdown">
+                                        <li class="da-dropdown-caret">
+                                            <span class="caret-outer"></span>
+                                            <span class="caret-inner"></span>
+                                        </li>
+                                        <li>
+                                            <span class="da-dropdown-sub-title">Notifications</span>
+                                            <ul class="da-dropdown-sub">
+                                                <li class="unread">
+                                                    <a href="#">
+
+                                                        <span class="message">Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                                                        </span>
+                                                        <span class="time">January 21, 2012
+
+
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="unread">
+                                                    <a href="#">
+                                                        <span class="message">Lorem ipsum dolor sit amet
+
+
+                                                        </span>
+                                                        <span class="time">January 21, 2012
+
+
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="read">
+                                                    <a href="#">
+                                                        <span class="message">Lorem ipsum dolor sit amet
+
+
+                                                        </span>
+                                                        <span class="time">January 21, 2012
+
+
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="read">
+                                                    <a href="#">
+                                                        <span class="message">Lorem ipsum dolor sit amet
+
+
+                                                        </span>
+                                                        <span class="time">January 21, 2012
+
+
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <a class="da-dropdown-sub-footer">View all notifications
+
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="da-header-button message">
+                                    <span class="da-button-count">5</span>
+                                    <a href="#">Messages</a>
+                                    <ul class="da-header-dropdown">
+                                        <li class="da-dropdown-caret">
+                                            <span class="caret-outer"></span>
+                                            <span class="caret-inner"></span>
+                                        </li>
+                                        <li>
+                                            <span class="da-dropdown-sub-title">Messages</span>
+                                            <ul class="da-dropdown-sub">
+                                                <li class="unread">
+                                                    <a href="#">
+
+                                                        <span class="message">Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                                                        </span>
+                                                        <span class="time">January 21, 2012
+
+
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="unread">
+                                                    <a href="#">
+                                                        <span class="message">Lorem ipsum dolor sit amet
+
+
+                                                        </span>
+                                                        <span class="time">January 21, 2012
+
+
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="read">
+                                                    <a href="#">
+                                                        <span class="message">Lorem ipsum dolor sit amet
+
+
+                                                        </span>
+                                                        <span class="time">January 21, 2012
+
+
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="read">
+                                                    <a href="#">
+                                                        <span class="message">Lorem ipsum dolor sit amet
+
+
+                                                        </span>
+                                                        <span class="time">January 21, 2012
+
+
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <a class="da-dropdown-sub-footer">View all messages
+
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="da-header-button logout">
+                                    <a href="index.html">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div id="da-header-bottom">
+                <!-- Container -->
+                <div class="da-container clearfix">
+
+
+                    <div id="da-search">
+                        <form>
+
+                            <input type="text" placeholder="Search...">
+                        </form>
+                    </div>
+
+
+                    <!-- Breadcrumbs -->
+                    <div id="da-breadcrumb">
+                        <ul>
+                            <li><a href="dashboard.html">
+                                <img src="images/icons/black/16/home.png" alt="Home">Dashboard</a></li>
+                            <li><a href="#">Form</a></li>
+                            <li class="active"><span>Validation</span></li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Content -->
+        <div id="da-content">
+
+
+            <!-- Container -->
+            <div class="da-container clearfix">
+
+
+                <!-- Sidebar -->
+                <div id="da-sidebar-separator"></div>
+                <div id="da-sidebar">
+
+
+                    <!-- Main Navigation -->
+                    <div id="da-main-nav" class="da-button-container">
+                        <ul>
+                            <li>
+                                <a href="dashboard.html">
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/home.png" alt="Dashboard">
+                                    </span>
+                                    Dashboard
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <!-- Nav Notification -->
+                                    <span class="da-nav-count">32</span>
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/graph.png" alt="Charts">
+                                    </span>
+                                    Statistics and Charts
+
+                                </a>
+                                <ul class="closed">
+                                    <li><a href="statistic.html">Statistic Widgets</a></li>
+                                    <li><a href="charts.html">Chart Gallery</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="calendar.html">
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/day_calendar.png" alt="Calendar">
+                                    </span>
+                                    Calendar
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="file.html">
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/file_cabinet.png" alt="File Handling">
+                                    </span>
+                                    File Handling
+
+                                </a>
+                            </li>
+                            <li>
+
+                                <a href="table.html">
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/table_1.png" alt="Table">
+                                    </span>
+                                    Table
+
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">
+
+
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/create_write.png" alt="Form">
+                                    </span>
+                                    Form
+
+                                </a>
+                                <ul>
+                                    <li><a href="form-layouts.html">Layouts</a></li>
+                                    <li><a href="form-elements.html">Elements</a></li>
+                                    <li><a href="form-validation.html">Validation</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="ui.html">
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/settings.png" alt="">
+                                    </span>
+                                    UI Elements
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="widgets.html">
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/cog_4.png" alt="Widgets">
+                                    </span>
+                                    Widgets
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/word_documents_1.png" alt="Layout and Typography">
+                                    </span>
+                                    Layout and Typography
+                                </a>
+                                <ul class="closed">
+                                    <li><a href="grids.html">Grids and Panels</a></li>
+                                    <li><a href="typography.html">Typography</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="gallery.html">
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/images_2.png" alt="Gallery">
+                                    </span>
+                                    Gallery
+                                </a>
+                            </li>
+                            <li>
+                                <a href="error.html">
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/alert.png" alt="Error Pages">
+                                    </span>
+                                    Error Page (404)
+                                </a>
+                            </li>
+                            <li>
+                                <a href="icons.html">
+                                    <!-- Icon Container -->
+                                    <span class="da-nav-icon">
+                                        <img src="images/icons/black/32/pacman.png" alt="Icons">
+                                    </span>
+                                    Icons
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Main Content Wrapper -->
+                <div id="da-content-wrap" class="clearfix">
+
+                    <!-------------------------- Content Area ---------------------------------------------------------------------------------------------------->
+                    <!-------------------------- Content Area ---------------------------------------------------------------------------------------------------->
+                    <div id="da-content-area">
+                        <div class="clear"></div>
+                        <div class="grid_4">
+                            <div class="da-panel" style=" margin-left:200px;width:50%">
+                                <div class="da-panel-header">
+                                    <span class="da-panel-title">
+                                        <img src="images/up.png" alt="">
+                                        Tải dữ liệu từ file Excel
+                                    </span>
+                                </div>
+                                <div class="da-panel-content">
+                       
+                                       <form id="da-ex-vali" method="post" action="/Home/Index" enctype="multipart/form-data" class="da-form" novalidate="novalidate">
+
+                                        <div class="da-form-inline">
+                                            <div class="da-form-row">
+                                                <label>File <span class="required">*</span></label>
+                                                <div class="da-form-item large">
+                                                    <div>
+                                                        <div>
+                                                            <input type="file" name="file" class="da-custom-file customfile-input valid" style="left: 61.453125px; top: 24px;">
+                                                        </div>
+                                                    </div>
+                                                    <label for="file1" class="error" generated="true" style="display: none;"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="da-button-row">
+                                            <input type="submit" value="Tải lên" class="da-button green">
+                                        </div>
+
+                                   </form>
+
+                                  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid_4">
+                            <div id="da-icon-tab" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                                    <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#color-icon">
+                                        <img src="images/message-success.png" alt="">
+                                        Danh sách thành phần cấu hình đúng</a></li>
+                                    <li class="ui-state-default ui-corner-top"><a href="#white-icon">
+                                        <img src="images/message-error.png" alt="">
+                                        Danh sách thành phần cấu hình lỗi</a></li>
+                                    <li class="ui-state-default ui-corner-top"><a href="#black-icon">
+                                        <img src="images/message-warning.png" alt="">
+                                        Danh sách thành phần cấu hình trùng</a></li>
+                                </ul>
+                                <div id="color-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+                                    <!--tab1------------------------------------------------------------------------------------->
+
+                                    <div class="da-panel-toolbar top">
+                                        <ul>
+                                            <form action="/Home/saveAllProduct" method="post" enctype="multipart/form-data"> 
+                                            <li><button type="submit">
+                                                <img src="images/icons/color/accept.png" alt="">Lưu</button></li>
+                                            </form>
+                                            <li><a href="#">
+                                                <img src="images/icons/color/delete.png" alt="">Hủy</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="da-panel collapsible">
+                                        <div class="da-panel-header">
+                                            <span class="da-panel-title">
+                                                <img src="images/icons/black/16/list.png" alt="">
+                                                Danh sách để lưu vào cơ sở dữ liệu
+                                            </span>
+
+                                            <span class="da-panel-toggler"></span>
+                                        </div>
+
+                                        <div class="da-panel-content">
+                                            <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+
+                                                <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 198px;">STT</th>
+                                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên thành phần</th>
+                                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Trọng số</th>
+                                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 171px;">Loại thành phần</th>
+                                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">Thực hiện</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+
+                                                        @if (list != null)
+                                                        {
+                                                            foreach (ProductMap p in list)
+                                                            {
+                                                            <tr class="odd">
+                                                                <form id="form10" action="/Home/deleteproduct" method="post" enctype="multipart/form-data">
+                                                                    <td class=" sorting_1">@p.stt </td>
+                                                                    <td class=" ">@p.ten</td>
+                                                                    <td class=" ">@p.trongso</td>
+                                                                    <td class=" ">@p.loai</td>
+                                                                    <td class=" ">
+                                                                        <input name="sttproduct" type="hidden"  value="@p.stt" />
+                                                                        <a onclick="xoasanphamdung()">
+                                                                            <img src="images/icons/color/cross.png">
+                                                                            Xóa</a></td>
+
+                                                                </form>
+                                                            </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--ket thuc tab1------------------------------------------------------------------------------------------->
+                                </div>
+                                <div id="white-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+                                    <!--tab2-------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
+                                  
+                                    <div  class="da-message error">
+                                        Lỗi dữ liệu:
+                                        <ul>                                          
+                                            @if (listError != null)
+                                            {
+                                                foreach (ProductMap p in listError)
+                                                {
+                                                    if (p.ten.Length < 5 || p.ten.Length > 100)
+                                                    {
+                                                <li>Tên sản phẩm phải từ 5 đến 100 ký tự!</li>
+                                                        break;
+                                                    }
+                                                }
+                                                foreach (ProductMap p in listError)
+                                                {
+                                                    if (p.trongso.ToString().Length < 1)
+                                                    {
+                                                <li>Trọng số không được để trống!</li>
+                                                        break;
+                                                    }
+                                                }
+                                                foreach (ProductMap p in listError)
+                                                {
+                                                    if (p.loai.Length < 1)
+                                                    {
+                                                <li>Loại không được để trống!</li>
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="da-panel collapsible">
+                                        <div class="da-panel-header">
+                                            <span class="da-panel-title">
+                                                <img src="images/icons/black/16/list.png" alt="">
+                                                Danh sách để lưu vào cơ sở dữ liệu
+                                            </span>
+
+                                            <span class="da-panel-toggler"></span>
+                                        </div>
+
+                                        <div class="da-panel-content">
+                                            <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+
+                                                <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 198px;">STT</th>
+                                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên thành phần</th>
+                                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Trọng số</th>
+                                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 171px;">Loại thành phần</th>
+                                                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">Thực hiện</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                                        @if (listError != null)
+                                                        {
+                                                            foreach (ProductMap p in listError)
+                                                            {
+                                                         
+                                                            <tr class="odd">
+                                                                <form id="form11" action="/Home/fixedErrorProduct" method="post" enctype="multipart/form-data">
+                                                                    <td class=" sorting_1">
+                                                                        <label>@p.stt</label></td>
+                                                                    <td class=" ">
+                                                                        @if (p.stt.ToString().Length < 5 || p.stt.ToString().Length > 100)
+                                                                        {
+                                                                            <input type="text" name ="tenpro" style="border-color:red" value ="@p.ten"/>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input type="text" name ="tenpro" value ="@p.ten"/>
+                                                                        }
+                                                                    </td>
+                                                                    <td class=" ">
+                                                                        @if (p.trongso.ToString().Length < 1 || p.stt.ToString().Length > 5)
+                                                                        {
+                                                                            <input type="text" name ="trongsopro" style="border-color:red" value ="@p.trongso"/>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input type="text" name ="trongsopro" value ="@p.trongso"/>
+                                                                        }
+
+
+                                                                    </td>
+                                                                    <td class=" ">
+
+                                                                        @if (p.loai.Length < 1 || p.stt.ToString().Length > 5)
+                                                                        {
+                                                                            <input type="text" name="loaipro" style="border-color:red" value ="@p.loai"/>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input type="text" name="loaipro" value ="@p.loai"/>
+                                                                        }
+                                                                    </td>
+                                                                    <td class=" ">
+                                                                        <input name="button" type="hidden"  value="@p.stt" />
+                                                                        <a onclick="luusanphamloi()">
+                                                                            <img src="images/icons/color/accept.png" />Lưu</a>
+                                                                    </td>
+                                                                </form>
+                                                            </tr> 
+                                                      
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                                <!--  <div class="dataTables_info" id="da-ex-datatable-numberpaging_info">Showing 1 to 10 of 57 entries</div>
+                                                    <div class="dataTables_paginate paging_full_numbers" id="da-ex-datatable-numberpaging_paginate"><a tabindex="0" class="first paginate_button paginate_button_disabled" id="da-ex-datatable-numberpaging_first">First</a><a tabindex="0" class="previous paginate_button paginate_button_disabled" id="da-ex-datatable-numberpaging_previous">Previous</a><span><a tabindex="0" class="paginate_active">1</a><a tabindex="0" class="paginate_button">2</a><a tabindex="0" class="paginate_button">3</a><a tabindex="0" class="paginate_button">4</a><a tabindex="0" class="paginate_button">5</a></span><a tabindex="0" class="next paginate_button" id="da-ex-datatable-numberpaging_next">Next</a><a tabindex="0" class="last paginate_button" id="da-ex-datatable-numberpaging_last">Last</a></div>
+                                               --->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--ket thuc tab2-------------------------------------------------------------------------------------->
+
+                                </div>
+                                <div id="black-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                                    <!--tab3----------------------------------------------------------------------------------------------->
+                                    <div class="da-panel-toolbar top">
+                                        <ul>
+                                            <li><a onclick="goptatca(@countlistdup)">
+                                                <img src="images/icons/color/arrow_in.png" alt="">Gộp tất cả</a></li>
+                                            <li><a onclick="tachtatca(@countlistdup)">
+                                                <img src="images/icons/color/arrow_out.png" alt="">Tách tất cả</a></li>
+                                            <li><a href="#">
+                                                <img src="images/icons/color/page_white_text.png" alt="">Lưu file</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="da-panel collapsible">
+                                        <div class="da-panel-header">
+                                            <span class="da-panel-title">
+                                                <img src="images/icons/black/16/list.png" alt="">
+                                                Table Styling
+                                            </span>
+
+                                            <span class="da-panel-toggler"></span>
+                                        </div>
+                                         <div class="da-panel-content">
+                                                <input style="visibility: hidden" />
+                                            </div>
+                                        @if (listDup != null)
+                                        {
+                                            int i = 0;
+
+                                            foreach (List<ProductMap> listp in listDup)
+                                            {
+                                                i++;
+                                            <div style="border-color:yellowgreen" class="da-panel-content">
+
+                                                <table    id="table_@(i)" class="da-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="checkbox-column"  id="checkboxAllTable_@(i)">
+                                                                <input id="checkAll" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                                                            <th style="width: 250px;">Tên thành phần</th>
+                                                            <th>Trọng số</th>
+                                                            <th>Loại</th>
+                                                            <th style="width: 92px;">
+                                                                <a id ="link_@(i)"  onclick="gop1table(@(i))"  style="width: 35px;">
+                                                                    <img src="images/icons/color/arrow_join.png" alt="">Gộp</a> &nbsp
+                                                                <a style="width: 35px;" onclick="tach1table(@(i))" >
+                                                                    <img src="images/icons/color/arrow_divide.png" alt="">Tách</a>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{int y = 0;}
+                                                        @foreach (ProductMap p in listp)
+                                                        {
+                                                            y++;
+                                                            <tr class="odd">
+                                                                <td id="@(y)" class="checked">
+                                                                    <input value="@p.stt" id="checkbox@(y)" type="checkbox"></td>
+                                                                <td>@p.ten</td>
+                                                                <td>@p.trongso</td>
+                                                                <td>@p.loai</td>
+                                                                <td class="da-icon-column">
+
+                                                                    <!-- Nếu là sản phẩm đầu tiên thì check radio-->
+                                                                    @if (y == 1)
+                                                                    {
+                                                                        <input name="radio_@(i)" value="@p.stt" type="radio" checked="checked" >
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input name="radio_@(i)" value="@p.stt" type="radio"> 
+                                                                    }
+                                                                </td>
+                                                            </tr> 
+                                                            
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>                                           
+                                            <div class="da-panel-content">
+                                                <input style="visibility: hidden" />
+                                            </div>
+                                            }
+                                        }
+
+
+                                    </div>
+
+                                    <!--javascript check all-------------------------------------->
+                                    <script>
+                                     
+
+
+                                        // check all in talbe
+                                        function checkboxAllTable(i) {
+                                            if ($("#checkboxAllTable_" + i).find("input:checkbox")[0].checked == true) {
+                                                $("#table_" + i).find("tbody").find("input:checkbox").attr('checked', $(this).is('') ? 'checked' : '');
+                                                $("#table_" + i).find("tbody").find("tr").attr("class", "checked");
+                                            }
+                                            else {
+                                                $("#table_" + i).find("tbody").find("input:checkbox").removeAttr('checked');
+                                                $("#table_" + i).find("tbody").find("tr").removeClass('checked');
+                                            }
+                                        }
+
+
+                                        // lưu sản phẩm lỗi
+                                        function luusanphamloi(){
+                                            if (confirm("Bạn có chắc là muốn lưu sản phẩm này?")) {
+                                                document.getElementById("form11").submit();
+                                            } else {
+                                               
+                                            }
+                                        }
+
+
+
+                                        //xóa sản phẩm đúng.
+                                        function xoasanphamdung(){
+                                            if (confirm("Bạn có chắc chắn muôn xóa sản phẩm này?")) {
+                                                document.getElementById("form10").submit();
+                                            } else {
+                                               
+                                            }
+                                            
+                                        }
+
+                                        // gộp tất cả
+                                        function goptatca(y){                    
+                                            //----------------
+                                            var listto = [];                                    
+                                            for(var i =1; i <= y; i++){                                              
+                                                var listnho =""; 
+                                                $("#table_" + i).find("tbody").find("input:checkbox").each(function(i){  
+                                                    listnho += '@@'+ $(this).val();
+                                                }); 
+                                                $("#table_" + i).find("tbody").find("input:radio:checked").each(function(i){  
+                                                    listnho += '@@'+ $(this).val();
+                                                }); 
+                                                listto[i] = listnho;
+                                            }                                     
+                                            var postData = { value1: listto };
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/Home/goptatca",
+                                                data: postData,
+                                                success: function(data){
+                                                    alert(data.Result);
+                                                },
+                                                dataType: "json",
+                                                traditional: true
+                                            });
+                                        }
+                                        // tách tất cả
+                                        function tachtatca(y){                          
+                                            //----------------
+                                            var listto = [];                                    
+                                            for(var i =1; i <= y; i++){                                              
+                                                var listnho =""; 
+                                                $("#table_" + i).find("tbody").find("input:checkbox").each(function(i){  
+                                                    listnho += '@@'+ $(this).val();
+                                                });                                               
+                                                listto[i] = listnho;
+                                            }                                     
+                                            var postData = { value2: listto };
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/Home/tachtatca",
+                                                data: postData,
+                                                success: function(data){
+                                                    alert(data.Result);
+                                                },
+                                                dataType: "json",
+                                                traditional: true
+                                            });
+                                        }
+                                        // Tách 1 table
+                                        function tach1table(i) {  
+                                            var val = [];
+                                            $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+                                                val[i] = $(this).val();
+                                            });                                          
+                                            var postData = { valuesTach: val };
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/Home/getTach",
+                                                data: postData,
+                                                success: function(data){
+                                                    alert(data.Result);
+                                                },
+                                                dataType: "json",
+                                                traditional: true
+                                            });     
+                                        }
+                                        //Gộp 1 talbe
+                                        function gop1table(i) {  
+                                            var val = [];
+                                            $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+                                                val[i] = $(this).val();
+                                            });
+                                            $("#table_" + i).find("tbody").find("input:radio:checked").each(function(i){  
+                                                val[val.length] = $(this).val();
+                                            }); 
+                                            var postData = { values: val };
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/Home/getGop",
+                                                data: postData,
+                                                success: function(data){
+                                                    //alert(data.Result);                                                   
+                                                },
+                                                dataType: "json",
+                                                traditional: true,
+                                                
+                                            });  
+                                            location.reload();
+                                        }
+                                    </script>
+
+                                    <!--ket thuc tab3-------------------------------------------------------------------------------->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div id="da-footer">
+            <div class="da-container clearfix">
+                <p>
+                    Copyright 2012. Dandelion Admin. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-da-customizer-dialog" style="display: none; z-index: 1000; outline: 0px;">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-da-customizer-dialog">Get CSS Style</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div>
+        <div id="da-customizer-dialog" class="no-padding ui-dialog-content ui-widget-content">
+            <textarea readonly="readonly" id="da-customizer-css"></textarea>
+        </div>
+    </div>
+
+    <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-da-customizer-dialog" style="display: none; z-index: 1000; outline: 0px;">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-da-customizer-dialog">Get CSS Style</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div>
+        <div id="da-customizer-dialog" class="no-padding ui-dialog-content ui-widget-content">
+            <textarea readonly="readonly" id="da-customizer-css"></textarea>
+        </div>
+    </div>
+
+
+    <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-da-customizer-dialog" style="display: none; z-index: 1000; outline: 0px;">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-da-customizer-dialog">Get CSS Style</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div>
+        <div id="da-customizer-dialog" class="no-padding ui-dialog-content ui-widget-content">
+            <textarea readonly="readonly" id="da-customizer-css"></textarea>
+        </div>
+
+    </div>
+
+</body>
+</html>

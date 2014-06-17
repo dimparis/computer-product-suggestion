@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="testImportCPUModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="testImportCPUEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="aliases" EntityType="testImportCPUModel.alias" />
+    <EntitySet Name="products" EntityType="testImportCPUModel.product" />
+    <EntitySet Name="sysdiagrams" EntityType="testImportCPUModel.sysdiagram" />
+    <AssociationSet Name="FK_alias_product" Association="testImportCPUModel.FK_alias_product">
+      <End Role="product" EntitySet="products" />
+      <End Role="alias" EntitySet="aliases" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="alias">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="product" Relationship="testImportCPUModel.FK_alias_product" FromRole="alias" ToRole="product" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ten" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="trongso" Type="Int32" />
+    <Property Name="loai" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <NavigationProperty Name="aliases" Relationship="testImportCPUModel.FK_alias_product" FromRole="product" ToRole="alias" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_alias_product">
+    <End Role="product" Type="testImportCPUModel.product" Multiplicity="1" />
+    <End Role="alias" Type="testImportCPUModel.alias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="alias">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
