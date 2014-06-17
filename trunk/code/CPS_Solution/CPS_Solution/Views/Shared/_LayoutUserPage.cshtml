@@ -21,7 +21,7 @@
 	    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>');
 	</script>	
 </head>
-<body class="home">
+<body class="products-view">
     <div id="page-wrapper">
         <header id="site-header" role="banner">
 		<!-- HEADER TOP -->
@@ -114,7 +114,79 @@
         @RenderBody()
         <!-- //BODY -->
     </div>
+
+    <footer class="page-footer">
+        <div class="widgets">
+            <div class="section">
+				<div class="container">
+					<div class="row">
+                        <!-- Contact Info -->
+						<div class="col-xs-12 col-sm-12 col-md-9">
+							<section class="widget widget-menu">
+								<h5 class="widget-title">Contact info</h5>
+								<div class="widget-content">
+									<ul class="menu iconed-list unstyled">
+										<li>
+											<span class="list-icon"><i class="round-icon iconfont-map-marker"></i></span>
+											<div class="list-content">Lorem ipsum maecenas dapibus luctus euismod 133/2 New York City</div>
+										</li>
+										<li>
+											<span class="list-icon"><i class="round-icon iconfont-phone"></i></span>
+											<div class="list-content">(+00)1344356-675</div>
+										</li>
+										<li>
+											<span class="list-icon"><i class="round-icon iconfont-envelope-alt"></i></span>
+											<div class="list-content">support@themina.net</div>
+										</li>
+									</ul>
+								</div>
+							</section>
+						</div>
+                        <!-- //Contact Info -->
+
+                        <!-- Newletter -->
+						<div class="col-xs-12 col-sm-12 col-md-3">
+							<section class="widget widget-subscription">
+								<h5 class="widget-title">Newletter</h5>
+								<div class="widget-content">
+									<p>Subscribe to be the first to know about Sales, Events, and Exclusive Offers!</p>
+									<form action="#" method="post">
+										<div class="input-group">
+											<label for="subscription-email" class="placeholder">Enter Your Email</label>
+											<input type="email" id="subscription-email" name="email" class="form-control" required />
+											<span class="input-group-btn">
+												<button class="btn btn-primary">Subscribe</button>
+											</span>
+										</div>
+									</form>
+								</div>
+							</section>
+						</div>
+                        <!-- //Newletter -->
+					</div>
+				</div>
+			</div>
+        </div>
+
+        <div class="footer-sub">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="space10"></div>
+						<div class="copyright center-xs">
+							<p>© 2013 Gfashion Demo Store. All Rights Reserved.</p>
+						</div>
+					</div>
+					<div class="space40 visible-xs"></div>
+				</div>
+			</div>
+		</div>
+    </footer>
+
     <!--Javascript-->
     <script src="@Url.Content("~/Template/GFashion/js/minified.js")"></script>
+    <script src="@Url.Content("~/Template/GFashion/js/jquery.nouislider.js")"></script>
+    <script src="@Url.Content("~/Template/GFashion/js/jquery.isotope.js")"></script>
+    <script src="@Url.Content("~/Template/GFashion/js/products.js")"></script>
 </body>
 </html>
