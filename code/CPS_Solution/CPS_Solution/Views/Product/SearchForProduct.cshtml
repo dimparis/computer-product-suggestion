@@ -93,11 +93,11 @@
                             </div>
                         </header>
                         
-                        <div class="products-layout grid m-t-b add-cart" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
+                        <div class="products-layout grid m-t-b add-cart" data-product-id=".entry-id > p" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
                             @foreach (var item in Model) {
                             <div class="product" data-product-id="@item.ID" data-category="women|women-jeans|women-skirt" data-brand="brand1" data-price="250" data-colors="red|blue|black|white" data-size="S|M|L">
                                 <div class="entry-media">
-                                    <img data-src="images/women/skirt/430041-0014_1_t.jpg" alt="" class="lazyLoad thumb" />
+                                    <img src="@Url.Content("~/Template/GFashion/img/1.jpg")" alt="" class="lazyLoad thumb" />
                                     <div class="hover">
                                         <a href="product.html" class="entry-url"></a>
                                         <ul class="icons unstyled">
@@ -113,7 +113,7 @@
                                     <div class="entry-description">
                                         <p>@Html.DisplayFor(modelItem => item.Description)</p>
                                     </div>
-                                    <div class="entry-description">
+                                    <div class="entry-id">
                                         <p>@Html.DisplayFor(modelItem => item.ID)</p>
                                     </div>
                                 </div>
@@ -126,16 +126,26 @@
         </div>
     </div>
     <script>
-        var a = [];
+        var a = new Array();
         function pushID(id) {
-            a.push(id);
+            a.push(id);            
         }
 
         function displayIds() {
-            //for (id in a) {
-            //    alert(id);
-            //}
+           
             alert(a);
         }
+        $(function () {
+            $("#btnAdd").click(function () {
+                if (a.length > 0)
+                {
+                    $.post("/Compare/Index", { "lstInt": a.join() },
+                        function (data) {
+                            location.reload();
+                    });
+                }
+            });
+
+        });
     </script>
 </main>

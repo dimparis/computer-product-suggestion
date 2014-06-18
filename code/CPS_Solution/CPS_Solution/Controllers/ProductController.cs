@@ -18,7 +18,7 @@ namespace CPS_Solution.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            return View();
         }
 
         //
@@ -122,6 +122,23 @@ namespace CPS_Solution.Controllers
             {
                 products = products.Where(c => c.Name.Contains(productName));
             }
+            
+            return View(products);
+        }
+        
+        [HttpPost]
+        public ActionResult ViewCart(string lstInt)
+        {
+            //int[] vals = new int[] { 4, 9, 10 };
+            //products = products.where(entity => vals.contains(entity.id));
+
+            var myIntArray = lstInt.Split(',').Select(x => Int32.Parse(x)).ToArray();
+            int[] vals = myIntArray;
+            string temp = "";
+            var products = from p in db.Products
+                               select p;
+            products = products.Where(c => vals.Contains(c.ID));
+            
             return View(products);
         }
 
