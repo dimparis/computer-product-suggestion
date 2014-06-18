@@ -1,4 +1,4 @@
-﻿@model CPS_Solution.EntityFramework.ParseAttribute
+﻿@model CPS_Solution.EntityFramework.ProductAlia
 @{
     ViewBag.Title = "EditParser";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -34,6 +34,7 @@
 <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
 <!-- Customizer JavaScript File (remove if not needed) -->
 <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js")"></script>
+
 }
 @section sidebar
 {
@@ -171,121 +172,33 @@
 }
 @section footScript
 {
-    <!-- Wizard Plugin -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Scripts/getXPath.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Areas/Admin/Script/jquery-picklist.css")"></script>
+    <script type="text/javascript" src="@Url.Content("/Areas/Admin/Script/jquery-picklist.js")"></script>
+    	<script type="text/javascript">
+    	    $(function () {
+    	        $("#pickList").pickList();
+    	    });
+	</script>
 }
-	<!-- Content Area -->
-                	
-                        <h1> Tạo Parser </h1>
-						 <div class="grid_4">
-                        	<div class="da-panel">
-                            	<div class="da-panel-header">
-                                	<span class="da-panel-title">
-                                        <img src="@Url.Content("~/Areas/Admin/Dandelion/Areas/Admin/Dandelion/images/icons/black/16/pencil.png")" alt="">
-                                        Địa chỉ website cần parse
-                                    </span>
-                                </div>
-                                <div class="da-panel-content">
-                                    @using (Html.BeginForm("LoadWeb", "Parser", FormMethod.Post, new { @class = "da-form" }))
-                                    {
-                                    <div id="da-ex-val1-error" class="da-message error" style="display:none;"></div>
-                                      <div class="da-form-inline">
-                                            <div class="da-form-row">
-                                                <label>Link cần lấy<span class="required">*</span></label>
-													<div class="da-form-item large">
-                                                        @Html.TextBoxFor(x =>x.ParseAttributelink, new {placeholder="Nhập link cần parse",Value = TempData["link"]})
-													</div>
-                                            </div>                                        
-                                        </div>
-                                        <div class="da-button-row">
+       <div class="grid_4">
+             <div class="da-panel-content">
+                  @using (Html.BeginForm("EditProductName", "ProductShow", FormMethod.Post, new { @class = "da-form" }))
+                  {
+                         @Html.HiddenFor(x => x.ProductID);
+                         <div class="da-form-inline">
+                                 <div class="da-form-row">
+                                            	<label>Loại thành phần <span class="required">*</span></label>
+                                                <div class="da-form-item small" id ="pickList">
+                                                    @Html.DropDownListFor(x => x.ID, ViewBag.ListOfName as List<SelectListItem>)
+                                                </div>
+                                 </div>
+                         </div>                                      
+                         <div class="da-button-row">
 										    <input type="reset" value="Reset" class="da-button gray" />	
                                         	<input type="submit" value="Summit" class="da-button green" />
-                                        </div>
-                                    }                                    	  
-                                </div>
-                            </div>
-                        </div>
-
-
-
-						@if(TempData["link"] != null)
-                    { 
-        	            <div class="grid_4">
-                        	<div class="da-panel">
-                            	<div class="da-panel-header">
-                                	<span class="da-panel-title">
-                                        <img src="@Url.Content("~/Areas/Admin/Dandelion/Areas/Admin/Dandelion/images/icons/color/wand.png")" alt="" />
-                                       Các bước tạo parser
-                                    </span>
-                                    
-                                </div>
-                                <div class="da-panel-content">
-                                        @using (Html.BeginForm("EditParser", "Parser", FormMethod.Post, new { id = "Parseform", @class = "da-form" }))
-                                        {
-                                        <input type="hidden" name="ParseAttributelink" value="@TempData["link"]"/>
-										<fieldset class="da-form-inline" data-name="type" data-step-id="0">
-                                        	<legend>Loại Parser</legend>
-                                        	<div class="da-form-row">
-                                            	<label>Kiểu trình bày <span class="required">*</span></label>
-											    <div class="da-form-item large">
-                                                	<ul class="da-form-list normal">
-                                                    	<li><input type="radio" value ="table" name="viewType" id ="rad_tabularView" checked="checked" /> <label>Dạng bảng</label></li>
-                                                    	<li><input type="radio" value="grid" name="viewType" id="rad_gridView"  /> <label>Dạng lưới</label></li>
-                                                    </ul>
-                                                    <label for="package" class="error" generated="true" style="display:none"></label>
-                                                </div>
-                                         
-                                            </div>
-                                        	<div class="da-form-row">
-                                            	<label>Loại thành phần <span class="required">*</span></label>
-                                                <div class="da-form-item small">
-                                                    @Html.DropDownListFor(x => x.CodetypeID, ViewBag.Codetypes as List<SelectListItem>)
-                                                </div>
-                                            </div>
-                                        </fieldset>
-										
-                                    	<fieldset class="da-form-inline" data-name="divInfo" data-step-id="1">
-                                        	<legend>Khung Thông Tin</legend>
-                                        	<div class="da-form-row">
-                                            	<label>Xpath tới khung thông tin</label>
-                                                <div class="da-form-item large">
-                                                	<input type="text" id="xpathTile"/>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-										
-										<fieldset class="da-form-inline" data-name="productName" data-step-id="2">
-                                        	<legend>Tên Sản Phẩm</legend>
-                                        	<div class="da-form-row">
-                                            	<label>Xpath tới tên sản phẩm <span class="required">*</span></label>
-                                                <div class="da-form-item large">
-                                                       @Html.TextBoxFor(x => x.NameXPath, new { id = "xpathProductName" })
-                                                </div>
-                                            </div>
-                                        </fieldset>
-										
-										<fieldset class="da-form-inline"  data-name="paging" data-step-id="3">
-                                        	<legend>Phân Trang</legend>
-                                        	<div class="da-form-row">
-                                            	<label>Xpath tới phần phân trang</label>
-                                                <div class="da-form-item large">
-                                                	     @Html.TextBoxFor(x => x.PagingXPath, new { id = "xpathPaging"})
-                                                </div>
-                                            </div>
-                                        </fieldset>
-										
-                                    	<fieldset class="da-form-inline" data-name="finish" data-step-id="4">
-                                        	<legend>Xác nhận</legend>
-                                        	<div class="da-form-row">
-													<h1>Bạn chắc chắc với những gì đã chọn? </h1>
-                                            </div>
-                                        </fieldset>
-                                        }
-                                </div>
-                            </div>
                          </div>
-        <div class="grid_4">
-            <iframe id="webDiv" src="@Url.Content("~/Areas/Admin/SavedPages/tmp.html")" width="1043" height="600"></iframe>
-        </div>       
-      }					     
+                  	
+                   }
+                 
+             </div>
+       </div>
