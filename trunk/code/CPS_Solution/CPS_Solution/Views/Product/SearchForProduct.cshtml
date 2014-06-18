@@ -1,0 +1,141 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
+
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_LayoutUserPage.cshtml";
+}
+
+<div class="breadcrumb-container">
+    <div class="container">
+        <div class="relative">
+            <ul class="bc push-up unstyled clearfix">
+                <li class="active">Home</li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<main id="main-content" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="m-t-b clearfix">
+                <!-- SIDEBAR -->
+                <aside class="col-xs-12 col-sm-4 col-md-3">
+                    <section class="sidebar push-up">
+                        <!-- Search Panel -->
+                        <section class="side-section bg-white">
+                            <header class="side-section-header">
+                                <h3 class="side-section-title">Tìm Kiếm</h3>
+                            </header>
+                            <div class="side-section-content">
+                                <!-- SEARCH BOX -->
+                                <div class="search-box">
+                                    @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Get))
+                                    {
+                                        <div class="input-iconed prepend">
+                                            <button class="input-icon"><i class="iconfont-search"></i></button>
+                                            <div class="round-input">
+                                                @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { style="margin-left: 10%; margin-rigth: 10%; border: none; width: 70%"})
+                                            </div>
+                                        </div>                                        
+                                    }
+                                </div>
+                                <!-- // SEARCH BOX -->
+                            </div>
+                        </section>
+                        <!-- // Search Panel -->
+                    </section>
+                </aside>
+                <!-- // SIDEBAR -->
+
+                <section class="col-xs-12 col-sm-8 col-md-8">
+                    <section class="products-wrapper">
+                        <header class="products-header">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-6 center-xs">
+                                    <!-- DISPLAY MODE -->
+                                    <ul class="unstyled inline-li li-m-r-l-sm pull-left">
+                                        <li><a class="round-icon active" href="#" data-toggle="tooltip" data-layout="grid" data-title="Switch to List Grid Mode"><i class="iconfont-th"></i></a></li>
+                                        <li><a class="round-icon" href="#" data-toggle="tooltip" data-layout="list" data-title="Switch to List View Mode"><i class="iconfont-list"></i></a></li>
+                                    </ul>
+                                    <!-- // DISPLAY MODE -->
+                                    <!-- NUMBER OF ITEMS TO BE DISPLAY -->
+                                    <div class="pull-right m-l-lg">
+                                        <span class="inline-middle m-r-sm text-xs">Show</span>
+                                        <div class="inline-middle styled-dd">
+                                            <select>
+                                                <option value="9">9</option>
+                                                <option value="12" selected>12</option>
+                                                <option value="24">24</option>
+                                                <option value="36">36</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- // NUMBER OF ITEMS TO BE DISPLAY -->
+                                </div>
+
+                                <div class="space30 visible-xs"></div>
+
+                                <!-- PAGINATION -->
+                                <div class="col-xs-12 col-sm-12 col-md-6 center-xs">
+                                    <ul class="paginator li-m-r-l pull-right">
+                                        <li><a class="round-icon" href="#" data-toggle="tooltip" data-title="Previous Page"><i class="iconfont-angle-left"></i></a></li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li><a class="round-icon" href="#" data-toggle="tooltip" data-title="Next Page"><i class="iconfont-angle-right"></i></a></li>
+                                    </ul>
+                                </div>
+                                <!-- // PAGINATION -->
+                            </div>
+                        </header>
+                        
+                        <div class="products-layout grid m-t-b add-cart" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
+                            @foreach (var item in Model) {
+                            <div class="product" data-product-id="@item.ID" data-category="women|women-jeans|women-skirt" data-brand="brand1" data-price="250" data-colors="red|blue|black|white" data-size="S|M|L">
+                                <div class="entry-media">
+                                    <img data-src="images/women/skirt/430041-0014_1_t.jpg" alt="" class="lazyLoad thumb" />
+                                    <div class="hover">
+                                        <a href="product.html" class="entry-url"></a>
+                                        <ul class="icons unstyled">
+                                            <li>
+                                                <a href="#" class="circle add-to-cart" onclick="pushID(@item.ID)"><i class="iconfont-shopping-cart"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="entry-main">
+                                    <h5 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                                    <div class="entry-description">
+                                        <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                                    </div>
+                                    <div class="entry-description">
+                                        <p>@Html.DisplayFor(modelItem => item.ID)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+        var a = [];
+        function pushID(id) {
+            a.push(id);
+        }
+
+        function displayIds() {
+            //for (id in a) {
+            //    alert(id);
+            //}
+            alert(a);
+        }
+    </script>
+</main>
