@@ -131,6 +131,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\LogFileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductShowController.cs" />
     <Compile Include="Areas\Admin\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\LogFileHelper.cs" />
@@ -2927,6 +2928,8 @@
     <Content Include="Areas\Admin\Dandelion\plugins\validate\jquery.validate.min.js" />
     <Content Include="Areas\Admin\Scripts\getXPath.js" />
     <Content Include="Areas\Admin\Scripts\getXPathProduct.js" />
+    <Content Include="Areas\Admin\Scripts\jquery-picklist.css" />
+    <Content Include="Areas\Admin\Scripts\jquery-picklist.js" />
     <Content Include="GFashion_Html Files\about-us.html" />
     <Content Include="GFashion_Html Files\cart.html" />
     <Content Include="GFashion_Html Files\checkout.html" />
@@ -3145,6 +3148,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Recommend\CreateProductParser.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\ProductShow\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\ProductShow\EditProduct.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
