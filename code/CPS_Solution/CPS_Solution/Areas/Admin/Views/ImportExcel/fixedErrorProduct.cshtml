@@ -1,0 +1,124 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;s
+@{
+    ViewBag.Title = "fixedErrorProduct";
+    Layout = null;
+    List<ProductMap> list = ViewBag.listproduct;
+    List<ProductMap> listError = ViewBag.listerror;
+    List<List<ProductMap>> listDup = ViewBag.listduplicate;
+    int countlistdup = 0;
+    if (listDup != null)
+    {
+        countlistdup = listDup.Count;
+    }
+}
+!--tab2-------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
+<div id="ErrorID">
+    <div class="da-message error">
+        Lỗi dữ liệu:
+                                        <ul>
+                                            @if (listError != null)
+                                            {
+                                                foreach (ProductMap p in listError)
+                                                {
+                                                    if (p.ten.Length < 5 || p.ten.Length > 100)
+                                                    {
+                                                <li>Tên sản phẩm phải từ 5 đến 100 ký tự!</li>
+                                                        break;
+                                                    }
+                                                }
+                                                foreach (ProductMap p in listError)
+                                                {
+                                                    if (p.trongso.ToString().Length < 1)
+                                                    {
+                                                <li>Trọng số không được để trống!</li>
+                                                        break;
+                                                    }
+                                                }
+                                                foreach (ProductMap p in listError)
+                                                {
+                                                    if (p.loai.Length < 1)
+                                                    {
+                                                <li>Loại không được để trống!</li>
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        </ul>
+    </div>
+    <div class="da-panel collapsible">
+        <div class="da-panel-header">
+            <span class="da-panel-title">
+                <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                Dữ liệu bị lỗi.
+            </span>
+
+            <span class="da-panel-toggler"></span>
+        </div>
+
+        <div class="da-panel-content">
+            <table class="da-table">
+                <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 198px;">STT</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên thành phần</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Trọng số</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 171px;">Loại thành phần</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">Thực hiện</th>
+                    </tr>
+                </thead>
+
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    @if (listError != null)
+                    {
+                        foreach (ProductMap p in listError)
+                        {
+                                                         
+                        <tr class="odd">
+                            <td class=" sorting_1">
+                                <label>@p.stt</label></td>
+                            <td class=" ">
+                                @if (p.stt.ToString().Length < 5 || p.stt.ToString().Length > 100)
+                                {
+                                    <input type="text" id="idTen_@p.stt"  name ="tenpro_@p.stt" style="border-color:red" value ="@p.ten"/>
+                                }
+                                else
+                                {
+                                    <input type="text" id="idTen_@p.stt" _ name ="tenpro_@p.stt" value ="@p.ten"/>
+                                }
+                            </td>
+                            <td class=" ">
+                                @if (p.trongso.ToString().Length < 1 || p.stt.ToString().Length > 5)
+                                {
+                                    <input type="text" id="idTrongSo_@p.stt"  name ="trongsopro_@p.stt" style="border-color:red" value ="@p.trongso"/>
+                                }
+                                else
+                                {
+                                    <input type="text" id="idTrongSo_@p.stt" name ="trongsopro_@p.stt" value ="@p.trongso"/>
+                                }
+                            </td>
+                            <td class=" ">
+
+                                @if (p.loai.Length < 1 || p.stt.ToString().Length > 5)
+                                {
+                                    <input type="text" id="idLoai_@p.stt" name="loaipro_@p.stt" style="border-color:red" value ="@p.loai"/>
+                                }
+                                else
+                                {
+                                    <input type="text" id="idLoai_@p.stt" name="loaipro_@p.stt" value ="@p.loai"/>
+                                }
+                            </td>
+                            <td class=" ">
+                                <a onclick="luusanphamloi(@p.stt)">
+                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" />Lưu</a>
+                            </td>
+                        </tr>                                                       
+                        }
+                    }
+                </tbody>
+            </table>      
+        </div>
+    </div>
+</div>
+<!--ket thuc tab2-------------------------------------------------------------------------------------->

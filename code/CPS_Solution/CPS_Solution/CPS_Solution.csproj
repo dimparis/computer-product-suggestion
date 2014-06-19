@@ -45,12 +45,27 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="LinqToExcel">
+      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList">
       <HintPath>..\..\..\..\SmartBuy\smart-buy\Code\Smart Buy\ smart-buy\Code\Smart Buy\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
     <Reference Include="PagedList.Mvc">
       <HintPath>..\..\..\..\SmartBuy\smart-buy\Code\Smart Buy\ smart-buy\Code\Smart Buy\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion">
+      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq">
+      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces">
+      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\Remotion.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -129,6 +144,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ConstantConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs" />
     <Compile Include="Areas\Admin\Controllers\LogFileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductShowController.cs" />
@@ -140,6 +156,7 @@
     <Compile Include="Areas\Admin\Models\ConfigurationModel.cs" />
     <Compile Include="Areas\Admin\Models\LogInfo.cs" />
     <Compile Include="Areas\Admin\Models\ParseCreator.cs" />
+    <Compile Include="Areas\Admin\Models\ProductMap.cs" />
     <Compile Include="Areas\Admin\Models\ProductParserCreator.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
     <Compile Include="CommonClass\CustomMembershipProvider.cs" />
@@ -3046,7 +3063,9 @@
     <Content Include="GFashion_Html Files\store-locator.html" />
     <Content Include="Global.asax" />
     <Content Include="UploadedExcelFiles\ProductName.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -3139,9 +3158,6 @@
     <Content Include="Areas\Admin\Views\Parser\EditParser.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Admin\Views\LogFile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -3158,6 +3174,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Product\SearchForProduct.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\ImportExcel\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\ImportExcel\deleteproduct.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\ImportExcel\fixedErrorProduct.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\ImportExcel\getGop.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\ImportExcel\getTach.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
