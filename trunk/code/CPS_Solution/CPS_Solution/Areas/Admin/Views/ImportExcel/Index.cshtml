@@ -1,0 +1,705 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;s
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<ProductMap> list = ViewBag.listproduct;
+    List<ProductMap> listError = ViewBag.listerror;
+    List<List<ProductMap>> listDup = ViewBag.listduplicate;
+    int countlistdup = 0;
+    if (listDup != null)
+    {
+        countlistdup = listDup.Count;
+    }
+}
+
+@section headScript
+{
+    <!-- iOS webapp icons -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.theme.css" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+    <!-- Plugin Files -->
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.icons.js"></script>
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.core.js"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
+
+
+
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+    <!----------------------------- Lên datatable Plugin------------------------------------------>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
+
+
+
+}
+@section sidebar
+{
+    <!-- CSS Reset -->
+    <!-- Main Navigation -->
+    <div id="da-main-nav" class="da-button-container">
+        <ul>
+            <li class="active">
+                <a href="dashboard.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
+                    </span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Nav Notification -->
+                    <span class="da-nav-count">32</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/graph.png" alt="Charts" />
+                    </span>
+                    Statistics and Charts
+                </a>
+                <ul class="closed">
+                    <li><a href="statistic.html">Statistic Widgets</a></li>
+                    <li><a href="charts.html">Chart Gallery</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="calendar.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/day_calendar.png" alt="Calendar" />
+                    </span>
+                    Calendar
+                </a>
+            </li>
+            <li>
+                <a href="file.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/file_cabinet.png" alt="File Handling" />
+                    </span>
+                    File Handling
+                </a>
+            </li>
+            <li>
+                <a href="table.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/table_1.png" alt="Table" />
+                    </span>
+                    Table
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/create_write.png" alt="Form" />
+                    </span>
+                    Form
+                </a>
+                <ul>
+                    <li><a href="form-layouts.html">Layouts</a></li>
+                    <li><a href="form-elements.html">Elements</a></li>
+                    <li><a href="form-validation.html">Validation</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="ui.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/settings.png" alt="" />
+                    </span>
+                    UI Elements
+                </a>
+            </li>
+            <li>
+                <a href="widgets.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/cog_4.png" alt="Widgets" />
+                    </span>
+                    Widgets
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/word_documents_1.png" alt="Layout and Typography" />
+                    </span>
+                    Layout and Typography
+                </a>
+                <ul class="closed">
+                    <li><a href="grids.html">Grids and Panels</a></li>
+                    <li><a href="typography.html">Typography</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="gallery.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/images_2.png" alt="Gallery" />
+                    </span>
+                    Gallery
+                </a>
+            </li>
+            <li>
+                <a href="error.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/alert.png" alt="Error Pages" />
+                    </span>
+                    Error Page (404)
+                </a>
+            </li>
+            <li>
+                <a href="icons.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/pacman.png" alt="Icons" />
+                    </span>
+                    Icons
+                </a>
+            </li>
+        </ul>
+    </div>
+}
+@section mainHeader
+{
+}
+@section footScript
+{
+
+<!-- script table cua ong de day ne ->>
+
+}
+<!----------------------------------------------- Content Area --------------------------------------------->
+                	   <div class="clear"></div>
+<div class="grid_4">
+    <div class="da-panel" style="margin-left: 200px; width: 50%">
+        <div class="da-panel-header">
+            <span class="da-panel-title">
+                <img src="~/Areas/Admin/Dandelion/images/up.png" alt="">
+                Tải dữ liệu từ file Excel
+            </span>
+        </div>
+        <div class="da-panel-content">
+
+            <form id="da-ex-vali" method="post" action="~/Admin/ImportExcel/Index" enctype="multipart/form-data" class="da-form" novalidate="novalidate">
+
+                <div class="da-form-inline">
+                    <div class="da-form-row">
+                        <label>File <span class="required">*</span></label>
+                        <div class="da-form-item large">
+                            <div>
+                                <div>
+                                    <input type="file" name="file" class="da-custom-file customfile-input valid" style="left: 61.453125px; top: 24px;">
+                                </div>
+                            </div>
+                            <label for="file1" class="error" generated="true" style="display: none;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="da-button-row">
+                    <input type="submit" value="Tải lên" class="da-button green">
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<div class="grid_4">
+    <div id="da-icon-tab" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#color-icon">
+                <img src="~/Areas/Admin/Dandelion/images/message-success.png" alt="">
+                Danh sách thành phần đúng</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#white-icon">@**@
+                <img src="~/Areas/Admin/Dandelion/images/message-error.png" alt="">
+                Danh sách thành phần lỗi</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#black-icon">
+                <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">
+                Danh sách thành phần trùng</a></li>
+        </ul>
+
+        <div id="color-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            <div id="CorrectID">
+                <!--tab1------------------------------------------------------------------------------------->
+
+                <div class="da-panel-toolbar top">
+                    <ul>
+                        <form action="~/Admin/ImportExcel/saveAllProduct" method="post" enctype="multipart/form-data">
+                            <li>
+                                <button type="submit">
+                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</button></li>
+                        </form>
+                        <li><a href="~/Admin/ImportExcel/huyimport">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
+                    </ul>
+                </div>
+
+                <div class="da-panel collapsible">
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Danh sách để lưu vào cơ sở dữ liệu
+                        </span>
+
+                        <span class="da-panel-toggler"></span>
+                    </div>
+
+                    <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+
+
+                        <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 198px;">STT</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên thành phần</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Trọng số</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 171px;">Loại thành phần</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">Thực hiện</th>
+                                </tr>
+                            </thead>
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                                @if (list != null)
+                                {
+                                    foreach (ProductMap p in list)
+                                    {
+                                    <tr class="odd">
+                                        @*     <form id="form10" action="/Home/deleteproduct" method="post" enctype="multipart/form-data">*@
+                                        <td class=" sorting_1">@p.stt </td>
+                                        <td class=" ">@p.ten</td>
+                                        <td class=" ">@p.trongso</td>
+                                        @if (@p.loai.Equals("C"))
+                                        {
+                                            <td class=" ">CPU</td>
+                                        }
+                                        <td class=" ">
+                                            <input name="sttproduct" type="hidden"  value="@p.stt" />
+                                            <a onclick="xoasanphamdung(@p.stt)">
+                                                <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
+                                                Xóa</a></td>
+
+                                        @*</form>*@
+                                    </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--ket thuc tab1------------------------------------------------------------------------------------------->
+            </div>
+        </div>
+        <div id="white-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            <!--tab2-------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
+            <div id="ErrorID">
+                <div class="da-message error">
+                    Lỗi dữ liệu:
+                                        <ul>
+                                            @if (listError != null)
+                                            {
+                                                foreach (ProductMap p in listError)
+                                                {
+                                                    if (p.ten.Length < 5 || p.ten.Length > 100)
+                                                    {
+                                                <li>Tên sản phẩm phải từ 5 đến 100 ký tự!</li>
+                                                        break;
+                                                    }
+                                                }
+                                                foreach (ProductMap p in listError)
+                                                {
+                                                    if (p.trongso.ToString().Length < 1)
+                                                    {
+                                                <li>Trọng số không được để trống!</li>
+                                                        break;
+                                                    }
+                                                }
+                                                foreach (ProductMap p in listError)
+                                                {
+                                                    if (p.loai.Length < 1)
+                                                    {
+                                                <li>Loại không được để trống!</li>
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        </ul>
+                </div>
+                <div class="da-panel collapsible">
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Dữ liệu lỗi.
+                        </span>
+
+                        <span class="da-panel-toggler"></span>
+                    </div>
+
+                    <div class="da-panel-content">
+                        <table class="da-table">
+                            <thead>
+                                <tr role="row">
+                                    <th>STT</th>
+                                    <th style="width: 200px;">Tên thành phần</th>
+                                    <th style="width: 171px;">Trọng số</th>
+                                    <th style="width: 171px;">Loại thành phần</th>
+                                    <th style="width: 60px;">Thực hiện</th>
+                                </tr>
+                            </thead>
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                @if (listError != null)
+                                {
+                                    foreach (ProductMap p in listError)
+                                    {
+                                                         
+                                    <tr class="odd">
+                                        <td class=" sorting_1">
+                                            <label>@p.stt</label></td>
+                                        <td class=" ">
+                                            @if (p.stt.ToString().Length < 5 || p.stt.ToString().Length > 100)
+                                            {
+                                                <input type="text" id="idTen_@p.stt"  name ="tenpro_@p.stt" style="border-color:red" value ="@p.ten"/>
+                                            }
+                                            else
+                                            {
+                                                <input type="text" id="idTen_@p.stt" _ name ="tenpro_@p.stt" value ="@p.ten"/>
+                                            }
+                                        </td>
+                                        <td class=" ">
+                                            @if (p.trongso.ToString().Length < 1 || p.stt.ToString().Length > 5)
+                                            {
+                                                <input type="text" id="idTrongSo_@p.stt"  name ="trongsopro_@p.stt" style="border-color:red" value ="@p.trongso"/>
+                                            }
+                                            else
+                                            {
+                                                <input type="text" id="idTrongSo_@p.stt" name ="trongsopro_@p.stt" value ="@p.trongso"/>
+                                            }
+
+
+                                        </td>
+                                        <td class=" ">
+
+                                            @if (p.loai.Length < 1 || p.stt.ToString().Length > 5)
+                                            {
+                                                <input type="text" id="idLoai_@p.stt" name="loaipro_@p.stt" style="border-color:red" value ="@p.loai"/>
+                                            }
+                                            else
+                                            {
+                                                <input type="text" id="idLoai_@p.stt" name="loaipro_@p.stt" value ="@p.loai"/>
+                                            }
+                                        </td>
+                                        <td class=" ">
+                                            <a onclick="luusanphamloi(@p.stt)">
+                                                <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" />Lưu</a>
+                                        </td>
+                                    </tr> 
+                                                      
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--ket thuc tab2-------------------------------------------------------------------------------------->
+
+        </div>
+        <div id="black-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <!--tab3----------------------------------------------------------------------------------------------->
+            @* <div class="da-panel-toolbar top">
+                                        <ul>
+                                           <li><a onclick="goptatca(@countlistdup)">
+                                                <img src="images/icons/color/arrow_in.png" alt="">Gộp tất cả</a></li>
+                                            <li><a onclick="tachtatca(@countlistdup)">
+                                                <img src="images/icons/color/arrow_out.png" alt="">Tách tất cả</a></li>
+                                              
+                                            <li><a href="#">
+                                                <img src="images/icons/color/page_white_text.png" alt="">Lưu file</a></li>
+                                        </ul>
+                                    </div> *@
+            <div class="da-panel collapsible">
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                        Table Styling
+                    </span>
+
+                    <span class="da-panel-toggler"></span>
+                </div>
+                <div class="da-panel-content">
+                    <input style="visibility: hidden" />
+                </div>
+                @if (listDup != null)
+                {
+                    int i = 0;
+
+                    foreach (List<ProductMap> listp in listDup)
+                    {
+                        i++;
+                    <div style="border-color: yellowgreen" class="da-panel-content">
+
+                        <table    id="table_@(i)" class="da-table">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-column"  id="checkboxAllTable_@(i)">
+                                        <input id="checkAll" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                                    <th style="width: 250px;">Tên thành phần</th>
+                                    <th>Trọng số</th>
+                                    <th>Loại</th>
+                                    <th style="width: 92px;">
+                                        <a id ="link_@(i)"  onclick="gop1table(@(i))"  style="width: 35px;">
+                                            <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a> &nbsp
+                                                                <a style="width: 35px;" onclick="tach1table(@(i))" >
+                                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int y = 0;}
+                                @foreach (ProductMap p in listp)
+                                {
+                                    y++;
+                                    <tr class="odd">
+                                        <td id="@(y)" class="checked">
+                                            <input value="@p.stt" id="checkbox@(y)" type="checkbox"></td>
+                                        <td>@p.ten</td>
+                                        <td>@p.trongso</td>
+                                        @if (p.loai.Equals("C"))
+                                        {
+                                            <td class=" ">CPU</td>
+                                        }
+                                        <td class="da-icon-column">
+
+                                            <!-- Nếu là sản phẩm đầu tiên thì check radio-->
+                                            @if (y == 1)
+                                            {
+                                                <input name="radio_@(i)" value="@p.stt" type="radio" checked="checked" >
+                                            }
+                                            else
+                                            {
+                                                <input name="radio_@(i)" value="@p.stt" type="radio"> 
+                                            }
+                                        </td>
+                                    </tr> 
+                                                            
+                                }
+                            </tbody>
+                        </table>
+                    </div>                                           
+                    <div class="da-panel-content">
+                        <input style="visibility: hidden" />
+                    </div>
+                    }
+                }
+
+
+            </div>
+            <!--ket thuc tab3-------------------------------------------------------------------------------->
+        </div>
+        <!--javascript check all-------------------------------------->
+        <script>
+                                     
+
+
+            // check all in talbe
+            function checkboxAllTable(i) {
+                if ($("#checkboxAllTable_" + i).find("input:checkbox")[0].checked == true) {
+                    $("#table_" + i).find("tbody").find("input:checkbox").attr('checked', $(this).is('') ? 'checked' : '');
+                    $("#table_" + i).find("tbody").find("tr").attr("class", "checked");
+                }
+                else {
+                    $("#table_" + i).find("tbody").find("input:checkbox").removeAttr('checked');
+                    $("#table_" + i).find("tbody").find("tr").removeClass('checked');
+                }
+            }
+
+
+            // lưu sản phẩm lỗi
+            function luusanphamloi(stt){
+                var trongso =  document.getElementById("idTrongSo_"+stt).value;
+                var loaithanhphan =  document.getElementById("idLoai_"+stt).value;
+                var tenthanhphan =  document.getElementById("idTen_"+stt).value;
+                var string = stt +'@@'+tenthanhphan+'@@'+loaithanhphan+'@@'+ trongso;
+                if (confirm("Bạn có chắc chắn muốn lưu sản phẩm này?")) {
+                    var postData = { stringpro: string };
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/ImportExcel/fixedErrorProduct",
+                        data: postData,
+                        success: function(data){
+                            $('#white-icon').html(data);
+                            tabsanphamdung();
+                            tabsanphamtrung();
+                        },
+
+                    });
+                } else {
+                                               
+                }
+            }
+
+
+
+            // Tab sản phẩm trùng
+            function tabsanphamtrung() {  
+                var val = "nothing";                                                                                          
+                var postData = { valuest: val };
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/ImportExcel/getTach",
+                    data: postData,
+                    success: function(data){
+                        $('#black-icon').html(data);
+                    },
+
+                });     
+            }
+            // tab sản phẩm lỗi
+            function tabsanphamloi(){
+                var string="nothing";
+                var postData = { stringpro: string };
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/ImportExcel/fixedErrorProduct",
+                    data: postData,
+                    success: function(data){
+                        $('#white-icon').html(data);
+                    },
+
+                });
+                                                  
+            }
+
+            //tab sản phẩm đúng
+            function tabsanphamdung(){
+                var string="nothing";
+                var postData = { sttproduct: string };
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/ImportExcel/deleteproduct",
+                    data: postData,
+                    success: function(data){
+                        $('#color-icon').html(data);
+                    },
+
+                });
+                                                  
+            }
+
+
+            //xóa sản phẩm đúng.
+            function xoasanphamdung(stt){
+
+                if (confirm("Bạn có chắc chắn muôn xóa sản phẩm này?")) {
+                    var postData = { sttproduct: stt };
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/ImportExcel/deleteproduct",
+                        data: postData,
+                        success: function(data){
+                            $('#CorrectID').html(data);
+                            tabsanphamdung();
+                        },
+
+                    });
+                } else {
+                                               
+                }
+                                            
+            }
+
+
+
+                                                
+            // Tách 1 table
+            function tach1table(i) {  
+                var val = "";
+                $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+                    val +='@@'+ $(this).val();
+                });                                          
+                var postData = { valuest: val };
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/ImportExcel/getTach",
+                    data: postData,
+                    success: function(data){
+                        //   $('#tachid').html(data);
+                        tabsanphamtrung()
+                        tabsanphamdung();
+                    },
+
+                });     
+            }
+            //Gộp 1 talbe
+            function gop1table(i) {  
+                var val = "";
+                $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+                    val +='@@'+ $(this).val();
+                });
+                $("#table_" + i).find("tbody").find("input:radio:checked").each(function(i){  
+                    val += '@@'+ $(this).val();
+                }); 
+                var postData = { valuest: val };
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/ImportExcel/getGop",
+                    data: postData,
+                    success: function(data){
+                        tabsanphamtrung()
+                        tabsanphamdung();                                               
+                    },
+
+                                                
+                });  
+                //   location.reload();
+            }
+        </script>
+
+
+    </div>
+</div>
