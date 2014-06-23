@@ -218,7 +218,10 @@
                                                 <th>Đường dẫn</th>
                                                 <th>Thời gian đề xuất</th>
                                                 <th>Thao tác</th>
-                                                <th>Trạng Thái</th>
+                                                <th>
+                                                         
+                                                    <input type="submit" value="Hoạt động" class="da-button pink" id="UpdateStatus" />                                                  
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -237,13 +240,14 @@
                                                        </td>
                                                         @if ((bool)item.IsApprove) 
                                                         {
-                                                           <td>
-                                                              <input type="submit" value="Đã cập nhật" class="da-button blue" style="width:120px" data-id="@item.ID"/>
+                                                            <td>
+                                                               <input type="checkbox" id="idList" checked ="checked"/>
                                                           </td>  
-                                                        }else
+                                                        }
+                                                        else
                                                         {
-                                                        <td>
-                                                             <input type="submit" value="Chưa cập nhật" class="da-button pink"  data-id="@item.ID"/>
+                                                           <td>
+                                                               <input type="checkbox" id="idList"/>
                                                           </td>  
                                                         }                                                          
                                                     </tr>

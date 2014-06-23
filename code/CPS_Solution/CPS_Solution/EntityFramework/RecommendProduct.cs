@@ -18,11 +18,6 @@ namespace CPS_Solution.EntityFramework
         public string Username { get; set; }
         public string Parselink { get; set; }
         public string Name { get; set; }
-        public string RAM { get; set; }
-        public string HDD { get; set; }
-        public string VGA { get; set; }
-        public string Display { get; set; }
-        public string CPU { get; set; }
         public Nullable<System.DateTime> RecommendTime { get; set; }
         public Nullable<bool> IsApprove { get; set; }
     

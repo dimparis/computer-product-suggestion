@@ -154,7 +154,7 @@
           <Property Name="VGAXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="HDDXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="DisplayXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
-          <Property Name="IsActive" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -202,11 +202,6 @@
           <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="30" />
           <Property Name="Parselink" Type="nvarchar" MaxLength="200" />
           <Property Name="Name" Type="nvarchar" MaxLength="200" />
-          <Property Name="RAM" Type="nvarchar" MaxLength="200" />
-          <Property Name="HDD" Type="nvarchar" MaxLength="200" />
-          <Property Name="VGA" Type="nvarchar" MaxLength="200" />
-          <Property Name="Display" Type="nvarchar" MaxLength="200" />
-          <Property Name="CPU" Type="nvarchar" MaxLength="200" />
           <Property Name="RecommendTime" Type="datetime" />
           <Property Name="IsApprove" Type="bit" />
         </EntityType>
@@ -539,7 +534,7 @@
           <Property Name="VGAXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="HDDXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="DisplayXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="IsActive" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -595,11 +590,6 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
           <Property Name="Parselink" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="Name" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="RAM" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="HDD" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="VGA" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="Display" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="CPU" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="RecommendTime" Type="DateTime" Precision="3" />
           <Property Name="IsApprove" Type="Boolean" />
           <NavigationProperty Name="Account" Relationship="CPS_SolutionModel.FK_RecommendProduct_Account" FromRole="RecommendProduct" ToRole="Account" />
@@ -915,11 +905,6 @@
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Parselink" ColumnName="Parselink" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="RAM" ColumnName="RAM" />
-                <ScalarProperty Name="HDD" ColumnName="HDD" />
-                <ScalarProperty Name="VGA" ColumnName="VGA" />
-                <ScalarProperty Name="Display" ColumnName="Display" />
-                <ScalarProperty Name="CPU" ColumnName="CPU" />
                 <ScalarProperty Name="RecommendTime" ColumnName="RecommendTime" />
                 <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
               </MappingFragment>

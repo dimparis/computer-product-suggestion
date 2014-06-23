@@ -46,10 +46,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="LinqToExcel">
-      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\LinqToExcel.dll</HintPath>
+      <HintPath>..\packages\LinqToExcel.1.7.1\lib\LinqToExcel.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\log4net.dll</HintPath>
+      <HintPath>..\packages\LinqToExcel.1.7.1\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList">
@@ -59,13 +59,13 @@
       <HintPath>..\..\..\..\SmartBuy\smart-buy\Code\Smart Buy\ smart-buy\Code\Smart Buy\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Remotion">
-      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\Remotion.dll</HintPath>
+      <HintPath>..\packages\LinqToExcel.1.7.1\lib\Remotion.dll</HintPath>
     </Reference>
     <Reference Include="Remotion.Data.Linq">
-      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\Remotion.Data.Linq.dll</HintPath>
+      <HintPath>..\packages\LinqToExcel.1.7.1\lib\Remotion.Data.Linq.dll</HintPath>
     </Reference>
     <Reference Include="Remotion.Interfaces">
-      <HintPath>..\..\..\..\Designhtml\Designhtml\bin\LinqToExcel.1.7.1\LinqToExcel.1.7.1\lib\Remotion.Interfaces.dll</HintPath>
+      <HintPath>..\packages\LinqToExcel.1.7.1\lib\Remotion.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -144,7 +144,9 @@
   <ItemGroup>
     <Compile Include="App_Start\ConstantConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Areas\Admin\Controllers\LogFileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductShowController.cs" />
@@ -3128,27 +3130,6 @@
     <Content Include="Areas\Admin\Dandelion\plugins\syntaxhighlighter\prettify\closure.map" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="EntityFramework\CPS_Solution.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CPS_Solution.edmx</DependentUpon>
-      <LastGenOutput>CPS_Solution.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="EntityFramework\CPS_Solution.edmx.diagram">
-      <DependentUpon>CPS_Solution.edmx</DependentUpon>
-    </Content>
-    <Content Include="EntityFramework\CPS_Solution.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CPS_Solution.edmx</DependentUpon>
-      <LastGenOutput>CPS_Solution.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Admin\Views\Parser\CreateParser.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -3192,6 +3173,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\ImportExcel\getTach.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityFramework\CPS_Solution.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+      <LastGenOutput>CPS_Solution.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityFramework\CPS_Solution.edmx.diagram">
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+    </Content>
+    <Content Include="EntityFramework\CPS_Solution.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+      <LastGenOutput>CPS_Solution.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
