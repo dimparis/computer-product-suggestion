@@ -22,6 +22,6 @@ namespace CPS_Solution.EntityFramework
         public string VGAXPath { get; set; }
         public string HDDXPath { get; set; }
         public string DisplayXPath { get; set; }
-        public string IsActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }

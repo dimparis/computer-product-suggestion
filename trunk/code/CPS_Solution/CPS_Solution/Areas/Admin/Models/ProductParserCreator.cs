@@ -12,17 +12,13 @@ namespace CPS_Solution.Areas.Admin.Models
         public string ParseProductLink { get; set; }
 
         [Display(Name = "Tên sản phẩm")]
-        public string ProductNameXpath { get; set; }
+        public string ProductName { get; set; }
 
-        public string CPUXpath { get; set; }
+        public string Username { get; set; }
 
-        public string HDDXpath { get; set; }
+        public DateTime Recommendtime { get; set; }
 
-        public string VGAXpath { get; set; }
-
-        public string DisplayXpath { get; set; }
-
-        public string RAMXpath { get; set; } 
+        public bool IsActive { get; set; }
 
         public string RecommendProductId { get; set; }
     }
