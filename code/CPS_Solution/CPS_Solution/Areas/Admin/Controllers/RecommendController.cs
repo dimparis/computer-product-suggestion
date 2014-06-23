@@ -31,13 +31,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             var productInfo = new ParseInfo
             {
-                Name = model.ProductName,
+                Name = model.ProductNameXpath,
                 Parselink = model.ParseProductLink,
-                CPUXPath ="",
-                DisplayXPath="",
-                HDDXPath="",
-                RAMXPath="",
-                VGAXPath="",
+                CPUXPath =model.CPUXpath,
+                DisplayXPath=model.DisplayXpath,
+                HDDXPath=model.HDDXpath,
+                RAMXPath=model.RAMXpath,
+                VGAXPath=model.VGAXpath,
                 IsActive = true,
 
             };
@@ -49,6 +49,33 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public ActionResult CreateProductParser()
         {
             return View();
+        }
+        [HttpPost, ActionName("setStatus")]
+        public JsonResult setStatus(string[] idList) 
+        {
+            bool check = false;
+            string message = "";
+            try
+            {
+                foreach (string id in idList)
+                {
+                    int i = Int32.Parse(id);
+                    var recommendProduct = context.RecommendProducts.Where(x => x.ID == i).FirstOrDefault();
+                    recommendProduct.IsApprove = true;
+                }
+                context.SaveChanges();
+                check = true;
+                message = "Success";
+                TempData["updateStatus"] = message;
+                return Json(check, JsonRequestBehavior.AllowGet);
+            }
+            catch 
+            {
+                check = false;
+                message = "Failed";
+                TempData["updateStatus"] = message;
+                return Json(check, JsonRequestBehavior.AllowGet);
+            }        
         }
     }
 }
