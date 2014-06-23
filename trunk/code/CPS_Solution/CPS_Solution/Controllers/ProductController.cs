@@ -136,7 +136,7 @@ namespace CPS_Solution.Controllers
             int[] vals = myIntArray;
             string temp = "";
             var products = from p in db.Products
-                               select p;
+                           select p;
             products = products.Where(c => vals.Contains(c.ID));
             
             return View(products);

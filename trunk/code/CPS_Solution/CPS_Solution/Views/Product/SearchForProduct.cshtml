@@ -139,13 +139,12 @@
             $("#btnAdd").click(function () {
                 if (a.length > 0)
                 {
-                    $.post("/Compare/Index", { "lstInt": a.join() },
+                    $.post("/Product/ViewCart", { "lstInt": a.join() },
                         function (data) {
-                            location.reload();
+                           
                     });
                 }
             });
-
         });
     </script>
 </main>
