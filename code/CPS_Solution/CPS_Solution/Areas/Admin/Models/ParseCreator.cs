@@ -13,6 +13,9 @@ namespace CPS_Solution.Areas.Admin.Models
         [Display(Name = "Tên sản phẩm")]
         public string ProductNameXpath { get; set; }
 
+        [Display(Name = "Điểm sản phẩm")]
+        public string ProductPointXpath { get; set; }
+
         [Display(Name = "Phân trang")]
         public string PagingXpath { get; set; }
 

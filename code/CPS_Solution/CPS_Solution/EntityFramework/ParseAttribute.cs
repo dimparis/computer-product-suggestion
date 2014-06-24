@@ -18,6 +18,7 @@ namespace CPS_Solution.EntityFramework
         public string CodetypeID { get; set; }
         public string ParseAttributelink { get; set; }
         public string NameXPath { get; set; }
+        public string PointXPath { get; set; }
         public string PagingXPath { get; set; }
         public bool IsActive { get; set; }
     

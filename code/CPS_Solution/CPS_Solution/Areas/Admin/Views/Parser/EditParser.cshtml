@@ -264,8 +264,17 @@
                                                 </div>
                                             </div>
                                         </fieldset>
-										
-										<fieldset class="da-form-inline"  data-name="paging" data-step-id="3">
+                                            
+										<fieldset class="da-form-inline" data-name="productPoint" data-step-id="3">
+                                        	<legend>Điểm Sản Phẩm</legend>
+                                        	<div class="da-form-row">
+                                            	<label>Xpath tới điểm sản phẩm <span class="required">*</span></label>
+                                                <div class="da-form-item large">
+                                                       @Html.TextBoxFor(x => x.PointXPath, new { id = "xpathPointName" })
+                                                </div>
+                                            </div>
+                                        </fieldset>
+										<fieldset class="da-form-inline"  data-name="paging" data-step-id="4">
                                         	<legend>Phân Trang</legend>
                                         	<div class="da-form-row">
                                             	<label>Xpath tới phần phân trang</label>
@@ -275,7 +284,7 @@
                                             </div>
                                         </fieldset>
 										
-                                    	<fieldset class="da-form-inline" data-name="finish" data-step-id="4">
+                                    	<fieldset class="da-form-inline" data-name="finish" data-step-id="5">
                                         	<legend>Xác nhận</legend>
                                         	<div class="da-form-row">
 													<h1>Bạn chắc chắc với những gì đã chọn? </h1>

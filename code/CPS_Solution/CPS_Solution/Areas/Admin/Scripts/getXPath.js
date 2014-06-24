@@ -2,6 +2,7 @@
 var prevExp = "";
 var $tile = $('#xpathTile');
 var $productName = $('#xpathProductName');
+var $productPoint = $('#xpathProductPoint');
 var $paging = $('#xpathPaging');
 $('#Parseform').daWizard({
     nextButtonLabel: 'Sau',
@@ -37,6 +38,12 @@ function validateStep(index, fset) {
             case "productName":
                 if ($productName.val() == "") {
                     alert("Phải chọn tên sản phẩm");
+                    return false;
+                }
+                return true;
+            case "productPoint":
+                if ($productPoint.val() == "") {
+                    alert("Phải chọn điểm sản phẩm");
                     return false;
                 }
                 return true;
@@ -177,13 +184,15 @@ function setTextBoxXpathValue(expression) {
     } else if (currentStep == 1) {
         $tile.val(expression);
     } else if (currentStep == 3) {
+        $productPoint.val(expression);
+    }else if (currentStep == 4) {
         $paging.val(expression);
-    }
+    } 
 }
 
 function getXPath(event) {
     event.preventDefault();
-    if (currentStep == 3) {
+    if (currentStep == 4) {
         getPaging(event);
         return;
     }
