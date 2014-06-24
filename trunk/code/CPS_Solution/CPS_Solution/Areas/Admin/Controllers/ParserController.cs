@@ -58,7 +58,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 ParseAttributelink = model.ParseAttributelink,
                 NameXPath = model.ProductNameXpath,
                 PagingXPath = model.PagingXpath,
-                
+                PointXPath = model.ProductPointXpath,
                 IsActive = true
             };
             context.ParseAttributes.Add(parser);

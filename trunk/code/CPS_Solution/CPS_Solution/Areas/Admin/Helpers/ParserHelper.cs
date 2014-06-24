@@ -137,7 +137,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
 
             //1st page
             HtmlDocument doc = web.Load(parseAtt.ParseAttributelink);
-            data = MatchingData(doc, parseAtt.NameXPath);
+            data = MatchingData(doc, parseAtt.NameXPath,parseAtt.PointXPath);
             //other page 
 
             if (parseAtt.PagingXPath != null) 
@@ -155,7 +155,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     //load page
                     doc = web.Load(url);
                     //get data 
-                    var tempdata = MatchingData(doc, parseAtt.NameXPath);
+                    var tempdata = MatchingData(doc, parseAtt.NameXPath,parseAtt.PointXPath);
                     // add data to collection
                     data.AddRange(tempdata);
                 }
@@ -169,29 +169,38 @@ namespace CPS_Solution.Areas.Admin.Helpers
         /// <param name="doc"></param>
         /// <param name="nameXpath"></param>
         /// <returns></returns>
-        public static List<KeyValuePair<string, string>> MatchingData(HtmlDocument doc, string nameXpath) {
+        public static List<KeyValuePair<string, string>> MatchingData(HtmlDocument doc, string nameXpath,string pointXpath) {
 
             var data = new List<KeyValuePair<string, string>>();
             int miss = 0;
             var i = 1;
 
             while (true) {
+                //Replace Xtah
                 string namei = nameXpath.Replace("[i]", ")[" + i + "]");
                 namei = "(" + namei;
+                string pointi = pointXpath.Replace("[i]", ")[" + i + "]");
+                pointi = "(" + pointi;
                 //Get data 
                 var name = doc.DocumentNode.SelectSingleNode(namei);
+                var point = doc.DocumentNode.SelectSingleNode(pointi);
                 //Name not null
-                if (name != null) 
+                if (name != null && point !=null) 
                 {
                     miss = 0;
-                    if (name.InnerText != "")
+                    if (name.InnerText != "" && point.InnerText != "")
                     {
-                        var pair = new KeyValuePair<string, string>(name.InnerText,"0");
+                        var pair = new KeyValuePair<string, string>(name.InnerText, point.InnerText);
+                        data.Add(pair);
+                    }
+                    else if (name.InnerText != "")
+                    {
+                        var pair = new KeyValuePair<string, string>(name.InnerText,"");
                         data.Add(pair);
                     }
                 }
                 //Get all data
-                if (name == null) 
+                if (name == null && point ==null) 
                 {
                     miss++;    
                 }
@@ -204,12 +213,23 @@ namespace CPS_Solution.Areas.Admin.Helpers
             return data;
         }
         public static int InserttoDb(IEnumerable<KeyValuePair<string,string>> data, string codetypeID) {
+           
             int success = 0;
+            double point = 0;
             using (var context = new CPS_SolutionEntities()) 
             {
                 foreach (var pair in data) 
                 {
-                      ////Check good match 
+
+                    if ( !String.IsNullOrEmpty(pair.Value.ToString())  || !String.IsNullOrWhiteSpace(pair.Value.ToString())  )
+                    {
+                         point = Double.Parse(pair.Value);
+                    }
+                    else 
+                    {
+                        point = 0;
+                    }          
+                    ////Check good match 
                 var goodMatch = new List<int>();
                 var averageMatch = new List<int>();
                 int pId = -1;
@@ -257,13 +277,25 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     // If attDic alr Existed? 
                     if (pId != -1)
                     {
-                    // Do nothing
-                        success++;
+                        var att = context.AttributeDictionaries.Where(x => x.ID == pId).FirstOrDefault();
+                        att.WeightCriteraPoint = point;
+                        try 
+                        {
+                        
+                            context.SaveChanges();
+                            success++;
+                        }
+                        catch (DbUpdateException) 
+                        {
+                            // Do nothing
+                        }
+                  
+                       
                     }
                     else 
                     {
                         //Add a new record
-                        var newADitem = new AttributeDictionary { Name = pair.Key, CodetypeID = codetypeID };
+                        var newADitem = new AttributeDictionary { Name = pair.Key, CodetypeID = codetypeID ,WeightCriteraPoint =point };
                         context.AttributeDictionaries.Add(newADitem);
                         try 
                         {

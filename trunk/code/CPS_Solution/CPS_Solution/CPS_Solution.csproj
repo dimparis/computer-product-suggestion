@@ -3175,6 +3175,9 @@
     <Content Include="Areas\Admin\Views\ImportExcel\getTach.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Product\ViewCart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
@@ -3194,9 +3197,6 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Product\ViewCart.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
