@@ -33,21 +33,26 @@
         foreach (List<ProductMap> listp in listDup)
         {
             i++;
-        <div style="border-color: yellowgreen" class="da-panel-content">
-
+            // nút gộp tách
+        <div class="da-panel-toolbar top">
+            <ul>
+                <li style="text-align: right"><a id ="link_@(i)"  onclick="gop1table(@(i))">
+                    <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
+                <li style="text-align: right"><a  onclick="tach1table(@(i))" >
+                    <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
+                <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
+            </ul>
+        </div>
+        <div style="border-color: orange" class="da-panel-content">
             <table    id="table_@(i)" class="da-table">
                 <thead>
                     <tr>
-                        <th class="checkbox-column"  id="checkboxAllTable_@(i)">
-                            <input id="checkAll" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                        <th class="checkbox-column" style="width: 97px;" id="checkboxAllTable_@(i)">
+                            <input id="checkAll"  style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
                         <th style="width: 250px;">Tên thành phần</th>
                         <th>Trọng số</th>
                         <th>Loại</th>
-                        <th style="width: 92px;">
-                            <a id ="link_@(i)"  onclick="gop1table(@(i))"  style="width: 35px;">
-                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a> &nbsp
-                                                                <a style="width: 35px;" onclick="tach1table(@(i))" >
-                                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a>
+                        <th style="width: 92px;">Chọn tên chính                                                               
                         </th>
                     </tr>
                 </thead>
@@ -58,7 +63,7 @@
                         y++;
                         <tr class="odd">
                             <td id="@(y)" class="checked">
-                                <input value="@p.stt" id="checkbox@(y)" type="checkbox"></td>
+                                <input style="width: 19px;" value="@p.stt" id="checkbox@(y)" type="checkbox"></td>
                             <td>@p.ten</td>
                             <td>@p.trongso</td>
                             @if (p.loai.Equals("C"))
@@ -88,6 +93,4 @@
         </div>
         }
     }
-
-
 </div>

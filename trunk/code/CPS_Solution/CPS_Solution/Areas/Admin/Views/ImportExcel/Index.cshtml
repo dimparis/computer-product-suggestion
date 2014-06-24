@@ -57,7 +57,11 @@
     <!-- Customizer JavaScript File (remove if not needed) -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
 
-
+    <!--  Demo JavaScript Files popup Ui Popup 
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
+    <!-- jGrowl Plugin   -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
 
     <!-- DataTables Plugin -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -212,7 +216,10 @@
 
 }
 <!----------------------------------------------- Content Area --------------------------------------------->
-                	   <div class="clear"></div>
+
+
+<!------------->
+<div class="clear"></div>
 <div class="grid_4">
     <div class="da-panel" style="margin-left: 200px; width: 50%">
         <div class="da-panel-header">
@@ -263,21 +270,34 @@
         </ul>
 
         <div id="color-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
-            <div id="CorrectID">
+            
                 <!--tab1------------------------------------------------------------------------------------->
-
                 <div class="da-panel-toolbar top">
                     <ul>
                         <form action="~/Admin/ImportExcel/saveAllProduct" method="post" enctype="multipart/form-data">
                             <li>
-                                <button type="submit">
-                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</button></li>
+                                <a id="da-ex-dialog-modal">
+                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</a></li>
+                            <!----------------Popup-----------
+                                 <button id="da-ex-dialog-modal" style="display: none;" class="da-button blue">Modal UI Dialog</button>------->
+                            <div class="da-panel-content with-padding">
+                                <div style="text-align: center">
+                                </div>
+                                <div id="da-ex-dialog-div" style="display: none;">
+                                    <input class="uniform" id="IdDuplicateLog" style="zoom:1.8;" checked type="checkbox" name="sports[]"> <label>  <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">Danh sách sản phẩm trùng</label>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <input class="uniform" id="IdErrorLog" style="zoom:1.8;" type="checkbox" name="sports[]"> <label> <img src="~/Areas/Admin/Dandelion/images/message-error.png" alt="">Danh sách sản phẩm lỗi</label>
+                                    <button type="button" onclick="saveCorrectProduct()" class="da-button blue" style=" float: right;" role="button" aria-disabled="false"><span class="ui-button-text">Hoàn thành</span></button>
+                                </div>
+                            </div>
+                            <!----------------Popup------------------>
                         </form>
                         <li><a href="~/Admin/ImportExcel/huyimport">
                             <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
                     </ul>
                 </div>
-
+                 <div id="CorrectID">
+                   <!-------------------------------------------------------------------------------------------> 
                 <div class="da-panel collapsible">
                     <div class="da-panel-header">
                         <span class="da-panel-title">
@@ -287,48 +307,49 @@
 
                         <span class="da-panel-toggler"></span>
                     </div>
+                    <div class="da-panel-content">
+                        <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
 
-                    <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
 
-
-                        <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 198px;">STT</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên thành phần</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Trọng số</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 171px;">Loại thành phần</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">Thực hiện</th>
-                                </tr>
-                            </thead>
-
-                            <tbody role="alert" aria-live="polite" aria-relevant="all">
-
-                                @if (list != null)
-                                {
-                                    foreach (ProductMap p in list)
-                                    {
-                                    <tr class="odd">
-                                        @*     <form id="form10" action="/Home/deleteproduct" method="post" enctype="multipart/form-data">*@
-                                        <td class=" sorting_1">@p.stt </td>
-                                        <td class=" ">@p.ten</td>
-                                        <td class=" ">@p.trongso</td>
-                                        @if (@p.loai.Equals("C"))
-                                        {
-                                            <td class=" ">CPU</td>
-                                        }
-                                        <td class=" ">
-                                            <input name="sttproduct" type="hidden"  value="@p.stt" />
-                                            <a onclick="xoasanphamdung(@p.stt)">
-                                                <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
-                                                Xóa</a></td>
-
-                                        @*</form>*@
+                            <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 198px;">STT</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên thành phần</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Trọng số</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 171px;">Loại thành phần</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">Thực hiện</th>
                                     </tr>
+                                </thead>
+
+                                <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                                    @if (list != null)
+                                    {
+                                        foreach (ProductMap p in list)
+                                        {
+                                        <tr class="odd">
+                                            @*     <form id="form10" action="/Home/deleteproduct" method="post" enctype="multipart/form-data">*@
+                                            <td class=" sorting_1">@p.stt </td>
+                                            <td class=" ">@p.ten</td>
+                                            <td class=" ">@p.trongso</td>
+                                            @if (@p.loai.Equals("C"))
+                                            {
+                                                <td class=" ">CPU</td>
+                                            }
+                                            <td class=" ">
+                                                <input name="sttproduct" type="hidden"  value="@p.stt" />
+                                                <a onclick="xoasanphamdung(@p.stt)">
+                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
+                                                    Xóa</a></td>
+
+                                            @*</form>*@
+                                        </tr>
+                                        }
                                     }
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <!--ket thuc tab1------------------------------------------------------------------------------------------->
@@ -446,11 +467,11 @@
                     </div>
                 </div>
             </div>
-            <!--ket thuc tab2-------------------------------------------------------------------------------------->
+            <!--ket thuc tab2------------------------------------------------------------------------------------------------------------------------------------------------------>
 
         </div>
         <div id="black-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-            <!--tab3----------------------------------------------------------------------------------------------->
+            <!--tab3--------------------------------------------------------------------------------------------------------------------------------------------------------------->
             @* <div class="da-panel-toolbar top">
                                         <ul>
                                            <li><a onclick="goptatca(@countlistdup)">
@@ -481,21 +502,26 @@
                     foreach (List<ProductMap> listp in listDup)
                     {
                         i++;
-                    <div style="border-color: yellowgreen" class="da-panel-content">
-
+                        // nút gộp tách
+                    <div class="da-panel-toolbar top" style="border-color: yellowgreen">
+                        <ul>
+                            <li style="text-align: right"><a id ="link_@(i)"  onclick="gop1table(@(i))">
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
+                            <li style="text-align: right"><a  onclick="tach1table(@(i))" >
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
+                            <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
+                        </ul>
+                    </div>
+                    <div class="da-panel-content">
                         <table    id="table_@(i)" class="da-table">
                             <thead>
                                 <tr>
-                                    <th class="checkbox-column"  id="checkboxAllTable_@(i)">
-                                        <input id="checkAll" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                                    <th class="checkbox-column" style="width: 97px;" id="checkboxAllTable_@(i)">
+                                        <input id="checkAll"  style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
                                     <th style="width: 250px;">Tên thành phần</th>
                                     <th>Trọng số</th>
                                     <th>Loại</th>
-                                    <th style="width: 92px;">
-                                        <a id ="link_@(i)"  onclick="gop1table(@(i))"  style="width: 35px;">
-                                            <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a> &nbsp
-                                                                <a style="width: 35px;" onclick="tach1table(@(i))" >
-                                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a>
+                                    <th style="width: 92px;">Chọn tên chính                                                               
                                     </th>
                                 </tr>
                             </thead>
@@ -506,7 +532,8 @@
                                     y++;
                                     <tr class="odd">
                                         <td id="@(y)" class="checked">
-                                            <input value="@p.stt" id="checkbox@(y)" type="checkbox"></td>
+                                            <input style="width: 19px;" value="@p.stt" id="checkbox@(y)" type="checkbox">
+                                        </td>
                                         <td>@p.ten</td>
                                         <td>@p.trongso</td>
                                         @if (p.loai.Equals("C"))
@@ -541,11 +568,38 @@
             </div>
             <!--ket thuc tab3-------------------------------------------------------------------------------->
         </div>
+
         <!--javascript check all-------------------------------------->
+
         <script>
-                                     
+                      
+            // Lưu sản phẩm đúng và ghi log file
+            function saveCorrectProduct() {  
+                var val = ""; 
+                var err =  document.getElementById("IdErrorLog").checked;
+                var dup =  document.getElementById("IdDuplicateLog").checked;
+                if(dup==true){
+                    val = "ok";
+                }else{
+                    val = "no";
+                }
+                if(dup==true){
+                    val += "@@ok";
+                }else{
+                    val += "@@no";
+                }
+                var postData = { checkval: val };
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/ImportExcel/saveAllProduct",
+                    data: postData,
+                    success: function(data){
+                        $('#black-icon').html(data);
+                    },
 
-
+                });     
+                location.reload();
+            }
             // check all in talbe
             function checkboxAllTable(i) {
                 if ($("#checkboxAllTable_" + i).find("input:checkbox")[0].checked == true) {
@@ -624,7 +678,7 @@
                     url: "/Admin/ImportExcel/deleteproduct",
                     data: postData,
                     success: function(data){
-                        $('#color-icon').html(data);
+                        $('#CorrectID').html(data);
                     },
 
                 });
@@ -660,8 +714,12 @@
             function tach1table(i) {  
                 var val = "";
                 $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+                    val +='*'+ $(this).val();
+                });      
+                // thêm
+                $("#table_" + i).find("tbody").find("input:checkbox").each(function(i){                                               
                     val +='@@'+ $(this).val();
-                });                                          
+                });      
                 var postData = { valuest: val };
                 $.ajax({
                     type: "POST",
@@ -699,7 +757,176 @@
                 //   location.reload();
             }
         </script>
-
+        <!---------------------Popup--------------------------------- Stick---------------------------------------->
+        <button id="da-ex-growl-2" class="da-button green">Growl with Header</button>
+        <style>
+            div.jGrowl.bottom-right
+            {
+                top: 20%;
+                right: 30%;
+            }            
+        </style>
+        <script>                      
+            (function($) {
+                $(document).ready(function(e) {   
+                    // dialog popup
+                    $("#da-ex-accordion, #da-ex-accordion-plain").accordion();
+		
+                    $("#da-ex-tabs, #da-ex-tabs-plain").tabs();
+		
+                    $("#da-ex-datepicker, #da-ex-datepicker-inline").datepicker({showOtherMonths:true});
+		
+                    $("#da-ex-datepicker-week").datepicker({showOtherMonths:true, showWeek: true});
+		
+                    $("#da-ex-datepicker-months").datepicker({showOtherMonths:true, numberOfMonths: 3});
+		
+                    $("#da-ex-datetimepicker").datetimepicker();
+		
+                    $("#da-ex-timepicker").timepicker({});
+		
+                    $(".da-ex-buttons").button();
+		
+                    $("#da-ex-buttons-radio, #da-ex-buttons-checkbox").buttonset();
+		
+                    $( "#da-ex-buttons-icon button:first" ).button({
+                        icons: {
+                            primary: "ui-icon-locked"
+                        },
+                        text: false
+                    }).next().button({
+                        icons: {
+                            primary: "ui-icon-locked"
+                        }
+                    }).next().button({
+                        icons: {
+                            primary: "ui-icon-gear",
+                            secondary: "ui-icon-triangle-1-s"
+                        }
+                    }).next().button({
+                        icons: {
+                            primary: "ui-icon-gear",
+                            secondary: "ui-icon-triangle-1-s"
+                        },
+                        text: false
+                    });
+		
+                    var availableTags = [
+                        "ActionScript",
+                        "AppleScript",
+                        "Asp",
+                        "BASIC",
+                        "C",
+                        "C++",
+                        "Clojure",
+                        "COBOL",
+                        "ColdFusion",
+                        "Erlang",
+                        "Fortran",
+                        "Groovy",
+                        "Haskell",
+                        "Java",
+                        "JavaScript",
+                        "Lisp",
+                        "Perl",
+                        "PHP",
+                        "Python",
+                        "Ruby",
+                        "Scala",
+                        "Scheme"
+                    ];
+		
+                    $( "#da-ex-autocomplete" ).autocomplete({
+                        source: availableTags
+                    });
+		
+                    $("#da-ex-slider").slider();
+		
+                    $("#da-ex-slider-range").slider({
+                        range: true,
+                        min: 0,
+                        max: 500,
+                        values: [ 75, 300 ], 
+                        slide: function( event, ui ) {
+                            $( "#da-ex-slider-range-info .da-highlight" ).html( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                        }
+                    });
+		
+                    $(".da-ex-color-slider").slider({
+                        range: "min",
+                        value: 45,
+                        min: 1,
+                        max: 100
+                    });
+		
+                    $("#da-ex-slider-range-fixed").slider({
+                        range: "min",
+                        value: 37,
+                        min: 1,
+                        max: 700, 
+                        slide: function( event, ui ) {
+                            $( "#da-ex-slider-range-fixed-info .da-highlight" ).html( "$" + ui.value );
+                        }
+                    });
+	
+                    $( "#da-slider-equalizer > span" ).each(function() {
+                        var value = parseInt( $( this ).text(), 10 );
+			
+                        $( this ).empty().slider({
+                            value: value,
+                            range: "min",
+                            animate: true,
+                            orientation: "vertical"
+                        });
+                    });
+		
+                    $(".da-ex-color-pb, #da-ex-pb, #da-ex-pba").each(function() {
+                        $(this).progressbar({
+                            value: 25 + Math.floor(Math.random() * 50)
+                        });
+                    });
+		
+                    $("#da-ex-pba-trigger").bind('click', function(e) {
+                        $(this).parent().next("#da-ex-pba").progressbar('value', 20 + Math.floor(Math.random() * 80));
+                        e.preventDefault();
+                    });
+		
+                    $("#da-ex-dialog-div").dialog({
+                        autoOpen: false, 
+                        title: "Chọn log file bạn muốn ghi lại, để sau đó có thể tiếp tục xử lý.", 
+                        modal: true, 
+                        width: "550", 
+                        buttons: [{
+                            text: "Đóng", 
+                            click: function() {
+                                $( this ).dialog( "close" );
+                            }}]
+                    });
+		
+		
+          
+		
+                    $("#da-ex-dialog").bind("click", function(event) {
+                        $("#da-ex-dialog-div").dialog("option", {modal: false}).dialog("open");
+                        event.preventDefault();
+                    });
+                    $("#da-ex-dialog-modal").bind("click", function(event) {
+                        $("#da-ex-dialog-div").dialog("option", {modal: true}).dialog("open");
+                        event.preventDefault();
+                    });
+                    $("#da-ex-dialog-form").bind("click", function(event) {
+                        $("#da-ex-dialog-form-div").dialog("option", {modal: true}).dialog("open");
+                        event.preventDefault();
+                    });
+                    //  Growl Notifications 
+                    if($.jGrowl) {
+                                   		
+                        $("#da-ex-growl-2").bind("click", function(event) {
+                            $.jGrowl("Con cò bé bé", {header: "Important!", position: "bottom-right"});
+                        });
+                    }		
+                });
+            }) (jQuery); 		</script>
+        <!-----------Popup------------------------ Stick---------------------------------->
 
     </div>
 </div>

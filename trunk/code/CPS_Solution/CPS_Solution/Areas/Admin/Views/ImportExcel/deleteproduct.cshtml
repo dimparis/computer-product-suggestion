@@ -13,75 +13,62 @@
         countlistdup = listDup.Count;
     }
 }
-
 <!-- Demo JavaScript Files -->
 <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+<!--tab1---------------------------------------------------------------------------------------------------------------------------->
 
- <!--tab1------------------------------------------------------------------------------------->
+<div class="da-panel collapsible">
+    <div class="da-panel-header">
+        <span class="da-panel-title">
+            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+            Danh sách để lưu vào cơ sở dữ liệu
+        </span>
 
-                <div class="da-panel-toolbar top">
-                    <ul>
-                        <form action="~/Admin/ImportExcel/saveAllProduct" method="post" enctype="multipart/form-data">
-                            <li>
-                                <button type="submit">
-                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</button></li>
-                        </form>
-                        <li><a href="~/Admin/ImportExcel/huyimport">
-                            <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
-                    </ul>
-                </div>
-
-                <div class="da-panel collapsible">
-                    <div class="da-panel-header">
-                        <span class="da-panel-title">
-                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                            Danh sách để lưu vào cơ sở dữ liệu
-                        </span>
-
-                        <span class="da-panel-toggler"></span>
-                    </div>
-
-                    <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+        <span class="da-panel-toggler"></span>
+    </div>
+    <div class="da-panel-content">
+        <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
 
 
-                        <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 198px;">STT</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên thành phần</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Trọng số</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 171px;">Loại thành phần</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">Thực hiện</th>
-                                </tr>
-                            </thead>
+            <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 198px;">STT</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên thành phần</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Trọng số</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 171px;">Loại thành phần</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">Thực hiện</th>
+                    </tr>
+                </thead>
 
-                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
 
-                                @if (list != null)
-                                {
-                                    foreach (ProductMap p in list)
-                                    {
-                                    <tr class="odd">
-                                        @*     <form id="form10" action="/Home/deleteproduct" method="post" enctype="multipart/form-data">*@
-                                        <td class=" sorting_1">@p.stt </td>
-                                        <td class=" ">@p.ten</td>
-                                        <td class=" ">@p.trongso</td>
-                                        @if (@p.loai.Equals("C"))
-                                        {
-                                            <td class=" ">CPU</td>
-                                        }
-                                        <td class=" ">
-                                            <input name="sttproduct" type="hidden"  value="@p.stt" />
-                                            <a onclick="xoasanphamdung(@p.stt)">
-                                                <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
-                                                Xóa</a></td>
+                    @if (list != null)
+                    {
+                        foreach (ProductMap p in list)
+                        {
+                        <tr class="odd">
+                            @*     <form id="form10" action="/Home/deleteproduct" method="post" enctype="multipart/form-data">*@
+                            <td class=" sorting_1">@p.stt </td>
+                            <td class=" ">@p.ten</td>
+                            <td class=" ">@p.trongso</td>
+                            @if (@p.loai.Equals("C"))
+                            {
+                                <td class=" ">CPU</td>
+                            }
+                            <td class=" ">
+                                <input name="sttproduct" type="hidden"  value="@p.stt" />
+                                <a onclick="xoasanphamdung(@p.stt)">
+                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
+                                    Xóa</a></td>
 
-                                        @*</form>*@
-                                    </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!--ket thuc tab1------------------------------------------------------------------------------------------->
+                            @*</form>*@
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--ket thuc tab1--------------------------------------------------------------------------------------------------------->
