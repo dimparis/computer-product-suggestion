@@ -1,0 +1,163 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
+@{
+    ViewBag.Title = "Log File";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section headScript
+{
+<!-- CSS Reset -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/reset.css")" media="screen" />
+<!--  Fluid Grid System -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/fluid.css")" media="screen" />
+<!-- Theme Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.theme.css")" media="screen" />
+<!--  Main Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.css")" media="screen" />
+<!-- Demo Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/demo.css")" media="screen" />
+<!-- jQuery JavaScript File -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
+<!-- jQuery-UI JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js")"></script>
+    <!-- Placeholder Plugin -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.placeholder.js")"></script>
+<!-- Mousewheel Plugin -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js")"></script>
+<!-- Scrollbar Plugin -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js")"></script>
+<!-- Tooltips Plugin -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js")"></script>
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css")" media="screen" />
+<link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css")" />
+    <!-- Core JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+
+
+
+
+<script type="text/javascript">
+        $(function () {
+            $(".da-button").click(function () {
+                // Get the id from the link
+                var recordToSet = $(this).attr("data-id");
+
+                if (recordToSet != '') {
+                    // Perform the ajax post
+                    $.post("/Admin/Product/SetActive", { "id": recordToSet },
+                        function (data) {
+                            location.reload();
+                        });
+                }
+            });
+
+        });
+</script>
+}
+
+@section sidebar
+{
+      <!-- Main Navigation -->
+                    <div id="da-main-nav" class="da-button-container">
+                        <ul>
+                            <li class="active">
+                            	<a href="dashboard.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
+                                    </span>
+                                	Dashboard
+                                </a>
+                            </li>                            
+                        </ul>
+                    </div>
+}
+@section mainHeader
+{
+}
+@section footScript
+{
+        <!-- DataTables Plugin -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js")"></script>
+
+<!-- Demo JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.tables.js")"></script>
+}
+<div class="grid_4">
+         <div class="da-panel-content">
+            @if (TempData["create"] != null) 
+            {
+                 <div class="da-message success">
+                        Sản phẩm đã được tạo mới thành công
+                 </div>
+            }
+            @if (TempData["updateStatus"] != null) 
+            {
+                string statusMessage = TempData["updateStatus"].ToString();
+                if (statusMessage == "Success") 
+                {
+                     <div class="da-message success">
+                      Sản phẩm được cập nhật thành công
+                 </div>
+                }
+                else if (statusMessage == "Failed") 
+                {
+                 <div class="da-message error">
+                       Cập nhật sản phẩm thất bại. Xin vui lòng thử lại.
+                 </div>
+                }
+            }
+        </div>
+</div>
+<div class="grid_4">
+                        	<div class="da-panel collapsible">                                      	
+                            	<div class="da-panel-header">
+                                	<span class="da-panel-title">
+                                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/list.png")" alt="" />
+                                        Danh sách các Sản Phẩm
+                                    </span>                              
+                                </div>
+                                <div class="da-panel-content">
+                                    <table id="da-ex-datatable-numberpaging" class="da-table">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên Sản Phẩm</th>
+                                                <th>Giá Sản Phẩm</th>
+                                                <th>Tổng Điểm</th>
+                                                <th>Thao Tác</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int counter = 1;
+                                                foreach (var item in Model)
+                                                {
+                                                    bool status = item.IsActive;
+                                            <tr>
+                                               <td>@counter</td>
+                                               <td>@item.Name</td>
+                                               <td>@item.Price</td>
+                                               <td>@item.TotalWeightPoint</td>
+                                              @if (status) 
+                                                {
+                                                 <td>
+                                                      <input type="submit" value="Hoạt động" class="da-button green" style="width:120px" data-id="@item.ID"/>
+                                                  </td>  
+                                                }else
+                                                {
+                                                <td>
+                                                     <input type="submit" value="Không hoạt động" class="da-button red"  data-id="@item.ID"/>
+                                                  </td>  
+                                                }                                                                                                       
+                                            </tr>
+                                                    counter++;    
+                                                } 
+                                              }
+                                      </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>

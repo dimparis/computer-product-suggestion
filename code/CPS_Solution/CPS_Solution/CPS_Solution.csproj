@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Areas\Admin\Controllers\LogFileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductShowController.cs" />
     <Compile Include="Areas\Admin\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Areas\Admin\Models\ConfigurationModel.cs" />
     <Compile Include="Areas\Admin\Models\LogInfo.cs" />
     <Compile Include="Areas\Admin\Models\ParseCreator.cs" />
+    <Compile Include="Areas\Admin\Models\ProductCreateAttribute.cs" />
     <Compile Include="Areas\Admin\Models\ProductMap.cs" />
     <Compile Include="Areas\Admin\Models\ProductParserCreator.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
@@ -3197,6 +3199,9 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
