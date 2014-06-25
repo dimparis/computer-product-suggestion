@@ -42,6 +42,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 {
                     Text = codetype.Name,
                     Value = codetype.ID.ToString()
+                    
                 };
                 codetypeList.Add(item);
             }
