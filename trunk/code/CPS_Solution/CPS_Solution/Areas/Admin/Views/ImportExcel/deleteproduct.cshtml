@@ -52,10 +52,7 @@
                             <td class=" sorting_1">@p.stt </td>
                             <td class=" ">@p.ten</td>
                             <td class=" ">@p.trongso</td>
-                            @if (@p.loai.Equals("C"))
-                            {
-                                <td class=" ">CPU</td>
-                            }
+                            <td class=" ">@p.loai</td>
                             <td class=" ">
                                 <input name="sttproduct" type="hidden"  value="@p.stt" />
                                 <a onclick="xoasanphamdung(@p.stt)">
