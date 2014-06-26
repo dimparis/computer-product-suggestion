@@ -155,7 +155,7 @@
     <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\LogFileHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
-    <Compile Include="Areas\Admin\Models\Attribute.cs" />
+    <Compile Include="Areas\Admin\Models\ProductData.cs" />
     <Compile Include="Areas\Admin\Models\ConfigurationModel.cs" />
     <Compile Include="Areas\Admin\Models\LogInfo.cs" />
     <Compile Include="Areas\Admin\Models\ParseCreator.cs" />

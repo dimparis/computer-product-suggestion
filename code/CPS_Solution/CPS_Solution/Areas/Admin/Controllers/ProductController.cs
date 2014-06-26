@@ -74,6 +74,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         }
         public ActionResult CreateProductTest() 
         {
+            // Load CPU list
             var cpus = context.AttributeDictionaries.Where(x=>x.CodetypeID == "C")
                 .OrderBy(x=>x.Name)
                 .ToList();
@@ -88,6 +89,74 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 cpuList.Add(item);
             }
             ViewBag.cpuList = cpuList;
+
+            // Load VGA list
+            var vgas = context.AttributeDictionaries.Where(x => x.CodetypeID == "V")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var vgaList = new List<SelectListItem>();
+            foreach (var vga in vgas)
+            {
+                var item = new SelectListItem
+                {
+                    Text = vga.Name,
+                    Value = vga.ID.ToString()
+                };
+                vgaList.Add(item);
+            }
+            ViewBag.vgaList = vgaList;
+
+            // Load HDD list
+            var hdds = context.AttributeDictionaries.Where(x => x.CodetypeID == "H")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var hddList = new List<SelectListItem>();
+            foreach (var hdd in hdds)
+            {
+                var item = new SelectListItem
+                {
+                    Text = hdd.Name,
+                    Value = hdd.ID.ToString()
+                };
+                hddList.Add(item);
+            }
+            ViewBag.hddList = hddList;
+
+
+            // Load Ram list
+            var rams = context.AttributeDictionaries.Where(x => x.CodetypeID == "R")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var ramList = new List<SelectListItem>();
+            foreach (var ram in rams)
+            {
+                var item = new SelectListItem
+                {
+                    Text = ram.Name,
+                    Value = ram.ID.ToString()
+                };
+                ramList.Add(item);
+            }
+            ViewBag.ramList = ramList;
+
+            // Load Display list
+            var displays = context.AttributeDictionaries.Where(x => x.CodetypeID == "D")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var displayList = new List<SelectListItem>();
+            foreach (var display in displays)
+            {
+                var item = new SelectListItem
+                {
+                    Text = display.Name,
+                    Value = display.ID.ToString()
+                };
+                displayList.Add(item);
+            }
+            ViewBag.displayList = displayList;
+
+
+
             return View("CreateProductTest");
         }
         [HttpPost]
@@ -96,10 +165,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
             //Add item product
             var product = new Product
             {
-                Name = model.Name,
-                Price = model.Price,
+                Name = "AK TEST HERE",
+                Price = 1,
                 IsActive = true,
-                URL = model.Parselink,
+                URL = "http test",
                 TotalWeightPoint = 0,
             };
             context.Products.Add(product);

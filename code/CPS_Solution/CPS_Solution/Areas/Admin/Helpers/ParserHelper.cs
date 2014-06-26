@@ -212,6 +212,41 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             return data;
         }
+
+        public static ProductData GetProductData(HtmlWeb web,ParseInfo parseInfo)
+        {
+            var data = new ProductData();
+            var uri = new Uri(parseInfo.Parselink);
+            string host = uri.GetLeftPart(UriPartial.Authority);
+            //load website
+
+            //1st page
+            HtmlDocument doc = web.Load(parseInfo.Parselink);
+            data = MatchingProductData(doc, parseInfo.Name,parseInfo.CPUXPath,parseInfo.VGAXPath,parseInfo.HDDXPath,parseInfo.RAMXPath,parseInfo.DisplayXPath);
+            return data;
+        }
+        public static ProductData MatchingProductData(HtmlDocument doc ,string nameXpath, string cpuXpath,string vgaXpath,string hddXpath,string ramXpath,string displayXpath)
+        {
+            var data = new ProductData();
+            var name = doc.DocumentNode.SelectSingleNode(nameXpath);
+            var cpu = doc.DocumentNode.SelectSingleNode(cpuXpath);
+            var vga = doc.DocumentNode.SelectSingleNode(vgaXpath);
+            var hdd = doc.DocumentNode.SelectSingleNode(hddXpath);
+            var ram = doc.DocumentNode.SelectSingleNode(ramXpath);
+            var display = doc.DocumentNode.SelectSingleNode(displayXpath);
+            if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
+                !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
+                !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
+            {
+                data.Name = name.InnerText;
+                data.CPU = cpu.InnerText;
+                data.VGA = vga.InnerText;
+                data.HDD = hdd.InnerText;
+                data.RAM = ram.InnerText;
+                data.Display = display.InnerText;
+            }
+            return data;
+        }
         public static int InserttoDb(IEnumerable<KeyValuePair<string,string>> data, string codetypeID) {
            
             int success = 0;
@@ -318,6 +353,11 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 }
             }
             return success;
+        }
+        public static bool InsertProductToDb(ProductData data)
+        {
+            /// To do here
+            return true;
         }
         public static void ExportTrainingFile(List<int> match, string name) {
             List<string> data = ReadDataFromFile();
