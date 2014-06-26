@@ -22,6 +22,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.listproduct = (List<ProductMap>)Session["listproduct"];
             ViewBag.listerror = (List<ProductMap>)Session["listerror"];
             ViewBag.listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
+            ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
             return View();
         }
         /// <summary>
@@ -34,7 +35,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // get list product in session.
             List<ProductMap> listpro = (List<ProductMap>)Session["listproduct"];
             List<ProductMap> listerror = (List<ProductMap>)Session["listerror"];
-            List<List<ProductMap>> listduplicate = new List<List<ProductMap>>(); //(List<List<ProductMap>>)Session["listduplicate"];
+            List<List<ProductMap>> listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
+            // xóa session dup
+            Session["listduplicate"] = null;
+
+            // Tạo listduplicate mới chứa trùng giữa listpro và trong database
+            List<List<ProductMap>> listduplicatenew = new List<List<ProductMap>>(); 
 
             //lấy product trong database ra chỉ lấy Codetype bằng loai.
             List<AttributeDictionary> listproindatabase = new List<AttributeDictionary>();
@@ -59,6 +65,15 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         Name = listpro[i].ten;
                     }
 
+                    if (listproindatabase[j].Name.ToString().Equals(Name))
+                    {
+                        listproindatabase.RemoveAt(j);
+                        listpro.RemoveAt(i);
+                        i--;
+                        j--;
+                        break;
+                    }
+
                     // lấy sản phầm trùng cho vào list trùng mới
                     if (similarity(Name, listproindatabase[j].Name.ToString()) >= 0.857)
                     {
@@ -77,10 +92,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
                 if (duplicateProduct.Count >= 2)
                 {
-                    listduplicate.Add(duplicateProduct);
+                    listduplicatenew.Add(duplicateProduct);
                 }
             }
-            Session["listduplicate"] = listduplicate;
+            Session["listduplicatenew"] = listduplicatenew;
 
             // lưu vào database
             for (int i = 0; i < listpro.Count; i++)
@@ -129,7 +144,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 listpro.Remove(listpro[i]);
                 i = i - 1;
             }
-            return RedirectToAction("Index");
+            Session["listduplicatenew"] = listduplicatenew;
+            ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
+            return RedirectToAction("index");
         }
 
         /// <summary>
@@ -500,6 +517,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.listproduct = (List<ProductMap>)Session["listproduct"];
             ViewBag.listerror = (List<ProductMap>)Session["listerror"];
             ViewBag.listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
+
             return View();
         }
 
@@ -669,8 +687,181 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //    return RedirectToAction("Index");
         //}
 
+        /// <summary>
+        /// Tách sản phẩm khi so trùng trong database
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult tachdatabase(String valuestach)
+        {
+            List<List<ProductMap>> listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
+            String[] tachdup = valuestach.ToString().Split('@');
+
+            // duyệt hết list duplicate lớn
+            for (int i = 0; i < listduplicatenew.Count; i++)
+            {
+                // duyệt từng listduplicate nhỏ 
+                for (int j = 0; j < listduplicatenew[i].Count; j++)
+                {
+                         // nếu phát hiện list nào có chứa giá trị tách trả về
+                        if(tachdup[1].Equals(listduplicatenew[i][j].stt)){
+
+                            AttributeDictionary p = new AttributeDictionary();
+
+                            String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');
+                            if (mangten.Length >= 2)
+                            {
+                                p.Name = mangten[0];
+                            }
+                            else
+                            {
+                                p.Name = listduplicatenew[i][1].ten;
+                            }
+
+                            //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
+                            List<AttributeDictionary> listproindatabase = new List<AttributeDictionary>();
+                            String loai = listduplicatenew[i][1].loai;
+                            var resource = (from x in db.AttributeDictionaries where x.Codetype.Name.Equals(loai) select x);
+                            listproindatabase = resource.ToList();
+                            int count =0;
+                            for (int t = 0; t < listproindatabase.Count; t++)
+                            {
+                                if (listproindatabase[t].Name.Equals(p.Name))
+                                {
+                                    count++;
+                                }
+                            }
+
+                            if (count > 0)
+                            {
+                                listduplicatenew.RemoveAt(i);
+                                Session["listduplicatenew"] = listduplicatenew;
+                                break;
+                            }
 
 
+                            var LCodeType = (from c in db.Codetypes select c);
+
+                            List<Codetype> Listcodetype = LCodeType.ToList();
+
+                            foreach (Codetype codety in Listcodetype)
+                            {
+                                codety.Name.Equals(listduplicatenew[i][1].loai);
+                                p.CodetypeID = codety.ID;
+                                break;
+                            }
+                            p.WeightCriteraPoint = Convert.ToInt32(listduplicatenew[i][1].trongso);
+                            db.AttributeDictionaries.Add(p);
+                            db.SaveChanges();
+                            // lấy max ID và thêm vào bảng alias
+                            if (mangten.Length >= 2)
+                            {
+                                var pronew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idinsert = Convert.ToInt32(pronew.ID);
+
+                                for (int h = 1; h < mangten.Length; h++)
+                                {
+
+                                    //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
+                                    List<AttributeMapping> listmap = new List<AttributeMapping>();
+                                    var resource1 = (from x in db.AttributeMappings  select x);
+                                    listmap = resource1.ToList();
+                                    int count1 = 0;
+                                   for(int r =0; r< listmap.Count; r++)
+                                    {
+                                        if (listmap[r].Name.Equals(mangten[h]))
+                                        {
+                                            count1++;
+                                        }
+                                    }
+                                   if (count1 > 0)
+                                   {
+                                       break;
+                                   }
+
+                                    for (int t = 0; t < listproindatabase.Count; t++)
+                                    {
+                                        if (listproindatabase[t].Name.Equals(p.Name))
+                                        {
+                                            count++;
+                                        }
+                                    }
+                                    AttributeMapping a = new AttributeMapping();
+                                    a.Name = mangten[h];
+                                    a.AttributeDicID = idinsert;
+                                    db.AttributeMappings.Add(a);
+                                    db.SaveChanges();
+                                }
+
+                            }
+                            listduplicatenew.RemoveAt(i);
+                            Session["listduplicatenew"] = listduplicatenew;
+                            break;
+                        }
+                }
+            }
+
+            return View();
+        }
+        /// <summary>
+        /// Gộp sản phẩm khi so trùng trong database
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult gopdatabase(String valuesgop)
+        {
+            List<List<ProductMap>> listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
+            String[] tachdup = valuesgop.ToString().Split('@');
+           
+            // duyệt hết list duplicate lớn
+            for (int i = 0; i < listduplicatenew.Count; i++)
+            {
+                // duyệt từng listduplicate nhỏ 
+                for (int j = 0; j < listduplicatenew[i].Count; j++)
+                {
+                    // nếu phát hiện list nào có chứa giá trị tách trả về
+                    if (tachdup[1].Equals(listduplicatenew[i][j].stt))
+                    {
+
+                        AttributeDictionary p = new AttributeDictionary();
+
+                        String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');                
+      
+
+                            for (int h = 0; h < mangten.Length; h++)
+                            {
+
+                                //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
+                                List<AttributeMapping> listmap = new List<AttributeMapping>();
+                                var resource1 = (from x in db.AttributeMappings select x);
+                                listmap = resource1.ToList();
+                                int count1 = 0;
+                                for (int r = 0; r < listmap.Count; r++)
+                                {
+                                    if (listmap[r].Name.Equals(mangten[h]))
+                                    {
+                                        count1++;
+                                    }
+                                }
+                                if (count1 > 0)
+                                {
+                                    break;
+                                }
+
+                                AttributeMapping a = new AttributeMapping();
+                                a.Name = mangten[h];
+                                a.AttributeDicID = Convert.ToInt32(listduplicatenew[i][0].stt);
+                                db.AttributeMappings.Add(a);
+                                db.SaveChanges();
+                            }
+
+                        }
+                        listduplicatenew.RemoveAt(i);
+                        Session["listduplicatenew"] = listduplicatenew;
+                        break;
+                    }
+                
+            }
+            return View();
+        }
         /// <summary>
         /// Lấy dữ liệu từ excel cho vào 3 list
         /// </summary>
