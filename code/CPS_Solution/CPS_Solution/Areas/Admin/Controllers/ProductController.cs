@@ -87,11 +87,57 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 };
                 cpuList.Add(item);
             }
+            ViewBag.cpuList = cpuList;
             return View("CreateProductTest");
         }
         [HttpPost]
         public RedirectToRouteResult CreateProductTest(ProductCreateAttribute model) 
         {
+            //Add item product
+            var product = new Product
+            {
+                Name = model.Name,
+                Price = model.Price,
+                IsActive = true,
+                URL = model.Parselink,
+                TotalWeightPoint = 0,
+            };
+            context.Products.Add(product);
+            context.SaveChanges();
+            //Add item product Attribute
+            var idList  =new List<int>() ;
+            idList.Add(model.CpuId);
+            idList.Add(model.RamId);
+            idList.Add(model.HddId);
+            idList.Add(model.DisplayId);
+            idList.Add(model.VgaId);
+
+            foreach (int id in idList) 
+            {
+                var productAtt = new ProductAttribute
+               {
+                   ProductID = product.ID,
+                   AttributeID = id
+               };
+                context.ProductAttributes.Add(productAtt);
+            }
+            // Take list of point
+            double total = 0;
+            var attList= new List<AttributeDictionary>();
+            foreach (int id in idList)
+            {
+                var attributes = context.AttributeDictionaries.Where(x=>x.ID == id).ToList(); 
+                attList.AddRange(attributes);
+            }
+            foreach (var att in attList)
+            {
+                total += att.WeightCriteraPoint;
+            }
+            // Add total point
+            var pro = context.Products.Where(x => x.ID == product.ID).FirstOrDefault();
+            pro.TotalWeightPoint = total;
+            TempData["create"] = "Success";
+            context.SaveChanges();         
             // TO DO HERE 
            return RedirectToAction("Index");
         }

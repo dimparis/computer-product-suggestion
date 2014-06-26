@@ -1,0 +1,88 @@
+﻿@model CPS_Solution.Areas.Admin.Models.ProductCreateAttribute
+@{
+    ViewBag.Title = "Tạo Parser";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+@section headScript
+{
+    <!-- CSS Reset -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/reset.css")" media="screen" />
+<!--  Fluid Grid System -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/fluid.css")" media="screen" />
+<!-- Theme Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.theme.css")" media="screen" />
+<!--  Main Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.css")" media="screen" />
+<!-- Demo Stylesheet -->
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/demo.css")" media="screen" />
+
+<!-- jQuery JavaScript File -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+<!-- Chosen Plugin -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
+<!-- Demo JavaScript Files -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/elastic/jquery.elastic.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
+
+<!-- Customizer JavaScript File (remove if not needed) -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js")"></script>
+
+}
+@section sidebar
+{
+      <!-- Main Navigation -->
+                    <div id="da-main-nav" class="da-button-container">
+                        <ul>
+                            <li class="active">
+                            	<a href="dashboard.html">
+                                	<!-- Icon Container -->
+                                	<span class="da-nav-icon">
+                                    	<img src="Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
+                                    </span>
+                                	Dashboard
+                                </a>
+                            </li>             
+                        </ul>
+                    </div>
+}
+@section mainHeader
+{
+}
+@section footScript
+{
+    <!-- Chosen Plugin -->
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
+
+
+}
+<div class="grid_2">
+                        	<div class="da-panel">
+                            	<div class="da-panel-header">
+                                	<span class="da-panel-title">
+                                        <img src="images/icons/color/ui_combo_box.png" />
+                                        Select Inputs
+                                    </span>
+                                </div>
+                                <div class="da-panel-content">
+                                @using  (Html.BeginForm("CreateProductTest", "Product", FormMethod.Post, new { @class ="da-form"}))
+                                {
+                                       	<div class="da-form-row">
+                                        	<label>Danh sách các CPU</label>
+                                            <div class="da-form-item large">
+                                            	<span class="formNote">Danh sách các CPU</span>
+                                                 @Html.DropDownListFor(x => x.CpuId, ViewBag.cpuList as List<SelectListItem>, new { @class="chzn-select" })
+                                            </div>
+                                        </div>          
+                                        <div class="da-button-row">
+                                        	<input type="reset" value="Reset" class="da-button gray left" />
+                                        	<input type="submit" value="Submit" class="da-button blue" />
+                                        </div>
+                                }                 
+                                 
+                                </div>
+                            </div>
+</div>
