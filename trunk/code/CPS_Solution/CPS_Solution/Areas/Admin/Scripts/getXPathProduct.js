@@ -128,7 +128,7 @@ function mouseOut(event) {
 function clearHighlight(xpathExpression) {
     var selected = myFrameDoc.evaluate(xpathExpression, myFrameDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     for (var i = 0; i < selected.snapshotLength; i++) {
-        var node = selected.snapshotItem(i);
+        var node = selected.snapshotItem(0);
         node.style.outline = "none";
     }
 }
@@ -140,7 +140,7 @@ function highlightElement(xpathExpression) {
     }
     var selected = myFrameDoc.evaluate(xpathExpression, myFrameDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     for (var i = 0; i < selected.snapshotLength; i++) {
-        var node = selected.snapshotItem(i);
+        var node = selected.snapshotItem(0);
         node.style.outline = "thin dashed #FF0000";
     }
     prevExp = xpathExpression;
@@ -239,13 +239,6 @@ function getXPath(event) {
 function getTabularPath(event) {
     var xpath = getPath(event.target, webDiv);
     var result = "";
-    for (var i = 0; i < xpath.length; i++) {
-        if (xpath[i].tagName == "tr") {
-            xpath[i].position = -1;
-            xpath[i].tagName += "[i]";
-            break;
-        }
-    }
     xpath.reverse();
     if (xpath[0].id != "") {
         result += "//*[@id='" + xpath[0].id + "']";

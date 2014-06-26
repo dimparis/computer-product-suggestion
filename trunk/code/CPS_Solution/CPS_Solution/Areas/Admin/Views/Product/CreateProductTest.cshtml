@@ -64,19 +64,48 @@
                             	<div class="da-panel-header">
                                 	<span class="da-panel-title">
                                         <img src="images/icons/color/ui_combo_box.png" />
-                                        Select Inputs
+                                        Thành Phần Cấu Hình Sản Phẩm
                                     </span>
                                 </div>
                                 <div class="da-panel-content">
                                 @using  (Html.BeginForm("CreateProductTest", "Product", FormMethod.Post, new { @class ="da-form"}))
                                 {
                                        	<div class="da-form-row">
-                                        	<label>Danh sách các CPU</label>
+                                        	<label>Vi xử lý</label>
                                             <div class="da-form-item large">
                                             	<span class="formNote">Danh sách các CPU</span>
                                                  @Html.DropDownListFor(x => x.CpuId, ViewBag.cpuList as List<SelectListItem>, new { @class="chzn-select" })
                                             </div>
-                                        </div>          
+                                        </div> 
+                                          
+                                       	<div class="da-form-row">
+                                        	<label>Bộ Nhớ</label>
+                                            <div class="da-form-item large">
+                                            	<span class="formNote">Danh sách các Ram</span>
+                                                 @Html.DropDownListFor(x => x.RamId, ViewBag.ramList as List<SelectListItem>, new { @class="chzn-select" })
+                                            </div>
+                                        </div>   
+                                       	<div class="da-form-row">
+                                        	<label> Ổ Đĩa Cứng</label>
+                                            <div class="da-form-item large">
+                                            	<span class="formNote">Danh sách các HDD</span>
+                                                 @Html.DropDownListFor(x => x.HddId, ViewBag.hddList as List<SelectListItem>, new { @class="chzn-select" })
+                                            </div>
+                                        </div>
+                                       	<div class="da-form-row">
+                                        	<label>Card đồ họa</label>
+                                            <div class="da-form-item large">
+                                            	<span class="formNote">Danh sách các VGA</span>
+                                                 @Html.DropDownListFor(x => x.VgaId, ViewBag.vgaList as List<SelectListItem>, new { @class="chzn-select" })
+                                            </div>
+                                        </div>
+                                       	<div class="da-form-row">
+                                        	<label>Màn hình</label>
+                                            <div class="da-form-item large">
+                                            	<span class="formNote">Danh sách các loại màn hình</span>
+                                                 @Html.DropDownListFor(x => x.DisplayId, ViewBag.displayList as List<SelectListItem>, new { @class="chzn-select" })
+                                            </div>
+                                        </div>
                                         <div class="da-button-row">
                                         	<input type="reset" value="Reset" class="da-button gray left" />
                                         	<input type="submit" value="Submit" class="da-button blue" />
