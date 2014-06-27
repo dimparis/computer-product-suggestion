@@ -91,19 +91,25 @@
 <h2>Done /Admin</h2>
 <div class="grid_4">
          <div class="da-panel-content">
-            @if (TempData["updateStatus"] != null) 
+             @if (TempData["createbyRecommendProduct"] != null) 
+             {
+                   <div class="da-message success">
+                      Sản phẩm được đề xuất đã được cập nhật thành công.
+                 </div>
+             }
+            @if (TempData["updateStatus"] != null)
             {
                 string statusMessage = TempData["updateStatus"].ToString();
-                if (statusMessage == "Success") 
+                if (statusMessage == "Success")
                 {
                      <div class="da-message success">
-                      Sản phẩm được đề xuất đã được cập nhật thành công
+                      Trạng Thái Sản phẩm được đề xuất đã được cập nhật thành công.
                  </div>
                 }
-                else if (statusMessage == "Failed") 
+                else if (statusMessage == "Failed")
                 {
                  <div class="da-message error">
-                       Cập nhật sản phẩm được đề xuất thất bại. Xin vui lòng thử lại.
+                       Cập nhật Trạng Thái Sản Phẩm được đề xuất thất bại. Xin vui lòng thử lại.
                  </div>
                 }
             }
@@ -144,9 +150,9 @@
                                                        <td>@item.Parselink</td>
                                                        <td>@item.RecommendTime</td>
                                                        <td>
-                                                           @Html.ActionLink("Cập nhật","LoadWebProduct", new { id= item.ID })
+                                                           @Html.ActionLink("Cập nhật", "LoadWebProduct", new { id = item.ID })
                                                        </td>
-                                                        @if ((bool)item.IsApprove) 
+                                                        @if ((bool)item.IsApprove)
                                                         {
                                                             <td>
                                                                <input type="checkbox" name="idList" checked ="checked" value="@item.ID"/>

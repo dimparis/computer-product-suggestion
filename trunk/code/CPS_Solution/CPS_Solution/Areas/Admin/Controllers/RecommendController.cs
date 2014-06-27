@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CPS_Solution.EntityFramework;
 using CPS_Solution.Areas.Admin.Models;
 using CPS_Solution.Areas.Admin.Helpers;
+using System.Threading.Tasks;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class RecommendController : Controller
@@ -24,6 +25,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             var ParseProductLink = context.RecommendProducts.Where(x => x.ID == id).Select(x => x.Parselink).FirstOrDefault().ToString();
             ParserHelper.LoadWeb(ParseProductLink);
             TempData["link"] = ParseProductLink;
+            TempData["idRecommendProduct"] = id;
             return RedirectToAction("CreateProductParser");
         }
         [HttpPost]
@@ -43,7 +45,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
             };
             context.ParseInfoes.Add(productInfo);
             context.SaveChanges();
-            TempData["createProduct"] = "success";
+            Task.Factory.StartNew(ParserHelper.ParseProductData);
+            int id = Int32.Parse(TempData["idRecommendProduct"].ToString());
+            var recommendProduct = context.RecommendProducts.Where(x => x.ID == id).FirstOrDefault();
+            recommendProduct.IsApprove = true;
+            context.SaveChanges();
+
+            TempData["createbyRecommendProduct"] = "success";
             return RedirectToAction("Index");
         }
         public ActionResult CreateProductParser()
