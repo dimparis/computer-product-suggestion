@@ -15,7 +15,11 @@ namespace CPS_Solution.Areas.Admin.Helpers
 {
     public static class ParserHelper
     {
-        public static void LoadWeb(string parseAttributeLink) { 
+
+        // Load web
+        #region
+        public static void LoadWeb(string parseAttributeLink)
+        {
             //Create agent of website
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
             //Load website
@@ -52,20 +56,21 @@ namespace CPS_Solution.Areas.Admin.Helpers
             document.Save(path, new UTF8Encoding());
 
         }
-        public static void CorrectLink(List<HtmlNode> nodes,string link,string attName) 
-        { 
+        public static void CorrectLink(List<HtmlNode> nodes, string link, string attName)
+        {
             //Take link 
             var uri = new Uri(link);
             //get host 
             string host = uri.GetLeftPart(UriPartial.Authority);
             //get path 
             String path = uri.AbsolutePath;
-            if (path.EndsWith(".aspx") || path.EndsWith(".htm") || path.EndsWith(".html")) 
+            if (path.EndsWith(".aspx") || path.EndsWith(".htm") || path.EndsWith(".html"))
             {
                 path = path.Substring(0, path.LastIndexOf('/'));
             }
-            foreach (HtmlNode node in nodes) {
-                if (node.Attributes[attName] != null && !node.Attributes[attName].Value.StartsWith("http")) 
+            foreach (HtmlNode node in nodes)
+            {
+                if (node.Attributes[attName] != null && !node.Attributes[attName].Value.StartsWith("http"))
                 {
                     string tmp = node.Attributes[attName].Value;
                     if (tmp.StartsWith("/"))
@@ -82,16 +87,21 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     {
                         tmp = host + "/" + tmp;
                     }
-                    while (tmp.IndexOf("//") >0)
+                    while (tmp.IndexOf("//") > 0)
                     {
-                        tmp = tmp.Replace("//", "/");    
+                        tmp = tmp.Replace("//", "/");
                     }
                     tmp = tmp.Replace("http:/", "http://");
                     node.Attributes[attName].Value = tmp;
                 }
             }
         }
-        public static void ParseData() {
+        #endregion
+
+        // Parse Attribute
+        #region
+        public static void ParseData()
+        {
             ConstantManager.IsParserRunning = true;
             //stopwatch to track parse time
             var stopwatch = new Stopwatch();
@@ -100,26 +110,26 @@ namespace CPS_Solution.Areas.Admin.Helpers
             // Create Firefox browser
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
             //do more to get data
-            using (var context =new CPS_SolutionEntities())
+            using (var context = new CPS_SolutionEntities())
             {
-                var parseAttList = context.ParseAttributes.Where(p => p.IsActive);                
-                    foreach (var item in parseAttList)
+                var parseAttList = context.ParseAttributes.Where(p => p.IsActive);
+                foreach (var item in parseAttList)
+                {
+                    stopwatch.Start();
+                    var data = GetData(web, item);
+                    stopwatch.Stop();
+                    var log = new LogInfo
                     {
-                        stopwatch.Start();
-                        var data = GetData(web, item);
-                        stopwatch.Stop();
-                        var log = new LogInfo
-                        {
-                            Link = item.ParseAttributelink,
-                            ElapsedTime = stopwatch.Elapsed.Milliseconds,
-                            TotalItems = data.Count,
-                            ToDatabase = InserttoDb(data,item.CodetypeID)
-                        };
-                        loginfos.Add(log);
-                        stopwatch.Reset();
-                    }
-                    LogFileHelper.GenerateLogfile(loginfos);
-                    ConstantManager.IsParserRunning = false;
+                        Link = item.ParseAttributelink,
+                        ElapsedTime = stopwatch.Elapsed.Milliseconds,
+                        TotalItems = data.Count,
+                        ToDatabase = InserttoDb(data, item.CodetypeID)
+                    };
+                    loginfos.Add(log);
+                    stopwatch.Reset();
+                }
+                LogFileHelper.GenerateLogfile(loginfos);
+                ConstantManager.IsParserRunning = false;
             }
         }
         /// <summary>
@@ -128,7 +138,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
         /// <param name="web"></param>
         /// <param name="parseAtt"></param>
         /// <returns></returns>
-        public static List<KeyValuePair<string, string>> GetData(HtmlWeb web,ParseAttribute parseAtt)
+        public static List<KeyValuePair<string, string>> GetData(HtmlWeb web, ParseAttribute parseAtt)
         {
             var data = new List<KeyValuePair<string, string>>();
             var uri = new Uri(parseAtt.ParseAttributelink);
@@ -137,16 +147,16 @@ namespace CPS_Solution.Areas.Admin.Helpers
 
             //1st page
             HtmlDocument doc = web.Load(parseAtt.ParseAttributelink);
-            data = MatchingData(doc, parseAtt.NameXPath,parseAtt.PointXPath);
+            data = MatchingData(doc, parseAtt.NameXPath, parseAtt.PointXPath);
             //other page 
 
-            if (parseAtt.PagingXPath != null) 
+            if (parseAtt.PagingXPath != null)
             {
                 var pages = doc.DocumentNode.SelectNodes(parseAtt.PagingXPath);
-                foreach (var page in pages) 
+                foreach (var page in pages)
                 {
                     int pageNumber;
-                    if (page == null || !Int32.TryParse(page.InnerText, out pageNumber)) 
+                    if (page == null || !Int32.TryParse(page.InnerText, out pageNumber))
                     {
                         break;
                     }
@@ -155,7 +165,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     //load page
                     doc = web.Load(url);
                     //get data 
-                    var tempdata = MatchingData(doc, parseAtt.NameXPath,parseAtt.PointXPath);
+                    var tempdata = MatchingData(doc, parseAtt.NameXPath, parseAtt.PointXPath);
                     // add data to collection
                     data.AddRange(tempdata);
                 }
@@ -169,13 +179,15 @@ namespace CPS_Solution.Areas.Admin.Helpers
         /// <param name="doc"></param>
         /// <param name="nameXpath"></param>
         /// <returns></returns>
-        public static List<KeyValuePair<string, string>> MatchingData(HtmlDocument doc, string nameXpath,string pointXpath) {
+        public static List<KeyValuePair<string, string>> MatchingData(HtmlDocument doc, string nameXpath, string pointXpath)
+        {
 
             var data = new List<KeyValuePair<string, string>>();
             int miss = 0;
             var i = 1;
 
-            while (true) {
+            while (true)
+            {
                 //Replace Xtah
                 string namei = nameXpath.Replace("[i]", ")[" + i + "]");
                 namei = "(" + namei;
@@ -185,7 +197,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 var name = doc.DocumentNode.SelectSingleNode(namei);
                 var point = doc.DocumentNode.SelectSingleNode(pointi);
                 //Name not null
-                if (name != null && point !=null) 
+                if (name != null && point != null)
                 {
                     miss = 0;
                     if (name.InnerText != "" && point.InnerText != "")
@@ -195,25 +207,41 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     }
                     else if (name.InnerText != "")
                     {
-                        var pair = new KeyValuePair<string, string>(name.InnerText,"");
+                        var pair = new KeyValuePair<string, string>(name.InnerText, "");
                         data.Add(pair);
                     }
                 }
                 //Get all data
-                if (name == null && point ==null) 
+                if (name == null && point == null)
                 {
-                    miss++;    
+                    miss++;
                 }
-                if (miss > 1) 
+                if (miss > 1)
                 {
-                    break;    
+                    break;
                 }
                 i++;
             }
             return data;
         }
+        #endregion
 
-        public static ProductData GetProductData(HtmlWeb web,ParseInfo parseInfo)
+        // Parse 1 product
+        #region
+        public static void ParseProductData()
+        {
+            // Create Firefox browser
+            var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
+            //do more to get data
+            using (var context = new CPS_SolutionEntities())
+            {
+                var parseinfo = context.ParseInfoes.Where(p => p.IsActive).FirstOrDefault();
+                var data = GetProductData(web, parseinfo);
+                InsertProductToDb(data);
+            }
+        }
+
+        public static ProductData GetProductData(HtmlWeb web, ParseInfo parseInfo)
         {
             var data = new ProductData();
             var uri = new Uri(parseInfo.Parselink);
@@ -222,10 +250,10 @@ namespace CPS_Solution.Areas.Admin.Helpers
 
             //1st page
             HtmlDocument doc = web.Load(parseInfo.Parselink);
-            data = MatchingProductData(doc, parseInfo.Name,parseInfo.CPUXPath,parseInfo.VGAXPath,parseInfo.HDDXPath,parseInfo.RAMXPath,parseInfo.DisplayXPath);
+            data = MatchingProductData(doc, parseInfo.Name, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
             return data;
         }
-        public static ProductData MatchingProductData(HtmlDocument doc ,string nameXpath, string cpuXpath,string vgaXpath,string hddXpath,string ramXpath,string displayXpath)
+        public static ProductData MatchingProductData(HtmlDocument doc, string nameXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
         {
             var data = new ProductData();
             var name = doc.DocumentNode.SelectSingleNode(nameXpath);
@@ -247,29 +275,35 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             return data;
         }
-        public static int InserttoDb(IEnumerable<KeyValuePair<string,string>> data, string codetypeID) {
-           
+     
+        #endregion
+
+        // insert into DB
+        #region
+        public static int InserttoDb(IEnumerable<KeyValuePair<string, string>> data, string codetypeID)
+        {
+
             int success = 0;
             double point = 0;
-            using (var context = new CPS_SolutionEntities()) 
+            using (var context = new CPS_SolutionEntities())
             {
-                foreach (var pair in data) 
+                foreach (var pair in data)
                 {
 
-                    if ( !String.IsNullOrEmpty(pair.Value.ToString())  || !String.IsNullOrWhiteSpace(pair.Value.ToString())  )
+                    if (!String.IsNullOrEmpty(pair.Value.ToString()) || !String.IsNullOrWhiteSpace(pair.Value.ToString()))
                     {
-                         point = Double.Parse(pair.Value);
+                        point = Double.Parse(pair.Value);
                     }
-                    else 
+                    else
                     {
                         point = 0;
-                    }          
+                    }
                     ////Check good match 
-                var goodMatch = new List<int>();
-                var averageMatch = new List<int>();
-                int pId = -1;
-                bool wholeMatch = false;
-                    foreach (var attADalias in context.AttributeMappings) 
+                    var goodMatch = new List<int>();
+                    var averageMatch = new List<int>();
+                    int pId = -1;
+                    bool wholeMatch = false;
+                    foreach (var attADalias in context.AttributeMappings)
                     {
                         if (pair.Key == attADalias.Name)
                         {
@@ -278,7 +312,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             break;
                         }
                         double matchPercent = CompareStringHelper.CompareString(attADalias.Name, pair.Key);
-                        if (matchPercent > 90.00) 
+                        if (matchPercent > 90.00)
                         {
                             // Good match 
                             goodMatch.Add(attADalias.AttributeDicID);
@@ -314,25 +348,25 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     {
                         var att = context.AttributeDictionaries.Where(x => x.ID == pId).FirstOrDefault();
                         att.WeightCriteraPoint = point;
-                        try 
+                        try
                         {
-                        
+
                             context.SaveChanges();
                             success++;
                         }
-                        catch (DbUpdateException) 
+                        catch (DbUpdateException)
                         {
                             // Do nothing
                         }
-                  
-                       
+
+
                     }
-                    else 
+                    else
                     {
                         //Add a new record
-                        var newADitem = new AttributeDictionary { Name = pair.Key, CodetypeID = codetypeID ,WeightCriteraPoint =point };
+                        var newADitem = new AttributeDictionary { Name = pair.Key, CodetypeID = codetypeID, WeightCriteraPoint = point };
                         context.AttributeDictionaries.Add(newADitem);
-                        try 
+                        try
                         {
                             context.SaveChanges();
                             success++;
@@ -354,12 +388,116 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             return success;
         }
-        public static bool InsertProductToDb(ProductData data)
+        public static void InsertProductToDb(ProductData data)
         {
-            /// To do here
-            return true;
+
+            if (data != null)
+            {
+                if (!String.IsNullOrEmpty(data.Name) && !String.IsNullOrEmpty(data.CPU) &&
+                    !String.IsNullOrEmpty(data.HDD) && !String.IsNullOrEmpty(data.RAM) &&
+                    !String.IsNullOrEmpty(data.VGA) && !String.IsNullOrEmpty(data.Display))
+                {
+                    ////Check good match 
+                    var goodMatch = new List<int>();
+                    var averageMatch = new List<int>();
+                    int pId = -1;
+                    bool wholeMatch = false;
+                    List<KeyValuePair<string, string>> listofAttributes = new List<KeyValuePair<string, string>>();
+
+                    var cpu = new KeyValuePair<string, string>(data.CPU, "C");
+                    var ram = new KeyValuePair<string, string>(data.RAM, "R");
+                    var vga = new KeyValuePair<string, string>(data.VGA, "V");
+                    var hdd = new KeyValuePair<string, string>(data.HDD, "H");
+                    var display = new KeyValuePair<string, string>(data.Display, "D");
+
+                    listofAttributes.Add(cpu);
+                    listofAttributes.Add(ram);
+                    listofAttributes.Add(hdd);
+                    listofAttributes.Add(vga);
+                    listofAttributes.Add(display);
+
+                    using (var context = new CPS_SolutionEntities())
+                    {
+                        foreach (var attribute in listofAttributes)
+                        {
+                            foreach (var alias in context.AttributeMappings)
+                            {
+                                if (attribute.Key == alias.Name)
+                                {
+                                    wholeMatch = true;
+                                    pId = alias.AttributeDicID;
+                                    break;
+                                }
+                                double matchPercent = CompareStringHelper.CompareString(attribute.Key, alias.Name);
+                                //good match
+                                if (matchPercent > 90)
+                                {
+                                    goodMatch.Add(alias.AttributeDicID);
+                                }
+                                // normal Match
+                                if (matchPercent > 80)
+                                {
+                                    averageMatch.Add(alias.AttributeDicID);
+                                }
+                            }
+                            if (!wholeMatch)
+                            {
+                                if (goodMatch.Count == 1)
+                                {
+                                    // Match well with only 1 product, take it
+                                    pId = goodMatch[0];
+                                }
+                                else if (goodMatch.Count > 1)
+                                {
+                                    // Match well with more than 1 product, admin decide
+                                    ExportTrainingFile(goodMatch, attribute.Key);
+                                    continue;
+                                }
+                                else if (averageMatch.Count > 0 && pId == -1)
+                                {
+                                    // Only average match, admin decide
+                                    ExportTrainingFile(averageMatch, attribute.Key);
+                                    continue;
+                                }
+                            }
+                            // If attDic alr Existed? 
+                            if (pId != -1)
+                            {
+                                // Do nothing
+                            }
+                            else
+                            {
+                                //Add a new record
+                                var newADitem = new AttributeDictionary { Name = attribute.Key, CodetypeID = attribute.Value, WeightCriteraPoint = 0 };
+                                context.AttributeDictionaries.Add(newADitem);
+                                try
+                                {
+                                    context.SaveChanges();
+                                    var aliasDic = new AttributeMapping
+                                    {
+                                        AttributeDicID = newADitem.ID,
+                                        Name = newADitem.Name,
+                                        IsActive = true,
+                                    };
+                                    context.AttributeMappings.Add(aliasDic);
+                                    context.SaveChanges();
+                                }
+                                catch (DbUpdateException)
+                                {
+                                    // Do nothing
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        public static void ExportTrainingFile(List<int> match, string name) {
+        #endregion
+
+        // Process File
+        #region
+        public static void ExportTrainingFile(List<int> match, string name)
+        {
             List<string> data = ReadDataFromFile();
             string path = ConstantManager.TrainingFilePath;
             string content = "";
@@ -367,15 +505,15 @@ namespace CPS_Solution.Areas.Admin.Helpers
             {
                 foreach (int id in match)
                 {
-                    var attAD= context.AttributeDictionaries.FirstOrDefault(a=>a.ID == id);
+                    var attAD = context.AttributeDictionaries.FirstOrDefault(a => a.ID == id);
                     if (attAD != null)
                     {
                         content = attAD.Name + ";";
                     }
                 }
             }
-            content +=name;
-            bool  isExisted = false;
+            content += name;
+            bool isExisted = false;
             foreach (string item in data)
             {
                 if (item == content)
@@ -386,7 +524,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             if (!isExisted)
             {
-                using (StreamWriter writer  = File.AppendText(path))
+                using (StreamWriter writer = File.AppendText(path))
                 {
                     writer.WriteLine(content);
                 }
@@ -409,6 +547,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             reader.Close();
             return result;
-        }
+        } 
+        #endregion
     }
 }
