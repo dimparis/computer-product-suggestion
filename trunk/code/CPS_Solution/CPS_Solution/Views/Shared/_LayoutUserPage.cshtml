@@ -6,6 +6,10 @@
     <title>@ViewBag.Title - Computer Product Suggestion</title>
 	<meta charset="UTF-8" />
 	
+    @*
+    <link rel="stylesheet" type="text/css" href="@Url.Content("")" />
+    <script src="@Url.Content("")"></script>
+    *@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/minified.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/owl.theme.css")" />
@@ -17,10 +21,8 @@
     <script src="@Url.Content("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")"></script>
     <script src="@Url.Content("~/Template/GFashion/js/modernizr.min.js")"></script>
     <script src="@Url.Content("~/Template/GFashion/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Template/GFashion/js/product-list.js")"></script>
 
-	<script>
-	    window.jQuery || document.write('<script src="@Url.Content("~/Template/GFashion/js/jquery.min.js")"><\/script>');
-	</script>	
 </head>
 <body class="products-view">
     <div id="page-wrapper">
@@ -29,35 +31,23 @@
 		<div class="header-top">
 			<div class="container">
 				<div class="row">
-					@*<div class="col-xs-12 col-sm-6 col-md-7"></div>*@
-					<div class="col-xs-12 col-sm-6 col-md-8">
-						<ul class="actions unstyled clearfix">							
-							
-							<li data-toggle="sub-header" data-target="#sub-cart">
+					<div class="col-xs-12 col-sm-6 col-md-7"></div>
+					<div class="col-xs-12 col-sm-6 col-md-5"> 
+						<ul class="actions unstyled clearfix">								
+							<li data-toggle="sub-header" data-target="#info">
 								<!-- SHOPPING CART -->
-								<a href="javascript:void(0);" id="total-cart" onclick="displayIds()">
-									<i class="iconfont-shopping-cart round-icon"></i>
-								</a>
-								
-								<div id="sub-cart" class="sub-header">
-									<div class="cart-header">
-										<span></span>
-										<small><a href="#">(Xem tất cả)</a></small>
-									</div>
-									<ul class="cart-items product-medialist unstyled clearfix"></ul>
-									<div class="cart-footer">
-										<div class="text-right">
-											<a href="#" id="btnAdd" class="btn btn-default btn-round view-cart"z>So sánh</a>
-										</div>
-									</div>
+								<img id="cart" src="~/Template/GFashion/img/versus.png" style="width:20%; height:20%" />
+                                <span id="quantity"><strong>0</strong></span>
+								<div id="info" class="sub-header" style="width: 300px; height: 100px">
+                                    <button type="button" id="btn-compare" class="btn btn-default btn-xs">So Sánh</button>
 								</div>
 								<!-- // SHOPPING CART -->
 							</li>
 						</ul>
-					</div>
+                    </div>
 				</div>
 			</div>
-			
+
 			<!-- BEGIN ADD TO CART MESSAGE -->
 			<div class="cart-notification">
 				<ul class="unstyled"></ul>

@@ -1,0 +1,21 @@
+**model
+- tu event >(sent) process event
+- chu thich cho cac mui ten
+- khong dung mui ten 2 chieu, co the dung nhieu dang mui ten nhu: --->,
+
+**component diagram
+- chia theo packet
+- xem lai quan he cuat [training machine] và [comare string helper]
+- the hien client, dua webbrowser ra ngoai
+**class diagram
+- tat ca thuoc tinh phai khai bao public
+- the hien dung theo huong doi tuong
+
+*** dong bo ngu nghia giua cac diagram: concept, class, erd, 
+
+** sequence diagarm
+- dua vao class diagram de xay dung sequence, sequence dung de thiet ke code
+???Khi nao co sequence digram/ Sequence diagram dung de lam gi?
+- Object suy ra tu nhung hanh vi
+- xem lai cac y nghia cu mui ten
+- chu y cac timeline
