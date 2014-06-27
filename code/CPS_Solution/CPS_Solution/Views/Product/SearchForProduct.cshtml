@@ -36,7 +36,7 @@
                                         <div class="input-iconed prepend">
                                             <button class="input-icon"><i class="iconfont-search"></i></button>
                                             <div class="round-input">
-                                                @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { style="margin-left: 10%; margin-rigth: 10%; border: none; width: 70%"})
+                                                @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { style = "margin-left: 10%; margin-rigth: 10%; border: none; width: 70%" })
                                             </div>
                                         </div>                                        
                                     }
@@ -49,7 +49,7 @@
                 </aside>
                 <!-- // SIDEBAR -->
 
-                <section class="col-xs-12 col-sm-8 col-md-8">
+                <section class="col-xs-12 col-sm-8 col-md-9">
                     <section class="products-wrapper">
                         <header class="products-header">
                             <div class="row">
@@ -94,15 +94,16 @@
                         </header>
                         
                         <div class="products-layout grid m-t-b add-cart" data-product-id=".entry-id > p" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
-                            @foreach (var item in Model) {
-                            <div class="product" data-product-id="@item.ID" data-category="women|women-jeans|women-skirt" data-brand="brand1" data-price="250" data-colors="red|blue|black|white" data-size="S|M|L">
+                            @foreach (var item in Model)
+                            {
+                            <div class="product" data-product-id="@item.ID" data-product-name="@item.Name">
                                 <div class="entry-media">
                                     <img src="@Url.Content("~/Template/GFashion/img/1.jpg")" alt="" class="lazyLoad thumb" />
                                     <div class="hover">
-                                        <a href="product.html" class="entry-url"></a>
+                                        <a href="#" class="entry-url"></a>
                                         <ul class="icons unstyled">
                                             <li>
-                                                <a href="#" class="circle add-to-cart" onclick="pushID(@item.ID)"><i class="iconfont-shopping-cart"></i></a>
+                                                @*<a href="#" class="circle" /*onclick="addToCart(@item.ID)"*/><i class="iconfont-shopping-cart"></i></a>*/*@
                                             </li>
                                         </ul>
                                     </div>
@@ -113,9 +114,8 @@
                                     <div class="entry-description">
                                         <p>@Html.DisplayFor(modelItem => item.Description)</p>
                                     </div>
-                                    <div class="entry-id">
-                                        <p>@Html.DisplayFor(modelItem => item.ID)</p>
-                                    </div>
+                                    <div class="entry-description">@item.ID</div>
+                                    <input type='hidden' value="@item.ID"/>                                        
                                 </div>
                             </div>
                             }
@@ -126,23 +126,33 @@
         </div>
     </div>
     <script>
-        var a = new Array();
-        function pushID(id) {
-            a.push(id);            
+        var products = new Array();
+
+        function addToCart(productID) {
+            if (products.length < 3) {
+
+                for (i = 0; i < products.length; i++) {
+                    if (productID == products[i]) {
+                        alert(productID + " đã có trong danh sách!");
+                        return;
+                    }
+                }
+
+                products.push(productID);
+                alert(productID + " vừa được thêm vào danh sách!" + "\n" + "Sản phẩm trong danh sách: " + products);
+            }
+            else {
+                alert("Chỉ được thêm tối đa 3 sản phầm vào danh sách để so sánh!");
+            }
         }
 
-        function displayIds() {
-           
-            alert(a);
-        }
         $(function () {
             $("#btnAdd").click(function () {
-                if (a.length > 0)
-                {
+                if (a.length > 0) {
                     $.post("/Product/ViewCart", { "lstInt": a.join() },
                         function (data) {
-                           
-                    });
+
+                        });
                 }
             });
         });

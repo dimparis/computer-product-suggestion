@@ -21,6 +21,12 @@ namespace CPS_Solution.Controllers
             return View();
         }
 
+        public ActionResult Compare(int x, int y, int z)
+        {
+
+            return RedirectToAction("Index");
+        }
+
         //
         // GET: /Product/Details/5
 
