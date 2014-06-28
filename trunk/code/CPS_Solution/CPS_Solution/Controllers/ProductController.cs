@@ -23,8 +23,15 @@ namespace CPS_Solution.Controllers
 
         public ActionResult Compare(int x, int y, int z)
         {
+            int[] vals = new int[] { x, y, z };
 
-            return RedirectToAction("Index");
+            var products = from p in db.Products
+                           select p;
+            products = products.Where(c => vals.Contains(c.ID));
+
+            return View(products);
+            
+            
         }
 
         //
