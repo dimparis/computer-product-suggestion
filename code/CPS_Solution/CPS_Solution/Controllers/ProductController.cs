@@ -21,10 +21,9 @@ namespace CPS_Solution.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Compare(int varX, int varY)
+        
+        public ActionResult Compare(int x, int y, int z)
         {
-            int x=1; int y=2; int z=3;
             int[] vals = new int[] { x, y, z };
 
             var products = from p in db.Products
