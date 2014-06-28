@@ -35,7 +35,7 @@
 		return false;
 	}
 	
-	$('#cart').on('click', function(){
+	$('#cart').on('mousein', function(){
 		var t = '';
 		for (var i = 0; i < a.length; ++i){
 			var x = a[i];
@@ -46,7 +46,13 @@
 	});
 
 	$('#btn-compare').on('click', function () {
-	    window.location.replace('Compare?x=' + a[0] + '&y=' + a[1] + '&z=' + a[2]);
+	    if (a.length == 2) {
+	        window.location.replace('Compare?x=' + a[0] + '&y=' + a[1] + '&z=-1');
+	    }
+	    else {
+	        window.location.replace('Compare?x=' + a[0] + '&y=' + a[1] + '&z=' + a[2]);
+	    }
+	    
 	});
 
 })
