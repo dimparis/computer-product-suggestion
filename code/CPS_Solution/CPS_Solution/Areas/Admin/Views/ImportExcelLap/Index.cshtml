@@ -1,0 +1,1483 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;s
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<LapData> list = ViewBag.listproduct;
+    List<LapData> listError = ViewBag.listerror;
+    List<List<LapData>> listDup = ViewBag.listduplicate;
+    // danh sách lỗi khi lỗi quá nhiều
+    List<LapData> danhsachlaploi = ViewBag.danhsachlaploi;
+    int countlistdup = 0;
+    int countlist = 0;
+    if (listDup != null)
+    {
+        countlistdup = listDup.Count;
+    }
+    if (list != null)
+    {
+        countlist = list.Count;
+    }
+    List<List<LapData>> listDupnew = ViewBag.listduplicatenew;
+    int countlistdup1 = 0;
+    if (listDupnew != null)
+    {
+        countlistdup1 = listDupnew.Count;
+    }
+    // dòng bị lỗi
+    List<String> errorLineLap = ViewBag.errorLineLap;
+    int sodongloi = 0;
+    String[] loiName = null; int checkName = 0;
+    String[] loiImageLink = null;
+    String[] loiDisplay = null;
+    String[] loiCPU = null;
+    String[] loiHDD = null;
+    String[] loiVGA = null;
+    String[] loiRam = null;
+    if (errorLineLap != null)
+    {
+        // số dòng bị lỗi
+        sodongloi = Convert.ToInt32(errorLineLap[0]);
+        // lỗi Name
+        loiName = errorLineLap[1].ToString().Split(',');
+        // lỗi link image
+        loiImageLink = errorLineLap[2].ToString().Split(',');
+        // lỗi Name
+        loiDisplay = errorLineLap[3].ToString().Split(',');
+        // lỗi Name
+        loiCPU = errorLineLap[4].ToString().Split(',');
+        // lỗi Name
+        loiHDD = errorLineLap[5].ToString().Split(',');
+        // lỗi Name
+        loiVGA = errorLineLap[6].ToString().Split(',');
+        // lỗi Name
+        loiRam = errorLineLap[7].ToString().Split(',');
+    }
+}
+
+@section headScript
+{
+    <!-- iOS webapp icons -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.theme.css" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+    <!-- Plugin Files -->
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.icons.js"></script>
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.core.js"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
+
+    <!--  Demo JavaScript Files popup Ui Popup 
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
+    <!-- jGrowl Plugin   -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
+
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+    <!----------------------------- Lên datatable Plugin------------------------------------------>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
+
+
+
+}
+@section sidebar
+{
+    <!-- CSS Reset -->
+    <!-- Main Navigation -->
+    <div id="da-main-nav" class="da-button-container">
+        <ul>
+            <li class="active">
+                <a href="dashboard.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
+                    </span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Nav Notification -->
+                    <span class="da-nav-count">32</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/graph.png" alt="Charts" />
+                    </span>
+                    Statistics and Charts
+                </a>
+                <ul class="closed">
+                    <li><a href="statistic.html">Statistic Widgets</a></li>
+                    <li><a href="charts.html">Chart Gallery</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="calendar.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/day_calendar.png" alt="Calendar" />
+                    </span>
+                    Calendar
+                </a>
+            </li>
+            <li>
+                <a href="file.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/file_cabinet.png" alt="File Handling" />
+                    </span>
+                    File Handling
+                </a>
+            </li>
+            <li>
+                <a href="table.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/table_1.png" alt="Table" />
+                    </span>
+                    Table
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/create_write.png" alt="Form" />
+                    </span>
+                    Form
+                </a>
+                <ul>
+                    <li><a href="form-layouts.html">Layouts</a></li>
+                    <li><a href="form-elements.html">Elements</a></li>
+                    <li><a href="form-validation.html">Validation</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="ui.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/settings.png" alt="" />
+                    </span>
+                    UI Elements
+                </a>
+            </li>
+            <li>
+                <a href="widgets.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/cog_4.png" alt="Widgets" />
+                    </span>
+                    Widgets
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/word_documents_1.png" alt="Layout and Typography" />
+                    </span>
+                    Layout and Typography
+                </a>
+                <ul class="closed">
+                    <li><a href="grids.html">Grids and Panels</a></li>
+                    <li><a href="typography.html">Typography</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="gallery.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/images_2.png" alt="Gallery" />
+                    </span>
+                    Gallery
+                </a>
+            </li>
+            <li>
+                <a href="error.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/alert.png" alt="Error Pages" />
+                    </span>
+                    Error Page (404)
+                </a>
+            </li>
+            <li>
+                <a href="icons.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/pacman.png" alt="Icons" />
+                    </span>
+                    Icons
+                </a>
+            </li>
+        </ul>
+    </div>
+}
+@section mainHeader
+{
+}
+@section footScript
+{
+
+<!-- script table cua ong de day ne ->>
+
+}
+<!----------------------------------------------- Content Area --------------------------------------------->
+
+
+<!------------->
+<div class="clear"></div>
+<div class="grid_4">
+    <div class="da-panel" style="margin-left: 200px; width: 50%">
+        <div class="da-panel-header">
+            <span class="da-panel-title">
+                <img src="~/Areas/Admin/Dandelion/images/up.png" alt="">
+                Tải dữ liệu từ file Excel
+            </span>
+        </div>
+        <div class="da-panel-content">
+
+            <form id="da-ex-vali" method="post" action="~/Admin/ImportExcelLap/Index" enctype="multipart/form-data" class="da-form" novalidate="novalidate">
+
+                <div class="da-form-inline">
+                    <div class="da-form-row">
+                        <label>File <span class="required">*</span></label>
+                        <div class="da-form-item large">
+                            <div>
+                                <div>
+                                    <input id="fileupload" type="file" name="file" class="da-custom-file customfile-input valid" style="left: 61.453125px; top: 24px;">
+                                </div>
+                            </div>
+                            <label for="file1" class="error" generated="true" style="display: none;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="da-button-row">
+                  
+                 <!--  <input type="submit"  value="Tải lên" class="da-button green"> -->
+                    <input style="width:33px" onclick="checkuploadfile()"  value="Tải lên" class="da-button green">
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<div class="grid_4">
+    <div id="da-icon-tab" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#color-icon">
+                <img src="~/Areas/Admin/Dandelion/images/message-success.png" alt="">
+                Danh sách thành phần đúng</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#white-icon">@**@
+                <img src="~/Areas/Admin/Dandelion/images/message-error.png" alt="">
+                Danh sách thành phần lỗi</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#black-icon">
+                <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">
+                Danh sách thành phần trùng</a></li>
+        </ul>
+
+        <div id="color-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+             
+                <!--tab1------------------------------------------------------------------------------------->
+             @if (list != null)
+             {
+                <div class="da-panel-toolbar top">
+                    <ul>
+                        <form action="~/Admin/ImportExcel/saveAllProduct" method="post" enctype="multipart/form-data">
+                            <li>
+                                <a id="da-ex-dialog-modal">
+                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</a></li>
+                            <!----------------Popup-----------
+                                 <button id="da-ex-dialog-modal" style="display: none;" class="da-button blue">Modal UI Dialog</button>------->
+                            <div class="da-panel-content with-padding">
+                                <div style="text-align: center">
+                                </div>
+                                <div id="da-ex-dialog-div" style="display: none;">
+                                    <input class="uniform" id="IdDuplicateLog" style="zoom:1.8;" checked type="checkbox" name="sports[]"> <label>  <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">Danh sách sản phẩm trùng</label>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <input class="uniform" id="IdErrorLog" style="zoom:1.8;" type="checkbox" name="sports[]"> <label> <img src="~/Areas/Admin/Dandelion/images/message-error.png" alt="">Danh sách sản phẩm lỗi</label>
+                                    <button type="button" onclick="saveCorrectProduct(@countlist)" class="da-button blue" style=" float: right;" role="button" aria-disabled="false"><span class="ui-button-text">Hoàn thành</span></button>
+                                </div>
+                            </div>
+                            <!----------------Popup------------------>
+                        </form>
+                        <li><a href="~/Admin/ImportExcel/huyimport">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
+                    </ul>
+                </div>
+             }
+
+             <!--------------------------------------------------Có quá nhiều lỗi------------------------------------------------------------------------------->
+            @if (errorLineLap != null)
+            {
+                if (sodongloi >= 15)
+                {
+                   
+                   
+                
+                   <label style="color: red; font-weight: bold; font-size: larger">File excel có quá nhiều lỗi vui lòng chỉnh sửa lại!</label> <br/>
+                    if (loiName.Length > 0)
+                    {                     
+                    <label style="color: red">Lỗi tên sản phẩm:</label> <br/>
+                    <b style="font-weight:bold;color:blue">Dòng: </b>@errorLineLap[1] <br/>
+                    }
+                    if (loiImageLink.Length > 0)
+                    {                     
+                    <label style="color: red">Lỗi đường dẫn ảnh sản phẩm:</label> <br/>
+                    <b style="font-weight:bold;color:blue">Dòng: </b>@errorLineLap[2] <br/>
+                    }
+                    if (loiDisplay.Length > 0)
+                    {                     
+                    <label style="color: red">Lỗi thông tin Display của sản phẩm:</label> <br/>
+                    <b style="font-weight:bold;color:blue">Dòng: </b>@errorLineLap[3] <br/>
+                    }
+                    if (loiCPU.Length > 0)
+                    {                     
+                    <label style="color: red">Lỗi thông tin CPU của sản phẩm:</label> <br/>
+                    <b style="font-weight:bold;color:blue">Dòng: </b>@errorLineLap[4] <br/>
+                    }
+                    if (loiHDD.Length > 0)
+                    {                     
+                    <label style="color: red">Lỗi thông tin HDD của sản phẩm:</label> <br/>
+                    <b style="font-weight:bold;color:blue">Dòng: </b>@errorLineLap[5] <br/>
+                    }
+                    if (loiVGA.Length > 0)
+                    {                     
+                    <label style="color: red">Lỗi thông tin VGA của sản phẩm:</label> <br/>
+                    <b style="font-weight:bold;color:blue">Dòng: </b>@errorLineLap[6] <br/>
+                    }
+                    if (loiRam.Length > 0)
+                    {                     
+                    <label style="color: red">Lỗi thông tin RAM của sản phẩm:</label> <br/>
+                    <b style="font-weight:bold;color:blue">Dòng: </b>@errorLineLap[7] <br/>
+                    }
+                    // ẩn table hiện danh sách đúng đi.
+                   <script type="text/javascript">
+ 
+                       $(document).ready(function(){
+ 
+                           $("#CorrectID").hide();                         
+                       });
+ 
+                    </script>
+                   <div class="da-panel collapsible scrollable">
+                            	<div class="da-panel-header">
+                                	<span class="da-panel-title">
+                                        <img src="images/icons/black/16/list.png" alt="" />
+                                        Dòng dữ liệu bị lỗi trong Excel
+                                    </span>
+                                    
+                                </div>
+                                <div class="da-panel-content">
+                                    <table class="da-table">
+                                        <thead>
+                                         <tr>
+                                         <th  style="width: 40px;">Dòng lỗi</th>
+                                        <th style="width: 180px;">Tên máy</th>
+                                        <th style="width: 200px;">Địa chỉ ảnh</th>
+                                        <th style="width: 100px;">CPU</th>
+                                        <th style="width: 100px;">VGA</th>
+                                        <th style="width: 50px;">HDD (G)</th>
+                                        <th style="width: 100px;">Display</th>
+                                        <th style="width: 40px;">Ram (G)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (danhsachlaploi != null)
+                                            {
+                                                foreach (LapData p in danhsachlaploi)
+                                                {
+                                            <tr>
+                                         <td style="width: 15px;" class=" ">@(Convert.ToInt32(@p.stt) + 2) </td>      
+                                                <!------------------------ Tên------------------------------>                                        
+                                                @for (int i = 0; i < loiName.Length; i++)
+                                                {
+                                                    int j = (Convert.ToInt32(@p.stt) + 2);
+                                                    if (loiName[i].Equals(j.ToString()))
+                                                    {
+                                                        <td class=" "> <textarea  cols="25" rows="1" style="border-color:red"> @p.Name</textarea></td>
+                                                        checkName++;
+                                                    }
+                                                }                  
+                                                @if (checkName < 1)
+                                                {
+                                                  <td class=" "> <textarea  cols="25" rows="1"> @p.Name</textarea></td> 
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }        
+                                                <!------------------------ Imagelink------------------------------> 
+                                                 @for (int i = 0; i < loiImageLink.Length; i++)
+                                                 {
+                                                     int j = (Convert.ToInt32(@p.stt) + 2);
+                                                     if (loiImageLink[i].Equals(j.ToString()))
+                                                     {
+                                                        <td class=" "> <textarea  cols="40" rows="3" style="border-color:red"> @p.Imagelink</textarea></td>
+                                                         checkName++;
+                                                     }
+                                                 }                  
+                                                @if (checkName < 1)
+                                                {
+                                                  <td class=" ">   <textarea  cols="40" rows="3">@p.Imagelink</textarea> </td> 
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                                                                                                            
+                                               
+                                                 <!------------------------ CPU------------------------------>    
+                                                 @for (int i = 0; i < loiCPU.Length; i++)
+                                                 {
+                                                     int j = (Convert.ToInt32(@p.stt) + 2);
+                                                     if (loiCPU[i].Equals(j.ToString()))
+                                                     {
+                                                        <td class=" "><textarea  cols="20" rows="1" style="border-color:red"> @p.CPU</textarea></td>
+                                                         checkName++;
+                                                     }
+                                                 }                  
+                                                @if (checkName < 1)
+                                                {
+                                                   <td class=" "><textarea  cols="20" rows="1"> @p.CPU</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                                                          
+                                                <!------------------------ VGA------------------------------>   
+                                                 @for (int i = 0; i < loiVGA.Length; i++)
+                                                 {
+                                                     int j = (Convert.ToInt32(@p.stt) + 2);
+                                                     if (loiVGA[i].Equals(j.ToString()))
+                                                     {
+                                                        <td class=" "> <textarea  cols="20" rows="1" style="border-color:red"> @p.VGA</textarea></td>
+                                                         checkName++;
+                                                     }
+                                                 }                  
+                                                @if (checkName < 1)
+                                                {
+                                                   <td class=" "> <textarea  cols="20" rows="1"> @p.VGA</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                       
+
+                                                <!------------------------ HDD------------------------------>   
+                                                  @for (int i = 0; i < loiHDD.Length; i++)
+                                                  {
+                                                      int j = (Convert.ToInt32(@p.stt) + 2);
+                                                      if (loiHDD[i].Equals(j.ToString()))
+                                                      {
+                                                        <td class=" "><textarea  cols="3" rows="1" style="border-color:red"> @p.HDD</textarea></td>
+                                                          checkName++;
+                                                      }
+                                                  }                  
+                                                @if (checkName < 1)
+                                                {
+                                                    <td class=" "><textarea  cols="3" rows="1"> @p.HDD</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                        
+                                                <!------------------------ Display------------------------------>    
+                                                @for (int i = 0; i < loiDisplay.Length; i++)
+                                                {
+                                                    int j = (Convert.ToInt32(@p.stt) + 2);
+                                                    if (loiDisplay[i].Equals(j.ToString()))
+                                                    {
+                                                        <td class=" "> <textarea  cols="10" rows="1" style="border-color:red"> @p.Display</textarea></td>
+                                                        checkName++;
+                                                    }
+                                                }                  
+                                                @if (checkName < 1)
+                                                {
+                                                    <td class=" "> <textarea  cols="10" rows="1"> @p.Display</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                        
+                                                <!------------------------ RAM------------------------------>    
+                                                @for (int i = 0; i < loiRam.Length; i++)
+                                                {
+                                                    int j = (Convert.ToInt32(@p.stt) + 2);
+                                                    if (loiRam[i].Equals(j.ToString()))
+                                                    {
+                                                        <td class=" "> <textarea  cols="3" rows="1" style="border-color:red"> @p.RAM</textarea></td>
+                                                        checkName++;
+                                                    }
+                                                }                  
+                                                @if (checkName < 1)
+                                                {
+                                                    <td class=" "> <textarea  cols="3" rows="1"> @p.RAM</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }         
+                                        
+                                    </tr> 
+                                                }
+                                            }                                   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                
+                }
+            }                   
+                <div id="CorrectID">                       
+                   <!-------------------------------------------------------------------------------------------> 
+                <div class="da-panel collapsible">
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Danh sách để lưu vào cơ sở dữ liệu
+                        </span>
+
+                        <span class="da-panel-toggler"></span>
+                    </div>
+                    <div class="da-panel-content">
+                        <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+
+
+                            <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">STT</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD (G)</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Display</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram (G)</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 50px;">Thực hiện</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                                     @if (list != null)
+                                     {
+                                         foreach (LapData p in list)
+                                         {
+                                        <tr class="odd">
+                                            @*     <form id="form10" action="/Home/deleteproduct" method="post" enctype="multipart/form-data">*@
+                                            <td class=" sorting_1">@p.stt </td>
+                                            <td class=" ">@p.Name</td>
+                                            <td class=" ">@p.Imagelink</td>                                      
+                                            <td class=" ">@p.CPU</td>
+                                            <td class=" ">@p.VGA</td>
+                                            <td class=" ">@p.HDD</td>
+                                            <td class=" ">@p.Display</td>
+                                            <td class=" ">@p.RAM</td>
+                                            <td class=" ">
+                                                <input name="sttproduct" type="hidden"  value="@p.stt" />
+                                                <a onclick="xoasanphamdung(@p.stt)">
+                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
+                                                    Xóa</a></td>
+
+                                            @*</form>*@
+                                        </tr>
+                                         }
+                                     }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+             
+                <!--ket thuc tab1------------------------------------------------------------------------------------------->  
+                        
+            </div>  
+           
+        </div>
+        <div id="white-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            <!--tab2-------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
+            <div id="ErrorID">
+                <div class="da-message error">
+                    Lỗi dữ liệu:
+                                        <ul>
+                                           
+                                        
+                     @if (errorLineLap != null&&listError!=null)
+                     {                                                                          
+                         if (loiName.Length > 0)
+                         {                     
+                    <li>Tên sản phẩm phải từ 5 đến 100 ký tự!</li>                 
+                         }
+                         if (loiImageLink.Length > 0)
+                         {                     
+                     <li>Đường dẫn ảnh không đúng định dạng!</li>                   
+                         }
+                         if (loiDisplay.Length > 0)
+                         {                     
+                    <li>Display của sản phẩm phải từ 5 tới 100 ký tự!</li>  
+                         }
+                         if (loiCPU.Length > 0)
+                         {                     
+                     <li>CPU của sản phẩm phải từ 5 đến 100 ký tự!</li>        
+                         }
+                         if (loiHDD.Length > 0)
+                         {                     
+                     <li>HDD của sản phẩm phải là số!</li>        
+                         }
+                         if (loiVGA.Length > 0)
+                         {                     
+                     <li>HDD của sản phẩm phải là số!</li>  
+                         }
+                         if (loiRam.Length > 0)
+                         {                     
+                    <li>Ram của sản phẩm phải là số!</li>  
+                         }
+                     }
+                                            </ul>
+                </div>
+                <div class="da-panel collapsible">
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Dữ liệu lỗi.
+                        </span>
+
+                        <span class="da-panel-toggler"></span>
+                    </div>
+
+                    <div class="da-panel-content">
+                        <table class="da-table">
+                            <thead>
+                                <tr role="row">
+                                        <th  style="width: 40px;">STT</th>
+                                        <th style="width: 180px;">Tên máy</th>
+                                        <th style="width: 200px;">Địa chỉ ảnh</th>
+                                        <th style="width: 100px;">CPU</th>
+                                        <th style="width: 100px;">VGA</th>
+                                        <th style="width: 50px;">HDD (G)</th>
+                                        <th style="width: 100px;">Display (Pixel)</th>
+                                        <th style="width: 40px;">Ram (G)</th>
+                                        <th style="width: 50px;">Thực hiện</th>
+                                </tr>
+                            </thead>
+
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                @if (listError != null)
+                                {
+                                    foreach (LapData p in listError)
+                                    {
+                                                         
+                                    <tr class="odd">
+                                         <td style="width: 15px;" class=" ">@(Convert.ToInt32(@p.stt) + 2) </td>      
+                                                <!------------------------ Tên------------------------------>                                        
+                                                @for (int i = 0; i < loiName.Length; i++)
+                                                {
+                                                    int j = (Convert.ToInt32(@p.stt) + 2);
+                                                    if (loiName[i].Equals(j.ToString()))
+                                                    {
+                                                        <td class=" "> <textarea id="idName_@p.stt" cols="25" rows="1" style="border-color:red"> @p.Name</textarea></td>
+                                                        checkName++;
+                                                    }
+                                                }                  
+                                                @if (checkName < 1)
+                                                {
+                                                  <td class=" "> <textarea id="idName_@p.stt"  cols="25" rows="1"> @p.Name</textarea></td> 
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }        
+                                                <!------------------------ Imagelink------------------------------> 
+                                                 @for (int i = 0; i < loiImageLink.Length; i++)
+                                                 {
+                                                     int j = (Convert.ToInt32(@p.stt) + 2);
+                                                     if (loiImageLink[i].Equals(j.ToString()))
+                                                     {
+                                                        <td class=" "> <textarea id="idImageLink_@p.stt" cols="40" rows="3" style="border-color:red"> @p.Imagelink</textarea></td>
+                                                         checkName++;
+                                                     }
+                                                 }                  
+                                                @if (checkName < 1)
+                                                {
+                                                  <td class=" ">   <textarea id="idImageLink_@p.stt" cols="40" rows="3">@p.Imagelink</textarea> </td> 
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                                                                                                            
+                                               
+                                                 <!------------------------ CPU------------------------------>    
+                                                 @for (int i = 0; i < loiCPU.Length; i++)
+                                                 {
+                                                     int j = (Convert.ToInt32(@p.stt) + 2);
+                                                     if (loiCPU[i].Equals(j.ToString()))
+                                                     {
+                                                        <td class=" "><textarea id="idCPU_@p.stt"  cols="20" rows="1" style="border-color:red"> @p.CPU</textarea></td>
+                                                         checkName++;
+                                                     }
+                                                 }                  
+                                                @if (checkName < 1)
+                                                {
+                                                   <td class=" "><textarea id="idCPU_@p.stt"  cols="20" rows="1"> @p.CPU</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                                                          
+                                                <!------------------------ VGA------------------------------>   
+                                                 @for (int i = 0; i < loiVGA.Length; i++)
+                                                 {
+                                                     int j = (Convert.ToInt32(@p.stt) + 2);
+                                                     if (loiVGA[i].Equals(j.ToString()))
+                                                     {
+                                                        <td class=" "> <textarea id="idVGA_@p.stt" cols="20" rows="1" style="border-color:red"> @p.VGA</textarea></td>
+                                                         checkName++;
+                                                     }
+                                                 }                  
+                                                @if (checkName < 1)
+                                                {
+                                                   <td class=" "> <textarea id="idVGA_@p.stt"  cols="20" rows="1"> @p.VGA</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                       
+
+                                                <!------------------------ HDD------------------------------>   
+                                                  @for (int i = 0; i < loiHDD.Length; i++)
+                                                  {
+                                                      int j = (Convert.ToInt32(@p.stt) + 2);
+                                                      if (loiHDD[i].Equals(j.ToString()))
+                                                      {
+                                                        <td class=" "><textarea id="idHDD_@p.stt" cols="3" rows="1" style="border-color:red"> @p.HDD</textarea></td>
+                                                          checkName++;
+                                                      }
+                                                  }                  
+                                                @if (checkName < 1)
+                                                {
+                                                    <td class=" "><textarea id="idHDD_@p.stt" cols="3" rows="1"> @p.HDD</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                        
+                                                <!------------------------ Display------------------------------>    
+                                                @for (int i = 0; i < loiDisplay.Length; i++)
+                                                {
+                                                    int j = (Convert.ToInt32(@p.stt) + 2);
+                                                    if (loiDisplay[i].Equals(j.ToString()))
+                                                    {
+                                                        <td class=" "> <textarea id="idDisplay_@p.stt" cols="10" rows="1" style="border-color:red"> @p.Display</textarea></td>
+                                                        checkName++;
+                                                    }
+                                                }                  
+                                                @if (checkName < 1)
+                                                {
+                                                    <td class=" "> <textarea id="idDisplay_@p.stt" cols="10" rows="1"> @p.Display</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }                        
+                                                <!------------------------ RAM------------------------------>    
+                                                @for (int i = 0; i < loiRam.Length; i++)
+                                                {
+                                                    int j = (Convert.ToInt32(@p.stt) + 2);
+                                                    if (loiRam[i].Equals(j.ToString()))
+                                                    {
+                                                        <td class=" "> <textarea id="idRam_@p.stt" cols="3" rows="1" style="border-color:red"> @p.RAM</textarea></td>
+                                                        checkName++;
+                                                    }
+                                                }                  
+                                                @if (checkName < 1)
+                                                {
+                                                    <td class=" "> <textarea id="idRam_@p.stt" cols="3" rows="1"> @p.RAM</textarea></td>
+                                                }               
+                                                @if (checkName > 0)
+                                                {
+                                                    checkName--;
+                                                }         
+                                        <td class=" ">
+                                            <a onclick="luusanphamloi(@p.stt)">
+                                                <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" />Lưu</a>
+                                        </td>
+                                    </tr> 
+                                                      
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--ket thuc tab2------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+        </div>
+        <div id="black-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <!--tab3--------------------------------------------------------------------------------------------------------------------------------------------------------------->         
+            <div class="da-panel collapsible">
+                  @if (listDup != null)
+                  {
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                        Table Styling
+                    </span>
+
+                    <span class="da-panel-toggler"></span>
+                </div>
+                <div class="da-panel-content">
+                    <input style="visibility: hidden" />
+                </div>
+              
+                      int i = 0;
+
+                      foreach (List<LapData> listp in listDup)
+                      {
+                          i++;
+                          // nút gộp tách
+                    <div class="da-panel-toolbar top" style="border-color: yellowgreen">
+                        <ul>
+                            <li style="width: 67.5px;" style="text-align: right"><a id ="link_@(i)"  onclick="gop1table(@(i))">
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
+                            <li style="text-align: right"><a  onclick="tach1table(@(i))" >
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
+                            <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
+                        </ul>
+                    </div>
+                    <div class="da-panel-content">
+                        <table    id="table_@(i)" class="da-table">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-column"  id="checkboxAllTable_@(i)">
+                                        <input id="checkAll"  style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD (G)</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Display</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram (G)</th>
+
+                                    <th style="width: 92px;">Chọn tên chính                                                               
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int y = 0;}
+                                @foreach (LapData p in listp)
+                                {
+                                    y++;
+                                    <tr class="odd">
+                                        <td id="@(y)" class="checked">
+                                            <input style="width: 19px;" value="@p.stt" id="checkbox@(y)" type="checkbox">
+                                        </td>
+                                       <td class=" ">@p.Name</td>
+                                            <td class=" ">@p.Imagelink</td>                                      
+                                            <td class=" ">@p.CPU</td>
+                                            <td class=" ">@p.VGA</td>
+                                            <td class=" ">@p.HDD</td>
+                                            <td class=" ">@p.Display</td>
+                                            <td class=" ">@p.RAM</td>
+
+                                        <td class="da-icon-column">
+
+                                            <!-- Nếu là sản phẩm đầu tiên thì check radio-->
+                                            @if (y == 1)
+                                            {
+                                                <input name="radio_@(i)" value="@p.stt" type="radio" checked="checked" >
+                                            }
+                                            else
+                                            {
+                                                <input name="radio_@(i)" value="@p.stt" type="radio"> 
+                                            }
+                                        </td>
+                                    </tr> 
+                                                            
+                                }
+                            </tbody>
+                        </table>
+                    </div>                                           
+                    <div class="da-panel-content">
+                        <input style="visibility: hidden" />
+                    </div>
+                      }
+                  }
+
+
+            </div>
+             <!-------------------listdupnew--------------------------------------------------------------------------------------->
+             <div class="da-panel collapsible">
+                  @if (listDupnew != null)
+                  {
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                        Sản phầm trùng với cơ sở dữ liệu.
+                    </span>
+
+                    <span class="da-panel-toggler"></span>
+                </div>
+                <div class="da-panel-content">
+                    <input style="visibility: hidden" />
+                </div>
+               
+                      int i = 0;
+
+                      foreach (List<LapData> listp in listDupnew)
+                      {
+                          i++;
+                          // nút gộp tách
+                    <div class="da-panel-toolbar top" style="border-color: yellowgreen">
+                        <ul>
+                            <li style="text-align: right"><a id ="link_@(i)"  onclick="gopdatabase(@(i))">
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
+                            <li style="text-align: right"><a  onclick="tachdatabase(@(i))" > 
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
+                            <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
+                        </ul>
+                    </div>
+                    <div class="da-panel-content">
+                        <table    id="table_@(i)" class="da-table">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-column"  style="width: 97px;" id="checkboxAllTable_@(i)">
+                                        <input id="checkAll"  checked="checked" disabled style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                                    <th style="width: 250px;">Tên thành phần</th>
+                                    <th>Trọng số</th>
+                                    <th>Loại</th>
+                                  @*   <th style="width: 92px;">Chọn tên chính                                                               
+                                    </th> *@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int y = 0;}
+                                @foreach (LapData p in listp)
+                                {
+                                    y++;
+                                    <tr class="odd">
+                                        <td id="@(y)" class="checked">
+                                            <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
+                                        </td>
+                                        <td>@p.Name</td>
+                                        <td>@p.Name</td>                                 
+                                        <td class=" ">@p.Name</td>
+                                       @*   <td class="da-icon-column">
+
+                                           Nếu là sản phẩm đầu tiên thì check radio
+                                            @if (y == 1)
+                                            {
+                                                <input name="radio_@(i)" value="@p.stt" type="radio" checked="checked" >
+                                            }
+                                            else
+                                            {
+                                                <input name="radio_@(i)" value="@p.stt" type="radio"> 
+                                            }
+                                        </td>*@
+                                    </tr> 
+                                                            
+                                }
+                            </tbody>
+                        </table>
+                    </div>                                           
+                    <div class="da-panel-content">
+                        <input style="visibility: hidden" />
+                    </div>
+                      }
+                  }
+
+
+            </div>
+
+            <!--ket thuc tab3-------------------------------------------------------------------------------->
+        </div>
+
+        <!-----------------------------------------javascript -------------------------------------->
+
+        <script>
+                  <!----validate file upload :D-------->
+    var fsize=0;
+    $('#fileupload').bind('change', function() {
+        // alert('This file size is: ' + this.files[0].size/1024/1024 + "MB");
+        //alert('This file name is: ' + this.files[0].name); 
+        fsize = this.files[0].size/1024/1024;
+        var fname =  this.files[0].name;
+                 
+    });
+
+    function checkuploadfile(){                
+        if(fsize>2){
+            $.jGrowl("File không được lớn hơn 2Mb", {header: "Nhắc nhở!", position: "bottom-right"});
+        }else{
+            document.getElementById("da-ex-vali").submit();
+        }
+    }
+
+    // Lưu sản phẩm đúng và ghi log file
+    function saveCorrectProduct(x) { 
+        var val = ""; 
+        var err =  document.getElementById("IdErrorLog").checked;
+        var dup =  document.getElementById("IdDuplicateLog").checked;
+        if(dup==true){
+            val = "dup";
+        }else{
+            val = "no";
+        }
+        if(err==true){
+            val += "@@err";
+        }else{
+            val += "@@no";
+        }
+        var postData = { checkval: val };
+        if(x >0){
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ImportExcel/saveAllProduct",
+                data: postData,
+                success: function(data){
+                    location.reload();
+                },
+
+            }); 
+        }else{
+            $("#da-ex-dialog-div").dialog("option", {modal: false}).dialog("close");       
+            $.jGrowl("Hiện chưa có sản phẩm nào để lưu. Vui lòng thử lại!", {header: "Nhắc nhở!", position: "bottom-right"});
+        }
+    }
+    // check all in table
+    function checkboxAllTable(i) {
+        if ($("#checkboxAllTable_" + i).find("input:checkbox")[0].checked == true) {
+            $("#table_" + i).find("tbody").find("input:checkbox").attr('checked', $(this).is('') ? 'checked' : '');
+            $("#table_" + i).find("tbody").find("tr").attr("class", "checked");
+        }
+        else {
+            $("#table_" + i).find("tbody").find("input:checkbox").removeAttr('checked');
+            $("#table_" + i).find("tbody").find("tr").removeClass('checked');
+        }
+    }
+
+
+    // lưu sản phẩm lỗi
+    function luusanphamloi(stt){
+        var Name =  document.getElementById("idName_"+stt).value;
+        var ImageLink =  document.getElementById("idImageLink_"+stt).value;
+        var CPU =  document.getElementById("idCPU_"+stt).value;
+        var VGA =  document.getElementById("idVGA_"+stt).value;
+        var HDD =  document.getElementById("idHDD_"+stt).value;
+        var Display =  document.getElementById("idDisplay_"+stt).value;
+        var Ram =  document.getElementById("idRam_"+stt).value;
+        var string = stt +'@@'+Name+'@@'+ImageLink+'@@'+ CPU+'@@'+ VGA+'@@'+ HDD+'@@'+ Display+'@@'+ Ram;
+        if (confirm("Bạn có chắc chắn muốn lưu sản phẩm này?")) {
+            var postData = { stringpro: string };
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ImportExcelLap/fixedErrorProduct",
+                data: postData,
+                success: function(data){
+                    $('#white-icon').html(data);
+                    tabsanphamdung();
+                    tabsanphamtrung();
+                },
+
+            });
+        } else {
+                                               
+        }
+    }
+
+
+
+    // Tab sản phẩm trùng
+    function tabsanphamtrung() {  
+        var val = "nothing";                                                                                          
+        var postData = { valuest: val };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ImportExcelLap/getTach",
+            data: postData,
+            success: function(data){
+                $('#black-icon').html(data);
+            },
+
+        });     
+    }
+    // tab sản phẩm lỗi
+    function tabsanphamloi(){
+        var string="nothing";
+        var postData = { stringpro: string };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ImportExcel/fixedErrorProduct",
+            data: postData,
+            success: function(data){
+                $('#white-icon').html(data);
+            },
+
+        });
+                                                  
+    }
+
+    //tab sản phẩm đúng
+    function tabsanphamdung(){
+        var string="nothing";
+        var postData = { sttproduct: string };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ImportExcelLap/deleteproduct",
+            data: postData,
+            success: function(data){
+                $('#CorrectID').html(data);
+            },
+
+        });
+                                                  
+    }
+
+
+    //xóa sản phẩm đúng.
+    function xoasanphamdung(stt){
+        if (confirm("Bạn có chắc chắn muôn xóa sản phẩm này?")) {
+            var postData = { sttproduct: stt };
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ImportExcelLap/deleteproduct",
+                data: postData,
+                success: function(data){
+                    $('#CorrectID').html(data);
+                    tabsanphamdung();
+                },
+            });
+        } else {
+                                               
+        }
+                                            
+    }
+
+
+
+                                                
+    // Tách 1 table
+    function tach1table(i) {  
+        var val = "";
+        var count =0;
+        $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+            val +='*'+ $(this).val();
+            count ++;
+        });   
+                
+        if(count==1){
+            $.jGrowl("Để tách bảng vui lòng chọn ít nhất 2 sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
+        }
+        // thêm
+        $("#table_" + i).find("tbody").find("input:checkbox").each(function(i){                                               
+            val +='@@'+ $(this).val();
+        });      
+        var postData = { valuest: val };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ImportExcelLap/getTach",
+            data: postData,
+            success: function(data){
+                //   $('#tachid').html(data);
+                tabsanphamtrung()
+                tabsanphamdung();
+            },
+
+        });     
+    }
+    //Gộp 1 talbe
+    function gop1table(i) {  
+        var val = "";
+        var check =[];
+        var radio ="";
+        var count = 0;
+        $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+            val +='@@'+ $(this).val();
+            check[i]= $(this).val();
+            count ++;
+        });
+        if(count>=2){
+                   
+            $("#table_" + i).find("tbody").find("input:radio:checked").each(function(i){  
+                val += '@@'+ $(this).val();
+                radio = $(this).val();
+            }); 
+            for(var x =0; x <check.length; x++)
+            {
+                if(check[x] == radio){
+                    var postData = { valuest: val };
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/ImportExcelLap/getGop",
+                        data: postData,
+                        success: function(data){
+                            $('#black-icon').html(data);
+                           // tabsanphamtrung();
+                            tabsanphamdung();                                               
+                        },                                              
+                    });  
+                    break;
+                }else{
+                    $.jGrowl("Vui lòng chọn tên chính để gộp sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
+                    break;
+                }
+            }
+                   
+        }else{
+            $.jGrowl("Để gộp vui lòng chọn ít nhất 2 sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
+        }            
+        //   location.reload();
+    }
+    // tách table khi so trùng database
+    function tachdatabase(i)
+    {
+        var val = "";
+        $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+            val +='@@'+ $(this).val();
+        });
+        var postData = { valuestach: val };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ImportExcel/tachdatabase",
+            data: postData,
+            success: function(data){
+                $('#black-icon').html(data);
+                tabsanphamdung();                                               
+            },                                             
+        });  
+
+    }
+    // gộp table khi so trùng database
+    function gopdatabase(i)
+    {
+        var val = "";
+        $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+            val +='@@'+ $(this).val();
+        });
+        var postData = { valuesgop: val };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ImportExcel/gopdatabase",
+            data: postData,
+            success: function(data){
+                $('#black-icon').html(data);
+                tabsanphamdung();                                               
+            },
+
+                                                
+        });  
+
+    }
+        </script>
+        <!---------------------Popup--------------------------------- Stick---------------------------------------->
+        <!---  <button id="da-ex-growl-2" class="da-button green">Growl with Header</button> --->
+        <style>
+            div.jGrowl.bottom-right
+            {
+                top: 10%;
+                right: 30%;
+            }
+        </style>
+        <script>                      
+            (function($) {
+                $(document).ready(function(e) {   
+                    // dialog popup
+                    $("#da-ex-accordion, #da-ex-accordion-plain").accordion();
+		
+                    $("#da-ex-tabs, #da-ex-tabs-plain").tabs();
+		
+                    $("#da-ex-datepicker, #da-ex-datepicker-inline").datepicker({showOtherMonths:true});
+		
+                    $("#da-ex-datepicker-week").datepicker({showOtherMonths:true, showWeek: true});
+		
+                    $("#da-ex-datepicker-months").datepicker({showOtherMonths:true, numberOfMonths: 3});
+		
+                    $("#da-ex-datetimepicker").datetimepicker();
+		
+                    $("#da-ex-timepicker").timepicker({});
+		
+                    $(".da-ex-buttons").button();
+		
+                    $("#da-ex-buttons-radio, #da-ex-buttons-checkbox").buttonset();
+		
+                    $( "#da-ex-buttons-icon button:first" ).button({
+                        icons: {
+                            primary: "ui-icon-locked"
+                        },
+                        text: false
+                    }).next().button({
+                        icons: {
+                            primary: "ui-icon-locked"
+                        }
+                    }).next().button({
+                        icons: {
+                            primary: "ui-icon-gear",
+                            secondary: "ui-icon-triangle-1-s"
+                        }
+                    }).next().button({
+                        icons: {
+                            primary: "ui-icon-gear",
+                            secondary: "ui-icon-triangle-1-s"
+                        },
+                        text: false
+                    });
+		
+                    var availableTags = [
+                        "ActionScript",
+                        "AppleScript",
+                        "Asp",
+                        "BASIC",
+                        "C",
+                        "C++",
+                        "Clojure",
+                        "COBOL",
+                        "ColdFusion",
+                        "Erlang",
+                        "Fortran",
+                        "Groovy",
+                        "Haskell",
+                        "Java",
+                        "JavaScript",
+                        "Lisp",
+                        "Perl",
+                        "PHP",
+                        "Python",
+                        "Ruby",
+                        "Scala",
+                        "Scheme"
+                    ];
+		
+                    $( "#da-ex-autocomplete" ).autocomplete({
+                        source: availableTags
+                    });
+		
+                    $("#da-ex-slider").slider();
+		
+                    $("#da-ex-slider-range").slider({
+                        range: true,
+                        min: 0,
+                        max: 500,
+                        values: [ 75, 300 ], 
+                        slide: function( event, ui ) {
+                            $( "#da-ex-slider-range-info .da-highlight" ).html( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                        }
+                    });
+		
+                    $(".da-ex-color-slider").slider({
+                        range: "min",
+                        value: 45,
+                        min: 1,
+                        max: 100
+                    });
+		
+                    $("#da-ex-slider-range-fixed").slider({
+                        range: "min",
+                        value: 37,
+                        min: 1,
+                        max: 700, 
+                        slide: function( event, ui ) {
+                            $( "#da-ex-slider-range-fixed-info .da-highlight" ).html( "$" + ui.value );
+                        }
+                    });
+	
+                    $( "#da-slider-equalizer > span" ).each(function() {
+                        var value = parseInt( $( this ).text(), 10 );
+			
+                        $( this ).empty().slider({
+                            value: value,
+                            range: "min",
+                            animate: true,
+                            orientation: "vertical"
+                        });
+                    });
+		
+                    $(".da-ex-color-pb, #da-ex-pb, #da-ex-pba").each(function() {
+                        $(this).progressbar({
+                            value: 25 + Math.floor(Math.random() * 50)
+                        });
+                    });
+		
+                    $("#da-ex-pba-trigger").bind('click', function(e) {
+                        $(this).parent().next("#da-ex-pba").progressbar('value', 20 + Math.floor(Math.random() * 80));
+                        e.preventDefault();
+                    });
+		
+                    $("#da-ex-dialog-div").dialog({
+                        autoOpen: false, 
+                        title: "Chọn log file bạn muốn ghi lại, để sau đó có thể tiếp tục xử lý.", 
+                        modal: true, 
+                        width: "550", 
+                        buttons: [{
+                            text: "Đóng", 
+                            click: function() {
+                                $( this ).dialog( "close" );
+                            }}]
+                    });
+		
+		
+          
+		
+                    $("#da-ex-dialog").bind("click", function(event) {
+                        $("#da-ex-dialog-div").dialog("option", {modal: false}).dialog("open");
+                        event.preventDefault();
+                    });
+                    $("#da-ex-dialog-modal").bind("click", function(event) {
+                        $("#da-ex-dialog-div").dialog("option", {modal: true}).dialog("open");
+                        event.preventDefault();
+                    });
+                    $("#da-ex-dialog-form").bind("click", function(event) {
+                        $("#da-ex-dialog-form-div").dialog("option", {modal: true}).dialog("open");
+                        event.preventDefault();
+                    });
+                    //  Growl Notifications 
+                    if($.jGrowl) {
+                                   		
+                        $("#da-ex-growl-2").bind("click", function(event) {
+                            $.jGrowl("Con cò bé bé", {header: "Nhắc nhở!", position: "bottom-right"});
+                        });
+                    }		
+                });
+            }) (jQuery); 		</script>
+        <!-----------Popup------------------------ Stick---------------------------------->
+
+    </div>
+</div>

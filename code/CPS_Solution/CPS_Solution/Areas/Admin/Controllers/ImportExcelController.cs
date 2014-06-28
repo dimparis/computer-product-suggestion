@@ -8,6 +8,7 @@ using CPS_Solution.EntityFramework;
 using System.IO;
 using LinqToExcel;
 using LinqToExcel.Query;
+using CPS_Solution.Areas.Admin.Helpers;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class ImportExcelController : Controller
@@ -32,12 +33,32 @@ namespace CPS_Solution.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult saveAllProduct(String checkval)
         {
+          
             // get list product in session.
             List<ProductMap> listpro = (List<ProductMap>)Session["listproduct"];
             List<ProductMap> listerror = (List<ProductMap>)Session["listerror"];
             List<List<ProductMap>> listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
-            // xóa session dup
-            Session["listduplicate"] = null;
+
+
+            //ghi logfile---------------------------------------------------------------------------------
+            String[] ghilog = checkval.ToString().Split('@');
+
+            // nếu có check  ghilog Duplicate
+            if (!ghilog[0].Equals("no"))
+            {
+                LogFileDupProHelper.GenerateLogfile(listduplicate);
+                // xóa session dup
+                Session["listduplicate"] = null;
+            }
+            // nếu có check ghilog Error
+            if (!ghilog[1].Equals("no"))
+            {
+
+                // xóa session error
+                Session["listerror"] = null;
+            }
+
+          
 
             // Tạo listduplicate mới chứa trùng giữa listpro và trong database
             List<List<ProductMap>> listduplicatenew = new List<List<ProductMap>>(); 
@@ -158,6 +179,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             Session["listproduct"] = null;
             Session["listerror"] = null;
             Session["listduplicate"] = null;
+            Session["listduplicatenew"] = null;
             return RedirectToAction("Index");
         }
         /// <summary>
