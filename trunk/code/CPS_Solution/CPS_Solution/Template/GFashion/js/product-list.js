@@ -48,11 +48,8 @@ function createInfo() {
         var parent = document.querySelector('input[value="' + x + '"]').parentNode;
         t += parent.querySelector('a').innerHTML + ' <button onclick="removeProduct(' + x + ')">Remove</button><br/>';
     }
-    t += '<form action="/product/compare/" method="post">';
-    t += '<input type="hidden" name="varX" value="' + a[0] + '">';
-    t += '<input type="hidden" name="varY" value="' + a[1] + '">';
-    t += '<button type="submit" class="btn btn-default btn-xs">So Sánh</button>';
-    t += '</form>';
+    t += '<button onclick="aaa()" class="btn btn-default btn-xs">So Sánh</button>';
+    
     $("#info").html(t);
 };
 
