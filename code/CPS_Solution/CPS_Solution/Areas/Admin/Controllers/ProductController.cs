@@ -44,7 +44,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //        return Json(check, JsonRequestBehavior.AllowGet);
         //    }
         //}
-        
+
         [HttpPost]
         public ActionResult SetActive(int id)
         {
@@ -72,14 +72,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
             };
             return Json(results);
         }
-        public ActionResult CreateProductTest() 
+        public ActionResult CreateProductTest()
         {
             // Load CPU list
-            var cpus = context.AttributeDictionaries.Where(x=>x.CodetypeID == "C")
-                .OrderBy(x=>x.Name)
+            var cpus = context.AttributeDictionaries.Where(x => x.CodetypeID == "C")
+                .OrderBy(x => x.Name)
                 .ToList();
             var cpuList = new List<SelectListItem>();
-            foreach (var cpu in cpus) 
+            foreach (var cpu in cpus)
             {
                 var item = new SelectListItem
                 {
@@ -160,28 +160,28 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return View("CreateProductTest");
         }
         [HttpPost]
-        public RedirectToRouteResult CreateProductTest(ProductCreateAttribute model) 
+        public RedirectToRouteResult CreateProductTest(ProductCreateAttribute model)
         {
             //Add item product
             var product = new Product
             {
-                Name = "AK TEST HERE",
                 Price = 1,
                 IsActive = true,
                 URL = "http test",
                 TotalWeightPoint = 0,
             };
+            product.ProductAlias.Add(new ProductAlia() { Name = "Sang kuteo", IsMain = true });
             context.Products.Add(product);
             context.SaveChanges();
             //Add item product Attribute
-            var idList  =new List<int>() ;
+            var idList = new List<int>();
             idList.Add(model.CpuId);
             idList.Add(model.RamId);
             idList.Add(model.HddId);
             idList.Add(model.DisplayId);
             idList.Add(model.VgaId);
 
-            foreach (int id in idList) 
+            foreach (int id in idList)
             {
                 var productAtt = new ProductAttribute
                {
@@ -192,10 +192,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             // Take list of point
             double total = 0;
-            var attList= new List<AttributeDictionary>();
+            var attList = new List<AttributeDictionary>();
             foreach (int id in idList)
             {
-                var attributes = context.AttributeDictionaries.Where(x=>x.ID == id).ToList(); 
+                var attributes = context.AttributeDictionaries.Where(x => x.ID == id).ToList();
                 attList.AddRange(attributes);
             }
             foreach (var att in attList)
@@ -206,9 +206,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
             var pro = context.Products.Where(x => x.ID == product.ID).FirstOrDefault();
             pro.TotalWeightPoint = total;
             TempData["create"] = "Success";
-            context.SaveChanges();         
+            context.SaveChanges();
             // TO DO HERE 
-           return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
     }

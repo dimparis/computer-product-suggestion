@@ -24,22 +24,30 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             var ParseProductLink = context.RecommendProducts.Where(x => x.ID == id).Select(x => x.Parselink).FirstOrDefault().ToString();
             ParserHelper.LoadWeb(ParseProductLink);
+            TempData["existed"] = "false";
+            var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Equals(ParseProductLink));
+            if (parseInfo != null)
+            {
+                TempData["existed"] = "true";
+                TempData["parseInfo"] = parseInfo;
+            }
+
             TempData["link"] = ParseProductLink;
             TempData["idRecommendProduct"] = id;
             return RedirectToAction("CreateProductParser");
         }
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public RedirectToRouteResult CreateProductParser(ProductParserCreator model)
         {
             var productInfo = new ParseInfo
             {
                 Name = model.ProductNameXpath,
                 Parselink = model.ParseProductLink,
-                CPUXPath =model.CPUXpath,
-                DisplayXPath=model.DisplayXpath,
-                HDDXPath=model.HDDXpath,
-                RAMXPath=model.RAMXpath,
-                VGAXPath=model.VGAXpath,
+                CPUXPath = model.CPUXpath,
+                DisplayXPath = model.DisplayXpath,
+                HDDXPath = model.HDDXpath,
+                RAMXPath = model.RAMXpath,
+                VGAXPath = model.VGAXpath,
                 IsActive = true,
 
             };
@@ -59,7 +67,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return View();
         }
         [HttpPost, ActionName("setStatus")]
-        public JsonResult setStatus(string[] idList) 
+        public JsonResult setStatus(string[] idList)
         {
             bool check = false;
             string message = "";
@@ -77,13 +85,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 TempData["updateStatus"] = message;
                 return Json(check, JsonRequestBehavior.AllowGet);
             }
-            catch 
+            catch
             {
                 check = false;
                 message = "Failed";
                 TempData["updateStatus"] = message;
                 return Json(check, JsonRequestBehavior.AllowGet);
-            }        
+            }
         }
     }
 }
