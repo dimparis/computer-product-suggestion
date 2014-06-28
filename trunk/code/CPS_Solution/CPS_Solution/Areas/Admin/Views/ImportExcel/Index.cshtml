@@ -345,11 +345,8 @@
                                             @*     <form id="form10" action="/Home/deleteproduct" method="post" enctype="multipart/form-data">*@
                                             <td class=" sorting_1">@p.stt </td>
                                             <td class=" ">@p.ten</td>
-                                            <td class=" ">@p.trongso</td>
-                                            @if (@p.loai.Equals("C"))
-                                            {
-                                                <td class=" ">CPU</td>
-                                            }
+                                            <td class=" ">@p.trongso</td>                                      
+                                                <td class=" ">@p.loai</td>
                                             <td class=" ">
                                                 <input name="sttproduct" type="hidden"  value="@p.stt" />
                                                 <a onclick="xoasanphamdung(@p.stt)">
@@ -550,10 +547,7 @@
                                         </td>
                                         <td>@p.ten</td>
                                         <td>@p.trongso</td>
-                                        @if (p.loai.Equals("C"))
-                                        {
-                                            <td class=" ">CPU</td>
-                                        }
+                                         <td class=" ">@p.loai</td>
                                         <td class="da-icon-column">
 
                                             <!-- Nếu là sản phẩm đầu tiên thì check radio-->
@@ -634,11 +628,8 @@
                                             <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
                                         <td>@p.ten</td>
-                                        <td>@p.trongso</td>
-                                        @if (p.loai.Equals("C"))
-                                        {
-                                            <td class=" ">CPU</td>
-                                        }
+                                        <td>@p.trongso</td>                                 
+                                        <td class=" ">@p.loai</td>
                                        @*   <td class="da-icon-column">
 
                                            Nếu là sản phẩm đầu tiên thì check radio
@@ -696,12 +687,12 @@
                 var err =  document.getElementById("IdErrorLog").checked;
                 var dup =  document.getElementById("IdDuplicateLog").checked;
                 if(dup==true){
-                    val = "ok";
+                    val = "dup";
                 }else{
                     val = "no";
                 }
-                if(dup==true){
-                    val += "@@ok";
+                if(err==true){
+                    val += "@@err";
                 }else{
                     val += "@@no";
                 }
