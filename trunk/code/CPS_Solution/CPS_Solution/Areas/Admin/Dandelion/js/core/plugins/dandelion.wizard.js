@@ -29,7 +29,7 @@
 			buttonContainerClass: 'da-button-row', 
 			nextButtonClass: 'da-button red', 
 			prevButtonClass: 'da-button gray left', 
-			submitButtonClass: 'da-button green', 
+			submitButtonClass: 'da-button green btnSubmitSang', 
 			nextButtonLabel: 'Next', 
 			prevButtonLabel: 'Prev', 
 			submitButtonLabel: 'Submit', 

@@ -196,6 +196,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\EntitiesExtension.cs" />
     <Compile Include="EntityFramework\History.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
@@ -3180,6 +3181,12 @@
     <Content Include="Views\Product\ViewCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Product\CreateProductTest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
@@ -3199,12 +3206,6 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Product\CreateProductTest.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

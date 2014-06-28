@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using CPS_Solution.EntityFramework;
 namespace CPS_Solution.Areas.Admin.Controllers
-{ 
+{
     public class ProductShowController : Controller
     {
-        private CPS_SolutionEntities context = new CPS_SolutionEntities(); 
+        private CPS_SolutionEntities context = new CPS_SolutionEntities();
         //
         // GET: /Admin/ProductShow/
 
@@ -17,9 +17,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
             var listOfProduct = context.Products.Where(x => x.IsActive).ToList();
             return View(listOfProduct);
         }
-        public ActionResult EditProduct(int id) 
+        public ActionResult EditProduct(int id)
         {
-            var product = context.ProductAlias.FirstOrDefault(p =>p.ProductID==id);
+            var product = context.ProductAlias.FirstOrDefault(p => p.ProductID == id);
             if (product != null)
             {
                 var aliasNames = context.ProductAlias
@@ -30,22 +30,33 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 {
                     var item = new SelectListItem
                     {
+                        Selected = alias.IsMain.Value,
                         Text = alias.Name,
                         Value = alias.ID.ToString()
                     };
                     productList.Add(item);
                 }
-                ViewBag.ListOfName = productList;
+                ViewBag.MainAliasID = productList;
             }
             return View(product);
         }
         [HttpPost]
-        public RedirectToRouteResult EditProductName(ProductAlia z) 
+        public RedirectToRouteResult EditProductName(int MainAliasID)
         {
-            var alias = context.ProductAlias.Where(pa => pa.ID == z.ID).FirstOrDefault();
+            var alias = context.ProductAlias.Where(pa => pa.ID == MainAliasID).FirstOrDefault();
             var product = context.Products.Where(p => p.ID == alias.ProductID).FirstOrDefault();
+            foreach (var aliass in product.ProductAlias)
+            {
+                if (aliass.ID == MainAliasID)
+                {
+                    aliass.IsMain = true;
+                }
+                else
+                {
+                    aliass.IsMain = false;
+                }
+            }
 
-            product.Name = alias.Name;
             context.SaveChanges();
             return RedirectToAction("Index");
         }
