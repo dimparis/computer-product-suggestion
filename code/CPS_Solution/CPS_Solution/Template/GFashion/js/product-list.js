@@ -1,5 +1,12 @@
 ﻿var a = [];
 $(function () {
+    $.notify.defaults(
+        {
+            autoHideDelay: 1100,
+            globalPosition: 'top center',
+            showDuration: 400,
+        }
+    )
     $('.product').on({
         mouseenter: function () {
             var id = this.querySelector('input').value;
@@ -17,14 +24,18 @@ $(function () {
         var id = this.attributes['data-product-id'].value;
         var name = this.attributes['data-product-name'].value;
         if (isExisted(id)) {
-            alert(name + ' đã có trong danh sách!');
+            //alert(name + ' đã có trong danh sách!');
+            $.notify(name + " đã có trong danh sách so sánh", "warn");
         } else {
             if (a.length == 3) {
-                alert('Danh sách so sánh không được nhiều hơn 3 sản phẩm.');
+                //alert('Danh sách so sánh không được nhiều hơn 3 sản phẩm.');
+                $.notify("Danh sách so sánh không được nhiều hơn 3 sản phẩm.", "warn");
             } else {
                 a.push(id);
-                $('#quantity').html(a.length);
+                $('#quantity').html(a.length);                
                 createInfo();
+                $.notify(name + " vừa được thêm vào danh sách so sánh", "success");
+                
             }
         }
     });
