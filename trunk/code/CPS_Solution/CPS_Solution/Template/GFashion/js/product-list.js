@@ -43,14 +43,14 @@ $(function () {
 });
 
 function createInfo() {
-    var t = '<div style="margin: 10px 0px -10px 10px;"><strong><b>Dach sách sản phẩm:</b></strong></div><hr>';
+    var t = '<div style="margin: 10px 0px -10px 10px;"><strong><b>Dach sách sản phẩm:</b></strong></div><hr><div style="background-color:#F7A191;">';
     for (var i = 0; i < a.length; ++i) {
         var x = a[i];
         var parent = document.querySelector('input[value="' + x + '"]').parentNode;
         //t += parent.querySelector('a').innerHTML + ' <button onclick="removeProduct(' + x + ')">Remove</button><br/>';
-        t += '<div style="margin-top: 10px;"><img src="/Template/GFashion/img/remove.png" onclick="removeProduct(' + x + ')" style="margin: -5px 10px 0px 15px"/>' + parent.querySelector('a').innerHTML + '</div>';
+        t += '<div style="margin-top:10px;"><img src="/Template/GFashion/img/remove.png" onclick="removeProduct(' + x + ')" style="margin: -5px 10px 0px 15px"/>' + parent.querySelector('a').innerHTML + '</div>';
     }
-    t += '<hr>';
+    t += '</div><hr>';
     t += '<button onclick="goCompare()" class="btn btn-default btn-xs" style="float:right; margin:-10px 10px 10px 10px;">So Sánh</button>';
     
     $("#info").html(t);
