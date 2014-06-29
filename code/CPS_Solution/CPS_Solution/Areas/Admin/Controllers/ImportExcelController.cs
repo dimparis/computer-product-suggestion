@@ -46,7 +46,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // nếu có check  ghilog Duplicate
             if (!ghilog[0].Equals("no"))
             {
-                LogFileDupProHelper.GenerateLogfile(listduplicate);
+                LogFileHelper.LogfileThanhPhan(listduplicate);
                 // xóa session dup
                 Session["listduplicate"] = null;
             }
