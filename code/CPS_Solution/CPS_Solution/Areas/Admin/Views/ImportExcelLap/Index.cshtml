@@ -320,7 +320,7 @@
              {
                 <div class="da-panel-toolbar top">
                     <ul>
-                        <form action="~/Admin/ImportExcel/saveAllProduct" method="post" enctype="multipart/form-data">
+                        <form action="~/Admin/ImportExcelLap/saveAllProduct" method="post" enctype="multipart/form-data">
                             <li>
                                 <a id="da-ex-dialog-modal">
                                     <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</a></li>
@@ -338,7 +338,7 @@
                             </div>
                             <!----------------Popup------------------>
                         </form>
-                        <li><a href="~/Admin/ImportExcel/huyimport">
+                        <li><a href="~/Admin/ImportExcelLap/huyimport">
                             <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
                     </ul>
                 </div>
@@ -432,13 +432,13 @@
                                                     int j = (Convert.ToInt32(@p.stt) + 2);
                                                     if (loiName[i].Equals(j.ToString()))
                                                     {
-                                                        <td class=" "> <textarea  cols="25" rows="1" style="border-color:red"> @p.Name</textarea></td>
+                                                        <td class=" "> <textarea disabled cols="25" rows="1" style="border-color:red"> @p.Name</textarea></td>
                                                         checkName++;
                                                     }
                                                 }                  
                                                 @if (checkName < 1)
                                                 {
-                                                  <td class=" "> <textarea  cols="25" rows="1"> @p.Name</textarea></td> 
+                                                  <td class=" "> <textarea disabled cols="25" rows="1"> @p.Name</textarea></td> 
                                                 }               
                                                 @if (checkName > 0)
                                                 {
@@ -450,13 +450,13 @@
                                                      int j = (Convert.ToInt32(@p.stt) + 2);
                                                      if (loiImageLink[i].Equals(j.ToString()))
                                                      {
-                                                        <td class=" "> <textarea  cols="40" rows="3" style="border-color:red"> @p.Imagelink</textarea></td>
+                                                        <td class=" "> <textarea disabled cols="40" rows="3" style="border-color:red"> @p.Imagelink</textarea></td>
                                                          checkName++;
                                                      }
                                                  }                  
                                                 @if (checkName < 1)
                                                 {
-                                                  <td class=" ">   <textarea  cols="40" rows="3">@p.Imagelink</textarea> </td> 
+                                                  <td class=" ">   <textarea disabled cols="40" rows="3">@p.Imagelink</textarea> </td> 
                                                 }               
                                                 @if (checkName > 0)
                                                 {
@@ -469,13 +469,13 @@
                                                      int j = (Convert.ToInt32(@p.stt) + 2);
                                                      if (loiCPU[i].Equals(j.ToString()))
                                                      {
-                                                        <td class=" "><textarea  cols="20" rows="1" style="border-color:red"> @p.CPU</textarea></td>
+                                                        <td class=" "><textarea disabled cols="20" rows="1" style="border-color:red"> @p.CPU</textarea></td>
                                                          checkName++;
                                                      }
                                                  }                  
                                                 @if (checkName < 1)
                                                 {
-                                                   <td class=" "><textarea  cols="20" rows="1"> @p.CPU</textarea></td>
+                                                   <td class=" "><textarea disabled cols="20" rows="1"> @p.CPU</textarea></td>
                                                 }               
                                                 @if (checkName > 0)
                                                 {
@@ -487,13 +487,13 @@
                                                      int j = (Convert.ToInt32(@p.stt) + 2);
                                                      if (loiVGA[i].Equals(j.ToString()))
                                                      {
-                                                        <td class=" "> <textarea  cols="20" rows="1" style="border-color:red"> @p.VGA</textarea></td>
+                                                        <td class=" "> <textarea disabled cols="20" rows="1" style="border-color:red"> @p.VGA</textarea></td>
                                                          checkName++;
                                                      }
                                                  }                  
                                                 @if (checkName < 1)
                                                 {
-                                                   <td class=" "> <textarea  cols="20" rows="1"> @p.VGA</textarea></td>
+                                                   <td class=" "> <textarea disabled cols="20" rows="1"> @p.VGA</textarea></td>
                                                 }               
                                                 @if (checkName > 0)
                                                 {
@@ -506,13 +506,13 @@
                                                       int j = (Convert.ToInt32(@p.stt) + 2);
                                                       if (loiHDD[i].Equals(j.ToString()))
                                                       {
-                                                        <td class=" "><textarea  cols="3" rows="1" style="border-color:red"> @p.HDD</textarea></td>
+                                                        <td class=" "><textarea disabled cols="3" rows="1" style="border-color:red"> @p.HDD</textarea></td>
                                                           checkName++;
                                                       }
                                                   }                  
                                                 @if (checkName < 1)
                                                 {
-                                                    <td class=" "><textarea  cols="3" rows="1"> @p.HDD</textarea></td>
+                                                    <td class=" "><textarea disabled cols="3" rows="1"> @p.HDD</textarea></td>
                                                 }               
                                                 @if (checkName > 0)
                                                 {
@@ -524,13 +524,13 @@
                                                     int j = (Convert.ToInt32(@p.stt) + 2);
                                                     if (loiDisplay[i].Equals(j.ToString()))
                                                     {
-                                                        <td class=" "> <textarea  cols="10" rows="1" style="border-color:red"> @p.Display</textarea></td>
+                                                        <td class=" "> <textarea disabled cols="10" rows="1" style="border-color:red"> @p.Display</textarea></td>
                                                         checkName++;
                                                     }
                                                 }                  
                                                 @if (checkName < 1)
                                                 {
-                                                    <td class=" "> <textarea  cols="10" rows="1"> @p.Display</textarea></td>
+                                                    <td class=" "> <textarea disabled cols="10" rows="1"> @p.Display</textarea></td>
                                                 }               
                                                 @if (checkName > 0)
                                                 {
@@ -542,13 +542,13 @@
                                                     int j = (Convert.ToInt32(@p.stt) + 2);
                                                     if (loiRam[i].Equals(j.ToString()))
                                                     {
-                                                        <td class=" "> <textarea  cols="3" rows="1" style="border-color:red"> @p.RAM</textarea></td>
+                                                        <td class=" "> <textarea disabled cols="3" rows="1" style="border-color:red"> @p.RAM</textarea></td>
                                                         checkName++;
                                                     }
                                                 }                  
                                                 @if (checkName < 1)
                                                 {
-                                                    <td class=" "> <textarea  cols="3" rows="1"> @p.RAM</textarea></td>
+                                                    <td class=" "> <textarea disabled cols="3" rows="1"> @p.RAM</textarea></td>
                                                 }               
                                                 @if (checkName > 0)
                                                 {
@@ -1068,10 +1068,9 @@
         }
         var postData = { checkval: val };
         if(x >0){
-
             $.ajax({
                 type: "POST",
-                url: "/Admin/ImportExcel/saveAllProduct",
+                url: "/Admin/ImportExcelLap/saveAllProduct",
                 data: postData,
                 success: function(data){
                     location.reload();
@@ -1217,8 +1216,8 @@
             url: "/Admin/ImportExcelLap/getTach",
             data: postData,
             success: function(data){
-                //   $('#tachid').html(data);
-                tabsanphamtrung()
+                $('#black-icon').html(data);
+              //  tabsanphamtrung()
                 tabsanphamdung();
             },
 
@@ -1443,7 +1442,7 @@
 		
                     $("#da-ex-dialog-div").dialog({
                         autoOpen: false, 
-                        title: "Chọn log file bạn muốn ghi lại, để sau đó có thể tiếp tục xử lý.", 
+                        title: "Chọn ghi lại sản phẩm lỗi và trùng chưa được xử lý, để sau đó có thể tiếp tục xử lý.", 
                         modal: true, 
                         width: "550", 
                         buttons: [{
