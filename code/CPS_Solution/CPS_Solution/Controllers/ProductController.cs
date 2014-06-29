@@ -22,17 +22,15 @@ namespace CPS_Solution.Controllers
         }
 
         
-        public ActionResult Compare(int x, int y, int z)
+        public ActionResult Compare(int p1, int p2, int p3)
         {
-            int[] vals = new int[] { x, y, z };
+            int[] vals = new int[] { p1, p2, p3 };
 
             var products = from p in db.Products
                            select p;
             products = products.Where(c => vals.Contains(c.ID));
 
             return View(products);
-            
-            
         }
 
         //
@@ -130,7 +128,7 @@ namespace CPS_Solution.Controllers
 
         public ActionResult SearchForProduct(string productName)
         {
-            var products = from p in db.Products
+            var products = from p in db.ProductAlias
                           select p;
             if (!String.IsNullOrEmpty(productName))
             {
@@ -140,21 +138,21 @@ namespace CPS_Solution.Controllers
             return View(products);
         }
         
-        [HttpPost]
-        public ActionResult ViewCart(string lstInt)
-        {
-            //int[] vals = new int[] { 4, 9, 10 };
-            //products = products.where(entity => vals.contains(entity.id));
+        //[HttpPost]
+        //public ActionResult ViewCart(string lstInt)
+        //{
+        //    //int[] vals = new int[] { 4, 9, 10 };
+        //    //products = products.where(entity => vals.contains(entity.id));
 
-            var myIntArray = lstInt.Split(',').Select(x => Int32.Parse(x)).ToArray();
-            int[] vals = myIntArray;
-            string temp = "";
-            var products = from p in db.Products
-                           select p;
-            products = products.Where(c => vals.Contains(c.ID));
+        //    var myIntArray = lstInt.Split(',').Select(x => Int32.Parse(x)).ToArray();
+        //    int[] vals = myIntArray;
+        //    string temp = "";
+        //    var products = from p in db.Products
+        //                   select p;
+        //    products = products.Where(c => vals.Contains(c.ID));
             
-            return View(products);
-        }
+        //    return View(products);
+        //}
 
         protected override void Dispose(bool disposing)
         {
