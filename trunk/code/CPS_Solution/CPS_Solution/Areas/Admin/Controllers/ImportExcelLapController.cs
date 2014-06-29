@@ -49,145 +49,145 @@ namespace CPS_Solution.Areas.Admin.Controllers
         /// Lưu dữ liệu đúng vào database
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        public ActionResult saveAllProduct(String checkval)
-        {
+        
+        //[HttpPost]
+        //public ActionResult saveAllProduct(String checkval)
+        //{
 
-            // get list product in session.
-            List<ProductMap> listpro = (List<ProductMap>)Session["listproductLap"];
-            List<ProductMap> listerror = (List<ProductMap>)Session["listerrorLap"];
-            List<List<ProductMap>> listduplicate = (List<List<ProductMap>>)Session["listduplicateLap"];
-
-
-            //ghi logfile---------------------------------------------------------------------------------
-            String[] ghilog = checkval.ToString().Split('@');
-
-            // nếu có check  ghilog Duplicate
-            if (!ghilog[0].Equals("no"))
-            {
-                LogFileDupProHelper.GenerateLogfile(listduplicate);
-                // xóa session dup
-                Session["listduplicateLap"] = null;
-            }
-            // nếu có check ghilog Error
-            if (!ghilog[1].Equals("no"))
-            {
-
-                // xóa session error
-                Session["listerrorLap"] = null;
-            }
+        //    // get list product in session.
+        //    List<LapData> listpro = (List<LapData>)Session["listproductLap"];
+        //    List<LapData> listerror = (List<LapData>)Session["listerrorLap"];
+        //    List<List<LapData>> listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
 
 
+        //    //ghi logfile---------------------------------------------------------------------------------
+        //    String[] ghilog = checkval.ToString().Split('@');
 
-            // Tạo listduplicate mới chứa trùng giữa listpro và trong database
-            List<List<ProductMap>> listduplicatenew = new List<List<ProductMap>>();
+        //    // nếu có check  ghilog Duplicate
+        //    if (!ghilog[0].Equals("no"))
+        //    {
+        //       // LogFileDupProHelper.GenerateLogfile(listduplicate);
+        //        // xóa session dup
+        //        Session["listduplicateLap"] = null;
+        //    }
+        //    // nếu có check ghilog Error
+        //    if (!ghilog[1].Equals("no"))
+        //    {
 
-            //lấy product trong database ra chỉ lấy Codetype bằng loai.
-            List<AttributeDictionary> listproindatabase = new List<AttributeDictionary>();
-            String loai = listpro[0].loai;
-            var resource = (from x in db.AttributeDictionaries where x.Codetype.Name.Equals(loai) select x);
-            listproindatabase = resource.ToList();
+        //        // xóa session error
+        //        Session["listerrorLap"] = null;
+        //    }
 
-            // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
-            for (int j = 0; j < listproindatabase.Count; j++)
-            {
-                List<ProductMap> duplicateProduct = new List<ProductMap>();
-                for (int i = 0; i < listpro.Count; i++)
-                {
-                    String Name = "";
-                    String[] mangten = listpro[i].ten.ToString().Split(';');
-                    if (mangten.Length >= 2)
-                    {
-                        Name = mangten[0];
-                    }
-                    else
-                    {
-                        Name = listpro[i].ten;
-                    }
 
-                    if (listproindatabase[j].Name.ToString().Equals(Name))
-                    {
-                        listproindatabase.RemoveAt(j);
-                        listpro.RemoveAt(i);
-                        i--;
-                        j--;
-                        break;
-                    }
 
-                    // lấy sản phầm trùng cho vào list trùng mới
-                    if (CompareStringHelper.CompareString(Name, listproindatabase[j].Name.ToString()) >= 85)
-                    {
-                        ProductMap pro = new ProductMap();
-                        pro.stt = listproindatabase[j].ID.ToString();
-                        pro.ten = listproindatabase[j].Name;
-                        pro.loai = listproindatabase[j].Codetype.Name;
-                        pro.trongso = listproindatabase[j].WeightCriteraPoint.ToString();
-                        duplicateProduct.Add(pro);
-                        listpro[i].stt = "z" + listpro[i].stt;
-                        duplicateProduct.Add(listpro[i]);
-                        listpro.RemoveAt(i);
-                        i--;
-                    }
+        //    // Tạo listduplicate mới chứa trùng giữa listpro và trong database
+        //    List<List<LapData>> listduplicatenew = new List<List<LapData>>();
 
-                }
-                if (duplicateProduct.Count >= 2)
-                {
-                    listduplicatenew.Add(duplicateProduct);
-                }
-            }
-            Session["listduplicatenewLap"] = listduplicatenew;
+        //    //lấy product trong database ra.
+        //    List<Product> listproindatabase = new List<Product>();
+        //    var resource = (from x in db.Products select x);
+        //    listproindatabase = resource.ToList();
 
-            // lưu vào database
-            for (int i = 0; i < listpro.Count; i++)
-            {
-                AttributeDictionary p = new AttributeDictionary();
+        //    // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
+        //    for (int j = 0; j < listproindatabase.Count; j++)
+        //    {
+        //        List<LapData> duplicateProduct = new List<LapData>();
+        //        for (int i = 0; i < listpro.Count; i++)
+        //        {
+        //            String Name = "";
+        //            String[] mangten = listpro[i].Name.ToString().Split(';');
+        //            if (mangten.Length >= 2)
+        //            {
+        //                Name = mangten[0];
+        //            }
+        //            else
+        //            {
+        //                Name = listpro[i].Name;
+        //            }
 
-                String[] mangten = listpro[i].ten.ToString().Split(';');
-                if (mangten.Length >= 2)
-                {
-                    p.Name = mangten[0];
-                }
-                else
-                {
-                    p.Name = listpro[i].ten;
-                }
-                var LCodeType = (from c in db.Codetypes select c);
+        //            if (listproindatabase[j].Name.ToString().Equals(Name))
+        //            {
+        //                listproindatabase.RemoveAt(j);
+        //                listpro.RemoveAt(i);
+        //                i--;
+        //                j--;
+        //                break;
+        //            }
 
-                List<Codetype> Listcodetype = LCodeType.ToList();
+        //            // lấy sản phầm trùng cho vào list trùng mới
+        //            if (CompareStringHelper.CompareString(Name, listproindatabase[j].Name.ToString()) >= 85)
+        //            {
+        //                LapData pro = new LapData();
+        //                pro.stt = listproindatabase[j].ID.ToString();
+        //                pro.ten = listproindatabase[j].Name;
+        //                pro.loai = listproindatabase[j].Codetype.Name;
+        //                pro.trongso = listproindatabase[j].WeightCriteraPoint.ToString();
+        //                duplicateProduct.Add(pro);
+        //                listpro[i].stt = "z" + listpro[i].stt;
+        //                duplicateProduct.Add(listpro[i]);
+        //                listpro.RemoveAt(i);
+        //                i--;
+        //            }
 
-                foreach (Codetype codety in Listcodetype)
-                {
-                    codety.Name.Equals(listpro[i].loai);
-                    p.CodetypeID = codety.ID;
-                    break;
-                }
-                p.WeightCriteraPoint = Convert.ToInt32(listpro[i].trongso);
-                db.AttributeDictionaries.Add(p);
-                db.SaveChanges();
-                // lấy max ID và thêm vào bảng alias
-                if (mangten.Length >= 2)
-                {
-                    var pronew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                    int idinsert = Convert.ToInt32(pronew.ID);
+        //        }
+        //        if (duplicateProduct.Count >= 2)
+        //        {
+        //            listduplicatenew.Add(duplicateProduct);
+        //        }
+        //    }
+        //    Session["listduplicatenewLap"] = listduplicatenew;
 
-                    for (int h = 1; h < mangten.Length; h++)
-                    {
-                        AttributeMapping a = new AttributeMapping();
-                        a.Name = mangten[h];
-                        a.AttributeDicID = idinsert;
-                        db.AttributeMappings.Add(a);
-                        db.SaveChanges();
-                    }
+        //    // lưu vào database
+        //    for (int i = 0; i < listpro.Count; i++)
+        //    {
+        //        AttributeDictionary p = new AttributeDictionary();
 
-                }
-                // xóa phần tử được add vào database ra khỏi list
-                listpro.Remove(listpro[i]);
-                i = i - 1;
-            }
-            Session["listduplicatenewLap"] = listduplicatenew;
-            ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenewLap"];
-            return RedirectToAction("index");
-        }
+        //        String[] mangten = listpro[i].ten.ToString().Split(';');
+        //        if (mangten.Length >= 2)
+        //        {
+        //            p.Name = mangten[0];
+        //        }
+        //        else
+        //        {
+        //            p.Name = listpro[i].ten;
+        //        }
+        //        var LCodeType = (from c in db.Codetypes select c);
+
+        //        List<Codetype> Listcodetype = LCodeType.ToList();
+
+        //        foreach (Codetype codety in Listcodetype)
+        //        {
+        //            codety.Name.Equals(listpro[i].loai);
+        //            p.CodetypeID = codety.ID;
+        //            break;
+        //        }
+        //        p.WeightCriteraPoint = Convert.ToInt32(listpro[i].trongso);
+        //        db.AttributeDictionaries.Add(p);
+        //        db.SaveChanges();
+        //        // lấy max ID và thêm vào bảng alias
+        //        if (mangten.Length >= 2)
+        //        {
+        //            var pronew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+        //            int idinsert = Convert.ToInt32(pronew.ID);
+
+        //            for (int h = 1; h < mangten.Length; h++)
+        //            {
+        //                AttributeMapping a = new AttributeMapping();
+        //                a.Name = mangten[h];
+        //                a.AttributeDicID = idinsert;
+        //                db.AttributeMappings.Add(a);
+        //                db.SaveChanges();
+        //            }
+
+        //        }
+        //        // xóa phần tử được add vào database ra khỏi list
+        //        listpro.Remove(listpro[i]);
+        //        i = i - 1;
+        //    }
+        //    Session["listduplicatenewLap"] = listduplicatenew;
+        //    ViewBag.listduplicatenew = (List<List<LapData>>)Session["listduplicatenewLap"];
+        //    return RedirectToAction("index");
+        //}
 
         /// <summary>
         /// Lấy dữ liệu từ excel cho vào 3 list
