@@ -90,7 +90,7 @@
             @if (TempData["create"] != null) 
             {
                  <div class="da-message success">
-                        Sản phẩm đã được tạo mới thành công
+                        Sản phẩm đã được tạo mới thành công.
                  </div>
             }
             @if (TempData["updateStatus"] != null) 
@@ -99,10 +99,26 @@
                 if (statusMessage == "Success") 
                 {
                      <div class="da-message success">
-                      Sản phẩm được cập nhật thành công
+                      Trạng thái được cập nhật thành công.
                  </div>
                 }
                 else if (statusMessage == "Failed") 
+                {
+                 <div class="da-message error">
+                       Cập nhật trang thái thất bại. Xin vui lòng thử lại.
+                 </div>
+                }
+            }
+             @if (TempData["edit"] != null) 
+            {
+                string statusMessage = TempData["edit"].ToString();
+                if (statusMessage == "success") 
+                {
+                     <div class="da-message success">
+                       Sản phẩm đã được cập nhật thành công.
+                 </div>
+                }
+                else if (statusMessage == "failed") 
                 {
                  <div class="da-message error">
                        Cập nhật sản phẩm thất bại. Xin vui lòng thử lại.
@@ -142,7 +158,7 @@
                                                <td>@item.Name</td>
                                                <td>@item.Price</td>
                                                <td>@item.TotalWeightPoint</td>
-                                               <td>@Html.ActionLink("Chỉnh sửa","EditProduct")</td>
+                                               <td>@Html.ActionLink("Chỉnh sửa", "EditProduct", new { id = item.ID})</td>
                                               @if (status) 
                                                 {
                                                  <td>
