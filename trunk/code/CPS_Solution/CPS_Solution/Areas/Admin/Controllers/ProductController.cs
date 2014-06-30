@@ -340,16 +340,23 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 listOfAttribute.Add(model.RamID);
                 listOfAttribute.Add(model.VgaID);
                 listOfAttribute.Add(model.DisplayID);
-                foreach (var item in listOfAttribute) 
+
+                var atts = context.ProductAttributes.Where(x => x.ProductID == model.ID).ToList();
+                foreach (var att in atts) 
                 {
-                    foreach (var att in product.ProductAttributes) 
+                    foreach (var item in listOfAttribute) 
                     {
                         att.AttributeID = item;
-                        context.ProductAttributes.Add(att);
+                        context.SaveChanges();
+                        listOfAttribute.Remove(item);
+                        break;
                     }
+  
+                    continue;
                 }
-                message = "success";
+               
                 context.SaveChanges();
+                message = "success";
             }
             else
             {
