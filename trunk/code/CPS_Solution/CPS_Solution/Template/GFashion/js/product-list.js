@@ -3,8 +3,7 @@ $(function () {
     $.notify.defaults(
         {
             autoHideDelay: 1100,
-            globalPosition: 'top center',
-            showDuration: 400,
+            globalPosition: 'top center'
         }
     )
     $('.product').on({
@@ -35,7 +34,6 @@ $(function () {
                 $('#quantity').html(a.length);                
                 createInfo();
                 $.notify(name + " vừa được thêm vào danh sách so sánh", "success");
-                
             }
         }
     });
