@@ -163,7 +163,8 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="nchar" MaxLength="2000" />
-          <Property Name="URL" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="URL" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImageURL" Type="nvarchar" MaxLength="200" />
           <Property Name="Price" Type="float" />
           <Property Name="TotalWeightPoint" Type="float" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -544,7 +545,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="true" />
-          <Property Name="URL" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="URL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ImageURL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="Price" Type="Double" />
           <Property Name="TotalWeightPoint" Type="Double" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
@@ -865,6 +867,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="TotalWeightPoint" ColumnName="TotalWeightPoint" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />

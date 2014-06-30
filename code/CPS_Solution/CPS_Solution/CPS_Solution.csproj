@@ -163,11 +163,11 @@
     <Compile Include="Areas\Admin\Models\ProductCreateAttribute.cs" />
     <Compile Include="Areas\Admin\Models\ProductMap.cs" />
     <Compile Include="Areas\Admin\Models\ProductParserCreator.cs" />
-    <Compile Include="CommonClass\ConstantManager.cs" />
-    <Compile Include="CommonClass\CustomMembershipProvider.cs" />
-    <Compile Include="CommonClass\CustomRoleProvinder.cs" />
-    <Compile Include="CommonClass\JsonContentNegotiator.cs" />
-    <Compile Include="CommonClass\MyAuthorizeAttribute.cs" />
+    <Compile Include="Controllers\CommonClass\ConstantManager.cs" />
+    <Compile Include="Controllers\CommonClass\CustomMembershipProvider.cs" />
+    <Compile Include="Controllers\CommonClass\CustomRoleProvinder.cs" />
+    <Compile Include="Controllers\CommonClass\JsonContentNegotiator.cs" />
+    <Compile Include="Controllers\CommonClass\MyAuthorizeAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="EntityFramework\Account.cs">
