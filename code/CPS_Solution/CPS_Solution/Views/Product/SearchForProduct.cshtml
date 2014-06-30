@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CPS_Solution.EntityFramework.ProductAlia>
+﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
 
 @{
     ViewBag.Title = "Trang chủ";
@@ -96,24 +96,34 @@
                         <div class="products-layout grid m-t-b add-cart" data-product-id=".entry-id > p" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
                             @foreach (var item in Model)
                             {
-                            <div class="product" data-product-id="@item.ID" data-product-name="@item.Name">
+                            <div class="product" >
                                 <div class="entry-media">
                                     <img src="@Url.Content("~/Template/GFashion/img/1.jpg")" alt="" class="lazyLoad thumb" />
                                     <div class="hover">
-                                        <a href="javascript:void(0)" class="entry-url"></a>
                                         <ul class="icons unstyled">
                                             <li>
-                                                <a href="javascript:void(0)" class="circle" onclick="addToCart(@item.ID)"><i class="iconfont-shopping-cart"></i></a>
+                                                <a href="javascript:void(0)" class="circle" data-product-id="@item.ID" data-product-name="@item.Name">
+                                                    <i class="iconfont-shopping-cart"></i>
+                                                </a>
                                             </li>
                                         </ul>
+                                        <div class="rate-bar">
+                                            <p><span>RAM: </span>@Html.DisplayFor(modelItem => item.strRAM)</p>
+                                            <p><span>VGA: </span>@Html.DisplayFor(modelItem => item.strVGA)</p>
+                                            <p><span>HDD: </span>@Html.DisplayFor(modelItem => item.strHDD)</p>
+                                            <p><span>Screen solution: </span>@Html.DisplayFor(modelItem => item.strDisplay)</p>
+                                        </div>
                                     </div>
                                 </div>
                                 
                                 <div class="entry-main">
                                     <h5 class="entry-title"><a href="javascript:void(0)">@Html.DisplayFor(modelItem => item.Name)</a></h5>
-                                    <div class="entry-description"><p>@item.Name</p></div>
-                                    <div class="entry-description">@item.ID</div>
-                                    <input type='hidden' value="@item.ID"/>                                        
+                                    @*<div class="entry-description"><p>@Html.DisplayFor(modelItem => item.strHDD)</p></div>*@
+                                    <div class="entry-description">@item.Price <span>VNĐ</span></div>
+                                    <input type='hidden' value="@item.ID"/>   
+                                    <div class="entry-links clearfix">
+										<button type="button" class="btn btn-primary btn-xs pull-right">Tới nơi bán</button>
+									</div>                                     
                                 </div>
                             </div>
                             }
