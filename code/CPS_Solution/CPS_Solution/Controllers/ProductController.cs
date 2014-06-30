@@ -32,12 +32,20 @@ namespace CPS_Solution.Controllers
             //select MAX(TotalWeightPoint) FROM Product ))
             //products = products.Where(c => vals.Contains(c.ID));
 
-            var bestProduct = from p in db.Products
-                              group p by p.TotalWeightPoint into grp
-                              select grp;
-            bestProduct = bestProduct.Where(r => vals.Contains(r));
-            
-            return View(products);
+            var bestProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
+                
+            //Move down the first
+            var temp = bestProducts[0];
+            bestProducts[0] = bestProducts[1];
+            bestProducts[1] = temp;
+                
+                //from p in db.Products
+                //              group p by p.TotalWeightPoint into grp
+                //              orderby p.TotalWeightPoint
+                //              select grp;
+           // bestProduct = bestProduct.Where(r => vals.Contains(r));
+
+            return View(bestProducts);
         }
 
         //
