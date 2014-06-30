@@ -19,28 +19,34 @@ $(function () {
             this.style.backgroundColor = '#DDDDDD';
         }
     });
-    $('.product').on('click', function () {
+    $('.circle').on('click', function () {
         var id = this.attributes['data-product-id'].value;
         var name = this.attributes['data-product-name'].value;
         if (isExisted(id)) {
-            //alert(name + ' đã có trong danh sách!');
-            $.notify(name + " đã có trong danh sách so sánh", "warn");
+            $.notify(name + " đã có trong danh sách so sánh.", "warn");
         } else {
             if (a.length == 3) {
-                //alert('Danh sách so sánh không được nhiều hơn 3 sản phẩm.');
                 $.notify("Danh sách so sánh không được nhiều hơn 3 sản phẩm.", "warn");
             } else {
-                a.push(id);
+                a.push(id);                
                 $('#quantity').html(a.length);                
                 createInfo();
-                $.notify(name + " vừa được thêm vào danh sách so sánh", "success");
+                $.notify(name + " vừa được thêm vào danh sách so sánh.", "success");
             }
         }
     });
 
+    //Xoa nut them vao so sanh sau khi san pham duoc them
+    function removeElement(id) {
+        var element = document.getElementById(id);
+        element.parentNode.removeChild(element);
+    }
+    //Kiem tra san pham co trong danh sach chua
     function isExisted(id) {
         for (var i = 0; i < a.length; ++i) {
-            if (a[i] == id) return true;
+            if (a[i] == id) {
+                return true;
+            }
         }
         return false;
     };
@@ -77,10 +83,14 @@ function removeProduct(x) {
 };
 
 function goCompare() {
-    if (a.length == 2) {
+    if (a.length < 2) {
+        //Danh sach it hon 2 san pham thi bao loi
+        $.notify("Phải có ít nhất 2 sản phẩm để so sánh.", "warn"); 
+    } else if (a.length == 2) {
+        //Khi danh sach chi co 2 san pham thi id san pham 3 = -1
         window.location.replace('Compare?p1=' + a[0] + '&p2=' + a[1] + '&p3=-1');
-    }
-    else {
+    } else {
+        //Khi danh sach co du 3 san pham
         window.location.replace('Compare?p1=' + a[0] + '&p2=' + a[1] + '&p3=' + a[2]);
     }
 }
