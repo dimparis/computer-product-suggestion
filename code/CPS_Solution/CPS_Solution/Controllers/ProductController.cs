@@ -29,7 +29,14 @@ namespace CPS_Solution.Controllers
             var products = from p in db.Products
                            select p;
             products = products.Where(c => vals.Contains(c.ID));
+            //select MAX(TotalWeightPoint) FROM Product ))
+            //products = products.Where(c => vals.Contains(c.ID));
 
+            var bestProduct = from p in db.Products
+                              group p by p.TotalWeightPoint into grp
+                              select grp;
+            bestProduct = bestProduct.Where(r => vals.Contains(r));
+            
             return View(products);
         }
 
@@ -128,7 +135,7 @@ namespace CPS_Solution.Controllers
 
         public ActionResult SearchForProduct(string productName)
         {
-            var products = from p in db.ProductAlias
+            var products = from p in db.Products
                           select p;
             if (!String.IsNullOrEmpty(productName))
             {
