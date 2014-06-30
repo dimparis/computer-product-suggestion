@@ -143,13 +143,22 @@ namespace CPS_Solution.Controllers
 
         public ActionResult SearchForProduct(string productName)
         {
-            var products = from p in db.Products
-                          select p;
+            var products = db.Products.ToList();
+           
             if (!String.IsNullOrEmpty(productName))
             {
-                products = products.Where(c => c.Name.Contains(productName));
+                var listP = new List<Product>();
+                foreach (var p in products) 
+                {
+                    if (p.Name.ToUpper().Contains(productName.ToUpper())) 
+                    {
+                        listP.Add(p);
+                    }
+                }
+                return View(listP); ;
+
             }
-            
+           
             return View(products);
         }
         
