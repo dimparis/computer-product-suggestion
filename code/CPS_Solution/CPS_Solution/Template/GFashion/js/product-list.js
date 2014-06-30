@@ -96,6 +96,7 @@ function removeProduct(x) {
 };
 
 function goCompare() {
+    sessionStorage.clear();
     if (a.length < 2) {
         //Danh sach it hon 2 san pham thi bao loi
         $.notify("Phải có ít nhất 2 sản phẩm để so sánh.", "warn"); 
