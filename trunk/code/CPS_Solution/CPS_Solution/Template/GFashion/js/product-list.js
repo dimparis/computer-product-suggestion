@@ -1,4 +1,9 @@
-﻿var a = [];
+﻿
+var a = [];
+if (typeof sessionStorage["cart"] != 'undefined') {
+    a = JSON.parse(sessionStorage["cart"]);
+}
+
 $(function () {
     $.notify.defaults(
         {
@@ -19,6 +24,7 @@ $(function () {
             this.style.backgroundColor = '#DDDDDD';
         }
     });
+
     $('.circle').on('click', function () {
         var id = this.attributes['data-product-id'].value;
         var name = this.attributes['data-product-name'].value;
@@ -37,10 +43,12 @@ $(function () {
     });
 
     //Xoa nut them vao so sanh sau khi san pham duoc them
-    function removeElement(id) {
-        var element = document.getElementById(id);
-        element.parentNode.removeChild(element);
-    }
+    //function removeElement(id) {
+    //    var element = document.getElementById(id);
+    //    element.parentNode.removeChild(element);
+    //}
+
+
     //Kiem tra san pham co trong danh sach chua
     function isExisted(id) {
         for (var i = 0; i < a.length; ++i) {
@@ -59,9 +67,12 @@ $(function () {
 
 function createInfo() {
     var t = '<div style="margin: 10px 0px -10px 10px;"><strong><b>Dach sách sản phẩm:</b></strong></div><hr><div style="background-color:#F7A191;">';
+    $('.circle').show();
     for (var i = 0; i < a.length; ++i) {
         var x = a[i];
         var parent = document.querySelector('input[value="' + x + '"]').parentNode;
+        $(".circle[data-product-id='" + x + "']").hide();
+
         //t += parent.querySelector('a').innerHTML + ' <button onclick="removeProduct(' + x + ')">Remove</button><br/>';
         t += '<div style="margin-top:10px;"><img src="/Template/GFashion/img/remove.png" onclick="removeProduct(' + x + ')" style="margin: -5px 10px 0px 15px"/>' + parent.querySelector('a').innerHTML + '</div>';
     }
@@ -69,6 +80,8 @@ function createInfo() {
     t += '<button onclick="goCompare()" class="btn btn-default btn-xs" style="float:right; margin:-10px 10px 10px 10px;">So Sánh</button>';
     
     $("#info").html(t);
+    $('#quantity').html(a.length);
+    sessionStorage["cart"] = JSON.stringify(a);
 };
 
 function removeProduct(x) {

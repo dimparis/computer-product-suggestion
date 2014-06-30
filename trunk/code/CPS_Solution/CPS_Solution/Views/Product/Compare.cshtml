@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Compare";
-    Layout = "~/Views/Shared/_Compare.cshtml";
+    Layout = "~/Views/Shared/_LayoutUserPage.cshtml";
 }
 
 <h2>Compare</h2>
@@ -20,7 +20,9 @@
     </table>
    
     <div class="products-layout grid m-t-b add-cart" style="width:83%; float:right;">
-        @foreach (var item in Model) { 
+        @{ int bestProductID = Model.ElementAt(1).ID; }
+
+        @foreach (var item in Model) {           
             <div class="product" >
                 <div class="entry-main">
                     <h5 class="entry-title" style="border:dotted;"><a href="javascript:void(0)">@Html.DisplayFor(modelItem => item.Name)</a></h5>
@@ -56,6 +58,7 @@
             }
 
         }
+        
     });
 </script>
 
