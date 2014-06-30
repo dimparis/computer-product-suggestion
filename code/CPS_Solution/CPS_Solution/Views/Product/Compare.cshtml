@@ -1,36 +1,23 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
 
 @{
-    ViewBag.Title = "So so sánh";
+    ViewBag.Title = "Compare";
     Layout = "~/Views/Shared/_LayoutUserPage.cshtml";
 }
 
 <h2>Compare</h2>
 
-<div class="products-layout grid m-t-b add-cart" data-product-id=".entry-id > p" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
-                            @foreach (var item in Model)
-                            {
-                            <div class="product" data-product-id="@item.ID" data-product-name="@item.Name">
-                                <div class="entry-media">
-                                    <img src="@Url.Content("~/Template/GFashion/img/1.jpg")" alt="" class="lazyLoad thumb" />
-                                    <div class="hover">
-                                        <a href="#" class="entry-url"></a>
-                                        <ul class="icons unstyled">
-                                            <li>
-                                                @*<a href="#" class="circle" /*onclick="addToCart(@item.ID)"*/><i class="iconfont-shopping-cart"></i></a>*/*@
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                
-                                <div class="entry-main">
-                                    <h5 class="entry-title"><a href="#">@Html.DisplayFor(modelItem => item.Name)</a></h5>
-                                    <div class="entry-description">
-                                        <p>@Html.DisplayFor(modelItem => item.Description)</p>
-                                    </div>
-                                    <div class="entry-description">@item.ID</div>
-                                    <input type='hidden' value="@item.ID"/>                                        
-                                </div>
-                            </div>
-                            }
-                        </div>
+<div style="background-color:red;">
+<table class="table bordered" >
+    @foreach (var item in Model) {
+        <tbody style="margin-right:30px;"><tr style="margin-right:30px;">@Html.DisplayFor(modelItem => item.Name)</tr></tbody>
+    }
+
+</table>
+    </div>
+
+<table class="table bordered">
+    @foreach (var item in Model) { 
+    <tbody><tr>@Html.DisplayFor(modelItem => item.Name)</tr></tbody>
+    }
+</table>
