@@ -14,15 +14,27 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var listOfProduct = context.Products.Where(x => x.IsActive).ToList();
-            return View(listOfProduct);
+            var alias = context.ProductAlias.Where(x => x.IsMain==true && x.IsActive==true).ToList();
+            var listId =  new List<int>();
+            foreach (var a in alias) 
+            {
+                int id = a.ProductID;
+                listId.Add(id);                
+            }
+            List<Product> listPro= new List<Product>();
+            foreach (var id in listId) 
+            {
+                var pro = context.Products.Where(x => x.ID == id).FirstOrDefault();
+                listPro.Add(pro);
+            }
+            return View(listPro);
         }
         public ActionResult EditProduct(int id)
         {
             var product = context.ProductAlias.FirstOrDefault(p => p.ProductID == id);
             if (product != null)
             {
-                var aliasNames = context.ProductAlias
+                var aliasNames = context.ProductAlias.Where(x=>x.ProductID ==id)
                 .OrderBy(x => x.Name)
                 .ToList();
                 var productList = new List<SelectListItem>();
