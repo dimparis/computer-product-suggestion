@@ -1,4 +1,4 @@
-/**
+﻿/**
  * jQuery PickList Widget
  *
  * Copyright (c) 2012-2013 Jonathon Freeman <jonathon@awnry.com>
@@ -38,8 +38,8 @@
 
 			// Control labels
 			addAllLabel:                "&gt;&gt;",
-			addLabel:                   "&gt;",
-			removeAllLabel:             "&lt;&lt;",
+			addLabel:                   "Chọn",
+			removeAllLabel:             "Bỏ chọn",
 			removeLabel:                "&lt;",
 
 			// List labels
@@ -52,7 +52,7 @@
 			// Sorting
 			sortItems:                  true,
 			sortAttribute:              "label",
-
+			selectLimit : 1,
 			// Name of custom value attribute for list items
 			listItemValueAttribute:     "data-value",
 
@@ -122,13 +122,14 @@
 			container
 					.append(label)
 					.append(self.sourceList);
-
-			self.sourceList.delegate(".pickList_listItem", "dblclick", {pickList: self}, function(e)
+            
+		    /* 
+            self.sourceList.delegate(".pickList_listItem", "dblclick", {pickList: self}, function(e)
 			{
 				var self = e.data.pickList;
 				self._addItems( self.sourceList.children(".ui-selected") );
 			});
-
+            */
 			return container;
 		},
 
@@ -185,9 +186,7 @@
 			self.removeAllButton = $("<button type='button'/>").click({pickList: self}, self._removeAllHandler).html(self.options.removeAllLabel).addClass(self.options.removeAllClass);
 
 			self.controls
-					.append(self.addAllButton)
 					.append(self.addButton)
-					.append(self.removeButton)
 					.append(self.removeAllButton);
 
 			return self.controls;
@@ -337,6 +336,7 @@
 		_refreshControls: function()
 		{
 			var self = this;
+			var addBtnEnabled = (self.targetList.children().length < self.options.selectLimit);
 
 			self._trigger("beforeRefreshControls");
 
@@ -350,6 +350,8 @@
 				self.addAllButton.attr("disabled", "disabled");
 			}
 
+
+
 			// Enable/disable the Remove All button state.
 			if(self.targetList.children().length)
 			{
@@ -360,8 +362,10 @@
 				self.removeAllButton.attr("disabled", "disabled");
 			}
 
+
+
 			// Enable/disable the Add button state.
-			if(self.sourceList.children(".ui-selected").length)
+			if (self.sourceList.children(".ui-selected").length && addBtnEnabled)
 			{
 				self.addButton.removeAttr("disabled");
 			}

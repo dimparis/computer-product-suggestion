@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CPS_Solution.EntityFramework;
 using CPS_Solution.Areas.Admin.Models;
+using System.IO;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class ProductController : Controller
@@ -162,40 +163,59 @@ namespace CPS_Solution.Areas.Admin.Controllers
         [HttpPost]
         public RedirectToRouteResult CreateProductTest(ProductCreateAttribute model)
         {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files[0];
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    file.SaveAs(path);
+                    model.ImageURL = path;
+                }
+            }
             //Add item product
             var product = new Product
             {
-                Price = 1,
+                Price = model.Price,
                 IsActive = true,
-                URL = "http test",
+                URL = model.Parselink,
+                Description = model.Description,
                 TotalWeightPoint = 0,
             };
-            product.ProductAlias.Add(new ProductAlia() { Name = "Sang kuteo", IsMain = true });
+            product.ProductAlias.Add(new ProductAlia() { Name = model.Name, IsMain = true });
             context.Products.Add(product);
             context.SaveChanges();
             //Add item product Attribute
             var idList = new List<int>();
-            idList.Add(model.CpuId);
-            idList.Add(model.RamId);
-            idList.Add(model.HddId);
-            idList.Add(model.DisplayId);
-            idList.Add(model.VgaId);
 
-            foreach (int id in idList)
+            int cpuId = model.CpuId;
+            int hddId = model.HddId;
+            int vgaId = model.VgaId;
+            int ramId = model.RamId;
+            int displayId = model.DisplayId;
+            idList.Add(cpuId);
+            idList.Add(hddId);
+            idList.Add(ramId);
+            idList.Add(displayId);
+            idList.Add(vgaId);
+
+            foreach (var item in idList)
             {
                 var productAtt = new ProductAttribute
                {
                    ProductID = product.ID,
-                   AttributeID = id
+                   AttributeID = item,       
                };
                 context.ProductAttributes.Add(productAtt);
             }
             // Take list of point
             double total = 0;
             var attList = new List<AttributeDictionary>();
-            foreach (int id in idList)
+            foreach (var item in idList)
             {
-                var attributes = context.AttributeDictionaries.Where(x => x.ID == id).ToList();
+                var attributes = context.AttributeDictionaries.Where(x => x.ID == item).ToList();
                 attList.AddRange(attributes);
             }
             foreach (var att in attList)
@@ -208,6 +228,132 @@ namespace CPS_Solution.Areas.Admin.Controllers
             TempData["create"] = "Success";
             context.SaveChanges();
             // TO DO HERE 
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult EditProduct(int id) 
+        {
+            var product = context.Products.Where(x => x.ID == id).FirstOrDefault();
+            TempData["id"] = id;
+
+            // Load CPU list
+            var cpus = context.AttributeDictionaries.Where(x => x.CodetypeID == "C")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var cpuList = new List<SelectListItem>();
+            foreach (var cpu in cpus)
+            {
+                var item = new SelectListItem
+                {
+                    Text = cpu.Name,
+                    Value = cpu.ID.ToString()
+                };
+                cpuList.Add(item);
+            }
+            ViewBag.cpuList = cpuList;
+
+            // Load VGA list
+            var vgas = context.AttributeDictionaries.Where(x => x.CodetypeID == "V")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var vgaList = new List<SelectListItem>();
+            foreach (var vga in vgas)
+            {
+                var item = new SelectListItem
+                {
+                    Text = vga.Name,
+                    Value = vga.ID.ToString()
+                };
+                vgaList.Add(item);
+            }
+            ViewBag.vgaList = vgaList;
+
+            // Load HDD list
+            var hdds = context.AttributeDictionaries.Where(x => x.CodetypeID == "H")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var hddList = new List<SelectListItem>();
+            foreach (var hdd in hdds)
+            {
+                var item = new SelectListItem
+                {
+                    Text = hdd.Name,
+                    Value = hdd.ID.ToString()
+                };
+                hddList.Add(item);
+            }
+            ViewBag.hddList = hddList;
+
+
+            // Load Ram list
+            var rams = context.AttributeDictionaries.Where(x => x.CodetypeID == "R")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var ramList = new List<SelectListItem>();
+            foreach (var ram in rams)
+            {
+                var item = new SelectListItem
+                {
+                    Text = ram.Name,
+                    Value = ram.ID.ToString()
+                };
+                ramList.Add(item);
+            }
+            ViewBag.ramList = ramList;
+
+            // Load Display list
+            var displays = context.AttributeDictionaries.Where(x => x.CodetypeID == "D")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var displayList = new List<SelectListItem>();
+            foreach (var display in displays)
+            {
+                var item = new SelectListItem
+                {
+                    Text = display.Name,
+                    Value = display.ID.ToString()
+                };
+                displayList.Add(item);
+            }
+            ViewBag.displayList = displayList;
+
+            string name = product.Name;
+
+            return View(product);
+
+        }
+
+        [HttpPost]
+        public RedirectToRouteResult EditProduct(Product model)
+        {
+            var product = context.Products.Where(x => x.ID == model.ID).FirstOrDefault();
+            string message = "";
+            if (product != null) 
+            {
+                product.Description = model.Description;
+                product.URL = model.URL;
+                product.Price = model.Price;
+                var listOfAttribute = new List<int>();
+                listOfAttribute.Add(model.CpuID);
+                listOfAttribute.Add(model.HddID);
+                listOfAttribute.Add(model.RamID);
+                listOfAttribute.Add(model.VgaID);
+                listOfAttribute.Add(model.DisplayID);
+                foreach (var item in listOfAttribute) 
+                {
+                    foreach (var att in product.ProductAttributes) 
+                    {
+                        att.AttributeID = item;
+                    }
+                }
+                message = "success";
+                context.SaveChanges();
+            }
+            else
+            {
+                message = "failed";
+            }
+            TempData["edit"] = message;
             return RedirectToAction("Index");
         }
 

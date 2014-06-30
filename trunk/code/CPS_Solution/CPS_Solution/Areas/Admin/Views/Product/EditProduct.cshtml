@@ -1,12 +1,13 @@
-﻿@model CPS_Solution.Areas.Admin.Models.ProductCreateAttribute
+﻿@model CPS_Solution.EntityFramework.Product
 @{
     ViewBag.Title = "Tạo Parser";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Tạo một sản phẩm mới</h2>
+<h2>Chỉnh sửa một sản phẩm </h2>
 @section headScript
 {
+
 <!-- jQuery JavaScript File -->
 <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
@@ -57,12 +58,12 @@
                                     </span>
                                 </div>
                                 <div class="da-panel-content">
-                                @using  (Html.BeginForm("CreateProductTest", "Product", FormMethod.Post, new { enctype = "multipart/form-data" ,@class ="da-form"}))
+                                @using  (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { @class ="da-form"}))
                                 {       
                                         <div class="da-form-row " style ="width:50%;float:left">
                                         	<label>Tên Sản Phẩm</label>
                                             <div class="da-form-item large">
-                                                @Html.TextBoxFor(x => x.Name)
+                                                @Html.TextBoxFor(x => x.Name);
                                              </div>
                                         </div>
                                      
@@ -70,7 +71,7 @@
                                         	<label>Vi xử lý</label>
                                             <div class="da-form-item large">
                                             	<span class="formNote">Danh sách các CPU</span>
-                                                 @Html.DropDownListFor(x => x.CpuId, ViewBag.cpuList as List<SelectListItem>, new { @class="chzn-select" })
+                                                 @Html.DropDownListFor(x => x.CpuID, ViewBag.cpuList as List<SelectListItem>, new { @class="chzn-select" })
                                             </div>
                                         </div> 
                                       <div class="clear"></div>
@@ -78,14 +79,14 @@
                                        	<div class="da-form-row " style ="width:50%;float:left">
                                         	<label>Link liên quan</label>
                                             <div class="da-form-item large">
-                                                @Html.TextBoxFor(x => x.Parselink)
+                                                @Html.TextBoxFor(x => x.URL)
                                            </div>
                                         </div>   
                                        <div class="da-form-row " style ="width:50%;float:right">
                                         	<label>Bộ Nhớ</label>
                                             <div class="da-form-item large">
                                             	<span class="formNote">Danh sách các Ram</span>
-                                                 @Html.DropDownListFor(x => x.RamId, ViewBag.ramList as List<SelectListItem>, new { @class="chzn-select" })
+                                                 @Html.DropDownListFor(x => x.RamID, ViewBag.ramList as List<SelectListItem>, new { @class="chzn-select" })
                                             </div>
                                         </div> 
                                         <div class="clear"></div>
@@ -99,7 +100,7 @@
                                         	<label> Ổ Đĩa Cứng</label>
                                             <div class="da-form-item large">
                                             	<span class="formNote">Danh sách các HDD</span>
-                                                 @Html.DropDownListFor(x => x.HddId, ViewBag.hddList as List<SelectListItem>, new { @class="chzn-select" })
+                                                 @Html.DropDownListFor(x => x.HddID, ViewBag.hddList as List<SelectListItem>, new { @class="chzn-select" })
                                             </div>
                                         </div>
                                         <div class="clear"></div>
@@ -107,15 +108,14 @@
                                        <div class="da-form-row " style ="width:50%;float:left">
                                         	<label>Hình sản phẩm</label>
                                             <div class="da-form-item large">
-                                                <span class="formNote">Hệ thống sẽ <strong> tự động </strong> tải ảnh mặt định khi trường rỗng.</span>
-                                            	<input type="file" name="file" class="da-custom-file"  accept="image/*"/>
-                                           </div>
+                                               <input type="file" name="file" class="da-custom-file" value ="@Model.URL"  accept="image/*"/>
+                                           </div>
                                         </div> 
                                        	<div class="da-form-row " style ="width:50%;float:right">
                                         	<label>Card đồ họa</label>
                                             <div class="da-form-item large">
                                             	<span class="formNote">Danh sách các VGA</span>
-                                                 @Html.DropDownListFor(x => x.VgaId, ViewBag.vgaList as List<SelectListItem>, new { @class="chzn-select" })
+                                                 @Html.DropDownListFor(x => x.VgaID, ViewBag.vgaList as List<SelectListItem>, new { @class="chzn-select" })
                                             </div>
                                         </div>
                                         <div class="clear"></div>
@@ -131,7 +131,7 @@
                                         	<label>Màn hình</label>
                                             <div class="da-form-item large">
                                             	<span class="formNote">Danh sách các loại màn hình</span>
-                                                 @Html.DropDownListFor(x => x.DisplayId, ViewBag.displayList as List<SelectListItem>, new { @class="chzn-select" })
+                                                 @Html.DropDownListFor(x => x.DisplayID, ViewBag.displayList as List<SelectListItem>, new { @class="chzn-select" })
                                             </div>
                                         </div>
                                      <div class="clear"></div>
@@ -151,4 +151,5 @@
                                 </div>
                             </div>
 </div>
+
 

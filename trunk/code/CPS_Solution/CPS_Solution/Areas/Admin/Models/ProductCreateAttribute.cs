@@ -11,6 +11,7 @@ namespace CPS_Solution.Areas.Admin.Models
         public double Price { get; set; }
         public string ImageURL { get; set; }
         public string Parselink { get; set; }
+        public string Description { get; set; }
         public int CpuId { get; set; }
         public int RamId { get; set; }
         public int HddId { get; set; }
