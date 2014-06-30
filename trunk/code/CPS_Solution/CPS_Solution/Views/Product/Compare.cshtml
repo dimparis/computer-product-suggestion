@@ -36,16 +36,34 @@
         font-weight: bold;
         font-size: 30px;
     }
+
+    .center {
+        margin: auto;
+        width: inherit;
+    }
 </style>
 
 
 <main id="main-content" role="main">
     <div class="container">
         <div class="row">
+            <div class="m-t-b clearfix">
+                <section class="col-xs-12 col-sm-4 col-md-3" style="margin-top: 24%">
+                    <table class="table" style="text-align:center;">
+                        <thead>
+                        <tr><td>CPU</td></tr>
+                        <tr><td>Card màn hình</td></tr>
+                        <tr><td>Ram</td></tr>
+                        <tr><td>Ổ cứng</td></tr>
+                        <tr><td>Độ phẩn giải</td></tr>
+                            </thead>
+                    </table>
+                </section>
+                <section class="col-xs-12 col-sm-8 col-md-9">
             <div class="products-layout grid">
                 @{ int bestProductID = Model.ElementAt(1).ID; }
                 @foreach (var item in Model) {           
-                    <div class="product" >
+                    <div class="product">
                         <div class="entry-main">
                             @if (item.ID == bestProductID) {
                                 <div style="height:30px;">
@@ -66,16 +84,44 @@
                             <div class="child">@Html.DisplayFor(modelItem => item.TotalWeightPoint)</div>
                         </div>
                         <div class="entry-main">
-                            <div class="entry-description">@Html.DisplayFor(modelItem => item.strCPU)</div>
-                            <div class="entry-description">@Html.DisplayFor(modelItem => item.strVGA)</div>
-                            <div class="entry-description">@Html.DisplayFor(modelItem => item.strRAM)</div>
-                            <div class="entry-description">@Html.DisplayFor(modelItem => item.strHDD)</div>
-                            <div class="entry-description">@Html.DisplayFor(modelItem => item.strDisplay)</div>
+                            <table class="table">
+                                
+                                    @if (item.strCPU != null) { 
+                                        <tr><td>@Html.DisplayFor(modelItem => item.strCPU)</td></tr>
+                                    } else {
+                                        <tr><td>N/A</td></tr>
+                                    }
+                                    @if (item.strVGA != null)
+                                    { 
+                                        <tr><td>@Html.DisplayFor(modelItem => item.strVGA)</td></tr>
+                                    } else {
+                                        <tr><td>N/A</td></tr>
+                                    }
+                                    @if (item.strRAM != null)
+                                    { 
+                                        <tr><td>@Html.DisplayFor(modelItem => item.strRAM)</td></tr>
+                                    } else {
+                                        <tr><td>N/A</td></tr>
+                                    }
+                                    @if (item.strHDD != null)
+                                    { 
+                                        <tr><td>@Html.DisplayFor(modelItem => item.strHDD)</td></tr>
+                                    } else {
+                                        <tr><td>N/A</td></tr>
+                                    }
+                                    @if (item.strDisplay != null)
+                                    { 
+                                        <tr><td>@Html.DisplayFor(modelItem => item.strDisplay)</td></tr>
+                                    } else {
+                                        <tr><td>N/A</td></tr>
+                                    }
+                                
+                            </table>
                         </div>
-                    </div>       
+                    </div>
                 }
-            </div>
-        </div>
+            </section></div>
+        </div></div>
     </div>
 </main>
 
