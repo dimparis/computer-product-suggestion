@@ -25,6 +25,7 @@ namespace CPS_Solution.EntityFramework
         public int ID { get; set; }
         public string Description { get; set; }
         public string URL { get; set; }
+        public string ImageURL { get; set; }
         public Nullable<double> Price { get; set; }
         public double TotalWeightPoint { get; set; }
         public bool IsActive { get; set; }

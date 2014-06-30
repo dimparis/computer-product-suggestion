@@ -333,6 +333,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 product.Description = model.Description;
                 product.URL = model.URL;
                 product.Price = model.Price;
+                product.ImageURL = model.ImageURL;
                 var listOfAttribute = new List<int>();
                 listOfAttribute.Add(model.CpuID);
                 listOfAttribute.Add(model.HddID);
@@ -344,6 +345,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     foreach (var att in product.ProductAttributes) 
                     {
                         att.AttributeID = item;
+                        context.ProductAttributes.Add(att);
                     }
                 }
                 message = "success";

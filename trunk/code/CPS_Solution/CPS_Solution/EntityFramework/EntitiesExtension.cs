@@ -44,7 +44,7 @@ namespace CPS_Solution.EntityFramework
                         }
                     }
                 }
-                return 0;
+                return _cpuId;
             }
             set { this._cpuId = value; }
         }
@@ -64,7 +64,7 @@ namespace CPS_Solution.EntityFramework
                         }
                     }
                 }
-                return 0;
+                return _hddId;
             }
             set { this._hddId = value; }
         }
@@ -85,7 +85,7 @@ namespace CPS_Solution.EntityFramework
                       
                     }
                 }
-                return 0;
+                return _vgaId;
             }
             set { this._vgaId = value; }
         }
@@ -105,7 +105,7 @@ namespace CPS_Solution.EntityFramework
                         }        
                     }
                 }
-                return 0;
+                return _ramId;
             }
             set { this._ramId = value; }
         }
@@ -125,7 +125,7 @@ namespace CPS_Solution.EntityFramework
                         }                 
                     }
                 }
-                return 0;
+                return _displayId;
             }
             set { this._displayId = value; }
         }
