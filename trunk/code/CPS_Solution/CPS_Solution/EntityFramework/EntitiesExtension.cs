@@ -18,7 +18,7 @@ namespace CPS_Solution.EntityFramework
         private string _vgaName;
         private string _displayName;
         private string _ramName;
-
+        private string _name;
 
 
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
@@ -34,7 +34,11 @@ namespace CPS_Solution.EntityFramework
                         return mainAlias.Name;
                     }
                 }
-                return "No name";
+                return _name;
+            }
+            set 
+            {
+                this._name = value;
             }
         }
         public int CpuID
