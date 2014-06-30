@@ -12,6 +12,15 @@ namespace CPS_Solution.EntityFramework
         private int _vgaId;
         private int _displayId;
         private int _ramId;
+
+        private string _cpuName;
+        private string _hddName;
+        private string _vgaName;
+        private string _displayName;
+        private string _ramName;
+
+
+
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
         public String Name
         {
@@ -128,6 +137,104 @@ namespace CPS_Solution.EntityFramework
                 return _displayId;
             }
             set { this._displayId = value; }
+        }
+
+        public string strCPU {
+            get {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "C" && dic.ID == attribute.AttributeID)
+                        {
+                            return dic.Name;
+                        }
+                    }
+                }
+                return _cpuName;
+            }
+        }
+
+        public string strVGA
+        {
+            get
+            {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "V" && dic.ID == attribute.AttributeID)
+                        {
+                            return dic.Name;
+                        }
+                    }
+                }
+                return _vgaName;
+            }
+        }
+
+        public string strRAM
+        {
+            get
+            {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "R" && dic.ID == attribute.AttributeID)
+                        {
+                            return dic.Name;
+                        }
+                    }
+                }
+                return _ramName;
+            }
+        }
+
+        public string strHDD
+        {
+            get
+            {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "H" && dic.ID == attribute.AttributeID)
+                        {
+                            return dic.Name;
+                        }
+                    }
+                }
+                return _hddName;
+            }
+        }
+
+        public string strDisplay
+        {
+            get
+            {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "D" && dic.ID == attribute.AttributeID)
+                        {
+                            return dic.Name;
+                        }
+                    }
+                }
+                return _displayName;
+            }
         }
     }
 }
