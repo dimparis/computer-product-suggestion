@@ -118,7 +118,7 @@
                                 </div>
                                 
                                 <div class="entry-main">
-                                    <h5 class="entry-title"><a href="javascript:void(0)">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                                    <h5 class="entry-title"><a href="/Product/Details?Id=@item.ID" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
                                     @*<div class="entry-description"><p>@Html.DisplayFor(modelItem => item.strHDD)</p></div>*@
                                     <div class="entry-description">@item.Price <span>VNĐ</span></div>
                                     <input type='hidden' value="@item.ID"/>   
