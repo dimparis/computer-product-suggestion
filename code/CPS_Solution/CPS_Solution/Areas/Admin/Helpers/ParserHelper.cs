@@ -228,16 +228,16 @@ namespace CPS_Solution.Areas.Admin.Helpers
 
         // Parse 1 product
         #region
-        public static void ParseProductData(string Parselink)
+        public static void ParseProductData(ProductParserCreator model)
         {
             // Create Firefox browser
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
             //do more to get data
             using (var context = new CPS_SolutionEntities())
             {
-                var parseinfo = context.ParseInfoes.Where(p => p.IsActive && p.Parselink.Contains(Parselink)).FirstOrDefault();
+                var parseinfo = context.ParseInfoes.Where(p => p.IsActive && p.Parselink.Contains(model.ParseProductLink)).FirstOrDefault();
                 var data = GetProductData(web, parseinfo);
-                InsertProductToDb(data);
+                InsertProductToDb(data, model);
             }
         }
 
@@ -275,7 +275,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             return data;
         }
-     
+
         #endregion
 
         // insert into DB
@@ -388,34 +388,53 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             return success;
         }
-        public static void InsertProductToDb(ProductData data)
+        public static void InsertProductToDb(ProductData data, ProductParserCreator model)
         {
-
+            //create list of Att
+            List<AttributeDictionary> listAttDic = new List<AttributeDictionary>(); 
             if (data != null)
             {
                 if (!String.IsNullOrEmpty(data.Name) && !String.IsNullOrEmpty(data.CPU) &&
                     !String.IsNullOrEmpty(data.HDD) && !String.IsNullOrEmpty(data.RAM) &&
                     !String.IsNullOrEmpty(data.VGA) && !String.IsNullOrEmpty(data.Display))
                 {
-                   
-                    List<KeyValuePair<string, string>> listofAttributes = new List<KeyValuePair<string, string>>();
-
-                    var cpu = new KeyValuePair<string, string>(data.CPU, "C");
-                    var ram = new KeyValuePair<string, string>(data.RAM, "R");
-                    var vga = new KeyValuePair<string, string>(data.VGA, "V");
-                    var hdd = new KeyValuePair<string, string>(data.HDD, "H");
-                    var display = new KeyValuePair<string, string>(data.Display, "D");
-
-                    listofAttributes.Add(cpu);
-                    listofAttributes.Add(ram);
-                    listofAttributes.Add(hdd);
-                    listofAttributes.Add(vga);
-                    listofAttributes.Add(display);
 
                     using (var context = new CPS_SolutionEntities())
                     {
+                        //////////////////////////// HERE ////////////////////
+                        //Add table product
+                        var prod = new Product
+                        {
+                            Description = "Fill me ",
+                            URL = model.ParseProductLink,
+                            ImageURL = "default",
+                            Price = 1,
+                            TotalWeightPoint = 0,
+                            IsActive = false,
+                        };
+                        //Add alias product
+                        prod.ProductAlias.Add(new ProductAlia() { Name = data.Name, IsMain = true,IsActive =true });
+                        context.Products.Add(prod);
+                        context.SaveChanges();
+
+                        List<KeyValuePair<string, string>> listofAttributes = new List<KeyValuePair<string, string>>();
+
+                        var cpu = new KeyValuePair<string, string>(data.CPU, "C");
+                        var ram = new KeyValuePair<string, string>(data.RAM, "R");
+                        var vga = new KeyValuePair<string, string>(data.VGA, "V");
+                        var hdd = new KeyValuePair<string, string>(data.HDD, "H");
+                        var display = new KeyValuePair<string, string>(data.Display, "D");
+
+                        listofAttributes.Add(cpu);
+                        listofAttributes.Add(ram);
+                        listofAttributes.Add(hdd);
+                        listofAttributes.Add(vga);
+                        listofAttributes.Add(display);
+
+                        //add 5 attribute for 1 product
                         foreach (var attribute in listofAttributes)
                         {
+                           
                             ////Check good match 
                             var goodMatch = new List<int>();
                             var averageMatch = new List<int>();
@@ -462,17 +481,30 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                     continue;
                                 }
                             }
+                          
                             // If attDic alr Existed? 
                             if (pId != -1)
                             {
-                                // Do nothing
-                                string a = "";
+                                var productAtt = new ProductAttribute
+                                {
+                                    ProductID = prod.ID,
+                                    AttributeID = pId,
+                                };
+                                context.ProductAttributes.Add(productAtt);
                             }
                             else
                             {
                                 //Add a new record
                                 var newADitem = new AttributeDictionary { Name = attribute.Key, CodetypeID = attribute.Value, WeightCriteraPoint = 0 };
                                 context.AttributeDictionaries.Add(newADitem);
+                                // Chua luu dc vi chua check cac attribute id 
+                                var productAtt = new ProductAttribute
+                                {
+                                    ProductID = prod.ID,
+                                    AttributeID = newADitem.ID,
+                                };
+                                ////////////////////////// HERE ////////////////////
+                                context.ProductAttributes.Add(productAtt);
                                 try
                                 {
                                     context.SaveChanges();
@@ -550,7 +582,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             reader.Close();
             return result;
-        } 
+        }
         #endregion
     }
 }

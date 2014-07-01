@@ -23,7 +23,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public RedirectToRouteResult LoadWebProduct(int id)
         {
             var ParseProductLink = context.RecommendProducts.Where(x => x.ID == id).Select(x => x.Parselink).FirstOrDefault().ToString();
-            ParserHelper.LoadWeb(ParseProductLink);
+            ParserHelper.LoadWebProduct(ParseProductLink);
             TempData["existed"] = "false";
             var uri = new Uri(ParseProductLink);
             string host = uri.GetLeftPart(UriPartial.Authority);
@@ -55,7 +55,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             };
             context.ParseInfoes.Add(productInfo);
             context.SaveChanges();
-            Task.Factory.StartNew(() => ParserHelper.ParseProductData(model.ParseProductLink));
+            Task.Factory.StartNew(() => ParserHelper.ParseProductData(model));
             int  rcmId= Int32.Parse(model.RecommendProductId);
             var recommendProduct = context.RecommendProducts.Where(x => x.ID == rcmId).FirstOrDefault();
             recommendProduct.IsApprove = true;
