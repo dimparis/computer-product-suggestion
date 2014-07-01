@@ -60,13 +60,14 @@ namespace CPS_Solution.Areas.Admin.Helpers
             string link = "Link".PadRight(max);
             string fileName = Path.GetRandomFileName() + ".txt";
             string templateLine = TemplateLine(max);
-            string content = "CPS Solution Log File \n" +
-                             "Được tạo lúc :" + DateTime.Now.ToShortDateString() + "," +
-                             DateTime.Now.ToShortTimeString() + "\n";
-            content += templateLine;
-            content += string.Format("|{0,-3}|{1}|{2,-15}|{3,-13}|{4,-19}|\n", "STT", link, "Thời gian parse",
-                                    "Tổng thành phần", "Insert vào database");
-            content += templateLine;
+        //    string content = 
+                //"CPS Solution Log File \n" +
+                //             "Được tạo lúc :" + DateTime.Now.ToShortDateString() + "," +
+                //             DateTime.Now.ToShortTimeString() + "\n";
+          //  content += templateLine;
+            string content = ""; //string.Format("|{0,-3}|{1}|{2,-15}|{3,-13}|{4,-19}|\n", "STT", link, "Thời gian parse",
+                             //       "Tổng thành phần", "Insert vào database");
+        //    content += templateLine;
             for (int i = 0; i < proMap.Count; i++)
             {
                 for (int j = 0; j < proMap[i].Count; j++)
@@ -80,8 +81,50 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             int totalTime = 30;
             int totalParsedItems = proMap.Sum(x => x.Count);
-            content += "Tổng thời gian parse: " + totalTime + " mili giây\n";
-            content += "Tổng thành phần được parse: " + totalParsedItems;
+        //    content += "Tổng thời gian parse: " + totalTime + " mili giây\n";
+         //   content += "Tổng thành phần được parse: " + totalParsedItems;
+            File.WriteAllText(path + fileName, content, new UnicodeEncoding());
+            using (var context = new CPS_SolutionEntities())
+            {
+                var log = new LogFile
+                {
+                    Filename = fileName,
+                    CreatedTime = DateTime.Now,
+                    IsActive = true
+                };
+                context.LogFiles.Add(log);
+                context.SaveChanges();
+            }
+
+        }
+
+
+        public static void LogfileThanhPhanloi(List<ProductMap> proMap)
+        {
+            string path = ConstantManager.LogPath;
+            int max = 20;
+            max++;
+            string link = "Link".PadRight(max);
+            string fileName = Path.GetRandomFileName() + ".txt";
+            string templateLine = TemplateLine(max);
+         //   string content = "CPS Solution Log File \n" +
+                          //   "Được tạo lúc :" + DateTime.Now.ToShortDateString() + "," +
+                         //    DateTime.Now.ToShortTimeString() + "\n";
+       //     content += templateLine;
+        //    content += string.Format("|{0,-3}|{1}|{2,-15}|{3,-13}|{4,-19}|\n", "STT", link, "Thời gian parse",
+                                  //  "Tổng thành phần", "Insert vào database");
+            string content = ""; ///+= templateLine;
+            for (int i = 0; i < proMap.Count; i++)
+            {
+               content += string.Format("|{0,-3}|{1}|{2,-15}|{3,-13}|{4,-19}|\n",
+                                         i + 1, proMap[i].ten.PadRight(max), proMap[i].loai, proMap[i].trongso,
+                                         proMap[i].trongso);
+                    content += templateLine;
+            }
+         //   int totalTime = logInfos.Sum(x => x.ElapsedTime);
+          //  int totalParsedItems = logInfos.Sum(x => x.TotalItems);
+         //   content += "Tổng thời gian parse: " + totalTime + " mili giây\n";
+          //  content += "Tổng thành phần được parse: " + totalParsedItems;
             File.WriteAllText(path + fileName, content, new UnicodeEncoding());
             using (var context = new CPS_SolutionEntities())
             {
