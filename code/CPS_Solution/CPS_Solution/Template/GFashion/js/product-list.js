@@ -74,7 +74,7 @@ function createInfo() {
         $(".circle[data-product-id='" + x + "']").hide();
 
         //t += parent.querySelector('a').innerHTML + ' <button onclick="removeProduct(' + x + ')">Remove</button><br/>';
-        t += '<div style="margin-top:10px;"><img src="/Template/GFashion/img/remove.png" onclick="removeProduct(' + x + ')" style="margin: -5px 10px 0px 15px"/>' + parent.querySelector('a').innerHTML + '</div>';
+        t += '<div class="cartItem" data-product-id="'+ x + '" style="margin-top:10px;"><img src="/Template/GFashion/img/remove.png" onclick="removeProduct(' + x + ')" style="margin: -5px 10px 0px 15px"/>' + parent.querySelector('a').innerHTML + '</div>';
     }
     t += '</div><hr>';
     t += '<button onclick="goCompare()" class="btn btn-default btn-xs" style="float:right; margin:-10px 10px 10px 10px;">So Sánh</button>';

@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
 
 @{
-    ViewBag.Title = "Compare";
+    ViewBag.Title = "Kết quả so sánh";
     Layout = "~/Views/Shared/_Compare.cshtml";
 }
 
-<div class="breadcrumb-container">
-    <div class="container">
+<div class="breadcrumb-container" style="height:60px">
+    <div class="container" >
         <div class="relative">
             <ul class="bc push-up unstyled clearfix">
-                <li>Home</li>
-                <li class="active">Compare</li>
+                <li>Trang chủ</li>
+                <li class="active">So sánh</li>
             </ul>
         </div>
     </div>
@@ -43,85 +43,127 @@
     }
 </style>
 
-
 <main id="main-content" role="main">
     <div class="container">
         <div class="row">
             <div class="m-t-b clearfix">
-                <section class="col-xs-12 col-sm-4 col-md-3" style="margin-top: 24%">
-                    <table class="table" style="text-align:center;">
-                        <thead>
-                        <tr><td>CPU</td></tr>
-                        <tr><td>Card màn hình</td></tr>
-                        <tr><td>Ram</td></tr>
-                        <tr><td>Ổ cứng</td></tr>
-                        <tr><td>Độ phẩn giải</td></tr>
-                            </thead>
-                    </table>
+                <section class="col-xs-12 col-sm-4 col-md-3" style="margin-top: 31%">
+                    <section class="sidebar push-up">
+                        <section class="side-section bg-white">
+                            <header class="side-section-header">
+							    <h3 class="side-section-title">Thông tin</h3>
+						    </header>
+                            <table class="table" style="text-align:center;">
+                                <thead>
+                                    <tr><td style="background-color:#F7A191; font-weight:bold; font-size:14px;">CPU</td></tr>
+                                    <tr><td style="font-weight:bold; font-size:14px;">Card màn hình</td></tr>
+                                    <tr><td style="background-color:#F7A191; font-weight:bold; font-size:14px;">Ram</td></tr>
+                                    <tr><td style="font-weight:bold; font-size:14px;">Ổ cứng</td></tr>
+                                    <tr><td style="background-color:#F7A191; font-weight:bold; font-size:14px;">Độ phân giải</td></tr>
+                                </thead>
+                            </table>
+                        </section>
+                    </section>
                 </section>
                 <section class="col-xs-12 col-sm-8 col-md-9">
-            <div class="products-layout grid">
-                @{ int bestProductID = Model.ElementAt(1).ID; }
-                @foreach (var item in Model) {           
-                    <div class="product">
-                        <div class="entry-main">
-                            @if (item.ID == bestProductID) {
-                                <div style="height:30px;">
-                                    <p>WINNER</p>
-                                </div>
+                    <div class="products-layout grid m-t-b add-cart">
+                        @{ int bestProductID = Model.ElementAt(1).ID; }
+                        @foreach (var item in Model) {
+                            if (item.ID == bestProductID) {
+                                <div class="product" style="border-style:solid; border-width:2px; border-color:#FA6F57; border-radius:10px;">
+                                    <div class="entry-main" style="height:30px;"><p>WINNER</p></div>
+                                    <div class="entry-main">
+                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="javascrpt:void(0)">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                                    </div>  
+                                    <div class="entry-media parent">
+                                        <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="@item.Name" class="lazyLoad thumb caption-wrapper" />
+                                        <div class="child">@Html.DisplayFor(modelItem => item.TotalWeightPoint)</div>
+                                    </div>
+                                    <div class="entry-main">
+                                        <table class="table">
+                                                @if (item.strCPU != null) { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strCPU)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                                @if (item.strVGA != null)
+                                                { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strVGA)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                                @if (item.strRAM != null)
+                                                { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strRAM)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                                @if (item.strHDD != null)
+                                                { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strHDD)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                                @if (item.strDisplay != null)
+                                                { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strDisplay)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                        </table>
+                                    </div>
+                                </div> 
                             } else {
-                                <div style="height:30px;">
-                                    <p>
-
-                                    </p>
+                                <div class="product">
+                                    <div class="entry-main" style="height:30px;"><p></p></div>
+                                    <div class="entry-main">
+                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="javascrpt:void(0)">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                                    </div>  
+                                    <div class="entry-media parent">
+                                        <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="@item.Name" class="lazyLoad thumb caption-wrapper" />
+                                        <div class="child">@Html.DisplayFor(modelItem => item.TotalWeightPoint)</div>
+                                    </div>
+                                    <div class="entry-main">
+                                        <table class="table">
+                                                @if (item.strCPU != null) { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strCPU)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                                @if (item.strVGA != null)
+                                                { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strVGA)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                                @if (item.strRAM != null)
+                                                { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strRAM)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                                @if (item.strHDD != null)
+                                                { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strHDD)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                                @if (item.strDisplay != null)
+                                                { 
+                                                    <tr><td>@Html.DisplayFor(modelItem => item.strDisplay)</td></tr>
+                                                } else {
+                                                    <tr><td>N/A</td></tr>
+                                                }
+                                
+                                        </table>
+                                    </div>
                                 </div>
-                            }
-                            <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="javascrpt:void(0)">@Html.DisplayFor(modelItem => item.Name)</a></h5>
-                    
-                        </div>  
-                        <div class="entry-media parent">
-                            <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="@item.Name" class="lazyLoad thumb caption-wrapper" />
-                            <div class="child">@Html.DisplayFor(modelItem => item.TotalWeightPoint)</div>
-                        </div>
-                        <div class="entry-main">
-                            <table class="table">
-                                
-                                    @if (item.strCPU != null) { 
-                                        <tr><td>@Html.DisplayFor(modelItem => item.strCPU)</td></tr>
-                                    } else {
-                                        <tr><td>N/A</td></tr>
-                                    }
-                                    @if (item.strVGA != null)
-                                    { 
-                                        <tr><td>@Html.DisplayFor(modelItem => item.strVGA)</td></tr>
-                                    } else {
-                                        <tr><td>N/A</td></tr>
-                                    }
-                                    @if (item.strRAM != null)
-                                    { 
-                                        <tr><td>@Html.DisplayFor(modelItem => item.strRAM)</td></tr>
-                                    } else {
-                                        <tr><td>N/A</td></tr>
-                                    }
-                                    @if (item.strHDD != null)
-                                    { 
-                                        <tr><td>@Html.DisplayFor(modelItem => item.strHDD)</td></tr>
-                                    } else {
-                                        <tr><td>N/A</td></tr>
-                                    }
-                                    @if (item.strDisplay != null)
-                                    { 
-                                        <tr><td>@Html.DisplayFor(modelItem => item.strDisplay)</td></tr>
-                                    } else {
-                                        <tr><td>N/A</td></tr>
-                                    }
-                                
-                            </table>
-                        </div>
+                            }                    
+                        }
                     </div>
-                }
-            </section></div>
-        </div></div>
+                </section>
+            </div>
+        </div>
     </div>
 </main>
 
