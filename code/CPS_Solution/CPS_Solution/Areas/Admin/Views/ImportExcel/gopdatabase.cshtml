@@ -1,6 +1,6 @@
 ﻿@using CPS_Solution.Controllers;
 @using CPS_Solution.EntityFramework;
-@using CPS_Solution.Areas.Admin.Models;s
+@using CPS_Solution.Areas.Admin.Models;
 @{
     ViewBag.Title = "gopdatabase";
     Layout = null;
@@ -88,11 +88,8 @@
                                             <input style="width: 19px;" value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
                                         <td>@p.ten</td>
-                                        <td>@p.trongso</td>
-                                        @if (p.loai.Equals("C"))
-                                        {
-                                            <td class=" ">CPU</td>
-                                        }
+                                        <td>@p.trongso</td>                              
+                                        <td class=" ">@p.loai</td>
                                         <td class="da-icon-column">
 
                                             <!-- Nếu là sản phẩm đầu tiên thì check radio-->
@@ -173,11 +170,8 @@
                                             <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
                                         <td>@p.ten</td>
-                                        <td>@p.trongso</td>
-                                        @if (p.loai.Equals("C"))
-                                        {
-                                            <td class=" ">CPU</td>
-                                        }
+                                        <td>@p.trongso</td>  
+                                       <td class=" ">@p.loai</td>
                                        @*   <td class="da-icon-column">
 
                                            Nếu là sản phẩm đầu tiên thì check radio

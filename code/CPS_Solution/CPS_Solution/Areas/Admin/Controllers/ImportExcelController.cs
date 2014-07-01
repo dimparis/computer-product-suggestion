@@ -53,7 +53,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // nếu có check ghilog Error
             if (!ghilog[1].Equals("no"))
             {
-
+                LogFileHelper.LogfileThanhPhanloi(listerror);
                 // xóa session error
                 Session["listerror"] = null;
             }
@@ -66,7 +66,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             //lấy product trong database ra chỉ lấy Codetype bằng loai.
             List<AttributeDictionary> listproindatabase = new List<AttributeDictionary>();
             String loai = listpro[0].loai;
-            var resource = (from x in db.AttributeDictionaries where x.Codetype.Name.Equals(loai) select x);
+            var resource = (from x in db.AttributeDictionaries where x.CodetypeID.Equals(loai) select x);
             listproindatabase = resource.ToList();
 
             // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
@@ -96,7 +96,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     }
 
                     // lấy sản phầm trùng cho vào list trùng mới
-                    if (similarity(Name, listproindatabase[j].Name.ToString()) >= 0.857)
+                    if (CompareStringHelper.CompareString(Name, listproindatabase[j].Name.ToString()) >= 85)
                     {
                         ProductMap pro = new ProductMap();
                         pro.stt = listproindatabase[j].ID.ToString();
@@ -228,7 +228,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 for (int i = 0; i < listpro.Count; i++)
                 {
                     // nếu phát hiện trùng
-                    if (similarity(listpro[i].ten.ToString(), update.ten) >= 0.857)
+                    if (CompareStringHelper.CompareString(listpro[i].ten.ToString(), update.ten) >= 85)
                     {
                         listtam.Add(listpro[i]);
                         listpro.Remove(listpro[i]);
@@ -246,7 +246,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     int count = 0;
                     for (int i = 0; i < listduplicate.Count; i++)
                     {
-                        if (similarity(listduplicate[i][0].ToString(), update.ten) >= 0.857)
+                        if (CompareStringHelper.CompareString(listduplicate[i][0].ToString(), update.ten) >= 85)
                         {
                             listduplicate[i].Add(update);
                             count++;
@@ -742,7 +742,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
                             List<AttributeDictionary> listproindatabase = new List<AttributeDictionary>();
                             String loai = listduplicatenew[i][1].loai;
-                            var resource = (from x in db.AttributeDictionaries where x.Codetype.Name.Equals(loai) select x);
+                            var resource = (from x in db.AttributeDictionaries where x.CodetypeID.Equals(loai) select x);
                             listproindatabase = resource.ToList();
                             int count =0;
                             for (int t = 0; t < listproindatabase.Count; t++)
@@ -821,7 +821,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
                 }
             }
-
+            ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
             return View();
         }
         /// <summary>
@@ -851,7 +851,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             for (int h = 0; h < mangten.Length; h++)
                             {
 
-                                //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
+                                //lấy product trong database ra kiểm tra xem có trong database chưa.
                                 List<AttributeMapping> listmap = new List<AttributeMapping>();
                                 var resource1 = (from x in db.AttributeMappings select x);
                                 listmap = resource1.ToList();
@@ -871,6 +871,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 AttributeMapping a = new AttributeMapping();
                                 a.Name = mangten[h];
                                 a.AttributeDicID = Convert.ToInt32(listduplicatenew[i][0].stt);
+                                a.IsActive = true;
                                 db.AttributeMappings.Add(a);
                                 db.SaveChanges();
                             }
@@ -882,6 +883,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     }
                 
             }
+            ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
             return View();
         }
         /// <summary>
@@ -997,7 +999,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 List<ProductMap> duplicateProduct = new List<ProductMap>();
                 for (int j = i + 1; j < list.Count; j++)
                 {
-                    if (similarity(list[i].ten.ToString(), list[j].ten.ToString()) >= 0.857)
+                    if (CompareStringHelper.CompareString(list[i].ten.ToString(), list[j].ten.ToString()) >= 85)
                     {
                         duplicateProduct.Add(list[j]);
                         list.RemoveAt(j);
@@ -1021,49 +1023,49 @@ namespace CPS_Solution.Areas.Admin.Controllers
         /// <param name="s1"></param>
         /// <param name="s2"></param>
         /// <returns></returns>
-        public static double similarity(String s1, String s2)
-        {
-            if (s1.Length < s2.Length)
-            { // s1 should always be bigger
-                String swap = s1; s1 = s2; s2 = swap;
-            }
-            int bigLen = s1.Length;
-            if (bigLen == 0) { return 1.0; /* both strings are zero length */ }
-            return (bigLen - computeEditDistance(s1, s2)) / (double)bigLen;
-        }
+        //public static double similarity(String s1, String s2)
+        //{
+        //    if (s1.Length < s2.Length)
+        //    { // s1 should always be bigger
+        //        String swap = s1; s1 = s2; s2 = swap;
+        //    }
+        //    int bigLen = s1.Length;
+        //    if (bigLen == 0) { return 1.0; /* both strings are zero length */ }
+        //    return (bigLen - computeEditDistance(s1, s2)) / (double)bigLen;
+        //}
 
-        public static int computeEditDistance(String s1, String s2)
-        {
-            s1 = s1.ToLower();
-            s2 = s2.ToLower();
+        //public static int computeEditDistance(String s1, String s2)
+        //{
+        //    s1 = s1.ToLower();
+        //    s2 = s2.ToLower();
 
-            int[] costs = new int[s2.Length + 1];
-            for (int i = 0; i <= s1.Length; i++)
-            {
-                int lastValue = i;
-                for (int j = 0; j <= s2.Length; j++)
-                {
-                    if (i == 0)
-                        costs[j] = j;
-                    else
-                    {
-                        if (j > 0)
-                        {
-                            int newValue = costs[j - 1];
-                            if ((char)s1[i - 1] != (char)s2[j - 1])
-                                newValue = Math.Min(Math.Min(newValue, lastValue),
-                                        costs[j]) + 1;
-                            costs[j - 1] = lastValue;
-                            lastValue = newValue;
-                        }
+        //    int[] costs = new int[s2.Length + 1];
+        //    for (int i = 0; i <= s1.Length; i++)
+        //    {
+        //        int lastValue = i;
+        //        for (int j = 0; j <= s2.Length; j++)
+        //        {
+        //            if (i == 0)
+        //                costs[j] = j;
+        //            else
+        //            {
+        //                if (j > 0)
+        //                {
+        //                    int newValue = costs[j - 1];
+        //                    if ((char)s1[i - 1] != (char)s2[j - 1])
+        //                        newValue = Math.Min(Math.Min(newValue, lastValue),
+        //                                costs[j]) + 1;
+        //                    costs[j - 1] = lastValue;
+        //                    lastValue = newValue;
+        //                }
 
-                    }
-                }
-                if (i > 0)
-                    costs[s2.Length] = lastValue;
-            }
-            return costs[s2.Length];
-        }
+        //            }
+        //        }
+        //        if (i > 0)
+        //            costs[s2.Length] = lastValue;
+        //    }
+        //    return costs[s2.Length];
+        //}
 
     }
 }
