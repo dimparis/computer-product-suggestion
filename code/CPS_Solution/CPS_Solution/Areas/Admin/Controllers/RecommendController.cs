@@ -25,7 +25,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
             var ParseProductLink = context.RecommendProducts.Where(x => x.ID == id).Select(x => x.Parselink).FirstOrDefault().ToString();
             ParserHelper.LoadWeb(ParseProductLink);
             TempData["existed"] = "false";
-            var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Equals(ParseProductLink));
+            var uri = new Uri(ParseProductLink);
+            string host = uri.GetLeftPart(UriPartial.Authority);
+            var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Contains(host));
             if (parseInfo != null)
             {
                 TempData["existed"] = "true";
@@ -53,7 +55,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             };
             context.ParseInfoes.Add(productInfo);
             context.SaveChanges();
-            Task.Factory.StartNew(ParserHelper.ParseProductData);
+            Task.Factory.StartNew(() => ParserHelper.ParseProductData(model.ParseProductLink));
             int  rcmId= Int32.Parse(model.RecommendProductId);
             var recommendProduct = context.RecommendProducts.Where(x => x.ID == rcmId).FirstOrDefault();
             recommendProduct.IsApprove = true;
