@@ -396,3 +396,5 @@ Intel Core 2 Duo  E7500;Intel Core 2 Duo  E7400
 Intel Core 2 Duo  E7500;Intel Core 2 Duo  E6750
 AMD Athlon II X2 270;AMD Athlon II X2 250
 Intel Core 2 Duo  E8600;Intel Core 2 Duo  E6600
+Intel HD Graphics 4600; Intel HD Graphics
+Intel HD Graphics 4600; 15.6

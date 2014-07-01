@@ -228,14 +228,14 @@ namespace CPS_Solution.Areas.Admin.Helpers
 
         // Parse 1 product
         #region
-        public static void ParseProductData()
+        public static void ParseProductData(string Parselink)
         {
             // Create Firefox browser
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
             //do more to get data
             using (var context = new CPS_SolutionEntities())
             {
-                var parseinfo = context.ParseInfoes.Where(p => p.IsActive).FirstOrDefault();
+                var parseinfo = context.ParseInfoes.Where(p => p.IsActive && p.Parselink.Contains(Parselink)).FirstOrDefault();
                 var data = GetProductData(web, parseinfo);
                 InsertProductToDb(data);
             }
@@ -397,11 +397,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     !String.IsNullOrEmpty(data.HDD) && !String.IsNullOrEmpty(data.RAM) &&
                     !String.IsNullOrEmpty(data.VGA) && !String.IsNullOrEmpty(data.Display))
                 {
-                    ////Check good match 
-                    var goodMatch = new List<int>();
-                    var averageMatch = new List<int>();
-                    int pId = -1;
-                    bool wholeMatch = false;
+                   
                     List<KeyValuePair<string, string>> listofAttributes = new List<KeyValuePair<string, string>>();
 
                     var cpu = new KeyValuePair<string, string>(data.CPU, "C");
@@ -420,6 +416,12 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     {
                         foreach (var attribute in listofAttributes)
                         {
+                            ////Check good match 
+                            var goodMatch = new List<int>();
+                            var averageMatch = new List<int>();
+                            int pId = -1;
+                            bool wholeMatch = false;
+
                             foreach (var alias in context.AttributeMappings)
                             {
                                 if (attribute.Key == alias.Name)
@@ -464,6 +466,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             if (pId != -1)
                             {
                                 // Do nothing
+                                string a = "";
                             }
                             else
                             {

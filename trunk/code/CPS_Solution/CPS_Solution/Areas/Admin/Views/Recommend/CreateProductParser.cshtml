@@ -173,6 +173,35 @@
     <!-- Wizard Plugin -->
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Scripts/getXPathProduct.js")"></script>
+     <script type="text/javascript">
+         var existed = @TempData["existed"] ;
+         var recommendId = @TempData["idRecommendProduct"];
+         if (existed) {
+             if (confirm("Parser đã tồn tại, bạn có muốn sử dụng lại không ?") == true) {
+                     @{
+                CPS_Solution.EntityFramework.ParseInfo info = (CPS_Solution.EntityFramework.ParseInfo)TempData["parseInfo"];
+                if(info ==null)
+                {
+                    return;
+                }
+                         }
+                var $productName = $('#xpathProductName');
+                var $cpu = $('#xpathCPU');
+                var $hdd = $('#xpathHDD');
+                var $vga = $('#xpathVGA');
+                var $ram = $('#xpathRAM');
+                var $display = $('#xpathDisplay');
+                $productName.val("@Html.Raw(info.Name)");
+                $cpu.val("@Html.Raw(info.CPUXPath)");
+                $vga.val("@Html.Raw(info.VGAXPath)");
+                $hdd.val("@Html.Raw(info.HDDXPath)");
+                $ram.val("@Html.Raw(info.RAMXPath)");
+                $display.val("@Html.Raw(info.DisplayXPath)");      
+                $('#Parseform').submit();
+            } 
+                  
+        }
+    </script>
 }
 <!-- Content Area -->
 
@@ -320,31 +349,5 @@
     <div class="grid_4">
         <iframe id="webDiv" src="@Url.Content("~/Areas/Admin/SavedPages/tmp.html")" width="1043" height="600"></iframe>
     </div>       
-    <script type="text/javascript">
-        var existed = @TempData["existed"] ;
-        var recommendId = @TempData["idRecommendProduct"];
-        if (existed) {
-            if (confirm("Parser đã tồn tại, bạn có muốn sử dụng lại không ?") == true) {
-                     @{
-                CPS_Solution.EntityFramework.ParseInfo info = (CPS_Solution.EntityFramework.ParseInfo)TempData["parseInfo"];
-                         }
-                var $productName = $('#xpathProductName');
-                var $cpu = $('#xpathCPU');
-                var $hdd = $('#xpathHDD');
-                var $vga = $('#xpathVGA');
-                var $ram = $('#xpathRAM');
-                var $display = $('#xpathDisplay');
-                $productName.val("@Html.Raw(info.Name)");
-                $cpu.val("@Html.Raw(info.CPUXPath)");
-                $vga.val("@Html.Raw(info.VGAXPath)");
-                $hdd.val("@Html.Raw(info.HDDXPath)");
-                $ram.val("@Html.Raw(info.RAMXPath)");
-                $display.val("@Html.Raw(info.DisplayXPath)");      
-                $('#Parseform').submit();
-            } 
-                  
-        }
-    </script>
-          
-          
+            
 }
