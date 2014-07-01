@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Compare.cshtml";
 }
 
-<div class="breadcrumb-container" style="height:60px">
+<div class="breadcrumb-container" @*style="height:60px"*@>
     <div class="container" >
         <div class="relative">
             <ul class="bc push-up unstyled clearfix">
@@ -23,7 +23,7 @@
     .child {
         /* CSS for warpper */
         position: absolute;
-        top: 0; left: 0;
+        top: 0; right: 5px;
         width: 50px;
         height: 60px;
         background-color: #F7A191;
@@ -47,8 +47,32 @@
     <div class="container">
         <div class="row">
             <div class="m-t-b clearfix">
-                <section class="col-xs-12 col-sm-4 col-md-3" style="margin-top: 31%">
+                <section class="col-xs-12 col-sm-4 col-md-3" style="margin-top: 0%">
                     <section class="sidebar push-up">
+                        <!-- Search Panel -->
+                        <section class="side-section bg-white" style="height:330px">
+                            <header class="side-section-header">
+                                <h3 class="side-section-title">...</h3>
+                            </header>
+                            <div class="side-section-content">
+                                <!-- SEARCH BOX -->
+                                <div class="search-box">
+                                    @*@using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Get))
+                                    {
+                                        <div class="input-iconed prepend">
+                                            <button class="input-icon"><i class="iconfont-search"></i></button>
+                                            <div class="round-input">
+                                                @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { style = "margin-left: 10%; margin-rigth: 10%; border: none; width: 70%" })
+                                            </div>
+                                        </div>                                        
+                                    }*@
+                                </div>
+                                <!-- // SEARCH BOX -->
+                            </div>
+                        </section>
+                        <!-- // Search Panel -->
+                    </section>
+                    <section class="sidebar push-up" style="margin-top: 0%">
                         <section class="side-section bg-white">
                             <header class="side-section-header">
 							    <h3 class="side-section-title">Thông tin</h3>
@@ -71,9 +95,9 @@
                         @foreach (var item in Model) {
                             if (item.ID == bestProductID) {
                                 <div class="product" style="border-style:solid; border-width:2px; border-color:#FA6F57; border-radius:10px;">
-                                    <div class="entry-main" style="height:30px;"><p>WINNER</p></div>
+                                    <div class="entry-main" style="height:40px;"><button type="button" class="btn btn-primary btn-sm" disabled style="background-color:#fa6f57">WINNER</button></div>
                                     <div class="entry-main">
-                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="javascrpt:void(0)">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details?Id=@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
                                     </div>  
                                     <div class="entry-media parent">
                                         <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="@item.Name" class="lazyLoad thumb caption-wrapper" />
@@ -111,13 +135,16 @@
                                                     <tr><td>N/A</td></tr>
                                                 }
                                         </table>
+                                        <div class="input-iconed prepend">
+                                            <button class="input-icon"><i class="iconfont-warning"></i><button type="button" class="btn btn-warning btn-xs">Báo sai thông tin</button></button>
+                                        </div>
                                     </div>
                                 </div> 
                             } else {
                                 <div class="product">
-                                    <div class="entry-main" style="height:30px;"><p></p></div>
+                                    <div class="entry-main" style="height:40px;"><button type="button" class="btn btn-info btn-sm" disabled>RUNNER-UP</button></div>
                                     <div class="entry-main">
-                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="javascrpt:void(0)">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details?Id=@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
                                     </div>  
                                     <div class="entry-media parent">
                                         <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="@item.Name" class="lazyLoad thumb caption-wrapper" />
@@ -154,10 +181,13 @@
                                                 } else {
                                                     <tr><td>N/A</td></tr>
                                                 }
-                                
                                         </table>
+                                        <div class="input-iconed prepend">
+                                            <button class="input-icon"><i class="iconfont-warn"></i><button type="button" class="btn btn-warning btn-xs">Báo sai thông tin</button></button>
+                                        </div>
                                     </div>
                                 </div>
+                                
                             }                    
                         }
                     </div>
