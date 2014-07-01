@@ -9,8 +9,8 @@
     <div class="container">
         <div class="relative">
             <ul class="bc push-up unstyled clearfix">
-                <li class="active">Home</li>
-                <li></li>
+                <li>Trang chủ</li>
+                <li class="active">Tìm kiếm</li>
             </ul>
         </div>
     </div>
@@ -107,11 +107,12 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                        <div class="rate-bar">
-                                            <p><span>RAM: </span>@Html.DisplayFor(modelItem => item.strRAM)</p>
-                                            <p><span>VGA: </span>@Html.DisplayFor(modelItem => item.strVGA)</p>
-                                            <p><span>HDD: </span>@Html.DisplayFor(modelItem => item.strHDD)</p>
-                                            <p><span>Screen solution: </span>@Html.DisplayFor(modelItem => item.strDisplay)</p>
+                                        <div class="rate-bar" style="color:white; margin-top:-10px; text-align:right;">
+                                            <p>@Html.DisplayFor(modelItem => item.strCPU)</p>
+                                            <p>@Html.DisplayFor(modelItem => item.strVGA)</p>
+                                            <p>@Html.DisplayFor(modelItem => item.strRAM)</p>
+                                            <p>@Html.DisplayFor(modelItem => item.strHDD)</p>
+                                            <p>@Html.DisplayFor(modelItem => item.strDisplay)</p>
                                         </div>
                                     </div>
                                 </div>
