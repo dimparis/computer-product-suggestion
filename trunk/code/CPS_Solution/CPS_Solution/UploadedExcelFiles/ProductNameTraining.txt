@@ -1,0 +1,3 @@
+20-DDR3L (2 khe RAM), 2 GB;DDR3L (1 khe RAM), 4 GB
+20-Intel® HD Graphics 4000, Share 736MB;Intel HD Graphics 4400, Share
+20-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)
