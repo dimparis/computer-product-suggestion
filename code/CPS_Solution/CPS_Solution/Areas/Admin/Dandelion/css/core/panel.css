@@ -94,6 +94,8 @@ div.da-panel .da-panel-header
 div.da-panel .da-panel-header .da-panel-title
 {
 	font-size:14px;
+	font-weight: bold;
+	color:white;
 	display:block;
 	line-height:20px;
 	padding:16px 0;
@@ -110,7 +112,7 @@ div.da-panel .da-panel-header .da-panel-title img
 
 div.da-panel .da-panel-header .da-panel-toggler
 {
-	background:url(../../images/icons/black/16/bended_arrow_up.png) no-repeat center center;
+	background:url(../../images/icons/white/16/bended_arrow_up.png) no-repeat center center;
 	border-left:1px solid #c3c3c3;
 	margin-top:-26px;
 	height:16px;

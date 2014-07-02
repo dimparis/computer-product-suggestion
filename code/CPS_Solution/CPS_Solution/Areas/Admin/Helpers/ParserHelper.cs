@@ -471,13 +471,13 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 else if (goodMatch.Count > 1)
                                 {
                                     // Match well with more than 1 product, admin decide
-                                    ExportTrainingFile(goodMatch, attribute.Key);
+                                    ExportTrainingFileForProduct(goodMatch, attribute.Key,prod.ID);
                                     continue;
                                 }
                                 else if (averageMatch.Count > 0 && pId == -1)
                                 {
                                     // Only average match, admin decide
-                                    ExportTrainingFile(averageMatch, attribute.Key);
+                                    ExportTrainingFileForProduct(averageMatch, attribute.Key,prod.ID);
                                     continue;
                                 }
                             }
@@ -496,17 +496,18 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             {
                                 //Add a new record
                                 var newADitem = new AttributeDictionary { Name = attribute.Key, CodetypeID = attribute.Value, WeightCriteraPoint = 0 };
-                                context.AttributeDictionaries.Add(newADitem);
-                                // Chua luu dc vi chua check cac attribute id 
+                               
+                                // Add new item for Product Attribute
                                 var productAtt = new ProductAttribute
                                 {
                                     ProductID = prod.ID,
                                     AttributeID = newADitem.ID,
-                                };
-                                ////////////////////////// HERE ////////////////////
-                                context.ProductAttributes.Add(productAtt);
+                                };                              
                                 try
                                 {
+                                    // Save change into DB
+                                    context.AttributeDictionaries.Add(newADitem);
+                                    context.ProductAttributes.Add(productAtt);
                                     context.SaveChanges();
                                     var aliasDic = new AttributeMapping
                                     {
@@ -565,6 +566,40 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 }
             }
         }
+        public static void ExportTrainingFileForProduct(List<int> match, string name,int newProductID)
+        {
+            List<string> data = ReadDataFromFileForProduct();
+            string path = ConstantManager.TrainingFilePathForProduct;
+            string content = "";
+            using (var context = new CPS_SolutionEntities())
+            {
+                foreach (int id in match)
+                {
+                    var attAD = context.AttributeDictionaries.FirstOrDefault(a => a.ID == id);
+                    if (attAD != null)
+                    {
+                        content = newProductID +"-" + attAD.Name + ";";
+                    }
+                }
+            }
+            content += name;
+            bool isExisted = false;
+            foreach (string item in data)
+            {
+                if (item == content)
+                {
+                    isExisted = true;
+                    break;
+                }
+            }
+            if (!isExisted)
+            {
+                using (StreamWriter writer = File.AppendText(path))
+                {
+                    writer.WriteLine(content);
+                }
+            }
+        }
         /// <summary>
         /// Read train data from file
         /// </summary>
@@ -572,6 +607,20 @@ namespace CPS_Solution.Areas.Admin.Helpers
         private static List<string> ReadDataFromFile()
         {
             string path = ConstantManager.TrainingFilePath;
+            var result = new List<string>();
+            string line;
+
+            var reader = new StreamReader(path);
+            while ((line = reader.ReadLine()) != null)
+            {
+                result.Add(line);
+            }
+            reader.Close();
+            return result;
+        }
+        private static List<string> ReadDataFromFileForProduct()
+        {
+            string path = ConstantManager.TrainingFilePathForProduct;
             var result = new List<string>();
             string line;
 
