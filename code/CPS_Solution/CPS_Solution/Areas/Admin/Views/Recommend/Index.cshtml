@@ -1,21 +1,12 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.RecommendProduct>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Đề xuất sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 @section headScript
 {
-<!-- CSS Reset -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/reset.css")" media="screen" />
-<!--  Fluid Grid System -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/fluid.css")" media="screen" />
-<!-- Theme Stylesheet -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.theme.css")" media="screen" />
-<!--  Main Stylesheet -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.css")" media="screen" />
-<!-- Demo Stylesheet -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/demo.css")" media="screen" />
+
 <!-- jQuery JavaScript File -->
 <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
 <!-- jQuery-UI JavaScript Files -->
@@ -69,9 +60,9 @@
                             	<a href="dashboard.html">
                                 	<!-- Icon Container -->
                                 	<span class="da-nav-icon">
-                                    	<img src="Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
+                                    	<img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/home.png")" alt="Dashboard" />
                                     </span>
-                                	Dashboard
+                                	Hệ thống
                                 </a>
                             </li>       
                         </ul>

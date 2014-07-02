@@ -889,8 +889,8 @@ div#da-content
 			div#da-content #da-main-nav ul li ul li a, 
 			div#da-content #da-main-nav ul li ul li span
 			{
-				padding:6px 0;
-				padding-left: 30px;
+				padding:6px 5px;
+				padding-left:30px;
 				background:none !important;
 			}
 
