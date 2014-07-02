@@ -94,7 +94,6 @@ a:hover
 
 body
 {
-	background-color:#f2f2f2;
 	color:#444444;
 	font:12px/1.5 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
@@ -854,7 +853,7 @@ div#da-content
 			{
 				border:none;
 				background:#e9e9e9 url(../../images/submenu-shadow.png) repeat-x left top;
-				
+				background-color:transparent;
 				/* CSS 3 */
 				
 				-webkit-border-radius:0;
@@ -884,7 +883,7 @@ div#da-content
 			
 			div#da-content #da-main-nav ul li ul li:hover
 			{
-				background:url(../../images/menu-hover.png);
+				background-color:#a6d037;
 			}
 			
 			div#da-content #da-main-nav ul li ul li a, 

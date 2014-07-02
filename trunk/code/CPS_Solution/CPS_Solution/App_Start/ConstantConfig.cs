@@ -13,6 +13,7 @@ namespace CPS_Solution.App_Start
             ConstantManager.ConfigPath = server.MapPath("~/Areas/Admin/AdminConfig.xml");
             ConstantManager.SavedPath = server.MapPath("~/Areas/Admin/SavedPages");
             ConstantManager.TrainingFilePath = server.MapPath("~/UploadedExcelFiles/ProductName.txt");
+            ConstantManager.TrainingFilePathForProduct = server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
             ConstantManager.IsParserRunning = false;
         }
     }
