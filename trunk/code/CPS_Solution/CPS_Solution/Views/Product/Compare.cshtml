@@ -88,6 +88,7 @@
                             </table>
                         </section>
                     </section>
+
                 </section>
                 <section class="col-xs-12 col-sm-8 col-md-9">
                     <div class="products-layout grid m-t-b add-cart">
@@ -97,7 +98,7 @@
                                 <div class="product" style="border-style:solid; border-width:2px; border-color:#FA6F57; border-radius:10px;">
                                     <div class="entry-main" style="height:40px;"><button type="button" class="btn btn-primary btn-sm" disabled style="background-color:#fa6f57">WINNER</button></div>
                                     <div class="entry-main">
-                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details?Id=@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details/@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
                                     </div>  
                                     <div class="entry-media parent">
                                         <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="@item.Name" class="lazyLoad thumb caption-wrapper" />
@@ -144,7 +145,7 @@
                                 <div class="product">
                                     <div class="entry-main" style="height:40px;"><button type="button" class="btn btn-info btn-sm" disabled>RUNNER-UP</button></div>
                                     <div class="entry-main">
-                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details?Id=@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details/@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
                                     </div>  
                                     <div class="entry-media parent">
                                         <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="@item.Name" class="lazyLoad thumb caption-wrapper" />
