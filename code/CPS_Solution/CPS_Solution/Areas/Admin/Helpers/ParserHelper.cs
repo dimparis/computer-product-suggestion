@@ -491,6 +491,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                     AttributeID = pId,
                                 };
                                 context.ProductAttributes.Add(productAtt);
+                                context.SaveChanges();
                             }
                             else
                             {

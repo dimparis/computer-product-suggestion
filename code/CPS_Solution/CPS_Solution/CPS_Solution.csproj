@@ -51,6 +51,9 @@
     <Reference Include="log4net">
       <HintPath>..\packages\LinqToExcel.1.7.1\lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Web.Optimization.WebForms">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.WebForms.1.1.3\lib\net45\Microsoft.AspNet.Web.Optimization.WebForms.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList">
       <HintPath>..\..\..\..\SmartBuy\smart-buy\Code\Smart Buy\ smart-buy\Code\Smart Buy\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -147,11 +150,14 @@
     <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Admin\Controllers\ImportExcelLapController.cs" />
     <Compile Include="Areas\Admin\Controllers\LogFileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductShowController.cs" />
     <Compile Include="Areas\Admin\Controllers\RecommendController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TrainingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TrainingProductController.cs" />
     <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\LogFileHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
@@ -3070,7 +3076,45 @@
     <Content Include="GFashion_Html Files\rev-slider\img\slides\Street-Fashion.jpg" />
     <Content Include="GFashion_Html Files\store-locator.html" />
     <Content Include="Global.asax" />
+    <Content Include="Template\GFashion\css\flexslider.css" />
+    <Content Include="Template\GFashion\css\innerpage.css" />
+    <Content Include="Template\GFashion\css\isotope.css" />
+    <Content Include="Template\GFashion\css\jquery.nouislider.css" />
+    <Content Include="Template\GFashion\css\metro-bootstrap.css" />
+    <Content Include="Template\GFashion\css\minified.css" />
+    <Content Include="Template\GFashion\css\owl.carousel.css" />
+    <Content Include="Template\GFashion\css\owl.theme.css" />
+    <Content Include="Template\GFashion\css\PIE.htc" />
+    <Content Include="Template\GFashion\css\responsive.css" />
+    <Content Include="Template\GFashion\fonts\glyphicons-halflings-regular-2.html" />
+    <Content Include="Template\GFashion\fonts\glyphicons-halflings-regular-3.html" />
+    <Content Include="Template\GFashion\fonts\glyphicons-halflings-regular-4.html" />
+    <Content Include="Template\GFashion\fonts\glyphicons-halflings-regular.html" />
+    <Content Include="Template\GFashion\fonts\glyphicons-halflings-regulard41d.html" />
+    <Content Include="Template\GFashion\font\fontawesome\fonts\fontawesome.svg" />
+    <Content Include="Template\GFashion\img\1.jpg" />
+    <Content Include="Template\GFashion\img\AjaxLoader2.gif" />
+    <Content Include="Template\GFashion\img\bg_pattern.jpg" />
+    <Content Include="Template\GFashion\img\big-laptop.jpg" />
+    <Content Include="Template\GFashion\img\laptop.jpg" />
+    <Content Include="Template\GFashion\img\logo.png" />
+    <Content Include="Template\GFashion\img\remove.png" />
+    <Content Include="Template\GFashion\img\versus.png" />
+    <Content Include="Template\GFashion\img\winner.png" />
+    <Content Include="Template\GFashion\js\contact.js" />
+    <Content Include="Template\GFashion\js\gmap3.min.js" />
+    <Content Include="Template\GFashion\js\jquery.flexslider-min.js" />
+    <Content Include="Template\GFashion\js\jquery.isotope.min.js" />
+    <Content Include="Template\GFashion\js\jquery.min.js" />
+    <Content Include="Template\GFashion\js\jquery.nouislider.js" />
+    <Content Include="Template\GFashion\js\minified.js" />
+    <Content Include="Template\GFashion\js\modernizr.min.js" />
+    <Content Include="Template\GFashion\js\notify.js" />
+    <Content Include="Template\GFashion\js\owl.carousel.js" />
+    <Content Include="Template\GFashion\js\product-list.js" />
+    <Content Include="Template\GFashion\js\products.js" />
     <Content Include="UploadedExcelFiles\ProductName.txt" />
+    <Content Include="UploadedExcelFiles\ProductNameTraining.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3090,6 +3134,7 @@
     <Folder Include="Areas\Admin\SavedPages\" />
     <Folder Include="Images\" />
     <Folder Include="Models\" />
+    <Folder Include="Template\GFashion\img\favicon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -3218,6 +3263,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_LayoutUserPage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Template\GFashion\font\fontawesome\fonts\fontawesome.eot" />
+    <Content Include="Template\GFashion\font\fontawesome\fonts\fontawesome.ttf" />
+    <Content Include="Template\GFashion\font\fontawesome\fonts\fontawesome.woff" />
+    <Content Include="Template\GFashion\font\fontawesome\fonts\fontawesomed41d.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\ImportExcelLap\deleteproduct.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcelLap\fixedErrorProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcelLap\getGop.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcelLap\getTach.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcelLap\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcelLap\tachdatabase.cshtml" />
+    <Content Include="Areas\Admin\Views\TrainingProduct\gopdatabase.cshtml" />
+    <Content Include="Areas\Admin\Views\TrainingProduct\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TrainingProduct\tachdatabase.cshtml" />
+    <Content Include="Areas\Admin\Views\Training\gopdatabase.cshtml" />
+    <Content Include="Areas\Admin\Views\Training\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Training\tachdatabase.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
