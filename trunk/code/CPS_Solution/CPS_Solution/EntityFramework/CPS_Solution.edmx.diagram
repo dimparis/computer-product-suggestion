@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2134ea5faeae4149b8542051a8b49acd" Name="Diagram1">
+      <Diagram DiagramId="8f37af72094646f3a05c156fff16798e" Name="Diagram1">
         <EntityTypeShape EntityType="CPS_SolutionModel.Account" Width="1.5" PointX="1.5" PointY="15.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.AttributeDictionary" Width="1.5" PointX="3.75" PointY="21.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.AttributeMapping" Width="1.5" PointX="6" PointY="21.5" IsExpanded="true" />
