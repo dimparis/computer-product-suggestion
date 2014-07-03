@@ -8,6 +8,8 @@ using System.Web.Routing;
 using CPS_Solution.Areas.Admin;
 using CPS_Solution.CommonClass;
 using CPS_Solution.App_Start;
+using System.Web.Optimization;
+
 namespace CPS_Solution
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -22,6 +24,8 @@ namespace CPS_Solution
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ConstantConfig.Register(Server);
+
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }
