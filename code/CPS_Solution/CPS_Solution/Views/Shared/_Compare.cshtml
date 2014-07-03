@@ -26,6 +26,8 @@
     <script src="@Url.Content("~/Template/GFashion/js/notify.js")"></script>
     <script src="@Url.Content("~/Template/GFashion/js/jquery-ui-1.8.20.min.js")"></script>
 
+    @RenderSection("head", required: false)
+
  
 
 </head>
@@ -72,6 +74,9 @@
                         <ul class="main-menu hidden-sm hidden-xs">
                             <li class="active">
                                 <a href="~/Product/SearchForProduct">Tìm Kiếm</a>
+                            </li>
+                            <li>
+                                <a href="~/Product/Recommend">Đề xuất</a>
                             </li>
                         </ul>
                     </nav>
