@@ -350,7 +350,7 @@
             <!--------------------------------------------------Có quá nhiều lỗi------------------------------------------------------------------------------->
             @if (errorLineLap != null)
             {
-                if (sodongloi >= 15)
+                if (sodongloi > 10)
                 {
                    
                    
@@ -733,14 +733,14 @@
                                             if (loiName[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idName_@p.stt" cols="15" rows="1" style="border-color:red"> @p.Name</textarea></td>
+                                                <textarea id="idName_@p.stt" cols="14.5%" rows="2" style="border-color:red"> @p.Name</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idName_@p.stt"  cols="25" rows="1"> @p.Name</textarea></td> 
+                                                <textarea id="idName_@p.stt"  cols="14.5%" rows="2"> @p.Name</textarea></td> 
                                         }
                                         @if (checkName > 0)
                                         {
@@ -753,14 +753,14 @@
                                             if (loiImageLink[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idImageLink_@p.stt" cols="40" rows="3" style="border-color:red"> @p.Imagelink</textarea></td>
+                                                <textarea id="idImageLink_@p.stt" cols="30%" rows="3" style="border-color:red"> @p.Imagelink</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idImageLink_@p.stt" cols="40" rows="3">@p.Imagelink</textarea>
+                                                <textarea id="idImageLink_@p.stt" cols="30%" rows="3">@p.Imagelink</textarea>
                                             </td> 
                                         }
                                         @if (checkName > 0)
@@ -775,14 +775,14 @@
                                             if (loiCPU[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idCPU_@p.stt"  cols="20" rows="1" style="border-color:red"> @p.CPU</textarea></td>
+                                                <textarea id="idCPU_@p.stt"  cols="9.5%" rows="2" style="border-color:red"> @p.CPU</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idCPU_@p.stt"  cols="20" rows="1"> @p.CPU</textarea></td>
+                                                <textarea id="idCPU_@p.stt"  cols="9.5%" rows="2"> @p.CPU</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -795,14 +795,14 @@
                                             if (loiVGA[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idVGA_@p.stt" cols="20" rows="1" style="border-color:red"> @p.VGA</textarea></td>
+                                                <textarea id="idVGA_@p.stt" cols="11%" rows="2" style="border-color:red"> @p.VGA</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idVGA_@p.stt"  cols="20" rows="1"> @p.VGA</textarea></td>
+                                                <textarea id="idVGA_@p.stt"  cols="11%" rows="2"> @p.VGA</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -816,14 +816,14 @@
                                             if (loiHDD[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idHDD_@p.stt" cols="3" rows="1" style="border-color:red"> @p.HDD</textarea></td>
+                                                <textarea id="idHDD_@p.stt" cols="5%" rows="2" style="border-color:red"> @p.HDD</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idHDD_@p.stt" cols="3" rows="1"> @p.HDD</textarea></td>
+                                                <textarea id="idHDD_@p.stt" cols="5%" rows="2"> @p.HDD</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -836,14 +836,14 @@
                                             if (loiDisplay[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idDisplay_@p.stt" cols="10" rows="1" style="border-color:red"> @p.Display</textarea></td>
+                                                <textarea id="idDisplay_@p.stt" cols="10" rows="2" style="border-color:red"> @p.Display</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idDisplay_@p.stt" cols="10" rows="1"> @p.Display</textarea></td>
+                                                <textarea id="idDisplay_@p.stt" cols="10" rows="2"> @p.Display</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -856,20 +856,20 @@
                                             if (loiRam[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idRam_@p.stt" cols="3" rows="1" style="border-color:red"> @p.RAM</textarea></td>
+                                                <textarea id="idRam_@p.stt" cols="3" rows="2" style="border-color:red"> @p.RAM</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idRam_@p.stt" cols="3" rows="1"> @p.RAM</textarea></td>
+                                                <textarea id="idRam_@p.stt" cols="3" rows="2"> @p.RAM</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
                                             checkName--;
                                         }
-                                        <td class=" ">
+                                        <td style="width: 5%" class=" ">
                                             <a onclick="luusanphamloi(@p.stt)">
                                                 <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" />Lưu</a>
                                         </td>
@@ -1002,7 +1002,7 @@
                         // nút gộp tách
                     <div class="da-panel-toolbar top" style="border-color: yellowgreen">
                         <ul>
-                            <li style="text-align: right"><a id ="link_@(i)"  onclick="gopdatabase(@(i))">
+                            <li style="text-align: right"><a id ="link_@(i)"  style="width: 46.5px;" onclick="gopdatabase(@(i))">
                                 <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
                             <li style="text-align: right"><a  onclick="tachdatabase(@(i))" >
                                 <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
@@ -1013,7 +1013,7 @@
                         <table    id="table_@(i)" class="da-table">
                             <thead>
                                 <tr>
-                                    <th class="checkbox-column"  style="width: 97px;" id="checkboxAllTable_@(i)">
+                                    <th class="checkbox-column"  id="checkboxAllTable_@(i)">
                                         <input id="checkAll"  checked="checked" disabled style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>

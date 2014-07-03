@@ -20,10 +20,28 @@ namespace CPS_Solution.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.listproduct = (List<ProductMap>)Session["listproduct"];
-            ViewBag.listerror = (List<ProductMap>)Session["listerror"];
-            ViewBag.listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
-            ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
+            List<String> danhsachloi = (List<String>)Session["errorLine"];
+           Session["danhsachloi"] =null;
+           if (danhsachloi != null)
+           {
+               if (Convert.ToInt32(danhsachloi[0]) > 10)
+               {
+                   Session["listproduct"] = null;
+                   Session["listduplicate"] = null;
+                   Session["danhsachloi"] = Session["listerror"];
+                   Session["listerror"] = null;
+               }
+           }
+        // danh sahcs đúng, trùng, lỗi
+           ViewBag.listproduct = (List<ProductMap>)Session["listproduct"];
+           ViewBag.listerror = (List<ProductMap>)Session["listerror"];
+           ViewBag.listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
+           // quá nhiều lỗi hiện thị ra dòng và sản phẩm bị lỗi.
+           ViewBag.danhsachloi = (List<ProductMap>)Session["danhsachloi"];
+           ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
+
+           // dòng chứa lỗi
+           ViewBag.errorLine = Session["errorLine"];
             return View();
         }
         /// <summary>
@@ -970,19 +988,50 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public List<ProductMap> ListErrorProduct(List<ProductMap> list)
         {
             List<ProductMap> errorlist = new List<ProductMap>();
-
-
-            for (int i = 0; i < list.Count - 1; i++)
+            List<String> errorLine = new List<String>();
+            // list dòng lỗi 1 Tên, 2 Trọng số, 3 Loại.
+            for (int i = 0; i < 4; i++)
             {
-                if (list[i].ten.Length < 5 || list[i].ten.Length > 100 ||
-                    list[i].loai.Length < 1 || list[i].loai.Length > 5 ||
-                    list[i].trongso.ToString().Length < 1 || list[i].trongso.ToString().Length > 300)
+                errorLine.Add("");
+            }
+            int count = 0;
+            // ---duyệt list phát hiện lỗi-------------------
+            for (int i = 0; i < list.Count; i++)
+            {
+                int loi = 0;
+                // dòng lỗi tên Lap
+                if (list[i].ten.Length < 5 || list[i].ten.Length > 100)
+                {
+                    errorLine[1] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+
+                // dòng lỗi trọng số
+                int distance;
+                if (!int.TryParse(list[i].trongso, out distance))
+                {
+                    errorLine[2] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi loại Lap
+                if (list[i].loai.Length < 1 || list[i].loai.Length > 5)
+                {
+                    errorLine[3] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                if (loi> 0)
                 {
                     errorlist.Add(list[i]);
                     list.RemoveAt(i);
                     i = i - 1;
                 }
+               
             }
+            errorLine[0] = count.ToString();
+            Session["errorLine"] = errorLine;
             return errorlist;
         }
         /// <summary>
