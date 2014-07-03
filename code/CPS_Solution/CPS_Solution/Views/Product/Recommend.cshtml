@@ -40,7 +40,7 @@
     <div class="container">
         <div class="row">
             <div class="m-t-b clearfix">
-                <section class="col-xs-12 col-sm-8 col-md-9">
+                <section class="col-xs-12 col-sm-8 col-md-5">
                     <div id="myRadioGroup">
                         <div>
                             <h3>Chọn kiểu đề xuất sản phẩm</h3>
@@ -62,19 +62,19 @@
 			                        <p>Đề xuất bằng đường dẫn sản phẩm</p>
 		                        </h4>
 	                        </div>
-	                        <div class="panel-collapse collapse in">
+	                                <div class="panel-collapse collapse in">
 		                        <div class="panel-body">
                                     @using (Html.BeginForm()) {
                                         @Html.ValidationSummary(true)
                                         //Product name
                                         <div class="form-group stylish-input">
-                                            <label for="input1">Tên sản phẩm</label>
+                                            <label class="required">Tên sản phẩm</label>
                                             @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.Name)
                                         </div>
                                         //Product url
                                         <div class="form-group stylish-input">
-                                            <label for="input1">Đường dẫn sản phẩm</label>
+                                            <label class="required">Đường dẫn sản phẩm</label>
                                             @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.Parselink)
                                         </div>
@@ -91,7 +91,38 @@
 	                        </div>
 	                        <div class="panel-collapse collapse in">
 		                        <div class="panel-body">
-			    
+                                    @*Product name*@
+                                    <div class="form-group stylish-input">
+		                                <label class="required" for="input2">Tên sản phẩm</label>
+		                                <input type="text" id="input2" class="form-control" />
+	                                </div>
+                                    @*Product chipset*@
+                                    <div class="form-group stylish-input">
+		                                <label class="required" for="input2">Bộ vi xử lý</label>
+		                                <input type="text" id="input2" class="form-control" />
+	                                </div>
+                                    @*Product vga*@
+                                    <div class="form-group stylish-input">
+		                                <label class="required" for="input2">Card màn hình</label>
+		                                <input type="text" id="input2" class="form-control" />
+	                                </div>
+                                    @*Product ram*@
+                                    <div class="form-group stylish-input">
+		                                <label class="required" for="input2">Bộ nhớ RAM</label>
+		                                <input type="text" id="input2" class="form-control" />
+	                                </div>
+                                    @*Product hdd*@
+                                    <div class="form-group stylish-input">
+		                                <label class="required" for="input2">Ổ cứng</label>
+		                                <input type="text" id="input2" class="form-control" />
+	                                </div>
+                                    @*Product display*@
+                                    <div class="form-group stylish-input">
+		                                <label class="required" for="input2">Độ phân giải màn hình</label>
+		                                <input type="text" id="input2" class="form-control" />
+	                                </div>
+                                    @*Button submit*@
+                                    <p><input type="submit" value="Gửi đề xuất" class="btn btn-info btn-xsp pull-right"/></p>
 		                        </div>
 	                        </div>
                         </div>
