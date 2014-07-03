@@ -1,0 +1,173 @@
+﻿@model CPS_Solution.EntityFramework.RecommendProduct
+
+
+
+@{
+    ViewBag.Title = "Recommend";
+    Layout = "~/Views/Shared/_Compare.cshtml";
+    
+}
+
+
+@using System.Web.Optimization
+
+@Scripts.Render("~/Scripts/jquery")
+@Scripts.Render("~/Scripts/knockout")
+
+<div class="breadcrumb-container" @*style="height:60px"*@>
+    <div class="container" >
+        <div class="relative">
+            <ul class="bc push-up unstyled clearfix">
+                <li>Trang chủ</li>
+                <li>Sản phẩm</li>
+                <li class="active">Đề xuất sản phầm</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("input[name$='recommend']").click(function () {
+            var type = $(this).val();
+            $("div.desc").hide();
+            $("#recommend" + type).fadeIn(1500);
+        });
+    });
+</script>
+
+<main id="main-content" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="m-t-b clearfix">
+                <section class="col-xs-12 col-sm-8 col-md-9">
+                    <div id="myRadioGroup">
+                        <div>
+                            <h3>Chọn kiểu đề xuất sản phẩm</h3>
+                        </div> 
+                        <div>
+                            <p>
+                                <input type="radio" name="recommend" checked="checked" value="1" />
+                                <span>Bằng đường dẫn</span>
+                            </p>
+                            <p>
+                                <input type="radio" name="recommend" value="2" />
+                                <span>Bằng thông tin chi tiết</span>
+                            </p>
+                        </div>
+                        <div class="m-t-b" />
+                        <div class="panel panel-default desc" id="recommend1">
+	                        <div class="panel-heading">
+		                        <h4 class="panel-title">
+			                        <p>Đề xuất bằng đường dẫn sản phẩm</p>
+		                        </h4>
+	                        </div>
+	                        <div class="panel-collapse collapse in">
+		                        <div class="panel-body">
+                                    @using (Html.BeginForm()) {
+                                        @Html.ValidationSummary(true)
+                                        //Product name
+                                        <div class="form-group stylish-input">
+                                            <label for="input1">Tên sản phẩm</label>
+                                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Name)
+                                        </div>
+                                        //Product url
+                                        <div class="form-group stylish-input">
+                                            <label for="input1">Đường dẫn sản phẩm</label>
+                                            @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Parselink)
+                                        </div>
+                                        <p><input type="submit" value="Gửi đề xuất" class="btn btn-info btn-xsp pull-right"/></p>
+                                    }
+		                        </div>
+	                        </div>
+                        </div>
+                        <div class="panel panel-default desc" id="recommend2" style="display:none;">
+	                        <div class="panel-heading">
+		                        <h4 class="panel-title">
+			                        <p>Đề xuất bằng thông tin chi tiết sản phẩm</p>
+		                        </h4>
+	                        </div>
+	                        <div class="panel-collapse collapse in">
+		                        <div class="panel-body">
+			    
+		                        </div>
+	                        </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>RecommendProduct</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Username)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Parselink)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Parselink)
+            @Html.ValidationMessageFor(model => model.Parselink)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RecommendTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RecommendTime)
+            @Html.ValidationMessageFor(model => model.RecommendTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsApprove)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsApprove)
+            @Html.ValidationMessageFor(model => model.IsApprove)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+    
+    
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
+
+
