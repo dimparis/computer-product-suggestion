@@ -1,2 +1,0 @@
-﻿27-Intel, Celeron, N2920, 1.86 GHz;Intel, Celeron, N2920, 1.86 GHz
-27-HDD, 500 GB;HDD, 500 GB
