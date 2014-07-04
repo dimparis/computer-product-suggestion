@@ -263,13 +263,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             db.ProductAttributes.Add(proAttr);
                             db.SaveChanges();
                             listduplicatenew.RemoveAt(i);
+                            listID.RemoveAt(i);
                             i = i - 1;
                             count++;
                             break;
                         }
-
-                      
-
                     }
                  
                     Session["ListduptraningProduct"] = listduplicatenew;
