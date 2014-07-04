@@ -17,6 +17,6 @@ namespace CPS_Solution.CommonClass
     public enum SystemRole { 
         Admin = 1,
         Staff = 2,
-        User  = 3,
+        Member  = 3,
     }
 }
