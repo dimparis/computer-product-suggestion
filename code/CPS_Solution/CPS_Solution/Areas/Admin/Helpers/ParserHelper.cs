@@ -244,16 +244,12 @@ namespace CPS_Solution.Areas.Admin.Helpers
         public static ProductData GetProductData(HtmlWeb web, ParseInfo parseInfo)
         {
             var data = new ProductData();
-            var uri = new Uri(parseInfo.Parselink);
-            string host = uri.GetLeftPart(UriPartial.Authority);
-            //load website
-
-            //1st page
+            //load page
             HtmlDocument doc = web.Load(parseInfo.Parselink);
-            data = MatchingProductData(doc, parseInfo.Name, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
+            data = MatchingProductData(doc,parseInfo.Name,parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
             return data;
         }
-        public static ProductData MatchingProductData(HtmlDocument doc, string nameXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
+        public static ProductData MatchingProductData(HtmlDocument doc, string nameXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
         {
             var data = new ProductData();
             var name = doc.DocumentNode.SelectSingleNode(nameXpath);
@@ -262,9 +258,11 @@ namespace CPS_Solution.Areas.Admin.Helpers
             var hdd = doc.DocumentNode.SelectSingleNode(hddXpath);
             var ram = doc.DocumentNode.SelectSingleNode(ramXpath);
             var display = doc.DocumentNode.SelectSingleNode(displayXpath);
+            var image = doc.DocumentNode.SelectSingleNode(imageXpath);
             if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
                 !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
-                !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
+                !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText) &&
+                image.HasAttributes)
             {
                 data.Name = name.InnerText;
                 data.CPU = cpu.InnerText;
@@ -272,6 +270,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 data.HDD = hdd.InnerText;
                 data.RAM = ram.InnerText;
                 data.Display = display.InnerText;
+                data.Image = ImageHelper.TakePath(doc, imageXpath);
             }
             return data;
         }
@@ -401,13 +400,12 @@ namespace CPS_Solution.Areas.Admin.Helpers
 
                     using (var context = new CPS_SolutionEntities())
                     {
-                        //////////////////////////// HERE ////////////////////
                         //Add table product
                         var prod = new Product
                         {
                             Description = "Fill me ",
                             URL = model.ParseProductLink,
-                            ImageURL = "default",
+                            ImageURL = data.Image,
                             Price = 1,
                             TotalWeightPoint = 0,
                             IsActive = false,

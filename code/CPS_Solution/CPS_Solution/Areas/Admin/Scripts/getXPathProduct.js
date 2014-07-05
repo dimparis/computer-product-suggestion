@@ -7,6 +7,7 @@ var $cpu = $('#xpathCPU');
 var $hdd = $('#xpathHDD');
 var $vga = $('#xpathVGA');
 var $ram = $('#xpathRAM');
+var $image = $('#xpathImage');
 var $display = $('#xpathDisplay');
 
 $('#Parseform').daWizard({
@@ -43,6 +44,12 @@ function validateStep(index, fset) {
             case "productName":
                 if ($productName.val() == "") {
                     alert("Phải chọn tên sản phẩm");
+                    return false;
+                }
+                return true;
+            case "image":
+                if ($image.val() == "") {
+                    alert("Phải chọn Hình ảnh của sản phẩm");
                     return false;
                 }
                 return true;
@@ -211,14 +218,16 @@ function setTextBoxXpathValue(expression) {
     } else if (currentStep == 1) {
         $tile.val(expression);
     } else if (currentStep == 3) {
-        $cpu.val(expression);
+        $image.val(expression);
     } else if (currentStep == 4) {
-        $vga.val(expression);
+        $cpu.val(expression);
     } else if (currentStep == 5) {
-        $hdd.val(expression);
+        $vga.val(expression);
     } else if (currentStep == 6) {
-        $ram.val(expression);
+        $hdd.val(expression);
     } else if (currentStep == 7) {
+        $ram.val(expression);
+    } else if (currentStep == 8) {
         $display.val(expression);
     }
 }

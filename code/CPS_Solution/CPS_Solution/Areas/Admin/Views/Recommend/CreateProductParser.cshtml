@@ -173,34 +173,36 @@
     <!-- Wizard Plugin -->
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Scripts/getXPathProduct.js")"></script>
-     <script type="text/javascript">
-         var existed = @TempData["existed"] ;
-         var recommendId = @TempData["idRecommendProduct"];
-         if (existed) {
-             if (confirm("Parser đã tồn tại, bạn có muốn sử dụng lại không ?") == true) {
+    <script type="text/javascript">
+        var existed = @TempData["existed"] ;
+        var recommendId = @TempData["idRecommendProduct"];
+        if (existed) {
+            if (confirm("Parser đã tồn tại, bạn có muốn sử dụng lại không ?") == true) {
                      @{
-                CPS_Solution.EntityFramework.ParseInfo info = (CPS_Solution.EntityFramework.ParseInfo)TempData["parseInfo"];
-                if(info ==null)
-                {
-                    return;
-                }
+                         CPS_Solution.EntityFramework.ParseInfo info = (CPS_Solution.EntityFramework.ParseInfo)TempData["parseInfo"];
+                         if (info == null)
+                         {
+                             return;
                          }
-                var $productName = $('#xpathProductName');
-                var $cpu = $('#xpathCPU');
-                var $hdd = $('#xpathHDD');
-                var $vga = $('#xpathVGA');
-                var $ram = $('#xpathRAM');
-                var $display = $('#xpathDisplay');
-                $productName.val("@Html.Raw(info.Name)");
-                $cpu.val("@Html.Raw(info.CPUXPath)");
-                $vga.val("@Html.Raw(info.VGAXPath)");
-                $hdd.val("@Html.Raw(info.HDDXPath)");
-                $ram.val("@Html.Raw(info.RAMXPath)");
-                $display.val("@Html.Raw(info.DisplayXPath)");      
-                $('#Parseform').submit();
-            } 
+                         }
+                 var $productName = $('#xpathProductName');
+                 var $cpu = $('#xpathCPU');
+                 var $hdd = $('#xpathHDD');
+                 var $vga = $('#xpathVGA');
+                 var $ram = $('#xpathRAM');
+                 var $image = $('#xpathImage');
+                 var $display = $('#xpathDisplay');
+                 $productName.val("@Html.Raw(info.Name)");
+                 $image.val("@Html.Raw(info.ImageXpath)");
+                 $cpu.val("@Html.Raw(info.CPUXPath)");
+                 $vga.val("@Html.Raw(info.VGAXPath)");
+                 $hdd.val("@Html.Raw(info.HDDXPath)");
+                 $ram.val("@Html.Raw(info.RAMXPath)");
+                 $display.val("@Html.Raw(info.DisplayXPath)");      
+                 $('#Parseform').submit();
+             } 
                   
-        }
+         }
     </script>
 }
 <!-- Content Area -->
@@ -288,8 +290,16 @@
                             </div>
                         </div>
                     </fieldset>
-										
-                    <fieldset class="da-form-inline" data-name="cpu" data-step-id="3">
+                    <fieldset class="da-form-inline" data-name="image" data-step-id="3">
+                        <legend>Hình ảnh</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới ảnh sản phẩm <span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.ImageXpath, new { id = "xpathImage" })
+                            </div>
+                        </div>
+                    </fieldset>				
+                    <fieldset class="da-form-inline" data-name="cpu" data-step-id="4">
                         <legend>CPU</legend>
                         <div class="da-form-row">
                             <label>Xpath tới CPU</label>
@@ -298,7 +308,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="da-form-inline" data-name="vga" data-step-id="4">
+                    <fieldset class="da-form-inline" data-name="vga" data-step-id="5">
                         <legend>VGA</legend>
                         <div class="da-form-row">
                             <label>Xpath tới VGA</label>
@@ -307,7 +317,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="da-form-inline" data-name="hdd" data-step-id="5">
+                    <fieldset class="da-form-inline" data-name="hdd" data-step-id="6">
                         <legend>HDD</legend>
                         <div class="da-form-row">
                             <label>Xpath tới Dung lượng đĩa cứng</label>
@@ -317,7 +327,7 @@
                         </div>
                     </fieldset>
                                             
-                    <fieldset class="da-form-inline" data-name="ram" data-step-id="6">
+                    <fieldset class="da-form-inline" data-name="ram" data-step-id="7">
                         <legend>RAM</legend>
                         <div class="da-form-row">
                             <label>Xpath tới Bộ nhớ</label>
@@ -326,7 +336,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="da-form-inline" data-name="display" data-step-id="7">
+                    <fieldset class="da-form-inline" data-name="display" data-step-id="8">
                         <legend>Display</legend>
                         <div class="da-form-row">
                             <label>Xpath tới Màn hình</label>
@@ -336,7 +346,7 @@
                         </div>
                     </fieldset>         
 										
-                    <fieldset class="da-form-inline" data-name="finish" data-step-id="8">
+                    <fieldset class="da-form-inline" data-name="finish" data-step-id="9">
                         <legend>Xác nhận</legend>
                         <div class="da-form-row">
                             <h1>Bạn chắc chắc với những gì đã chọn? </h1>

@@ -150,6 +150,7 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Parselink" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="ImageXpath" Type="nvarchar" MaxLength="200" />
           <Property Name="CPUXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="RAMXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="VGAXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
@@ -532,6 +533,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Parselink" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ImageXpath" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="CPUXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="RAMXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="VGAXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
@@ -852,6 +854,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Parselink" ColumnName="Parselink" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageXpath" ColumnName="ImageXpath" />
                 <ScalarProperty Name="CPUXPath" ColumnName="CPUXPath" />
                 <ScalarProperty Name="RAMXPath" ColumnName="RAMXPath" />
                 <ScalarProperty Name="VGAXPath" ColumnName="VGAXPath" />

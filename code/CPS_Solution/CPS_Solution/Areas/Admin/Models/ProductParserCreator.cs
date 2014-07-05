@@ -14,6 +14,8 @@ namespace CPS_Solution.Areas.Admin.Models
         [Display(Name = "Tên sản phẩm")]
         public string ProductNameXpath { get; set; }
 
+        public string ImageXpath { get; set; }
+
         public string CPUXpath { get; set; }
 
         public string RAMXpath { get; set; }

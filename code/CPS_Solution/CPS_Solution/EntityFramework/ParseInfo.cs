@@ -17,6 +17,7 @@ namespace CPS_Solution.EntityFramework
         public int ID { get; set; }
         public string Parselink { get; set; }
         public string Name { get; set; }
+        public string ImageXpath { get; set; }
         public string CPUXPath { get; set; }
         public string RAMXPath { get; set; }
         public string VGAXPath { get; set; }
