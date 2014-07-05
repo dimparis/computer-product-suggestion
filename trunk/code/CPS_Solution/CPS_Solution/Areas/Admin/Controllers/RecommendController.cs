@@ -44,6 +44,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             var productInfo = new ParseInfo
             {
                 Name = model.ProductNameXpath,
+                ImageXpath = model.ImageXpath,
                 Parselink = model.ParseProductLink,
                 CPUXPath = model.CPUXpath,
                 DisplayXPath = model.DisplayXpath,

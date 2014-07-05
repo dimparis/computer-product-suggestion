@@ -179,6 +179,7 @@
     <Compile Include="Areas\Admin\Controllers\TrainingController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrainingProductController.cs" />
     <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
+    <Compile Include="Areas\Admin\Helpers\ImageHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\LogFileHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
     <Compile Include="Areas\Admin\Models\LapData.cs" />
@@ -2993,6 +2994,23 @@
     <Content Include="Areas\Admin\Dandelion\plugins\validate\jquery.validate.min.js" />
     <Content Include="Areas\Admin\Scripts\getXPath.js" />
     <Content Include="Areas\Admin\Scripts\getXPathProduct.js" />
+    <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EntityFramework\CPS_Solution.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+      <LastGenOutput>CPS_Solution.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityFramework\CPS_Solution.edmx.diagram">
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+    </Content>
+    <Content Include="EntityFramework\CPS_Solution.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPS_Solution.edmx</DependentUpon>
+      <LastGenOutput>CPS_Solution.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -3287,27 +3305,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Product\EditProduct.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="EntityFramework\CPS_Solution.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CPS_Solution.edmx</DependentUpon>
-      <LastGenOutput>CPS_Solution.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="EntityFramework\CPS_Solution.edmx.diagram">
-      <DependentUpon>CPS_Solution.edmx</DependentUpon>
-    </Content>
-    <Content Include="EntityFramework\CPS_Solution.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CPS_Solution.edmx</DependentUpon>
-      <LastGenOutput>CPS_Solution.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Product\Compare.cshtml" />

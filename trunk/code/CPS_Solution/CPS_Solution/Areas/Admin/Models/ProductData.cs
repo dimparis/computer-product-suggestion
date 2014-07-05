@@ -8,6 +8,7 @@ namespace CPS_Solution.Areas.Admin.Models
     public class ProductData
     {
         public string Name { get; set; }
+        public string Image { get; set; }
         public string CPU { get; set; }
         public string VGA { get; set; }
         public string HDD { get; set; }
