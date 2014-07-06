@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using CPS_Solution.Areas.Admin.Helpers;
+using CPS_Solution.Areas.Admin.Models;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class SystemController : Controller
     {
         //
         // GET: /Admin/System/
-
+        /// <summary>
+        /// Check Role and return page 
+        /// </summary>
+        /// <returns></returns>
         public RedirectToRouteResult WelcomeAreasAdmin()
         {
             if (User.IsInRole("Admin"))
@@ -27,10 +31,23 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             return null;
         }
-
-        public ActionResult Index()
+        /// <summary>
+        /// Load Model from xML file
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ConfigureSystem()
         {
-            return View();
+            var helper = new ConfigureHelper();
+            var model = helper.CreateNewModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult UpdateConfigureSystem(ConfigurationModel model) 
+        {
+            var helper = new ConfigureHelper();
+            helper.UpdateModel(model);
+            TempData["edit"] = "Success";
+            return RedirectToAction("ConfigureSystem");
         }
 
     }

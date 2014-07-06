@@ -7,8 +7,8 @@ namespace CPS_Solution.Areas.Admin.Models
 {
     public class ConfigurationModel
     {
-        public int NumberofRequestForProduct { get; set; }
-        public int Epsilon { get; set; }
-        public string NumberofRequestFor{ get; set; }
+        public int LimitRequestPerDay { get; set; }
+        public double TotalPoint { get; set; }
+        public string ParseTime{ get; set; }
     }
 }

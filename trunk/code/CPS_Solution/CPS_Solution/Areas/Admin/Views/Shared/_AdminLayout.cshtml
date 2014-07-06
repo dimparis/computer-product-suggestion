@@ -85,14 +85,10 @@
             
             <div id="da-header-bottom">
                 <!-- Container -->
-                <div class="da-container clearfix">
-                
-        	
+                <div class="da-container clearfix">   	
                     <!-- Breadcrumbs -->
                     <div id="da-breadcrumb">
-                        <ul>
-                            <li class="active"><span><img src="Areas/Admin/Dandelion/images/icons/black/16/home.png" alt="Home" />Dashboard</span></li>
-                        </ul>
+                        @RenderSection("mainHeader", false)
                     </div>
                     
                 </div>
@@ -117,7 +113,7 @@
                              
                 <section id="main" class="clearfix">
                  <!-- Main Content Wrapper -->
-                   @RenderSection("mainHeader", false)
+                   
                    <div id="da-content-wrap" class="clearfix">
                        <div id="da-content-area">
                       @RenderBody()
@@ -128,7 +124,7 @@
         <!-- Footer -->
         <div id="da-footer">
         	<div class="da-container clearfix">
-            	<p>Copyright 2012. Dandelion Admin. All Rights Reserved.
+            	<p>Copyright 2014. CPS Solution Admin. All Rights Reserved.
             </div>
         </div>    
     </div>

@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using CPS_Solution.EntityFramework;
 
-namespace CPS_Solution.Controllers
+namespace CPS_Solution.CommonClass
 {
     public class ProductController : Controller
     {

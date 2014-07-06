@@ -13,7 +13,7 @@ using CPS_Solution.EntityFramework;
 using System.Net;
 using System.Data.Entity;
 using CPS_Solution.Filters;
-namespace CPS_Solution.Controllers
+namespace CPS_Solution.CommonClass
 {
     [Authorize]
     [InitializeSimpleMembership]

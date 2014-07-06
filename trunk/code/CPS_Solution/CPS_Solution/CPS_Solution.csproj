@@ -162,6 +162,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BackgroundConfigurations.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ConstantConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Areas\Admin\Controllers\TrainingController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrainingProductController.cs" />
     <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
+    <Compile Include="Areas\Admin\Helpers\ConfigureHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ImageHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\LogFileHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
@@ -206,6 +208,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="CommonClass\AutoParseJob.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="EntityFramework\Account.cs">
@@ -298,6 +301,7 @@
     <Content Include="Areas\Admin\Dandelion\css\core\panel.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\plugins.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\statistic.css" />
+    <Content Include="Areas\Admin\Dandelion\css\core\style.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\table.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\typography.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\wizard.css" />
@@ -3011,6 +3015,7 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\System\ConfigureSystem.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
