@@ -7,37 +7,37 @@
 <h2>Tạo một sản phẩm mới</h2>
 @section headScript
 {
-<!-- jQuery JavaScript File -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
-<!-- Chosen Plugin -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
-<link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
-<!-- Demo JavaScript Files -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/elastic/jquery.elastic.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+    <!-- Chosen Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/elastic/jquery.elastic.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
 
-<!-- Customizer JavaScript File (remove if not needed) -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js")"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js")"></script>
     <!-- FileInput Plugin -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.fileinput.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.fileinput.js")"></script>
 }
 @section sidebar
 {
-      <!-- Main Navigation -->
-                    <div id="da-main-nav" class="da-button-container">
-                        <ul>
-                            <li class="active">
-                            	<a href="dashboard.html">
-                                	<!-- Icon Container -->
-                                	<span class="da-nav-icon">
-                                    	<img src="Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
-                                    </span>
-                                	Dashboard
-                                </a>
-                            </li>             
-                        </ul>
-                    </div>
+    <!-- Main Navigation -->
+    <div id="da-main-nav" class="da-button-container">
+        <ul>
+            <li class="active">
+                <a href="dashboard.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
+                    </span>
+                    Dashboard
+                </a>
+            </li>
+        </ul>
+    </div>
 }
 @section mainHeader
 {
@@ -45,111 +45,110 @@
 @section footScript
 {
     <!-- Chosen Plugin -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
 }
 
 <div class="grid_4">
-                        	<div class="da-panel">
-                            	<div class="da-panel-header">
-                                	<span class="da-panel-title">
-                                        <img src="images/icons/color/ui_combo_box.png" />
-                                        Thành Phần Cấu Hình Sản Phẩm
-                                    </span>
-                                </div>
-                                <div class="da-panel-content">
-                                @using  (Html.BeginForm("CreateProductTest", "Product", FormMethod.Post, new { enctype = "multipart/form-data" ,@class ="da-form"}))
-                                {       
-                                        <div class="da-form-row " style ="width:50%;float:left">
-                                        	<label>Tên Sản Phẩm</label>
-                                            <div class="da-form-item large">
-                                                @Html.TextBoxFor(x => x.Name)
-                                             </div>
-                                        </div>
+    <div class="da-panel">
+        <div class="da-panel-header">
+            <span class="da-panel-title">
+                <img src="images/icons/color/ui_combo_box.png" />
+                Thành Phần Cấu Hình Sản Phẩm
+            </span>
+        </div>
+        <div class="da-panel-content">
+            @using (Html.BeginForm("CreateProductTest", "Product", FormMethod.Post, new { enctype = "multipart/form-data", @class = "da-form" }))
+            {       
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Tên Sản Phẩm</label>
+                    <div class="da-form-item large">
+                        @Html.TextBoxFor(x => x.Name)
+                    </div>
+                </div>
                                      
-                                       <div class="da-form-row " style ="width:50%;float:right">
-                                        	<label>Vi xử lý</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các CPU</span>
-                                                 @Html.DropDownListFor(x => x.CpuId, ViewBag.cpuList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div> 
-                                      <div class="clear"></div>
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Vi xử lý</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các CPU</span>
+                        @Html.DropDownListFor(x => x.CpuId, ViewBag.cpuList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div> 
+                <div class="clear"></div>
                                     
-                                       	<div class="da-form-row " style ="width:50%;float:left">
-                                        	<label>Link liên quan</label>
-                                            <div class="da-form-item large">
-                                                @Html.TextBoxFor(x => x.Parselink)
-                                           </div>
-                                        </div>   
-                                       <div class="da-form-row " style ="width:50%;float:right">
-                                        	<label>Bộ Nhớ</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các Ram</span>
-                                                 @Html.DropDownListFor(x => x.RamId, ViewBag.ramList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div> 
-                                        <div class="clear"></div>
-                                        <div class="da-form-row " style ="width:50%;float:left">
-                                        	<label>Giá sản phẩm</label>
-                                            <div class="da-form-item large">
-                                                @Html.TextBoxFor(x => x.Price)
-                                           </div>
-                                        </div>  
-                                        <div class="da-form-row " style ="width:50%;float:right">
-                                        	<label> Ổ Đĩa Cứng</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các HDD</span>
-                                                 @Html.DropDownListFor(x => x.HddId, ViewBag.hddList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Link liên quan</label>
+                    <div class="da-form-item large">
+                        @Html.TextBoxFor(x => x.Parselink)
+                    </div>
+                </div>   
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Bộ Nhớ</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các Ram</span>
+                        @Html.DropDownListFor(x => x.RamId, ViewBag.ramList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div> 
+                <div class="clear"></div>
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Giá sản phẩm</label>
+                    <div class="da-form-item large">
+                        @Html.TextBoxFor(x => x.Price)
+                    </div>
+                </div>  
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Ổ Đĩa Cứng</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các HDD</span>
+                        @Html.DropDownListFor(x => x.HddId, ViewBag.hddList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>
+                <div class="clear"></div>
                                     
-                                       <div class="da-form-row " style ="width:50%;float:left">
-                                        	<label>Hình sản phẩm</label>
-                                            <div class="da-form-item large">
-                                                <span class="formNote">Hệ thống sẽ <strong> tự động </strong> tải ảnh mặt định khi trường rỗng.</span>
-                                            	<input type="file" name="file" class="da-custom-file"  accept="image/*"/>
-                                           </div>
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Hình sản phẩm</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Hệ thống sẽ <strong>tự động </strong>tải ảnh mặt định khi trường rỗng.</span>
+                        <input type="file" name="file" class="da-custom-file" accept="image/*" />
+                    </div>
 
-                                        </div> 
-                                       	<div class="da-form-row " style ="width:50%;float:right">
-                                        	<label>Card đồ họa</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các VGA</span>
-                                                 @Html.DropDownListFor(x => x.VgaId, ViewBag.vgaList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
+                </div> 
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Card đồ họa</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các VGA</span>
+                        @Html.DropDownListFor(x => x.VgaId, ViewBag.vgaList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>
+                <div class="clear"></div>
                                     
                                                                       
-                                        <div class="da-form-row " style ="width:50%;float:left">
-                                           <label>Tên gọi khác</label>
-                                             <div class="da-form-item large">
-                                          
-                                           </div>
-                                        </div>
-                                        <div class="da-form-row " style ="width:50%;float:right">
-                                        	<label>Màn hình</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các loại màn hình</span>
-                                                 @Html.DropDownListFor(x => x.DisplayId, ViewBag.displayList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div>
-                                     <div class="clear"></div>
-                                      <div class="da-form-row">
-                                                <label>Mô tả chi tiết</label>
-                                                <div class="da-form-item">
-                                                	<span class="formNote">Chi tiết sản phẩm</span>
-                                                    @Html.TextAreaFor(x => x.Description, new { rows ="auto", cols="auto"})
-                                                </div>
-                                            </div>
-                                        <div class="da-button-row">
-                                        	<input type="reset" value="Reset" class="da-button gray left" />
-                                        	<input type="submit" value="Submit" class="da-button blue" />
-                                        </div>
-                                }                 
-                                 
-                                </div>
-                            </div>
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Tên gọi khác</label>
+                    <div class="da-form-item large">
+                    </div>
+                </div>
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Màn hình</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các loại màn hình</span>
+                        @Html.DropDownListFor(x => x.DisplayId, ViewBag.displayList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="da-form-row">
+                    <label>Mô tả chi tiết</label>
+                    <div class="da-form-item">
+                        <span class="formNote">Chi tiết sản phẩm</span>
+                        @Html.TextAreaFor(x => x.Description, new { rows = "auto", cols = "auto" })
+                    </div>
+                </div>
+                <div class="da-button-row">
+                    <input type="reset" value="Reset" class="da-button gray left" />
+                    <input type="submit" value="Submit" class="da-button blue" />
+                </div>
+            }
+
+        </div>
+    </div>
 </div>
 

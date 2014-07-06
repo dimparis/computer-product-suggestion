@@ -1,7 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-  <epsilon>100</epsilon>
-  <numberofrequestfor1user>5</numberofrequestfor1user>
-  <numberofrequestfor1product>10</numberofrequestfor1product>
+  <Totalpoint>100</Totalpoint>
+  <ParseTime>
+    <hours>12</hours>
+    <minutes>59</minutes>
+  </ParseTime>
+  <LimitRequestPerDay>10</LimitRequestPerDay>
   <sessiontime>15</sessiontime>
 </config>

@@ -233,9 +233,11 @@ namespace CPS_Solution.Areas.Admin.Helpers
             // Create Firefox browser
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
             //do more to get data
+            var uri = new Uri(model.ParseProductLink);
+            string host = uri.GetLeftPart(UriPartial.Authority);
             using (var context = new CPS_SolutionEntities())
             {
-                var parseinfo = context.ParseInfoes.Where(p => p.IsActive && p.Parselink.Contains(model.ParseProductLink)).FirstOrDefault();
+                var parseinfo = context.ParseInfoes.Where(p => p.IsActive && p.Parselink.Contains(host)).FirstOrDefault();
                 var data = GetProductData(web, parseinfo);
                 InsertProductToDb(data, model);
             }

@@ -883,7 +883,7 @@ div#da-content
 			
 			div#da-content #da-main-nav ul li ul li:hover
 			{
-				background-color:#a6d037;
+				background-color:rgba(148,219,255,0.2);
 			}
 			
 			div#da-content #da-main-nav ul li ul li a, 
