@@ -22,7 +22,8 @@ namespace CPS_Solution.App_Start
         public static void ScheduleParser()
         {
             IJobDetail job = JobBuilder.Create<AutoParseJob>().WithIdentity("AutoParser", "Job").Build();
-            ITrigger trigger = TriggerBuilder.Create().WithIdentity("AutoParserTrigger", "Trigger")
+
+            ITrigger trigger = TriggerBuilder.Create().WithIdentity("ParserTrigger", "Trigger")
                 .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(1, 0))
                 .Build();
             parserTrigger = trigger;
@@ -31,7 +32,7 @@ namespace CPS_Solution.App_Start
         }
         public static void RescheduleParser(int hours, int minutes)
         {
-            ITrigger trigger = TriggerBuilder.Create().WithIdentity("AutoParserTrigger", "Trigger")
+            ITrigger trigger = TriggerBuilder.Create().WithIdentity("ParserTrigger", "Trigger")
                 .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(hours, minutes))
                 .Build();
             scheduler.RescheduleJob(parserTrigger.Key, trigger);

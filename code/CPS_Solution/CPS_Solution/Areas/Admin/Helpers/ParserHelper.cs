@@ -259,12 +259,10 @@ namespace CPS_Solution.Areas.Admin.Helpers
             var vga = doc.DocumentNode.SelectSingleNode(vgaXpath);
             var hdd = doc.DocumentNode.SelectSingleNode(hddXpath);
             var ram = doc.DocumentNode.SelectSingleNode(ramXpath);
-            var display = doc.DocumentNode.SelectSingleNode(displayXpath);
-            var image = doc.DocumentNode.SelectSingleNode(imageXpath);
+            var display = doc.DocumentNode.SelectSingleNode(displayXpath);;
             if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
                 !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
-                !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText) &&
-                image.HasAttributes)
+                !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
             {
                 data.Name = name.InnerText;
                 data.CPU = cpu.InnerText;

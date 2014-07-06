@@ -9,7 +9,7 @@ using CPS_Solution.Areas.Admin;
 using CPS_Solution.CommonClass;
 using CPS_Solution.App_Start;
 using System.Web.Optimization;
-
+using CPS_Solution.App_Start;
 namespace CPS_Solution
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -26,6 +26,11 @@ namespace CPS_Solution
             ConstantConfig.Register(Server);
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //Do schedules
+            BackgroundConfigurations.StartScheduler();
+            BackgroundConfigurations.ScheduleParser();
+
         }
     }
 }
