@@ -36,9 +36,15 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 return string.Empty;
             }
         }
-        public static string TakePath(HtmlDocument doc, string imageXpath) 
+        public static string TakePath(string host,HtmlDocument doc, string imageXpath) 
         {
             var node = doc.DocumentNode.SelectSingleNode(imageXpath);
+            string tmp = node.Attributes["src"].Value;
+            if (tmp.StartsWith("/")) 
+            {
+                    tmp = host + tmp;
+                    node.Attributes["src"].Value = tmp;
+            }
             string Imageurl = node.Attributes["src"].Value;
             string now = DateTime.Now.ToString("yyyyMMdd-HHmmss");
             string filename = "Laptop" + now;

@@ -247,11 +247,13 @@ namespace CPS_Solution.Areas.Admin.Helpers
         {
             var data = new ProductData();
             //load page
+            var uri = new Uri(parseInfo.Parselink);
+            string host = uri.GetLeftPart(UriPartial.Authority);
             HtmlDocument doc = web.Load(parseInfo.Parselink);
-            data = MatchingProductData(doc,parseInfo.Name,parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
+            data = MatchingProductData(host,doc,parseInfo.Name,parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
             return data;
         }
-        public static ProductData MatchingProductData(HtmlDocument doc, string nameXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
+        public static ProductData MatchingProductData(string host, HtmlDocument doc, string nameXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
         {
             var data = new ProductData();
             var name = doc.DocumentNode.SelectSingleNode(nameXpath);
@@ -260,6 +262,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             var hdd = doc.DocumentNode.SelectSingleNode(hddXpath);
             var ram = doc.DocumentNode.SelectSingleNode(ramXpath);
             var display = doc.DocumentNode.SelectSingleNode(displayXpath);;
+            var image = doc.DocumentNode.SelectSingleNode(imageXpath);
             if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
                 !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
                 !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
@@ -270,7 +273,11 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 data.HDD = hdd.InnerText;
                 data.RAM = ram.InnerText;
                 data.Display = display.InnerText;
-                data.Image = ImageHelper.TakePath(doc, imageXpath);
+                data.Image = ImageHelper.TakePath(host,doc,imageXpath);
+                if (String.IsNullOrEmpty(data.Image)) 
+                {
+                    data.Image = ImageHelper.TakePath(host,doc,imageXpath);
+                }
             }
             return data;
         }

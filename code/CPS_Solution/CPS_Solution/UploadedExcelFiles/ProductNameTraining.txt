@@ -32,3 +32,4 @@
 55-DDR3L (2 khe RAM), 2 GB;DDR3L (1 khe RAM), 4 GB
 55-Intel® HD Graphics, 32 MB Share 966 MB;Intel HD Graphics 4400, Share
 55-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)
+65-Intel HD Graphics 4000;Intel HD Graphics 4600
