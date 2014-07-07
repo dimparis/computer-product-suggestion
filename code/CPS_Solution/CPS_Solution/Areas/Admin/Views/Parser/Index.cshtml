@@ -53,7 +53,7 @@
     <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
-            <li class="active">
+            <li>
                 <a href="#">
 
                     <span class="da-nav-count">2</span>
@@ -61,7 +61,7 @@
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/home.png")" alt="Trang chủ" />
                     </span>
-                    <strong>Trang chủ</strong>
+                    <strong>Hệ thống</strong>
                 </a>
                 <ul class="closed">
                     <li>
@@ -72,7 +72,6 @@
 
                     </li>
                     <li>
-
                         <a href="#">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/setting.png")" alt="" />
                             <strong>Cấu hình hệ thống</strong>
@@ -105,7 +104,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="active">
                 <a href="#">
                     <!-- Nav Notification -->
                     <span class="da-nav-count">3</span>
@@ -115,7 +114,7 @@
                     </span>
                     <strong>Dữ liệu</strong>
                 </a>
-                <ul class="closed">
+                <ul>
                     <li>
                         <a href="#">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
@@ -130,7 +129,7 @@
                             <strong>Sản phẩm trùng</strong>
                         </a>
                     </li>
-                    <li>
+                    <li style="background-color: #a6d037;">
 
                         <a href="#">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/arrow.png")" alt="" />
@@ -256,7 +255,16 @@
 }
 @section mainHeader
 {
+    <ul>
+        <li style="margin-right: 5px"><a style="cursor: default;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Hệ thống</strong></a></li>
+        <li style="margin-right: 5px; font-weight: bold">>></li>
+        <li class="active">
+            <a href="@Url.Action("ConfigureSystem", "System")" style="font-style:italic;text-decoration:underline">Cấu hình hệ thống</a>
+        </li>
+    </ul>
 }
+
 @section footScript
 {
     <!-- DataTables Plugin -->

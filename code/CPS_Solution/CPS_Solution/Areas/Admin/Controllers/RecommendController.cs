@@ -54,8 +54,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 IsActive = true,
 
             };
-            context.ParseInfoes.Add(productInfo);
-            context.SaveChanges();
+            var uri = new Uri(model.ParseProductLink);
+            string host = uri.GetLeftPart(UriPartial.Authority);
+            var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Contains(host));
+            if (parseInfo == null) 
+            {
+                context.ParseInfoes.Add(productInfo);
+                context.SaveChanges();  
+            }           
             Task.Factory.StartNew(() => ParserHelper.ParseProductData(model));
             int  rcmId= Int32.Parse(model.RecommendProductId);
             var recommendProduct = context.RecommendProducts.Where(x => x.ID == rcmId).FirstOrDefault();
