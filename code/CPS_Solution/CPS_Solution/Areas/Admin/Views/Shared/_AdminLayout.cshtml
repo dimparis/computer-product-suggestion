@@ -2,41 +2,42 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<!-- Viewport metatags -->
-<meta name="HandheldFriendly" content="true" />
-<meta name="MobileOptimized" content="320" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Viewport metatags -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-<!-- CSS Reset -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/reset.css")" media="screen" />
-<!--  Fluid Grid System -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/fluid.css")" media="screen" />
-<!-- Theme Stylesheet -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.theme.css")" media="screen" />
-<!--  Main Stylesheet -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.css")" media="screen" />
-<!-- Demo Stylesheet -->
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/demo.css")" media="screen" />
-
- @RenderSection("headScript", true)
-<title> @ViewBag.Title | CPS Solution</title>
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/reset.css")" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/fluid.css")" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.theme.css")" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.css")" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/demo.css")" media="screen" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/core/core.css")" media="screen" />
+    @RenderSection("headScript", true)
+    <title>@ViewBag.Title | CPS Solution</title>
 
 </head>
- <body>
+<body>
 
-	<!-- Main Wrapper. Set this to 'fixed' for fixed layout and 'fluid' for fluid layout' -->
-	<div id="da-wrapper" class="fluid">
-    
+    <!-- Main Wrapper. Set this to 'fixed' for fixed layout and 'fluid' for fluid layout' -->
+    <div id="da-wrapper" class="fluid">
+
+
         <!-- Header -->
         <div id="da-header">
-        
-        	<div id="da-header-top">
-                
+
+            <div id="da-header-top">
+
                 <!-- Container -->
                 <div class="da-container clearfix">
-                    
+
                     <!-- Logo Container. All images put here will be vertically centere -->
                     <div id="da-logo-wrap">
                         <div id="da-logo">
@@ -47,86 +48,139 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Header Toolbar Menu -->
                     <div id="da-header-toolbar" class="clearfix">
                         <div id="da-user-profile">
                             <div id="da-user-avatar">
-                                <img src="images/pp.jpg" alt=" />
+                                <img src="@Url.Content("~/Areas/Admin/Dandelion/images/pp.jpg")" alt="" />
                             </div>
                             <div id="da-user-info">
-                                Welcome ,
-                                <span class="da-user-title">@User.Identity.Name</span>
+                                Welcome, @User.Identity.Name
+                                @{
+                                    if (User.IsInRole("Admin"))
+                                    {
+                                    <span class="da-user-title">Administrator</span>
+                                    }
+                                    else if (User.IsInRole("Staff"))
+                                    {
+                                    <span class="da-user-title">Staff</span>
+                                    }
+                                    else
+                                    {
+                                    <span class="da-user-title">Member</span>
+                                    }
+                                }
                             </div>
                             <ul class="da-header-dropdown">
-                                  <li class="da-dropdown-caret">
+                                <li class="da-dropdown-caret">
                                     <span class="caret-outer"></span>
-    
-                                                                      <span class="caret-inner"></span>
+                                    <span class="caret-inner"></span>
                                 </li>
                                 <li class="da-dropdown-divider"></li>
-                                <li><a href="dashboard.html">Trang chủ</a></li>
+                                <li><a href="dashboard.html">Thay đổi mật khẩu</a></li>
                                 <li class="da-dropdown-divider"></li>
-                                <li><a href="#"> Đổi mật khẩu</a></li>
-                                 <li><a href="@Url.Action("LogOff", "Authentication")">Đăng xuất</a></li>
+                                <li><a href="@Url.Action("LogOff","Authentication")">Đăng xuất</a></li>
                             </ul>
                         </div>
                         <div id="da-header-button-container">
-                        	<ul>                          
-                            	<li class="da-header-button logout">
-                                	 <a href="@Url.Action("LogOff", "Authentication")"><i class="icon-off"></i></a>
+                            <ul>
+                                <li class="da-header-button notif">
+                                    <span class="da-button-count">32</span>
+                                    <a href="#">Notifications</a>
+                                    <ul class="da-header-dropdown">
+                                        <li class="da-dropdown-caret">
+                                            <span class="caret-outer"></span>
+                                            <span class="caret-inner"></span>
+                                        </li>
+                                        <li>
+                                            <span class="da-dropdown-sub-title">Notifications</span>
+                                            <ul class="da-dropdown-sub">
+                                                  <li class="unread">
+                                                    <a href="#">
+                                                        <span class="message">
+                                                            Lorem ipsum dolor sit amet
+                                                        </span>
+                                                        <span class="time">
+                                                            January 21, 2012
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li class="read">
+                                                    <a href="#">
+                                                        <span class="message">
+                                                            Lorem ipsum dolor sit amet
+                                                        </span>
+                                                        <span class="time">
+                                                            January 21, 2012
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <a class="da-dropdown-sub-footer">View all notifications
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="da-header-button logout">
+                                    <a href="@Url.Action("LogOff","Authentication")">Đăng xuất</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                                    
+
                 </div>
             </div>
-            
+
             <div id="da-header-bottom">
                 <!-- Container -->
-                <div class="da-container clearfix">   	
+                <div class="da-container clearfix">
                     <!-- Breadcrumbs -->
                     <div id="da-breadcrumb">
                         @RenderSection("mainHeader", false)
                     </div>
-                    
+
                 </div>
             </div>
         </div>
-		
-		
+
+
+
+
         <!-- Content -->
         <div id="da-content">
-            
+
             <!-- Container -->
             <div class="da-container clearfix">
-                
-	            <!-- Sidebar Separator do not remove -->
+
+                <!-- Sidebar Separator do not remove -->
                 <div id="da-sidebar-separator"></div>
-                
+
                 <!-- Sidebar -->
                 <div id="da-sidebar">
-                
-                    @RenderSection("sidebar", true)                   
+
+                    @RenderSection("sidebar", true)
                 </div>
-                             
+
                 <section id="main" class="clearfix">
-                 <!-- Main Content Wrapper -->
-                   
-                   <div id="da-content-wrap" class="clearfix">
-                       <div id="da-content-area">
-                      @RenderBody()
-                           </div>
+                    <!-- Main Content Wrapper -->
+
+                    <div id="da-content-wrap" class="clearfix">
+                        <div id="da-content-area">
+                            @RenderBody()
+                        </div>
                     </div>
                 </section>
-            </div>  
-        <!-- Footer -->
-        <div id="da-footer">
-        	<div class="da-container clearfix">
-            	<p>Copyright 2014. CPS Solution Admin. All Rights Reserved.
             </div>
-        </div>    
-    </div>
+            <!-- Footer -->
+            <div id="da-footer">
+                <div class="da-container clearfix">
+                    <p>
+                        Copyright 2014. CPS Solution Admin. All Rights Reserved.
+                </div>
+            </div>
+        </div>
         @RenderSection("footScript", false)
-</body></html>
+    </div>
+</body>
+</html>
