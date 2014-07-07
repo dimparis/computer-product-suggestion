@@ -33,3 +33,7 @@
 55-Intel® HD Graphics, 32 MB Share 966 MB;Intel HD Graphics 4400, Share
 55-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)
 65-Intel HD Graphics 4000;Intel HD Graphics 4600
+66-Intel, Core i3 Haswell, 4010U, 1.70 GHz;Intel, Core i3 Haswell, 4005U, 1.70 GHz
+66-DDR3L (2 khe RAM), 2 GB;DDR3L (1 khe RAM), 4 GB
+66-Intel® HD Graphics, 32 MB Share 966 MB;Intel HD Graphics 4400, Share
+66-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)

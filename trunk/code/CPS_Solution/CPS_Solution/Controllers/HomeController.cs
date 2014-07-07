@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CPS_Solution.CommonClass
+namespace CPS_Solution.Controllers
 {
     public class HomeController : Controller
     {

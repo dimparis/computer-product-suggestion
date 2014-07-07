@@ -6,7 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using CPS_Solution.Areas.Admin;
-using CPS_Solution.CommonClass;
+using CPS_Solution.Controllers;
 using CPS_Solution.App_Start;
 using System.Web.Optimization;
 using CPS_Solution.App_Start;
