@@ -23,7 +23,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             if (User.IsInRole("Staff"))
             {
-                return RedirectToAction("Index", "Training");
+                return RedirectToAction("ConfigureSystem", "System");
             }
             if (User.IsInRole("Member"))
             {
