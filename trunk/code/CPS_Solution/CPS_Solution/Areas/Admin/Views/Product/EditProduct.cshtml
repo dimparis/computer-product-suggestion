@@ -8,153 +8,350 @@
 @section headScript
 {
 
-<!-- jQuery JavaScript File -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
-<!-- Chosen Plugin -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
-<link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
-<!-- Demo JavaScript Files -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/elastic/jquery.elastic.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+    <!-- Chosen Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/elastic/jquery.elastic.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
 
-<!-- Customizer JavaScript File (remove if not needed) -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js")"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js")"></script>
     <!-- FileInput Plugin -->
-<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.fileinput.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.fileinput.js")"></script>
 
-  
+
 }
 @section sidebar
 {
-      <!-- Main Navigation -->
-                    <div id="da-main-nav" class="da-button-container">
-                        <ul>
-                            <li class="active">
-                            	<a href="dashboard.html">
-                                	<!-- Icon Container -->
-                                	<span class="da-nav-icon">
-                                    	<img src="Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
-                                    </span>
-                                	Dashboard
-                                </a>
-                            </li>             
-                        </ul>
-                    </div>
+    <!-- Main Navigation -->
+    <div id="da-main-nav" class="da-button-container">
+        <ul>
+            <li>
+                <a href="#">
+
+                    <span class="da-nav-count">2</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/home.png")" alt="Trang chủ" />
+                    </span>
+                    <strong>Hệ thống</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/info.png")" alt="" />
+                            <strong>Thông tin hệ thống</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/setting.png")" alt="" />
+                            <strong>Cấu hình hệ thống</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-count">3</span>
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/graph.png")" alt="Charts" />
+                    </span>
+                    <strong>Thống kê</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/rating.png")" alt="" />
+                            <strong>Đánh giá</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/topsearch.png")" alt="" />
+                            <strong>Lịch sử</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <!-- Nav Notification -->
+                    <span class="da-nav-count">3</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/graph.png")" alt="Charts" />
+                    </span>
+                    <strong>Dữ liệu</strong>
+                </a>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
+                            <strong>Nhập từ Excel</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Sản phẩm trùng</strong>
+                        </a>
+                    </li>
+                    <li style="background-color: #a6d037;">
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/arrow.png")" alt="" />
+                            <strong>Sản phẩm đề xuất</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="da-nav-count">2</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/day_calendar.png")" alt="Calendar" />
+                    </span>
+                    <strong>Quản lí sản phẩm</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/add.png")" alt="" />
+                            <strong>Tạo mới sản phẩm</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Danh sách sản phẩm</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-count">2</span>
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/file_cabinet.png")" alt="File Handling" />
+                    </span>
+                    <strong>Quản lí từ điển</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/alias.png")" alt="" />
+                            <strong>Tạo mới trường</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/dic2.png")" alt="" />
+                            <strong>Danh sách các trường</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/settings.png")" alt="" />
+                    </span>
+                    <strong>Quản lí trọng số</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/manager.png")" alt="" />
+                            <strong>Danh sách trọng số</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="da-nav-count">5</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/cog_4.png")" alt="" />
+                    </span>
+                    <strong>Parser</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser linh kiện</strong>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser linh kiện</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/log.png")" alt="" />
+                            <strong>Danh sách log file</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 }
 @section mainHeader
 {
+    <ul>
+        <li style="margin-right: 5px"><a style="cursor: default;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Hệ thống</strong></a></li>
+        <li style="margin-right: 5px; font-weight: bold">>></li>
+        <li class="active">
+            <a href="@Url.Action("ConfigureSystem", "System")" style="font-style:italic;text-decoration:underline">Cấu hình hệ thống</a>
+        </li>
+    </ul>
 }
+
 @section footScript
 {
 }
 
 <div class="grid_4">
-                        	<div class="da-panel">
-                            	<div class="da-panel-header">
-                                	<span class="da-panel-title">
-                                        <img src="images/icons/color/ui_combo_box.png" />
-                                        Thành Phần Cấu Hình Sản Phẩm
-                                    </span>
-                                </div>
-                                <div class="da-panel-content">
-                                @using  (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { @class ="da-form"}))
-                                {       
-                                        <div class="da-form-row " style ="width:50%;float:left">
-                                        	<label>Tên Sản Phẩm</label>
-                                            <div class="da-form-item large">
-                                                @Html.TextBoxFor(x => x.Name)
-                                             </div>
-                                        </div>
+    <div class="da-panel">
+        <div class="da-panel-header">
+            <span class="da-panel-title">
+                <img src="images/icons/color/ui_combo_box.png" />
+                Thành Phần Cấu Hình Sản Phẩm
+            </span>
+        </div>
+        <div class="da-panel-content">
+            @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { @class = "da-form" }))
+            {       
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Tên Sản Phẩm</label>
+                    <div class="da-form-item large">
+                        @Html.TextBoxFor(x => x.Name)
+                    </div>
+                </div>
                                      
-                                       <div class="da-form-row " style ="width:50%;float:right">
-                                        	<label>Vi xử lý</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các CPU</span>
-                                                 @Html.DropDownListFor(x => x.CpuID, ViewBag.cpuList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div> 
-                                      <div class="clear"></div>
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Vi xử lý</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các CPU</span>
+                        @Html.DropDownListFor(x => x.CpuID, ViewBag.cpuList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div> 
+                <div class="clear"></div>
                                     
-                                       	<div class="da-form-row " style ="width:50%;float:left">
-                                        	<label>Link liên quan</label>
-                                            <div class="da-form-item large">
-                                                @Html.TextBoxFor(x => x.URL)
-                                           </div>
-                                        </div>   
-                                       <div class="da-form-row " style ="width:50%;float:right">
-                                        	<label>Bộ Nhớ</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các Ram</span>
-                                                 @Html.DropDownListFor(x => x.RamID, ViewBag.ramList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div> 
-                                        <div class="clear"></div>
-                                        <div class="da-form-row " style ="width:50%;float:left">
-                                        	<label>Giá sản phẩm</label>
-                                            <div class="da-form-item large">
-                                                @Html.TextBoxFor(x => x.Price)
-                                           </div>
-                                        </div>  
-                                        <div class="da-form-row " style ="width:50%;float:right">
-                                        	<label> Ổ Đĩa Cứng</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các HDD</span>
-                                                 @Html.DropDownListFor(x => x.HddID, ViewBag.hddList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Link liên quan</label>
+                    <div class="da-form-item large">
+                        @Html.TextBoxFor(x => x.URL)
+                    </div>
+                </div>   
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Bộ Nhớ</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các Ram</span>
+                        @Html.DropDownListFor(x => x.RamID, ViewBag.ramList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div> 
+                <div class="clear"></div>
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Giá sản phẩm</label>
+                    <div class="da-form-item large">
+                        @Html.TextBoxFor(x => x.Price)
+                    </div>
+                </div>  
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Ổ Đĩa Cứng</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các HDD</span>
+                        @Html.DropDownListFor(x => x.HddID, ViewBag.hddList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>
+                <div class="clear"></div>
                                     
-                                       <div class="da-form-row " style ="width:50%;float:left">
-                                        	<label>Hình sản phẩm</label>
-                                            <div class="da-form-item large">
-                                               <input type="file" name="file" class="da-custom-file" value ="@Model.ImageURL"  accept="image/*"/>
-                                           </div>
-                                        </div> 
-                                       	<div class="da-form-row " style ="width:50%;float:right">
-                                        	<label>Card đồ họa</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các VGA</span>
-                                                 @Html.DropDownListFor(x => x.VgaID, ViewBag.vgaList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Hình sản phẩm</label>
+                    <div class="da-form-item large">
+                        <input type="file" name="file" class="da-custom-file" value ="@Model.ImageURL"  accept="image/*"/>
+                    </div>
+                </div> 
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Card đồ họa</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các VGA</span>
+                        @Html.DropDownListFor(x => x.VgaID, ViewBag.vgaList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>
+                <div class="clear"></div>
                                     
                                                                       
-                                        <div class="da-form-row " style ="width:50%;float:left">
-                                           <label>Tên gọi khác</label>
-                                             <div class="da-form-item large">
-                                                 <button type="button" class="da-button blue"style="width:33%" onclick="location.href='@Url.Action("CreateNewProductAlias", "ProductShow", new { id = Model.ID})'">Tạo mới</button>                   
-                                                 <button type="button" class="da-button pink"style="width:32%" onclick="location.href='@Url.Action("EditProduct", "ProductShow", new { id = Model.ID})'">Thay đổi</button>     
-                                                 <button type="button" class="da-button green"style="width:33%" onclick="location.href='@Url.Action("Index", "ProductShow", new { id = Model.ID})'">Quản lí</button>
-                                           </div>
-                                
-      
-                                        </div>
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Tên gọi khác</label>
+                    <div class="da-form-item large">
+                        <button type="button" class="da-button blue"style="width:33%" onclick="location.href='@Url.Action("CreateNewProductAlias", "ProductShow", new { id = Model.ID })'">Tạo mới</button>
+                        <button type="button" class="da-button pink"style="width:32%" onclick="location.href='@Url.Action("EditProduct", "ProductShow", new { id = Model.ID })'">Thay đổi</button>
+                        <button type="button" class="da-button green"style="width:33%" onclick="location.href='@Url.Action("Index", "ProductShow", new { id = Model.ID })'">Quản lí</button>
+                    </div>
+
+
+                </div>
                                                                         
-                                        <div class="da-form-row " style ="width:50%;float:right">
-                                        	<label>Màn hình</label>
-                                            <div class="da-form-item large">
-                                            	<span class="formNote">Danh sách các loại màn hình</span>
-                                                 @Html.DropDownListFor(x => x.DisplayID, ViewBag.displayList as List<SelectListItem>, new { @class="chzn-select" })
-                                            </div>
-                                        </div>
-                                     <div class="clear"></div>
-                                      <div class="da-form-row">
-                                                <label>Mô tả chi tiết</label>
-                                                <div class="da-form-item">
-                                                	<span class="formNote">Chi tiết sản phẩm</span>
-                                                    @Html.TextAreaFor(x => x.Description, new { rows ="auto", cols="auto"})
-                                                </div>
-                                            </div>
-                                        <div class="da-button-row">
-                                        	<input type="reset" value="Reset" class="da-button gray left" />
-                                        	<input type="submit" value="Submit" class="da-button blue" />
-                                        </div>
-                                }                 
-                                 
-                                </div>
-                            </div>
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Màn hình</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các loại màn hình</span>
+                        @Html.DropDownListFor(x => x.DisplayID, ViewBag.displayList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="da-form-row">
+                    <label>Mô tả chi tiết</label>
+                    <div class="da-form-item">
+                        <span class="formNote">Chi tiết sản phẩm</span>
+                        @Html.TextAreaFor(x => x.Description, new { rows = "auto", cols = "auto" })
+                    </div>
+                </div>
+                <div class="da-button-row">
+                    <input type="reset" value="Reset" class="da-button gray left" />
+                    <input type="submit" value="Submit" class="da-button blue" />
+                </div>
+            }
+
+        </div>
+    </div>
 </div>
 
 

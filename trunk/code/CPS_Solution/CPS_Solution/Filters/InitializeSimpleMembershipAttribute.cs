@@ -38,7 +38,7 @@ namespace CPS_Solution.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("ConnStringForWebSecurity", "User", "Username", "Username", autoCreateTables: false);
+                    WebSecurity.InitializeDatabaseConnection("ConnStringForWebSecurity", "Account", "Username", "Username", autoCreateTables: false);
                 }
                 catch (Exception ex)
                 {

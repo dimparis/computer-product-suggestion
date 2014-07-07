@@ -39,135 +39,219 @@
     <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
-            <li class="active">
-                <a href="dashboard.html">
+            <li>
+                <a href="#">
+
+                    <span class="da-nav-count">2</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/home.png")" alt="Trang chủ" />
                     </span>
-                    Dashboard
+                    <strong>Hệ thống</strong>
                 </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/info.png")" alt="" />
+                            <strong>Thông tin hệ thống</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/setting.png")" alt="" />
+                            <strong>Cấu hình hệ thống</strong>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-count">3</span>
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/graph.png")" alt="Charts" />
+                    </span>
+                    <strong>Thống kê</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/rating.png")" alt="" />
+                            <strong>Đánh giá</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/topsearch.png")" alt="" />
+                            <strong>Lịch sử</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="active">
                 <a href="#">
                     <!-- Nav Notification -->
-                    <span class="da-nav-count">32</span>
+                    <span class="da-nav-count">3</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/graph.png" alt="Charts" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/graph.png")" alt="Charts" />
                     </span>
-                    Statistics and Charts
-                </a>
-                <ul class="closed">
-                    <li><a href="statistic.html">Statistic Widgets</a></li>
-                    <li><a href="charts.html">Chart Gallery</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="calendar.html">
-                    <!-- Icon Container -->
-                    <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/day_calendar.png" alt="Calendar" />
-                    </span>
-                    Calendar
-                </a>
-            </li>
-            <li>
-                <a href="file.html">
-                    <!-- Icon Container -->
-                    <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/file_cabinet.png" alt="File Handling" />
-                    </span>
-                    File Handling
-                </a>
-            </li>
-            <li>
-                <a href="table.html">
-                    <!-- Icon Container -->
-                    <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/table_1.png" alt="Table" />
-                    </span>
-                    Table
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <!-- Icon Container -->
-                    <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/create_write.png" alt="Form" />
-                    </span>
-                    Form
+                    <strong>Dữ liệu</strong>
                 </a>
                 <ul>
-                    <li><a href="form-layouts.html">Layouts</a></li>
-                    <li><a href="form-elements.html">Elements</a></li>
-                    <li><a href="form-validation.html">Validation</a></li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
+                            <strong>Nhập từ Excel</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Sản phẩm trùng</strong>
+                        </a>
+                    </li>
+                    <li style="background-color: #a6d037;">
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/arrow.png")" alt="" />
+                            <strong>Sản phẩm đề xuất</strong>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
-                <a href="ui.html">
+                <a href="#">
+                    <span class="da-nav-count">2</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/settings.png" alt="" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/day_calendar.png")" alt="Calendar" />
                     </span>
-                    UI Elements
+                    <strong>Quản lí sản phẩm</strong>
                 </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/add.png")" alt="" />
+                            <strong>Tạo mới sản phẩm</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Danh sách sản phẩm</strong>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
-                <a href="widgets.html">
+                <a href="#">
                     <!-- Icon Container -->
+                    <span class="da-nav-count">2</span>
                     <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/cog_4.png" alt="Widgets" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/file_cabinet.png")" alt="File Handling" />
                     </span>
-                    Widgets
+                    <strong>Quản lí từ điển</strong>
                 </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/alias.png")" alt="" />
+                            <strong>Tạo mới trường</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/dic2.png")" alt="" />
+                            <strong>Danh sách các trường</strong>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="#">
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/word_documents_1.png" alt="Layout and Typography" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/settings.png")" alt="" />
                     </span>
-                    Layout and Typography
+                    <strong>Quản lí trọng số</strong>
                 </a>
                 <ul class="closed">
-                    <li><a href="grids.html">Grids and Panels</a></li>
-                    <li><a href="typography.html">Typography</a></li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/manager.png")" alt="" />
+                            <strong>Danh sách trọng số</strong>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
-                <a href="gallery.html">
+                <a href="#">
+                    <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/images_2.png" alt="Gallery" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/cog_4.png")" alt="" />
                     </span>
-                    Gallery
+                    <strong>Parser</strong>
                 </a>
-            </li>
-            <li>
-                <a href="error.html">
-                    <!-- Icon Container -->
-                    <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/alert.png" alt="Error Pages" />
-                    </span>
-                    Error Page (404)
-                </a>
-            </li>
-            <li>
-                <a href="icons.html">
-                    <!-- Icon Container -->
-                    <span class="da-nav-icon">
-                        <img src="Areas/Admin/Dandelion/images/icons/black/32/pacman.png" alt="Icons" />
-                    </span>
-                    Icons
-                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser linh kiện</strong>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser linh kiện</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/log.png")" alt="" />
+                            <strong>Danh sách log file</strong>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
 }
 @section mainHeader
 {
+    <ul>
+        <li style="margin-right: 5px"><a style="cursor: default;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Hệ thống</strong></a></li>
+        <li style="margin-right: 5px; font-weight: bold">>></li>
+        <li class="active">
+            <a href="@Url.Action("ConfigureSystem", "System")" style="font-style:italic;text-decoration:underline">Cấu hình hệ thống<a>
+        </li>
+    </ul>
 }
+
+
 @section footScript
 {
     <!-- Wizard Plugin -->
@@ -185,24 +269,24 @@
                              return;
                          }
                          }
-                 var $productName = $('#xpathProductName');
-                 var $cpu = $('#xpathCPU');
-                 var $hdd = $('#xpathHDD');
-                 var $vga = $('#xpathVGA');
-                 var $ram = $('#xpathRAM');
-                 var $image = $('#xpathImage');
-                 var $display = $('#xpathDisplay');
-                 $productName.val("@Html.Raw(info.Name)");
+                var $productName = $('#xpathProductName');
+                var $cpu = $('#xpathCPU');
+                var $hdd = $('#xpathHDD');
+                var $vga = $('#xpathVGA');
+                var $ram = $('#xpathRAM');
+                var $image = $('#xpathImage');
+                var $display = $('#xpathDisplay');
+                $productName.val("@Html.Raw(info.Name)");
                  $image.val("@Html.Raw(info.ImageXpath)");
-                 $cpu.val("@Html.Raw(info.CPUXPath)");
-                 $vga.val("@Html.Raw(info.VGAXPath)");
-                 $hdd.val("@Html.Raw(info.HDDXPath)");
-                 $ram.val("@Html.Raw(info.RAMXPath)");
-                 $display.val("@Html.Raw(info.DisplayXPath)");      
-                 $('#Parseform').submit();
-             } 
+                $cpu.val("@Html.Raw(info.CPUXPath)");
+                $vga.val("@Html.Raw(info.VGAXPath)");
+                $hdd.val("@Html.Raw(info.HDDXPath)");
+                $ram.val("@Html.Raw(info.RAMXPath)");
+                $display.val("@Html.Raw(info.DisplayXPath)");      
+                $('#Parseform').submit();
+            } 
                   
-         }
+        }
     </script>
 }
 <!-- Content Area -->
