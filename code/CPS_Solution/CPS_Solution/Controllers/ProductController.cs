@@ -59,6 +59,24 @@ namespace CPS_Solution.Controllers
 
             return View(bestProducts);
         }
+		
+		 public ActionResult CompareDetail(int p1, int p2, int p3)
+        {
+            int[] vals = new int[] { p1, p2, p3 };
+
+            var products = from p in db.Products
+                           select p;
+            products = products.Where(c => vals.Contains(c.ID));
+
+            var bestProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
+
+            //Move down the first
+            var temp = bestProducts[0];
+            bestProducts[0] = bestProducts[1];
+            bestProducts[1] = temp;
+
+            return View(bestProducts);
+        }
 
         //
         // GET: /Product/Details/{ID}
