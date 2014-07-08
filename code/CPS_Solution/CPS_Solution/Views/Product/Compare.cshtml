@@ -41,6 +41,10 @@
         margin: auto;
         width: inherit;
     }
+
+    .handle {
+        cursor: move;
+    }
 </style>
 
 <main id="main-content" role="main">
@@ -93,9 +97,11 @@
                 <section class="col-xs-12 col-sm-8 col-md-9">
                     <div class="products-layout grid m-t-b add-cart">
                         @{ int bestProductID = Model.ElementAt(1).ID; }
-                        @foreach (var item in Model) {
-                            if (item.ID == bestProductID) {
-                                <div class="product" style="border-style:solid; border-width:2px; border-color:#FA6F57; border-radius:10px;">
+                        @foreach (var item in Model)
+                        {
+                            if (item.ID == bestProductID)
+                            {
+                                <div class="product" id="@item.ID" style="border-style:solid; border-width:2px; border-color:#FA6F57; border-radius:10px;">
                                     <div class="entry-main" style="height:40px;"><button type="button" class="btn btn-primary btn-sm" disabled style="background-color:#fa6f57">WINNER</button></div>
                                     <div class="entry-main">
                                         <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details/@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
@@ -136,13 +142,12 @@
                                                     <tr><td>N/A</td></tr>
                                                 }
                                         </table>
-                                        <div class="input-iconed prepend">
-                                            <button class="input-icon"><i class="iconfont-warning"></i><button type="button" class="btn btn-warning btn-xs">Báo sai thông tin</button></button>
-                                        </div>
                                     </div>
                                 </div> 
-                            } else {
-                                <div class="product">
+                            }
+                            else
+                            {
+                                <div class="product" id="@item.ID">
                                     <div class="entry-main" style="height:40px;"><button type="button" class="btn btn-info btn-sm" disabled>RUNNER-UP</button></div>
                                     <div class="entry-main">
                                         <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details/@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
@@ -183,20 +188,45 @@
                                                     <tr><td>N/A</td></tr>
                                                 }
                                         </table>
-                                        <div class="input-iconed prepend">
-                                            <button class="input-icon"><i class="iconfont-warn"></i><button type="button" class="btn btn-warning btn-xs">Báo sai thông tin</button></button>
-                                        </div>
                                     </div>
                                 </div>
-                                
-                            }                    
+                            }
                         }
                     </div>
+                    
+                    <button class="button" onclick="goCompareDetail()">Xem chi tiết</button>
+                 
                 </section>
             </div>
         </div>
     </div>
 </main>
+
+<script>
+	$(function() {
+	    $('.sortable-with-handles').sortable({
+	        handle: '.handle'
+	    });
+	});
+
+	var a = [];
+	$('.products-layout').find(".product").each(function () {
+	    a.push(this.id);
+	})
+
+	function goCompareDetail() {
+        if (a.length == 2) {
+	        //Khi danh sach chi co 2 san pham thi id san pham 3 = -1
+	        window.location.replace('CompareDetail?p1=' + a[0] + '&p2=' + a[1] + '&p3=-1');
+	    } else {
+	        //Khi danh sach co du 3 san pham
+	        window.location.replace('CompareDetail?p1=' + a[0] + '&p2=' + a[1] + '&p3=' + a[2]);
+	    }
+	}
+
+    
+
+</script>
 
 
 
