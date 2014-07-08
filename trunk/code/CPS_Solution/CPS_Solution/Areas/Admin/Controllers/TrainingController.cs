@@ -490,7 +490,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             AttributeDictionary atvga = new AttributeDictionary();
                             atvga.CodetypeID = "V";
-                            atvga.Name = listduplicate[i].First().VGA;
+                            atvga.Name = update.VGA;
                             atvga.WeightCriteraPoint = 0;
                             db.AttributeDictionaries.Add(atvga);
                             db.SaveChanges();
