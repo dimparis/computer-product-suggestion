@@ -25,6 +25,7 @@
     {
         countlistdup1 = listDupnew.Count;
     }
+    
     // dòng bị lỗi
     List<String> errorLineLap = ViewBag.errorLineLap;
     int sodongloi = 0;
@@ -381,13 +382,13 @@
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" id="thumbselector">
             <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#color-icon">
                 <img src="~/Areas/Admin/Dandelion/images/message-success.png" alt="">
-                Danh sách thành phần đúng</a></li>
+                Danh sách sản phẩm đúng</a></li>
             <li class="ui-state-default ui-corner-top"><a href="#white-icon">@**@
                 <img src="~/Areas/Admin/Dandelion/images/message-error.png" alt="">
-                Danh sách thành phần lỗi</a></li>
+                Danh sách sản phẩm lỗi</a></li>
             <li class="ui-state-default ui-corner-top"><a href="#black-icon">
                 <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">
-                Danh sách thành phần trùng</a></li>
+                Danh sách sản phẩm trùng</a></li>
         </ul>
 
         <div id="color-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
@@ -428,7 +429,7 @@
             <!--------------------------------------------------Có quá nhiều lỗi------------------------------------------------------------------------------->
             @if (errorLineLap != null)
             {
-                if (sodongloi > 10)
+                if (sodongloi > 5)
                 {
                    
                    
@@ -446,7 +447,7 @@
                     }
                     if (loiDisplay.Length > 0)
                     {                     
-                <label style="color: red">Lỗi thông tin Display của sản phẩm:</label> <br />
+                <label style="color: red">Lỗi thông tin kích thước màn h của sản phẩm:</label> <br />
                 <b style="font-weight: bold; color: blue">Dòng: </b>@errorLineLap[3] <br />
                     }
                     if (loiCPU.Length > 0)
@@ -761,7 +762,7 @@
                                                 }
                                                 if (loiVGA.Length > 0)
                                                 {                     
-                                                <li>HDD của sản phẩm phải là số!</li>  
+                                                <li>VGA của sản phẩm phải từ 5 tới 100 ký tự!</li>  
                                                 }
                                                 if (loiRam.Length > 0)
                                                 {                     
@@ -774,7 +775,7 @@
                     <div class="da-panel-header">
                         <span class="da-panel-title">
                             <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                            Dữ liệu lỗi.
+                            Sản phẩm bị lỗi chờ xử lý.
                         </span>
 
                         <!--  <span class="da-panel-toggler"></span> -->
@@ -971,7 +972,7 @@
                     <div class="da-panel-header">
                         <span class="da-panel-title">
                             <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                            Danh sách nhóm sản phẩm trùng
+                            Danh sách nhóm sản phẩm có thể bị trùng
                         </span>
 
                         <span class="da-panel-toggler"></span>
@@ -1063,7 +1064,7 @@
                     <div class="da-panel-header">
                         <span class="da-panel-title">
                             <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                            Sản phầm trùng với cơ sở dữ liệu.
+                            Danh sách sản phẩm có thể trùng với sản phẩm trong cơ sở dữ liệu.
                         </span>
 
                         <span class="da-panel-toggler"></span>
@@ -1155,19 +1156,27 @@
         <script>
                   <!----validate file upload :D-------->
     var fsize=0;
+    var fname="";
     $('#fileupload').bind('change', function() {
         // alert('This file size is: ' + this.files[0].size/1024/1024 + "MB");
         //alert('This file name is: ' + this.files[0].name); 
         fsize = this.files[0].size/1024/1024;
-        var fname =  this.files[0].name;
+        fname =  this.files[0].name;
                  
     });
 
-    function checkuploadfile(){                
-        if(fsize>2){
-            $.jGrowl("File không được lớn hơn 2Mb", {header: "Nhắc nhở!", position: "bottom-right"});
+    function checkuploadfile(){ 
+        var check1 = fname.indexOf("xlsx");
+        var check2 = fname.indexOf("xls");
+        if(check1 >0||check2>0)
+        {
+            if(fsize>2){
+                $.jGrowl("File không được lớn hơn 2Mb", {header: "Nhắc nhở!", position: "bottom-right"});
+            }else{
+                document.getElementById("da-ex-vali").submit();
+            }
         }else{
-            document.getElementById("da-ex-vali").submit();
+            $.jGrowl("Hệ thống chỉ hỗ trợ file excel vui lòng thử lại!", {header: "Nhắc nhở!", position: "bottom-right"});
         }
     }
 
@@ -1359,7 +1368,7 @@
             $("#table_" + i).find("tbody").find("input:radio:checked").each(function(i){  
                 val += '@@'+ $(this).val();
                 radio = $(this).val();
-            }); 
+            });
             for(var x =0; x <check.length; x++)
             {
                 if(check[x] == radio){

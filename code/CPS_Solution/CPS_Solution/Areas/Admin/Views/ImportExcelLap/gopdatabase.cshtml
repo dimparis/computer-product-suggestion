@@ -1,0 +1,229 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    ViewBag.Title = "gopdatabase";
+    Layout = null;
+    List<LapData> list = ViewBag.listproduct;
+    List<LapData> listError = ViewBag.listerror;
+    List<List<LapData>> listDup = ViewBag.listduplicate;
+    // danh sách lỗi khi lỗi quá nhiều
+    List<LapData> danhsachlaploi = ViewBag.danhsachlaploi;
+    int countlistdup = 0;
+    int countlist = 0;
+    if (listDup != null)
+    {
+        countlistdup = listDup.Count;
+    }
+    if (list != null)
+    {
+        countlist = list.Count;
+    }
+    List<List<LapData>> listDupnew = ViewBag.listduplicatenewLap;
+    int countlistdup1 = 0;
+    if (listDupnew != null)
+    {
+        countlistdup1 = listDupnew.Count;
+    }
+    // dòng bị lỗi
+    List<String> errorLineLap = ViewBag.errorLineLap;
+    int sodongloi = 0;
+    String[] loiName = null; int checkName = 0;
+    String[] loiImageLink = null;
+    String[] loiDisplay = null;
+    String[] loiCPU = null;
+    String[] loiHDD = null;
+    String[] loiVGA = null;
+    String[] loiRam = null;
+    if (errorLineLap != null)
+    {
+        // số dòng bị lỗi
+        sodongloi = Convert.ToInt32(errorLineLap[0]);
+        // lỗi Name
+        loiName = errorLineLap[1].ToString().Split(',');
+        // lỗi link image
+        loiImageLink = errorLineLap[2].ToString().Split(',');
+        // lỗi Name
+        loiDisplay = errorLineLap[3].ToString().Split(',');
+        // lỗi Name
+        loiCPU = errorLineLap[4].ToString().Split(',');
+        // lỗi Name
+        loiHDD = errorLineLap[5].ToString().Split(',');
+        // lỗi Name
+        loiVGA = errorLineLap[6].ToString().Split(',');
+        // lỗi Name
+        loiRam = errorLineLap[7].ToString().Split(',');
+    }
+}
+ <!--tab3--------------------------------------------------------------------------------------------------------------------------------------------------------------->         
+            <div class="da-panel collapsible">
+                  @if (listDup != null)
+                  {
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                        Danh sách nhóm sản phẩm trùng
+                    </span>
+
+                    <span class="da-panel-toggler"></span>
+                </div>
+                <div class="da-panel-content">
+                    <input style="visibility: hidden" />
+                </div>
+              
+                      int i = 0;
+
+                      foreach (List<LapData> listp in listDup)
+                      {
+                          i++;
+                          // nút gộp tách
+                    <div class="da-panel-toolbar top" style="border-color: yellowgreen">
+                        <ul>
+                            <li style="width: 67.5px;" style="text-align: right"><a id ="link_@(i)"  onclick="gop1table(@(i))">
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
+                            <li style="text-align: right"><a  onclick="tach1table(@(i))" >
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
+                            <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
+                        </ul>
+                    </div>
+                    <div class="da-panel-content">
+                        <table    id="table_@(i)" class="da-table">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-column"  id="checkboxAllTable_@(i)">
+                                        <input id="checkAll"  style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD (G)</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Display</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram (G)</th>
+
+                                    <th style="width: 92px;">Chọn tên chính                                                               
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int y = 0;}
+                                @foreach (LapData p in listp)
+                                {
+                                    y++;
+                                    <tr class="odd">
+                                        <td id="@(y)" class="checked">
+                                            <input style="width: 19px;" value="@p.stt" id="checkbox@(y)" type="checkbox">
+                                        </td>
+                                             <td class=" ">@p.Name</td>
+                                            <td class=" ">@p.Imagelink</td>                                      
+                                            <td class=" ">@p.CPU</td>
+                                            <td class=" ">@p.VGA</td>
+                                            <td class=" ">@p.HDD</td>
+                                            <td class=" ">@p.Display</td>
+                                            <td class=" ">@p.RAM</td>
+
+                                        <td class="da-icon-column">
+
+                                            <!-- Nếu là sản phẩm đầu tiên thì check radio-->
+                                            @if (y == 1)
+                                            {
+                                                <input name="radio_@(i)" value="@p.stt" type="radio" checked="checked" >
+                                            }
+                                            else
+                                            {
+                                                <input name="radio_@(i)" value="@p.stt" type="radio"> 
+                                            }
+                                        </td>
+                                    </tr> 
+                                                            
+                                }
+                            </tbody>
+                        </table>
+                    </div>                                           
+                    <div class="da-panel-content">
+                        <input style="visibility: hidden" />
+                    </div>
+                      }
+                  }
+
+
+            </div>
+             <!-------------------listdupnew--------------------------------------------------------------------------------------->
+             <div class="da-panel collapsible">
+                  @if (listDupnew != null)
+                  {
+                <div class="da-panel-header">
+                    <span class="da-panel-title">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                        Sản phầm trùng với cơ sở dữ liệu.
+                    </span>
+
+                    <span class="da-panel-toggler"></span>
+                </div>
+                <div class="da-panel-content">
+                    <input style="visibility: hidden" />
+                </div>
+               
+                      int i = 0;
+
+                      foreach (List<LapData> listp in listDupnew)
+                      {
+                          i++;
+                          // nút gộp tách
+                    <div class="da-panel-toolbar top" style="border-color: yellowgreen">
+                        <ul>
+                            <li style="text-align: right"><a id ="link_@(i)"  onclick="gopdatabase(@(i))">
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
+                            <li style="text-align: right"><a  onclick="tachdatabase(@(i))" > 
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
+                            <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
+                        </ul>
+                    </div>
+                    <div class="da-panel-content">
+                        <table    id="table_@(i)" class="da-table">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-column"  style="width: 97px;" id="checkboxAllTable_@(i)">
+                                        <input id="checkAll"  checked="checked" disabled style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD (G)</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Display</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram (G)</th>
+                                  @*   <th style="width: 92px;">Chọn tên chính                                                               
+                                    </th> *@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int y = 0;}
+                                @foreach (LapData p in listp)
+                                {
+                                    y++;
+                                    <tr class="odd">
+                                        <td id="@(y)" class="checked">
+                                            <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
+                                        </td>
+                                          <td class=" ">@p.Name</td>
+                                            <td class=" ">@p.Imagelink</td>                                      
+                                            <td class=" ">@p.CPU</td>
+                                            <td class=" ">@p.VGA</td>
+                                            <td class=" ">@p.HDD</td>
+                                            <td class=" ">@p.Display</td>
+                                            <td class=" ">@p.RAM</td>
+                                    </tr> 
+                                                            
+                                }
+                            </tbody>
+                        </table>
+                    </div>                                           
+                    <div class="da-panel-content">
+                        <input style="visibility: hidden" />
+                    </div>
+                      }
+                  }
+
+
+            </div>
+
+            <!--ket thuc tab3-------------------------------------------------------------------------------->

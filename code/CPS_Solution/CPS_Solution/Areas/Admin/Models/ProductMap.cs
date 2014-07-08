@@ -11,6 +11,7 @@ namespace CPS_Solution.Areas.Admin.Models
         public String ten { set; get; }
         public String trongso { set; get; }
         public String loai { set; get; }
+        public String productid { set; get; }
         public ProductMap()
         {
 

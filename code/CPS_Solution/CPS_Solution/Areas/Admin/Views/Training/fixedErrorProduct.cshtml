@@ -4,27 +4,10 @@
 @{
     ViewBag.Title = "fixedErrorProduct";
     Layout = null;
-    List<LapData> list = ViewBag.listproduct;
-    List<LapData> listError = ViewBag.listerror;
-    List<List<LapData>> listDup = ViewBag.listduplicate;
+
+    List<LapData> listError = ViewBag.ListerrorTraning;
     // danh sách lỗi khi lỗi quá nhiều
-    List<LapData> danhsachlaploi = ViewBag.danhsachlaploi;
-    int countlistdup = 0;
-    int countlist = 0;
-    if (listDup != null)
-    {
-        countlistdup = listDup.Count;
-    }
-    if (list != null)
-    {
-        countlist = list.Count;
-    }
-    List<List<LapData>> listDupnew = ViewBag.listduplicatenew;
-    int countlistdup1 = 0;
-    if (listDupnew != null)
-    {
-        countlistdup1 = listDupnew.Count;
-    }
+    List<LapData> danhsachlaploi = ViewBag.errorLineLap1;   
     // dòng bị lỗi
     List<String> errorLineLap = ViewBag.errorLineLap;
     int sodongloi = 0;
@@ -56,6 +39,7 @@
     }
 }
   <!--tab2-------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
+            <div id="ErrorID">
                 <div class="da-message error">
                     Lỗi dữ liệu:
                                         <ul>
@@ -268,5 +252,5 @@
                         </table>
                     </div>
                 </div>
-            
+            </div>
             <!--ket thuc tab2------------------------------------------------------------------------------------------------------------------------------------------------------>
