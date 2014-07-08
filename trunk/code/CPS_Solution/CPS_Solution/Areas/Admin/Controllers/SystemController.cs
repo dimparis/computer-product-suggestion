@@ -5,10 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using CPS_Solution.Areas.Admin.Helpers;
 using CPS_Solution.Areas.Admin.Models;
+using CPS_Solution.EntityFramework;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class SystemController : Controller
     {
+        private CPS_SolutionEntities context = new CPS_SolutionEntities();
         //
         // GET: /Admin/System/
         /// <summary>
@@ -23,6 +25,30 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             if (User.IsInRole("Staff"))
             {
+                ShowInfo info = new ShowInfo();
+                int? unRatedProduct = context.AttributeDictionaries.Where(x => x.WeightCriteraPoint == 0).Count();
+                int? unApproveProduct = context.RecommendProducts.Where(x => x.IsApprove == false).Count();
+                info.NumberOfProductNoPoint = (int) unRatedProduct;
+                info.NumberofRecordUnratedWeight = (int)unApproveProduct;
+                info.LastExecutionDate = DateTime.Now;
+                if (unRatedProduct.HasValue && unApproveProduct.HasValue)
+                {
+                    info.NumberOfStatus = 2;
+                }
+                else if (!unRatedProduct.HasValue && !unApproveProduct.HasValue)
+                {
+                    info.NumberOfStatus = 0;
+                }
+                else
+                {
+                    info.NumberOfStatus = 1;
+                }
+
+                if (info != null)
+                {
+                    TempData["ShowInfo"] = info;
+                }
+
                 return RedirectToAction("ConfigureSystem", "System");
             }
             if (User.IsInRole("Member"))
@@ -42,7 +68,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult UpdateConfigureSystem(ConfigurationModel model) 
+        public ActionResult UpdateConfigureSystem(ConfigurationModel model)
         {
             var helper = new ConfigureHelper();
             helper.UpdateModel(model);

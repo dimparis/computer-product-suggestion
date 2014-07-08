@@ -9,7 +9,10 @@ using CPS_Solution.Areas.Admin;
 using CPS_Solution.Controllers;
 using CPS_Solution.App_Start;
 using System.Web.Optimization;
-using CPS_Solution.App_Start;
+using Microsoft.AspNet.SignalR;
+using System.Data.Sql;
+using System.Data.SqlClient;
+using System.Configuration;
 namespace CPS_Solution
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -30,7 +33,8 @@ namespace CPS_Solution
             //Do schedules
             BackgroundConfigurations.StartScheduler();
             BackgroundConfigurations.ScheduleParser();
-
+            //SqlDependency.Start(ConfigurationManager.ConnectionStrings["ConnStringForWebSecurity"].ConnectionString);
+            //RouteTable.Routes.MapHubs();
         }
     }
 }

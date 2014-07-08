@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -80,50 +79,56 @@
                                 <li class="da-dropdown-divider"></li>
                                 <li><a href="dashboard.html">Thay đổi mật khẩu</a></li>
                                 <li class="da-dropdown-divider"></li>
-                                <li><a href="@Url.Action("LogOff","Authentication")">Đăng xuất</a></li>
+                                <li><a href="@Url.Action("LogOff", "Authentication")">Đăng xuất</a></li>
                             </ul>
                         </div>
                         <div id="da-header-button-container">
                             <ul>
                                 <li class="da-header-button notif">
-                                    <span class="da-button-count">32</span>
-                                    <a href="#">Notifications</a>
-                                    <ul class="da-header-dropdown">
-                                        <li class="da-dropdown-caret">
-                                            <span class="caret-outer"></span>
-                                            <span class="caret-inner"></span>
-                                        </li>
-                                        <li>
-                                            <span class="da-dropdown-sub-title">Notifications</span>
-                                            <ul class="da-dropdown-sub">
-                                                  <li class="unread">
-                                                    <a href="#">
-                                                        <span class="message">
-                                                            Lorem ipsum dolor sit amet
-                                                        </span>
-                                                        <span class="time">
-                                                            January 21, 2012
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="read">
-                                                    <a href="#">
-                                                        <span class="message">
-                                                            Lorem ipsum dolor sit amet
-                                                        </span>
-                                                        <span class="time">
-                                                            January 21, 2012
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <a class="da-dropdown-sub-footer">View all notifications
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    @{
+                                        CPS_Solution.Areas.Admin.Models.ShowInfo show = (CPS_Solution.Areas.Admin.Models.ShowInfo)TempData["ShowInfo"];
+                                        if (show != null)
+                                        {
+                                            if (show.NumberOfStatus > 0)
+                                            {
+                                        <span class="da-button-count">@show.NumberOfStatus</span>
+                                            }
+                                        <a href="#">Thông báo</a>
+                                        <ul class="da-header-dropdown">
+                                            <li class="da-dropdown-caret">
+                                                <span class="caret-outer"></span>
+                                                <span class="caret-inner"></span>
+                                            </li>
+                                            <li>
+                                                <span class="da-dropdown-sub-title">Thông báo</span>
+                                                <ul class="da-dropdown-sub">
+                                                    <li class="read">
+                                                        <a href="#">
+                                                            <span class="message">@show.NumberOfProductNoPoint  linh kiện chưa có trọng số.
+                                                            </span>
+                                                            <span class="time">@show.LastExecutionDate
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="read">
+                                                        <a href="#">
+                                                            <span class="message">@show.NumberofRecordUnratedWeight sản phẩm được đề cử.
+                                                            </span>
+                                                            <span class="time">@show.LastExecutionDate
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <a class="da-dropdown-sub-footer">Xem tất cả thông báo
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        }
+                                    }
+
                                 </li>
                                 <li class="da-header-button logout">
-                                    <a href="@Url.Action("LogOff","Authentication")">Đăng xuất</a>
+                                    <a href="@Url.Action("LogOff", "Authentication")">Đăng xuất</a>
                                 </li>
                             </ul>
                         </div>
