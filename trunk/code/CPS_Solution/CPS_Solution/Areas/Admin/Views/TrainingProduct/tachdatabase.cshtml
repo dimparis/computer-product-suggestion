@@ -7,7 +7,7 @@
 }
 
  <!-------------------listdupnew--------------------------------------------------------------------------------------->
-            <div id="black-icon" class="da-panel collapsible">
+           <div class="da-panel collapsible">
                   @if (listDup != null)
                   {
                 <div class="da-panel-header">
@@ -22,7 +22,7 @@
                     <input style="visibility: hidden" />
                 </div>
                
-                      int i = 0;
+                      int i = 999;
 
                       foreach (List<ProductMap> listp in listDup)
                       {
@@ -46,8 +46,7 @@
                                     <th style="width: 250px;">Tên thành phần</th>
                                     <th>Trọng số</th>
                                     <th>Loại</th>
-                                  @*   <th style="width: 92px;">Chọn tên chính                                                               
-                                    </th> *@
+ 
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,18 +61,6 @@
                                         <td>@p.ten</td>
                                         <td>@p.trongso</td>                                 
                                         <td class=" ">@p.loai</td>
-                                       @*   <td class="da-icon-column">
-
-                                           Nếu là sản phẩm đầu tiên thì check radio
-                                            @if (y == 1)
-                                            {
-                                                <input name="radio_@(i)" value="@p.stt" type="radio" checked="checked" >
-                                            }
-                                            else
-                                            {
-                                                <input name="radio_@(i)" value="@p.stt" type="radio"> 
-                                            }
-                                        </td>*@
                                     </tr> 
                                                             
                                 }
@@ -87,4 +74,4 @@
                 }
 
 
-            </div>
+            </div> 

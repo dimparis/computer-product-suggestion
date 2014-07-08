@@ -26,7 +26,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 Session["danhsachlaploi"] = null;
                 if (danhsachloi != null)
                 {
-                    if (Convert.ToInt32(danhsachloi[0]) > 10)
+                    if (Convert.ToInt32(danhsachloi[0]) > 5)
                     {
                         Session["listproductLap"] = null;
                         Session["listduplicateLap"] = null;
@@ -35,12 +35,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     }
                 }
                 // danh sách Đúng, Trùng, Lỗi
-                ViewBag.listproduct = (List<LapData>)Session["listproductLap"];
-                ViewBag.listExistedLap = (List<LapData>)TempData["listExistedLap"];
+                ViewBag.listproduct = (List<LapData>)Session["listproductLap"];               
                 ViewBag.listerror = (List<LapData>)Session["listerrorLap"];
                 ViewBag.listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
                 ViewBag.listduplicatenewLap = (List<List<LapData>>)Session["listduplicatenewLap"];
-
+                // danh sách lap đã tồn tại trong database
+                ViewBag.listExistedLap = (List<LapData>)TempData["listExistedLap"];
                 // quá nhiều lỗi hiện thị ra dòng và sản phẩm bị lỗi.
                 ViewBag.danhsachlaploi = (List<LapData>)Session["danhsachlaploi"];
                 // dòng chứa lỗi
@@ -62,26 +62,89 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 List<LapData> listpro = (List<LapData>)Session["listproductLap"];
                 List<LapData> listerror = (List<LapData>)Session["listerrorLap"];
                 List<List<LapData>> listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
-
-
                 //ghi logfile---------------------------------------------------------------------------------
                 String[] ghilog = checkval.ToString().Split('@');
 
-                // nếu có check  ghilog Duplicate
+                // nếu có check  ghi log sản phẩm  Duplicate chờ traning sau
+                #region ghilog Duplicate
                 if (!ghilog[0].Equals("no"))
                 {
-                    // LogFileDupProHelper.GenerateLogfile(listduplicate);
-                    // xóa session dup
-                    Session["listduplicateLap"] = null;
+                        // lấy dữ liệu trong file text traning ra LapDataTraning;
+                        string path = Server.MapPath("~/UploadedExcelFiles/LapDataTraning.txt");
+                        if (System.IO.File.Exists(path))
+                        {   // lấy hết dòng trong file txt ra.
+                            string[] lines = System.IO.File.ReadAllLines(path);
+                            // tảo mảng mới chứa dữ dữ liệu trùng.
+                            string[] newlines = new string[listduplicate.Count];
+                            for (int i = 0; i < listduplicate.Count; i++)
+                            {
+                                string newline = "";
+                                for (int j = 0; j < listduplicate[i].Count; j++)
+                                {
+                                    newline += listduplicate[i][j].Name +"|"+ listduplicate[i][j].Imagelink +"|"+
+                                               listduplicate[i][j].CPU  +"|"+ listduplicate[i][j].VGA       +"|"+
+                                               listduplicate[i][j].HDD  +"|"+ listduplicate[i][j].Display   +"|"+ 
+                                               listduplicate[i][j].RAM  + "#";
+                                }
+                                newline = newline.Substring(0, newline.Length - 1);
+                                newlines[i] = newline;
+                            }
+                            //Gộp hai bảng thành mảng mới và lưu vào txt lại
+                            string[] save = new string[lines.Length+newlines.Length];
+                            for (int i = 0; i < lines.Length; i++)
+                            {
+                                save[i] = lines[i];
+                            }
+                            for (int i = 0; i < newlines.Length; i++)
+                            {
+                                save[i + lines.Length] = newlines[i];
+                            }
+                            // ghi lại vào txt
+                            System.IO.File.WriteAllLines(path, save);
+                        }
+                  
                 }
+                Session["listduplicateLap"] = null;
+                #endregion
                 // nếu có check ghilog Error
+                #region ghilog ErrorProduct
                 if (!ghilog[1].Equals("no"))
                 {
 
-                    // xóa session error
-                    Session["listerrorLap"] = null;
-                }
+                    // lấy dữ liệu trong file text traning ra LapDataTraning;
+                    string path2 = Server.MapPath("~/UploadedExcelFiles/ErrorLap.txt");
+                    if (System.IO.File.Exists(path2))
+                    {   // lấy hết dòng trong file txt ra.
+                        string[] lines = System.IO.File.ReadAllLines(path2);
+                        // tảo mảng mới chứa dữ dữ liệu trùng.
+                        string[] newlines = new string[listduplicate.Count];
+                        for (int i = 0; i < listerror.Count; i++)
+                        {
+                            string newline = "";
+                            newline += listerror[i].Name + "|" + listerror[i].Imagelink + "|" +
+                                           listerror[i].CPU + "|" + listerror[i].VGA + "|" +
+                                           listerror[i].HDD + "|" + listerror[i].Display + "|" +
+                                           listerror[i].RAM ;
+                            newline = newline.Substring(0, newline.Length - 1);
+                            newlines[i] = newline;
+                        }
+                        //Gộp hai bảng thành mảng mới và lưu vào txt lại
+                        string[] save = new string[lines.Length + newlines.Length];
+                        for (int i = 0; i < lines.Length; i++)
+                        {
+                            save[i] = lines[i];
+                        }
+                        for (int i = 0; i < newlines.Length; i++)
+                        {
+                            save[i + lines.Length] = newlines[i];
+                        }
+                        // ghi lại vào txt
+                        System.IO.File.WriteAllLines(path2, save);
+                    }
 
+                }
+                #endregion
+                Session["listerrorLap"] = null;
 
 
                 // Tạo listduplicate mới chứa trùng giữa listpro và trong database
@@ -93,6 +156,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 listproindatabase = liproduct.ToList();
 
                 // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
+                #region so trùng trong database 
                 for (int j = 0; j < listproindatabase.Count; j++)
                 {
                     List<LapData> duplicateProduct = new List<LapData>();
@@ -109,6 +173,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             Name = listpro[i].Name;
                         }
 
+                        // Nếu product trong database không có tên cũng bỏ qua.
+                        if (listproindatabase[j].Name == null)
+                        {
+                            listproindatabase.RemoveAt(j);
+                            j--;
+                            break;
+                        }
+                        //nếu đã có trong database thì xóa đi.
                         if (listproindatabase[j].Name.ToString().Equals(Name))
                         {
                             listproindatabase.RemoveAt(j);
@@ -119,44 +191,82 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
 
                         //---- lấy sản phầm trùng cho vào list trùng mới------------------------------------------------------------
-                        if (CompareStringHelper.CompareString(Name, listproindatabase[j].Name.ToString()) >= 85)
+                        if (CompareStringHelper.CompareString(Name, listproindatabase[j].Name.ToString()) >= 80)
                         {
                             LapData pro = new LapData();
                             pro.stt = listproindatabase[j].ID.ToString();
                             int stt = listproindatabase[j].ID;
-                            pro.Imagelink = listproindatabase[j].URL;
+                            pro.Imagelink = listproindatabase[j].ImageURL;
                             pro.Name = listproindatabase[j].Name;
                             // lấy CPU của product ra
                             var idAttrC = (from a in db.ProductAttributes where a.AttributeDictionary.CodetypeID.Equals("C") && a.ProductID == stt select a.AttributeID).SingleOrDefault();
-                            int idCPU = Convert.ToInt32(idAttrC.ToString());
-                            var CPU = (from a in db.AttributeDictionaries where a.ID.Equals(idCPU) select a.Name).FirstOrDefault();
-                            pro.CPU = CPU.ToString();
+                            if (idAttrC == 0)
+                            {
+                                pro.CPU = "Đang chờ xử lý";
+                            }
+                            else
+                            {
+                                int idCPU = Convert.ToInt32(idAttrC.ToString());
+                                var CPU = (from a in db.AttributeDictionaries where a.ID.Equals(idCPU) select a.Name).FirstOrDefault();
+                                pro.CPU = CPU.ToString();
+                            }                                                      
                             // lấy VGA của product ra
                             var idAttrV = (from a in db.ProductAttributes where a.AttributeDictionary.CodetypeID.Equals("V") && a.ProductID == stt select a.AttributeID).FirstOrDefault();
-                            int idVGA = Convert.ToInt32(idAttrV.ToString());
-                            var VGA = (from a in db.AttributeDictionaries where a.ID.Equals(idVGA) select a.Name).FirstOrDefault();
-                            pro.VGA = VGA.ToString();
+                            if (idAttrV == 0)
+                            {
+                                pro.VGA = "Đang chờ xử lý";
+                            }
+                            else
+                            {
+                                int idVGA = Convert.ToInt32(idAttrV.ToString());
+                                var VGA = (from a in db.AttributeDictionaries where a.ID.Equals(idVGA) select a.Name).FirstOrDefault();
+                                pro.VGA = VGA.ToString();
+                               
+                            }                                                        
                             // lấy HDD của product ra
                             var idAttrH = (from a in db.ProductAttributes where a.AttributeDictionary.CodetypeID.Equals("H") && a.ProductID == stt select a.AttributeID).FirstOrDefault();
-                            int idHDD = Convert.ToInt32(idAttrH.ToString());
-                            var HDD = (from a in db.AttributeDictionaries where a.ID.Equals(idHDD) select a.Name).FirstOrDefault();
-                            pro.HDD = HDD.ToString();
+                            if (idAttrH == 0)
+                            {
+                                pro.HDD = "Đang chờ xử lý";
+                            }
+                            else
+                            {
+                                int idHDD = Convert.ToInt32(idAttrH.ToString());
+                                var HDD = (from a in db.AttributeDictionaries where a.ID.Equals(idHDD) select a.Name).FirstOrDefault();
+                                pro.HDD = HDD.ToString();
+
+                            }                           
                             // lấy Display  của product ra
                             var idAttrD = (from a in db.ProductAttributes where a.AttributeDictionary.CodetypeID.Equals("D") && a.ProductID == stt select a.AttributeID).FirstOrDefault();
-                            int idDisplay = Convert.ToInt32(idAttrD.ToString());
-                            var Display = (from a in db.AttributeDictionaries where a.ID.Equals(idDisplay) select a.Name).FirstOrDefault();
-                            pro.Display = Display.ToString();
+                            if (idAttrD == 0)
+                            {
+                                pro.Display = "Đang chờ xử lý";
+                            }
+                            else
+                            {
+                                int idDisplay = Convert.ToInt32(idAttrD.ToString());
+                                var Display = (from a in db.AttributeDictionaries where a.ID.Equals(idDisplay) select a.Name).FirstOrDefault();
+                                pro.Display = Display.ToString();
+                            }                          
                             // lấy RAM   của product ra
                             var idAttrR = (from a in db.ProductAttributes where a.AttributeDictionary.CodetypeID.Equals("R") && a.ProductID == stt select a.AttributeID).FirstOrDefault();
-                            int idRAM = Convert.ToInt32(idAttrR.ToString());
-                            var RAM = (from a in db.AttributeDictionaries where a.ID.Equals(idRAM) select a.Name).FirstOrDefault();
-                            pro.RAM = RAM.ToString();
+                            if (idAttrR == 0)
+                            {
+                                pro.RAM = "Đang chờ xử lý";
+                            }
+                            else
+                            {
+                                int idRAM = Convert.ToInt32(idAttrR.ToString());
+                                var RAM = (from a in db.AttributeDictionaries where a.ID.Equals(idRAM) select a.Name).FirstOrDefault();
+                                pro.RAM = RAM.ToString();
+                            }                             
                             // add list dup
                             duplicateProduct.Add(pro);
                             listpro[i].stt = "z" + listpro[i].stt;
                             duplicateProduct.Add(listpro[i]);
                             listpro.RemoveAt(i);
                             i--;
+                            break;
                         }
 
                     }
@@ -164,21 +274,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     {
                         listduplicatenew.Add(duplicateProduct);
                         Session["listduplicatenewLap"] = listduplicatenew;
-                        break;
                     }
                 }
-
-                // -----sản phẩm còn lại lưu vào database-------------------------------------------------------
-                // khởi tạo listtrunglinh kiện chứa id của những sản phẩm bị trùng
-                List<String> listtrunglinhkien = new List<String>();
-                List<LapData> danhsachLaptrunglinhkien = new List<LapData>();
-                for (int x = 0; x < 6; x++)
-                {
-                    listtrunglinhkien.Add("");
-                }
+                #endregion
+                // -----sản phẩm còn lại lưu vào database-------------------------------------------------------              
                 for (int i = 0; i < listpro.Count; i++)
                 {
                     //----------------------------- kiểm tra sản phẩm trong listpro có bị trùng linh kiện ko---------------------------
+                    #region Lấy CPU VGA HDD Display Ram cho vào danh sách riêng để kiểm tra trùng linh kiện
                     // lấy hết CPU trong db ra
                     var listCPUdb = (from a in db.AttributeDictionaries where a.CodetypeID.Equals("C") select a);
                     List<AttributeDictionary> listCPU = listCPUdb.ToList();
@@ -194,7 +297,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // lấy hết Ram trong db ra
                     var listRamdb = (from a in db.AttributeDictionaries where a.CodetypeID.Equals("R") select a);
                     List<AttributeDictionary> listRam = listRamdb.ToList();
+                    #endregion
 
+                    #region Kiểm tra trùng link kiện để ghilog txt
+                    string errorCPU = "";
+                    string errorVGA = "";
+                    string errorHDD = "";
+                    string errorDisplay = "";
+                    string errorRam = "";
                     int errorCount = 0;
                     // trùng CPU 1
                     for (int x = 0; x < listCPU.Count; x++)
@@ -203,10 +313,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].CPU, listCPU[x].Name) > 85)
+                        else if (CompareStringHelper.CompareString(listpro[i].CPU, listCPU[x].Name) >= 80)
                         {
-                            listtrunglinhkien[1] += Convert.ToInt32(listpro[i].stt).ToString() + ",";
+                        
                             errorCount++;
+                            errorCPU = listCPU[x].Name;
                             break;
                         }
                     }
@@ -217,10 +328,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].VGA, listVGA[x].Name) > 85)
+                        else if (CompareStringHelper.CompareString(listpro[i].VGA, listVGA[x].Name) >= 80)
                         {
-                            listtrunglinhkien[2] += Convert.ToInt32(listpro[i].stt).ToString() + ",";
+                           
                             errorCount++;
+                            errorVGA = listVGA[x].Name;
                             break;
                         }
                     }
@@ -231,10 +343,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].HDD, listHDD[x].Name) > 85)
-                        {
-                            listtrunglinhkien[3] += Convert.ToInt32(listpro[i].stt).ToString() + ",";
+                        else if (CompareStringHelper.CompareString(listpro[i].HDD, listHDD[x].Name) >= 80)
+                        {                          
                             errorCount++;
+                            errorHDD = listHDD[x].Name;
                             break;
                         }
                     }
@@ -245,10 +357,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].Display, listDisplay[x].Name) > 85)
+                        else if (CompareStringHelper.CompareString(listpro[i].Display, listDisplay[x].Name) >= 80)
                         {
-                            listtrunglinhkien[4] += Convert.ToInt32(listpro[i].stt).ToString() + ",";
                             errorCount++;
+                            errorDisplay = listDisplay[x].Name;
                             break;
                         }
                     }
@@ -259,28 +371,476 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].RAM, listRam[x].Name) > 85)
+                        else if (CompareStringHelper.CompareString(listpro[i].RAM, listRam[x].Name) >= 80)
                         {
-                            listtrunglinhkien[5] += Convert.ToInt32(listpro[i].stt).ToString() + ",";
                             errorCount++;
+                            errorRam = listRam[x].Name;
                             break;
                         }
                     }
-
-                    // cho vào list lỗi @@
+                    #endregion
+                    //-----------------------------------------------------------------------------------------------------------------
+                    //------- lưu những sản phẩm có linh kiện trùng và lưu linh kiện trùng với id sản phẩm vào logfile-----------------
                     if (errorCount > 0)
                     {
-                        danhsachLaptrunglinhkien.Add(listpro[i]);
+                        #region  lưu product và product alias
+                        Product p = new Product();
+                        p.ImageURL = listpro[i].Imagelink;
+                        p.Price = 0;
+                        p.TotalWeightPoint = 0;
+                        p.IsActive = false;
+
+                        // lưu vào database
+                        db.Products.Add(p);
+                        db.SaveChanges();
+
+                        String[] mangten = listpro[i].Name.ToString().Split(';');
+                        // nếu mảng tên >=2 thì lưu cái tên đầu tiên làm tên chính.
+                        if (mangten.Length >= 2)
+                        {
+                            var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            int idinsert = Convert.ToInt32(pronew.ID);
+                            ProductAlia proAli = new ProductAlia();
+                            proAli.Name = mangten[0];
+                            proAli.ProductID = idinsert;
+                            proAli.IsMain = true;
+                            proAli.IsActive = true;
+                            db.ProductAlias.Add(proAli);
+                            db.SaveChanges();
+                        }
+                        // nếu không thì lưu làm tên chính luôn.
+                        else
+                        {
+                            var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            int idinsert = Convert.ToInt32(pronew.ID);
+                            ProductAlia proAli = new ProductAlia();
+                            proAli.Name = mangten[i];
+                            proAli.ProductID = idinsert;
+                            proAli.IsMain = true;
+                            proAli.IsActive = true;
+                            db.ProductAlias.Add(proAli);
+                            db.SaveChanges();
+                        }
+
+                        // lấy max ID và thêm vào bảng alias tên phụ
+                        if (mangten.Length >= 2)
+                        {
+                            // lấy id của sản phẩm mới được insert vào db
+                            var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            int idinsert = Convert.ToInt32(pronew.ID);
+                            // bỏ tên đầu tiên vì lưu làm tên chính rồi lưu tên phụ
+                            for (int h = 1; h < mangten.Length; h++)
+                            {
+                                ProductAlia proAli = new ProductAlia();
+                                proAli.Name = mangten[h];
+                                proAli.ProductID = idinsert;
+                                proAli.IsMain = false;
+                                proAli.IsActive = true;
+                                db.ProductAlias.Add(proAli);
+                                db.SaveChanges();
+                            }
+
+                        }
+                        #endregion
+                       string[] lines = null;
+                       // lấy txt ra
+                       string path = Server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
+                       if (System.IO.File.Exists(path))
+                       {
+                           lines = System.IO.File.ReadAllLines(path);
+                       }
+                       string[] newline = new string[errorCount];
+                        // lấy id để lưu vào bảng productAtribute
+                        int idCPU1 = 0;
+                        int idVGA2 = 0;
+                        int idHDD3 = 0;
+                        int idDisplay4 = 0;
+                        int idRam5 = 0;
+                        // vị trí lưu trong mảng newline
+                        int vitriluu = 0;
+                        // id CPU 1
+                        #region 
+                        // nếu có trong database rồi thì lấy ID sản phẩm có rồi
+                        for (int x = 0; x < listCPU.Count; x++)
+                        {
+                            if (listpro[i].CPU.Equals(listCPU[x].Name))
+                            {
+                                idCPU1 = listCPU[x].ID;
+                                break;
+                            }                            
+                        }
+                        // nếu chưa có
+                        if(idCPU1==0)
+                        {   // chưa có mà bị trùng trong database thì ghi log
+                            if (!errorCPU.Equals(""))
+                            {
+                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idpro = Convert.ToInt32(pronew.ID);
+                                newline[vitriluu] = idpro.ToString() + '-' + errorCPU + ';' + listpro[i].CPU;
+                                vitriluu++;        
+                            }
+                            else
+                            {
+                                // Lưu mới CPU và get ID mới lưu
+                                AttributeDictionary atcpu = new AttributeDictionary();
+                                atcpu.CodetypeID = "C";
+                                atcpu.Name = listpro[i].CPU;
+                                atcpu.WeightCriteraPoint = 0;
+                                db.AttributeDictionaries.Add(atcpu);
+                                db.SaveChanges();
+                                var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idCPU1 = Convert.ToInt32(cpunew.ID);
+                            }
+                        }
+                           
+                        //nếu List CPU là rỗng 
+                        if (listCPU.Count == 0)
+                        {
+                            if (!errorCPU.Equals(""))
+                            {
+                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idpro = Convert.ToInt32(pronew.ID);
+                                newline[0] = idpro.ToString() + '-' + errorCPU + ';' + listpro[i].CPU;
+                                vitriluu++;
+                            }
+                            else
+                            {
+                                AttributeDictionary atcpu = new AttributeDictionary();
+                                atcpu.CodetypeID = "C";
+                                atcpu.Name = listpro[i].CPU;
+                                atcpu.WeightCriteraPoint = 0;
+                                db.AttributeDictionaries.Add(atcpu);
+                                db.SaveChanges();
+                                var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idCPU1 = Convert.ToInt32(cpunew.ID);
+                            }
+                        }
+                        #endregion
+                        // id VGA 2
+                        #region
+                        // kiểm tra xem có trong database chưa có rồi thì lấy ID đã có
+                        for (int x = 0; x < listVGA.Count; x++)
+                        {
+                            if (listpro[i].VGA.Equals(listVGA[x].Name))
+                            {
+                                idVGA2 = listVGA[x].ID;
+                                break;
+                            }                          
+                        }
+                        // nếu chưa có trong database
+                        if(idVGA2==0)
+                        {
+                            // nếu VGA là trùng
+                            if (!errorVGA.Equals(""))
+                            {
+                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idpro = Convert.ToInt32(pronew.ID);
+                                newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listpro[i].VGA;
+                                vitriluu++;
+                            }
+                            // ko trùng thì lưu VGA mới vào database và lấy ID
+                            else
+                            {
+
+                                AttributeDictionary atvga = new AttributeDictionary();
+                                atvga.CodetypeID = "V";
+                                atvga.Name = listpro[i].VGA;
+                                atvga.WeightCriteraPoint = 0;
+                                db.AttributeDictionaries.Add(atvga);
+                                db.SaveChanges();
+                                var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idVGA2 = Convert.ToInt32(vganew.ID);
+                            }
+                        }
+                        // nếu list VGA là rỗng
+                        if (listVGA.Count == 0)
+                        {
+                             // nếu VGA là trùng
+                            if (!errorVGA.Equals(""))
+                            {
+                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idpro = Convert.ToInt32(pronew.ID);
+                                newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listpro[i].VGA;
+                                vitriluu++;
+                            }
+                            // ko trùng thì lưu VGA mới vào database và lấy ID
+                            else
+                            {
+                                AttributeDictionary atvga = new AttributeDictionary();
+                                atvga.CodetypeID = "V";
+                                atvga.Name = listpro[i].VGA;
+                                atvga.WeightCriteraPoint = 0;
+                                db.AttributeDictionaries.Add(atvga);
+                                db.SaveChanges();
+                                var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idVGA2 = Convert.ToInt32(vganew.ID);
+                            }
+                        }
+                        #endregion
+                        // id HDD 3
+                        #region
+                        // nếu có rồi trong database thì lấy ID ra
+                        for (int x = 0; x < listHDD.Count; x++)
+                        {
+                            if (listpro[i].HDD.Equals(listHDD[x].Name))
+                            {
+                                idHDD3 = listHDD[x].ID;
+                                break;
+                            }                           
+                        }
+                        // nếu chưa có trong database
+                        if(idHDD3==0)
+                        {
+                            // nếu HDD là trùng
+                            if (!errorHDD.Equals(""))
+                            {
+                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idpro = Convert.ToInt32(pronew.ID);
+                                newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listpro[i].HDD;
+                                vitriluu++;
+                            }
+                            // ko trùng thì lưu HDD mới vào database và lấy ID
+                            else
+                            {
+                                AttributeDictionary athddd = new AttributeDictionary();
+                                athddd.CodetypeID = "H";
+                                athddd.Name = listpro[i].HDD;
+                                athddd.WeightCriteraPoint = 0;
+                                db.AttributeDictionaries.Add(athddd);
+                                db.SaveChanges();
+                                var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idHDD3 = Convert.ToInt32(hddnew.ID);
+                            }
+                        }
+                        // nếu list HDD là rỗng 
+                        if (listHDD.Count == 0)
+                        {  
+                            // nếu HDD là trùng
+                            if (!errorHDD.Equals(""))
+                            {
+                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idpro = Convert.ToInt32(pronew.ID);
+                                newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listpro[i].HDD;
+                                vitriluu++;
+                            }
+                            // ko trùng thì lưu HDD mới vào database và lấy ID
+                            else
+                            {
+                                AttributeDictionary athddd = new AttributeDictionary();
+                                athddd.CodetypeID = "H";
+                                athddd.Name = listpro[i].HDD;
+                                athddd.WeightCriteraPoint = 0;
+                                db.AttributeDictionaries.Add(athddd);
+                                db.SaveChanges();
+                                var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idHDD3 = Convert.ToInt32(hddnew.ID);
+                            }
+                        }
+                        #endregion
+                        // id Display 4
+                        #region
+                        // nếu có rồi trong database thì lấy id ra
+                        for (int x = 0; x < listDisplay.Count; x++)
+                        {
+                            if (listpro[i].Display.Equals(listDisplay[x].Name))
+                            {
+                                idDisplay4 = listDisplay[x].ID;
+                                break;
+                            }                           
+                        }
+                        // nếu chưa có trong database
+                        if (idDisplay4 == 0)
+                        {
+                            {
+                                // nếu Display là trùng
+                                if (!errorDisplay.Equals(""))
+                                {
+                                    var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    int idpro = Convert.ToInt32(pronew.ID);
+                                    newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listpro[i].Display;
+                                    vitriluu++;
+                                }
+                                // ko trùng thì lưu Display mới vào database và lấy ID
+                                else
+                                {
+                                    AttributeDictionary athdisp = new AttributeDictionary();
+                                    athdisp.CodetypeID = "D";
+                                    athdisp.Name = listpro[i].Display;
+                                    athdisp.WeightCriteraPoint = 0;
+                                    db.AttributeDictionaries.Add(athdisp);
+                                    db.SaveChanges();
+                                    var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    idDisplay4 = Convert.ToInt32(dispnew.ID);
+                                }
+                            }
+                        }
+                        // nếu list Display là rỗng
+                        if (listDisplay.Count == 0)
+                        {
+                               // nếu Display là trùng
+                            if (!errorDisplay.Equals(""))
+                            {
+                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idpro = Convert.ToInt32(pronew.ID);
+                                newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listpro[i].Display;
+                                vitriluu++;
+                            }
+                            // ko trùng thì lưu Display mới vào database và lấy ID
+                            else
+                            {
+                                AttributeDictionary athdisp = new AttributeDictionary();
+                                athdisp.CodetypeID = "D";
+                                athdisp.Name = listpro[i].Display;
+                                athdisp.WeightCriteraPoint = 0;
+                                db.AttributeDictionaries.Add(athdisp);
+                                db.SaveChanges();
+                                var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idDisplay4 = Convert.ToInt32(dispnew.ID);
+                            }
+                        }
+                        #endregion
+                        // id Ram
+                        #region
+                        // nếu có rồi trong database thì lấy id ra
+                        for (int x = 0; x < listRam.Count; x++)
+                        {
+                            if (listpro[i].RAM.Equals(listRam[x].Name))
+                            {
+                                idRam5 = listRam[x].ID;
+                                break;
+                            }
+                        }
+                        // nếu chưa có trong database
+                        if(idRam5==0)
+                        {
+                            // nếu Ram là trùng ghi log
+                            if (!errorRam.Equals(""))
+                            {
+                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idpro = Convert.ToInt32(pronew.ID);
+                                newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listpro[i].RAM;
+                                vitriluu++;
+                            }
+                            // ko trùng thì lưu Ram mới vào database và lấy ID
+                            else
+                            {
+                                AttributeDictionary athram = new AttributeDictionary();
+                                athram.CodetypeID = "R";
+                                athram.Name = listpro[i].RAM;
+                                athram.WeightCriteraPoint = 0;
+                                db.AttributeDictionaries.Add(athram);
+                                db.SaveChanges();
+                                var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idRam5 = Convert.ToInt32(ramnew.ID);
+                            }
+                        }
+
+                        // nếu list Ram là rỗng 
+                        if (listRam.Count == 0)
+                        { 
+                                   // nếu Ram là trùng ghi log
+                            if (!errorRam.Equals(""))
+                            {
+                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idpro = Convert.ToInt32(pronew.ID);
+                                newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listpro[i].RAM;
+                                vitriluu++;
+                            }
+                            // ko trùng thì lưu Display mới vào database và lấy ID
+                            else
+                            {
+                                AttributeDictionary athram = new AttributeDictionary();
+                                athram.CodetypeID = "R";
+                                athram.Name = listpro[i].RAM;
+                                athram.WeightCriteraPoint = 0;
+                                db.AttributeDictionaries.Add(athram);
+                                db.SaveChanges();
+                                var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idRam5 = Convert.ToInt32(ramnew.ID);
+                            }
+                        }
+                        #endregion
+
+                        #region  Gộp hai mảng lại thành một rồi ghi đè lại vào file txt
+                        //Gộp hai bảng thành mảng mới và lưu vào txt lại
+                        string[] save = new string[lines.Length + newline.Length];
+                        for (int e = 0; e < lines.Length; e++)
+                        {
+                            save[e] = lines[e];
+                        }
+                        for (int e = 0; e < newline.Length; e++)
+                        {
+                            save[e + lines.Length] = newline[e];
+                        }
+                        // ghi lại vào txt
+                        System.IO.File.WriteAllLines(path, save);
+                        #endregion
+
+                        #region Lưu vào bảng productAtribute
+                        // lấy id của sản phẩm mới được insert vào db
+                        var pronewinsert = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        int idinsertnew = Convert.ToInt32(pronewinsert.ID);
+
+                        // nếu CPU không trùng database
+                        if (errorCPU.Equals(""))
+                        {
+                            //1 lưu idcpu vào bảng ProductAttribute
+                            ProductAttribute atProCPU = new ProductAttribute();
+                            atProCPU.AttributeID = idCPU1;
+                            atProCPU.ProductID = idinsertnew;
+                            db.ProductAttributes.Add(atProCPU);
+                            db.SaveChanges();
+                        }
+                        if (errorRam.Equals(""))
+                        {
+                            //2 lưu idRam vào bảng ProductAttribute
+                            ProductAttribute atProRam = new ProductAttribute();
+                            atProRam.AttributeID = idRam5;
+                            atProRam.ProductID = idinsertnew;
+                            db.ProductAttributes.Add(atProRam);
+                            db.SaveChanges();
+                        }
+                        if (errorHDD.Equals(""))
+                        {
+                            //3 lưu idhdd vào bảng ProductAttribute
+                            ProductAttribute atProHDD = new ProductAttribute();
+                            atProHDD.AttributeID = idHDD3;
+                            atProHDD.ProductID = idinsertnew;
+                            db.ProductAttributes.Add(atProHDD);
+                            db.SaveChanges();
+                        }
+                        if (errorDisplay.Equals(""))
+                        {
+                            //4 lưu idDisplay vào bảng ProductAttribute
+                            ProductAttribute atProDisp = new ProductAttribute();
+                            atProDisp.AttributeID = idDisplay4;
+                            atProDisp.ProductID = idinsertnew;
+                            db.ProductAttributes.Add(atProDisp);
+                            db.SaveChanges();
+                        }
+                        if (errorVGA.Equals(""))
+                        {
+                            //5 lưu idvag vào bảng ProductAttribute
+                            ProductAttribute atProVAG = new ProductAttribute();
+                            atProVAG.AttributeID = idVGA2;
+                            atProVAG.ProductID = idinsertnew;
+                            db.ProductAttributes.Add(atProVAG);
+                            db.SaveChanges();
+                        }
+
+                        #endregion
                         // thêm biến đếm số dòng lỗi được thêm vào.                   
                         listpro.RemoveAt(i);
                         i = i - 1;
                     }
-                    //-------------- nếu không phát hiện trùng linh kiện thì cho add mới sản phẩm ---------------------------
+                    //-------------------------------------------------------------------------------------------------------------------------------------------------------
+                    //------------------ Nếu không phát hiện trùng linh kiện thì cho add mới sản phẩm -----------------------------------------------------------------------
+                    #region Lưu sản phẩm không có linh kiện nào bị trùng
                     if (errorCount == 0)
                     {
                         Product p = new Product();
 
-                        p.URL = listpro[i].Imagelink;
+                        p.ImageURL = listpro[i].Imagelink;
                         p.Price = 0;
                         p.TotalWeightPoint = 0;
                         p.IsActive = false;
@@ -349,19 +909,30 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 idCPU1 = listCPU[x].ID;
                                 break;
-                            }
-                            else
-                            {
-                                AttributeDictionary atcpu = new AttributeDictionary();
-                                atcpu.CodetypeID = "C";
-                                atcpu.Name = listpro[i].CPU;
-                                atcpu.WeightCriteraPoint = 0;
-                                db.AttributeDictionaries.Add(atcpu);
-                                db.SaveChanges();
-                                var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idCPU1 = Convert.ToInt32(cpunew.ID);
-                                break;
-                            }
+                            }                           
+                        }
+                        if (idCPU1 == 0)
+                        {
+                            AttributeDictionary atcpu = new AttributeDictionary();
+                            atcpu.CodetypeID = "C";
+                            atcpu.Name = listpro[i].CPU;
+                            atcpu.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(atcpu);
+                            db.SaveChanges();
+                            var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idCPU1 = Convert.ToInt32(cpunew.ID);
+                        }
+                        //nếu List CPU là rỗng 
+                        if (listCPU.Count == 0&&idCPU1==0)
+                        {
+                            AttributeDictionary atcpu = new AttributeDictionary();
+                            atcpu.CodetypeID = "C";
+                            atcpu.Name = listpro[i].CPU;
+                            atcpu.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(atcpu);
+                            db.SaveChanges();
+                            var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idCPU1 = Convert.ToInt32(cpunew.ID);
                         }
                         // id VGA 2
                         for (int x = 0; x < listVGA.Count; x++)
@@ -370,20 +941,30 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 idVGA2 = listVGA[x].ID;
                                 break;
-                            }
-                            else
-                            {
-
-                                AttributeDictionary atvga = new AttributeDictionary();
-                                atvga.CodetypeID = "V";
-                                atvga.Name = listpro[i].VGA;
-                                atvga.WeightCriteraPoint = 0;
-                                db.AttributeDictionaries.Add(atvga);
-                                db.SaveChanges();
-                                var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idVGA2 = Convert.ToInt32(vganew.ID);
-                                break;
-                            }
+                            }                          
+                        }
+                        if (idVGA2 == 0)
+                        {
+                            AttributeDictionary atvga = new AttributeDictionary();
+                            atvga.CodetypeID = "V";
+                            atvga.Name = listpro[i].VGA;
+                            atvga.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(atvga);
+                            db.SaveChanges();
+                            var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idVGA2 = Convert.ToInt32(vganew.ID);
+                        }
+                        // nếu list VGA là rỗng
+                        if (listVGA.Count == 0&&idVGA2==0)
+                        {
+                            AttributeDictionary atvga = new AttributeDictionary();
+                            atvga.CodetypeID = "V";
+                            atvga.Name = listpro[i].VGA;
+                            atvga.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(atvga);
+                            db.SaveChanges();
+                            var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idVGA2 = Convert.ToInt32(vganew.ID);
                         }
                         // id HDD 3
                         for (int x = 0; x < listHDD.Count; x++)
@@ -392,20 +973,30 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 idHDD3 = listHDD[x].ID;
                                 break;
-                            }
-                            else
-                            {
-
-                                AttributeDictionary athddd = new AttributeDictionary();
-                                athddd.CodetypeID = "H";
-                                athddd.Name = listpro[i].HDD;
-                                athddd.WeightCriteraPoint = 0;
-                                db.AttributeDictionaries.Add(athddd);
-                                db.SaveChanges();
-                                var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idHDD3 = Convert.ToInt32(hddnew.ID);
-                                break;
-                            }
+                            }                          
+                        }
+                        if (idHDD3 == 0)
+                        {
+                            AttributeDictionary athddd = new AttributeDictionary();
+                            athddd.CodetypeID = "H";
+                            athddd.Name = listpro[i].HDD;
+                            athddd.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(athddd);
+                            db.SaveChanges();
+                            var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idHDD3 = Convert.ToInt32(hddnew.ID);
+                        }
+                        // nếu list HDD là rỗng 
+                        if (listHDD.Count == 0&&idHDD3==0)
+                        {
+                            AttributeDictionary athddd = new AttributeDictionary();
+                            athddd.CodetypeID = "H";
+                            athddd.Name = listpro[i].HDD;
+                            athddd.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(athddd);
+                            db.SaveChanges();
+                            var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idHDD3 = Convert.ToInt32(hddnew.ID);
                         }
                         // id Display 4
                         for (int x = 0; x < listDisplay.Count; x++)
@@ -414,19 +1005,31 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 idDisplay4 = listDisplay[x].ID;
                                 break;
-                            }
-                            else
-                            {
-                                AttributeDictionary athdisp = new AttributeDictionary();
-                                athdisp.CodetypeID = "D";
-                                athdisp.Name = listpro[i].Display;
-                                athdisp.WeightCriteraPoint = 0;
-                                db.AttributeDictionaries.Add(athdisp);
-                                db.SaveChanges();
-                                var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idDisplay4 = Convert.ToInt32(dispnew.ID);
-                                break;
-                            }
+                            }                         
+                        }
+                        if (idDisplay4 == 0)
+                        {
+                            AttributeDictionary athdisp = new AttributeDictionary();
+                            athdisp.CodetypeID = "D";
+                            athdisp.Name = listpro[i].Display;
+                            athdisp.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(athdisp);
+                            db.SaveChanges();
+                            var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idDisplay4 = Convert.ToInt32(dispnew.ID);
+                        }
+                        // nếu list Display là rỗng
+                        if (listDisplay.Count == 0&&idDisplay4==0)
+                        {
+
+                            AttributeDictionary athdisp = new AttributeDictionary();
+                            athdisp.CodetypeID = "D";
+                            athdisp.Name = listpro[i].Display;
+                            athdisp.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(athdisp);
+                            db.SaveChanges();
+                            var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idDisplay4 = Convert.ToInt32(dispnew.ID);
                         }
                         // id Ram
                         for (int x = 0; x < listRam.Count; x++)
@@ -435,20 +1038,30 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 idRam5 = listRam[x].ID;
                                 break;
-                            }
-                            else
-                            {
-
-                                AttributeDictionary athram = new AttributeDictionary();
-                                athram.CodetypeID = "R";
-                                athram.Name = listpro[i].RAM;
-                                athram.WeightCriteraPoint = 0;
-                                db.AttributeDictionaries.Add(athram);
-                                db.SaveChanges();
-                                var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idRam5 = Convert.ToInt32(ramnew.ID);
-                                break;
-                            }
+                            }                          
+                        }
+                        if (idRam5 == 0)
+                        {
+                            AttributeDictionary athram = new AttributeDictionary();
+                            athram.CodetypeID = "R";
+                            athram.Name = listpro[i].RAM;
+                            athram.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(athram);
+                            db.SaveChanges();
+                            var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idRam5 = Convert.ToInt32(ramnew.ID);
+                        }
+                        // nếu list Ram là rỗng 
+                        if (listRam.Count == 0&&idRam5==0)
+                        {
+                            AttributeDictionary athram = new AttributeDictionary();
+                            athram.CodetypeID = "R";
+                            athram.Name = listpro[i].RAM;
+                            athram.WeightCriteraPoint = 0;
+                            db.AttributeDictionaries.Add(athram);
+                            db.SaveChanges();
+                            var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            idRam5 = Convert.ToInt32(ramnew.ID);
                         }
                         // lấy id của sản phẩm mới được insert vào db
                         var pronewinsert = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -489,10 +1102,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         listpro.Remove(listpro[i]);
                         i = i - 1;
                     }
+                    #endregion
                 }
-                //list string id link kien bi trung
-                Session["danhsachLaptrunglinhkien"] = danhsachLaptrunglinhkien;
-                Session["listtrunglinhkien"] = listtrunglinhkien;
                 return RedirectToAction("index");
             }
         }
@@ -549,7 +1160,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             using (CPS_SolutionEntities db = new CPS_SolutionEntities())
             {
-               
                 List<LapData> listExistedLap = new List<LapData>();
                 List<ProductAlia> listNameIndb = new List<ProductAlia>();
                 var listAlias = (from x in db.ProductAlias select x);
@@ -558,21 +1168,21 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 {
                     for (int j = 0; j < listNameIndb.Count; j++)
                     {
-                      if(listpro[i].Name.Equals(listNameIndb[j].Name))
-                      {
-                          listExistedLap.Add(listpro[i]);
-                          listpro.RemoveAt(i);
-                          i--;
-                          break;
-                      }
+                        if (listpro[i].Name.Equals(listNameIndb[j].Name))
+                        {
+                            listExistedLap.Add(listpro[i]);
+                            listpro.RemoveAt(i);
+                            i--;
+                            break;
+                        }
                     }
 
-                  
+
 
                 }
                 TempData["listExistedLap"] = listExistedLap;
             }
-           
+
             // call function listerror
             listerror = ListErrorProduct(listpro);
             // call function listduplicate
@@ -602,6 +1212,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             Session["listduplicatenewLap"] = null;
             return RedirectToAction("Index");
         }
+
         /// <summary>
         /// upload file and save file
         /// </summary>
@@ -651,8 +1262,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
 
                 // dòng lỗi link ảnh lap
-                int anh1 = list[i].Imagelink.IndexOf("jpg");
-                int anh2 = list[i].Imagelink.IndexOf("png");
+                int anh1 = list[i].Imagelink.IndexOf(".jpg");
+                int anh2 = list[i].Imagelink.IndexOf(".png");
                 Uri myUri;
                 if (!Uri.TryCreate(list[i].Imagelink, UriKind.RelativeOrAbsolute, out myUri) || (anh1 + anh1 < 0))
                 {
@@ -712,6 +1323,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             Session["errorLineLap"] = errorLine;
             return errorlist;
         }
+
         /// <summary>
         /// Get duplicate product list
         /// </summary>
@@ -743,6 +1355,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             return duplicatelist;
         }
+
         /// <summary>
         /// Sản phẩm lỗi đã được sửa.
         /// </summary>
@@ -755,6 +1368,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 // get list product in session.
                 List<LapData> listpro = (List<LapData>)Session["listproductLap"];
                 List<LapData> listerror = (List<LapData>)Session["listerrorLap"];
+                // số sản phẩm lỗi trước khi được test
+                int count1 = listerror.Count;
                 List<List<LapData>> listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
                 String[] info = stringpro.ToString().Split('@');
                 string stt = info[0];
@@ -765,75 +1380,103 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 string HDD = info[5];
                 string Display = info[6];
                 string Ram = info[7];
-
-                // xóa sản phẩm trong list error và cập nhập vào session
-                LapData delpro = new LapData();
-                foreach (LapData p in listerror)
+                //gán vào list mới để kiểm tra
+                List<LapData> newlisterror = listerror;
+                foreach (LapData l in newlisterror)
                 {
-                    if (p.stt.Equals(stt))
+                    if (l.stt.Equals(stt))
                     {
-                        delpro = p;
+                        l.Name = Name;
+                        l.Imagelink = ImageLink;
+                        l.CPU = CPU;
+                        l.VGA = VGA;
+                        l.HDD = HDD;
+                        l.Display = Display;
+                        l.RAM = Ram;
                         break;
                     }
                 }
-                listerror.Remove(delpro);
-                Session["listerrorLap"] = listerror;
-                // xử lý sản phẩm lỗi đã được update.
-                LapData update = new LapData();
-                update.stt = stt;
-                update.Name = Name;
-                update.Imagelink = ImageLink;
-                update.CPU = CPU;
-                update.VGA = VGA;
-                update.HDD = HDD;
-                update.Display = Display;
-                update.RAM = Ram;
-                // so trùng với correct list và duplicate list
-                List<LapData> listtam = new List<LapData>();
-                listtam.Add(update);
+                List<LapData> newlisterror1 = ListErrorProduct(newlisterror);
+               // gọi hàm kiểm tra lỗi và đếm xem có bao nhiêu sản phẩm lỗi
+                int count2 = newlisterror1.Count;                           
+               // nếu phát hiện số sản phẩm lỗi giảm đi 1 thì kiểm tra trùng với list pro và list dup, xóa trong list error
+               if ((count1 - count2) == 1)
+               {
+                   // xóa sản phẩm trong list error và cập nhập vào session
+                   LapData delpro = new LapData();
+                   foreach (LapData p in newlisterror1)
+                   {
+                       if (p.stt.Equals(stt))
+                       {
+                           delpro = p;
+                           break;
+                       }
+                   }
+                   listerror.Remove(delpro);
+                   Session["listerrorLap"] = newlisterror1;
+                   // xử lý sản phẩm lỗi đã được update.
+                   LapData update = new LapData();
+                   update.stt = stt;
+                   update.Name = Name;
+                   update.Imagelink = ImageLink;
+                   update.CPU = CPU;
+                   update.VGA = VGA;
+                   update.HDD = HDD;
+                   update.Display = Display;
+                   update.RAM = Ram;
+                   // so trùng với correct list và duplicate list
+                   List<LapData> listtam = new List<LapData>();
+                   listtam.Add(update);
 
-                //Duyệt hết list correct
-                for (int i = 0; i < listpro.Count; i++)
-                {
-                    // nếu phát hiện trùng
-                    if (CompareStringHelper.CompareString(listpro[i].Name.ToString(), update.Name) >= 85)
-                    {
-                        listtam.Add(listpro[i]);
-                        listpro.Remove(listpro[i]);
-                        i--;
-                    }
-                }
+                   //Duyệt hết list correct
+                   for (int i = 0; i < listpro.Count; i++)
+                   {
+                       // nếu phát hiện trùng
+                       if (CompareStringHelper.CompareString(listpro[i].Name.ToString(), update.Name) >= 80)
+                       {
+                           listtam.Add(listpro[i]);
+                           listpro.Remove(listpro[i]);
+                           i--;
+                       }
+                   }
 
-                //Kiểm tra xem list tạm lớn hơn 1 tức là trong correct product có trùng.
-                if (listtam.Count > 1)
-                {
-                    listduplicate.Add(listtam);
-                }
-                // trong correct ko trùng thì bay qua list duplicate tìm trùng.
-                else
-                {
-                    int count = 0;
-                    for (int i = 0; i < listduplicate.Count; i++)
-                    {
-                        if (CompareStringHelper.CompareString(listduplicate[i][0].ToString(), update.Name) >= 85)
-                        {
-                            listduplicate[i].Add(update);
-                            count++;
-                            break;
-                        }
-                    }
-                    if (count == 0)
-                    {
-                        listpro.Add(update);
-                    }
+                   //Kiểm tra xem list tạm lớn hơn 1 tức là trong correct product có trùng.
+                   if (listtam.Count > 1)
+                   {
+                       listduplicate.Add(listtam);
+                   }
+                   // trong correct ko trùng thì bay qua list duplicate tìm trùng.
+                   else
+                   {
+                       int count = 0;
+                       for (int i = 0; i < listduplicate.Count; i++)
+                       {
+                           if (CompareStringHelper.CompareString(listduplicate[i][0].Name.ToString(), update.Name) >= 80)
+                           {
+                               listduplicate[i].Add(update);
+                               count++;
+                               break;
+                           }
+                       }
+                       if (count == 0)
+                       {
+                           listpro.Add(update);
+                       }
 
-                }
+                   }
+               }
+                // update listerrorLap
+               if ((count1 - count2) == 0)
+               {
+                   Session["listerrorLap"] = newlisterror1;
+               }
                 //update listError and listDuplicate
                 Session["listproductLap"] = listpro;
                 Session["listduplicateLap"] = listduplicate;
             }
+           
             ViewBag.listproduct = (List<LapData>)Session["listproductLap"];
-            ViewBag.listerror = (List<LapData>)Session["listerrorLap"];
+            ViewBag.listerror  = (List<LapData>)Session["listerrorLap"];
             ViewBag.listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
             // quá nhiều lỗi hiện thị ra dòng và sản phẩm bị lỗi.
             ViewBag.danhsachlaploi = (List<LapData>)Session["danhsachlaploi"];
@@ -841,6 +1484,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.errorLineLap = Session["errorLineLap"];
             return View();
         }
+
         /// <summary>
         /// Xóa một sản phẩm trong list đúng.
         /// </summary>
@@ -1112,6 +1756,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             return View();
         }
+
         /// <summary>
         /// Tách sản phẩm khi so trùng trong database
         /// </summary>
@@ -1151,7 +1796,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // lấy hết Ram trong db ra
                             var listRamdb = (from a in db.AttributeDictionaries where a.CodetypeID.Equals("R") select a);
                             List<AttributeDictionary> listRam = listRamdb.ToList();
-
+                            #region Kiểm tra trùng link kiện không ghi lại những linh kiện trùng để ghilog txt
+                            string errorCPU = "";
+                            string errorVGA = "";
+                            string errorHDD = "";
+                            string errorDisplay = "";
+                            string errorRam = "";
                             int errorCount = 0;
                             // trùng CPU 1
                             for (int x = 0; x < listCPU.Count; x++)
@@ -1160,10 +1810,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU, listCPU[x].Name) > 85)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU, listCPU[x].Name) > 80)
                                 {
                                     listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
+                                    errorCPU = listCPU[x].Name;
                                     break;
                                 }
                             }
@@ -1174,10 +1825,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA, listVGA[x].Name) > 85)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA, listVGA[x].Name) > 80)
                                 {
                                     listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
+                                    errorVGA = listVGA[x].Name;
                                     break;
                                 }
                             }
@@ -1188,10 +1840,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD, listHDD[x].Name) > 85)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD, listHDD[x].Name) > 80)
                                 {
                                     listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
+                                    errorHDD = listHDD[x].Name;
                                     break;
                                 }
                             }
@@ -1202,10 +1855,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display, listDisplay[x].Name) > 85)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display, listDisplay[x].Name) > 80)
                                 {
                                     listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
+                                    errorDisplay = listDisplay[x].Name;
                                     break;
                                 }
                             }
@@ -1216,18 +1870,465 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM, listRam[x].Name) > 85)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM, listRam[x].Name) > 80)
                                 {
                                     listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
+                                    errorRam = listRam[x].Name;
                                     break;
                                 }
                             }
-
-                            // cho vào list lỗi @@
+                            #endregion
+                            //-----------------------------------------------------------------------------------------------------------------
+                            //------- lưu những sản phẩm có linh kiện trùng và lưu linh kiện trùng với id sản phẩm vào logfile-----------------
                             if (errorCount > 0)
                             {
-                                danhsachLaptrunglinhkien.Add(listduplicatenew[i][j]);
+                                #region  lưu product và product alias
+                                Product p = new Product();
+                                p.ImageURL = listduplicatenew[i][j].Imagelink;
+                                p.Price = 0;
+                                p.TotalWeightPoint = 0;
+                                p.IsActive = false;
+
+                                // lưu vào database
+                                db.Products.Add(p);
+                                db.SaveChanges();
+
+                                String[] mangten = listduplicatenew[i][j].Name.ToString().Split(';');
+                                // nếu mảng tên >=2 thì lưu cái tên đầu tiên làm tên chính.
+                                if (mangten.Length >= 2)
+                                {
+                                    var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    int idinsert = Convert.ToInt32(pronew.ID);
+                                    ProductAlia proAli = new ProductAlia();
+                                    proAli.Name = mangten[0];
+                                    proAli.ProductID = idinsert;
+                                    proAli.IsMain = true;
+                                    proAli.IsActive = true;
+                                    db.ProductAlias.Add(proAli);
+                                    db.SaveChanges();
+                                }
+                                // nếu không thì lưu làm tên chính luôn.
+                                else
+                                {
+                                    var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    int idinsert = Convert.ToInt32(pronew.ID);
+                                    ProductAlia proAli = new ProductAlia();
+                                    proAli.Name = mangten[i];
+                                    proAli.ProductID = idinsert;
+                                    proAli.IsMain = true;
+                                    proAli.IsActive = true;
+                                    db.ProductAlias.Add(proAli);
+                                    db.SaveChanges();
+                                }
+
+                                // lấy max ID và thêm vào bảng alias tên phụ
+                                if (mangten.Length >= 2)
+                                {
+                                    // lấy id của sản phẩm mới được insert vào db
+                                    var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    int idinsert = Convert.ToInt32(pronew.ID);
+                                    // bỏ tên đầu tiên vì lưu làm tên chính rồi lưu tên phụ
+                                    for (int h = 1; h < mangten.Length; h++)
+                                    {
+                                        ProductAlia proAli = new ProductAlia();
+                                        proAli.Name = mangten[h];
+                                        proAli.ProductID = idinsert;
+                                        proAli.IsMain = false;
+                                        proAli.IsActive = true;
+                                        db.ProductAlias.Add(proAli);
+                                        db.SaveChanges();
+                                    }
+
+                                }
+                                #endregion
+                                string[] lines = null;
+                                // lấy txt ra
+                                string path = Server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
+                                if (System.IO.File.Exists(path))
+                                {
+                                    lines = System.IO.File.ReadAllLines(path);
+                                }
+                                string[] newline = new string[errorCount];
+                                // lấy id để lưu vào bảng productAtribute
+                                int idCPU1 = 0;
+                                int idVGA2 = 0;
+                                int idHDD3 = 0;
+                                int idDisplay4 = 0;
+                                int idRam5 = 0;
+                                // vị trí lưu trong mảng newline
+                                int vitriluu = 0;
+                                // id CPU 1
+                                #region
+                                for (int x = 0; x < listCPU.Count; x++)
+                                {
+                                    if (listduplicatenew[i][j].CPU.Equals(listCPU[x].Name))
+                                    {
+                                        idCPU1 = listCPU[x].ID;
+                                        break;
+                                    }                                
+                                }
+
+                                if(idCPU1==0)
+                                {   // nếu trùng CPU thì ghi log CPU cùng với ID product
+                                    if (!errorCPU.Equals(""))
+                                    {
+                                        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        int idpro = Convert.ToInt32(pronew.ID);
+                                        newline[vitriluu] = idpro.ToString() + '-' + errorCPU + ';' + listduplicatenew[i][j].CPU;
+                                        vitriluu++;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        // Lưu mới CPU và get ID mới lưu
+                                        AttributeDictionary atcpu = new AttributeDictionary();
+                                        atcpu.CodetypeID = "C";
+                                        atcpu.Name = listduplicatenew[i][j].CPU;
+                                        atcpu.WeightCriteraPoint = 0;
+                                        db.AttributeDictionaries.Add(atcpu);
+                                        db.SaveChanges();
+                                        var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        idCPU1 = Convert.ToInt32(cpunew.ID);
+                                        break;
+                                    }
+                                }
+                                //nếu List CPU là rỗng 
+                                if (listCPU.Count == 0)
+                                {
+                                    if (!errorCPU.Equals(""))
+                                    {
+                                        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        int idpro = Convert.ToInt32(pronew.ID);
+                                        newline[0] = idpro.ToString() + '-' + errorCPU + ';' + listduplicatenew[i][j].CPU;
+                                        vitriluu++;
+                                    }
+                                    else
+                                    {
+                                        AttributeDictionary atcpu = new AttributeDictionary();
+                                        atcpu.CodetypeID = "C";
+                                        atcpu.Name = listduplicatenew[i][j].CPU;
+                                        atcpu.WeightCriteraPoint = 0;
+                                        db.AttributeDictionaries.Add(atcpu);
+                                        db.SaveChanges();
+                                        var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        idCPU1 = Convert.ToInt32(cpunew.ID);
+                                    }
+                                }
+                                #endregion
+                                // id VGA 2
+                                #region
+                                for (int x = 0; x < listVGA.Count; x++)
+                                {
+                                    if (listduplicatenew[i][j].VGA.Equals(listVGA[x].Name))
+                                    {
+                                        idVGA2 = listVGA[x].ID;
+                                        break;
+                                    }                                  
+                                }
+                                if(idVGA2==0)
+                                {
+                                    // nếu VGA là trùng
+                                    if (!errorVGA.Equals(""))
+                                    {
+                                        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        int idpro = Convert.ToInt32(pronew.ID);
+                                        newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listduplicatenew[i][j].VGA;
+                                        vitriluu++;
+                                        break;
+                                    }
+                                    // ko trùng thì lưu VGA mới vào database và lấy ID
+                                    else
+                                    {
+
+                                        AttributeDictionary atvga = new AttributeDictionary();
+                                        atvga.CodetypeID = "V";
+                                        atvga.Name = listduplicatenew[i][j].VGA;
+                                        atvga.WeightCriteraPoint = 0;
+                                        db.AttributeDictionaries.Add(atvga);
+                                        db.SaveChanges();
+                                        var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        idVGA2 = Convert.ToInt32(vganew.ID);
+                                        break;
+                                    }
+                                }
+                                // nếu list VGA là rỗng
+                                if (listVGA.Count == 0)
+                                {
+                                    // nếu VGA là trùng
+                                    if (!errorVGA.Equals(""))
+                                    {
+                                        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        int idpro = Convert.ToInt32(pronew.ID);
+                                        newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listduplicatenew[i][j].VGA;
+                                        vitriluu++;
+                                    }
+                                    // ko trùng thì lưu VGA mới vào database và lấy ID
+                                    else
+                                    {
+                                        AttributeDictionary atvga = new AttributeDictionary();
+                                        atvga.CodetypeID = "V";
+                                        atvga.Name = listduplicatenew[i][j].VGA;
+                                        atvga.WeightCriteraPoint = 0;
+                                        db.AttributeDictionaries.Add(atvga);
+                                        db.SaveChanges();
+                                        var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        idVGA2 = Convert.ToInt32(vganew.ID);
+                                    }
+                                }
+                                #endregion
+                                // id HDD 3
+                                #region
+                                for (int x = 0; x < listHDD.Count; x++)
+                                {
+                                    if (listduplicatenew[i][j].HDD.Equals(listHDD[x].Name))
+                                    {
+                                        idHDD3 = listHDD[x].ID;
+                                        break;
+                                    }                                                                     
+                                }
+                                if (idHDD3 == 0)
+                                {
+                                    {
+                                        // nếu HDD là trùng
+                                        if (!errorHDD.Equals(""))
+                                        {
+                                            var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                            int idpro = Convert.ToInt32(pronew.ID);
+                                            newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listduplicatenew[i][j].HDD;
+                                            vitriluu++;
+                                            break;
+                                        }
+                                        // ko trùng thì lưu HDD mới vào database và lấy ID
+                                        else
+                                        {
+                                            AttributeDictionary athddd = new AttributeDictionary();
+                                            athddd.CodetypeID = "H";
+                                            athddd.Name = listduplicatenew[i][j].HDD;
+                                            athddd.WeightCriteraPoint = 0;
+                                            db.AttributeDictionaries.Add(athddd);
+                                            db.SaveChanges();
+                                            var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                            idHDD3 = Convert.ToInt32(hddnew.ID);
+                                            break;
+                                        }
+                                    }
+                                }
+                                // nếu list HDD là rỗng 
+                                if (listHDD.Count == 0)
+                                {
+                                    // nếu HDD là trùng
+                                    if (!errorHDD.Equals(""))
+                                    {
+                                        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        int idpro = Convert.ToInt32(pronew.ID);
+                                        newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listduplicatenew[i][j].HDD;
+                                        vitriluu++;
+                                    }
+                                    // ko trùng thì lưu HDD mới vào database và lấy ID
+                                    else
+                                    {
+                                        AttributeDictionary athddd = new AttributeDictionary();
+                                        athddd.CodetypeID = "H";
+                                        athddd.Name = listduplicatenew[i][j].HDD;
+                                        athddd.WeightCriteraPoint = 0;
+                                        db.AttributeDictionaries.Add(athddd);
+                                        db.SaveChanges();
+                                        var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        idHDD3 = Convert.ToInt32(hddnew.ID);
+                                    }
+                                }
+                                #endregion
+                                // id Display 4
+                                #region
+                                for (int x = 0; x < listDisplay.Count; x++)
+                                {
+                                    if (listduplicatenew[i][j].Display.Equals(listDisplay[x].Name))
+                                    {
+                                        idDisplay4 = listDisplay[x].ID;
+                                        break;
+                                    }                                  
+                                }
+                                if(idDisplay4==0)
+                                {
+                                    // nếu Display là trùng
+                                    if (!errorDisplay.Equals(""))
+                                    {
+                                        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        int idpro = Convert.ToInt32(pronew.ID);
+                                        newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listduplicatenew[i][j].Display;
+                                        vitriluu++;
+                                        break;
+                                    }
+                                    // ko trùng thì lưu Display mới vào database và lấy ID
+                                    else
+                                    {
+                                        AttributeDictionary athdisp = new AttributeDictionary();
+                                        athdisp.CodetypeID = "D";
+                                        athdisp.Name = listduplicatenew[i][j].Display;
+                                        athdisp.WeightCriteraPoint = 0;
+                                        db.AttributeDictionaries.Add(athdisp);
+                                        db.SaveChanges();
+                                        var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        idDisplay4 = Convert.ToInt32(dispnew.ID);
+                                        break;
+                                    }
+                                }
+                                // nếu list Display là rỗng
+                                if (listDisplay.Count == 0)
+                                {
+                                    // nếu Display là trùng
+                                    if (!errorDisplay.Equals(""))
+                                    {
+                                        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        int idpro = Convert.ToInt32(pronew.ID);
+                                        newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listduplicatenew[i][j].Display;
+                                        vitriluu++;
+                                    }
+                                    // ko trùng thì lưu Display mới vào database và lấy ID
+                                    else
+                                    {
+                                        AttributeDictionary athdisp = new AttributeDictionary();
+                                        athdisp.CodetypeID = "D";
+                                        athdisp.Name = listduplicatenew[i][j].Display;
+                                        athdisp.WeightCriteraPoint = 0;
+                                        db.AttributeDictionaries.Add(athdisp);
+                                        db.SaveChanges();
+                                        var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        idDisplay4 = Convert.ToInt32(dispnew.ID);
+                                    }
+                                }
+                                #endregion
+                                // id Ram
+                                #region
+                                for (int x = 0; x < listRam.Count; x++)
+                                {
+                                    if (listduplicatenew[i][j].RAM.Equals(listRam[x].Name))
+                                    {
+                                        idRam5 = listRam[x].ID;
+                                        break;
+                                    }                                   
+                                }
+                                if(idRam5==0)
+                                {
+                                    // nếu Ram là trùng ghi log
+                                    if (!errorRam.Equals(""))
+                                    {
+                                        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        int idpro = Convert.ToInt32(pronew.ID);
+                                        newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listduplicatenew[i][j].RAM;
+                                        vitriluu++;
+                                        break;
+                                    }
+                                    // ko trùng thì lưu Ram mới vào database và lấy ID
+                                    else
+                                    {
+                                        AttributeDictionary athram = new AttributeDictionary();
+                                        athram.CodetypeID = "R";
+                                        athram.Name = listduplicatenew[i][j].RAM;
+                                        athram.WeightCriteraPoint = 0;
+                                        db.AttributeDictionaries.Add(athram);
+                                        db.SaveChanges();
+                                        var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        idRam5 = Convert.ToInt32(ramnew.ID);
+                                        break;
+                                    }
+                                }
+
+                                // nếu list Ram là rỗng 
+                                if (listRam.Count == 0)
+                                {
+                                    // nếu Ram là trùng ghi log
+                                    if (!errorRam.Equals(""))
+                                    {
+                                        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        int idpro = Convert.ToInt32(pronew.ID);
+                                        newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listduplicatenew[i][j].RAM;
+                                        vitriluu++;
+                                    }
+                                    // ko trùng thì lưu Display mới vào database và lấy ID
+                                    else
+                                    {
+                                        AttributeDictionary athram = new AttributeDictionary();
+                                        athram.CodetypeID = "R";
+                                        athram.Name = listduplicatenew[i][j].RAM;
+                                        athram.WeightCriteraPoint = 0;
+                                        db.AttributeDictionaries.Add(athram);
+                                        db.SaveChanges();
+                                        var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                        idRam5 = Convert.ToInt32(ramnew.ID);
+                                    }
+                                }
+                                #endregion
+
+                                #region  Gộp hai mảng lại thành một rồi ghi đè lại vào file txt
+                                //Gộp hai bảng thành mảng mới và lưu vào txt lại
+                                string[] save = new string[lines.Length + newline.Length];
+                                for (int e = 0; e < lines.Length; e++)
+                                {
+                                    save[e] = lines[e];
+                                }
+                                for (int e = 0; e < newline.Length; e++)
+                                {
+                                    save[e + lines.Length] = newline[e];
+                                }
+                                // ghi lại vào txt
+                                System.IO.File.WriteAllLines(path, save);
+                                #endregion
+
+                                #region Lưu vào bảng productAtribute
+                                // lấy id của sản phẩm mới được insert vào db
+                                var pronewinsert = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                int idinsertnew = Convert.ToInt32(pronewinsert.ID);
+
+                                // nếu CPU không trùng database
+                                if (errorCPU.Equals(""))
+                                {
+                                    //1 lưu idcpu vào bảng ProductAttribute
+                                    ProductAttribute atProCPU = new ProductAttribute();
+                                    atProCPU.AttributeID = idCPU1;
+                                    atProCPU.ProductID = idinsertnew;
+                                    db.ProductAttributes.Add(atProCPU);
+                                    db.SaveChanges();
+                                }
+                                if (errorRam.Equals(""))
+                                {
+                                    //2 lưu idRam vào bảng ProductAttribute
+                                    ProductAttribute atProRam = new ProductAttribute();
+                                    atProRam.AttributeID = idRam5;
+                                    atProRam.ProductID = idinsertnew;
+                                    db.ProductAttributes.Add(atProRam);
+                                    db.SaveChanges();
+                                }
+                                if (errorHDD.Equals(""))
+                                {
+                                    //3 lưu idhdd vào bảng ProductAttribute
+                                    ProductAttribute atProHDD = new ProductAttribute();
+                                    atProHDD.AttributeID = idHDD3;
+                                    atProHDD.ProductID = idinsertnew;
+                                    db.ProductAttributes.Add(atProHDD);
+                                    db.SaveChanges();
+                                }
+                                if (errorDisplay.Equals(""))
+                                {
+                                    //4 lưu idDisplay vào bảng ProductAttribute
+                                    ProductAttribute atProDisp = new ProductAttribute();
+                                    atProDisp.AttributeID = idDisplay4;
+                                    atProDisp.ProductID = idinsertnew;
+                                    db.ProductAttributes.Add(atProDisp);
+                                    db.SaveChanges();
+                                }
+                                if (errorVGA.Equals(""))
+                                {
+                                    //5 lưu idvag vào bảng ProductAttribute
+                                    ProductAttribute atProVAG = new ProductAttribute();
+                                    atProVAG.AttributeID = idVGA2;
+                                    atProVAG.ProductID = idinsertnew;
+                                    db.ProductAttributes.Add(atProVAG);
+                                    db.SaveChanges();
+                                }
+
+                                #endregion
                                 // thêm biến đếm số dòng lỗi được thêm vào.                   
                                 listduplicatenew[i].RemoveAt(j);
                                 j = j - 1;
@@ -1237,7 +2338,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 //-------------- nếu không phát hiện trùng linh kiện thì cho add mới sản phẩm ---------------------------
                                 Product p = new Product();
 
-                                p.URL = listduplicatenew[i][j].Imagelink;
+                                p.ImageURL = listduplicatenew[i][j].Imagelink;
                                 p.Price = 0;
                                 p.TotalWeightPoint = 0;
                                 p.IsActive = false;
@@ -1290,7 +2391,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     }
 
                                 }
-
+                            
                                 // lấy id để lưu vào bảng productAtribute
                                 int idCPU1 = 0;
                                 int idVGA2 = 0;
@@ -1304,19 +2405,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         idCPU1 = listCPU[x].ID;
                                         break;
-                                    }
-                                    else
-                                    {
-                                        AttributeDictionary atcpu = new AttributeDictionary();
-                                        atcpu.CodetypeID = "C";
-                                        atcpu.Name = listduplicatenew[i][j].CPU;
-                                        atcpu.WeightCriteraPoint = 0;
-                                        db.AttributeDictionaries.Add(atcpu);
-                                        db.SaveChanges();
-                                        var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                        idCPU1 = Convert.ToInt32(cpunew.ID);
-                                        break;
-                                    }
+                                    }                                  
+                                }
+                                if (idCPU1 == 0)
+                                {
+                                    AttributeDictionary atcpu = new AttributeDictionary();
+                                    atcpu.CodetypeID = "C";
+                                    atcpu.Name = listduplicatenew[i][j].CPU;
+                                    atcpu.WeightCriteraPoint = 0;
+                                    db.AttributeDictionaries.Add(atcpu);
+                                    db.SaveChanges();
+                                    var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    idCPU1 = Convert.ToInt32(cpunew.ID);
                                 }
                                 // id VGA 2
                                 for (int x = 0; x < listVGA.Count; x++)
@@ -1325,20 +2425,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         idVGA2 = listVGA[x].ID;
                                         break;
-                                    }
-                                    else
-                                    {
-
-                                        AttributeDictionary atvga = new AttributeDictionary();
-                                        atvga.CodetypeID = "V";
-                                        atvga.Name = listduplicatenew[i][j].VGA;
-                                        atvga.WeightCriteraPoint = 0;
-                                        db.AttributeDictionaries.Add(atvga);
-                                        db.SaveChanges();
-                                        var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                        idVGA2 = Convert.ToInt32(vganew.ID);
-                                        break;
-                                    }
+                                    }                                   
+                                }
+                                if (idVGA2 == 0)
+                                {
+                                    AttributeDictionary atvga = new AttributeDictionary();
+                                    atvga.CodetypeID = "V";
+                                    atvga.Name = listduplicatenew[i][j].VGA;
+                                    atvga.WeightCriteraPoint = 0;
+                                    db.AttributeDictionaries.Add(atvga);
+                                    db.SaveChanges();
+                                    var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    idVGA2 = Convert.ToInt32(vganew.ID);
                                 }
                                 // id HDD 3
                                 for (int x = 0; x < listHDD.Count; x++)
@@ -1347,20 +2445,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         idHDD3 = listHDD[x].ID;
                                         break;
-                                    }
-                                    else
-                                    {
-
-                                        AttributeDictionary athddd = new AttributeDictionary();
-                                        athddd.CodetypeID = "H";
-                                        athddd.Name = listduplicatenew[i][j].HDD;
-                                        athddd.WeightCriteraPoint = 0;
-                                        db.AttributeDictionaries.Add(athddd);
-                                        db.SaveChanges();
-                                        var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                        idHDD3 = Convert.ToInt32(hddnew.ID);
-                                        break;
-                                    }
+                                    }                                 
+                                }
+                                if (idHDD3 == 0)
+                                {
+                                    AttributeDictionary athddd = new AttributeDictionary();
+                                    athddd.CodetypeID = "H";
+                                    athddd.Name = listduplicatenew[i][j].HDD;
+                                    athddd.WeightCriteraPoint = 0;
+                                    db.AttributeDictionaries.Add(athddd);
+                                    db.SaveChanges();
+                                    var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    idHDD3 = Convert.ToInt32(hddnew.ID);
                                 }
                                 // id Display 4
                                 for (int x = 0; x < listDisplay.Count; x++)
@@ -1369,19 +2465,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         idDisplay4 = listDisplay[x].ID;
                                         break;
-                                    }
-                                    else
-                                    {
-                                        AttributeDictionary athdisp = new AttributeDictionary();
-                                        athdisp.CodetypeID = "D";
-                                        athdisp.Name = listduplicatenew[i][j].Display;
-                                        athdisp.WeightCriteraPoint = 0;
-                                        db.AttributeDictionaries.Add(athdisp);
-                                        db.SaveChanges();
-                                        var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                        idDisplay4 = Convert.ToInt32(dispnew.ID);
-                                        break;
-                                    }
+                                    }                                 
+                                }
+                                if (idDisplay4 == 0)
+                                {
+                                    AttributeDictionary athdisp = new AttributeDictionary();
+                                    athdisp.CodetypeID = "D";
+                                    athdisp.Name = listduplicatenew[i][j].Display;
+                                    athdisp.WeightCriteraPoint = 0;
+                                    db.AttributeDictionaries.Add(athdisp);
+                                    db.SaveChanges();
+                                    var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    idDisplay4 = Convert.ToInt32(dispnew.ID);
                                 }
                                 // id Ram
                                 for (int x = 0; x < listRam.Count; x++)
@@ -1390,20 +2485,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         idRam5 = listRam[x].ID;
                                         break;
-                                    }
-                                    else
-                                    {
-
-                                        AttributeDictionary athram = new AttributeDictionary();
-                                        athram.CodetypeID = "R";
-                                        athram.Name = listduplicatenew[i][j].RAM;
-                                        athram.WeightCriteraPoint = 0;
-                                        db.AttributeDictionaries.Add(athram);
-                                        db.SaveChanges();
-                                        var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                        idRam5 = Convert.ToInt32(ramnew.ID);
-                                        break;
-                                    }
+                                    }                                  
+                                }
+                                if (idRam5 == 0)
+                                {
+                                    AttributeDictionary athram = new AttributeDictionary();
+                                    athram.CodetypeID = "R";
+                                    athram.Name = listduplicatenew[i][j].RAM;
+                                    athram.WeightCriteraPoint = 0;
+                                    db.AttributeDictionaries.Add(athram);
+                                    db.SaveChanges();
+                                    var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    idRam5 = Convert.ToInt32(ramnew.ID);
                                 }
                                 // lấy id của sản phẩm mới được insert vào db
                                 var pronewinsert = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -1461,5 +2554,82 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 return View();
             }
         }
+
+        /// <summary>
+        /// Gộp sản phẩm khi so trùng trong database
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult gopdatabase(String valuesgop)
+        {
+            using (CPS_SolutionEntities db = new CPS_SolutionEntities())
+            {
+                List<List<LapData>> listduplicatenew = (List<List<LapData>>)Session["listduplicatenewLap"];
+                String[] tachdup = valuesgop.ToString().Split('@');
+                //check saved
+                int count2 = 0;
+                // duyệt hết list duplicate lớn
+                for (int i = 0; i < listduplicatenew.Count; i++)
+                {
+                    // duyệt từng listduplicate nhỏ 
+                    for (int j = 0; j < listduplicatenew[i].Count; j++)
+                    {
+                        // nếu phát hiện list nào có chứa giá trị tách trả về
+                        if (tachdup[1].Equals(listduplicatenew[i][j].stt))
+                        {                          
+                            String[] mangten = listduplicatenew[i][1].Name.ToString().Split(';');
+                            for (int h = 0; h < mangten.Length; h++)
+                            {
+
+                                //lấy product trong database ra kiểm tra xem có trong database chưa.
+                                List<ProductAlia> listmap = new List<ProductAlia>();
+                                var resource1 = (from x in db.ProductAlias select x);
+                                listmap = resource1.ToList();
+                                int count1 = 0;
+                                for (int r = 0; r < listmap.Count; r++)
+                                {
+                                    // tên sản phẩm đã có trong database thì không lưu bỏ qua
+                                    if (listmap[r].Name.Equals(mangten[h]))
+                                    {
+                                        count1++;
+
+                                    }
+                                }
+                                // tên sản phẩm chưa có trong database lưu vào
+                                if (count1 == 0)
+                                {
+                                    ProductAlia a = new ProductAlia();
+                                    a.Name = mangten[h];
+                                    a.ProductID = Convert.ToInt32(listduplicatenew[i][0].stt);
+                                    a.IsMain = false;
+                                    a.IsActive = true;
+                                    db.ProductAlias.Add(a);
+                                    db.SaveChanges();
+                                    count2++;
+                                }                              
+                            }
+                           
+                        }
+
+                        // sau khi lưu hoàn thành xóa list dup nhỏ này đi gán lại giá trị vào session.
+                        if (count2 > 0)
+                        {
+                            listduplicatenew.RemoveAt(i);
+                            Session["listduplicatenewLap"] = listduplicatenew;
+                            i--;
+                            break;                 
+                        }
+                    }
+                    // đã thực hiện lưu xong thoát khỏi vòng lặp lớn
+                    if (count2 > 0)
+                    {
+                        break;
+                    }
+                }
+                ViewBag.listduplicatenew = (List<List<LapData>>)Session["listduplicatenewLap"];
+                return View();
+            }
+        }
+
+
     }
 }

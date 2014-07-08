@@ -8,117 +8,168 @@
     List<ProductMap> listError = ViewBag.listerror;
     List<List<ProductMap>> listDup = ViewBag.listduplicate;
     int countlistdup = 0;
+    int countlist = 0;
     if (listDup != null)
     {
         countlistdup = listDup.Count;
     }
+    if (list != null)
+    {
+        countlist = list.Count;
+    }
+    List<List<ProductMap>> listDupnew = ViewBag.listduplicatenew;
+    int countlistdup1 = 0;
+    if (listDupnew != null)
+    {
+        countlistdup1 = listDupnew.Count;
+    }
+    List<ProductMap> danhsachsanphamloi = ViewBag.danhsachloi;
+
+    // dòng bị lỗi
+    List<String> errorLine = ViewBag.errorLine;
+    int sodongloi = 0;
+    String[] loiName = null; int checkName = 0;
+    String[] loitrongso = null;
+    String[] loiloai = null;
+
+    if (errorLine != null)
+    {
+        // số dòng bị lỗi
+        sodongloi = Convert.ToInt32(errorLine[0]);
+        // lỗi Name
+        loiName = errorLine[1].ToString().Split(',');
+        // lỗi link image
+        loitrongso = errorLine[2].ToString().Split(',');
+        // lỗi Display
+        loiloai = errorLine[3].ToString().Split(',');
+    }
 }
 <!--tab2-------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
-<div id="ErrorID">
-    <div class="da-message error">
-        Lỗi dữ liệu:
+ <!--tab2-------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
+            <div id="ErrorID">
+                <div class="da-message error">
+                    Lỗi dữ liệu:
                                         <ul>
-                                            @if (listError != null)
-                                            {
-                                                foreach (ProductMap p in listError)
-                                                {
-                                                    if (p.ten.Length < 5 || p.ten.Length > 100)
-                                                    {
-                                                <li>Tên sản phẩm phải từ 5 đến 100 ký tự!</li>
-                                                        break;
-                                                    }
-                                                }
-                                                foreach (ProductMap p in listError)
-                                                {
-                                                    if (p.trongso.ToString().Length < 1)
-                                                    {
-                                                <li>Trọng số không được để trống!</li>
-                                                        break;
-                                                    }
-                                                }
-                                                foreach (ProductMap p in listError)
-                                                {
-                                                    if (p.loai.Length < 1)
-                                                    {
-                                                <li>Loại không được để trống!</li>
-                                                        break;
-                                                    }
-                                                }
-                                            }
+                                              @if (errorLine != null && listError != null)
+                                              {
+                                                  if (loiName.Length > 0)
+                                                  {                     
+                                                <li>Tên thành phần phải từ 5 đến 100 ký tự!</li>                 
+                                                  }
+                                                  if (loitrongso.Length > 0)
+                                                  {                     
+                                                <li>Trọng số thành phần phải là số!</li>                   
+                                                  }
+                                                  if (loiloai.Length > 0)
+                                                  {                     
+                                                <li>Loại thành phần phải thuộc dãy sau C,V,H,D,R lần lượt là CPU,VGA,HDD,Display,Ram</li>  
+                                                  }
+                                              }
                                         </ul>
-    </div>
-    <div class="da-panel collapsible">
-        <div class="da-panel-header">
-            <span class="da-panel-title">
-                <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                Dữ liệu bị lỗi.
-            </span>
+                </div>
+                <div class="da-panel collapsible">
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Dữ liệu lỗi.
+                        </span>
 
-            <span class="da-panel-toggler"></span>
-        </div>
+                        <span class="da-panel-toggler"></span>
+                    </div>
 
-        <div class="da-panel-content">
-            <table class="da-table">
-                <thead>
-                    <tr role="row">
-                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 198px;">STT</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên thành phần</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Trọng số</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 171px;">Loại thành phần</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">Thực hiện</th>
-                    </tr>
-                </thead>
+                    <div class="da-panel-content">
+                        <table class="da-table">
+                            <thead>
+                                <tr role="row">
+                                    <th style="width: 200px;">STT</th>
+                                    <th >Tên thành phần</th>
+                                    <th style="width: 171px;">Trọng số</th>
+                                    <th style="width: 171px;">Loại thành phần</th>
+                                    <th style="width: 60px;">Thực hiện</th>
+                                </tr>
+                            </thead>
 
-                <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    @if (listError != null)
-                    {
-                        foreach (ProductMap p in listError)
-                        {
-                                                         
-                        <tr class="odd">
-                            <td class=" sorting_1">
-                                <label>@p.stt</label></td>
-                            <td class=" ">
-                                @if (p.stt.ToString().Length < 5 || p.stt.ToString().Length > 100)
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                @if (listError != null)
                                 {
-                                    <input type="text" id="idTen_@p.stt"  name ="tenpro_@p.stt" style="border-color:red" value ="@p.ten"/>
-                                }
-                                else
-                                {
-                                    <input type="text" id="idTen_@p.stt" _ name ="tenpro_@p.stt" value ="@p.ten"/>
-                                }
-                            </td>
-                            <td class=" ">
-                                @if (p.trongso.ToString().Length < 1 || p.stt.ToString().Length > 5)
-                                {
-                                    <input type="text" id="idTrongSo_@p.stt"  name ="trongsopro_@p.stt" style="border-color:red" value ="@p.trongso"/>
-                                }
-                                else
-                                {
-                                    <input type="text" id="idTrongSo_@p.stt" name ="trongsopro_@p.stt" value ="@p.trongso"/>
-                                }
-                            </td>
-                            <td class=" ">
+                                    foreach (ProductMap p in listError)
+                                    {                                                        
+                                         <tr>
+                                        <td style="width: 15px;" class=" "><label>@p.stt</label> </td>
+                                        <!------------------------ Tên------------------------------>
+                                        @for (int i = 0; i < loiName.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiName[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea  id="idTen_@p.stt"  name ="tenpro_@p.stt" cols="35" rows="1" style="border-color: red"> @p.ten</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea  id="idTen_@p.stt"  name ="tenpro_@p.stt" cols="35" rows="1"> @p.ten</textarea></td> 
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+                                        <!------------------------ Trọng số------------------------------>
+                                        @for (int i = 0; i < loitrongso.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loitrongso[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea  cols="35"  id="idTrongSo_@p.stt"  name ="trongsopro_@p.stt" rows="1" style="border-color: red"> @p.trongso</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea  cols="35"  id="idTrongSo_@p.stt"  name ="trongsopro_@p.stt" rows="1">@p.trongso</textarea>
+                                            </td> 
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
 
-                                @if (p.loai.Length < 1 || p.stt.ToString().Length > 5)
-                                {
-                                    <input type="text" id="idLoai_@p.stt" name="loaipro_@p.stt" style="border-color:red" value ="@p.loai"/>
+                                        <!------------------------ Loại------------------------------>
+                                        @for (int i = 0; i < loiloai.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiloai[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea  cols="35" rows="1" id="idLoai_@p.stt" name="loaipro_@p.stt" style="border-color: red"> @p.loai</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea  cols="35" id="idLoai_@p.stt" name="loaipro_@p.stt" rows="1"> @p.loai</textarea></td>
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+                                        <td class=" ">
+                                            <a onclick="luusanphamloi(@p.stt)">
+                                                <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" />Lưu</a>
+                                        </td>
+                                    </tr> 
+                                                      
+                                    }
                                 }
-                                else
-                                {
-                                    <input type="text" id="idLoai_@p.stt" name="loaipro_@p.stt" value ="@p.loai"/>
-                                }
-                            </td>
-                            <td class=" ">
-                                <a onclick="luusanphamloi(@p.stt)">
-                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" />Lưu</a>
-                            </td>
-                        </tr>                                                       
-                        }
-                    }
-                </tbody>
-            </table>      
-        </div>
-    </div>
-</div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--ket thuc tab2------------------------------------------------------------------------------------------------------------------------------------------------------>
 <!--ket thuc tab2-------------------------------------------------------------------------------------->
