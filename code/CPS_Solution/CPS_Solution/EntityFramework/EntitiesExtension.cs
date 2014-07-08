@@ -20,8 +20,15 @@ namespace CPS_Solution.EntityFramework
         private string _ramName;
         private string _name;
 
+        private int _cpuScore;
+        private int _vgaScore;
+        private int _ramScore;
+        private int _hddScore;
+        private int _displayScore;
+
 
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
+
         public String Name
         {
             get
@@ -122,6 +129,8 @@ namespace CPS_Solution.EntityFramework
             }
             set { this._ramId = value; }
         }
+
+
         public int DisplayID
         {
             get
@@ -142,7 +151,6 @@ namespace CPS_Solution.EntityFramework
             }
             set { this._displayId = value; }
         }
-
         public string strCPU {
             get {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
@@ -160,7 +168,6 @@ namespace CPS_Solution.EntityFramework
                 return _cpuName;
             }
         }
-
         public string strVGA
         {
             get
@@ -180,7 +187,6 @@ namespace CPS_Solution.EntityFramework
                 return _vgaName;
             }
         }
-
         public string strRAM
         {
             get
@@ -200,7 +206,6 @@ namespace CPS_Solution.EntityFramework
                 return _ramName;
             }
         }
-
         public string strHDD
         {
             get
@@ -220,7 +225,6 @@ namespace CPS_Solution.EntityFramework
                 return _hddName;
             }
         }
-
         public string strDisplay
         {
             get
@@ -238,6 +242,102 @@ namespace CPS_Solution.EntityFramework
                     }
                 }
                 return _displayName;
+            }
+        }
+
+        public int cpuScore 
+        {
+            get
+            {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "C" && dic.ID == attribute.AttributeID)
+                        {
+                            return (int)dic.WeightCriteraPoint;
+                        }
+                    }
+                }
+                return _cpuScore;
+            }
+        }
+        public int vgaScore
+        {
+            get
+            {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "V" && dic.ID == attribute.AttributeID)
+                        {
+                            return (int)dic.WeightCriteraPoint;
+                        }
+                    }
+                }
+                return _vgaScore;
+            }
+        }
+        public int ramScore
+        {
+            get
+            {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "R" && dic.ID == attribute.AttributeID)
+                        {
+                            return (int)dic.WeightCriteraPoint;
+                        }
+                    }
+                }
+                return _ramScore;
+            }
+        }
+        public int hddScore
+        {
+            get
+            {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "H" && dic.ID == attribute.AttributeID)
+                        {
+                            return (int)dic.WeightCriteraPoint;
+                        }
+                    }
+                }
+                return _hddScore;
+            }
+        }
+        public int displayScore
+        {
+            get
+            {
+                var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
+                var attDictionarys = context.AttributeDictionaries.ToList();
+                foreach (var attribute in attributes)
+                {
+                    foreach (var dic in attDictionarys)
+                    {
+                        if (dic.CodetypeID == "D" && dic.ID == attribute.AttributeID)
+                        {
+                            return (int)dic.WeightCriteraPoint;
+                        }
+                    }
+                }
+                return _displayScore;
             }
         }
     }
