@@ -1,0 +1,207 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
+
+@{
+    ViewBag.Title = "Kết quả so sánh chi tiết";
+    Layout = "~/Views/Shared/_Compare.cshtml";
+}
+
+<div class="breadcrumb-container" @*style="height:60px"*@>
+    <div class="container" >
+        <div class="relative">
+            <ul class="bc push-up unstyled clearfix">
+                <li>Trang chủ</li>
+                <li class="active">So sánh</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .parent {
+        position: relative;
+    }
+
+    .child {
+        /* CSS for warpper */
+        position: absolute;
+        top: 0; right: 5px;
+        width: 50px;
+        height: 60px;
+        background-color: #F7A191;
+        border-radius: 10px;
+        opacity: 0.8;
+        /* CSS for text */
+        text-align: center;
+        vertical-align: middle;
+        line-height: 60px;
+        font-weight: bold;
+        font-size: 30px;
+    }
+
+    .center {
+        margin: auto;
+        width: inherit;
+    }
+
+    .handle {
+        cursor: move;
+        width: 20%;
+        text-align: center;
+    }
+
+    .sortable-with-handles {
+        list-style-type: decimal;
+    }
+
+    .disable-field {
+        background-color: rgba(250, 111, 87, 0.73);
+        width: 20%;
+        text-align: center;
+    }
+
+    .data-field {
+        text-align:center;
+    }
+
+    li.sortable-placeholder {
+			border: 1px dashed rgba(250, 111, 87, 0.73);
+			background: none;
+		}
+</style>
+
+<main id="main-content" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="m-t-b clearfix">
+                <section class="col-xs-12 col-sm-4 col-md-3" style="margin-top: 0%">
+                    <section class="sidebar push-up">
+                        <!-- Search Panel -->
+
+                        <!-- // Search Panel -->
+                    </section>
+
+                </section>
+                <section class="col-xs-12 col-sm-8 col-md-12">
+                    <div class="grid m-t-b add-cart">
+                        @{ int bestProductID = Model.ElementAt(1).ID; }
+                        <ul class="sortable-with-handles">
+                            <li class="disabled">
+                                <table class="table">
+                                    <tr>
+                                        <td class="disable-field"><h4>Tên sản phẩm</h4></td>
+                                        <td style="width:5px;">&nbsp;</td>
+                                        @foreach (var item in Model) {
+                                            <td class="data-field">@Html.DisplayFor(modelItem => item.Name)</td>
+                                        }
+                                        <td style="width:5px;">&nbsp;</td>
+                                    </tr>
+                                </table>
+                            </li>
+                            <li draggable="true" id="scoreCPU">
+                                <table class="table">
+                                    <tr>
+                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Chip xử lý</td>
+                                        <td style="width:5px;">&nbsp;</td>
+                                        @foreach (var item in Model) {
+                                            <td class="data-field">@Html.DisplayFor(modelItem => item.strCPU)</td>
+                                            <td style="width:5px;" class="cpuScore">@item.cpuScore</td>
+                                        }
+                                    </tr>
+                                </table>
+                            </li>
+                            <li draggable="true" id="scoreVGA">
+                                <table class="table">
+                                    <tr>
+                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Card màn hình</td>
+                                        <td style="width:5px;">&nbsp;</td>
+                                        @foreach (var item in Model) {
+                                            <td class="data-field">@Html.DisplayFor(modelItem => item.strVGA)</td>
+                                            <td style="width:5px;" class="vgaScore">@item.vgaScore</td>
+                                        }
+                                    </tr>
+                                </table>
+                            </li>
+                            <li draggable="true" id="scoreRAM">
+                                <table class="table">
+                                    <tr>
+                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Bộ nhớ đệm</td>
+                                        <td style="width:5px;">&nbsp;</td>
+                                        @foreach (var item in Model) {
+                                            <td class="data-field">@Html.DisplayFor(modelItem => item.strRAM)</td>
+                                            <td style="width:5px;" class="ramScore">@item.ramScore</td>
+                                        }
+                                    </tr>
+                                </table>
+                            </li>
+                            <li draggable="true" id="scoreHDD">
+                                <table class="table">
+                                    <tr>
+                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Ổ cứng</td>
+                                        <td style="width:5px;">&nbsp;</td>
+                                        @foreach (var item in Model) {
+                                            <td class="data-field">@Html.DisplayFor(modelItem => item.strHDD)</td>
+                                            <td style="width:5px;" class="hddScore">@item.hddScore</td>
+                                        }
+                                    </tr>
+                                </table>
+                            </li>
+                            <li draggable="true" id="scoreDisplay">
+                                <table class="table">
+                                    <tr>
+                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Độ phân giải</td>
+                                        <td style="width:5px;">&nbsp;</td>
+                                        @foreach (var item in Model) {
+                                            <td class="data-field">@Html.DisplayFor(modelItem => item.strDisplay)</td>
+                                            <td style="width:5px;" class="displayScore">@item.displayScore</td>
+                                        }
+                                    </tr>
+                                </table>
+                            </li>
+                            <li class="disabled">
+                                <table class="table">
+                                    <tr>
+                                        <td class="disable-field"><h4>Tổng điểm</h4></td>
+                                        <td style="width:5px;">&nbsp;</td>
+                                        @foreach (var item in Model) {
+                                            <td class="data-field totalScore"></td>
+                                        }
+                                        <td style="width:5px;">&nbsp;</td>
+                                    </tr>
+                                </table>
+                            </li>
+                        </ul>
+                    </div>                 
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    $(function () {
+
+        var pro01_cpuScore = $('.cpuScore')[0].innerHTML;
+        var pro01_vgaScore = $('.vgaScore')[0].innerHTML;
+        var pro01_ramScore = $('.ramScore')[0].innerHTML;
+        var pro01_hddScore = $('.hddScore')[0].innerHTML;
+        var pro01_displayScore = $('.displayScore')[0].innerHTML;
+        var pro01_total = (pro01_cpuScore + pro01_vgaScore) * 6 + (pro01_ramScore + pro01_hddScore + pro01_displayScore) * 4
+        $('.totalScore').append(pro01_total);
+
+	    $('.sortable-with-handles').sortable({
+	        handle: '.handle',
+	        items: ':not(.disabled)'
+	    }).bind('sortupdate', function () {
+	        console.log($('#scoreRAM').index());
+	    });
+	});
+
+	
+
+	
+
+
+</script>
+
+
+
+
