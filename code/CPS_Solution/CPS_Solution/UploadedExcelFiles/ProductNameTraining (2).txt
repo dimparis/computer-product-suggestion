@@ -1,3 +1,7 @@
+<<<<<<< .mine
+85-Intel Core 9999990;Intel Core 9999992
+85-NVIDIA 99699999923;NVIDIA 99699999922
+=======
 43-Intel, Core i3 Haswell, 4010U, 1.70 GHz;Intel, Core i3 Haswell, 4005U, 1.70 GHz
 43-DDR3L (2 khe RAM), 2 GB;DDR3L (1 khe RAM), 4 GB
 43-Intel® HD Graphics, 32 MB Share 966 MB;Intel HD Graphics 4400, Share
@@ -37,5 +41,4 @@
 66-DDR3L (2 khe RAM), 2 GB;DDR3L (1 khe RAM), 4 GB
 66-Intel® HD Graphics, 32 MB Share 966 MB;Intel HD Graphics 4400, Share
 66-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)
-36-Intel Core 6666667;  Intel Core 6666666 
-36-500;  500
+>>>>>>> .r280
