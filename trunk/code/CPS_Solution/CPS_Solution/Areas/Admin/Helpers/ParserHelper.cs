@@ -45,13 +45,16 @@ namespace CPS_Solution.Areas.Admin.Helpers
             //Create agent of website
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
             //Load website
+            HtmlNode.ElementsFlags.Remove("form");
+            HtmlNode.ElementsFlags.Remove("option");
             var document = web.Load(ParseProductLink);
-            //Remove all script
+
             var src = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["src"] != null));
             var link = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["href"] != null));
             CorrectLink(src, ParseProductLink, "src");
             CorrectLink(link, ParseProductLink, "href");
             //Save file path
+            //Remove all script
             //document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
             string fileName = "ProductTmp.html";
             string path = Path.Combine(ConstantManager.SavedPath, fileName);
@@ -74,13 +77,24 @@ namespace CPS_Solution.Areas.Admin.Helpers
             {
                 if (node.Attributes[attName] != null && !node.Attributes[attName].Value.StartsWith("http"))
                 {
-                    string tmp = node.Attributes[attName].Value;
-                    if (tmp.StartsWith("/"))
+                    string tmp = "";
+                    if (node.Attributes["src"] != null)
                     {
-                        tmp = host + tmp;
-                        node.Attributes[attName].Value = tmp;
-                        continue;
+                        tmp = node.Attributes[attName].Value;
+                        if (tmp.StartsWith("/"))
+                        {
+                            tmp = host + tmp;
+                            node.Attributes[attName].Value = tmp;
+                            continue;
+                        }//modified for laptopgiahuy
+                        else if (tmp.StartsWith("image"))
+                        {
+                            tmp = host + "/" + tmp;
+                            node.Attributes["src"].Value = tmp;
+                            continue;
+                        }
                     }
+
                     if (path.Length > 1)
                     {
                         tmp = host + "/" + path + "/" + tmp;
@@ -251,20 +265,62 @@ namespace CPS_Solution.Areas.Admin.Helpers
             //load page
             var uri = new Uri(parseInfo.Parselink);
             string host = uri.GetLeftPart(UriPartial.Authority);
-            HtmlDocument doc = web.Load(parseInfo.Parselink);
+            HtmlNode.ElementsFlags.Remove("form");
+            var doc = web.Load(parseInfo.Parselink);
             data = MatchingProductData(host, doc, parseInfo.Name, parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
             return data;
         }
         public static ProductData MatchingProductData(string host, HtmlDocument doc, string nameXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
         {
             var data = new ProductData();
-            var name = doc.DocumentNode.SelectSingleNode(nameXpath);
-            var cpu = doc.DocumentNode.SelectSingleNode(cpuXpath);
-            var vga = doc.DocumentNode.SelectSingleNode(vgaXpath);
-            var hdd = doc.DocumentNode.SelectSingleNode(hddXpath);
-            var ram = doc.DocumentNode.SelectSingleNode(ramXpath);
-            var display = doc.DocumentNode.SelectSingleNode(displayXpath); ;
-            var image = doc.DocumentNode.SelectSingleNode(imageXpath);
+            HtmlNode name = null;
+            HtmlNode cpu = null;
+            HtmlNode vga = null;
+            HtmlNode hdd = null;
+            HtmlNode ram = null;
+            HtmlNode display = null;
+            HtmlNode image = null;
+            // modify xpath for vienthong a
+            if (host.Contains("vienthonga.vn"))
+            {
+                string[] seperator = { "/form" };
+                string take2stString = nameXpath.Split(seperator, StringSplitOptions.RemoveEmptyEntries)[1];
+                string final = "//form" + take2stString.Replace("/", "//");
+                name = doc.DocumentNode.SelectSingleNode(final);
+            }
+            else
+            {
+                name = doc.DocumentNode.SelectSingleNode(nameXpath);
+            }
+            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn"))
+            {
+
+                cpu = doc.DocumentNode.SelectSingleNode(ReplaceUntable(cpuXpath, "/t", "//t"));
+                vga = doc.DocumentNode.SelectSingleNode(ReplaceUntable(vgaXpath, "/t", "//t"));
+                hdd = doc.DocumentNode.SelectSingleNode(ReplaceUntable(hddXpath, "/t", "//t"));
+                ram = doc.DocumentNode.SelectSingleNode(ReplaceUntable(ramXpath, "/t", "//t"));
+                display = doc.DocumentNode.SelectSingleNode(ReplaceUntable(displayXpath, "/t", "//t"));
+                if (host.Contains("www.dienmaythienhoa.vn"))
+                {
+                    image = doc.DocumentNode.SelectSingleNode(ReplaceUntable(imageXpath, "/t", "//t"));
+                }
+                else 
+                {
+
+                    image = doc.DocumentNode.SelectNodes("//img")[3];
+                }
+            }
+            else
+            {
+                cpu = doc.DocumentNode.SelectSingleNode(cpuXpath);
+                vga = doc.DocumentNode.SelectSingleNode(vgaXpath);
+                hdd = doc.DocumentNode.SelectSingleNode(hddXpath);
+                ram = doc.DocumentNode.SelectSingleNode(ramXpath);
+                display = doc.DocumentNode.SelectSingleNode(displayXpath);
+                image = doc.DocumentNode.SelectSingleNode(imageXpath);
+            }
+
+            //Check null
             if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
                 !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
                 !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
@@ -272,21 +328,21 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 data.Name = name.InnerText;
                 data.CPU = cpu.InnerText;
                 data.VGA = vga.InnerText;
-
+                // modify xpath for lazada
                 if (host.Contains("lazada.vn"))
                 {
                     string patter = "RAM |/|,| HDD ";
                     Regex reg = new Regex(patter);
                     string[] spltString = reg.Split(hdd.InnerText);
                     data.RAM = spltString[1];
-                    data.HDD = spltString[3];                   
+                    data.HDD = spltString[3];
                 }
-                else 
+                else
                 {
                     data.HDD = hdd.InnerText;
                     data.RAM = ram.InnerText;
                 }
- 
+
                 data.Display = display.InnerText;
                 data.Image = ImageHelper.TakePath(host, doc, imageXpath);
                 if (String.IsNullOrEmpty(data.Image))
@@ -654,5 +710,11 @@ namespace CPS_Solution.Areas.Admin.Helpers
             return result;
         }
         #endregion
+
+        private static string ReplaceUntable(string data, string splitOne, string replaceOne)
+        {
+            string result = data.Replace(splitOne, replaceOne);
+            return result;
+        }
     }
 }

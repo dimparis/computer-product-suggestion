@@ -7,6 +7,7 @@ using CPS_Solution.EntityFramework;
 using CPS_Solution.Areas.Admin.Models;
 using CPS_Solution.Areas.Admin.Helpers;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class RecommendController : Controller
@@ -23,6 +24,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public RedirectToRouteResult LoadWebProduct(int id)
         {
             var ParseProductLink = context.RecommendProducts.Where(x => x.ID == id).Select(x => x.Parselink).FirstOrDefault().ToString();
+            HtmlNode.ElementsFlags.Remove("form");
             ParserHelper.LoadWebProduct(ParseProductLink);
             TempData["existed"] = "false";
             var uri = new Uri(ParseProductLink);

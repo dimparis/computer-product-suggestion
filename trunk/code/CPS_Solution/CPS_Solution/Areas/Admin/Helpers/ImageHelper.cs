@@ -42,19 +42,28 @@ namespace CPS_Solution.Areas.Admin.Helpers
             var node = doc.DocumentNode.SelectSingleNode(imageXpath);
             string now = DateTime.Now.ToString("yyyyMMdd-HHmmss");
             string filename = "Laptop" + now;
-            if (node.Attributes["src"] != null)
+            if (node != null)
             {
-                string tmp = node.Attributes["src"].Value;
-                if (tmp.StartsWith("/"))
+                if (node.Attributes["src"] != null)
                 {
-                    tmp = host + tmp;
-                    node.Attributes["src"].Value = tmp;
+                    string tmp = node.Attributes["src"].Value;
+                    if (tmp.StartsWith("/"))
+                    {
+                        tmp = host + tmp;
+                        node.Attributes["src"].Value = tmp;
+                    }
+                    else if (tmp.StartsWith("image"))
+                    {
+                        tmp = host + "/" + tmp;
+                        node.Attributes["src"].Value = tmp;
+                    }
+                    string Imageurl = node.Attributes["src"].Value;
+                    string ImageName = DownloadImage(Imageurl, filename);
+                    return ImageName;
                 }
-                string Imageurl = node.Attributes["src"].Value;
-                string ImageName = DownloadImage(Imageurl, filename);
-                return ImageName;
             }
-            return ConstantManager.DefaultImage;           
+
+            return ConstantManager.DefaultImage;
         }
     }
 
