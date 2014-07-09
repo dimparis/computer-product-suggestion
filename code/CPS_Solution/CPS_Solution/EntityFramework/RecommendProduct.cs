@@ -18,8 +18,8 @@ namespace CPS_Solution.EntityFramework
         public string Username { get; set; }
         public string Parselink { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> RecommendTime { get; set; }
         public Nullable<bool> IsApprove { get; set; }
+        public Nullable<System.DateTime> RecommendTime { get; set; }
     
         public virtual Account Account { get; set; }
     }

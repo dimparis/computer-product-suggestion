@@ -19,7 +19,7 @@ namespace CPS_Solution.CommonClass
             string patter = "://|/";
             Regex reg = new Regex(patter);
             var parseInfoes = databaseContext.ParseInfoes.Where(x => x.IsActive == true).OrderBy(x => x.Parselink).ToList();
-            var rcmdProduct = databaseContext.RecommendProducts.Where(x => x.IsApprove == false).OrderBy(x => x.Parselink).ToList();
+            var rcmdProduct = databaseContext.RecommendProducts.Where(x => x.IsApprove == null).OrderBy(x => x.Parselink).ToList();
             Task.Factory.StartNew(() => DoTask(rcmdProduct, parseInfoes));
         }
         public void DoTask(List<RecommendProduct> listOfRecommend, List<ParseInfo> listOfParseInfo)

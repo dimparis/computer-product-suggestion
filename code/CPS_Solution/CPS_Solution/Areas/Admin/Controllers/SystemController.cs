@@ -27,7 +27,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 ShowInfo info = new ShowInfo();
                 int? unRatedProduct = context.AttributeDictionaries.Where(x => x.WeightCriteraPoint == 0).Count();
-                int? unApproveProduct = context.RecommendProducts.Where(x => x.IsApprove == false).Count();
+                int? unApproveProduct = context.RecommendProducts.Where(x => x.IsApprove==null).Count();
                 info.NumberOfProductNoPoint = (int) unRatedProduct;
                 info.NumberofRecordUnratedWeight = (int)unApproveProduct;
                 info.LastExecutionDate = DateTime.Now;
