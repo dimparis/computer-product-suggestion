@@ -11,6 +11,8 @@ using CPS_Solution.EntityFramework;
 using System.IO;
 using System.Data.Entity.Infrastructure;
 using System.Text;
+using System.Web.Mvc;
+using System.Text.RegularExpressions;
 namespace CPS_Solution.Areas.Admin.Helpers
 {
     public static class ParserHelper
@@ -37,6 +39,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             document.Save(path, new UTF8Encoding());
 
         }
+        [ValidateInput(false)]
         public static void LoadWebProduct(string ParseProductLink)
         {
             //Create agent of website
@@ -49,8 +52,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             CorrectLink(src, ParseProductLink, "src");
             CorrectLink(link, ParseProductLink, "href");
             //Save file path
-            document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
-
+            //document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
             string fileName = "ProductTmp.html";
             string path = Path.Combine(ConstantManager.SavedPath, fileName);
             document.Save(path, new UTF8Encoding());
@@ -242,7 +244,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 InsertProductToDb(data, model);
             }
         }
-
+        [ValidateInput(false)]
         public static ProductData GetProductData(HtmlWeb web, ParseInfo parseInfo)
         {
             var data = new ProductData();
@@ -250,7 +252,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             var uri = new Uri(parseInfo.Parselink);
             string host = uri.GetLeftPart(UriPartial.Authority);
             HtmlDocument doc = web.Load(parseInfo.Parselink);
-            data = MatchingProductData(host,doc,parseInfo.Name,parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
+            data = MatchingProductData(host, doc, parseInfo.Name, parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
             return data;
         }
         public static ProductData MatchingProductData(string host, HtmlDocument doc, string nameXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
@@ -261,7 +263,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             var vga = doc.DocumentNode.SelectSingleNode(vgaXpath);
             var hdd = doc.DocumentNode.SelectSingleNode(hddXpath);
             var ram = doc.DocumentNode.SelectSingleNode(ramXpath);
-            var display = doc.DocumentNode.SelectSingleNode(displayXpath);;
+            var display = doc.DocumentNode.SelectSingleNode(displayXpath); ;
             var image = doc.DocumentNode.SelectSingleNode(imageXpath);
             if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
                 !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
@@ -270,13 +272,26 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 data.Name = name.InnerText;
                 data.CPU = cpu.InnerText;
                 data.VGA = vga.InnerText;
-                data.HDD = hdd.InnerText;
-                data.RAM = ram.InnerText;
-                data.Display = display.InnerText;
-                data.Image = ImageHelper.TakePath(host,doc,imageXpath);
-                if (String.IsNullOrEmpty(data.Image)) 
+
+                if (host.Contains("lazada.vn"))
                 {
-                    data.Image = ImageHelper.TakePath(host,doc,imageXpath);
+                    string patter = "RAM |/|,| HDD ";
+                    Regex reg = new Regex(patter);
+                    string[] spltString = reg.Split(hdd.InnerText);
+                    data.RAM = spltString[1];
+                    data.HDD = spltString[3];                   
+                }
+                else 
+                {
+                    data.HDD = hdd.InnerText;
+                    data.RAM = ram.InnerText;
+                }
+ 
+                data.Display = display.InnerText;
+                data.Image = ImageHelper.TakePath(host, doc, imageXpath);
+                if (String.IsNullOrEmpty(data.Image))
+                {
+                    data.Image = ImageHelper.TakePath(host, doc, imageXpath);
                 }
             }
             return data;
@@ -397,7 +412,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
         public static void InsertProductToDb(ProductData data, ProductParserCreator model)
         {
             //create list of Att
-            List<AttributeDictionary> listAttDic = new List<AttributeDictionary>(); 
+            List<AttributeDictionary> listAttDic = new List<AttributeDictionary>();
             if (data != null)
             {
                 if (!String.IsNullOrEmpty(data.Name) && !String.IsNullOrEmpty(data.CPU) &&
@@ -418,7 +433,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             IsActive = false,
                         };
                         //Add alias product
-                        prod.ProductAlias.Add(new ProductAlia() { Name = data.Name, IsMain = true,IsActive =true });
+                        prod.ProductAlias.Add(new ProductAlia() { Name = data.Name, IsMain = true, IsActive = true });
                         context.Products.Add(prod);
                         context.SaveChanges();
 
@@ -439,7 +454,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         //add 5 attribute for 1 product
                         foreach (var attribute in listofAttributes)
                         {
-                           
+
                             ////Check good match 
                             var goodMatch = new List<int>();
                             var averageMatch = new List<int>();
@@ -476,17 +491,17 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 else if (goodMatch.Count > 1)
                                 {
                                     // Match well with more than 1 product, admin decide
-                                    ExportTrainingFileForProduct(goodMatch, attribute.Key,prod.ID);
+                                    ExportTrainingFileForProduct(goodMatch, attribute.Key, prod.ID);
                                     continue;
                                 }
                                 else if (averageMatch.Count > 0 && pId == -1)
                                 {
                                     // Only average match, admin decide
-                                    ExportTrainingFileForProduct(averageMatch, attribute.Key,prod.ID);
+                                    ExportTrainingFileForProduct(averageMatch, attribute.Key, prod.ID);
                                     continue;
                                 }
                             }
-                          
+
                             // If attDic alr Existed? 
                             if (pId != -1)
                             {
@@ -502,13 +517,13 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             {
                                 //Add a new record
                                 var newADitem = new AttributeDictionary { Name = attribute.Key, CodetypeID = attribute.Value, WeightCriteraPoint = 0 };
-                               
+
                                 // Add new item for Product Attribute
                                 var productAtt = new ProductAttribute
                                 {
                                     ProductID = prod.ID,
                                     AttributeID = newADitem.ID,
-                                };                              
+                                };
                                 try
                                 {
                                     // Save change into DB
@@ -572,7 +587,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 }
             }
         }
-        public static void ExportTrainingFileForProduct(List<int> match, string name,int newProductID)
+        public static void ExportTrainingFileForProduct(List<int> match, string name, int newProductID)
         {
             List<string> data = ReadDataFromFileForProduct();
             string path = ConstantManager.TrainingFilePathForProduct;
@@ -584,7 +599,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     var attAD = context.AttributeDictionaries.FirstOrDefault(a => a.ID == id);
                     if (attAD != null)
                     {
-                        content = newProductID +"-" + attAD.Name + ";";
+                        content = newProductID + "-" + attAD.Name + ";";
                     }
                 }
             }

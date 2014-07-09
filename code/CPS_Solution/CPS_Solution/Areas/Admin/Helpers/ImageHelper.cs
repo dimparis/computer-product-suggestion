@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using HtmlAgilityPack;
+using CPS_Solution.CommonClass;
 namespace CPS_Solution.Areas.Admin.Helpers
 {
     public static class ImageHelper
@@ -33,23 +34,27 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             catch (Exception ex)
             {
-                return string.Empty;
+                return ConstantManager.DefaultImage;
             }
         }
-        public static string TakePath(string host,HtmlDocument doc, string imageXpath) 
+        public static string TakePath(string host, HtmlDocument doc, string imageXpath)
         {
             var node = doc.DocumentNode.SelectSingleNode(imageXpath);
-            string tmp = node.Attributes["src"].Value;
-            if (tmp.StartsWith("/")) 
-            {
-                    tmp = host + tmp;
-                    node.Attributes["src"].Value = tmp;
-            }
-            string Imageurl = node.Attributes["src"].Value;
             string now = DateTime.Now.ToString("yyyyMMdd-HHmmss");
             string filename = "Laptop" + now;
-            string ImageName = DownloadImage(Imageurl, filename);
-            return ImageName;
+            if (node.Attributes["src"] != null)
+            {
+                string tmp = node.Attributes["src"].Value;
+                if (tmp.StartsWith("/"))
+                {
+                    tmp = host + tmp;
+                    node.Attributes["src"].Value = tmp;
+                }
+                string Imageurl = node.Attributes["src"].Value;
+                string ImageName = DownloadImage(Imageurl, filename);
+                return ImageName;
+            }
+            return ConstantManager.DefaultImage;           
         }
     }
 
