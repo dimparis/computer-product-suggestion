@@ -12,6 +12,7 @@ namespace CPS_Solution.CommonClass
         public static string SavedPath { get; set; }
         public static string TrainingFilePath { get; set; }
         public static string TrainingFilePathForProduct { get; set; }
+        public static string DefaultImage { get; set; }
         public static bool IsParserRunning { get; set; }
     }
     public enum SystemRole { 

@@ -39,3 +39,5 @@
 66-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)
 36-Intel Core 6666667;  Intel Core 6666666 
 36-500;  500
+71-Intel HD Graphics 4000;Intel HD Graphics 4402
+72-Intel HD Graphics 4000;Intel HD Graphics 4402

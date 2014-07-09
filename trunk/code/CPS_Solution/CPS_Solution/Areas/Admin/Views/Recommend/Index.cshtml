@@ -345,7 +345,7 @@
                             <td><a href="@item.Parselink">Xem đường dẫn</a></td>
                             <td>@item.RecommendTime</td>
                             <td>
-                                @Html.ActionLink("Cập nhật", "CreateProductParser", new { id = item.ID })
+                                @Html.ActionLink("Cập nhật", "LoadWebProduct", new { id = item.ID })
                             </td>
                             @if (status)
                             {
