@@ -1146,7 +1146,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             catch (Exception e)
             {
-
+                string a = "";
             }
             // Gán số thứ tự
             int sttp = 0;

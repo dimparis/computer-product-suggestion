@@ -16,7 +16,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
         public ActionResult Index()
         {
-            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove == false);
+            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove ==null);
 
             return View(recommendProduct);
         }
@@ -86,7 +86,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 {
                     int i = Int32.Parse(id);
                     var recommendProduct = context.RecommendProducts.Where(x => x.ID == i).FirstOrDefault();
-                    recommendProduct.IsApprove = true;
+                    recommendProduct.IsApprove = false;       
                 }
                 context.SaveChanges();
                 check = true;
