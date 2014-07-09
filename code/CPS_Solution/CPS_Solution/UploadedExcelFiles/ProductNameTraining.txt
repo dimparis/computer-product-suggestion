@@ -41,3 +41,6 @@
 36-500;  500
 71-Intel HD Graphics 4000;Intel HD Graphics 4402
 72-Intel HD Graphics 4000;Intel HD Graphics 4402
+73-HDD 1000GB;1000GB
+75-Intel HD Graphics 4000;Intel Graphics HD4400
+82-Intel HD Graphics 4000;Intel HD Graphics 4600
