@@ -75,7 +75,7 @@ namespace CPS_Solution.Controllers
             bestProducts[0] = bestProducts[1];
             bestProducts[1] = temp;
 
-            return View(bestProducts);
+            return View(products);
         }
 
         //
