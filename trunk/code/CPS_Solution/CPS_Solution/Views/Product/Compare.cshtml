@@ -203,12 +203,6 @@
 </main>
 
 <script>
-	$(function() {
-	    $('.sortable-with-handles').sortable({
-	        handle: '.handle'
-	    });
-	});
-
 	var a = [];
 	$('.products-layout').find(".product").each(function () {
 	    a.push(this.id);
@@ -223,9 +217,6 @@
 	        window.location.replace('CompareDetail?p1=' + a[0] + '&p2=' + a[1] + '&p3=' + a[2]);
 	    }
 	}
-
-    
-
 </script>
 
 
