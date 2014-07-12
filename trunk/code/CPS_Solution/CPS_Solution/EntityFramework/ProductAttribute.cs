@@ -17,8 +17,9 @@ namespace CPS_Solution.EntityFramework
         public int ID { get; set; }
         public int ProductID { get; set; }
         public int AttributeID { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
-        public virtual AttributeDictionary AttributeDictionary { get; set; }
+        public virtual Hardware Hardware { get; set; }
         public virtual Product Product { get; set; }
     }
 }

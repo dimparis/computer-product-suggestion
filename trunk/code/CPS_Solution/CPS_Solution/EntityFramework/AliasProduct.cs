@@ -12,14 +12,18 @@ namespace CPS_Solution.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class RatingProduct
+    public partial class AliasProduct
     {
         public int ID { get; set; }
         public int ProductID { get; set; }
-        public string Username { get; set; }
-        public double Point { get; set; }
+        public string Name { get; set; }
+        public string URL { get; set; }
+        public Nullable<double> Price { get; set; }
+        public Nullable<int> StoreID { get; set; }
+        public Nullable<bool> IsMain { get; set; }
+        public bool IsActive { get; set; }
     
-        public virtual Account Account { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Store Store { get; set; }
     }
 }

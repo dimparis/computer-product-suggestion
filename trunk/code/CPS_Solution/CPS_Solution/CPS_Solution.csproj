@@ -244,10 +244,7 @@
     <Compile Include="EntityFramework\Account.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\AttributeDictionary.cs">
-      <DependentUpon>CPS_Solution.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityFramework\AttributeMapping.cs">
+    <Compile Include="EntityFramework\AliasProduct.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Codetype.cs">
@@ -268,7 +265,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\Dictionary.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\EntitiesExtension.cs" />
+    <Compile Include="EntityFramework\Hardware.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\History.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
@@ -287,9 +290,6 @@
     <Compile Include="EntityFramework\Product.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\ProductAlia.cs">
-      <DependentUpon>CPS_Solution.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityFramework\ProductAttribute.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
@@ -300,6 +300,9 @@
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Role.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Store.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\sysdiagram.cs">
