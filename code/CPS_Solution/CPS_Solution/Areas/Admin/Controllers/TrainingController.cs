@@ -202,20 +202,20 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     //----------------------------- kiểm tra sản phẩm trong listpro có bị trùng linh kiện ko---------------------------
                     #region Lấy CPU VGA HDD Display Ram cho vào danh sách riêng để kiểm tra trùng linh kiện
                     // lấy hết CPU trong db ra
-                    var listCPUdb = (from a in db.AttributeDictionaries where a.CodetypeID.Equals("C") select a);
-                    List<AttributeDictionary> listCPU = listCPUdb.ToList();
+                    var listCPUdb = (from a in db.Hardwares where a.CodetypeID.Equals("C") select a);
+                    List<Hardware> listCPU = listCPUdb.ToList();
                     // lấy hết VGA trong db ra
-                    var listVGAdb = (from a in db.AttributeDictionaries where a.CodetypeID.Equals("V") select a);
-                    List<AttributeDictionary> listVGA = listVGAdb.ToList();
+                    var listVGAdb = (from a in db.Hardwares where a.CodetypeID.Equals("V") select a);
+                    List<Hardware> listVGA = listVGAdb.ToList();
                     // lấy hết HDD trong db ra
-                    var listHDDdb = (from a in db.AttributeDictionaries where a.CodetypeID.Equals("H") select a);
-                    List<AttributeDictionary> listHDD = listHDDdb.ToList();
+                    var listHDDdb = (from a in db.Hardwares where a.CodetypeID.Equals("H") select a);
+                    List<Hardware> listHDD = listHDDdb.ToList();
                     // lấy hết Display trong db ra
-                    var listDisplaydb = (from a in db.AttributeDictionaries where a.CodetypeID.Equals("D") select a);
-                    List<AttributeDictionary> listDisplay = listDisplaydb.ToList();
+                    var listDisplaydb = (from a in db.Hardwares where a.CodetypeID.Equals("D") select a);
+                    List<Hardware> listDisplay = listDisplaydb.ToList();
                     // lấy hết Ram trong db ra
-                    var listRamdb = (from a in db.AttributeDictionaries where a.CodetypeID.Equals("R") select a);
-                    List<AttributeDictionary> listRam = listRamdb.ToList();
+                    var listRamdb = (from a in db.Hardwares where a.CodetypeID.Equals("R") select a);
+                    List<Hardware> listRam = listRamdb.ToList();
                     #endregion
 
                     #region Kiểm tra trùng link kiện để ghilog txt
@@ -318,12 +318,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     {
                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                         int idinsert = Convert.ToInt32(pronew.ID);
-                        ProductAlia proAli = new ProductAlia();
+                        AliasProduct proAli = new AliasProduct();
                         proAli.Name = mangten[0];
                         proAli.ProductID = idinsert;
                         proAli.IsMain = true;
                         proAli.IsActive = true;
-                        db.ProductAlias.Add(proAli);
+                        db.AliasProducts.Add(proAli);
                         db.SaveChanges();
                     }
                     // nếu không thì lưu làm tên chính luôn.
@@ -331,12 +331,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     {
                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                         int idinsert = Convert.ToInt32(pronew.ID);
-                        ProductAlia proAli = new ProductAlia();
+                        AliasProduct proAli = new AliasProduct();
                         proAli.Name = mangten[0];
                         proAli.ProductID = idinsert;
                         proAli.IsMain = true;
                         proAli.IsActive = true;
-                        db.ProductAlias.Add(proAli);
+                        db.AliasProducts.Add(proAli);
                         db.SaveChanges();
                     }
 
@@ -349,12 +349,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // bỏ tên đầu tiên vì lưu làm tên chính rồi lưu tên phụ
                         for (int h = 1; h < mangten.Length; h++)
                         {
-                            ProductAlia proAli = new ProductAlia();
+                            AliasProduct proAli = new AliasProduct();
                             proAli.Name = mangten[h];
                             proAli.ProductID = idinsert;
                             proAli.IsMain = false;
                             proAli.IsActive = true;
-                            db.ProductAlias.Add(proAli);
+                            db.AliasProducts.Add(proAli);
                             db.SaveChanges();
                         }
 
@@ -401,13 +401,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         else
                         {
                             // Lưu mới CPU và get ID mới lưu
-                            AttributeDictionary atcpu = new AttributeDictionary();
+                            Hardware atcpu = new Hardware();
                             atcpu.CodetypeID = "C";
                             atcpu.Name = update.CPU;
                             atcpu.WeightCriteraPoint = 0;
-                            db.AttributeDictionaries.Add(atcpu);
+                            db.Hardwares.Add(atcpu);
                             db.SaveChanges();
-                            var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var cpunew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             idCPU1 = Convert.ToInt32(cpunew.ID);
                             //  break;
                         }
@@ -425,13 +425,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
                         else
                         {
-                            AttributeDictionary atcpu = new AttributeDictionary();
+                            Hardware atcpu = new Hardware();
                             atcpu.CodetypeID = "C";
                             atcpu.Name = update.CPU;
                             atcpu.WeightCriteraPoint = 0;
-                            db.AttributeDictionaries.Add(atcpu);
+                            db.Hardwares.Add(atcpu);
                             db.SaveChanges();
-                            var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var cpunew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             idCPU1 = Convert.ToInt32(cpunew.ID);
                         }
                     }
@@ -463,13 +463,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         else
                         {
 
-                            AttributeDictionary atvga = new AttributeDictionary();
+                            Hardware atvga = new Hardware();
                             atvga.CodetypeID = "V";
                             atvga.Name = update.VGA;
                             atvga.WeightCriteraPoint = 0;
-                            db.AttributeDictionaries.Add(atvga);
+                            db.Hardwares.Add(atvga);
                             db.SaveChanges();
-                            var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var vganew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             idVGA2 = Convert.ToInt32(vganew.ID);
                             // break;
                         }
@@ -488,13 +488,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // ko trùng thì lưu VGA mới vào database và lấy ID
                         else
                         {
-                            AttributeDictionary atvga = new AttributeDictionary();
+                            Hardware atvga = new Hardware();
                             atvga.CodetypeID = "V";
                             atvga.Name = update.VGA;
                             atvga.WeightCriteraPoint = 0;
-                            db.AttributeDictionaries.Add(atvga);
+                            db.Hardwares.Add(atvga);
                             db.SaveChanges();
-                            var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var vganew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             idVGA2 = Convert.ToInt32(vganew.ID);
                         }
                     }
@@ -525,13 +525,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // ko trùng thì lưu HDD mới vào database và lấy ID
                         else
                         {
-                            AttributeDictionary athddd = new AttributeDictionary();
+                            Hardware athddd = new Hardware();
                             athddd.CodetypeID = "H";
                             athddd.Name = update.HDD;
                             athddd.WeightCriteraPoint = 0;
-                            db.AttributeDictionaries.Add(athddd);
+                            db.Hardwares.Add(athddd);
                             db.SaveChanges();
-                            var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var hddnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             idHDD3 = Convert.ToInt32(hddnew.ID);
                             // break;
                         }
@@ -550,13 +550,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // ko trùng thì lưu HDD mới vào database và lấy ID
                         else
                         {
-                            AttributeDictionary athddd = new AttributeDictionary();
+                            Hardware athddd = new Hardware();
                             athddd.CodetypeID = "H";
                             athddd.Name = update.HDD;
                             athddd.WeightCriteraPoint = 0;
-                            db.AttributeDictionaries.Add(athddd);
+                            db.Hardwares.Add(athddd);
                             db.SaveChanges();
-                            var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var hddnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             idHDD3 = Convert.ToInt32(hddnew.ID);
                         }
                     }
@@ -588,13 +588,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // ko trùng thì lưu Display mới vào database và lấy ID
                             else
                             {
-                                AttributeDictionary athdisp = new AttributeDictionary();
+                                Hardware athdisp = new Hardware();
                                 athdisp.CodetypeID = "D";
                                 athdisp.Name = update.Display;
                                 athdisp.WeightCriteraPoint = 0;
-                                db.AttributeDictionaries.Add(athdisp);
+                                db.Hardwares.Add(athdisp);
                                 db.SaveChanges();
-                                var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                var dispnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                 idDisplay4 = Convert.ToInt32(dispnew.ID);
                                 //  break;
                             }
@@ -614,13 +614,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // ko trùng thì lưu Display mới vào database và lấy ID
                         else
                         {
-                            AttributeDictionary athdisp = new AttributeDictionary();
+                            Hardware athdisp = new Hardware();
                             athdisp.CodetypeID = "D";
                             athdisp.Name = update.Display;
                             athdisp.WeightCriteraPoint = 0;
-                            db.AttributeDictionaries.Add(athdisp);
+                            db.Hardwares.Add(athdisp);
                             db.SaveChanges();
-                            var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var dispnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             idDisplay4 = Convert.ToInt32(dispnew.ID);
                         }
                     }
@@ -651,13 +651,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // ko trùng thì lưu Ram mới vào database và lấy ID
                         else
                         {
-                            AttributeDictionary athram = new AttributeDictionary();
+                            Hardware athram = new Hardware();
                             athram.CodetypeID = "R";
                             athram.Name = update.RAM;
                             athram.WeightCriteraPoint = 0;
-                            db.AttributeDictionaries.Add(athram);
+                            db.Hardwares.Add(athram);
                             db.SaveChanges();
-                            var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var ramnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             idRam5 = Convert.ToInt32(ramnew.ID);
                             //  break;
                         }
@@ -677,13 +677,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // ko trùng thì lưu Display mới vào database và lấy ID
                         else
                         {
-                            AttributeDictionary athram = new AttributeDictionary();
+                            Hardware athram = new Hardware();
                             athram.CodetypeID = "R";
                             athram.Name = update.RAM;
                             athram.WeightCriteraPoint = 0;
-                            db.AttributeDictionaries.Add(athram);
+                            db.Hardwares.Add(athram);
                             db.SaveChanges();
-                            var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var ramnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             idRam5 = Convert.ToInt32(ramnew.ID);
                         }
                     }
@@ -883,7 +883,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //            if (tachdup[1].Equals(listduplicatenew[i][j].stt))
         //            {
 
-        //                AttributeDictionary p = new AttributeDictionary();
+        //                Hardware p = new Hardware();
 
         //                String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');
         //                if (mangten.Length >= 2)
@@ -896,9 +896,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //                }
 
         //                //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
-        //                List<AttributeDictionary> listproindatabase = new List<AttributeDictionary>();
+        //                List<Hardware> listproindatabase = new List<Hardware>();
         //                String loai = listduplicatenew[i][1].loai;
-        //                var resource = (from x in db.AttributeDictionaries where x.CodetypeID.Equals(loai) select x);
+        //                var resource = (from x in db.Hardwares where x.CodetypeID.Equals(loai) select x);
         //                listproindatabase = resource.ToList();
         //                int count = 0;
         //                for (int t = 0; t < listproindatabase.Count; t++)
@@ -929,20 +929,20 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //                    break;
         //                }
         //                p.WeightCriteraPoint = Convert.ToInt32(listduplicatenew[i][1].trongso);
-        //                db.AttributeDictionaries.Add(p);
+        //                db.Hardwares.Add(p);
         //                db.SaveChanges();
         //                // lấy max ID và thêm vào bảng alias
         //                if (mangten.Length >= 2)
         //                {
-        //                    var pronew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+        //                    var pronew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
         //                    int idinsert = Convert.ToInt32(pronew.ID);
 
         //                    for (int h = 1; h < mangten.Length; h++)
         //                    {
 
         //                        //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
-        //                        List<AttributeMapping> listmap = new List<AttributeMapping>();
-        //                        var resource1 = (from x in db.AttributeMappings select x);
+        //                        List<Dictionary> listmap = new List<Dictionary>();
+        //                        var resource1 = (from x in db.Dictionaries select x);
         //                        listmap = resource1.ToList();
         //                        int count1 = 0;
         //                        for (int r = 0; r < listmap.Count; r++)
@@ -964,10 +964,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //                                count++;
         //                            }
         //                        }
-        //                        AttributeMapping a = new AttributeMapping();
+        //                        Dictionary a = new Dictionary();
         //                        a.Name = mangten[h];
         //                        a.AttributeDicID = idinsert;
-        //                        db.AttributeMappings.Add(a);
+        //                        db.Dictionaries.Add(a);
         //                        db.SaveChanges();
         //                    }
 
@@ -1020,7 +1020,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //            if (tachdup[1].Equals(listduplicatenew[i][j].stt))
         //            {
                        
-        //                AttributeDictionary p = new AttributeDictionary();
+        //                Hardware p = new Hardware();
 
         //                String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');
 
@@ -1029,8 +1029,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //                {
 
         //                    //lấy product trong database ra kiểm tra xem có trong database chưa.
-        //                    List<AttributeMapping> listmap = new List<AttributeMapping>();
-        //                    var resource1 = (from x in db.AttributeMappings select x);
+        //                    List<Dictionary> listmap = new List<Dictionary>();
+        //                    var resource1 = (from x in db.Dictionaries select x);
         //                    listmap = resource1.ToList();
         //                    int count1 = 0;
         //                    for (int r = 0; r < listmap.Count; r++)
@@ -1045,11 +1045,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //                        break;
         //                    }
 
-        //                    AttributeMapping a = new AttributeMapping();
+        //                    Dictionary a = new Dictionary();
         //                    a.Name = mangten[h];
         //                    a.AttributeDicID = Convert.ToInt32(listduplicatenew[i][0].stt);
         //                    a.IsActive = true;
-        //                    db.AttributeMappings.Add(a);
+        //                    db.Dictionaries.Add(a);
         //                    db.SaveChanges();
         //                    listduplicatenew.RemoveAt(i);
         //                    i = i - 1;

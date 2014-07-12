@@ -76,7 +76,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public ActionResult CreateProductTest()
         {
             // Load CPU list
-            var cpus = context.AttributeDictionaries.Where(x => x.CodetypeID == "C")
+            var cpus = context.Hardwares.Where(x => x.CodetypeID == "C")
                 .OrderBy(x => x.Name)
                 .ToList();
             var cpuList = new List<SelectListItem>();
@@ -92,7 +92,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.cpuList = cpuList;
 
             // Load VGA list
-            var vgas = context.AttributeDictionaries.Where(x => x.CodetypeID == "V")
+            var vgas = context.Hardwares.Where(x => x.CodetypeID == "V")
                 .OrderBy(x => x.Name)
                 .ToList();
             var vgaList = new List<SelectListItem>();
@@ -108,7 +108,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.vgaList = vgaList;
 
             // Load HDD list
-            var hdds = context.AttributeDictionaries.Where(x => x.CodetypeID == "H")
+            var hdds = context.Hardwares.Where(x => x.CodetypeID == "H")
                 .OrderBy(x => x.Name)
                 .ToList();
             var hddList = new List<SelectListItem>();
@@ -125,7 +125,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             // Load Ram list
-            var rams = context.AttributeDictionaries.Where(x => x.CodetypeID == "R")
+            var rams = context.Hardwares.Where(x => x.CodetypeID == "R")
                 .OrderBy(x => x.Name)
                 .ToList();
             var ramList = new List<SelectListItem>();
@@ -141,7 +141,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.ramList = ramList;
 
             // Load Display list
-            var displays = context.AttributeDictionaries.Where(x => x.CodetypeID == "D")
+            var displays = context.Hardwares.Where(x => x.CodetypeID == "D")
                 .OrderBy(x => x.Name)
                 .ToList();
             var displayList = new List<SelectListItem>();
@@ -184,7 +184,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 Description = model.Description,
                 TotalWeightPoint = 0,
             };
-            product.ProductAlias.Add(new ProductAlia() { Name = model.Name, IsMain = true });
+            product.AliasProducts.Add(new AliasProduct() { Name = model.Name, IsMain = true });
             context.Products.Add(product);
             context.SaveChanges();
             //Add item product Attribute
@@ -212,10 +212,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             // Take list of point
             double total = 0;
-            var attList = new List<AttributeDictionary>();
+            var attList = new List<Hardware>();
             foreach (var item in idList)
             {
-                var attributes = context.AttributeDictionaries.Where(x => x.ID == item).ToList();
+                var attributes = context.Hardwares.Where(x => x.ID == item).ToList();
                 attList.AddRange(attributes);
             }
             foreach (var att in attList)
@@ -237,7 +237,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             TempData["id"] = id;
 
             // Load CPU list
-            var cpus = context.AttributeDictionaries.Where(x => x.CodetypeID == "C")
+            var cpus = context.Hardwares.Where(x => x.CodetypeID == "C")
                 .OrderBy(x => x.Name)
                 .ToList();
             var cpuList = new List<SelectListItem>();
@@ -253,7 +253,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.cpuList = cpuList;
 
             // Load VGA list
-            var vgas = context.AttributeDictionaries.Where(x => x.CodetypeID == "V")
+            var vgas = context.Hardwares.Where(x => x.CodetypeID == "V")
                 .OrderBy(x => x.Name)
                 .ToList();
             var vgaList = new List<SelectListItem>();
@@ -269,7 +269,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.vgaList = vgaList;
 
             // Load HDD list
-            var hdds = context.AttributeDictionaries.Where(x => x.CodetypeID == "H")
+            var hdds = context.Hardwares.Where(x => x.CodetypeID == "H")
                 .OrderBy(x => x.Name)
                 .ToList();
             var hddList = new List<SelectListItem>();
@@ -286,7 +286,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             // Load Ram list
-            var rams = context.AttributeDictionaries.Where(x => x.CodetypeID == "R")
+            var rams = context.Hardwares.Where(x => x.CodetypeID == "R")
                 .OrderBy(x => x.Name)
                 .ToList();
             var ramList = new List<SelectListItem>();
@@ -302,7 +302,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.ramList = ramList;
 
             // Load Display list
-            var displays = context.AttributeDictionaries.Where(x => x.CodetypeID == "D")
+            var displays = context.Hardwares.Where(x => x.CodetypeID == "D")
                 .OrderBy(x => x.Name)
                 .ToList();
             var displayList = new List<SelectListItem>();

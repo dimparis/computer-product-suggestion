@@ -26,7 +26,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             if (User.IsInRole("Staff"))
             {
                 ShowInfo info = new ShowInfo();
-                int? unRatedProduct = context.AttributeDictionaries.Where(x => x.WeightCriteraPoint == 0).Count();
+                int? unRatedProduct = context.Hardwares.Where(x => x.WeightCriteraPoint == 0).Count();
                 int? unApproveProduct = context.RecommendProducts.Where(x => x.IsApprove==null).Count();
                 info.NumberOfProductNoPoint = (int) unRatedProduct;
                 info.NumberofRecordUnratedWeight = (int)unApproveProduct;
