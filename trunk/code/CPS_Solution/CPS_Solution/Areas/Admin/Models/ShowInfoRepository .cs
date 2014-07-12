@@ -25,7 +25,7 @@ namespace CPS_Solution.Areas.Admin.Models
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand(@"SELECT * FROM [dbo].[AttributeDictionary] WHERE a =0", connection))
+                using (SqlCommand command = new SqlCommand(@"SELECT * FROM [dbo].[Hardware] WHERE a =0", connection))
                 {
                     command.Notification = null;
                     SqlDependency dependency = new SqlDependency(command);

@@ -14,7 +14,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var alias = context.ProductAlias.Where(x => x.IsMain==true && x.IsActive==true).ToList();
+            var alias = context.AliasProducts.Where(x => x.IsMain==true && x.IsActive==true).ToList();
             var listId =  new List<int>();
             foreach (var a in alias) 
             {
@@ -31,10 +31,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
         }
         public ActionResult EditProduct(int id)
         {
-            var product = context.ProductAlias.FirstOrDefault(p => p.ProductID == id);
+            var product = context.AliasProducts.FirstOrDefault(p => p.ProductID == id);
             if (product != null)
             {
-                var aliasNames = context.ProductAlias.Where(x=>x.ProductID ==id)
+                var aliasNames = context.AliasProducts.Where(x=>x.ProductID ==id)
                 .OrderBy(x => x.Name)
                 .ToList();
                 var productList = new List<SelectListItem>();
@@ -55,9 +55,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
         [HttpPost]
         public RedirectToRouteResult EditProductName(int MainAliasID)
         {
-            var alias = context.ProductAlias.Where(pa => pa.ID == MainAliasID).FirstOrDefault();
+            var alias = context.AliasProducts.Where(pa => pa.ID == MainAliasID).FirstOrDefault();
             var product = context.Products.Where(p => p.ID == alias.ProductID).FirstOrDefault();
-            foreach (var aliass in product.ProductAlias)
+            foreach (var aliass in product.AliasProducts)
             {
                 if (aliass.ID == MainAliasID)
                 {

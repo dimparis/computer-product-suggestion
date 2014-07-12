@@ -56,6 +56,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             //Save file path
             //Remove all script
             //document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
+
             string fileName = "ProductTmp.html";
             string path = Path.Combine(ConstantManager.SavedPath, fileName);
             document.Save(path, new UTF8Encoding());
@@ -304,10 +305,10 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 {
                     image = doc.DocumentNode.SelectSingleNode(ReplaceUntable(imageXpath, "/t", "//t"));
                 }
-                else 
+                else
                 {
 
-                    image = doc.DocumentNode.SelectNodes("//img")[3];
+                    image = doc.DocumentNode.SelectSingleNode(imageXpath);
                 }
             }
             else
@@ -380,7 +381,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     var averageMatch = new List<int>();
                     int pId = -1;
                     bool wholeMatch = false;
-                    foreach (var attADalias in context.AttributeMappings)
+                    foreach (var attADalias in context.Dictionaries)
                     {
                         if (pair.Key == attADalias.Name)
                         {
@@ -423,7 +424,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     // If attDic alr Existed? 
                     if (pId != -1)
                     {
-                        var att = context.AttributeDictionaries.Where(x => x.ID == pId).FirstOrDefault();
+                        var att = context.Hardwares.Where(x => x.ID == pId).FirstOrDefault();
                         att.WeightCriteraPoint = point;
                         try
                         {
@@ -441,19 +442,19 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     else
                     {
                         //Add a new record
-                        var newADitem = new AttributeDictionary { Name = pair.Key, CodetypeID = codetypeID, WeightCriteraPoint = point };
-                        context.AttributeDictionaries.Add(newADitem);
+                        var newADitem = new Hardware { Name = pair.Key, CodetypeID = codetypeID, WeightCriteraPoint = point };
+                        context.Hardwares.Add(newADitem);
                         try
                         {
                             context.SaveChanges();
                             success++;
-                            var aliasDic = new AttributeMapping
+                            var aliasDic = new Dictionary
                             {
                                 AttributeDicID = newADitem.ID,
                                 Name = newADitem.Name,
                                 IsActive = true,
                             };
-                            context.AttributeMappings.Add(aliasDic);
+                            context.Dictionaries.Add(aliasDic);
                             context.SaveChanges();
                         }
                         catch (DbUpdateException)
@@ -468,7 +469,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
         public static void InsertProductToDb(ProductData data, ProductParserCreator model)
         {
             //create list of Att
-            List<AttributeDictionary> listAttDic = new List<AttributeDictionary>();
+            List<Hardware> listAttDic = new List<Hardware>();
             if (data != null)
             {
                 if (!String.IsNullOrEmpty(data.Name) && !String.IsNullOrEmpty(data.CPU) &&
@@ -489,7 +490,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             IsActive = false,
                         };
                         //Add alias product
-                        prod.ProductAlias.Add(new ProductAlia() { Name = data.Name, IsMain = true, IsActive = true });
+                        prod.AliasProducts.Add(new AliasProduct() { Name = data.Name, IsMain = true, IsActive = true });
                         context.Products.Add(prod);
                         context.SaveChanges();
 
@@ -517,7 +518,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             int pId = -1;
                             bool wholeMatch = false;
 
-                            foreach (var alias in context.AttributeMappings)
+                            foreach (var alias in context.Dictionaries)
                             {
                                 if (attribute.Key == alias.Name)
                                 {
@@ -572,7 +573,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             else
                             {
                                 //Add a new record
-                                var newADitem = new AttributeDictionary { Name = attribute.Key, CodetypeID = attribute.Value, WeightCriteraPoint = 0 };
+                                var newADitem = new Hardware { Name = attribute.Key, CodetypeID = attribute.Value, WeightCriteraPoint = 0 };
 
                                 // Add new item for Product Attribute
                                 var productAtt = new ProductAttribute
@@ -583,16 +584,16 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 try
                                 {
                                     // Save change into DB
-                                    context.AttributeDictionaries.Add(newADitem);
+                                    context.Hardwares.Add(newADitem);
                                     context.ProductAttributes.Add(productAtt);
                                     context.SaveChanges();
-                                    var aliasDic = new AttributeMapping
+                                    var aliasDic = new Dictionary
                                     {
                                         AttributeDicID = newADitem.ID,
                                         Name = newADitem.Name,
                                         IsActive = true,
                                     };
-                                    context.AttributeMappings.Add(aliasDic);
+                                    context.Dictionaries.Add(aliasDic);
                                     context.SaveChanges();
                                 }
                                 catch (DbUpdateException)
@@ -618,7 +619,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             {
                 foreach (int id in match)
                 {
-                    var attAD = context.AttributeDictionaries.FirstOrDefault(a => a.ID == id);
+                    var attAD = context.Hardwares.FirstOrDefault(a => a.ID == id);
                     if (attAD != null)
                     {
                         content = attAD.Name + ";";
@@ -652,7 +653,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             {
                 foreach (int id in match)
                 {
-                    var attAD = context.AttributeDictionaries.FirstOrDefault(a => a.ID == id);
+                    var attAD = context.Hardwares.FirstOrDefault(a => a.ID == id);
                     if (attAD != null)
                     {
                         content = newProductID + "-" + attAD.Name + ";";

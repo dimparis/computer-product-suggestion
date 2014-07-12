@@ -70,7 +70,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     listID.Add(productId);
                     // tên sản phẩm đã có trong database
                     string ten = line[1];
-                    var resource = (from x in db.AttributeDictionaries where x.Name.Equals(ten) select x).FirstOrDefault();
+                    var resource = (from x in db.Hardwares where x.Name.Equals(ten) select x).FirstOrDefault();
                     ProductMap p = new ProductMap();
                     p.stt = resource.ID.ToString();
                     p.ten = resource.Name;
@@ -184,9 +184,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
             List<List<ProductMap>> listduplicatenew = new List<List<ProductMap>>();
 
             //lấy product trong database ra chỉ lấy Codetype bằng loai.
-            List<AttributeDictionary> listproindatabase = new List<AttributeDictionary>();
+            List<Hardware> listproindatabase = new List<Hardware>();
             String loai = sanphamgop.loai;
-            var resource = (from x in db.AttributeDictionaries where x.CodetypeID.Equals(loai) select x);
+            var resource = (from x in db.Hardwares where x.CodetypeID.Equals(loai) select x);
             listproindatabase = resource.ToList();
 
             // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
@@ -236,7 +236,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // lưu vào database
              if(check ==0)
               {
-                AttributeDictionary p = new AttributeDictionary();
+                  Hardware p = new Hardware();
 
                 String[] mangten = sanphamgop.ten.ToString().Split(';');
                 if (mangten.Length >= 2)
@@ -249,20 +249,20 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
                 p.CodetypeID = sanphamgop.loai;
                 p.WeightCriteraPoint = Convert.ToInt32(sanphamgop.trongso);
-                db.AttributeDictionaries.Add(p);
+                db.Hardwares.Add(p);
                 db.SaveChanges();
                 // lấy max ID và thêm vào bảng alias
                 if (mangten.Length >= 2)
                 {
-                    var pronew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                    var pronew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                     int idinsert = Convert.ToInt32(pronew.ID);
 
                     for (int h = 1; h < mangten.Length; h++)
                     {
-                        AttributeMapping a = new AttributeMapping();
+                        Dictionary a = new Dictionary();
                         a.Name = mangten[h];
                         a.AttributeDicID = idinsert;
-                        db.AttributeMappings.Add(a);
+                        db.Dictionaries.Add(a);
                         db.SaveChanges();
                     }
 
@@ -444,7 +444,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     if (tachdup[1].Equals(listduplicatenew[i][j].stt))
                     {
 
-                        AttributeDictionary p = new AttributeDictionary();
+                        Hardware p = new Hardware();
 
                         String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');
                         if (mangten.Length >= 2)
@@ -457,9 +457,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
 
                         //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
-                        List<AttributeDictionary> listproindatabase = new List<AttributeDictionary>();
+                        List<Hardware> listproindatabase = new List<Hardware>();
                         String loai = listduplicatenew[i][1].loai;
-                        var resource = (from x in db.AttributeDictionaries where x.CodetypeID.Equals(loai) select x);
+                        var resource = (from x in db.Hardwares where x.CodetypeID.Equals(loai) select x);
                         listproindatabase = resource.ToList();
                         int count = 0;
                         for (int t = 0; t < listproindatabase.Count; t++)
@@ -490,20 +490,20 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             break;
                         }
                         p.WeightCriteraPoint = Convert.ToInt32(listduplicatenew[i][1].trongso);
-                        db.AttributeDictionaries.Add(p);
+                        db.Hardwares.Add(p);
                         db.SaveChanges();
                         // lấy max ID và thêm vào bảng alias
                         if (mangten.Length >= 2)
                         {
-                            var pronew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                            var pronew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idinsert = Convert.ToInt32(pronew.ID);
 
                             for (int h = 1; h < mangten.Length; h++)
                             {
 
                                 //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
-                                List<AttributeMapping> listmap = new List<AttributeMapping>();
-                                var resource1 = (from x in db.AttributeMappings select x);
+                                List<Dictionary> listmap = new List<Dictionary>();
+                                var resource1 = (from x in db.Dictionaries select x);
                                 listmap = resource1.ToList();
                                 int count1 = 0;
                                 for (int r = 0; r < listmap.Count; r++)
@@ -525,10 +525,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                         count++;
                                     }
                                 }
-                                AttributeMapping a = new AttributeMapping();
+                                Dictionary a = new Dictionary();
                                 a.Name = mangten[h];
                                 a.AttributeDicID = idinsert;
-                                db.AttributeMappings.Add(a);
+                                db.Dictionaries.Add(a);
                                 db.SaveChanges();
                             }
 
@@ -583,7 +583,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     if (tachdup[1].Equals(listduplicatenew[i][j].stt))
                     {
 
-                        AttributeDictionary p = new AttributeDictionary();
+                        Hardware p = new Hardware();
 
                         String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');
 
@@ -592,8 +592,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
 
                             //lấy product trong database ra kiểm tra xem có trong database chưa.
-                            List<AttributeMapping> listmap = new List<AttributeMapping>();
-                            var resource1 = (from x in db.AttributeMappings select x);
+                            List<Dictionary> listmap = new List<Dictionary>();
+                            var resource1 = (from x in db.Dictionaries select x);
                             listmap = resource1.ToList();
                             int count1 = 0;
                             for (int r = 0; r < listmap.Count; r++)
@@ -608,11 +608,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 break;
                             }
 
-                            AttributeMapping a = new AttributeMapping();
+                            Dictionary a = new Dictionary();
                             a.Name = mangten[h];
                             a.AttributeDicID = Convert.ToInt32(listduplicatenew[i][0].stt);
                             a.IsActive = true;
-                            db.AttributeMappings.Add(a);
+                            db.Dictionaries.Add(a);
                             db.SaveChanges();
                             
 
