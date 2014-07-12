@@ -12,13 +12,22 @@ namespace CPS_Solution.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class AttributeMapping
+    public partial class Hardware
     {
+        public Hardware()
+        {
+            this.Dictionaries = new HashSet<Dictionary>();
+            this.ProductAttributes = new HashSet<ProductAttribute>();
+        }
+    
         public int ID { get; set; }
-        public int AttributeDicID { get; set; }
+        public string CodetypeID { get; set; }
         public string Name { get; set; }
+        public double WeightCriteraPoint { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual AttributeDictionary AttributeDictionary { get; set; }
+        public virtual Codetype Codetype { get; set; }
+        public virtual ICollection<Dictionary> Dictionaries { get; set; }
+        public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
     }
 }

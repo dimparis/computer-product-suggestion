@@ -17,6 +17,7 @@ namespace CPS_Solution.EntityFramework
         public Account()
         {
             this.Histories = new HashSet<History>();
+            this.RatingProducts = new HashSet<RatingProduct>();
             this.RecommendProducts = new HashSet<RecommendProduct>();
         }
     
@@ -28,6 +29,7 @@ namespace CPS_Solution.EntityFramework
     
         public virtual Role Role { get; set; }
         public virtual ICollection<History> Histories { get; set; }
+        public virtual ICollection<RatingProduct> RatingProducts { get; set; }
         public virtual ICollection<RecommendProduct> RecommendProducts { get; set; }
     }
 }

@@ -12,14 +12,14 @@ namespace CPS_Solution.EntityFramework
         private int _vgaId;
         private int _displayId;
         private int _ramId;
-
+        private double _price;
         private string _cpuName;
         private string _hddName;
         private string _vgaName;
         private string _displayName;
         private string _ramName;
         private string _name;
-
+        private string _productURL;
         private int _cpuScore;
         private int _vgaScore;
         private int _ramScore;
@@ -29,13 +29,32 @@ namespace CPS_Solution.EntityFramework
 
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
 
+        public String URL
+        {
+            get
+            {
+                if (AliasProducts != null && AliasProducts.Count > 0)
+                {
+                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value);
+                    if (mainAlias != null)
+                    {
+                        return mainAlias.URL;
+                    }
+                }
+                return _productURL;
+            }
+            set
+            {
+                this._productURL = value;
+            }
+        }
         public String Name
         {
             get
             {
-                if (ProductAlias != null && ProductAlias.Count > 0)
+                if (AliasProducts != null && AliasProducts.Count > 0)
                 {
-                    var mainAlias = ProductAlias.FirstOrDefault(ali => ali.IsMain.Value);
+                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value);
                     if (mainAlias != null)
                     {
                         return mainAlias.Name;
@@ -53,7 +72,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -73,7 +92,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -93,7 +112,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -114,7 +133,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -136,7 +155,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -154,7 +173,7 @@ namespace CPS_Solution.EntityFramework
         public string strCPU {
             get {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -173,7 +192,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -192,7 +211,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -211,7 +230,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -230,7 +249,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -250,7 +269,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -269,7 +288,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -288,7 +307,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -307,7 +326,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -326,7 +345,7 @@ namespace CPS_Solution.EntityFramework
             get
             {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
-                var attDictionarys = context.AttributeDictionaries.ToList();
+                var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
                 {
                     foreach (var dic in attDictionarys)
@@ -338,6 +357,32 @@ namespace CPS_Solution.EntityFramework
                     }
                 }
                 return _displayScore;
+            }
+        }
+        public double Price
+        {
+            get
+            {
+                if (AliasProducts != null && AliasProducts.Count > 0)
+                {
+                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value);
+                    if (mainAlias != null)
+                    {
+                        if (mainAlias.Price.HasValue)
+                        {
+                            return mainAlias.Price.Value;
+                        }
+                        else 
+                        {
+                            return 0;
+                        }                     
+                    }
+                }
+                return _price;
+            }
+            set
+            {
+                this._price = value;
             }
         }
     }

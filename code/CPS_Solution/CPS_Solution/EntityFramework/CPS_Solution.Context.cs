@@ -26,20 +26,21 @@ namespace CPS_Solution.EntityFramework
         }
     
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<AttributeDictionary> AttributeDictionaries { get; set; }
-        public DbSet<AttributeMapping> AttributeMappings { get; set; }
+        public DbSet<AliasProduct> AliasProducts { get; set; }
         public DbSet<Codetype> Codetypes { get; set; }
+        public DbSet<Dictionary> Dictionaries { get; set; }
+        public DbSet<Hardware> Hardwares { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<HistoryDetail> HistoryDetails { get; set; }
         public DbSet<LogFile> LogFiles { get; set; }
         public DbSet<ParseAttribute> ParseAttributes { get; set; }
         public DbSet<ParseInfo> ParseInfoes { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductAlia> ProductAlias { get; set; }
         public DbSet<ProductAttribute> ProductAttributes { get; set; }
         public DbSet<RatingProduct> RatingProducts { get; set; }
         public DbSet<RecommendProduct> RecommendProducts { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Store> Stores { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

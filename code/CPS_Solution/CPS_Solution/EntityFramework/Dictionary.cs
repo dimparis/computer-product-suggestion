@@ -12,14 +12,13 @@ namespace CPS_Solution.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductAlia
+    public partial class Dictionary
     {
         public int ID { get; set; }
-        public int ProductID { get; set; }
+        public int AttributeDicID { get; set; }
         public string Name { get; set; }
-        public Nullable<bool> IsMain { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
-        public virtual Product Product { get; set; }
+        public virtual Hardware Hardware { get; set; }
     }
 }

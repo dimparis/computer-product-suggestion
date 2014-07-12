@@ -15,8 +15,10 @@ namespace CPS_Solution.EntityFramework
     public partial class ParseInfo
     {
         public int ID { get; set; }
+        public Nullable<int> StoreID { get; set; }
         public string Parselink { get; set; }
         public string Name { get; set; }
+        public string PriceXPath { get; set; }
         public string ImageXpath { get; set; }
         public string CPUXPath { get; set; }
         public string RAMXPath { get; set; }
@@ -24,5 +26,7 @@ namespace CPS_Solution.EntityFramework
         public string HDDXPath { get; set; }
         public string DisplayXPath { get; set; }
         public bool IsActive { get; set; }
+    
+        public virtual Store Store { get; set; }
     }
 }

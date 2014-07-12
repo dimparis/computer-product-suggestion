@@ -12,21 +12,21 @@ namespace CPS_Solution.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class AttributeDictionary
+    public partial class Store
     {
-        public AttributeDictionary()
+        public Store()
         {
-            this.AttributeMappings = new HashSet<AttributeMapping>();
-            this.ProductAttributes = new HashSet<ProductAttribute>();
+            this.AliasProducts = new HashSet<AliasProduct>();
+            this.ParseInfoes = new HashSet<ParseInfo>();
         }
     
         public int ID { get; set; }
-        public string CodetypeID { get; set; }
-        public string Name { get; set; }
-        public double WeightCriteraPoint { get; set; }
+        public string StoreName { get; set; }
+        public string StoreUrl { get; set; }
+        public string LogoImage { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
-        public virtual Codetype Codetype { get; set; }
-        public virtual ICollection<AttributeMapping> AttributeMappings { get; set; }
-        public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
+        public virtual ICollection<AliasProduct> AliasProducts { get; set; }
+        public virtual ICollection<ParseInfo> ParseInfoes { get; set; }
     }
 }
