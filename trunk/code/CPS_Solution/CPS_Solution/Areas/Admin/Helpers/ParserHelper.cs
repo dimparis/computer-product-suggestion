@@ -44,22 +44,33 @@ namespace CPS_Solution.Areas.Admin.Helpers
         {
             //Create agent of website
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
-            //Load website
-            HtmlNode.ElementsFlags.Remove("form");
-            HtmlNode.ElementsFlags.Remove("option");
-            var document = web.Load(ParseProductLink);
+            try
+            {
+                //Load website
+                HtmlNode.ElementsFlags.Remove("form");
+                HtmlNode.ElementsFlags.Remove("option");
+                var document = web.Load(ParseProductLink);
 
-            var src = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["src"] != null));
-            var link = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["href"] != null));
-            CorrectLink(src, ParseProductLink, "src");
-            CorrectLink(link, ParseProductLink, "href");
-            //Save file path
-            //Remove all script
-            //document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
+                var src = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["src"] != null));
+                var link = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["href"] != null));
+                CorrectLink(src, ParseProductLink, "src");
+                CorrectLink(link, ParseProductLink, "href");
+                //Save file path
+                //Remove all script
+                //document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
 
-            string fileName = "ProductTmp.html";
-            string path = Path.Combine(ConstantManager.SavedPath, fileName);
-            document.Save(path, new UTF8Encoding());
+                string fileName = "ProductTmp.html";
+                string path = Path.Combine(ConstantManager.SavedPath, fileName);
+                document.Save(path, new UTF8Encoding());
+            }
+            catch (System.Net.WebException ex)
+            {
+                LoadWebProduct(ParseProductLink);
+            }
+            catch (HtmlWebException ex)
+            {
+                LoadWebProduct(ParseProductLink);
+            }
 
         }
         public static void CorrectLink(List<HtmlNode> nodes, string link, string attName)
@@ -263,15 +274,27 @@ namespace CPS_Solution.Areas.Admin.Helpers
         public static ProductData GetProductData(HtmlWeb web, ParseInfo parseInfo)
         {
             var data = new ProductData();
-            //load page
-            var uri = new Uri(parseInfo.Parselink);
-            string host = uri.GetLeftPart(UriPartial.Authority);
-            HtmlNode.ElementsFlags.Remove("form");
-            var doc = web.Load(parseInfo.Parselink);
-            data = MatchingProductData(host, doc, parseInfo.Name, parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
+            try
+            {               
+                //load page
+                var uri = new Uri(parseInfo.Parselink);
+                string host = uri.GetLeftPart(UriPartial.Authority);
+                HtmlNode.ElementsFlags.Remove("form");
+                var doc = web.Load(parseInfo.Parselink);
+                data = MatchingProductData(host, doc, parseInfo.Name, parseInfo.PriceXPath, parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
+                return data;
+            }
+            catch (System.Net.WebException ex)
+            {
+                GetProductData(web, parseInfo);
+            }
+            catch (HtmlWebException ex)
+            {
+                GetProductData(web, parseInfo);
+            }
             return data;
         }
-        public static ProductData MatchingProductData(string host, HtmlDocument doc, string nameXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
+        public static ProductData MatchingProductData(string host, HtmlDocument doc, string nameXpath, string priceXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
         {
             var data = new ProductData();
             HtmlNode name = null;
@@ -281,7 +304,8 @@ namespace CPS_Solution.Areas.Admin.Helpers
             HtmlNode ram = null;
             HtmlNode display = null;
             HtmlNode image = null;
-            // modify xpath for vienthong a
+            HtmlNode price = null;
+            // modify xpath for vienthong a 
             if (host.Contains("vienthonga.vn"))
             {
                 string[] seperator = { "/form" };
@@ -292,7 +316,12 @@ namespace CPS_Solution.Areas.Admin.Helpers
             else
             {
                 name = doc.DocumentNode.SelectSingleNode(nameXpath);
+                if (priceXpath != null)
+                {
+                    price = doc.DocumentNode.SelectSingleNode(priceXpath);
+                }
             }
+
             if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn"))
             {
 
@@ -301,24 +330,18 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 hdd = doc.DocumentNode.SelectSingleNode(ReplaceUntable(hddXpath, "/t", "//t"));
                 ram = doc.DocumentNode.SelectSingleNode(ReplaceUntable(ramXpath, "/t", "//t"));
                 display = doc.DocumentNode.SelectSingleNode(ReplaceUntable(displayXpath, "/t", "//t"));
-                if (host.Contains("www.dienmaythienhoa.vn"))
-                {
-                    image = doc.DocumentNode.SelectSingleNode(ReplaceUntable(imageXpath, "/t", "//t"));
-                }
-                else
-                {
-
-                    image = doc.DocumentNode.SelectSingleNode(imageXpath);
-                }
             }
             else
             {
+                if (priceXpath != null)
+                {
+                    price = doc.DocumentNode.SelectSingleNode(priceXpath);
+                }
                 cpu = doc.DocumentNode.SelectSingleNode(cpuXpath);
                 vga = doc.DocumentNode.SelectSingleNode(vgaXpath);
                 hdd = doc.DocumentNode.SelectSingleNode(hddXpath);
                 ram = doc.DocumentNode.SelectSingleNode(ramXpath);
                 display = doc.DocumentNode.SelectSingleNode(displayXpath);
-                image = doc.DocumentNode.SelectSingleNode(imageXpath);
             }
 
             //Check null
@@ -329,6 +352,23 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 data.Name = name.InnerText;
                 data.CPU = cpu.InnerText;
                 data.VGA = vga.InnerText;
+
+                //Modifed for take Price
+                if (priceXpath != null)
+                {
+                    if (price != null)
+                    {
+                        data.Price = price.InnerText;
+                    }
+                    else
+                    {
+                        data.Price = "0";
+                    }
+                }
+                else
+                {
+                    data.Price = "0";
+                }
                 // modify xpath for lazada
                 if (host.Contains("lazada.vn"))
                 {
@@ -343,7 +383,6 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     data.HDD = hdd.InnerText;
                     data.RAM = ram.InnerText;
                 }
-
                 data.Display = display.InnerText;
                 data.Image = ImageHelper.TakePath(host, doc, imageXpath);
                 if (String.IsNullOrEmpty(data.Image))
@@ -472,25 +511,59 @@ namespace CPS_Solution.Areas.Admin.Helpers
             List<Hardware> listAttDic = new List<Hardware>();
             if (data != null)
             {
+                //Convert Price
+                double valPrice = 0;
+                if (!String.IsNullOrEmpty(data.Price))
+                {
+                    valPrice = PriceHelper.ConvertPrice(data.Price);
+                }
+                else
+                {
+                    valPrice = 0;
+                }
+
+
                 if (!String.IsNullOrEmpty(data.Name) && !String.IsNullOrEmpty(data.CPU) &&
                     !String.IsNullOrEmpty(data.HDD) && !String.IsNullOrEmpty(data.RAM) &&
                     !String.IsNullOrEmpty(data.VGA) && !String.IsNullOrEmpty(data.Display))
                 {
-
                     using (var context = new CPS_SolutionEntities())
                     {
                         //Add table product
                         var prod = new Product
                         {
                             Description = "Fill me ",
-                            URL = model.ParseProductLink,
                             ImageURL = data.Image,
-                            Price = 1,
                             TotalWeightPoint = 0,
                             IsActive = false,
                         };
+                        //Check for Store
+
+                        var store = context.Stores.Where(x => model.ParseProductLink.Contains(x.StoreUrl)).FirstOrDefault();
+                        int StoreID = 1;
+                        string patter = "://|/";
+                        Regex reg = new Regex(patter);
+                        string host = reg.Split(model.ParseProductLink)[1];
+                        if (store != null)
+                        {
+                            StoreID = store.ID;
+                        }
+                        else
+                        {
+                            var newStore = new Store
+                            {
+                                IsActive = false,
+                                LogoImage = "default",
+                                StoreUrl = host,
+                                StoreName = "Chưa xác định",
+
+                            };
+                            context.Stores.Add(newStore);
+                            context.SaveChanges();
+                            StoreID = newStore.ID;
+                        }
                         //Add alias product
-                        prod.AliasProducts.Add(new AliasProduct() { Name = data.Name, IsMain = true, IsActive = true });
+                        prod.AliasProducts.Add(new AliasProduct() { Name = data.Name, URL = model.ParseProductLink, Price = valPrice, StoreID = StoreID, IsMain = true, IsActive = true });
                         context.Products.Add(prod);
                         context.SaveChanges();
 

@@ -1,6 +1,7 @@
 ﻿var displayType, currentStep;
 var prevExp = "";
 var $tile = $('#xpathTile');
+var $price = $('#xpathPrice');
 var $productName = $('#xpathProductName');
 var $paging = $('#xpathPaging');
 var $cpu = $('#xpathCPU');
@@ -47,11 +48,8 @@ function validateStep(index, fset) {
                     return false;
                 }
                 return true;
+            case "price": return true;
             case "image":
-                if ($image.val() == "") {
-                    alert("Phải chọn Hình ảnh của sản phẩm");
-                    return false;
-                }
                 return true;
             case "cpu":
                 if ($cpu.val() == "") {
@@ -218,16 +216,18 @@ function setTextBoxXpathValue(expression) {
     } else if (currentStep == 1) {
         $tile.val(expression);
     } else if (currentStep == 3) {
-        $image.val(expression);
+        $price.val(expression);
     } else if (currentStep == 4) {
-        $cpu.val(expression);
+        $image.val(expression);
     } else if (currentStep == 5) {
-        $vga.val(expression);
+        $cpu.val(expression);
     } else if (currentStep == 6) {
-        $hdd.val(expression);
+        $vga.val(expression);
     } else if (currentStep == 7) {
-        $ram.val(expression);
+        $hdd.val(expression);
     } else if (currentStep == 8) {
+        $ram.val(expression);
+    } else if (currentStep == 9) {
         $display.val(expression);
     }
 }
