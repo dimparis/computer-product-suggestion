@@ -44,3 +44,4 @@
 73-HDD 1000GB;1000GB
 75-Intel HD Graphics 4000;Intel Graphics HD4400
 82-Intel HD Graphics 4000;Intel HD Graphics 4600
+95-Serial ATA (SATA) 500B - 5400 rpm;Serial ATA (SATA) 750GB - 5400 rpm

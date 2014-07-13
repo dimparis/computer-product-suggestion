@@ -277,7 +277,7 @@
                 var $image = $('#xpathImage');
                 var $display = $('#xpathDisplay');
                 $productName.val("@Html.Raw(info.Name)");
-                 $image.val("@Html.Raw(info.ImageXpath)");
+                $image.val("@Html.Raw(info.ImageXpath)");
                 $cpu.val("@Html.Raw(info.CPUXPath)");
                 $vga.val("@Html.Raw(info.VGAXPath)");
                 $hdd.val("@Html.Raw(info.HDDXPath)");
@@ -341,7 +341,7 @@
                     <fieldset class="da-form-inline" data-name="type" data-step-id="0">
                         <legend>Loại Parser</legend>
                         <div class="da-form-row">
-                            <label>Kiểu trình bày <span class="required">*</span></label>
+                            <label>Kiểu <span class="required">*</span></label>
                             <div class="da-form-item large">
                                 <ul class="da-form-list normal">
                                     <li>
@@ -366,7 +366,7 @@
                         </div>
                     </fieldset>    									
                     <fieldset class="da-form-inline" data-name="productName" data-step-id="2">
-                        <legend>Tên Sản Phẩm</legend>
+                        <legend>Tên</legend>
                         <div class="da-form-row">
                             <label>Xpath tới tên sản phẩm <span class="required">*</span></label>
                             <div class="da-form-item large">
@@ -374,7 +374,16 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="da-form-inline" data-name="image" data-step-id="3">
+                    <fieldset class="da-form-inline" data-name="price" data-step-id="3">
+                        <legend>Giá</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới giá sản phẩm <span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.PriceXpath, new { id = "xpathPrice" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="image" data-step-id="4">
                         <legend>Hình ảnh</legend>
                         <div class="da-form-row">
                             <label>Xpath tới ảnh sản phẩm <span class="required">*</span></label>
@@ -383,7 +392,7 @@
                             </div>
                         </div>
                     </fieldset>				
-                    <fieldset class="da-form-inline" data-name="cpu" data-step-id="4">
+                    <fieldset class="da-form-inline" data-name="cpu" data-step-id="5">
                         <legend>CPU</legend>
                         <div class="da-form-row">
                             <label>Xpath tới CPU</label>
@@ -392,7 +401,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="da-form-inline" data-name="vga" data-step-id="5">
+                    <fieldset class="da-form-inline" data-name="vga" data-step-id="6">
                         <legend>VGA</legend>
                         <div class="da-form-row">
                             <label>Xpath tới VGA</label>
@@ -401,7 +410,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="da-form-inline" data-name="hdd" data-step-id="6">
+                    <fieldset class="da-form-inline" data-name="hdd" data-step-id="7">
                         <legend>HDD</legend>
                         <div class="da-form-row">
                             <label>Xpath tới Dung lượng đĩa cứng</label>
@@ -411,7 +420,7 @@
                         </div>
                     </fieldset>
                                             
-                    <fieldset class="da-form-inline" data-name="ram" data-step-id="7">
+                    <fieldset class="da-form-inline" data-name="ram" data-step-id="8">
                         <legend>RAM</legend>
                         <div class="da-form-row">
                             <label>Xpath tới Bộ nhớ</label>
@@ -420,7 +429,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="da-form-inline" data-name="display" data-step-id="8">
+                    <fieldset class="da-form-inline" data-name="display" data-step-id="9">
                         <legend>Display</legend>
                         <div class="da-form-row">
                             <label>Xpath tới Màn hình</label>
@@ -430,7 +439,7 @@
                         </div>
                     </fieldset>         
 										
-                    <fieldset class="da-form-inline" data-name="finish" data-step-id="9">
+                    <fieldset class="da-form-inline" data-name="finish" data-step-id="10">
                         <legend>Xác nhận</legend>
                         <div class="da-form-row">
                             <h1>Bạn chắc chắc với những gì đã chọn? </h1>
