@@ -21,28 +21,28 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public ActionResult Index()
         {
             List<String> danhsachloi = (List<String>)Session["errorLine"];
-           Session["danhsachloi"] =null;
-           if (danhsachloi != null)
-           {
-               if (Convert.ToInt32(danhsachloi[0]) > 5)
-               {
-                   Session["listproduct"] = null;
-                   Session["listduplicate"] = null;
-                   Session["danhsachloi"] = Session["listerror"];
-                   Session["listerror"] = null;
-               }
-           }
+            Session["danhsachloi"] = null;
+            if (danhsachloi != null)
+            {
+                if (Convert.ToInt32(danhsachloi[0]) > 5)
+                {
+                    Session["listproduct"] = null;
+                    Session["listduplicate"] = null;
+                    Session["danhsachloi"] = Session["listerror"];
+                    Session["listerror"] = null;
+                }
+            }
             // danh sahcs đúng, trùng, lỗi
-           ViewBag.listproduct = (List<ProductMap>)Session["listproduct"];
-           ViewBag.listerror = (List<ProductMap>)Session["listerror"];
-           ViewBag.listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
+            ViewBag.listproduct = (List<ProductMap>)Session["listproduct"];
+            ViewBag.listerror = (List<ProductMap>)Session["listerror"];
+            ViewBag.listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
             // danh sách trùng với database
-           ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
+            ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
 
-           // quá nhiều lỗi hiện thị ra dòng và sản phẩm bị lỗi.
-           ViewBag.danhsachloi = (List<ProductMap>)Session["danhsachloi"];
-           // dòng chứa lỗi
-           ViewBag.errorLine = Session["errorLine"];
+            // quá nhiều lỗi hiện thị ra dòng và sản phẩm bị lỗi.
+            ViewBag.danhsachloi = (List<ProductMap>)Session["danhsachloi"];
+            // dòng chứa lỗi
+            ViewBag.errorLine = Session["errorLine"];
             return View();
         }
         /// <summary>
@@ -52,7 +52,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult saveAllProduct(String checkval)
         {
-          
+
             // get list product in session.
             List<ProductMap> listpro = (List<ProductMap>)Session["listproduct"];
             List<ProductMap> listerror = (List<ProductMap>)Session["listerror"];
@@ -79,7 +79,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         for (int j = 0; j < listduplicate[i].Count; j++)
                         {
                             newline += listduplicate[i][j].ten + "|" + listduplicate[i][j].loai + "|" +
-                                       listduplicate[i][j].trongso +"#";
+                                       listduplicate[i][j].trongso + "#";
                         }
                         newline = newline.Substring(0, newline.Length - 1);
                         newlines[i] = newline;
@@ -104,21 +104,21 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // nếu có check ghilog Error
             if (!ghilog[1].Equals("no"))
             {
-               // LogFileHelper.LogfileThanhPhanloi(listerror);
+                // LogFileHelper.LogfileThanhPhanloi(listerror);
                 // xóa session error
-               
+
             }
             Session["listerror"] = null;
-          
+
 
             // Tạo listduplicate mới chứa trùng giữa listpro và trong database
-            List<List<ProductMap>> listduplicatenew = new List<List<ProductMap>>(); 
+            List<List<ProductMap>> listduplicatenew = new List<List<ProductMap>>();
 
             //lấy product trong database ra chỉ lấy Codetype bằng loai.
             List<Hardware> listproindatabase = new List<Hardware>();
             String loai = listpro[0].loai;
             var resource = (from x in db.Hardwares where x.CodetypeID.Equals(loai) select x);
-            listproindatabase = resource.ToList();
+          listproindatabase = resource.ToList();
 
             // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
             for (int j = 0; j < listproindatabase.Count; j++)
@@ -130,13 +130,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     String[] mangten = listpro[i].ten.ToString().Split(';');
                     if (mangten.Length >= 2)
                     {
-                       Name = mangten[0];
+                        Name = mangten[0];
                     }
                     else
                     {
                         Name = listpro[i].ten;
                     }
-
+                    // nếu đã có trong database rồi thì xóa đi.
                     if (listproindatabase[j].Name.ToString().Equals(Name))
                     {
                         listproindatabase.RemoveAt(j);
@@ -154,6 +154,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         pro.ten = listproindatabase[j].Name;
                         pro.loai = listproindatabase[j].Codetype.Name;
                         pro.trongso = listproindatabase[j].WeightCriteraPoint.ToString();
+
+                        //add list dup.
                         duplicateProduct.Add(pro);
                         listpro[i].stt = "z" + listpro[i].stt;
                         duplicateProduct.Add(listpro[i]);
@@ -165,9 +167,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 if (duplicateProduct.Count >= 2)
                 {
                     listduplicatenew.Add(duplicateProduct);
+                    Session["listduplicatenew"] = listduplicatenew;
                 }
             }
-            Session["listduplicatenew"] = listduplicatenew;
+
 
             // lưu vào database
             for (int i = 0; i < listpro.Count; i++)
@@ -192,7 +195,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 {
                     var pronew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                     int idinsert = Convert.ToInt32(pronew.ID);
-                 
+
                     for (int h = 1; h < mangten.Length; h++)
                     {
                         Dictionary a = new Dictionary();
@@ -201,7 +204,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         db.Dictionaries.Add(a);
                         db.SaveChanges();
                     }
-                  
+
                 }
                 // xóa phần tử được add vào database ra khỏi list
                 listpro.Remove(listpro[i]);
@@ -474,7 +477,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 if (tachdup.Length >= 3)
                 {
                     tachdup = valuest.ToString().Split('@');
-                    String[]  tach1 = tachdup[0].Split('*');
+                    String[] tach1 = tachdup[0].Split('*');
                     List<String> valuesTach = new List<String>();
                     for (int j = 1; j < tach1.Length; j++)
                     {
@@ -533,9 +536,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 count++;
                                 break;
                             }
-                           
+
                         }
-                        
+
                     }
 
                     Session["listerror"] = listerror;
@@ -789,18 +792,123 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             List<List<ProductMap>> listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
             String[] tachdup = valuestach.ToString().Split('@');
+            ProductMap proTach = new ProductMap();
+            proTach.stt = tachdup[0];
+            proTach.ten = tachdup[1];
+            proTach.trongso = tachdup[2];
+            proTach.loai = tachdup[3];
 
+
+
+            int count11 = 0;
             // duyệt hết list duplicate lớn
             for (int i = 0; i < listduplicatenew.Count; i++)
-            {
+            {               
                 // duyệt từng listduplicate nhỏ 
                 for (int j = 0; j < listduplicatenew[i].Count; j++)
                 {
-                         // nếu phát hiện list nào có chứa giá trị tách trả về
-                        if(tachdup[1].Equals(listduplicatenew[i][j].stt)){
+                    // nếu phát hiện list nào có chứa giá trị tách trả về
+                    if (proTach.stt.Equals(listduplicatenew[i][j].stt))
+                    {
+                       
+                        // nếu tên thành phần bị thanh đổi thì
+                        if (!proTach.ten.Equals(listduplicatenew[i][j].ten))
+                        {
+                            //----------------------------------------------------------------------------------------
+                            // lấy database ra so trùng tên mới nếu trùng cho vào list trùng mới
+                            List<Hardware> listproindatabase = new List<Hardware>();
+                            var resource = (from x in db.Hardwares select x);
+                            listproindatabase = resource.ToList();
 
+                          // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
+                            for (int h = 0; h < listproindatabase.Count; h++)
+                            {
+                                List<ProductMap> duplicateProduct = new List<ProductMap>();                        
+                                    String Name = "";
+                                    String[] mangten = proTach.ten.ToString().Split(';');
+                                    if (mangten.Length >= 2)
+                                    {
+                                        Name = mangten[0];
+                                    }
+                                    else
+                                    {
+                                        Name = proTach.ten;
+                                    }
+                                    // nếu đã có trong database rồi thì xóa đi.
+                                    if (listproindatabase[h].Name.ToString().Equals(Name))
+                                    {
+                                        listproindatabase.RemoveAt(h);
+                                        listduplicatenew.RemoveAt(i);
+                                        i--;
+                                        break;
+                                    }
+
+                                    // lấy sản phầm trùng cho vào list trùng mới
+                                    if (CompareStringHelper.CompareString(Name, listproindatabase[h].Name.ToString()) >= 80)
+                                    {
+                                        count11++;
+                                        ProductMap pro = new ProductMap();
+                                        pro.stt = listproindatabase[h].ID.ToString();
+                                        pro.ten = listproindatabase[h].Name;
+                                        pro.loai = listproindatabase[h].Codetype.Name;
+                                        pro.trongso = listproindatabase[h].WeightCriteraPoint.ToString();
+
+                                        //add list dup.
+                                        duplicateProduct.Add(pro);
+                                        duplicateProduct.Add(proTach);
+                                        listduplicatenew.RemoveAt(i);
+                                        i--;
+                                    }
+
+                                
+                                if (duplicateProduct.Count >= 2)
+                                {
+                                    listduplicatenew.Add(duplicateProduct);
+                                    Session["listduplicatenew"] = listduplicatenew;
+                                    break;
+                                }
+                            }
+                            if(count11==0){
+                                Hardware p = new Hardware();
+
+                                String[] mangten = proTach.ten.ToString().Split(';');
+                                if (mangten.Length >= 2)
+                                {
+                                    p.Name = mangten[0];
+                                }
+                                else
+                                {
+                                    p.Name = proTach.ten;
+                                }
+                                p.CodetypeID = proTach.loai;
+                                p.WeightCriteraPoint = Convert.ToInt32(proTach.trongso);
+                                db.Hardwares.Add(p);
+                                db.SaveChanges();
+                                // lấy max ID và thêm vào bảng alias
+                                if (mangten.Length >= 2)
+                                {
+                                    var pronew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                    int idinsert = Convert.ToInt32(pronew.ID);
+
+                                    for (int h = 1; h < mangten.Length; h++)
+                                    {
+                                        Dictionary a = new Dictionary();
+                                        a.Name = mangten[h];
+                                        a.AttributeDicID = idinsert;
+                                        db.Dictionaries.Add(a);
+                                        db.SaveChanges();
+                                    }
+
+                                }
+                                // xóa phần tử được add vào database ra khỏi list
+                                listduplicatenew.RemoveAt(i);
+                                i--;
+                            }
+                        }
+                        // nếu vẫn là tên cũ thì lưu vào database
+                        else
+                        {
                             Hardware p = new Hardware();
-
                             String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');
                             if (mangten.Length >= 2)
                             {
@@ -814,9 +922,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
                             List<Hardware> listproindatabase = new List<Hardware>();
                             String loai = listduplicatenew[i][1].loai;
-                            var resource = (from x in db.Hardwares where x.CodetypeID.Equals(loai) select x);
-                            listproindatabase = resource.ToList();
-                            int count =0;
+                          var resource = (from x in db.Hardwares select x);
+                         listproindatabase = resource.ToList();
+                            int count = 0;
                             for (int t = 0; t < listproindatabase.Count; t++)
                             {
                                 if (listproindatabase[t].Name.Equals(p.Name))
@@ -831,7 +939,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 Session["listduplicatenew"] = listduplicatenew;
                                 break;
                             }
-                            p.CodetypeID = listduplicatenew[i][1].loai;      
+                            p.CodetypeID = listduplicatenew[i][1].loai;
                             p.WeightCriteraPoint = Convert.ToInt32(listduplicatenew[i][1].trongso);
                             db.Hardwares.Add(p);
                             db.SaveChanges();
@@ -845,21 +953,21 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 {
 
                                     //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
-                                    List<Dictionary> listmap = new List<Dictionary>();
+                                     List<Dictionary> listmap = new List<Dictionary>();
                                     var resource1 = (from x in db.Dictionaries  select x);
                                     listmap = resource1.ToList();
                                     int count1 = 0;
-                                   for(int r =0; r< listmap.Count; r++)
+                                    for (int r = 0; r < listmap.Count; r++)
                                     {
                                         if (listmap[r].Name.Equals(mangten[h]))
                                         {
                                             count1++;
                                         }
                                     }
-                                   if (count1 > 0)
-                                   {
-                                       break;
-                                   }
+                                    if (count1 > 0)
+                                    {
+                                        break;
+                                    }
 
                                     for (int t = 0; t < listproindatabase.Count; t++)
                                     {
@@ -880,6 +988,15 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             Session["listduplicatenew"] = listduplicatenew;
                             break;
                         }
+                    }
+                    if (count11 > 0)
+                    {
+                        break;
+                    }
+                }
+                if (count11 > 0)
+                {
+                    break;
                 }
             }
             ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
@@ -893,7 +1010,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             List<List<ProductMap>> listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
             String[] tachdup = valuesgop.ToString().Split('@');
-           
+            int count2=0;
             // duyệt hết list duplicate lớn
             for (int i = 0; i < listduplicatenew.Count; i++)
             {
@@ -903,50 +1020,51 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // nếu phát hiện list nào có chứa giá trị tách trả về
                     if (tachdup[1].Equals(listduplicatenew[i][j].stt))
                     {
-
-                        Hardware p = new Hardware();
-
-                        String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');                
-      
-
-                            for (int h = 0; h < mangten.Length; h++)
+                        String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');
+                        for (int h = 0; h < mangten.Length; h++)
+                        {
+                            //lấy product trong database ra kiểm tra xem có trong database chưa.
+                            List<Dictionary> listmap = new List<Dictionary>();
+                            var resource1 = (from x in db.Dictionaries select x);
+                            listmap = resource1.ToList();
+                            int count1 = 0;
+                            for (int r = 0; r < listmap.Count; r++)
                             {
-
-                                //lấy product trong database ra kiểm tra xem có trong database chưa.
-                                List<Dictionary> listmap = new List<Dictionary>();
-                                var resource1 = (from x in db.Dictionaries select x);
-                                listmap = resource1.ToList();
-                                int count1 = 0;
-                                for (int r = 0; r < listmap.Count; r++)
+                                if (listmap[r].Name.Equals(mangten[h]))
                                 {
-                                    if (listmap[r].Name.Equals(mangten[h]))
-                                    {
-                                        count1++;
-                                    }
+                                    count1++;
+                                    count2++;
                                 }
-                                if (count1 > 0)
-                                {
-                                    break;
-                                }
-
+                            }
+                            // tên sản phẩm chưa có trong database lưu vào
+                            if (count1 == 0)
+                            {
                                 Dictionary a = new Dictionary();
                                 a.Name = mangten[h];
                                 a.AttributeDicID = Convert.ToInt32(listduplicatenew[i][0].stt);
                                 a.IsActive = true;
                                 db.Dictionaries.Add(a);
                                 db.SaveChanges();
+                                count2++;
                             }
-
                         }
+                    }
+
+                    // sau khi lưu hoàn thành xóa list dupnhỏ này đi gán lại giá trị vào session
+                    if (count2 > 0)
+                    {
                         listduplicatenew.RemoveAt(i);
                         Session["listduplicatenew"] = listduplicatenew;
+                        i--;
                         break;
                     }
-                
+                }
             }
-            ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
+             ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
             return View();
-        }
+            }
+           
+        
         /// <summary>
         /// Lấy dữ liệu từ excel cho vào 3 list
         /// </summary>
@@ -976,13 +1094,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                            };
                 listpro = list.ToList();
             }
-            
+
             catch (Exception e)
             {
 
             }
             // Gán số thứ tự
-           
+
             int sttp = 0;
             for (int i = 0; i < listpro.Count; i++)
             {
@@ -993,7 +1111,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             //Kiểm tra xem có trong database chưa có rồi thì cho vào list đã tồn tại cho người dùng xem.
 
             using (CPS_SolutionEntities db = new CPS_SolutionEntities())
-            {               
+            {
                 List<Hardware> listNameIndb = new List<Hardware>();
                 var listAlias = (from x in db.Hardwares select x);
                 listNameIndb = listAlias.ToList();
@@ -1103,19 +1221,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     t++;
                 }
                 // từ 1 tới 5 ký tự
-                if (list[i].loai.Length < 1 || list[i].loai.Length > 5||t==0)
+                if (list[i].loai.Length < 1 || list[i].loai.Length > 5 || t == 0)
                 {
                     errorLine[3] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
                     loi++;
                     count++;
                 }
-                if (loi> 0)
+                if (loi > 0)
                 {
                     errorlist.Add(list[i]);
                     list.RemoveAt(i);
                     i = i - 1;
                 }
-               
+
             }
             errorLine[0] = count.ToString();
             Session["errorLine"] = errorLine;

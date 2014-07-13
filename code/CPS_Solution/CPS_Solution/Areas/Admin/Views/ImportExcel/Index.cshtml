@@ -645,17 +645,6 @@
         </div>
         <div id="black-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
             <!--tab3--------------------------------------------------------------------------------------------------------------------------------------------------------------->
-            @* <div class="da-panel-toolbar top">
-                                        <ul>
-                                           <li><a onclick="goptatca(@countlistdup)">
-                                                <img src="images/icons/color/arrow_in.png" alt="">Gộp tất cả</a></li>
-                                            <li><a onclick="tachtatca(@countlistdup)">
-                                                <img src="images/icons/color/arrow_out.png" alt="">Tách tất cả</a></li>
-                                              
-                                            <li><a href="#">
-                                                <img src="images/icons/color/page_white_text.png" alt="">Lưu file</a></li>
-                                        </ul>
-                                    </div> *@
             <div class="da-panel collapsible">
                   @if (listDup != null)
                   {
@@ -763,7 +752,7 @@
                         <ul>
                             <li style="text-align: right"><a id ="link_@(i)"  onclick="gopdatabase(@(i))">
                                 <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
-                            <li style="text-align: right"><a  onclick="tachdatabase(@(i))" > 
+                            <li style="text-align: right"><a  onclick="showPopupEditTach(@(i))" > 
                                 <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
                             <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
                         </ul>
@@ -790,21 +779,52 @@
                                         <td id="@(y)" class="checked">
                                             <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
-                                        <td>@p.ten</td>
-                                        <td>@p.trongso</td>                                 
-                                        <td class=" ">@p.loai</td>
-                                       @*   <td class="da-icon-column">
+                                        <td><label>@p.ten</label></td>
+                                        <td><label>@p.trongso</label></td>                                 
+                                        <td  class=" "><label>@p.loai</label>
 
-                                           Nếu là sản phẩm đầu tiên thì check radio
-                                            @if (y == 1)
-                                            {
-                                                <input name="radio_@(i)" value="@p.stt" type="radio" checked="checked" >
-                                            }
-                                            else
-                                            {
-                                                <input name="radio_@(i)" value="@p.stt" type="radio"> 
-                                            }
-                                        </td>*@
+ 
+                                            @if(y>1){
+                                                <!----------------Popup sửa sản phẩm đúng----------->                                          
+                                                <div id="Edit-@i-Popup-div" style="display: none;">
+                                                    <div class="da-panel">
+                                                        <div class="da-panel-content">
+                                                            <form class="da-form">
+                                                                <div class="da-form-inline">
+                                                                    <div class="da-form-row">
+                                                                        <label>Tên thành phần</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Tên thành phần phải từ 5 tới 100 ký tự.</span>
+                                                                            <input  id="idTenDup@(p.stt)" value="@p.ten" type="text">
+                                                                        </div>
+                                                                    </div>                                                                   
+                                                                    <div class="da-form-row">
+                                                                        <label>Trọng số thành phần</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Trọng số thành phần phải là số</span>
+                                                                            <input id="idTrongsoDup@(p.stt)" value="@p.trongso" type="text">
+                                                                        </div>
+                                                                    </div>                                                                                                                                 
+                                                                    <div class="da-form-row">
+                                                                        <label>Loại thành phần</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Loại thành phần phải là C,V,H,D,R</span>
+                                                                            <input id="idLoaiDup@(p.stt)" value="@p.loai" type="text">                                                                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-button-row">
+                                                                        <input id="socuapopup@(p.stt)" value="@i" hidden type="text">    
+                                                                                                                                         
+                                                                        <input onclick="EditTachPro(@p.stt.Substring(1, 1))" type="button" value="Lưu" class="da-button green">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!----------------Popup------------------>
+                                                }
+                                        </td>                                    
                                     </tr> 
                                                             
                                 }
@@ -816,15 +836,11 @@
                     </div>
                       }
                   }
-
-
             </div>
-
             <!--ket thuc tab3-------------------------------------------------------------------------------->
         </div>
 
         <!-----------------------------------------javascript -------------------------------------->
-
         <script>
                   <!----validate file upload :D-------->
             var fsize=0;
@@ -849,6 +865,26 @@
                         }
                     }
                 }
+
+                //Hiện popup để sửa sản phẩm khi tách.
+                function showPopupEditTach(i){
+                    $("#Edit-"+i+"-Popup-div").dialog({
+                        autoOpen: false, 
+                        title: "Bạn có muốn sửa trước khi lưu!", 
+                        width: "600", 
+                        modal: true             
+                        //buttons: [{
+                        //    text: "Đóng", 
+                        //    click: function() {
+                        //        $( this ).dialog( "close" );
+                        //    }}]
+                    });
+
+                    $("#Edit-"+i+"-Popup-div").dialog("option", {modal: true}).dialog("open");
+                    event.preventDefault();
+		
+                }
+            
 
             // Lưu sản phẩm đúng và ghi log file
                 function saveCorrectProduct(x) { 
@@ -1065,25 +1101,78 @@
                 }            
                 //   location.reload();
             }
-            // tách table khi so trùng database
-            function tachdatabase(i)
-            {
-                var val = "";
-                $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
-                    val +='@@'+ $(this).val();
-                });
-                var postData = { valuestach: val };
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin/ImportExcel/tachdatabase",
-                    data: postData,
-                    success: function(data){
-                        $('#black-icon').html(data);
-                        tabsanphamdung();                                               
-                    },                                             
-                });  
 
-            }
+            // Sửa sản phẩm tách
+            function EditTachPro(stt){                          
+                var i =  document.getElementById("socuapopupz"+stt).value;
+                var Ten =  document.getElementById("idTenDupz"+stt).value;
+                var TrongSo = document.getElementById("idTrongsoDupz"+stt).value;
+                var Loai = document.getElementById("idLoaiDupz"+stt).value;
+                var string = 'z'+stt +'@@'+Ten+'@@'+TrongSo+'@@'+ Loai;
+                var count =0;                            
+                // kiểm tra Ten
+                if(Ten.length<5||Ten.length>100)
+                { 
+                    document.getElementById("idTenDupz"+stt).style.borderColor='red';
+                    count++;
+                }else{
+                    document.getElementById("idTenDupz"+stt).style.borderColor="";
+                }
+                // kiểm tra TrongSo
+                if (TrongSo == parseInt(TrongSo)){
+                    document.getElementById("idTrongsoDupz"+stt).style.borderColor="";
+                }else{
+                    document.getElementById("idTrongsoDupz"+stt).style.borderColor='red';
+                    count++;
+                }
+                      
+                // kiem tra Loai      
+                if(Loai=='C'||Loai=='V'||Loai=='D'||Loai=='R'||Loai=='H')
+                { 
+                    document.getElementById("idLoaiDupz"+stt).style.borderColor="";                      
+                }else{
+                    document.getElementById("idLoaiDupz"+stt).style.borderColor='red';
+                    count++;
+                }                                                      
+                // kiểm tra image
+                if(count==0)
+                {
+                    var postData = {valuestach: string };
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/ImportExcel/tachdatabase",
+                        data: postData,
+                        success: function(data){
+                            $('#black-icon').html(data);
+                            $("#Edit-"+i+"-Popup-div").dialog( "close");
+                        },
+
+                    });
+                }              
+                // nếu không phát hiện lỗi thì gửi về controller để xử lý                       
+            }   
+
+
+
+            //// tách table khi so trùng database
+            //function tachdatabase(i)
+            //{
+            //    var val = "";
+            //    $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+            //        val +='@@'+ $(this).val();
+            //    });
+            //    var postData = { valuestach: val };
+            //    $.ajax({
+            //        type: "POST",
+            //        url: "/Admin/ImportExcel/tachdatabase",
+            //        data: postData,
+            //        success: function(data){
+            //            $('#black-icon').html(data);
+            //            tabsanphamdung();                                               
+            //        },                                             
+            //    });  
+
+            //}
             // gộp table khi so trùng database
             function gopdatabase(i)
             {

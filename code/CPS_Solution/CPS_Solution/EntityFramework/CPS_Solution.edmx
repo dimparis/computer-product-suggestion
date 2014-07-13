@@ -35,7 +35,7 @@
             <End Role="Store" EntitySet="Store" />
             <End Role="AliasProduct" EntitySet="AliasProduct" />
           </AssociationSet>
-          <AssociationSet Name="FK_Dictionary_Hardware" Association="CPS_SolutionModel.Store.FK_Dictionary_Hardware">
+          <AssociationSet Name="FK_AttributeMapping_AttributeDictionary" Association="CPS_SolutionModel.Store.FK_AttributeMapping_AttributeDictionary">
             <End Role="Hardware" EntitySet="Hardware" />
             <End Role="Dictionary" EntitySet="Dictionary" />
           </AssociationSet>
@@ -63,7 +63,7 @@
             <End Role="Store" EntitySet="Store" />
             <End Role="ParseInfo" EntitySet="ParseInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductAttribute_Hardware" Association="CPS_SolutionModel.Store.FK_ProductAttribute_Hardware">
+          <AssociationSet Name="FK_ProductAttribute_AttributeDictionary" Association="CPS_SolutionModel.Store.FK_ProductAttribute_AttributeDictionary">
             <End Role="Hardware" EntitySet="Hardware" />
             <End Role="ProductAttribute" EntitySet="ProductAttribute" />
           </AssociationSet>
@@ -175,9 +175,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="StoreID" Type="int" />
           <Property Name="Parselink" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="StoreID" Type="int" />
           <Property Name="PriceXPath" Type="nvarchar" MaxLength="200" />
           <Property Name="ImageXpath" Type="nvarchar" MaxLength="200" />
           <Property Name="CPUXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
@@ -289,7 +289,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Dictionary_Hardware">
+        <Association Name="FK_AttributeMapping_AttributeDictionary">
           <End Role="Hardware" Type="CPS_SolutionModel.Store.Hardware" Multiplicity="1" />
           <End Role="Dictionary" Type="CPS_SolutionModel.Store.Dictionary" Multiplicity="*" />
           <ReferentialConstraint>
@@ -373,7 +373,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductAttribute_Hardware">
+        <Association Name="FK_ProductAttribute_AttributeDictionary">
           <End Role="Hardware" Type="CPS_SolutionModel.Store.Hardware" Multiplicity="1" />
           <End Role="ProductAttribute" Type="CPS_SolutionModel.Store.ProductAttribute" Multiplicity="*" />
           <ReferentialConstraint>
@@ -488,11 +488,11 @@
             <End Role="Codetype" EntitySet="Codetypes" />
             <End Role="ParseAttribute" EntitySet="ParseAttributes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Dictionary_Hardware" Association="CPS_SolutionModel.FK_Dictionary_Hardware">
+          <AssociationSet Name="FK_AttributeMapping_AttributeDictionary" Association="CPS_SolutionModel.FK_AttributeMapping_AttributeDictionary">
             <End Role="Hardware" EntitySet="Hardwares" />
             <End Role="Dictionary" EntitySet="Dictionaries" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductAttribute_Hardware" Association="CPS_SolutionModel.FK_ProductAttribute_Hardware">
+          <AssociationSet Name="FK_ProductAttribute_AttributeDictionary" Association="CPS_SolutionModel.FK_ProductAttribute_AttributeDictionary">
             <End Role="Hardware" EntitySet="Hardwares" />
             <End Role="ProductAttribute" EntitySet="ProductAttributes" />
           </AssociationSet>
@@ -563,7 +563,7 @@
           <Property Name="AttributeDicID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Hardware" Relationship="CPS_SolutionModel.FK_Dictionary_Hardware" FromRole="Dictionary" ToRole="Hardware" />
+          <NavigationProperty Name="Hardware" Relationship="CPS_SolutionModel.FK_AttributeMapping_AttributeDictionary" FromRole="Dictionary" ToRole="Hardware" />
         </EntityType>
         <EntityType Name="Hardware">
           <Key>
@@ -575,8 +575,8 @@
           <Property Name="WeightCriteraPoint" Type="Double" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Codetype" Relationship="CPS_SolutionModel.FK_Hardware_Codetype" FromRole="Hardware" ToRole="Codetype" />
-          <NavigationProperty Name="Dictionaries" Relationship="CPS_SolutionModel.FK_Dictionary_Hardware" FromRole="Hardware" ToRole="Dictionary" />
-          <NavigationProperty Name="ProductAttributes" Relationship="CPS_SolutionModel.FK_ProductAttribute_Hardware" FromRole="Hardware" ToRole="ProductAttribute" />
+          <NavigationProperty Name="Dictionaries" Relationship="CPS_SolutionModel.FK_AttributeMapping_AttributeDictionary" FromRole="Hardware" ToRole="Dictionary" />
+          <NavigationProperty Name="ProductAttributes" Relationship="CPS_SolutionModel.FK_ProductAttribute_AttributeDictionary" FromRole="Hardware" ToRole="ProductAttribute" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -625,9 +625,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="StoreID" Type="Int32" />
           <Property Name="Parselink" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="StoreID" Type="Int32" />
           <Property Name="PriceXPath" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="ImageXpath" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="CPUXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
@@ -660,7 +660,7 @@
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="AttributeID" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Hardware" Relationship="CPS_SolutionModel.FK_ProductAttribute_Hardware" FromRole="ProductAttribute" ToRole="Hardware" />
+          <NavigationProperty Name="Hardware" Relationship="CPS_SolutionModel.FK_ProductAttribute_AttributeDictionary" FromRole="ProductAttribute" ToRole="Hardware" />
           <NavigationProperty Name="Product" Relationship="CPS_SolutionModel.FK_ProductAttribute_Product" FromRole="ProductAttribute" ToRole="Product" />
         </EntityType>
         <EntityType Name="RatingProduct">
@@ -812,7 +812,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Dictionary_Hardware">
+        <Association Name="FK_AttributeMapping_AttributeDictionary">
           <End Role="Hardware" Type="CPS_SolutionModel.Hardware" Multiplicity="1" />
           <End Role="Dictionary" Type="CPS_SolutionModel.Dictionary" Multiplicity="*" />
           <ReferentialConstraint>
@@ -824,7 +824,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductAttribute_Hardware">
+        <Association Name="FK_ProductAttribute_AttributeDictionary">
           <End Role="Hardware" Type="CPS_SolutionModel.Hardware" Multiplicity="1" />
           <End Role="ProductAttribute" Type="CPS_SolutionModel.ProductAttribute" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1001,9 +1001,9 @@
             <EntityTypeMapping TypeName="CPS_SolutionModel.ParseInfo">
               <MappingFragment StoreEntitySet="ParseInfo">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="Parselink" ColumnName="Parselink" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="PriceXPath" ColumnName="PriceXPath" />
                 <ScalarProperty Name="ImageXpath" ColumnName="ImageXpath" />
                 <ScalarProperty Name="CPUXPath" ColumnName="CPUXPath" />
