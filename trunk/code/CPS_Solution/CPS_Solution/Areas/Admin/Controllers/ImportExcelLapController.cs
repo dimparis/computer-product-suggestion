@@ -9,6 +9,8 @@ using System.IO;
 using LinqToExcel;
 using LinqToExcel.Query;
 using CPS_Solution.Areas.Admin.Helpers;
+using System.Net;
+using System.Globalization;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class ImportExcelLapController : Controller
@@ -190,7 +192,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             break;
                         }
 
-                        //---- lấy sản phầm trùng cho vào list trùng mới------------------------------------------------------------
+                        //---- lấy sản phầm trùng cho vào list trùng với sản phẩm trong database------------------------------------------------------------
                         if (CompareStringHelper.CompareString(Name, listproindatabase[j].Name.ToString()) >= 80)
                         {
                             LapData pro = new LapData();
@@ -485,36 +487,58 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 Hardware atcpu = new Hardware();
                                 atcpu.CodetypeID = "C";
                                 atcpu.Name = listpro[i].CPU;
-                                atcpu.WeightCriteraPoint = 0;
+                                atcpu.WeightCriteraPoint = 0;                                
                                 db.Hardwares.Add(atcpu);
                                 db.SaveChanges();
-                                var cpunew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idCPU1 = Convert.ToInt32(cpunew.ID);
-                            }
-                        }
-                           
-                        //nếu List CPU là rỗng 
-                        if (listCPU.Count == 0)
-                        {
-                            if (!errorCPU.Equals(""))
-                            {
-                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                int idpro = Convert.ToInt32(pronew.ID);
-                                newline[0] = idpro.ToString() + '-' + errorCPU + ';' + listpro[i].CPU;
-                                vitriluu++;
-                            }
-                            else
-                            {
-                                Hardware atcpu = new Hardware();
-                                atcpu.CodetypeID = "C";
-                                atcpu.Name = listpro[i].CPU;
-                                atcpu.WeightCriteraPoint = 0;
-                                db.Hardwares.Add(atcpu);
+                               //get id vừa mới lưu
+   
+                               var cpunew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                              idCPU1 = Convert.ToInt32(cpunew.ID);
+
+                                // lưu name vào Attibute Alias và để isactive là false
+                                Dictionary atcpuMap = new Dictionary();
+                                atcpuMap.AttributeDicID = cpunew.ID;
+                                atcpuMap.Name = listpro[i].CPU;
+                                atcpuMap.IsActive = true;
+                                db.Dictionaries.Add(atcpuMap);
                                 db.SaveChanges();
-                                var cpunew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idCPU1 = Convert.ToInt32(cpunew.ID);
+
                             }
                         }
+                     #endregion
+                        #region //nếu List CPU là rỗng code comment
+
+                        //if (listCPU.Count == 0)
+                        //{
+                        //    if (!errorCPU.Equals(""))
+                        //    {
+                        //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        int idpro = Convert.ToInt32(pronew.ID);
+                        //        newline[0] = idpro.ToString() + '-' + errorCPU + ';' + listpro[i].CPU;
+                        //        vitriluu++;
+                        //    }
+                        //    else
+                        //    {
+                        //        // Lưu mới CPU và get ID mới lưu
+                        //        AttributeDictionary atcpu = new AttributeDictionary();
+                        //        atcpu.CodetypeID = "C";
+                        //        atcpu.Name = listpro[i].CPU;
+                        //        atcpu.WeightCriteraPoint = 0;
+                        //        db.AttributeDictionaries.Add(atcpu);
+                        //        db.SaveChanges();
+                        //        //get id vừa mới lưu
+                        //        var cpunew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        idCPU1 = Convert.ToInt32(cpunew.ID);
+
+                        //        // lưu name vào Attibute Alias và để isactive là false
+                        //        AttributeMapping atcpuMap = new AttributeMapping();
+                        //        atcpuMap.AttributeDicID = cpunew.ID;
+                        //        atcpuMap.Name = listpro[i].CPU;
+                        //        atcpuMap.IsActive = true;
+                        //        db.AttributeMappings.Add(atcpuMap);
+                        //        db.SaveChanges();
+                        //    }
+                        //}
                         #endregion
                         // id VGA 2
                         #region
@@ -541,41 +565,58 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // ko trùng thì lưu VGA mới vào database và lấy ID
                             else
                             {
+                                // lưu VGA mới và get id mới lưu
+                                Hardware atvga = new Hardware();
+                                atvga.CodetypeID = "V";
+                                atvga.Name = listpro[i].VGA;
+                                atvga.WeightCriteraPoint = 0;
+                                db.Hardwares.Add(atvga);
+                                db.SaveChanges();
+                                var vganew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                                idVGA2 = Convert.ToInt32(vganew.ID);
 
-                                Hardware atvga = new Hardware();
-                                atvga.CodetypeID = "V";
-                                atvga.Name = listpro[i].VGA;
-                                atvga.WeightCriteraPoint = 0;
-                                db.Hardwares.Add(atvga);
-                                db.SaveChanges();
-                                var vganew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idVGA2 = Convert.ToInt32(vganew.ID);
-                            }
-                        }
-                        // nếu list VGA là rỗng
-                        if (listVGA.Count == 0)
-                        {
-                             // nếu VGA là trùng
-                            if (!errorVGA.Equals(""))
-                            {
-                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                int idpro = Convert.ToInt32(pronew.ID);
-                                newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listpro[i].VGA;
-                                vitriluu++;
-                            }
-                            // ko trùng thì lưu VGA mới vào database và lấy ID
-                            else
-                            {
-                                Hardware atvga = new Hardware();
-                                atvga.CodetypeID = "V";
-                                atvga.Name = listpro[i].VGA;
-                                atvga.WeightCriteraPoint = 0;
-                                db.Hardwares.Add(atvga);
-                                db.SaveChanges();
-                                var vganew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idVGA2 = Convert.ToInt32(vganew.ID);
-                            }
-                        }
+                                // lưu name vào Attibute Alias và để isactive là true
+                                Dictionary atvgaMap = new Dictionary();
+                                atvgaMap.AttributeDicID = vganew.ID;
+                                atvgaMap.Name = listpro[i].VGA;
+                                atvgaMap.IsActive = true;
+                                db.Dictionaries.Add(atvgaMap);
+                         }
+                        }                      
+                         #endregion
+                        #region // nếu list VGA là rỗng code comment
+
+                        // if (listVGA.Count == 0)
+                        //{
+                        //     // nếu VGA là trùng
+                        //    if (!errorVGA.Equals(""))
+                        //    {
+                        //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        int idpro = Convert.ToInt32(pronew.ID);
+                        //        newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listpro[i].VGA;
+                        //        vitriluu++;
+                        //    }
+                        //    // ko trùng thì lưu VGA mới vào database và lấy ID
+                        //    else
+                        //    {
+                        //        AttributeDictionary atvga = new AttributeDictionary();
+                        //        atvga.CodetypeID = "V";
+                        //        atvga.Name = listpro[i].VGA;
+                        //        atvga.WeightCriteraPoint = 0;
+                        //        db.AttributeDictionaries.Add(atvga);
+                        //        db.SaveChanges();
+                        //        var vganew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        idVGA2 = Convert.ToInt32(vganew.ID);
+
+                        //        // lưu name vào Attibute Alias và để isactive là true
+                        //        AttributeMapping atvgaMap = new AttributeMapping();
+                        //        atvgaMap.AttributeDicID = vganew.ID;
+                        //        atvgaMap.Name = listpro[i].VGA;
+                        //        atvgaMap.IsActive = true;
+                        //        db.AttributeMappings.Add(atvgaMap);
+                        //        db.SaveChanges();
+                        //    }
+                        //}
                         #endregion
                         // id HDD 3
                         #region
@@ -610,32 +651,49 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 db.SaveChanges();
                                 var hddnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                 idHDD3 = Convert.ToInt32(hddnew.ID);
-                            }
-                        }
-                        // nếu list HDD là rỗng 
-                        if (listHDD.Count == 0)
-                        {  
-                            // nếu HDD là trùng
-                            if (!errorHDD.Equals(""))
-                            {
-                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                int idpro = Convert.ToInt32(pronew.ID);
-                                newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listpro[i].HDD;
-                                vitriluu++;
-                            }
-                            // ko trùng thì lưu HDD mới vào database và lấy ID
-                            else
-                            {
-                                Hardware athddd = new Hardware();
-                                athddd.CodetypeID = "H";
-                                athddd.Name = listpro[i].HDD;
-                                athddd.WeightCriteraPoint = 0;
-                                db.Hardwares.Add(athddd);
-                                db.SaveChanges();
-                                var hddnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idHDD3 = Convert.ToInt32(hddnew.ID);
-                            }
-                        }
+
+                                // lưu name vào Attibute Alias và để isactive là true
+                                Dictionary athdddMap = new Dictionary();
+                                athdddMap.AttributeDicID = hddnew.ID;
+                                athdddMap.Name = listpro[i].HDD;
+                                athdddMap.IsActive = true;
+                                db.Dictionaries.Add(athdddMap);
+                         }
+                        }                     
+                         #endregion
+                        #region   // nếu list HDD là rỗng code comment
+
+                        // if (listHDD.Count == 0)
+                        //{  
+                        //    // nếu HDD là trùng
+                        //    if (!errorHDD.Equals(""))
+                        //    {
+                        //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        int idpro = Convert.ToInt32(pronew.ID);
+                        //        newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listpro[i].HDD;
+                        //        vitriluu++;
+                        //    }
+                        //    // ko trùng thì lưu HDD mới vào database và lấy ID
+                        //    else
+                        //    {
+                        //        AttributeDictionary athddd = new AttributeDictionary();
+                        //        athddd.CodetypeID = "H";
+                        //        athddd.Name = listpro[i].HDD;
+                        //        athddd.WeightCriteraPoint = 0;
+                        //        db.AttributeDictionaries.Add(athddd);
+                        //        db.SaveChanges();
+                        //        var hddnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        idHDD3 = Convert.ToInt32(hddnew.ID);
+                        //        // lưu name vào Attibute Alias và để isactive là true
+                        //        AttributeMapping athdddMap = new AttributeMapping();
+                        //        athdddMap.AttributeDicID = hddnew.ID;
+                        //        athdddMap.Name = listpro[i].HDD;
+                        //        athdddMap.IsActive = true;
+                        //        db.AttributeMappings.Add(athdddMap);
+                        //        db.SaveChanges();
+
+                        //    }
+                        //}
                         #endregion
                         // id Display 4
                         #region
@@ -671,35 +729,52 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     db.SaveChanges();
                                     var dispnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                     idDisplay4 = Convert.ToInt32(dispnew.ID);
+
+                                    // lưu name vào Attibute Alias và để isactive là true
+                                    Dictionary athdispMap = new Dictionary();
+                                    athdispMap.AttributeDicID = dispnew.ID;
+                                    athdispMap.Name = listpro[i].Display;
+                                    athdispMap.IsActive = true;
+                                    db.Dictionaries.Add(athdispMap);
+                                    db.SaveChanges();
                                 }
                             }
                         }
-                        // nếu list Display là rỗng
-                        if (listDisplay.Count == 0)
-                        {
-                               // nếu Display là trùng
-                            if (!errorDisplay.Equals(""))
-                            {
-                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                int idpro = Convert.ToInt32(pronew.ID);
-                                newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listpro[i].Display;
-                                vitriluu++;
-                            }
-                            // ko trùng thì lưu Display mới vào database và lấy ID
-                            else
-                            {
-                                Hardware athdisp = new Hardware();
-                                athdisp.CodetypeID = "D";
-                                athdisp.Name = listpro[i].Display;
-                                athdisp.WeightCriteraPoint = 0;
-                                db.Hardwares.Add(athdisp);
-                                db.SaveChanges();
-                                var dispnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idDisplay4 = Convert.ToInt32(dispnew.ID);
-                            }
-                        }
+                      #endregion
+                        #region  // nếu list Display là rỗng code comment
+                        //if (listDisplay.Count == 0)
+                        //{
+                        //       // nếu Display là trùng
+                        //    if (!errorDisplay.Equals(""))
+                        //    {
+                        //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        int idpro = Convert.ToInt32(pronew.ID);
+                        //        newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listpro[i].Display;
+                        //        vitriluu++;
+                        //    }
+                        //    // ko trùng thì lưu Display mới vào database và lấy ID
+                        //    else
+                        //    {
+                        //        AttributeDictionary athdisp = new AttributeDictionary();
+                        //        athdisp.CodetypeID = "D";
+                        //        athdisp.Name = listpro[i].Display;
+                        //        athdisp.WeightCriteraPoint = 0;
+                        //        db.AttributeDictionaries.Add(athdisp);
+                        //        db.SaveChanges();
+                        //        var dispnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        idDisplay4 = Convert.ToInt32(dispnew.ID);
+
+                        //        // lưu name vào Attibute Alias và để isactive là true
+                        //        AttributeMapping athdispMap = new AttributeMapping();
+                        //        athdispMap.AttributeDicID = dispnew.ID;
+                        //        athdispMap.Name = listpro[i].Display;
+                        //        athdispMap.IsActive = true;
+                        //        db.AttributeMappings.Add(athdispMap);
+                        //        db.SaveChanges();
+                        //    }
+                        //}
                         #endregion
-                        // id Ram
+                        // id Ram 5
                         #region
                         // nếu có rồi trong database thì lấy id ra
                         for (int x = 0; x < listRam.Count; x++)
@@ -732,33 +807,48 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 db.SaveChanges();
                                 var ramnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                 idRam5 = Convert.ToInt32(ramnew.ID);
-                            }
-                        }
 
-                        // nếu list Ram là rỗng 
-                        if (listRam.Count == 0)
-                        { 
-                                   // nếu Ram là trùng ghi log
-                            if (!errorRam.Equals(""))
-                            {
-                                var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                int idpro = Convert.ToInt32(pronew.ID);
-                                newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listpro[i].RAM;
-                                vitriluu++;
-                            }
-                            // ko trùng thì lưu Display mới vào database và lấy ID
-                            else
-                            {
-                                Hardware athram = new Hardware();
-                                athram.CodetypeID = "R";
-                                athram.Name = listpro[i].RAM;
-                                athram.WeightCriteraPoint = 0;
-                                db.Hardwares.Add(athram);
-                                db.SaveChanges();
-                                var ramnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
-                                idRam5 = Convert.ToInt32(ramnew.ID);
+                                // lưu name vào Attibute Alias và để isactive là true
+                                Dictionary athramMap = new Dictionary();
+                                athramMap.AttributeDicID = ramnew.ID;
+                                athramMap.Name = listpro[i].RAM;
+                                athramMap.IsActive = true;
+                                db.Dictionaries.Add(athramMap);
                             }
                         }
+                        #endregion
+                        #region  // nếu list Ram là rỗng code comment
+
+                        //if (listRam.Count == 0)
+                        //{ 
+                        //           // nếu Ram là trùng ghi log
+                        //    if (!errorRam.Equals(""))
+                        //    {
+                        //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        int idpro = Convert.ToInt32(pronew.ID);
+                        //        newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listpro[i].RAM;
+                        //        vitriluu++;
+                        //    }
+                        //    // ko trùng thì lưu Display mới vào database và lấy ID
+                        //    else
+                        //    {
+                        //        AttributeDictionary athram = new AttributeDictionary();
+                        //        athram.CodetypeID = "R";
+                        //        athram.Name = listpro[i].RAM;
+                        //        athram.WeightCriteraPoint = 0;
+                        //        db.AttributeDictionaries.Add(athram);
+                        //        db.SaveChanges();
+                        //        var ramnew = db.AttributeDictionaries.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        //        idRam5 = Convert.ToInt32(ramnew.ID);
+                        //        // lưu name vào Attibute Alias và để isactive là true
+                        //        AttributeMapping athramMap = new AttributeMapping();
+                        //        athramMap.AttributeDicID = ramnew.ID;
+                        //        athramMap.Name = listpro[i].RAM;
+                        //        athramMap.IsActive = true;
+                        //        db.AttributeMappings.Add(athramMap);
+                        //        db.SaveChanges();
+                        //    }
+                        //}
                         #endregion
 
                         #region  Gộp hai mảng lại thành một rồi ghi đè lại vào file txt
@@ -1128,7 +1218,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // Get all product from excel to list
             try
             {
-                var list = from x in excel.WorksheetRange("A2", "H900000")
+                var list = from x in excel.WorksheetRange("A2", "J900000")
                            select new LapData
                            {
                                stt = x["STT"],
@@ -1138,7 +1228,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                VGA = x["VGA"],
                                HDD = x["HDD"],
                                Display = x["Display"],
-                               RAM = x["RAM"]
+                               RAM = x["RAM"],
+                               Price = x["Price"],
+                               Url   = x["URL"]
                            };
                 listpro = list.ToList();
             }
@@ -1146,7 +1238,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             catch (Exception e)
             {
-                string a = "";
             }
             // Gán số thứ tự
             int sttp = 0;
@@ -1157,7 +1248,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             }
             //Kiểm tra xem có trong database chưa có rồi thì cho vào list đã tồn tại cho người dùng xem.
-
+            #region
             using (CPS_SolutionEntities db = new CPS_SolutionEntities())
             {
                 List<LapData> listExistedLap = new List<LapData>();
@@ -1182,7 +1273,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
                 TempData["listExistedLap"] = listExistedLap;
             }
-
+            #endregion
             // call function listerror
             listerror = ListErrorProduct(listpro);
             // call function listduplicate
@@ -1243,8 +1334,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
             List<LapData> errorlist = new List<LapData>();
             // quá nhiều lỗi
             List<String> errorLine = new List<String>();
-            // list dòng lỗi 1 Name, 2 Linkimage, 3 Display, 4 CPU, 5 HDD, 6 VGA, 7 Ram
-            for (int i = 0; i < 8; i++)
+            // list dòng lỗi 1 Name, 2 Linkimage, 3 Display, 4 CPU, 5 HDD, 6 VGA, 7 Ram, 8 Price, 9 URL
+            for (int i = 0; i < 10; i++)
             {
                 errorLine.Add("");
             }
@@ -1262,17 +1353,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
 
                 // dòng lỗi link ảnh lap
-                int anh1 = list[i].Imagelink.IndexOf(".jpg");
-                int anh2 = list[i].Imagelink.IndexOf(".png");
+                list[i].Imagelink = list[i].Imagelink.ToLower();
+
+                bool checkimage = IsImageUrl(list[i].Imagelink);
                 Uri myUri;
-                if (!Uri.TryCreate(list[i].Imagelink, UriKind.RelativeOrAbsolute, out myUri) || (anh1 + anh1 < 0))
+                if (!Uri.TryCreate(list[i].Imagelink, UriKind.RelativeOrAbsolute, out myUri) || checkimage == false)
                 {
                     errorLine[2] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
                     loi++;
                     count++;
                 }
                 // dòng lỗi Display
-                if (list[i].Display.Length < 5 || list[i].Display.Length > 100)
+                if (list[i].Display.Length < 1 || list[i].Display.Length > 100)
                 {
                     errorLine[3] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
                     loi++;
@@ -1287,8 +1379,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     count++;
                 }
                 // dòng lỗi HDD
-                int distance;
-                if (!int.TryParse(list[i].HDD, out distance))
+                //int distance;
+                //if (!int.TryParse(list[i].HDD, out distance))
+                //{
+                if (list[i].HDD.Length < 1 || list[i].HDD.Length > 100)
                 {
                     errorLine[5] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
                     loi++;
@@ -1302,14 +1396,35 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     count++;
                 }
                 // dòng lỗi Ram
-                int distance1;
-                if (!int.TryParse(list[i].RAM, out distance1))
+                    /*int distance1;
+                    if (!int.TryParse(list[i].RAM, out distance1))
+                    { */
+                if (list[i].RAM.Length < 1 || list[i].RAM.Length > 100)
                 {
                     errorLine[7] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
                     loi++;
                     count++;
                 }
 
+
+                // dòng lỗi Price
+                double distance1;
+                if (!double.TryParse(list[i].Price, out distance1))
+                {
+                    errorLine[8] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi URL
+                list[i].Url = list[i].Url.ToLower();
+                bool checkURL = IsUrl(list[i].Url);
+                Uri myUri1;
+                if (!Uri.TryCreate(list[i].Url, UriKind.RelativeOrAbsolute, out myUri1) || checkURL == false)
+                {
+                    errorLine[9] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
                 // cho vào list lỗi @@
                 if (loi > 0)
                 {
@@ -1317,7 +1432,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // thêm biến đếm số dòng lỗi được thêm vào.                   
                     list.RemoveAt(i);
                     i = i - 1;
-                }
+                }            
             }
             errorLine[0] = count.ToString();
             Session["errorLineLap"] = errorLine;
@@ -1372,14 +1487,16 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 int count1 = listerror.Count;
                 List<List<LapData>> listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
                 String[] info = stringpro.ToString().Split('@');
-                string stt = info[0];
-                string Name = info[1];
-                string ImageLink = info[2];
-                string CPU = info[3];
-                string VGA = info[4];
-                string HDD = info[5];
-                string Display = info[6];
-                string Ram = info[7];
+                string stt  = info[0].Trim();
+                string Name = info[1].Trim();
+                string ImageLink = info[2].Trim();
+                string CPU  = info[3].Trim();
+                string VGA  = info[4].Trim();
+                string HDD  = info[5].Trim();
+                string Display = info[6].Trim();
+                string Ram  = info[7].Trim();
+                string Price = info[8].Trim();
+                string Url  = info[9].Trim();
                 //gán vào list mới để kiểm tra
                 List<LapData> newlisterror = listerror;
                 foreach (LapData l in newlisterror)
@@ -1393,6 +1510,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         l.HDD = HDD;
                         l.Display = Display;
                         l.RAM = Ram;
+                        l.Price = Price;
+                        l.Url = Url;
                         break;
                     }
                 }
@@ -1416,14 +1535,16 @@ namespace CPS_Solution.Areas.Admin.Controllers
                    Session["listerrorLap"] = newlisterror1;
                    // xử lý sản phẩm lỗi đã được update.
                    LapData update = new LapData();
-                   update.stt = stt;
-                   update.Name = Name;
-                   update.Imagelink = ImageLink;
-                   update.CPU = CPU;
-                   update.VGA = VGA;
-                   update.HDD = HDD;
-                   update.Display = Display;
-                   update.RAM = Ram;
+                   update.stt = stt.Trim();
+                   update.Name = Name.Trim();
+                   update.Imagelink = ImageLink.Trim();
+                   update.CPU = CPU.Trim();
+                   update.VGA = VGA.Trim();
+                   update.HDD = HDD.Trim();
+                   update.Display = Display.Trim();
+                   update.RAM = Ram.Trim();
+                   update.Price = Price.Trim();
+                   update.Url = Url.Trim();
                    // so trùng với correct list và duplicate list
                    List<LapData> listtam = new List<LapData>();
                    listtam.Add(update);
@@ -1484,7 +1605,100 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.errorLineLap = Session["errorLineLap"];
             return View();
         }
+        /// <summary>
+        /// Sửa sản phẩm đúng trước khi lưu database
+        /// </summary>
+        /// <param name="stringprocorrect"></param>
+        /// <returns></returns>
+ 
+        public string EditCorrectPro(String stringprocorrect)
+        {
+            // get list product in session.
+            List<LapData> listpro = (List<LapData>)Session["listproductLap"];
+            List<LapData> listerror = (List<LapData>)Session["listerrorLap"];
+            List<List<LapData>> listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
 
+
+            String[] info = stringprocorrect.ToString().Split('@');
+            string stt = info[0].Trim();
+            string Name = info[1].Trim();
+            string ImageLink = info[2].Trim();
+            string CPU = info[3].Trim();
+            string VGA = info[4].Trim();
+            string HDD = info[5].Trim();
+            string Display = info[6].Trim();
+            string Ram = info[7].Trim();
+            string Price = info[8].Trim();
+            string Url = info[9].Trim();
+            // sản phẩm update chứa thông tin vừa sửa.
+            LapData update = new LapData();
+            update.stt = stt;
+            update.Name = Name;
+            update.Imagelink = ImageLink;
+            update.CPU = CPU;
+            update.VGA = VGA;
+            update.HDD = HDD;
+            update.Display = Display;
+            update.RAM = Ram;
+            update.Price = Price;
+            update.Url = Url;
+
+            // xóa sản phẩm cũ trong listpro
+            for (int i = 0; i < listpro.Count; i++)
+            {
+                if(listpro[i].stt.Equals(update.stt)){
+                    listpro.RemoveAt(i);
+                    break;
+                }
+            }
+
+            // so trùng với correct list và duplicate list
+            List<LapData> listtam = new List<LapData>();
+            listtam.Add(update);
+
+            //Duyệt hết list correct
+            for (int i = 0; i < listpro.Count; i++)
+            {
+                // nếu phát hiện trùng
+                if (CompareStringHelper.CompareString(listpro[i].Name.ToString(), update.Name) >= 80)
+                {
+                    listtam.Add(listpro[i]);
+                    listpro.Remove(listpro[i]);
+                    i--;
+                }
+            }
+
+            //Kiểm tra xem list tạm lớn hơn 1 tức là trong correct product có trùng thêm vào list trùng.
+            if (listtam.Count > 1)
+            {
+                listduplicate.Add(listtam);
+            }
+            // trong correct ko trùng thì bay qua list duplicate tìm trùng.
+            else
+            {
+                int count = 0;
+                for (int i = 0; i < listduplicate.Count; i++)
+                {
+                    if (CompareStringHelper.CompareString(listduplicate[i][0].Name.ToString(), update.Name) >= 80)
+                    {
+                        listduplicate[i].Add(update);
+                        count++;
+                        break;
+                    }
+                }
+                if (count == 0)
+                {
+                    listpro.Add(update);
+                }
+
+            }
+
+                Session["listerrorLap"] = listerror;
+                //update listError and listDuplicate
+                Session["listproductLap"] = listpro;
+                Session["listduplicateLap"] = listduplicate;
+            return "";
+        }
         /// <summary>
         /// Xóa một sản phẩm trong list đúng.
         /// </summary>
@@ -2591,7 +2805,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     if (listmap[r].Name.Equals(mangten[h]))
                                     {
                                         count1++;
-
+                                        count2++;
                                     }
                                 }
                                 // tên sản phẩm chưa có trong database lưu vào
@@ -2630,6 +2844,66 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// Kiểm tra url image có tồn tại không.
+        /// </summary>
+        /// <param name="URL"></param>
+        /// <returns></returns>
+        #region Kiểm tra url image có tồn tại không.
+        bool IsImageUrl(string URL)
+        {
+            var req = (HttpWebRequest)HttpWebRequest.Create(URL);
+            req.Method = "HEAD";
+            try
+            {
+                using (var resp = req.GetResponse())
+                {
+                    return resp.ContentType.ToLower(CultureInfo.InvariantCulture)
+                               .StartsWith("image/");
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Kiểm tra url có tồn tại không.
+        /// </summary>
+        /// <param name="URL"></param>
+        /// <returns></returns>
+        #region Kiểm tra url  có tồn tại không.
+        bool IsUrl(string URL)
+        {
+            HttpWebResponse response = null;
+            if (URL.Equals(""))
+            {
+                return false;
+            }
+            var request = (HttpWebRequest)WebRequest.Create(URL);
+            request.Method = "HEAD";         
+            try
+            {               
+                response = (HttpWebResponse)request.GetResponse();
+                return true;
+            }
+            catch (WebException ex)
+            {
+                /* A WebException will be thrown if the status of the response is not `200 OK` */
+                return false;
+            }
+            finally
+            {
+                // Don't forget to close your response.
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
+        }
+        #endregion
 
     }
 }
