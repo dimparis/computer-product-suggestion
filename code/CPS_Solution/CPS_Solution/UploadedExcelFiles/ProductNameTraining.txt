@@ -45,3 +45,34 @@
 75-Intel HD Graphics 4000;Intel Graphics HD4400
 82-Intel HD Graphics 4000;Intel HD Graphics 4600
 95-Serial ATA (SATA) 500B - 5400 rpm;Serial ATA (SATA) 750GB - 5400 rpm
+98-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)
+99-Intel Core i5-4200U (1.6Ghz upto 2.6Ghz, 3MB Cache L3);CPU Intel Core i5-4210U (1.7Ghz upto 2.7Ghz, 3MB Cache L3)
+99-4GB DDR3L/1600Mhz; Ram 4GB DDR3 1600Mhz
+99-1TB 5400 rpm;HDD 1TB 5400rpm
+99-NVIDIA® GeForce® GT 820M, 2 GB; VGA Nvidia GeForce GT 820M 2GB
+100-4GB DDR3L/1600Mhz;4GB DDR3/1600Mhz
+101-Serial ATA (SATA) 500B - 5400 rpm;Serial ATA (SATA) 1TB - 5400 rpm
+108-Intel Core i5-4200U (1.6Ghz upto 2.6Ghz, 3MB Cache L3);CPU Intel Core i5-4210U (1.7Ghz upto 2.7Ghz, 3MB Cache L3)
+108-4GB DDR3L/1600Mhz; Ram 4GB DDR3 1600Mhz
+108-1TB 5400 rpm;HDD 1TB 5400rpm
+108-NVIDIA® GeForce® GT 820M, 2 GB; VGA Nvidia GeForce GT 820M 2GB
+109-Intel HD Graphics 4000;Intel HD Graphics 4402
+110-Serial ATA (SATA) 500B - 5400 rpm;Serial ATA (SATA) 1TB - 5400 rpm
+111-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)
+112-4GB DDR3L/1600Mhz;4GB DDR3/1600Mhz
+113-Intel Core i5-4200U (1.6Ghz upto 2.6Ghz, 3MB Cache L3);CPU Intel Core i5-4210U (1.7Ghz upto 2.7Ghz, 3MB Cache L3)
+113-4GB DDR3L/1600Mhz; Ram 4GB DDR3 1600Mhz
+113-1TB 5400 rpm;HDD 1TB 5400rpm
+113-NVIDIA® GeForce® GT 820M, 2 GB; VGA Nvidia GeForce GT 820M 2GB
+115-Serial ATA (SATA) 500B - 5400 rpm;Serial ATA (SATA) 1TB - 5400 rpm
+116-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)
+117-4GB DDR3L/1600Mhz;4GB DDR3/1600Mhz
+119-Intel HD Graphics 4000;Intel HD Graphics 4402
+120-Intel Core i5-4200U (1.6Ghz upto 2.6Ghz, 3MB Cache L3);CPU Intel Core i5-4210U (1.7Ghz upto 2.7Ghz, 3MB Cache L3)
+120-4GB DDR3L/1600Mhz; Ram 4GB DDR3 1600Mhz
+120-1TB 5400 rpm;HDD 1TB 5400rpm
+120-NVIDIA® GeForce® GT 820M, 2 GB; VGA Nvidia GeForce GT 820M 2GB
+122-Intel HD Graphics 4000;Intel HD Graphics 4402
+123-Serial ATA (SATA) 500B - 5400 rpm;Serial ATA (SATA) 1TB - 5400 rpm
+124-14 inch, HD (1366 x 768 pixels);15.6 inch, HD (1366 x 768 pixels)
+125-4GB DDR3L/1600Mhz;4GB DDR3/1600Mhz

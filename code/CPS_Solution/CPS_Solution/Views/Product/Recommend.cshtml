@@ -15,7 +15,7 @@
 @Scripts.Render("~/Scripts/knockout")
 
 <div class="breadcrumb-container" @*style="height:60px"*@>
-    <div class="container" >
+    <div class="container">
         <div class="relative">
             <ul class="bc push-up unstyled clearfix">
                 <li>Trang chủ</li>
@@ -64,7 +64,8 @@
 	                        </div>
 	                                <div class="panel-collapse collapse in">
 		                        <div class="panel-body">
-                                    @using (Html.BeginForm()) {
+                                    @using (Html.BeginForm())
+                                    {
                                         @Html.ValidationSummary(true)
                                         //Product name
                                         <div class="form-group stylish-input">
@@ -75,54 +76,13 @@
                                         //Product url
                                         <div class="form-group stylish-input">
                                             <label class="required">Đường dẫn sản phẩm</label>
-                                            @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control",id ="link" })
                                             @Html.ValidationMessageFor(model => model.Parselink)
-                                        </div>
-                                        <p><input type="submit" value="Gửi đề xuất" class="btn btn-info btn-xsp pull-right"/></p>
+                                            <input type="button" value="Kiểm tra" onclick="LinkCheck()" />
+                                            <div id="status" />
+                                        </div>                                        
+                                        <p><input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="btn btn-info btn-xsp pull-right"/></p>
                                     }
-		                        </div>
-	                        </div>
-                        </div>
-                        <div class="panel panel-default desc" id="recommend2" style="display:none;">
-	                        <div class="panel-heading">
-		                        <h4 class="panel-title">
-			                        <p>Đề xuất bằng thông tin chi tiết sản phẩm</p>
-		                        </h4>
-	                        </div>
-	                        <div class="panel-collapse collapse in">
-		                        <div class="panel-body">
-                                    @*Product name*@
-                                    <div class="form-group stylish-input">
-		                                <label class="required" for="input2">Tên sản phẩm</label>
-		                                <input type="text" id="input2" class="form-control" />
-	                                </div>
-                                    @*Product chipset*@
-                                    <div class="form-group stylish-input">
-		                                <label class="required" for="input2">Bộ vi xử lý</label>
-		                                <input type="text" id="input2" class="form-control" />
-	                                </div>
-                                    @*Product vga*@
-                                    <div class="form-group stylish-input">
-		                                <label class="required" for="input2">Card màn hình</label>
-		                                <input type="text" id="input2" class="form-control" />
-	                                </div>
-                                    @*Product ram*@
-                                    <div class="form-group stylish-input">
-		                                <label class="required" for="input2">Bộ nhớ RAM</label>
-		                                <input type="text" id="input2" class="form-control" />
-	                                </div>
-                                    @*Product hdd*@
-                                    <div class="form-group stylish-input">
-		                                <label class="required" for="input2">Ổ cứng</label>
-		                                <input type="text" id="input2" class="form-control" />
-	                                </div>
-                                    @*Product display*@
-                                    <div class="form-group stylish-input">
-		                                <label class="required" for="input2">Độ phân giải màn hình</label>
-		                                <input type="text" id="input2" class="form-control" />
-	                                </div>
-                                    @*Button submit*@
-                                    <p><input type="submit" value="Gửi đề xuất" class="btn btn-info btn-xsp pull-right"/></p>
 		                        </div>
 	                        </div>
                         </div>
@@ -134,73 +94,26 @@
 </main>
 
 <script type="text/javascript">
-    
+    function LinkCheck() {
+        document.getElementById("btnSubmit").disabled = true;
+        $("#status").html("<img src='@Url.Content("~/Images/I/loading.gif")' width='25px'" +
+                    "height='25px'/><span style='color:blue'>  Đang kiểm tra....</span>");
+        $.post("/Product/checkLink",
+        { link: $("#link").val() },
+        function (data) {
+            if (data == 1) {
+                $("#status").html("<img src='@Url.Content("~/Images/I/good.gif")' width='25px'" + "height='25px'/><span style='color:green'>Đường dẫn có thực.</span>");
+                $("#link").css('background-color', '');
+                document.getElementById("btnSubmit").disabled = false;
+            }
+            else {
+                $("#status").html("<img src='@Url.Content("~/Images/I/bad.gif")' width='25px'" + "height='25px'/><span style='color:red'>Đường dẫn không có thực.</span>");
+                $("#link").css('background-color', '#e97878');
+                document.getElementById("btnSubmit").disabled = true;
+            }
+        });
+    }
 </script>
-
-
-
-
-
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>RecommendProduct</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Username)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Username)
-            @Html.ValidationMessageFor(model => model.Username)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Parselink)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Parselink)
-            @Html.ValidationMessageFor(model => model.Parselink)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RecommendTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.RecommendTime)
-            @Html.ValidationMessageFor(model => model.RecommendTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsApprove)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsApprove)
-            @Html.ValidationMessageFor(model => model.IsApprove)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-    
-    
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-
 @*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }*@

@@ -277,9 +277,10 @@ namespace CPS_Solution.Areas.Admin.Helpers
             try
             {               
                 //load page
+                System.Net.ServicePointManager.Expect100Continue = false;
                 var uri = new Uri(parseInfo.Parselink);
                 string host = uri.GetLeftPart(UriPartial.Authority);
-                HtmlNode.ElementsFlags.Remove("form");
+                HtmlNode.ElementsFlags.Remove("form");                
                 var doc = web.Load(parseInfo.Parselink);
                 data = MatchingProductData(host, doc, parseInfo.Name, parseInfo.PriceXPath, parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
                 return data;
@@ -316,15 +317,14 @@ namespace CPS_Solution.Areas.Admin.Helpers
             else
             {
                 name = doc.DocumentNode.SelectSingleNode(nameXpath);
-                if (priceXpath != null)
-                {
-                    price = doc.DocumentNode.SelectSingleNode(priceXpath);
-                }
             }
 
             if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn"))
             {
-
+                if (priceXpath != null)
+                {
+                    price = doc.DocumentNode.SelectSingleNode(priceXpath);
+                }
                 cpu = doc.DocumentNode.SelectSingleNode(ReplaceUntable(cpuXpath, "/t", "//t"));
                 vga = doc.DocumentNode.SelectSingleNode(ReplaceUntable(vgaXpath, "/t", "//t"));
                 hdd = doc.DocumentNode.SelectSingleNode(ReplaceUntable(hddXpath, "/t", "//t"));
@@ -680,7 +680,6 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
         }
         #endregion
-
         // Process File
         #region
         public static void ExportTrainingFile(List<int> match, string name)
