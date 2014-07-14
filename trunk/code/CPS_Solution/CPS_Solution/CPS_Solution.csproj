@@ -187,6 +187,7 @@
     <Compile Include="Areas\Admin\Helpers\ImageHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\LogFileHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
+    <Compile Include="Areas\Admin\Helpers\PriceHelper.cs" />
     <Compile Include="Areas\Admin\Models\LapData.cs" />
     <Compile Include="Areas\Admin\Models\ProductData.cs" />
     <Compile Include="Areas\Admin\Models\ConfigurationModel.cs" />
@@ -3130,6 +3131,10 @@
     <Content Include="Images\I\20140707\Laptop20140707-021558.jpg" />
     <Content Include="Images\I\20140707\Laptop20140707-022428.png" />
     <Content Include="Images\I\20140707\Laptop20140707-023105.jpg" />
+    <Content Include="Images\I\default.jpg" />
+    <Content Include="Images\I\loading.gif" />
+    <Content Include="Images\I\loading2.gif" />
+    <Content Include="Images\I\loading3.gif" />
     <Content Include="obj\Debug\CPS_Solution.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\CPS_Solution.dll" />
     <Content Include="obj\Debug\CPS_Solution.pdb" />
@@ -3254,6 +3259,7 @@
     <Content Include="UploadedExcelFiles\ProductNameTraining.txt.mine" />
     <Content Include="UploadedExcelFiles\ProductNameTraining.txt.r263" />
     <Content Include="UploadedExcelFiles\ProductNameTraining.txt.r280" />
+    <Content Include="Views\Product\checkLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Dandelion\plugins\elfinder\files\.tmb\" />

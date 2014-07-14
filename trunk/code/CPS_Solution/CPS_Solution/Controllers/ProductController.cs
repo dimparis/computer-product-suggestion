@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CPS_Solution.EntityFramework;
+using System.Net;
 
 namespace CPS_Solution.Controllers
 {
@@ -105,6 +106,8 @@ namespace CPS_Solution.Controllers
         [HttpPost]
         public ActionResult Recommend(RecommendProduct recommendproduct)
         {
+            recommendproduct.RecommendTime = DateTime.Now;
+            recommendproduct.Username = "member1";
             if (ModelState.IsValid)
             {
                 db.RecommendProducts.Add(recommendproduct);
@@ -115,7 +118,47 @@ namespace CPS_Solution.Controllers
             ViewBag.Username = new SelectList(db.Accounts, "member1", "123456", recommendproduct.Username);
             return View(recommendproduct);
         }
-
+        public JsonResult checkLink(string link) 
+        {
+            System.Threading.Thread.Sleep(1500);
+            //string name = form["link"];
+            if (IsUrl(link))
+            {
+                return Json(1);
+            }
+            else 
+            {
+                return Json(0);
+            }
+        }
+        private bool IsUrl(string URL)
+        {
+            HttpWebResponse response = null;
+            if (URL.Equals(""))
+            {
+                return false;
+            }
+            var request = (HttpWebRequest)WebRequest.Create(URL);
+            request.Method = "HEAD";
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+                return true;
+            }
+            catch (WebException ex)
+            {
+                /* A WebException will be thrown if the status of the response is not `200 OK` */
+                return false;
+            }
+            finally
+            {
+                // Don't forget to close your response.
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

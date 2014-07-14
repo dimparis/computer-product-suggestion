@@ -53,7 +53,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             if (User.IsInRole("Member"))
             {
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("SearchForProduct", "Product");
             }
             return null;
         }

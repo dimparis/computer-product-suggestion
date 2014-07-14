@@ -2,8 +2,8 @@
 <config>
   <Totalpoint>100</Totalpoint>
   <ParseTime>
-    <hours>10</hours>
-    <minutes>38</minutes>
+    <hours>15</hours>
+    <minutes>19</minutes>
   </ParseTime>
   <LimitRequestPerDay>10</LimitRequestPerDay>
   <sessiontime>15</sessiontime>

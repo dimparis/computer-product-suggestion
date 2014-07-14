@@ -69,17 +69,16 @@ namespace CPS_Solution.Areas.Admin.Controllers
             else
             {
                 //If exist Update Parser
-                var newParseInfo = context.ParseInfoes.Where(x => x.ID == parseInfo.ID).FirstOrDefault();
-                newParseInfo.Name = model.ProductNameXpath;
-                newParseInfo.PriceXPath = model.PriceXpath;
-                newParseInfo.ImageXpath = model.ImageXpath;
-                newParseInfo.Parselink = model.ParseProductLink;
-                newParseInfo.CPUXPath = model.CPUXpath;
-                newParseInfo.DisplayXPath = model.DisplayXpath;
-                newParseInfo.HDDXPath = model.HDDXpath;
-                newParseInfo.RAMXPath = model.RAMXpath;
-                newParseInfo.VGAXPath = model.VGAXpath;
-                newParseInfo.IsActive = true;
+                parseInfo.Name = model.ProductNameXpath;
+                parseInfo.PriceXPath = model.PriceXpath;
+                parseInfo.ImageXpath = model.ImageXpath;
+                parseInfo.Parselink = model.ParseProductLink;
+                parseInfo.CPUXPath = model.CPUXpath;
+                parseInfo.DisplayXPath = model.DisplayXpath;
+                parseInfo.HDDXPath = model.HDDXpath;
+                parseInfo.RAMXPath = model.RAMXpath;
+                parseInfo.VGAXPath = model.VGAXpath;
+                parseInfo.IsActive = true;
                 context.SaveChanges();
             }
             Task.Factory.StartNew(() => ParserHelper.ParseProductData(model));
@@ -89,6 +88,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
             context.SaveChanges();
 
             TempData["createbyRecommendProduct"] = "success";
+
+            System.Threading.Thread.Sleep(5000);
+
             return RedirectToAction("Index");
         }
         public ActionResult CreateProductParser()
