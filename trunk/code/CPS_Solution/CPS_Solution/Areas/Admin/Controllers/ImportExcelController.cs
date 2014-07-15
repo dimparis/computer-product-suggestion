@@ -64,7 +64,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             // nếu có check  ghilog Duplicate
             #region ghilog Duplicate
-            if (!ghilog[0].Equals("no"))
+            if (!ghilog[0].Equals("no")&&listduplicate!=null)
             {
                 // lấy dữ liệu trong file text traning ra LapDataTraning;
                 string path = Server.MapPath("~/UploadedExcelFiles/ProductName.txt");
@@ -116,13 +116,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             //lấy product trong database ra chỉ lấy Codetype bằng loai.
             List<Hardware> listproindatabase = new List<Hardware>();
-            String loai = listpro[0].loai;
-            var resource = (from x in db.Hardwares where x.CodetypeID.Equals(loai) select x);
-          listproindatabase = resource.ToList();
+            var resource = (from x in db.Hardwares select x);
+            listproindatabase = resource.ToList();
 
-            // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
+            // tìm sản phẩm trùng với database cho vào list trùng hoặc xóa đi :|
             for (int j = 0; j < listproindatabase.Count; j++)
             {
+           
                 List<ProductMap> duplicateProduct = new List<ProductMap>();
                 for (int i = 0; i < listpro.Count; i++)
                 {
@@ -152,7 +152,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         ProductMap pro = new ProductMap();
                         pro.stt = listproindatabase[j].ID.ToString();
                         pro.ten = listproindatabase[j].Name;
-                        pro.loai = listproindatabase[j].Codetype.Name;
+                        pro.loai = listproindatabase[j].CodetypeID;
                         pro.trongso = listproindatabase[j].WeightCriteraPoint.ToString();
 
                         //add list dup.
@@ -188,19 +188,21 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
                 p.CodetypeID = listpro[i].loai;
                 p.WeightCriteraPoint = Convert.ToInt32(listpro[i].trongso);
+                p.IsActive = true;
                 db.Hardwares.Add(p);
                 db.SaveChanges();
                 // lấy max ID và thêm vào bảng alias
-                if (mangten.Length >= 2)
+                if (mangten.Length >= 1)
                 {
                     var pronew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                     int idinsert = Convert.ToInt32(pronew.ID);
 
-                    for (int h = 1; h < mangten.Length; h++)
+                    for (int h = 0; h < mangten.Length; h++)
                     {
                         Dictionary a = new Dictionary();
                         a.Name = mangten[h];
                         a.AttributeDicID = idinsert;
+                        a.IsActive = true;
                         db.Dictionaries.Add(a);
                         db.SaveChanges();
                     }
@@ -798,8 +800,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
             proTach.trongso = tachdup[2];
             proTach.loai = tachdup[3];
 
-
-
             int count11 = 0;
             // duyệt hết list duplicate lớn
             for (int i = 0; i < listduplicatenew.Count; i++)
@@ -885,12 +885,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 db.Hardwares.Add(p);
                                 db.SaveChanges();
                                 // lấy max ID và thêm vào bảng alias
-                                if (mangten.Length >= 2)
+                                if (mangten.Length >= 1)
                                 {
                                     var pronew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                     int idinsert = Convert.ToInt32(pronew.ID);
 
-                                    for (int h = 1; h < mangten.Length; h++)
+                                    for (int h = 0; h < mangten.Length; h++)
                                     {
                                         Dictionary a = new Dictionary();
                                         a.Name = mangten[h];
@@ -979,6 +979,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     Dictionary a = new Dictionary();
                                     a.Name = mangten[h];
                                     a.AttributeDicID = idinsert;
+                                    a.IsActive = true;
                                     db.Dictionaries.Add(a);
                                     db.SaveChanges();
                                 }

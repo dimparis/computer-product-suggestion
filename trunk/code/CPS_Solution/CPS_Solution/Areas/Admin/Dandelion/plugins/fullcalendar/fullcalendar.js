@@ -1433,7 +1433,7 @@ function parseISO8601(s, ignoreTimezone) { // ignoreTimezone defaults to false
 		);
 		if (m[14]) {
 			var offset = Number(m[16]) * 60 + (m[18] ? Number(m[18]) : 0);
-			offset *= m[15] == '-' ? 1 : -1;
+			offset *= m[15] == '~' ? 1 : -1;
 			date = new Date(+date + (offset * 60 * 1000));
 		}
 	}

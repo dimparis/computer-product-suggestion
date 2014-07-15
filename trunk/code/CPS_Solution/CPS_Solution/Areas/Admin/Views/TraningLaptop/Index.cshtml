@@ -4,13 +4,27 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<LapData> list = ViewBag.listproduct;
     List<List<LapData>> listDup = ViewBag.ListdupLaptraning;
-    List<List<LapData>> listDupdb = ViewBag.LapDatadbTraning;
+    // danh sách lỗi khi lỗi quá nhiều
+    List<LapData> danhsachlaploi = ViewBag.danhsachlaploi;
     int countlistdup = 0;
+    int countlist = 0;
     if (listDup != null)
     {
         countlistdup = listDup.Count;
     }
+    if (list != null)
+    {
+        countlist = list.Count;
+    }
+    List<List<LapData>> listDupnew = ViewBag.listduplicatenewLap;
+    int countlistdup1 = 0;
+    if (listDupnew != null)
+    {
+        countlistdup1 = listDupnew.Count;
+    }
+
 }
 @section headScript
 {
@@ -211,31 +225,300 @@
 {
 }
 <!----------------------------------------------- Content Area --------------------------------------------->
-
-
-<!-------------------listdupnew--------------------------------------------------------------------------------------->
-<!--tab3--------------------------------------------------------------------------------------------------------------------------------------------------------------->
-<div class="grid_4">
+<<div class="grid_4">
     <!---------------->
-<div id="da-icon-tab" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <div id="da-icon-tab" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
 
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" id="thumbselector">
-            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#color-icon">
+            <li class="ui-state-default ui-corner-top"><a href="#color-icon">
                 <img src="~/Areas/Admin/Dandelion/images/message-success.png" alt="">
-                Traning sản phẩm trùng nhau.</a></li>
-            <li class="ui-state-default ui-corner-top"><a href="#black-icon">
+                Danh sách sản phẩm đúng</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#white-icon">@**@
                 <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">
-                Traning sản phẩm trùng trong database</a></li>
+                Danh sách sản phẩm trùng với database</a></li>
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#black-icon">
+                <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">
+                Danh sách sản phẩm trùng</a></li>
         </ul>
 
         <div id="color-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+
+            <!--tab1------------------------------------------------------------------------------------->
+            @if (list != null)
+            {
+                <div class="da-panel-toolbar top">
+                    <ul>
+                        <form action="~/Admin/ImportExcelLap/saveAllProduct" method="post" enctype="multipart/form-data">
+                            <li>
+                                <a onclick="saveCorrectProduct()" id="da-ex-dialog-modal">
+                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</a></li>                        
+                        </form>
+                        <li><a href="~/Admin/ImportExcelLap/huyimport">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
+                    </ul>
+                </div>
+            }           
+            <div id="CorrectID">
+                <!------------------------------------------------------------------------------------------->
+                <div class="da-panel collapsible">
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Danh sách để lưu vào cơ sở dữ liệu
+                        </span>
+
+                        <span class="da-panel-toggler"></span>
+                    </div>
+                    <div class="da-panel-content">
+                        <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+
+
+                            <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">STT</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Giá</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Địa chỉ bán</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 50px;">Thực hiện</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                                    @if (list != null)
+                                    {
+                                        foreach (LapData p in list)
+                                        {
+                                        <tr class="odd">
+                                            
+                                            <td class=" sorting_1">@p.stt </td>
+                                            <td class=" "> <label style="width: 100px;">@p.Name</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.Imagelink</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.CPU</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.VGA</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.HDD</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.Display</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.RAM</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.Price</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.Url</label></td>
+                                            <td class=" ">
+                                                <input name="sttproduct" type="hidden"  value="@p.stt" />
+                                                <a onclick="xoasanphamdung(@p.stt)">
+                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
+                                                    Xóa</a>
+                                                <a onclick="showPopupEdit(@p.stt)">
+                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
+                                                    Sửa</a>
+
+                                                <!----------------Popup sửa sản phẩm đúng----------->
+                                                <div id="Edit-@p.stt-Popup-div" style="display: none;">
+                                                    <div class="da-panel">
+                                                        @*  <div class="da-panel-header">
+                                	                                    <span class="da-panel-title">
+                                                                            <img src="/Areas/Admin/Dandelion/images/icons/black/16/pencil.png" alt="">                                                                           
+                                                                        </span>
+                                    
+                                                                    </div>*@
+                                                        <div class="da-panel-content">
+                                                            <form class="da-form">
+                                                                <div class="da-form-inline">
+                                                                    <div class="da-form-row">
+                                                                        <label>Tên Laptop</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Tên sản phẩm phải từ 5 tới 100 ký tự.</span>
+                                                                            <input id="idNameCorect@(p.stt)" value="@p.Name" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Đường dẫn ảnh</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Đường dẫn ảnh phải tồn tại.</span>
+                                                                            <input id="idImagelinkCorect@(p.stt)" value="@p.Imagelink" type="text">
+                                                                            <a onclick="ChangeImagePopup(@(p.stt))">
+                                                                                <img src="/Areas/Admin/Dandelion/images/icons/color/magnifier.png"></a>
+                                                                        </div>
+                                                                        <div class="da-form-item">
+                                                                            <a>
+                                                                                <img style="width: 279px" id ="idViewImage@(p.stt)" src="@p.Imagelink"></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Màn hình</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Màn hình không được bỏ trống và phải nhỏ hơn 100 ký tự</span>
+                                                                            <input id="idDisplayCorect@(p.stt)" value="@p.Display" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>CPU</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">CPU phải từ 5 tới 100 ký tự</span>
+                                                                            <input id="idCPUCorect@(p.stt)" value="@p.CPU" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>VGA</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">VGA phải từ 5 tới 100 ký tự</span>
+                                                                            <input id="idVGACorect@(p.stt)" value="@p.VGA" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>HDD</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">HDD không được bỏ trống vả phải nhỏ hơn 100 ký tự</span>
+                                                                            <input id="idHDDCorect@(p.stt)" value="@p.HDD" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Ram</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Ram không được bỏ trống vả phải nhỏ hơn 100 ký tự</span>
+                                                                            <input id="idRamCorect@(p.stt)" value="@p.RAM" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Giá</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Giá phải là số nguyên</span>
+                                                                            <input id="idPriceCorect@(p.stt)" value="@p.Price" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Địa chỉ website bán</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Địa chỉ website bán phải tồn tại</span>
+                                                                            <input id="idUrlCorect@(p.stt)" value="@p.Url" type="text">
+                                                                        </div>
+                                                                    </div>                                                           
+                                                                    <div class="da-button-row">
+                                                                        <input onclick="EditCorrectPro(@p.stt)" type="button" value="Lưu" class="da-button green">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!----------------Popup------------------>
+                                            </td>
+                                        </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!--ket thuc tab1------------------------------------------------------------------------------------------->
+
+            </div>
+
+        </div>
+
+        <div id="white-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+            <!-- tab2 -------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
+             <!-------------------listdupnew--------------------------------------------------------------------------------------->
+            <div class="da-panel collapsible">
+                @if (listDupnew != null)
+                {
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Danh sách sản phẩm có thể trùng với sản phẩm trong cơ sở dữ liệu.
+                        </span>
+
+                        <span class="da-panel-toggler"></span>
+                    </div>
+                    <div class="da-panel-content">
+                        <input style="visibility: hidden" />
+                    </div>
+               
+                    int i = 0;
+
+                    foreach (List<LapData> listp in listDupnew)
+                    {
+                        i++;
+                        // nút gộp tách
+                    <div class="da-panel-toolbar top" style="border-color: yellowgreen">
+                        <ul>
+                            <li style="text-align: right"><a id ="link_@(i)"  style="width: 46.5px;" onclick="gopdatabase(@(i))">
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
+                            <li style="text-align: right"><a  onclick="tachdatabase(@(i))" >
+                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
+                            <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
+                        </ul>
+                    </div>
+                    <div class="da-panel-content">
+                        <table    id="table_@(i)" class="da-table">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-column"  id="checkboxAllTable_@(i)">
+                                        <input id="checkAll"  checked="checked" disabled style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Price</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Địa chỉ máy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int y = 0;}
+                                @foreach (LapData p in listp)
+                                {
+                                    y++;
+                                    <tr class="odd">
+                                        <td id="@(y)" class="checked">
+                                            <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
+                                        </td>
+                                        <td class=" ">@p.Name</td>
+                                        <td class=" ">@p.Imagelink</td>
+                                        <td class=" ">@p.CPU</td>
+                                        <td class=" ">@p.VGA</td>
+                                        <td class=" ">@p.HDD</td>
+                                        <td class=" ">@p.Display</td>
+                                        <td class=" ">@p.RAM</td>
+                                        <td class=" ">@p.Price</td>
+                                        <td class=" ">@p.Url</td>
+                                    </tr> 
+                                                            
+                                }
+                            </tbody>
+                        </table>
+                    </div>                                           
+                    <div class="da-panel-content">
+                        <input style="visibility: hidden" />
+                    </div>
+                    }
+                }
+
+
+            </div>
+
+            <!--ket thuc tab2------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+        </div>
+        <div id="black-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <!--tab3--------------------------------------------------------------------------------------------------------------------------------------------------------------->
             <div class="da-panel collapsible">
                 @if (listDup != null)
                 {
                     <div class="da-panel-header">
                         <span class="da-panel-title">
                             <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                            Danh sách nhóm sản phẩm trùng
+                            Danh sách nhóm sản phẩm có thể bị trùng
                         </span>
 
                         <span class="da-panel-toggler"></span>
@@ -252,7 +535,7 @@
                         // nút gộp tách
                     <div class="da-panel-toolbar top" style="border-color: yellowgreen">
                         <ul>
-                            <li style="width: 67.5px;" style="text-align: right"><a id ="link_@(i)"  onclick="gop1table(@(i))">
+                            <li style="width: 68px;" style="text-align: right"><a id ="link_@(i)"  onclick="gop1table(@(i))">
                                 <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
                             <li style="text-align: right"><a  onclick="tach1table(@(i))" >
                                 <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
@@ -269,12 +552,13 @@
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD (G)</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Display</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram (G)</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
+                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Giá</th>
+                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Địa chỉ máy</th>
 
-                                    <th style="width: 92px;">Chọn tên chính                                                               
-                                    </th>
+                                    <th style="width: 92px;">Chọn tên chính</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -293,7 +577,8 @@
                                         <td class=" ">@p.HDD</td>
                                         <td class=" ">@p.Display</td>
                                         <td class=" ">@p.RAM</td>
-
+                                        <td class=" ">@p.Price</td>
+                                        <td class=" ">@p.Url</td>
                                         <td class="da-icon-column">
 
                                             <!-- Nếu là sản phẩm đầu tiên thì check radio-->
@@ -320,273 +605,447 @@
 
 
             </div>
+           
+            <!--ket thuc tab3------------------------------------------------------------------------------------------------------------------>
         </div>
-        <div id="black-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-             <div class="da-panel collapsible">
-                @if (listDupdb != null)
-                {
-                    <div class="da-panel-header">
-                        <span class="da-panel-title">
-                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                            Sản phầm trùng với cơ sở dữ liệu.
-                        </span>
-
-                        <span class="da-panel-toggler"></span>
-                    </div>
-                    <div class="da-panel-content">
-                        <input style="visibility: hidden" />
-                    </div>
-               
-                    int i = 999;
-
-                    foreach (List<LapData> listp in listDupdb)
-                    {
-                        i++;
-                        // nút gộp tách
-                    <div class="da-panel-toolbar top" style="border-color: yellowgreen">
-                        <ul>
-                            <li style="text-align: right"><a id ="link_@(i)"  style="width: 46.5px;" onclick="gopdatabase(@(i))">
-                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
-                            <li style="text-align: right"><a  onclick="tachdatabase(@(i))" >
-                                <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
-                            <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
-                        </ul>
-                    </div>
-                    <div class="da-panel-content">
-                        <table    id="table_@(i)" class="da-table">
-                            <thead>
-                                <tr>
-                                    <th class="checkbox-column"  id="checkboxAllTable_@(i)">
-                                    <input id="checkAll"  checked="checked" disabled style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD (G)</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Display</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram (G)</th>
-                                    @*   <th style="width: 92px;">Chọn tên chính                                                               
-                                    </th> *@
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{int y = 0;}
-                                @foreach (LapData p in listp)
-                                {
-                                    y++;
-                                    <tr class="odd">
-                                        <td id="@(y)" class="checked">
-                                            <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
-                                        </td>
-                                        <td class=" ">@p.Name</td>
-                                        <td class=" ">@p.Imagelink</td>
-                                        <td class=" ">@p.CPU</td>
-                                        <td class=" ">@p.VGA</td>
-                                        <td class=" ">@p.HDD</td>
-                                        <td class=" ">@p.Display</td>
-                                        <td class=" ">@p.RAM</td>
-                                    </tr> 
-                                                            
-                                }
-                            </tbody>
-                        </table>
-                    </div>                                           
-                    <div class="da-panel-content">
-                        <input style="visibility: hidden" />
-                    </div>
-                    }
-                }
-            </div>
-        </div>
-</div>
-</div>
-
 
         <!-----------------------------------------javascript -------------------------------------->
-
-
-
-
-
-
-
-
-
-
-
-
-
         <script>
-            // check all in table
-            function checkboxAllTable(i) {
-                if ($("#checkboxAllTable_" + i).find("input:checkbox")[0].checked == true) {
-                    $("#table_" + i).find("tbody").find("input:checkbox").attr('checked', $(this).is('') ? 'checked' : '');
-                    $("#table_" + i).find("tbody").find("tr").attr("class", "checked");
-                }
-                else {
-                    $("#table_" + i).find("tbody").find("input:checkbox").removeAttr('checked');
-                    $("#table_" + i).find("tbody").find("tr").removeClass('checked');
-                }
+    <!----validate file upload :D-------->
+    var fsize=0;
+    var fname="";
+    // get fsize và fname
+    $('#fileupload').bind('change', function() {
+        fsize = this.files[0].size/1024/1024;
+        fname =  this.files[0].name;
+                 
+    });
+    // check filesize và fname
+    function checkuploadfile(){ 
+        var check1 = fname.indexOf("xlsx");
+        var check2 = fname.indexOf("xls");
+        if(check1 >0||check2>0)
+        {
+            if(fsize>2){
+                $.jGrowl("File không được lớn hơn 2Mb", {header: "Nhắc nhở!", position: "bottom-right"});
+            }else{
+                document.getElementById("da-ex-vali").submit();
             }
+        }else{
+            $.jGrowl("Hệ thống chỉ hỗ trợ file excel vui lòng thử lại!", {header: "Nhắc nhở!", position: "bottom-right"});
+        }
+    }
+    //Hiện popup để sửa 1 sản phẩm đúng.
+    function showPopupEdit(i){
+        $("#Edit-"+i+"-Popup-div").dialog({
+            autoOpen: false, 
+            title: "Xem chi tiết và sửa thông tin sản phẩm!", 
+            width: "600", 
+            modal: true             
+            //buttons: [{
+            //    text: "Đóng", 
+            //    click: function() {
+            //        $( this ).dialog( "close" );
+            //    }}]
+        });
 
-            // Tab sản phẩm trùng
-            function tabsanphamtrung() {  
-                var val = "nothing";                                                                                          
-                var postData = { valuest: val };
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin/TraningLaptop/gopdatabase",
-                    data: postData,
-                    success: function(data){
-                        $('#black-icon').html(data);
-                    },
+        $("#Edit-"+i+"-Popup-div").dialog("option", {modal: true}).dialog("open");
+        event.preventDefault();
+		
+    }
+    // change image on popup when click
+    function ChangeImagePopup(i){
+        document.getElementById("idViewImage"+i).src=document.getElementById("idImagelinkCorect"+i).value;
+    }
 
-                });     
-            }
+    // Lưu sản phẩm đúng và ghi log file
+    function saveCorrectProduct() { 
+        var val = ""; 
+            val = "no";
+            val += "@@no";        
+        var postData = { checkval: val };
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/TraningLaptop/saveAllProduct",
+                data: postData,
+                success: function(data){
+                    location.reload();
+                },
+
+            });       
+    }
+    // check all in table
+    function checkboxAllTable(i) {
+        if ($("#checkboxAllTable_" + i).find("input:checkbox")[0].checked == true) {
+            $("#table_" + i).find("tbody").find("input:checkbox").attr('checked', $(this).is('') ? 'checked' : '');
+            $("#table_" + i).find("tbody").find("tr").attr("class", "checked");
+        }
+        else {
+            $("#table_" + i).find("tbody").find("input:checkbox").removeAttr('checked');
+            $("#table_" + i).find("tbody").find("tr").removeClass('checked');
+        }
+    }
 
 
-            //xóa sản phẩm đúng.
-            function xoasanphamdung(stt){
-                if (confirm("Bạn có chắc chắn muôn xóa sản phẩm này?")) {
-                    var postData = { sttproduct: stt };
-                    $.ajax({
-                        type: "POST",
-                        url: "/Admin/ImportExcelLap/deleteproduct",
-                        data: postData,
-                        success: function(data){
-                            $('#CorrectID').html(data);
-                            tabsanphamdung();
-                        },
-                    });
-                } else {
+    // lưu sản phẩm lỗi
+    function luusanphamloi(stt){
+        var Name =  document.getElementById("idName_"+stt).value;
+        var ImageLink =  document.getElementById("idImageLink_"+stt).value;
+        var CPU =  document.getElementById("idCPU_"+stt).value;
+        var VGA =  document.getElementById("idVGA_"+stt).value;
+        var HDD =  document.getElementById("idHDD_"+stt).value;
+        var Display =  document.getElementById("idDisplay_"+stt).value;
+        var Ram =  document.getElementById("idRam_"+stt).value;
+        var Price = document.getElementById("idPrice_"+stt).value;
+        var URL = document.getElementById("idURL_"+stt).value;
+        var string = stt +'@@'+Name+'@@'+ImageLink+'@@'+ CPU+'@@'+ VGA+'@@'+ HDD+'@@'+ Display+'@@'+ Ram+'@@'+ Price+'@@'+ URL;
+        if (confirm("Bạn có chắc chắn muốn lưu sản phẩm này?")) {
+            var postData = { stringpro: string };
+            $.ajax({
+                type: "POST",
+                url: "/Admin/TraningLaptop/fixedErrorProduct",
+                data: postData,
+                success: function(data){
+                    $('#white-icon').html(data);
+                    tabsanphamdung();
+                    tabsanphamtrung();
+                },
+
+            });
+        } else {
                                                
-                }
-                                            
+        }
+    }
+    // Sửa sản phẩm đúng
+    function EditCorrectPro(stt){              
+        // kiểm tra image
+        img = new Image();
+        var checkImg =0;   
+           
+        // nếu image load được thì check tăng lên 1
+        img.onload = function(){
+            checkImg ++;
+        };
+        var Name =  document.getElementById("idNameCorect"+stt).value;
+        var ImageLink =  document.getElementById("idImagelinkCorect"+stt).value;
+        img.src = ImageLink;
+        var CPU =  document.getElementById("idCPUCorect"+stt).value;
+        var VGA =  document.getElementById("idVGACorect"+stt).value;
+        var HDD =  document.getElementById("idHDDCorect"+stt).value;
+        var Display =  document.getElementById("idDisplayCorect"+stt).value;
+        var Ram =  document.getElementById("idRamCorect"+stt).value;
+        var Price = document.getElementById("idPriceCorect"+stt).value;
+        var Url = document.getElementById("idUrlCorect"+stt).value;
+        var string = stt +'@@'+Name+'@@'+ImageLink+'@@'+ CPU+'@@'+ VGA+'@@'+ HDD+'@@'+ Display+'@@'+ Ram+'@@'+ Price+'@@'+ Url;
+        var count =0;                            
+        // kiểm tra tên
+        if(Name.length<5||Name.length>100)
+        {
+            document.getElementById("idNameCorect"+stt).style.borderColor='red';
+            count++;
+        }else {
+            document.getElementById("idNameCorect"+stt).style.borderColor="";
+        }           
+        //kiểm tra cpu
+        if(CPU.length<5||CPU.length>100)
+        {
+            document.getElementById("idCPUCorect"+stt).style.borderColor='red';
+            count++;
+        }else{
+            document.getElementById("idCPUCorect"+stt).style.borderColor="";
+        }
+        // kiểm tra VGA
+        if(VGA.length<5||VGA.length>100)
+        { 
+            document.getElementById("idVGACorect"+stt).style.borderColor='red';
+            count++;
+        }else{
+            document.getElementById("idVGACorect"+stt).style.borderColor="";
+        }
+        // kiểm tra HDD
+        if(HDD.length<1||HDD.length>100)
+        {
+            document.getElementById("idHDDCorect"+stt).style.borderColor='red';
+            count++;
+        }else{
+            document.getElementById("idHDDCorect"+stt).style.borderColor="";
+        }
+        // kiem tra Display
+        if(Display.length<5||Display.length>100)
+        {
+            document.getElementById("idDisplayCorect"+stt).style.borderColor='red';
+            count++;
+        }else{
+            document.getElementById("idDisplayCorect"+stt).style.borderColor="";
+        }
+        // kiểm tra Ram
+        if(Ram.length<1||Ram.length>100)
+        {
+            document.getElementById("idRamCorect"+stt).style.borderColor='red';
+            count++;
+        }else{
+            document.getElementById("idRamCorect"+stt).style.borderColor="";
+        }
+        // kiểm tra giá
+        myFunction(Price);
+        function myFunction(Price) {
+            val = parseFloat(Price);
+            if(isNaN(val)){
+                document.getElementById("idPriceCorect"+stt).style.borderColor='red';
+                count++;
+            }else{
+                document.getElementById("idPriceCorect"+stt).style.borderColor="";
             }
-
-
-
-                                                
-            // Tách 1 table
-            function tach1table(i) {  
-                var val = "";
-                var count =0;
-                $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
-                    val +='*'+ $(this).val();
-                    count ++;
-                });   
+        }
+        //kiểm tra URL             
+        if(checkUrl(Url) ==false)
+        {
+            document.getElementById("idUrlCorect"+stt).style.borderColor='red';
+            count++;
+        }else{
+            document.getElementById("idUrlCorect"+stt).style.borderColor="";
+        }
+        //            
+        function checkUrl(url) {
+            var request = false;
+            if (window.XMLHttpRequest) {
+                request = new XMLHttpRequest;
+            } else if (window.ActiveXObject) {
+                request = new ActiveXObject("Microsoft.XMLHttp");
+            }
+            if (request) {
+                request.open("GET", url);
+                if (request.status == 200)
+                { return true; }
+                if( request.status == 404) 
+                { return false; }
+            }
+                   
                 
-                if(count==1){
-                    $.jGrowl("Để tách bảng vui lòng chọn ít nhất 2 sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
-                }
-                // thêm
-                $("#table_" + i).find("tbody").find("input:checkbox").each(function(i){                                               
-                    val +='@@'+ $(this).val();
-                });      
-                var postData = { valuest: val };
+
+               
+        }
+                   
+         
+        // kiểm tra image
+        setTimeout(function () {
+            if(checkImg==0){                   
+                document.getElementById("idImagelinkCorect"+stt).style.borderColor ='red';
+                count++;
+            }else{
+                document.getElementById("idImagelinkCorect"+stt).style.borderColor="";
+            }
+            if(count==0)
+            {
+                var postData = {stringprocorrect: string };
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/TraningLaptop/getTach",
+                    url: "/Admin/TraningLaptop/EditCorrectPro",
                     data: postData,
                     success: function(data){
-                        $('#color-icon').html(data);
-                        // load lại tab product trùng database
+                        // $('#white-icon').html(data);
+                        $("#Edit-"+stt+"-Popup-div").dialog( "close");
+                        tabsanphamdung();
                         tabsanphamtrung();
                     },
 
-                });     
-            }
-            //Gộp 1 talbe
-            function gop1table(i) {  
-                var val = "";
-                var check =[];
-                var radio ="";
-                var count = 0;
-                $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
-                    val +='@@'+ $(this).val();
-                    check[i]= $(this).val();
-                    count ++;
                 });
-                if(count>=2){
-                   
-                    $("#table_" + i).find("tbody").find("input:radio:checked").each(function(i){  
-                        val += '@@'+ $(this).val();
-                        radio = $(this).val();
-                    });
-                    for(var x =0; x <check.length; x++)
-                    {
-                        if(check[x] == radio){
-                            var postData = { valuest: val };
-                            $.ajax({
-                                type: "POST",
-                                url: "/Admin/TraningLaptop/getGop",
-                                data: postData,
-                                success: function(data){
-                                    $('#color-icon').html(data);
-                                    // load lại tab product trùng database
-                                    tabsanphamtrung();
-                                },                                              
-                            });  
-                            break;
-                        }else{
-                            $.jGrowl("Vui lòng chọn tên chính để gộp sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
-                            break;
-                        }
-                    }
-                   
-                }else{
-                    $.jGrowl("Để gộp vui lòng chọn ít nhất 2 sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
-                }            
-                //   location.reload();
             }
-            // tách table khi so trùng database
-            function tachdatabase(i)
-            {
-                var val = "";
-                $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
-                    val +='@@'+ $(this).val();
-                });
-                var postData = { valuestach: val };
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin/TraningLaptop/tachdatabase",
-                    data: postData,
-                    success: function(data){
-                        $('#black-icon').html(data);
-                        tabsanphamdung();                                               
-                    },                                             
-                });  
+        }, 1000);         
+        // nếu không phát hiện lỗi thì gửi về controller để xử lý                       
+    }   
+            
 
-            }
-            // gộp table khi so trùng database
-            function gopdatabase(i)
-            {
-                var val = "";
-                $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
-                    val +='@@'+ $(this).val();
-                });
-                var postData = { valuesgop: val };
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin/TraningLaptop/gopdatabase",
-                    data: postData,
-                    success: function(data){
-                        $('#black-icon').html(data);
-                        tabsanphamdung();                                               
-                    },
+    // Tab sản phẩm trùng
+    function tabsanphamtrung() {  
+        var val = "nothing";                                                                                          
+        var postData = { valuest: val };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/TraningLaptop/getTach",
+            data: postData,
+            success: function(data){
+                $('#black-icon').html(data);
+            },
+
+        });     
+    }
+    // tab sản phẩm lỗi
+    function tabsanphamloi(){
+        var string="nothing";
+        var postData = { stringpro: string };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/TraningLaptop/fixedErrorProduct",
+            data: postData,
+            success: function(data){
+                $('#white-icon').html(data);
+            },
+
+        });
+                                                  
+    }
+
+    //tab sản phẩm đúng
+    function tabsanphamdung(){
+        var string="nothing";
+        var postData = { sttproduct: string };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/TraningLaptop/deleteproduct",
+            data: postData,
+            success: function(data){
+                $('#CorrectID').html(data);
+            },
+
+        });
+                                                  
+    }
+
+
+    //xóa sản phẩm đúng.
+    function xoasanphamdung(stt){
+        if (confirm("Bạn có chắc chắn muôn xóa sản phẩm này?")) {
+            var postData = { sttproduct: stt };
+            $.ajax({
+                type: "POST",
+                url: "/Admin/TraningLaptop/deleteproduct",
+                data: postData,
+                success: function(data){
+                    $('#CorrectID').html(data);
+                    tabsanphamdung();
+                },
+            });
+        } else {
+                                               
+        }
+                                            
+    }
+
+
 
                                                 
-                });  
+    // Tách 1 table
+    function tach1table(i) {  
+        var val = "";
+        var count =0;
+        $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+            val +='*'+ $(this).val();
+            count ++;
+        });   
+                
+        if(count==1){
+            $.jGrowl("Để tách bảng vui lòng chọn ít nhất 2 sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
+        }
+        // thêm
+        $("#table_" + i).find("tbody").find("input:checkbox").each(function(i){                                               
+            val +='@@'+ $(this).val();
+        });      
+        var postData = { valuest: val };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/TraningLaptop/getTach",
+            data: postData,
+            success: function(data){
+                $('#black-icon').html(data);
+                //  tabsanphamtrung()
+                tabsanphamdung();
+            },
 
+        });     
+    }
+    //Gộp 1 talbe
+    function gop1table(i) {  
+        var val = "";
+        var check =[];
+        var radio ="";
+        var count = 0;
+        $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+            val +='@@'+ $(this).val();
+            check[i]= $(this).val();
+            count ++;
+        });
+        if(count>=2){
+                   
+            $("#table_" + i).find("tbody").find("input:radio:checked").each(function(i){  
+                val += '@@'+ $(this).val();
+                radio = $(this).val();
+            });
+            for(var x =0; x <check.length; x++)
+            {
+                if(check[x] == radio){
+                    var postData = { valuest: val };
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/TraningLaptop/getGop",
+                        data: postData,
+                        success: function(data){
+                            $('#black-icon').html(data);
+                            // tabsanphamtrung();
+                            tabsanphamdung();                                               
+                        },                                              
+                    });  
+                    break;
+                }else{
+                    $.jGrowl("Vui lòng chọn tên chính để gộp sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
+                    break;
+                }
             }
+                   
+        }else{
+            $.jGrowl("Để gộp vui lòng chọn ít nhất 2 sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
+        }            
+        //   location.reload();
+    }
+    // tách table khi so trùng database
+    function tachdatabase(i)
+    {
+        var val = "";
+        $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+            val +='@@'+ $(this).val();
+        });
+        var postData = { valuestach: val };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/TraningLaptop/tachdatabase",
+            data: postData,
+            success: function(data){
+                $('#white-icon').html(data);
+                tabsanphamdung();                                               
+            },                                             
+        });  
+
+    }
+    // gộp table khi so trùng database
+    function gopdatabase(i)
+    {
+        var val = "";
+        $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
+            val +='@@'+ $(this).val();
+        });
+        var postData = { valuesgop: val };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/TraningLaptop/gopdatabase",
+            data: postData,
+            success: function(data){
+                $('#white-icon').html(data);
+                tabsanphamdung();                                               
+            },
+
+                                                
+        });  
+
+    }
         </script>
         <!---------------------Popup--------------------------------- Stick---------------------------------------->
         <!---  <button id="da-ex-growl-2" class="da-button green">Growl with Header</button> --->
         <style>
             div.jGrowl.bottom-right
             {
-                top: 10%;
-                right: 30%;
+                top: 19%;
+                right: 1%;
             }
         </style>
         <script>                      
@@ -750,3 +1209,6 @@
                 });
             }) (jQuery); 		</script>
         <!-----------Popup------------------------ Stick---------------------------------->
+
+    </div>
+</div>

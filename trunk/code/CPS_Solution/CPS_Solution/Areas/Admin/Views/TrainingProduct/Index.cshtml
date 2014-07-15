@@ -218,10 +218,10 @@
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" id="thumbselector">
             <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#color-icon">
                 <img src="~/Areas/Admin/Dandelion/images/message-success.png" alt="">
-                Traning thành phần trùng nhau.</a></li>
+                Xử lý thành phần trùng nhau.</a></li>
             <li class="ui-state-default ui-corner-top"><a href="#black-icon">
                 <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">
-                Traning thành phần trùng trong database</a></li>
+                Xử lý thành phần trùng trong database</a></li>
         </ul>
 
         <div id="color-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
@@ -468,7 +468,7 @@
                 var postData = { valuest: val };
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/TraningLaptop/getTach",
+                    url: "/Admin/TrainingProduct/getTach",
                     data: postData,
                     success: function(data){
                         $('#color-icon').html(data);
@@ -501,7 +501,7 @@
                             var postData = { valuest: val };
                             $.ajax({
                                 type: "POST",
-                                url: "/Admin/TraningLaptop/getGop",
+                                url: "/Admin/TrainingProduct/getGop",
                                 data: postData,
                                 success: function(data){
                                     $('#color-icon').html(data);

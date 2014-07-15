@@ -12,13 +12,15 @@
     }
 }
 
-     <div class="da-panel collapsible">
-                @if (listDupdb != null)
+     <!-- tab2 -------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
+             <!-------------------listdupnew--------------------------------------------------------------------------------------->
+            <div class="da-panel collapsible">
+                @if (listDupnew != null)
                 {
                     <div class="da-panel-header">
                         <span class="da-panel-title">
                             <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                            Sản phầm trùng với cơ sở dữ liệu.
+                            Danh sách sản phẩm có thể trùng với sản phẩm trong cơ sở dữ liệu.
                         </span>
 
                         <span class="da-panel-toggler"></span>
@@ -27,9 +29,9 @@
                         <input style="visibility: hidden" />
                     </div>
                
-                    int i = 999;
+                    int i = 0;
 
-                    foreach (List<LapData> listp in listDupdb)
+                    foreach (List<LapData> listp in listDupnew)
                     {
                         i++;
                         // nút gộp tách
@@ -47,16 +49,16 @@
                             <thead>
                                 <tr>
                                     <th class="checkbox-column"  id="checkboxAllTable_@(i)">
-                                    <input id="checkAll"  checked="checked" disabled style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
+                                        <input id="checkAll"  checked="checked" disabled style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD (G)</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Display</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram (G)</th>
-                                    @*   <th style="width: 92px;">Chọn tên chính                                                               
-                                    </th> *@
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Price</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Địa chỉ máy</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,6 +77,8 @@
                                         <td class=" ">@p.HDD</td>
                                         <td class=" ">@p.Display</td>
                                         <td class=" ">@p.RAM</td>
+                                        <td class=" ">@p.Price</td>
+                                        <td class=" ">@p.Url</td>
                                     </tr> 
                                                             
                                 }
@@ -86,4 +90,8 @@
                     </div>
                     }
                 }
+
+
             </div>
+
+            <!--ket thuc tab2------------------------------------------------------------------------------------------------------------------------------------------------------>
