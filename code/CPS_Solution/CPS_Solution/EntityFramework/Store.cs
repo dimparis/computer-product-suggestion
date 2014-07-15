@@ -17,7 +17,6 @@ namespace CPS_Solution.EntityFramework
         public Store()
         {
             this.AliasProducts = new HashSet<AliasProduct>();
-            this.ParseInfoes = new HashSet<ParseInfo>();
         }
     
         public int ID { get; set; }
@@ -27,6 +26,5 @@ namespace CPS_Solution.EntityFramework
         public Nullable<bool> IsActive { get; set; }
     
         public virtual ICollection<AliasProduct> AliasProducts { get; set; }
-        public virtual ICollection<ParseInfo> ParseInfoes { get; set; }
     }
 }

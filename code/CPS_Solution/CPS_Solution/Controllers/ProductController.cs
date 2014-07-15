@@ -92,14 +92,6 @@ namespace CPS_Solution.Controllers
             return View(product);
         }
 
-        //public ActionResult TakeAliasProduct(List<AliasProduct>) 
-        //{
-        //    var aliasProducts = db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == false).ToList();
-        //    return PartialView(aliasProducts);
-        //}
-        //
-        // GET: /Test/Create
-
         public ActionResult Recommend()
         {
             ViewBag.Username = new SelectList(db.Accounts, "member1", "123456");

@@ -59,10 +59,6 @@
             <End Role="Codetype" EntitySet="Codetype" />
             <End Role="ParseAttribute" EntitySet="ParseAttribute" />
           </AssociationSet>
-          <AssociationSet Name="FK_ParseInfo_Store" Association="CPS_SolutionModel.Store.FK_ParseInfo_Store">
-            <End Role="Store" EntitySet="Store" />
-            <End Role="ParseInfo" EntitySet="ParseInfo" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductAttribute_AttributeDictionary" Association="CPS_SolutionModel.Store.FK_ProductAttribute_AttributeDictionary">
             <End Role="Hardware" EntitySet="Hardware" />
             <End Role="ProductAttribute" EntitySet="ProductAttribute" />
@@ -177,7 +173,6 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Parselink" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
-          <Property Name="StoreID" Type="int" />
           <Property Name="PriceXPath" Type="nvarchar" MaxLength="200" />
           <Property Name="ImageXpath" Type="nvarchar" MaxLength="200" />
           <Property Name="CPUXPath" Type="nvarchar" Nullable="false" MaxLength="200" />
@@ -361,18 +356,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ParseInfo_Store">
-          <End Role="Store" Type="CPS_SolutionModel.Store.Store" Multiplicity="0..1" />
-          <End Role="ParseInfo" Type="CPS_SolutionModel.Store.ParseInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ParseInfo">
-              <PropertyRef Name="StoreID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductAttribute_AttributeDictionary">
           <End Role="Hardware" Type="CPS_SolutionModel.Store.Hardware" Multiplicity="1" />
           <End Role="ProductAttribute" Type="CPS_SolutionModel.Store.ProductAttribute" Multiplicity="*" />
@@ -504,10 +487,6 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="HistoryDetail" EntitySet="HistoryDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_ParseInfo_Store" Association="CPS_SolutionModel.FK_ParseInfo_Store">
-            <End Role="Store" EntitySet="Stores" />
-            <End Role="ParseInfo" EntitySet="ParseInfoes" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductAttribute_Product" Association="CPS_SolutionModel.FK_ProductAttribute_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductAttribute" EntitySet="ProductAttributes" />
@@ -627,7 +606,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Parselink" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="StoreID" Type="Int32" />
           <Property Name="PriceXPath" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="ImageXpath" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="CPUXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
@@ -636,7 +614,6 @@
           <Property Name="HDDXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="DisplayXPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Store" Relationship="CPS_SolutionModel.FK_ParseInfo_Store" FromRole="ParseInfo" ToRole="Store" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -704,7 +681,6 @@
           <Property Name="LogoImage" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="AliasProducts" Relationship="CPS_SolutionModel.FK_AliasProduct_Store" FromRole="Store" ToRole="AliasProduct" />
-          <NavigationProperty Name="ParseInfoes" Relationship="CPS_SolutionModel.FK_ParseInfo_Store" FromRole="Store" ToRole="ParseInfo" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -860,18 +836,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ParseInfo_Store">
-          <End Role="Store" Type="CPS_SolutionModel.Store" Multiplicity="0..1" />
-          <End Role="ParseInfo" Type="CPS_SolutionModel.ParseInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ParseInfo">
-              <PropertyRef Name="StoreID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductAttribute_Product">
           <End Role="Product" Type="CPS_SolutionModel.Product" Multiplicity="1" />
           <End Role="ProductAttribute" Type="CPS_SolutionModel.ProductAttribute" Multiplicity="*" />
@@ -1003,7 +967,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Parselink" ColumnName="Parselink" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="PriceXPath" ColumnName="PriceXPath" />
                 <ScalarProperty Name="ImageXpath" ColumnName="ImageXpath" />
                 <ScalarProperty Name="CPUXPath" ColumnName="CPUXPath" />
