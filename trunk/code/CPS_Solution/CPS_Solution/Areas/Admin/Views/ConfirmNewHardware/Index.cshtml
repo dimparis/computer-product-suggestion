@@ -1,0 +1,388 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<HardwareConfirm> listOfHardware = ViewBag.listOfHardware;
+}
+
+@section headScript
+{
+    <!-- iOS webapp icons -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.theme.css" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+    <!-- Plugin Files -->
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.icons.js"></script>
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.core.js"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
+
+    <!--  Demo JavaScript Files popup Ui Popup 
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
+    <!-- jGrowl Plugin   -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
+
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+    <!----------------------------- Lên datatable Plugin------------------------------------------>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
+
+
+
+}
+@section sidebar
+{
+    <!-- CSS Reset -->
+    <!-- Main Navigation -->
+    <div id="da-main-nav" class="da-button-container">
+        <ul>
+            <li class="active">
+                <a href="dashboard.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/home.png" alt="Dashboard" />
+                    </span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Nav Notification -->
+                    <span class="da-nav-count">32</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/graph.png" alt="Charts" />
+                    </span>
+                    Statistics and Charts
+                </a>
+                <ul class="closed">
+                    <li><a href="statistic.html">Statistic Widgets</a></li>
+                    <li><a href="charts.html">Chart Gallery</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="calendar.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/day_calendar.png" alt="Calendar" />
+                    </span>
+                    Calendar
+                </a>
+            </li>
+            <li>
+                <a href="file.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/file_cabinet.png" alt="File Handling" />
+                    </span>
+                    File Handling
+                </a>
+            </li>
+            <li>
+                <a href="table.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/table_1.png" alt="Table" />
+                    </span>
+                    Table
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/create_write.png" alt="Form" />
+                    </span>
+                    Form
+                </a>
+                <ul>
+                    <li><a href="form-layouts.html">Layouts</a></li>
+                    <li><a href="form-elements.html">Elements</a></li>
+                    <li><a href="form-validation.html">Validation</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="ui.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/settings.png" alt="" />
+                    </span>
+                    UI Elements
+                </a>
+            </li>
+            <li>
+                <a href="widgets.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/cog_4.png" alt="Widgets" />
+                    </span>
+                    Widgets
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/word_documents_1.png" alt="Layout and Typography" />
+                    </span>
+                    Layout and Typography
+                </a>
+                <ul class="closed">
+                    <li><a href="grids.html">Grids and Panels</a></li>
+                    <li><a href="typography.html">Typography</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="gallery.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/images_2.png" alt="Gallery" />
+                    </span>
+                    Gallery
+                </a>
+            </li>
+            <li>
+                <a href="error.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/alert.png" alt="Error Pages" />
+                    </span>
+                    Error Page (404)
+                </a>
+            </li>
+            <li>
+                <a href="icons.html">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="~/Areas/Admin/Dandelion/images/icons/black/32/pacman.png" alt="Icons" />
+                    </span>
+                    Icons
+                </a>
+            </li>
+        </ul>
+    </div>
+}
+@section mainHeader
+{
+}
+@section footScript
+{
+}
+<!----------------------------------------------- Content Area --------------------------------------------->
+      <div class="da-panel collapsible">
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Kích hoạt hoặc sửa thành phần mới chưa tồn tại trong cơ sở dữ liệu.
+                        </span>
+
+                        <span class="da-panel-toggler"></span>
+                    </div>
+  <div class="da-panel-content">
+                        <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+
+
+                            <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">ID</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên Thành phần</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Loại</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Trọng số</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Lap chứa thành phần</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Kích Hoạt</th>  
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 50px;">Thực hiện</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                                    @if (listOfHardware != null)
+                                    {
+                                        foreach (HardwareConfirm h in listOfHardware)
+                                        {
+                                        <tr class="odd">
+                                            
+                                            <td class=" sorting_1">@h.IdHardware</td>
+                                            <td class=" "> <label style="width: 100px;">@h.NameHardware</label></td>
+                                            <td class=" "><label style="width: 100px;">@h.CodetypeHardware</label></td>
+                                            <td class=" "><label style="width: 100px;">@h.WeightHardware</label></td>
+                                            <td class=" "><label style="width: 100px;">@h.NameProduct</label></td>   
+                                            <td class=" "><label style="width: 100px;">@h.IsActive</label></td>                                       
+                                            <td class=" ">
+                                                <input name="idproduct" type="hidden"  value="@h.IdProduct" />
+                                                <a onclick="showPopupEdit(@h.IdHardware)">
+                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
+                                                    Sửa</a>
+
+                                                <!----------------Popup sửa sản phẩm đúng----------->
+                                                <div id="Edit-@h.IdHardware-Popup-div" style="display: none;">
+                                                    <div class="da-panel">
+                                                        <div class="da-panel-content">
+                                                            <form class="da-form">
+                                                                <div class="da-form-inline">
+                                                                     <div class="da-form-row">
+                                                                        <label>Laptop</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Laptop chứa thành phần</span>
+                                                                            <input disabled id="idNameProduct@(h.IdHardware)" value="@h.NameProduct" type="text">
+                                                                              <input hidden id="idproduct@(h.IdHardware)" value="@h.IdProduct" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Loại</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Loại thành phần</span>
+                                                                            <input id="idCodetypeHard@(h.IdHardware)" disabled value="@h.CodetypeHardware" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Tên thành phần</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Tên thành phần phải từ 5 tới 100 ký tự.</span>
+                                                                            <input id="idNameHard@(h.IdHardware)" value="@h.NameHardware" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                   
+                                                                    <div class="da-form-row">
+                                                                        <label>Trọng số</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Trọng số phải là số nguyên</span>
+                                                                            <input id="idWeightHard@(h.IdHardware)" value="@h.WeightHardware" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                     <div class="da-form-row">
+                                                                        <label>Trạng thái</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Kích hoạt thành phần</span>
+                                                                               <select disabled id ="IsActive@(h.IdHardware)" name="IsActive">
+                                                                                  <option value="true">Kích hoạt</option>
+                                                                               </select>
+                                                                            <input hidden id="idActiveCorect@(h.IdHardware)" value="@h.IsActive" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                   
+                                                                                                                      
+                                                                    <div class="da-button-row">
+                                                                        <input onclick="EditHardware(@h.IdHardware)" type="button" value="Lưu" class="da-button green">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!----------------Popup------------------>
+                                            </td>
+                                        </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+          </div>
+<script>
+    //Hiện popup để sửa 1 sản phẩm đúng.
+    function showPopupEdit(i){
+        $("#Edit-"+i+"-Popup-div").dialog({
+            autoOpen: false, 
+            title: "Xác nhận hoặc sửa thành phần mới", 
+            width: "600", 
+            modal: true             
+            //buttons: [{
+            //    text: "Đóng", 
+            //    click: function() {
+            //        $( this ).dialog( "close" );
+            //    }}]
+        });
+
+        $("#Edit-"+i+"-Popup-div").dialog("option", {modal: true}).dialog("open");
+        event.preventDefault();
+		
+    }
+
+
+    // Sửa sản phẩm đúng
+    function EditHardware(stt){                               
+        var Name =  document.getElementById("idNameHard"+stt).value;
+        var Weight = document.getElementById("idWeightHard"+stt).value;
+        var IsActive = document.getElementById("IsActive"+stt).value;
+        var ProductID = document.getElementById("idproduct"+stt).value;
+        var string = stt +'@@'+Name+'@@'+Weight+'@@'+ IsActive+'@@'+ProductID;
+        var count =0;                            
+        // kiểm tra tên
+        if(Name.length<1||Name.length>100)
+        {
+            document.getElementById("idNameHard"+stt).style.borderColor='red';
+            count++;
+        }else {
+            document.getElementById("idNameHard"+stt).style.borderColor="";
+        }                        
+        // kiểm tra trọng số
+        // kiểm tra giá
+        myFunction(Weight);
+        function myFunction(Weight) {
+            val = parseFloat(Weight);
+            if(isNaN(val)){
+                document.getElementById("idWeightHard"+stt).style.borderColor='red';
+                count++;
+            }else{
+                document.getElementById("idWeightHard"+stt).style.borderColor="";
+            }
+        }                
+        if(count==0)
+        {
+            var postData = {HardInfo: string };
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ConfirmNewHardware/EditHardware",
+                data: postData,
+                success: function(data){
+                    // $('#white-icon').html(data);
+                    $("#Edit-"+stt+"-Popup-div").dialog( "close");
+                },
+
+            });
+        }       
+        // nếu không phát hiện lỗi thì gửi về controller để xử lý                       
+    }   
+</script>
+ 
