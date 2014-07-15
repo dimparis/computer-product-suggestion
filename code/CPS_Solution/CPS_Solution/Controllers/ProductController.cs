@@ -24,7 +24,7 @@ namespace CPS_Solution.Controllers
 
         public ActionResult SearchForProduct(string productName)
         {
-            var products = db.Products.ToList();
+            var products = db.Products.Where(x=>x.IsActive ==true).ToList();
 
             if (!String.IsNullOrEmpty(productName))
             {
@@ -81,16 +81,22 @@ namespace CPS_Solution.Controllers
 
         //
         // GET: /Product/Details/{ID}
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             Product product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
             }
+            product.AliasProducts = db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == false).ToList();
             return View(product);
         }
 
+        //public ActionResult TakeAliasProduct(List<AliasProduct>) 
+        //{
+        //    var aliasProducts = db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == false).ToList();
+        //    return PartialView(aliasProducts);
+        //}
         //
         // GET: /Test/Create
 
@@ -164,5 +170,6 @@ namespace CPS_Solution.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
     }
 }
