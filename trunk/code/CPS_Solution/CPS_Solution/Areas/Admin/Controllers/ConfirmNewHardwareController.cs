@@ -14,15 +14,17 @@ namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class ConfirmNewHardwareController : Controller
     {
-       // private CPS_SolutionEntities context = new CPS_SolutionEntities();
+        // private CPS_SolutionEntities context = new CPS_SolutionEntities();
         //
         // GET: /Admin/ConfirmNewHardware/
         CPS_SolutionEntities db = new CPS_SolutionEntities();
         public ActionResult Index()
         {
-            List<HardwareConfirm> listOfHardware= loadHardwareFalse();
-
+            List<HardwareConfirm> listOfHardware = loadHardwareFalse();
             ViewBag.listOfHardware = listOfHardware;
+            //var approvedHardwares = db.Hardwares.Where(x => x.IsActive == true).ToList();
+            //var approveListHardware = new List<SelectListItem>();
+
             return View();
         }
 
@@ -37,20 +39,20 @@ namespace CPS_Solution.Areas.Admin.Controllers
             HardwareConfirm newConfirm = null;
             List<HardwareConfirm> listOfHardware = new List<HardwareConfirm>();
             // cho vào list
-            foreach (var item in unConfrimedProducts) 
+            foreach (var item in unConfrimedProducts)
             {
-                foreach (var att in productAttribures) 
+                foreach (var att in productAttribures)
                 {
                     // id của atribute trùng thì cho vào newConfirm
-                    if (att.AttributeID == item.ID) 
+                    if (att.AttributeID == item.ID)
                     {
-                        newConfirm = new HardwareConfirm 
+                        newConfirm = new HardwareConfirm
                         {
                             IdHardware = item.ID,
-                            CodetypeHardware  = item.Codetype.Name,
-                            NameHardware =  item.Name,
+                            CodetypeHardware = item.Codetype.Name,
+                            NameHardware = item.Name,
                             WeightHardware = item.WeightCriteraPoint,
-                            IsActive  = item.IsActive.Value,
+                            IsActive = item.IsActive.Value,
                             IdProduct = att.ProductID,
                             NameProduct = att.Product.Name
                         };
@@ -58,7 +60,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         listOfHardware.Add(newConfirm);
                     }
                 }
-                
+
             }
             return listOfHardware;
         }
@@ -78,7 +80,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             string isActive = info[3].Trim();
             string productid = info[4].Trim();
             int numProductid = Convert.ToInt32(productid);
-           // những hardware mới vào chưa kích hoạt.
+            // những hardware mới vào chưa kích hoạt.
             var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == false).ToList();
             // tìm tới hardware có id = stt
 
@@ -87,19 +89,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
 
-            for (int i=0; i < unConfrimedProducts.Count; i++)
+            for (int i = 0; i < unConfrimedProducts.Count; i++)
             {
                 if (stt.Equals(unConfrimedProducts[i].ID.ToString()))
                 {
                     // trường hợp đổi tên
-                    if (Name!=unConfrimedProducts[i].Name.ToString())
-                    {                        
+                    if (Name != unConfrimedProducts[i].Name.ToString())
+                    {
                         try
                         {
                             // danh sahcs hardware đã kích hoạt có code type giống như code của harware cần sửa.
-                            string  test = unConfrimedProducts[i].CodetypeID;
+                            string test = unConfrimedProducts[i].CodetypeID;
                             var Hardwarecorect = db.Hardwares.Where(x => x.IsActive == true && x.CodetypeID.Equals(test)).ToList();
-                         
+
                             // trường hợp tên đã có trong database
                             for (int j = 0; j < Hardwarecorect.Count; j++)
                             {
@@ -185,8 +187,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
                             }
                         }
-                               
-                        if(count>0)
+
+                        if (count > 0)
                         {
                             break;
                         }
@@ -207,8 +209,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
 
                     }
-                    
-                                                     
+
+
                 }
             }
             // trường hợp không đổi tên   
@@ -221,12 +223,50 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     Hardware.IsActive = true;
                 }
                 db.SaveChanges();
-            }       
+            }
 
             // get list product in session.         
-         
-            
+
+
             return "";
+        }
+
+        public JsonResult AutoCompleteHardware(string term)
+        {
+            if (term == null)
+            {
+                term = "";
+            }
+            var result = db.Hardwares.Select(x => new {x.ID,x.Name }).Where(x => x.Name.ToLower().Contains(term.ToLower())).Distinct();
+            int count = result.Count();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult confirmIsNewHardware(int id)
+        {
+
+            var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
+            bool statusFlag = false;
+            if (ModelState.IsValid)
+            {
+                if (hardware.IsActive.Value)
+                {
+                    hardware.IsActive = true;
+                    statusFlag = false;
+                }
+                else
+                {
+                    hardware.IsActive = null;
+                    statusFlag = true;
+                }
+                db.SaveChanges();
+            }
+            // Display the confirmation message
+            var results = new Hardware
+            {
+                IsActive = statusFlag
+            };
+            return Json(results);
         }
     }
 }

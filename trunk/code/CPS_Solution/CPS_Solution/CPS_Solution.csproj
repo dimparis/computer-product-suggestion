@@ -75,6 +75,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\..\..\..\SmartBuy\smart-buy\Code\Smart Buy\ smart-buy\Code\Smart Buy\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="Quartz, Version=2.2.3.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Quartz.2.2.3\lib\net40\Quartz.dll</HintPath>
@@ -169,6 +172,7 @@
     <Compile Include="App_Start\ConstantConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AuthenticationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConfirmNewHardwareController.cs" />
     <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -188,6 +192,7 @@
     <Compile Include="Areas\Admin\Helpers\LogFileHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\PriceHelper.cs" />
+    <Compile Include="Areas\Admin\Models\HardwareConfirm.cs" />
     <Compile Include="Areas\Admin\Models\LapData.cs" />
     <Compile Include="Areas\Admin\Models\ProductData.cs" />
     <Compile Include="Areas\Admin\Models\ConfigurationModel.cs" />
@@ -204,6 +209,7 @@
     <Compile Include="CommonClass\JsonContentNegotiator.cs" />
     <Compile Include="CommonClass\MyAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="EntityFramework\Account.cs">
@@ -280,6 +286,7 @@
     <Compile Include="Helper\AccountHelper.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\HistoryDetailViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -3159,6 +3166,7 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\ConfirmNewHardware\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -3197,8 +3205,12 @@
     <Content Include="Template\GFashion\img\big-laptop.jpg" />
     <Content Include="Template\GFashion\img\laptop.jpg" />
     <Content Include="Template\GFashion\img\logo.png" />
+    <Content Include="Template\GFashion\img\logo_.png" />
     <Content Include="Template\GFashion\img\order.png" />
     <Content Include="Template\GFashion\img\remove.png" />
+    <Content Include="Template\GFashion\img\slider\%281%29.jpg" />
+    <Content Include="Template\GFashion\img\slider\%282%29.jpg" />
+    <Content Include="Template\GFashion\img\slider\transparent.png" />
     <Content Include="Template\GFashion\img\versus.png" />
     <Content Include="Template\GFashion\img\winner.png" />
     <Content Include="Template\GFashion\js\contact.js" />
