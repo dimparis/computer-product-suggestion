@@ -3260,6 +3260,7 @@
     <Content Include="UploadedExcelFiles\ProductNameTraining.txt.r263" />
     <Content Include="UploadedExcelFiles\ProductNameTraining.txt.r280" />
     <Content Include="Views\Product\checkLink.cshtml" />
+    <Content Include="Views\Product\TakeAliasProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Dandelion\plugins\elfinder\files\.tmb\" />
