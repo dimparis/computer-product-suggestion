@@ -53,8 +53,7 @@
     }
 
     .disable-field {
-        background-color: rgba(250, 111, 87, 0.73);
-        width: 20%;
+        background-color: rgba(250, 111, 87, 0.5);
         text-align: center;
     }
 
@@ -69,11 +68,13 @@
 	}
 
     .topAttr {
-        background-color: antiquewhite;
+        background-color: rgba(204, 0, 0, 0.5);
+        color: #FFFFFF;
     }
 
     .winner {
-        background-color: seagreen;
+        background-color: rgba(51, 153, 255, 0.75);
+        vertical-align: middle;      
     }
     
 </style>
@@ -96,91 +97,83 @@
                         
                         <ul class="sortable-with-handles">
                             <li class="disabled">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <tr>
-                                        <td class="disable-field"><h4>Tên sản phẩm</h4></td>
-                                        <td style="width:5px;">&nbsp;</td>
+                                        <td style="width:20%" class="disable-field"><h4>Tên sản phẩm</h4></td>
                                         @foreach (var item in Model) {
-                                            <td class="data-field product-name @item.ID">@Html.DisplayFor(modelItem => item.Name) @item.ID</td>
+                                            <td style="width:25%" class="data-field product-name @item.ID">@Html.DisplayFor(modelItem => item.Name)</td>
                                         }
-                                        <td style="width:5px;">&nbsp;</td>
                                     </tr>
                                 </table>
                             </li>
                             <li draggable="true" id="scoreCPU">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <tr>
-                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Chip xử lý</td>
-                                        <td style="width:5px;">&nbsp;</td>
+                                        <td style="width:20%" class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Chip xử lý</td>
                                         @foreach (var item in Model) {
-                                            <td class="data-field" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU)</td>
-                                            <td style="width:5px;" class="cpuScore">@item.cpuScore</td>
-                                            <td style="width:5px;" class="hidden">@item.ID</td>
+                                            <td style="width:25%" class="data-field" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU)</td>
+                                            <td class="hidden"><span class="cpuScore">@item.cpuScore</span></td>
+                                            <td class="hidden">@item.ID</td>
                                         }
                                     </tr>
                                 </table>
                             </li>
                             <li draggable="true" id="scoreVGA">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <tr>
-                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Card màn hình</td>
-                                        <td style="width:5px;">&nbsp;</td>
+                                        <td style="width:20%" class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Card màn hình</td>
+                                        
                                         @foreach (var item in Model) {
-                                            <td class="data-field" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA)</td>
-                                            <td style="width:5px;" class="vgaScore">@item.vgaScore</td>
-                                            <td style="width:5px;" class="hidden">@item.ID</td>
+                                            <td style="width:25%" class="data-field" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA)</td>
+                                            <td class="hidden"><span class="vgaScore">@item.vgaScore</span></td>
+                                            <td class="hidden">@item.ID</td>
                                         }
                                     </tr>
                                 </table>
                             </li>
                             <li draggable="true" id="scoreRAM">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <tr>
-                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Bộ nhớ đệm</td>
-                                        <td style="width:5px;">&nbsp;</td>
+                                        <td style="width:20%" class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Bộ nhớ đệm</td>
                                         @foreach (var item in Model) {
-                                            <td class="data-field" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM)</td>
-                                            <td style="width:5px;" class="ramScore">@item.ramScore</td>
-                                            <td style="width:5px;" class="hidden">@item.ID</td>
+                                            <td style="width:25%" class="data-field" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM)</td>
+                                            <td class="hidden"><span class="ramScore">@item.ramScore</span></td>
+                                            <td class="hidden">@item.ID</td>
                                         }
                                     </tr>
                                 </table>
                             </li>
                             <li draggable="true" id="scoreHDD">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <tr>
-                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Ổ cứng</td>
-                                        <td style="width:5px;">&nbsp;</td>
+                                        <td style="width:20%" class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Ổ cứng</td>
                                         @foreach (var item in Model) {
-                                            <td class="data-field" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD)</td>
-                                            <td style="width:5px;" class="hddScore">@item.hddScore</td>
-                                            <td style="width:5px;" class="hidden">@item.ID</td>
+                                            <td style="width:25%" class="data-field" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD)</td>
+                                            <td class="hidden"><span class="hddScore">@item.hddScore</span></td>
+                                            <td class="hidden">@item.ID</td>
                                         }
                                     </tr>
                                 </table>
                             </li>
                             <li draggable="true" id="scoreDisplay">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <tr>
-                                        <td class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Độ phân giải</td>
-                                        <td style="width:5px;">&nbsp;</td>
+                                        <td style="width:20%" class="handle"><span class="pull-left"><img src="~/Template/GFashion/img/order.png" / style="margin-right:10px;"></span>Độ phân giải</td>
                                         @foreach (var item in Model) {
-                                            <td class="data-field">@Html.DisplayFor(modelItem => item.strDisplay)</td>
-                                            <td style="width:5px;" class="displayScore">@item.displayScore</td>
-                                            <td style="width:5px;" class="hidden">@item.ID</td>
+                                            <td style="width:25%" class="data-field">@Html.DisplayFor(modelItem => item.strDisplay)</td>
+                                            <td class="hidden"><span class="displayScore">@item.displayScore</span></td>
+                                            <td class="hidden">@item.ID</td>
                                         }
                                     </tr>
                                 </table>
                             </li>
                             <li class="disabled">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <tr>
-                                        <td class="disable-field"><h4>Tổng điểm</h4></td>
-                                        <td style="width:5px;">&nbsp;</td>
+                                        <td style="width:20%" class="disable-field"><h4>Tổng điểm</h4></td>
                                         @foreach (var item in Model) {
                                             <td class="data-field totalScore">@Html.DisplayFor(modelItem => item.TotalWeightPoint)</td>
                                         }
-                                        <td style="width:5px;">&nbsp;</td>
                                     </tr>
                                 </table>
                             </li>
@@ -259,34 +252,36 @@
         //Lay thong tin diem tung san pham
         if (products.length == 3) {
             //Product 1
-            var pro01_attr01 = attr01.getElementsByTagName('td')[3].innerHTML;
-            var pro01_attr02 = attr02.getElementsByTagName('td')[3].innerHTML;
-            var pro01_attr03 = attr02.getElementsByTagName('td')[4].innerHTML;
+            var pro01_attr01 = attr01.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr02 = attr02.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr03 = attr02.getElementsByTagName('td')[3].innerHTML;
+
 
             //Product 2
-            var pro02_attr01 = attr01.getElementsByTagName('td')[6].innerHTML;
-            var pro02_attr02 = attr02.getElementsByTagName('td')[6].innerHTML;
-            var pro02_attr03 = attr02.getElementsByTagName('td')[7].innerHTML;
+            var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr02 = attr02.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr03 = attr02.getElementsByTagName('td')[6].innerHTML;
 
             //Product 3
-            var pro03_attr01 = attr01.getElementsByTagName('td')[9].innerHTML;
-            var pro03_attr02 = attr02.getElementsByTagName('td')[9].innerHTML;
-            var pro03_attr03 = attr02.getElementsByTagName('td')[10].innerHTML;
+            var pro03_attr01 = attr01.getElementsByTagName('span')[3].innerHTML;
+            var pro03_attr02 = attr02.getElementsByTagName('span')[3].innerHTML;
+            var pro03_attr03 = attr02.getElementsByTagName('td')[9].innerHTML;
         } else {
             //Product 1
-            var pro01_attr01 = attr01.getElementsByTagName('td')[3].innerHTML;
-            var pro01_attr02 = attr02.getElementsByTagName('td')[3].innerHTML;
-            var pro01_attr03 = attr02.getElementsByTagName('td')[4].innerHTML;
+            var pro01_attr01 = attr01.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr02 = attr02.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr03 = attr02.getElementsByTagName('td')[3].innerHTML;
 
             //Product 2
-            var pro02_attr01 = attr01.getElementsByTagName('td')[6].innerHTML;
-            var pro02_attr02 = attr02.getElementsByTagName('td')[6].innerHTML;
-            var pro02_attr03 = attr02.getElementsByTagName('td')[7].innerHTML;
+            var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML();
+            var pro02_attr02 = attr02.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr03 = attr02.getElementsByTagName('td')[6].innerHTML;
         }
         //Tinh diem cac tieu chi uu tien
         var pro01_score = parseFloat(pro01_attr01) + parseFloat(pro01_attr02);
         var pro02_score = parseFloat(pro02_attr01) + parseFloat(pro02_attr02);
         var pro03_score = parseFloat(pro03_attr01) + parseFloat(pro03_attr02);
+        console.log(pro01_score, pro02_score, pro03_score)
 
         //So sanh san pham theo diem uu tien cao nhat
         var max = pro01_score;
