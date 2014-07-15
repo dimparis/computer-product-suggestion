@@ -98,7 +98,7 @@
                             {
                             <div class="product" >
                                 <div class="entry-media">
-                                    <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="" class="lazyLoad thumb" />
+                                    <img style="width:100%; height:100%" src="@Url.Content("~/Images/I/" + @Html.DisplayFor(modelItem => item.ImageURL))" alt="" class="lazyLoad thumb" />
                                     <div class="hover">
                                         <ul class="icons unstyled">
                                             <li>
@@ -124,6 +124,7 @@
                                     <input type='hidden' value="@item.ID"/>   
                                     <div class="entry-links clearfix">
 										<a href="@item.URL" target="_blank"><button type="button" class="btn btn-primary btn-xs pull-right">Tới nơi bán</button></a>
+                                        <p></p>
 									</div>                                     
                                 </div>
                             </div>

@@ -1,0 +1,50 @@
+﻿@model PagedList.IPagedList<CPS_Solution.EntityFramework.History>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Lịch sử so sánh";
+    Layout = "~/Views/Shared/_Compare.cshtml";
+}
+
+<h2>CompareHistory</h2>
+
+<div class="main-content" style="padding: 60px 20px 20px 20px; min-height: 700px;">
+            <div>
+                <div class="ProductNameDetail" style="text-align:center">Lịch sử giỏ hàng 30 ngày gần nhất.</div>
+                
+                <table class="table table-bordered table-hover" style="background-color:white">
+                    <thead>
+                        <tr class="bg-header">
+                            <th style="text-align:center">Ngày mua</th>
+                            <th style="text-align:center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+            
+                            <tr>
+                                <td style="text-align:center">
+                                    @{
+                            var historyID = item.ID;
+                            var compareTime = item.CompareTime;
+                            string comparetimeFormat = String.Format("{0:dd/MM/yyyy}", compareTime);
+            
+                                    }
+                                    @comparetimeFormat
+                                </td>
+
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("CompareHistoryDetail", "History", new { id = @historyID })">Chi tiết
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                @Html.PagedListPager(Model, page => Url.Action("BuyingHistory", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+            </div>
+        </div>

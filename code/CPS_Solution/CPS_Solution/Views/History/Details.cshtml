@@ -1,0 +1,29 @@
+﻿@model CPS_Solution.EntityFramework.History
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>History</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Account.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Account.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CompareTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CompareTime)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
