@@ -1,0 +1,206 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    Layout = null;
+    List<LapData> list = ViewBag.listproduct;
+    List<List<LapData>> listDup = ViewBag.ListdupLaptraning;
+    // danh sách lỗi khi lỗi quá nhiều
+    List<LapData> danhsachlaploi = ViewBag.danhsachlaploi;
+    int countlistdup = 0;
+    int countlist = 0;
+    if (listDup != null)
+    {
+        countlistdup = listDup.Count;
+    }
+    if (list != null)
+    {
+        countlist = list.Count;
+    }
+    List<List<LapData>> listDupnew = ViewBag.listduplicatenewLap;
+    int countlistdup1 = 0;
+    if (listDupnew != null)
+    {
+        countlistdup1 = listDupnew.Count;
+    }
+
+}
+<script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+  <!-------------------------------------------------------------------------------------------> 
+@{countlist = countlist+1-1;}
+    <!--tab1------------------------------------------------------------------------------------->
+            @if (list != null)
+            {
+                <div class="da-panel-toolbar top">
+                    <ul>
+                        <form action="~/Admin/ImportExcelLap/saveAllProduct" method="post" enctype="multipart/form-data">
+                            <li>
+                                <a onclick="saveCorrectProduct()" id="da-ex-dialog-modal">
+                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</a></li>                        
+                        </form>
+                        <li><a href="~/Admin/ImportExcelLap/huyimport">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
+                    </ul>
+                </div>
+            }           
+            <div id="CorrectID">
+                <!------------------------------------------------------------------------------------------->
+                <div class="da-panel collapsible">
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Danh sách để lưu vào cơ sở dữ liệu
+                        </span>
+
+                        <span class="da-panel-toggler"></span>
+                    </div>
+                    <div class="da-panel-content">
+                        <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+
+
+                            <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">STT</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Giá</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Địa chỉ bán</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 50px;">Thực hiện</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                                    @if (list != null)
+                                    {
+                                        foreach (LapData p in list)
+                                        {
+                                        <tr class="odd">
+                                            
+                                            <td class=" sorting_1">@p.stt </td>
+                                            <td class=" "> <label style="width: 100px;">@p.Name</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.Imagelink</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.CPU</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.VGA</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.HDD</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.Display</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.RAM</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.Price</label></td>
+                                            <td class=" "><label style="width: 100px;">@p.Url</label></td>
+                                            <td class=" ">
+                                                <input name="sttproduct" type="hidden"  value="@p.stt" />
+                                                <a onclick="xoasanphamdung(@p.stt)">
+                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
+                                                    Xóa</a>
+                                                <a onclick="showPopupEdit(@p.stt)">
+                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
+                                                    Sửa</a>
+
+                                                <!----------------Popup sửa sản phẩm đúng----------->
+                                                <div id="Edit-@p.stt-Popup-div" style="display: none;">
+                                                    <div class="da-panel">
+                                                        @*  <div class="da-panel-header">
+                                	                                    <span class="da-panel-title">
+                                                                            <img src="/Areas/Admin/Dandelion/images/icons/black/16/pencil.png" alt="">                                                                           
+                                                                        </span>
+                                    
+                                                                    </div>*@
+                                                        <div class="da-panel-content">
+                                                            <form class="da-form">
+                                                                <div class="da-form-inline">
+                                                                    <div class="da-form-row">
+                                                                        <label>Tên Laptop</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Tên sản phẩm phải từ 5 tới 100 ký tự.</span>
+                                                                            <input id="idNameCorect@(p.stt)" value="@p.Name" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Đường dẫn ảnh</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Đường dẫn ảnh phải tồn tại.</span>
+                                                                            <input id="idImagelinkCorect@(p.stt)" value="@p.Imagelink" type="text">
+                                                                            <a onclick="ChangeImagePopup(@(p.stt))">
+                                                                                <img src="/Areas/Admin/Dandelion/images/icons/color/magnifier.png"></a>
+                                                                        </div>
+                                                                        <div class="da-form-item">
+                                                                            <a>
+                                                                                <img style="width: 279px" id ="idViewImage@(p.stt)" src="@p.Imagelink"></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Màn hình</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Màn hình không được bỏ trống và phải nhỏ hơn 100 ký tự</span>
+                                                                            <input id="idDisplayCorect@(p.stt)" value="@p.Display" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>CPU</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">CPU phải từ 5 tới 100 ký tự</span>
+                                                                            <input id="idCPUCorect@(p.stt)" value="@p.CPU" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>VGA</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">VGA phải từ 5 tới 100 ký tự</span>
+                                                                            <input id="idVGACorect@(p.stt)" value="@p.VGA" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>HDD</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">HDD không được bỏ trống vả phải nhỏ hơn 100 ký tự</span>
+                                                                            <input id="idHDDCorect@(p.stt)" value="@p.HDD" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Ram</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Ram không được bỏ trống vả phải nhỏ hơn 100 ký tự</span>
+                                                                            <input id="idRamCorect@(p.stt)" value="@p.RAM" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Giá</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Giá phải là số nguyên</span>
+                                                                            <input id="idPriceCorect@(p.stt)" value="@p.Price" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-form-row">
+                                                                        <label>Địa chỉ website bán</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Địa chỉ website bán phải tồn tại</span>
+                                                                            <input id="idUrlCorect@(p.stt)" value="@p.Url" type="text">
+                                                                        </div>
+                                                                    </div>                                                           
+                                                                    <div class="da-button-row">
+                                                                        <input onclick="EditCorrectPro(@p.stt)" type="button" value="Lưu" class="da-button green">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!----------------Popup------------------>
+                                            </td>
+                                        </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!--ket thuc tab1------------------------------------------------------------------------------------------->   
