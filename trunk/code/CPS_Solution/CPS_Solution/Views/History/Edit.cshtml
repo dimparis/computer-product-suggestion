@@ -1,0 +1,45 @@
+﻿@model CPS_Solution.EntityFramework.History
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>History</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Username, "Account")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Username", String.Empty)
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CompareTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CompareTime)
+            @Html.ValidationMessageFor(model => model.CompareTime)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

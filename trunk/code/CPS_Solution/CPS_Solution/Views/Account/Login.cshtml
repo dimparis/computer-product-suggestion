@@ -1,4 +1,4 @@
-﻿@model SmartB.UI.Models.LoginModel
+﻿@model CPS_Solution.Models.LoginModel
 
 @{
     ViewBag.Title = "Đăng nhập";
@@ -7,7 +7,7 @@
 
 @section head
 {
-    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
 
     <!-- Metro -->
     <link rel="stylesheet" href="@Url.Content("~/Template/Metro/css/metro-bootstrap.css")" />
@@ -19,11 +19,6 @@
 
 }
 
-<script>
-    $(document).ready(function () {
-        $("#order-summary").hide();
-    });
-</script>
 <div class="main-content" style="background: url(../../images/bg-login.jpg) white;background-size:cover;">
     <div class="top-left" style="padding: 60px; color: white">
             <div>
