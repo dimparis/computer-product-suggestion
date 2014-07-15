@@ -20,7 +20,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            // Sản phẩm trùng
+            // Thành phần trùng nhau
             #region load sản phẩm trùng từ txt LapDataTraning
             string path1 = Server.MapPath("~/UploadedExcelFiles/ProductName.txt");
             List<List<ProductMap>> ListdupProductTraning = new List<List<ProductMap>>();
@@ -49,7 +49,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
             }
             #endregion
-            // Sản phẩm trùng
+            // Thành phần trùng với thành phần trong database
             #region load sản phẩm trùng từ txt LapDataTraning
             string path = Server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
             List<List<ProductMap>> Listduptraning = new List<List<ProductMap>>();
@@ -62,33 +62,31 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 {
                     h++;
                     List<ProductMap> duppro = new List<ProductMap>();
-                    string[] seperators = { "-", ";" };                
+                    string[] seperators = { "~", "#" };
                     // tách ra làm 3 phần tử.
                     String[] line = lines[i].Split(seperators, StringSplitOptions.RemoveEmptyEntries);
                     // cho id vào list ID
                     string productId = line[0];
-                    listID.Add(productId);
                     // tên sản phẩm đã có trong database
-                    string ten = line[1];
-                    var resource = (from x in db.Hardwares where x.Name.Equals(ten) select x).FirstOrDefault();
-                    ProductMap p = new ProductMap();
-                    p.stt = resource.ID.ToString();
-                    p.ten = resource.Name;
-                    p.loai = resource.CodetypeID;
-                    p.trongso = resource.WeightCriteraPoint.ToString();
-                    p.productid = line[0];
-                    duppro.Add(p);
-                    String loai = resource.CodetypeID;
-                    for (int j = 2; j < line.Length; j++)
-                    {
-                        ProductMap pr = new ProductMap();
-                        pr.stt = h.ToString() + 'z';
-                        pr.ten = line[j];
-                        pr.loai = loai;
-                        pr.trongso = "0";
-                        pr.productid = line[0];
-                        duppro.Add(pr);
-                    }
+                    string[] produc1 = line[1].Split('|');
+                    ProductMap p1 = new ProductMap();
+                    p1.stt = produc1[3];
+                    p1.ten = produc1[0];
+                    p1.loai = produc1[1];
+                    p1.trongso = produc1[2];
+                    p1.productid = line[0];
+                    duppro.Add(p1);
+                    // tên product bị trùng với product đã có trong database
+                    string[] produc2 = line[1].Split('|');
+                    ProductMap p2 = new ProductMap();
+                    p2.stt = produc2[3] + 'z';
+                    p2.ten = produc2[0];
+                    p2.loai = produc2[1];
+                    p2.trongso = produc2[2];
+                    p2.productid = line[0];
+                    duppro.Add(p2);
+
+                    Listduptraning.Add(duppro);
                     Listduptraning.Add(duppro);
                 }
             }
@@ -115,16 +113,17 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 values.Add(value[j]);
             }
             List<List<ProductMap>> listduplicate = (List<List<ProductMap>>)Session["ListdupProduct"];
-
+            // tạo list chứa sản phẩm để lưu hoặc so trùng với db
+            List<ProductMap> listpro = new List<ProductMap>();
             // lấy tên chính ở cuối list ra và remove
             string sttTenchinh = values.Last();
             values.Remove(values.Last());
 
             // tên sản phẩm gộp
             string tenmoi = "";
-            string tenchinh ="";
+            string tenchinh = "";
             ProductMap sanphamgop = new ProductMap();
-            int check =0;
+            int check = 0;
             int count = 0;
             for (int i = 0; i < listduplicate.Count; i++)
             {
@@ -154,8 +153,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // kiểm tra trong list nhỏ còn có 1 phần tử thì tách nó luôn cho vào list correct
                     if (listduplicate[i].Count == 1)
                     {
-                       listduplicate[i].First();
-
+                        listpro.Add(listduplicate[i].First());
                         listduplicate[i].Remove(listduplicate[i].First());
                         //Xóa list rỗng trong list bự duplicate 
                         listduplicate.Remove(listduplicate[i]);
@@ -179,64 +177,97 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
 
             sanphamgop.ten = tenmoi;
-
+            // cho vào listpro
+            listpro.Add(sanphamgop);
             // Tạo listduplicate mới chứa trùng giữa listpro và trong database
             List<List<ProductMap>> listduplicatenew = new List<List<ProductMap>>();
 
             //lấy product trong database ra chỉ lấy Codetype bằng loai.
             List<Hardware> listproindatabase = new List<Hardware>();
             String loai = sanphamgop.loai;
-            var resource = (from x in db.Hardwares where x.CodetypeID.Equals(loai) select x);
+            var resource = (from x in db.Hardwares select x);
             listproindatabase = resource.ToList();
 
             // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
             for (int j = 0; j < listproindatabase.Count; j++)
             {
+                for (int i = 0; i < listpro.Count; i++)
+                {
                 List<ProductMap> duplicateProduct = new List<ProductMap>();
-               
-                    String Name = "";
-                    String[] mangten =sanphamgop.ten.ToString().Split(';');
-                    if (mangten.Length >= 2)
-                    {
-                        Name = mangten[0];
-                    }
-                    else
-                    {
-                        Name = sanphamgop.ten;
-                    }
 
-                    if (listproindatabase[j].Name.ToString().Equals(Name))
-                    {
-                        listproindatabase.RemoveAt(j);
-              
-                        j--;
-                    }
+                String Name = "";
+                String[] mangten = listpro[i].ten.ToString().Split(';');
+                if (mangten.Length >= 2)
+                {
+                    Name = mangten[0];
+                }
+                else
+                {
+                    Name = listpro[i].ten;
+                }
 
-                    // lấy sản phầm trùng cho vào list trùng mới
-                    if (CompareStringHelper.CompareString(tenchinh, listproindatabase[j].Name.ToString()) >= 80)
-                    {
-                        ProductMap pro = new ProductMap();
-                        pro.stt = listproindatabase[j].ID.ToString();
-                        pro.ten = listproindatabase[j].Name;
-                        pro.loai = listproindatabase[j].Codetype.Name;
-                        pro.trongso = listproindatabase[j].WeightCriteraPoint.ToString();
-                        duplicateProduct.Add(pro);
-                        sanphamgop.stt = "z" + sanphamgop.stt;
-                        duplicateProduct.Add(sanphamgop);
-                    }
+                if (listproindatabase[j].Name.ToString().Equals(Name))
+                {
+                    listproindatabase.RemoveAt(j);
 
-               
+                    j--;
+                }
+
+                // lấy sản phầm trùng cho vào list trùng mới
+                if (CompareStringHelper.CompareString(tenchinh, listproindatabase[j].Name.ToString()) >= 80)
+                {
+                    ProductMap pro = new ProductMap();
+                    pro.stt = listproindatabase[j].ID.ToString();
+                    pro.ten = listproindatabase[j].Name;
+                    pro.loai = listproindatabase[j].Codetype.Name;
+                    pro.trongso = listproindatabase[j].WeightCriteraPoint.ToString();
+                    duplicateProduct.Add(pro);
+                    listpro[i].stt = "z" + listpro[i].stt;
+                    duplicateProduct.Add(listpro[i]);
+
+                    //lấy dữ liệu trong file text traning ra ProductNameTraining;
+                    string path1 = Server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
+                    if (System.IO.File.Exists(path1))
+                    {   // lấy hết dòng trong file txt ra.
+                        string[] lines1 = System.IO.File.ReadAllLines(path1);
+                        // tảo mảng mới chứa dữ dữ liệu trùng.
+                        string[] newlines = new string[1];
+                        string newline = "0"+'-';
+                        for (int h = 0; h < duplicateProduct.Count; h++)
+                        {
+                            newline += duplicateProduct[h].ten + "|" + duplicateProduct[h].loai + "|" +
+                                       duplicateProduct[h].trongso + "|" + duplicateProduct[h].stt + "#";
+                        }
+                        newline = newline.Substring(0, newline.Length - 1);
+                        newlines[0] = newline;
+                        //Gộp hai bảng thành mảng mới và lưu vào txt lại
+                        string[] save = new string[lines1.Length + newlines.Length];
+                        for (int h = 0; h < lines1.Length; h++)
+                        {
+                            save[h] = lines1[h];
+                        }
+                        for (int h = 0; h < newlines.Length; h++)
+                        {
+                            save[h + lines1.Length] = newlines[h];
+                        }
+                        // ghi lại vào txt
+                        System.IO.File.WriteAllLines(path1, save);
+                    }
+                }
+
+
                 if (duplicateProduct.Count >= 2)
                 {
                     listduplicatenew.Add(duplicateProduct);
                     check++;
                 }
-              }
-            
+            }
+            }
+
             // lưu vào database
-             if(check ==0)
-              {
-                  Hardware p = new Hardware();
+            if (check == 0)
+            {
+                Hardware p = new Hardware();
 
                 String[] mangten = sanphamgop.ten.ToString().Split(';');
                 if (mangten.Length >= 2)
@@ -249,19 +280,21 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
                 p.CodetypeID = sanphamgop.loai;
                 p.WeightCriteraPoint = Convert.ToInt32(sanphamgop.trongso);
+                p.IsActive = false;
                 db.Hardwares.Add(p);
                 db.SaveChanges();
                 // lấy max ID và thêm vào bảng alias
-                if (mangten.Length >= 2)
+                if (mangten.Length >= 1)
                 {
                     var pronew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                     int idinsert = Convert.ToInt32(pronew.ID);
 
-                    for (int h = 1; h < mangten.Length; h++)
+                    for (int h = 0; h < mangten.Length; h++)
                     {
                         Dictionary a = new Dictionary();
                         a.Name = mangten[h];
                         a.AttributeDicID = idinsert;
+                        a.IsActive = true;
                         db.Dictionaries.Add(a);
                         db.SaveChanges();
                     }
@@ -269,8 +302,23 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
             }
 
+            // ghi lại vào txt
+            string path = Server.MapPath("~/UploadedExcelFiles/ProductName.txt");
+            string[] lines = new string[listduplicate.Count];
+            for (int i = 0; i < listduplicate.Count; i++)
+            {
+                string line = "";
+                for (int j = 0; j < listduplicate[i].Count; j++)
+                {
+                    line += listduplicate[i][j].ten + "|" + listduplicate[i][j].loai + "|" + listduplicate[i][j].trongso + "#";
+                }
+                line = line.Substring(0, line.Length - 1);
+                lines[i] = line;
 
-             Session["ListdupProduct"] = listduplicate;
+            }
+            System.IO.File.WriteAllLines(path, lines);
+
+            Session["ListdupProduct"] = listduplicate;
             ViewBag.listduplicate = (List<List<ProductMap>>)Session["ListdupProduct"];
 
 
@@ -298,7 +346,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     }
 
                     // get list product in session.
-                    List<ProductMap> listpro = (List<ProductMap>)Session["listproduct"];
+                    List<ProductMap> listpro = new List<ProductMap>(); ;
                     List<List<ProductMap>> listduplicate = (List<List<ProductMap>>)Session["ListdupProduct"];
                     ProductMap duplicate = new ProductMap();
                     int count = 0;
@@ -348,13 +396,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 count++;
                                 break;
                             }
-
                         }
-
                     }
                     Session["ListdupProduct"] = listduplicate;
-
-                    Session["listproduct"] = listpro;
                 }
                 else
                 {
@@ -368,7 +412,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     }
 
                     // get list product in session.
-                    List<ProductMap> listpro = (List<ProductMap>)Session["listproduct"];
+                    List<ProductMap> listpro = new List<ProductMap>();
                     List<List<ProductMap>> listduplicate = (List<List<ProductMap>>)Session["ListdupProduct"];
                     ProductMap duplicate = new ProductMap();
                     int count = 0;
@@ -413,11 +457,111 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
                     }
 
-                    Session["ListdupProduct"] = listduplicate;
+                    //kiểm tra listpro có bị trùng database ko nếu bị trùng thì lưu vào ProductNameTraining
 
-                    Session["listproduct"] = listpro;
+                    List<List<ProductMap>> listduplicatenew = new List<List<ProductMap>>();
+                    //lấy product trong database ra chỉ lấy Codetype bằng loai.
+                    List<Hardware> listproindatabase = new List<Hardware>();
+
+                    var resource = (from x in db.Hardwares select x);
+                    listproindatabase = resource.ToList();
+
+                    // tìm sản phẩm trùng cho vào list trùng hoặc xóa đi :|
+                    for (int j = 0; j < listproindatabase.Count; j++)
+                    {
+                        for (int i = 0; i < listpro.Count; i++)
+                        {
+                            List<ProductMap> duplicateProduct = new List<ProductMap>();
+
+                            String Name = "";
+                            String[] mangten = listpro[i].ten.ToString().Split(';');
+                            if (mangten.Length >= 2)
+                            {
+                                Name = mangten[0];
+                            }
+                            else
+                            {
+                                Name = listpro[i].ten;
+                            }
+
+                            if (listproindatabase[j].Name.ToString().Equals(Name))
+                            {
+                                listproindatabase.RemoveAt(j);
+
+                                j--;
+                            }
+
+                            // lấy sản phầm trùng cho vào list trùng mới
+                            if (CompareStringHelper.CompareString(Name, listproindatabase[j].Name.ToString()) >= 80)
+                            {
+                                ProductMap pro = new ProductMap();
+                                pro.stt = listproindatabase[j].ID.ToString();
+                                pro.ten = listproindatabase[j].Name;
+                                pro.loai = listproindatabase[j].Codetype.Name;
+                                pro.trongso = listproindatabase[j].WeightCriteraPoint.ToString();
+                                duplicateProduct.Add(pro);
+                                listpro[i].stt = "z" + listpro[i].stt;
+                                duplicateProduct.Add(listpro[i]);
+
+                                //lấy dữ liệu trong file text traning ra ProductNameTraining;
+                                string path1 = Server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
+                                if (System.IO.File.Exists(path1))
+                                {   // lấy hết dòng trong file txt ra.
+                                    string[] lines1 = System.IO.File.ReadAllLines(path1);
+                                    // tảo mảng mới chứa dữ dữ liệu trùng.
+                                    string[] newlines = new string[1];
+                                    string newline = "0" + '-';
+                                    for (int h = 0; h < duplicateProduct.Count; h++)
+                                    {
+                                        newline += duplicateProduct[h].ten + "|" + duplicateProduct[h].loai + "|" +
+                                                   duplicateProduct[h].trongso + "|" + duplicateProduct[h].stt + "#";
+                                    }
+                                    newline = newline.Substring(0, newline.Length - 1);
+                                    newlines[0] = newline;
+                                    //Gộp hai bảng thành mảng mới và lưu vào txt lại
+                                    string[] save = new string[lines1.Length + newlines.Length];
+                                    for (int h = 0; h < lines1.Length; h++)
+                                    {
+                                        save[h] = lines1[h];
+                                    }
+                                    for (int h = 0; h < newlines.Length; h++)
+                                    {
+                                        save[h + lines1.Length] = newlines[h];
+                                    }
+                                    // ghi lại vào txt
+                                    System.IO.File.WriteAllLines(path1, save);
+                                }
+                            }
+
+
+                            if (duplicateProduct.Count >= 2)
+                            {
+                                listduplicatenew.Add(duplicateProduct);
+                            }
+
+
+                            Session["ListdupProduct"] = listduplicate;
+                            // ghi lại vào txt
+                            string path = Server.MapPath("~/UploadedExcelFiles/ProductName.txt");
+                            string[] lines = new string[listduplicate.Count];
+                            for (int a = 0; a < listduplicate.Count; a++)
+                            {
+                                string line = "";
+                                for (int b = 0; b < listduplicate[i].Count; b++)
+                                {
+                                    line += listduplicate[a][b].ten + "|" + listduplicate[a][b].loai + "|" + listduplicate[a][b].trongso + "#";
+                                }
+                                line = line.Substring(0, line.Length - 1);
+                                lines[a] = line;
+
+                            }
+                            System.IO.File.WriteAllLines(path, lines);
+
+                        }
+                    }
                 }
             }
+
             //cho vào viewbag
             ViewBag.listproduct = (List<ProductMap>)Session["listproduct"];
             ViewBag.listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
@@ -614,25 +758,25 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             a.IsActive = true;
                             db.Dictionaries.Add(a);
                             db.SaveChanges();
-                            
+
 
                             // thêm ProductAtribute khi add sản phẩm :|
                             ProductAttribute proAttr = new ProductAttribute();
-                           // proAttr.ProductID = Convert.ToInt32(listID[i]);
+                            // proAttr.ProductID = Convert.ToInt32(listID[i]);
                             proAttr.ProductID = Convert.ToInt32(listduplicatenew[i][1].productid);
                             proAttr.AttributeID = Convert.ToInt32(listduplicatenew[i][0].stt);
                             db.ProductAttributes.Add(proAttr);
                             db.SaveChanges();
                             listduplicatenew.RemoveAt(i);
-                            listID.RemoveAt(i);
+                            //listID.RemoveAt(i);
                             i = i - 1;
                             count++;
                             break;
                         }
                     }
-                 
+
                     Session["ListduptraningProduct"] = listduplicatenew;
-                    if (count>0)
+                    if (count > 0)
                     {
 
                         break;
@@ -653,11 +797,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
             string[] lines = new string[listduplicatenew.Count];
             for (int i = 0; i < listduplicatenew.Count; i++)
             {
-                //string line = listID[i]+'-';  
-                string line = listduplicatenew[i][1].productid + '-';
+                //string line = listID[i]+'~';  
+                string line = listduplicatenew[i][1].productid + '~';
                 for (int j = 0; j < listduplicatenew[i].Count; j++)
                 {
-                    line += listduplicatenew[i][j].ten + ";";
+                  //  line += listduplicatenew[i][j].ten + "#";
+                    line += listduplicatenew[i][j].ten + "|" + listduplicatenew[i][j].loai + "|" + listduplicatenew[i][j].trongso + "#";
                 }
                 line = line.Substring(0, line.Length - 1);
                 lines[i] = line;

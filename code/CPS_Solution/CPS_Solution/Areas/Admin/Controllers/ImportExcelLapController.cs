@@ -85,8 +85,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 {
                                     newline += listduplicate[i][j].Name +"|"+ listduplicate[i][j].Imagelink +"|"+
                                                listduplicate[i][j].CPU  +"|"+ listduplicate[i][j].VGA       +"|"+
-                                               listduplicate[i][j].HDD  +"|"+ listduplicate[i][j].Display   +"|"+ 
-                                               listduplicate[i][j].RAM  + "#";
+                                               listduplicate[i][j].HDD  +"|"+ listduplicate[i][j].Display   +"|"+
+                                               listduplicate[i][j].RAM + "|" + listduplicate[i][j].Price + "|" + listduplicate[i][j].Url + "#";
                                 }
                                 newline = newline.Substring(0, newline.Length - 1);
                                 newlines[i] = newline;
@@ -285,28 +285,33 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     //----------------------------- kiểm tra sản phẩm trong listpro có bị trùng linh kiện ko---------------------------
                     #region Lấy CPU VGA HDD Display Ram cho vào danh sách riêng để kiểm tra trùng linh kiện
                     // lấy hết CPU trong db ra
-                    var listCPUdb = (from a in db.Hardwares where a.CodetypeID.Equals("C") select a);
+                    var listCPUdb = (from a in db.Hardwares where a.CodetypeID.Equals("C") && a.IsActive==true select a);
                     List<Hardware> listCPU = listCPUdb.ToList();
                     // lấy hết VGA trong db ra
-                    var listVGAdb = (from a in db.Hardwares where a.CodetypeID.Equals("V") select a);
+                    var listVGAdb = (from a in db.Hardwares where a.CodetypeID.Equals("V") && a.IsActive == true select a);
                     List<Hardware> listVGA = listVGAdb.ToList();
                     // lấy hết HDD trong db ra
-                    var listHDDdb = (from a in db.Hardwares where a.CodetypeID.Equals("H") select a);
+                    var listHDDdb = (from a in db.Hardwares where a.CodetypeID.Equals("H") && a.IsActive == true select a);
                     List<Hardware> listHDD = listHDDdb.ToList();
                     // lấy hết Display trong db ra
-                    var listDisplaydb = (from a in db.Hardwares where a.CodetypeID.Equals("D") select a);
+                    var listDisplaydb = (from a in db.Hardwares where a.CodetypeID.Equals("D") && a.IsActive == true select a);
                     List<Hardware> listDisplay = listDisplaydb.ToList();
                     // lấy hết Ram trong db ra
-                    var listRamdb = (from a in db.Hardwares where a.CodetypeID.Equals("R") select a);
+                    var listRamdb = (from a in db.Hardwares where a.CodetypeID.Equals("R") && a.IsActive == true select a);
                     List<Hardware> listRam = listRamdb.ToList();
                     #endregion
 
                     #region Kiểm tra trùng link kiện để ghilog txt
                     string errorCPU = "";
+                    Hardware CPU = new Hardware();
                     string errorVGA = "";
+                    Hardware VGA = new Hardware();
                     string errorHDD = "";
+                    Hardware HDD = new Hardware();
                     string errorDisplay = "";
+                    Hardware Display = new Hardware();
                     string errorRam = "";
+                    Hardware Ram = new Hardware();
                     int errorCount = 0;
                     // trùng CPU 1
                     for (int x = 0; x < listCPU.Count; x++)
@@ -317,7 +322,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
                         else if (CompareStringHelper.CompareString(listpro[i].CPU, listCPU[x].Name) >= 80)
                         {
-                        
+                            CPU = listCPU[x];
                             errorCount++;
                             errorCPU = listCPU[x].Name;
                             break;
@@ -332,7 +337,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
                         else if (CompareStringHelper.CompareString(listpro[i].VGA, listVGA[x].Name) >= 80)
                         {
-                           
+                            VGA = listVGA[x];
                             errorCount++;
                             errorVGA = listVGA[x].Name;
                             break;
@@ -346,7 +351,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             break;
                         }
                         else if (CompareStringHelper.CompareString(listpro[i].HDD, listHDD[x].Name) >= 80)
-                        {                          
+                        {
+                            HDD = listHDD[x];
                             errorCount++;
                             errorHDD = listHDD[x].Name;
                             break;
@@ -361,6 +367,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
                         else if (CompareStringHelper.CompareString(listpro[i].Display, listDisplay[x].Name) >= 80)
                         {
+                            Display = listDisplay[x];
                             errorCount++;
                             errorDisplay = listDisplay[x].Name;
                             break;
@@ -375,6 +382,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
                         else if (CompareStringHelper.CompareString(listpro[i].RAM, listRam[x].Name) >= 80)
                         {
+                            Ram = listRam[x];
                             errorCount++;
                             errorRam = listRam[x].Name;
                             break;
@@ -478,7 +486,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                 int idpro = Convert.ToInt32(pronew.ID);
-                                newline[vitriluu] = idpro.ToString() + '-' + errorCPU + ';' + listpro[i].CPU;
+                                newline[vitriluu] = idpro.ToString() + '~' + CPU.Name + '|'+ CPU.CodetypeID.ToString()+ '|'+CPU.WeightCriteraPoint+'|'+CPU.ID+ '#' + listpro[i].CPU + '|' + '|' + '|';
                                 vitriluu++;        
                             }
                             else
@@ -487,7 +495,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 Hardware atcpu = new Hardware();
                                 atcpu.CodetypeID = "C";
                                 atcpu.Name = listpro[i].CPU;
-                                atcpu.WeightCriteraPoint = 0;                                
+                                atcpu.WeightCriteraPoint = 0;
+                                atcpu.IsActive = false;
                                 db.Hardwares.Add(atcpu);
                                 db.SaveChanges();
                                //get id vừa mới lưu
@@ -514,7 +523,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         //    {
                         //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                         //        int idpro = Convert.ToInt32(pronew.ID);
-                        //        newline[0] = idpro.ToString() + '-' + errorCPU + ';' + listpro[i].CPU;
+                        //        newline[0] = idpro.ToString() + '~' + errorCPU + ';' + listpro[i].CPU;
                         //        vitriluu++;
                         //    }
                         //    else
@@ -559,7 +568,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                 int idpro = Convert.ToInt32(pronew.ID);
-                                newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listpro[i].VGA;
+                                newline[vitriluu] = idpro.ToString() + '~' + VGA.Name + '|' + VGA.CodetypeID.ToString() + '|' + VGA.WeightCriteraPoint + '|' + VGA.ID + '#' + listpro[i].VGA + '|' + '|' + '|';                                      
                                 vitriluu++;
                             }
                             // ko trùng thì lưu VGA mới vào database và lấy ID
@@ -570,6 +579,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 atvga.CodetypeID = "V";
                                 atvga.Name = listpro[i].VGA;
                                 atvga.WeightCriteraPoint = 0;
+                                atvga.IsActive = false;
                                 db.Hardwares.Add(atvga);
                                 db.SaveChanges();
                                 var vganew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -593,7 +603,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         //    {
                         //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                         //        int idpro = Convert.ToInt32(pronew.ID);
-                        //        newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listpro[i].VGA;
+                        //        newline[vitriluu] = idpro.ToString() + '~' + errorVGA + ';' + listpro[i].VGA;
                         //        vitriluu++;
                         //    }
                         //    // ko trùng thì lưu VGA mới vào database và lấy ID
@@ -637,7 +647,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                 int idpro = Convert.ToInt32(pronew.ID);
-                                newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listpro[i].HDD;
+                                newline[vitriluu] = idpro.ToString() + '~' + HDD.Name + '|' + HDD.CodetypeID.ToString() + '|' + HDD.WeightCriteraPoint + '|' + HDD.ID + '#' + listpro[i].HDD + '|' + '|' + '|';
                                 vitriluu++;
                             }
                             // ko trùng thì lưu HDD mới vào database và lấy ID
@@ -647,10 +657,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 athddd.CodetypeID = "H";
                                 athddd.Name = listpro[i].HDD;
                                 athddd.WeightCriteraPoint = 0;
+                                athddd.IsActive = false;
                                 db.Hardwares.Add(athddd);
                                 db.SaveChanges();
                                 var hddnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                 idHDD3 = Convert.ToInt32(hddnew.ID);
+
 
                                 // lưu name vào Attibute Alias và để isactive là true
                                 Dictionary athdddMap = new Dictionary();
@@ -670,7 +682,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         //    {
                         //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                         //        int idpro = Convert.ToInt32(pronew.ID);
-                        //        newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listpro[i].HDD;
+                        //        newline[vitriluu] = idpro.ToString() + '~' + errorHDD + ';' + listpro[i].HDD;
                         //        vitriluu++;
                         //    }
                         //    // ko trùng thì lưu HDD mới vào database và lấy ID
@@ -715,7 +727,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 {
                                     var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                     int idpro = Convert.ToInt32(pronew.ID);
-                                    newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listpro[i].Display;
+                                    newline[vitriluu] = idpro.ToString() + '~' + Display.Name + '|' + Display.CodetypeID.ToString() + '|' + Display.WeightCriteraPoint + '|' + Display.ID + '#' + listpro[i].Display + '|' + '|' + '|';
                                     vitriluu++;
                                 }
                                 // ko trùng thì lưu Display mới vào database và lấy ID
@@ -725,6 +737,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     athdisp.CodetypeID = "D";
                                     athdisp.Name = listpro[i].Display;
                                     athdisp.WeightCriteraPoint = 0;
+                                    athdisp.IsActive = false;
                                     db.Hardwares.Add(athdisp);
                                     db.SaveChanges();
                                     var dispnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -749,7 +762,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         //    {
                         //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                         //        int idpro = Convert.ToInt32(pronew.ID);
-                        //        newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listpro[i].Display;
+                        //        newline[vitriluu] = idpro.ToString() + '~' + errorDisplay + ';' + listpro[i].Display;
                         //        vitriluu++;
                         //    }
                         //    // ko trùng thì lưu Display mới vào database và lấy ID
@@ -793,7 +806,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                 int idpro = Convert.ToInt32(pronew.ID);
-                                newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listpro[i].RAM;
+                                newline[vitriluu] = idpro.ToString() + '~' + Ram.Name + '|' + Ram.CodetypeID.ToString() + '|' + Ram.WeightCriteraPoint + '|' + Ram.ID + '#' + listpro[i].RAM + '|' + '|' + '|';
                                 vitriluu++;
                             }
                             // ko trùng thì lưu Ram mới vào database và lấy ID
@@ -803,6 +816,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 athram.CodetypeID = "R";
                                 athram.Name = listpro[i].RAM;
                                 athram.WeightCriteraPoint = 0;
+                                athram.IsActive = false;
                                 db.Hardwares.Add(athram);
                                 db.SaveChanges();
                                 var ramnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -826,7 +840,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         //    {
                         //        var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                         //        int idpro = Convert.ToInt32(pronew.ID);
-                        //        newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listpro[i].RAM;
+                        //        newline[vitriluu] = idpro.ToString() + '~' + errorRam + ';' + listpro[i].RAM;
                         //        vitriluu++;
                         //    }
                         //    // ko trùng thì lưu Display mới vào database và lấy ID
@@ -878,6 +892,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             ProductAttribute atProCPU = new ProductAttribute();
                             atProCPU.AttributeID = idCPU1;
                             atProCPU.ProductID = idinsertnew;
+                            atProCPU.IsActive = true;
                             db.ProductAttributes.Add(atProCPU);
                             db.SaveChanges();
                         }
@@ -886,6 +901,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             //2 lưu idRam vào bảng ProductAttribute
                             ProductAttribute atProRam = new ProductAttribute();
                             atProRam.AttributeID = idRam5;
+                            atProRam.IsActive = true;
                             atProRam.ProductID = idinsertnew;
                             db.ProductAttributes.Add(atProRam);
                             db.SaveChanges();
@@ -895,6 +911,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             //3 lưu idhdd vào bảng ProductAttribute
                             ProductAttribute atProHDD = new ProductAttribute();
                             atProHDD.AttributeID = idHDD3;
+                            atProHDD.IsActive = true;
                             atProHDD.ProductID = idinsertnew;
                             db.ProductAttributes.Add(atProHDD);
                             db.SaveChanges();
@@ -904,6 +921,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             //4 lưu idDisplay vào bảng ProductAttribute
                             ProductAttribute atProDisp = new ProductAttribute();
                             atProDisp.AttributeID = idDisplay4;
+                            atProDisp.IsActive = true;
                             atProDisp.ProductID = idinsertnew;
                             db.ProductAttributes.Add(atProDisp);
                             db.SaveChanges();
@@ -913,6 +931,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             //5 lưu idvag vào bảng ProductAttribute
                             ProductAttribute atProVAG = new ProductAttribute();
                             atProVAG.AttributeID = idVGA2;
+                            atProVAG.IsActive = true;
                             atProVAG.ProductID = idinsertnew;
                             db.ProductAttributes.Add(atProVAG);
                             db.SaveChanges();
@@ -1007,6 +1026,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             atcpu.CodetypeID = "C";
                             atcpu.Name = listpro[i].CPU;
                             atcpu.WeightCriteraPoint = 0;
+                            atcpu.IsActive = false;
                             db.Hardwares.Add(atcpu);
                             db.SaveChanges();
                             var cpunew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -1018,6 +1038,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             Hardware atcpu = new Hardware();
                             atcpu.CodetypeID = "C";
                             atcpu.Name = listpro[i].CPU;
+                            atcpu.IsActive = false;
                             atcpu.WeightCriteraPoint = 0;
                             db.Hardwares.Add(atcpu);
                             db.SaveChanges();
@@ -1038,6 +1059,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             Hardware atvga = new Hardware();
                             atvga.CodetypeID = "V";
                             atvga.Name = listpro[i].VGA;
+                            atvga.IsActive=false;
                             atvga.WeightCriteraPoint = 0;
                             db.Hardwares.Add(atvga);
                             db.SaveChanges();
@@ -1050,6 +1072,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             Hardware atvga = new Hardware();
                             atvga.CodetypeID = "V";
                             atvga.Name = listpro[i].VGA;
+                            atvga.IsActive=false;
                             atvga.WeightCriteraPoint = 0;
                             db.Hardwares.Add(atvga);
                             db.SaveChanges();
@@ -1070,6 +1093,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             Hardware athddd = new Hardware();
                             athddd.CodetypeID = "H";
                             athddd.Name = listpro[i].HDD;
+                            athddd.IsActive = false;
                             athddd.WeightCriteraPoint = 0;
                             db.Hardwares.Add(athddd);
                             db.SaveChanges();
@@ -1083,6 +1107,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             athddd.CodetypeID = "H";
                             athddd.Name = listpro[i].HDD;
                             athddd.WeightCriteraPoint = 0;
+                            athddd.IsActive = false;
                             db.Hardwares.Add(athddd);
                             db.SaveChanges();
                             var hddnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -1103,6 +1128,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             athdisp.CodetypeID = "D";
                             athdisp.Name = listpro[i].Display;
                             athdisp.WeightCriteraPoint = 0;
+                            athdisp.IsActive = false;
                             db.Hardwares.Add(athdisp);
                             db.SaveChanges();
                             var dispnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -1116,6 +1142,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             athdisp.CodetypeID = "D";
                             athdisp.Name = listpro[i].Display;
                             athdisp.WeightCriteraPoint = 0;
+                             athdisp.IsActive = false;
                             db.Hardwares.Add(athdisp);
                             db.SaveChanges();
                             var dispnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -1136,6 +1163,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             athram.CodetypeID = "R";
                             athram.Name = listpro[i].RAM;
                             athram.WeightCriteraPoint = 0;
+                            athram.IsActive =false;
                             db.Hardwares.Add(athram);
                             db.SaveChanges();
                             var ramnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -1148,6 +1176,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             athram.CodetypeID = "R";
                             athram.Name = listpro[i].RAM;
                             athram.WeightCriteraPoint = 0;
+                            athram.IsActive =false;
                             db.Hardwares.Add(athram);
                             db.SaveChanges();
                             var ramnew = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
@@ -2012,10 +2041,16 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             List<Hardware> listRam = listRamdb.ToList();
                             #region Kiểm tra trùng link kiện không ghi lại những linh kiện trùng để ghilog txt
                             string errorCPU = "";
+                            Hardware CPU = new Hardware();
                             string errorVGA = "";
+                            Hardware VGA = new Hardware();
                             string errorHDD = "";
+                            Hardware HDD = new Hardware();
                             string errorDisplay = "";
+                            Hardware Display = new Hardware();
                             string errorRam = "";
+                            Hardware Ram = new Hardware();
+
                             int errorCount = 0;
                             // trùng CPU 1
                             for (int x = 0; x < listCPU.Count; x++)
@@ -2026,6 +2061,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU, listCPU[x].Name) > 80)
                                 {
+                                    CPU = listCPU[x];
                                     listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorCPU = listCPU[x].Name;
@@ -2041,6 +2077,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA, listVGA[x].Name) > 80)
                                 {
+                                    VGA = listVGA[x];
                                     listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorVGA = listVGA[x].Name;
@@ -2056,6 +2093,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD, listHDD[x].Name) > 80)
                                 {
+                                    HDD = listHDD[x];
                                     listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorHDD = listHDD[x].Name;
@@ -2071,6 +2109,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display, listDisplay[x].Name) > 80)
                                 {
+                                    Display = listDisplay[x];
                                     listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorDisplay = listDisplay[x].Name;
@@ -2086,6 +2125,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM, listRam[x].Name) > 80)
                                 {
+                                    Ram = listRam[x];
                                     listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorRam = listRam[x].Name;
@@ -2189,7 +2229,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                         int idpro = Convert.ToInt32(pronew.ID);
-                                        newline[vitriluu] = idpro.ToString() + '-' + errorCPU + ';' + listduplicatenew[i][j].CPU;
+                                        newline[vitriluu] = idpro.ToString() + '~' + CPU.Name + '|' + CPU.CodetypeID.ToString() + '|' + CPU.WeightCriteraPoint + '|' + CPU.ID + '#' + listduplicatenew[i][j].CPU + '|' + '|' + '|';
                                         vitriluu++;
                                         break;
                                     }
@@ -2214,7 +2254,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                         int idpro = Convert.ToInt32(pronew.ID);
-                                        newline[0] = idpro.ToString() + '-' + errorCPU + ';' + listduplicatenew[i][j].CPU;
+                                        newline[0] = idpro.ToString() + '~' + CPU.Name + '|' + CPU.CodetypeID.ToString() + '|' + CPU.WeightCriteraPoint + '|' + CPU.ID + '#' + listduplicatenew[i][j].CPU + '|' + '|' + '|';
                                         vitriluu++;
                                     }
                                     else
@@ -2247,7 +2287,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                         int idpro = Convert.ToInt32(pronew.ID);
-                                        newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listduplicatenew[i][j].VGA;
+                                        newline[vitriluu] = idpro.ToString() + '~' + VGA.Name + '|' + VGA.CodetypeID.ToString() + '|' + VGA.WeightCriteraPoint + '|' + VGA.ID + '#' + listduplicatenew[i][j].VGA + '|' + '|' + '|';                  
                                         vitriluu++;
                                         break;
                                     }
@@ -2274,7 +2314,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                         int idpro = Convert.ToInt32(pronew.ID);
-                                        newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + listduplicatenew[i][j].VGA;
+                                        newline[vitriluu] = idpro.ToString() + '~' + VGA.Name + '|' + VGA.CodetypeID.ToString() + '|' + VGA.WeightCriteraPoint + '|' + VGA.ID + '#' + listduplicatenew[i][j].VGA + '|' + '|' + '|';                  
                                         vitriluu++;
                                     }
                                     // ko trùng thì lưu VGA mới vào database và lấy ID
@@ -2309,7 +2349,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                         {
                                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                             int idpro = Convert.ToInt32(pronew.ID);
-                                            newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listduplicatenew[i][j].HDD;
+                                            newline[vitriluu] = idpro.ToString() + '~' + HDD.Name + '|' + HDD.CodetypeID.ToString() + '|' + HDD.WeightCriteraPoint + '|' + HDD.ID + '#' + listduplicatenew[i][j].HDD + '|' + '|' + '|';
                                             vitriluu++;
                                             break;
                                         }
@@ -2336,7 +2376,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                         int idpro = Convert.ToInt32(pronew.ID);
-                                        newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + listduplicatenew[i][j].HDD;
+                                        newline[vitriluu] = idpro.ToString() + '~' + HDD.Name + '|' + HDD.CodetypeID.ToString() + '|' + HDD.WeightCriteraPoint + '|' + HDD.ID + '#' + listduplicatenew[i][j].HDD + '|' + '|' + '|';
                                         vitriluu++;
                                     }
                                     // ko trùng thì lưu HDD mới vào database và lấy ID
@@ -2370,7 +2410,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                         int idpro = Convert.ToInt32(pronew.ID);
-                                        newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listduplicatenew[i][j].Display;
+                                        newline[vitriluu] = idpro.ToString() + '~' + Display.Name + '|' + Display.CodetypeID.ToString() + '|' + Display.WeightCriteraPoint + '|' + Display.ID + '#' + listduplicatenew[i][j].Display + '|' + '|' + '|';
                                         vitriluu++;
                                         break;
                                     }
@@ -2396,7 +2436,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                         int idpro = Convert.ToInt32(pronew.ID);
-                                        newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + listduplicatenew[i][j].Display;
+                                        newline[vitriluu] = idpro.ToString() + '~' + Display.Name + '|' + Display.CodetypeID.ToString() + '|' + Display.WeightCriteraPoint + '|' + Display.ID + '#' + listduplicatenew[i][j].Display + '|' + '|' + '|';
                                         vitriluu++;
                                     }
                                     // ko trùng thì lưu Display mới vào database và lấy ID
@@ -2430,7 +2470,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                         int idpro = Convert.ToInt32(pronew.ID);
-                                        newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listduplicatenew[i][j].RAM;
+                                        newline[vitriluu] = idpro.ToString() + '~' + Ram.Name + '|' + Ram.CodetypeID.ToString() + '|' + Ram.WeightCriteraPoint + '|' + Ram.ID + '#' + listduplicatenew[i][j].RAM + '|' + '|' + '|';
                                         vitriluu++;
                                         break;
                                     }
@@ -2457,7 +2497,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     {
                                         var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                         int idpro = Convert.ToInt32(pronew.ID);
-                                        newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + listduplicatenew[i][j].RAM;
+                                        newline[vitriluu] = idpro.ToString() + '~' + Ram.Name + '|' + Ram.CodetypeID.ToString() + '|' + Ram.WeightCriteraPoint + '|' + Ram.ID + '#' + listduplicatenew[i][j].RAM + '|' + '|' + '|';
                                         vitriluu++;
                                     }
                                     // ko trùng thì lưu Display mới vào database và lấy ID

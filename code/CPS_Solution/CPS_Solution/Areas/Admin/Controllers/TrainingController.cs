@@ -394,7 +394,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idpro = Convert.ToInt32(pronew.ID);
-                            newline[vitriluu] = idpro.ToString() + '-' + errorCPU + ';' + update.CPU;
+                            newline[vitriluu] = idpro.ToString() + '~' + errorCPU + ';' + update.CPU;
                             vitriluu++;
                             //   break;
                         }
@@ -420,7 +420,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idpro = Convert.ToInt32(pronew.ID);
-                            newline[0] = idpro.ToString() + '-' + errorCPU + ';' + update.CPU;
+                            newline[0] = idpro.ToString() + '~' + errorCPU + ';' + update.CPU;
                             vitriluu++;
                         }
                         else
@@ -455,7 +455,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idpro = Convert.ToInt32(pronew.ID);
-                            newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + update.VGA;
+                            newline[vitriluu] = idpro.ToString() + '~' + errorVGA + ';' + update.VGA;
                             vitriluu++;
                             //  break;
                         }
@@ -482,7 +482,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idpro = Convert.ToInt32(pronew.ID);
-                            newline[vitriluu] = idpro.ToString() + '-' + errorVGA + ';' + update.VGA;
+                            newline[vitriluu] = idpro.ToString() + '~' + errorVGA + ';' + update.VGA;
                             vitriluu++;
                         }
                         // ko trùng thì lưu VGA mới vào database và lấy ID
@@ -518,7 +518,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idpro = Convert.ToInt32(pronew.ID);
-                            newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + update.HDD;
+                            newline[vitriluu] = idpro.ToString() + '~' + errorHDD + ';' + update.HDD;
                             vitriluu++;
                             //  break;
                         }
@@ -544,7 +544,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idpro = Convert.ToInt32(pronew.ID);
-                            newline[vitriluu] = idpro.ToString() + '-' + errorHDD + ';' + update.HDD;
+                            newline[vitriluu] = idpro.ToString() + '~' + errorHDD + ';' + update.HDD;
                             vitriluu++;
                         }
                         // ko trùng thì lưu HDD mới vào database và lấy ID
@@ -581,7 +581,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                 int idpro = Convert.ToInt32(pronew.ID);
-                                newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + update.Display;
+                                newline[vitriluu] = idpro.ToString() + '~' + errorDisplay + ';' + update.Display;
                                 vitriluu++;
                                 // break;
                             }
@@ -608,7 +608,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idpro = Convert.ToInt32(pronew.ID);
-                            newline[vitriluu] = idpro.ToString() + '-' + errorDisplay + ';' + update.Display;
+                            newline[vitriluu] = idpro.ToString() + '~' + errorDisplay + ';' + update.Display;
                             vitriluu++;
                         }
                         // ko trùng thì lưu Display mới vào database và lấy ID
@@ -644,7 +644,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idpro = Convert.ToInt32(pronew.ID);
-                            newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + update.RAM;
+                            newline[vitriluu] = idpro.ToString() + '~' + errorRam + ';' + update.RAM;
                             vitriluu++;
                             // break;
                         }
@@ -671,7 +671,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idpro = Convert.ToInt32(pronew.ID);
-                            newline[vitriluu] = idpro.ToString() + '-' + errorRam + ';' + update.RAM;
+                            newline[vitriluu] = idpro.ToString() + '~' + errorRam + ';' + update.RAM;
                             vitriluu++;
                         }
                         // ko trùng thì lưu Display mới vào database và lấy ID
