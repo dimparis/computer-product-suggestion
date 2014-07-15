@@ -43,7 +43,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
         [HttpPost, ValidateInput(false)]
         public RedirectToRouteResult CreateProductParser(ProductParserCreator model)
         {
-            var productInfo = new ParseInfo
+         
+            var uri = new Uri(model.ParseProductLink);
+            string host = uri.GetLeftPart(UriPartial.Authority);
+            var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Contains(host));
+            if (parseInfo == null)
+            {   var productInfo = new ParseInfo
             {
                 Name = model.ProductNameXpath,
                 PriceXPath = model.PriceXpath,
@@ -57,11 +62,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 IsActive = true,
 
             };
-            var uri = new Uri(model.ParseProductLink);
-            string host = uri.GetLeftPart(UriPartial.Authority);
-            var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Contains(host));
-            if (parseInfo == null)
-            {
                 //Create parser if not exist
                 context.ParseInfoes.Add(productInfo);
                 context.SaveChanges();

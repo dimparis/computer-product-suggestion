@@ -231,13 +231,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return "";
         }
 
-        public JsonResult AutoCompleteHardware(string term)
+        public JsonResult AutoCompleteHardware(string term, string codetype)
         {
             if (term == null)
             {
                 term = "";
             }
-            var result = db.Hardwares.Select(x => new {x.ID,x.Name }).Where(x => x.Name.ToLower().Contains(term.ToLower())).Distinct();
+            var result = db.Hardwares.Select(x => new {x.ID,x.Name,x.CodetypeID }).Where(x => x.Name.ToLower().Contains(term.ToLower()) && x.CodetypeID==codetype).Distinct();
             int count = result.Count();
             return Json(result, JsonRequestBehavior.AllowGet);
         }

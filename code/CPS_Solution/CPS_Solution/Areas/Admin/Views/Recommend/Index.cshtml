@@ -28,26 +28,23 @@
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
 
 
-    <script type="text/javascript">
-        function updateStatus() {
+   <script type="text/javascript">
+       $(function () {
+           $(".da-button").click(function () {
+               // Get the id from the link
+               var recordToSet = $(this).attr("data-id");
 
-            var values = $('input[type="checkbox"]:checked').map(function () {
-                return $(this).val();
-            }).toArray();
+               if (recordToSet != '') {
 
-            $.ajax({
-                url: "../Recommend/setStatus",
-                type: "POST",
-                datatype: "json",
-                data: JSON.stringify({ idList: values }),
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data == true) {
-                        window.parent.location.href = window.parent.location.href;
-                    }
-                }
-            })
-        }
+                   // Perform the ajax post
+                   $.post("/Parser/SetActive", { "id": recordToSet },
+                       function (data) {
+                           location.reload();
+                       });
+               }
+           });
+
+       });
     </script>
 }
 @section sidebar
