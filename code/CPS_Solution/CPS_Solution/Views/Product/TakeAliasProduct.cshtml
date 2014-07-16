@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.AliasProduct>
+@using CPS_Solution.EntityFramework;
+<ul class="store-list unstyled">
+
+    <h4 class="entry-title">
+        <a href="#">CÁC WEBSITE ĐƯỢC NHIỀU NGƯỜI MUA NHẤT TRONG THÁNG</a>
+        <small>(0.7 km)</small>
+    </h4>
+    @{
+        CPS_SolutionEntities context = new CPS_SolutionEntities();
+        string name = "";
+    }
+    @foreach (var item in Model)
+    {
+       
+        <li>
+            <div class="row" style="margin-top:-100px;margin-bottom:-100px">
+                <dl class="col-xs-5 col-sm-5" style="width: 15%">
+                    <dt class="phone" >Website</dt>
+                    @{                      
+                         var store = context.Stores.Where(x => x.ID == item.StoreID).FirstOrDefault();
+                         name = store.StoreName;
+                    }
+                    <dd style="margin-top:-20px;">Vừa cập nhật</dd>
+                    <dd>@name</dd>
+                </dl>
+                <dl class="col-xs-5 col-sm-5" style="width: 15%;margin-top:-20px;">
+                    <dt class="phone">@item.Price</dt>
+                    <dd>Vừa cập nhật</dd>
+                    <dd><a href="@item.URL">Tới nơi bán </a></dd>
+                </dl>
+                <dl class="col-xs-5 col-sm-5" style="width: 33%;margin-top:-40px;">
+                    <dt class="phone">@item.Name</dt>
+                    <dd>@item.URL</dd>
+                    <dd style="margin-top:-20px;">Kho hàng: Liên hệ</dd>
+                </dl>
+            </div>
+        </li>
+    }
+
+</ul>
