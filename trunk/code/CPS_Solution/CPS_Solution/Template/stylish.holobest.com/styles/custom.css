@@ -2,20 +2,21 @@
 /************************************************ Header Navigation ***************************************************/
 /**********************************************************************************************************************/
 #first-nav-pill {
-    background-color: #00CCCC;
+    background-color: #F87912;
 }
 
 #first-nav-pill > ul > li:first-child {
-   
+    border-top: 2px solid #F87912;
+    width: 100px;
 }
 
 #first-nav-pill > ul > li a:hover, #first-nav-pill > ul > li a:focus {
-    background-color: red;
-    background-image: url(../images/header-image.png);
+    background-color: #F87912;
+    background-image: none;
 }
 
 #second-nav-pill {
-    background-color: #00CCCC;
+    background-color: #FFCC00;
 }
 
 #second-nav-pill > ul > li:first-child {
@@ -24,12 +25,12 @@
 }
 
 #second-nav-pill > ul > li a:hover, #second-nav-pill > ul > li a:focus {
-    background-color:red;
+    background-color: #FFCC00;
     background-image: none;
 }
 
 #third-nav-pill {
-     background-color: #00CCCC;
+    background-color: #AADD00;
 }
 
 #third-nav-pill > ul > li:first-child {
@@ -57,7 +58,7 @@
 }
 
 #fifth-nav-pill {
-    background-color: #00CCCC;
+    background-color: #666699;
 }
 
 #fifth-nav-pill > ul > li:first-child {
@@ -79,7 +80,7 @@
 /*************************************************** Top Image *******************************************************/
 /**********************************************************************************************************************/
 #top-image {
-    height: 2113px;
+    height: 263px;
 }
 
 .top-image1 {
@@ -189,6 +190,7 @@
 }
 
 #header-navigation > ul > li:hover {
+    padding-top: 8px;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
