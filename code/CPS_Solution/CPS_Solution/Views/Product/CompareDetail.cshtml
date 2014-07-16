@@ -44,7 +44,6 @@
 
     .handle {
         cursor: move;
-        width: 20%;
         text-align: center;
     }
 
@@ -53,8 +52,9 @@
     }
 
     .disable-field {
-        background-color: rgba(250, 111, 87, 0.5);
-        text-align: center;
+        background-color: rgb(15, 64, 113);
+        text-align:center;
+        color:#FFFFFF;
     }
 
     .data-field {
@@ -73,10 +73,12 @@
     }
 
     .winner {
-        background-color: rgba(51, 153, 255, 0.75);
-        vertical-align: middle;      
+        background-color: rgba(51, 153, 255, 0.75);     
     }
-    
+
+    .product-name {
+        font-size:15px;
+    }
 </style>
 
 
@@ -101,7 +103,7 @@
                                     <tr>
                                         <td style="width:20%" class="disable-field"><h4>Tên sản phẩm</h4></td>
                                         @foreach (var item in Model) {
-                                            <td style="width:25%" class="data-field product-name @item.ID">@Html.DisplayFor(modelItem => item.Name)</td>
+                                            <td style="width:25%; vertical-align:central;" class="data-field product-name @item.ID">@Html.DisplayFor(modelItem => item.Name)</td>
                                         }
                                     </tr>
                                 </table>

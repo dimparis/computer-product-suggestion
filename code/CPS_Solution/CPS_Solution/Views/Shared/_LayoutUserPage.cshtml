@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("")" />
     <script src="@Url.Content("")"></script>
     *@
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+	@*<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>*@
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/font.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/minified.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/owl.theme.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/responsive.css")" />
@@ -21,12 +22,13 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/flexslider.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/GFashion/css/owl.carousel.css")" />
 
-    <script src="@Url.Content("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")"></script>
+    @*<script src="@Url.Content("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")"></script>*@
     <script src="@Url.Content("~/Template/GFashion/js/jquery.min.js")"></script>
     <script src="@Url.Content("~/Template/GFashion/js/jquery.flexslider-min.js")"></script>
     <script src="@Url.Content("~/Template/GFashion/js/jquery.isotope.min.js")"></script>
     <script src="@Url.Content("~/Template/GFashion/js/product-list.js")"></script>
     <script src="@Url.Content("~/Template/GFashion/js/notify.js")"></script>
+    @RenderSection("head", false)
 </head>
 <body class="products-view">
     <div id="page-wrapper">
@@ -35,14 +37,53 @@
 		<div class="header-top">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12 col-sm-6 col-md-7"></div>
+					<div class="col-xs-12 col-sm-6 col-md-7">
+						<div class="contact-info">
+							<i class="iconfont-headphones round-icon"></i>
+							<strong>+444 (100) 1234</strong>
+							<span>cps.com</span>
+						</div>
+					</div>
 					<div class="col-xs-12 col-sm-6 col-md-5"> 
-						<ul class="actions unstyled clearfix">								
+						<ul class="actions unstyled clearfix">
+                            <li data-toggle="sub-header" data-target="#sub-social">
+								<!-- SOCIAL ICONS -->
+								<a href="javascript:void(0);" id="social-icons">
+									<i class="iconfont-user round-icon"></i>
+								</a>
+								
+								<div id="sub-social" class="sub-header">
+									<ul class="social-list unstyled">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <li>
+                                                <a href="javascript:void(0);"><i class="iconfont-chevron-right round-icon"></i> Xin chào, @User.Identity.Name!</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="iconfont-wrench round-icon"></i> Quản lý tải khoản</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="iconfont-list-alt round-icon"></i> Lịch sử so sánh</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("LogOff", "Account")"><i class="iconfont-off round-icon"></i> Đăng xuất</a>
+                                            </li>
+                                        } else {
+                                            <li>
+                                                <a href="@Url.Action("Login", "Account")"><i class="iconfont-off round-icon"></i> Đăng nhập</a>
+                                                <a href="@Url.Action("Register", "Account")"><i class="iconfont-pencil round-icon"></i> Đăng kí</a>
+                                            </li>
+                                        }
+									</ul>
+								</div>
+								<!-- // SOCIAL ICONS -->
+							</li>								
 							<li data-toggle="sub-header" data-target="#info">
 								<!-- SHOPPING CART -->
-								<img id="cart" src="~/Template/GFashion/img/versus.png" style="width:20%; height:20%" />
+                                @*<img  src="~/Template/GFashion/img/versus.png" style="width:12%; height:12%; margin-bottom:4px;" />*@
+								<i id="cart"class="iconfont-list round-icon"></i>
                                 <span id="quantity"><strong>0</strong></span>
-								<div id="info" class="sub-header" style="width:300px; margin-right:110px;"></div>
+								<div id="info" class="sub-header" style="width:300px; margin-right:10px;"></div>
 								<!-- // SHOPPING CART -->
 							</li>
 						</ul>
@@ -66,10 +107,10 @@
 						<div class="clearfix"></div>
 						<!-- USER RELATED MENU -->
 						<nav id="tiny-menu" class="clearfix">
-							<ul class="user-menu">
-								<li><a href="#">My Account</a></li>
-								<li><a href="#">Log Out</a></li>
-							</ul>
+							@*<ul class="user-menu">
+								<li><a href="#">Đăng Nhập</a></li>
+								<li><a href="#">Đăng Kí</a></li>
+							</ul>*@
 						</nav>
 						<!-- // USER RELATED MENU -->
 					</div>
@@ -85,7 +126,19 @@
                     <nav id="site-menu" role="navigation">
                         <ul class="main-menu hidden-sm hidden-xs">
                             <li class="active">
+                                <a href="~/Product/SearchForProduct">Trang Chủ</a>
+                            </li>
+                            <li class="">
                                 <a href="~/Product/SearchForProduct">Tìm Kiếm</a>
+                            </li>
+                            <li class="">
+                                <a href="~/Product/SearchForProduct">Đề Xuất</a>
+                            </li>
+                            <li class="">
+                                <a href="~/Product/SearchForProduct">Thống Kê</a>
+                            </li>
+                            <li class="">
+                                <a href="~/Product/SearchForProduct">Liên Hệ</a>
                             </li>
                         </ul>
                     </nav>
