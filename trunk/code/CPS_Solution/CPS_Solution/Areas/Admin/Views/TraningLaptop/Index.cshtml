@@ -225,7 +225,37 @@
 {
 }
 <!----------------------------------------------- Content Area --------------------------------------------->
-<<div class="grid_4">
+<div id="showInfo" class="grid_4">
+
+    <div class="da-message info">
+        Thông tin:
+         <ul>            
+             @if (list != null)
+             {
+                 if (list.Count > 0)
+                 {  
+                 <li>Có @list.Count sản phẩm trong danh sách đúng để lưu vào cơ sở dữ liệu!</li>
+                 }
+             }            
+              @if (listDup != null)
+              {
+                  if (listDup.Count > 0)
+                  {  
+                  <li>Có @listDup.Count nhóm sản phẩm trong danh sách trùng đang chờ xử lý!</li>
+                  }
+              }
+             @if (listDupnew != null)
+             {
+                 if (listDupnew.Count > 0)
+                 {  
+                 <li>Khi lưu sản phẩm vào cơ sở dư liệu hệ thống phát hiện có @listDupnew.Count nhóm sản phẩm có thể trùng vui lòng mở tab "sản phẩm trùng cơ sở dữ liệu" để xử lý!</li>
+                 }
+             }
+         </ul>
+    </div>
+    </br>
+</div>
+<div class="grid_4">
     <!---------------->
     <div id="da-icon-tab" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
 
@@ -300,7 +330,7 @@
                                             
                                             <td class=" sorting_1">@p.stt </td>
                                             <td class=" "> <label style="width: 100px;">@p.Name</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.Imagelink</label></td>
+                                            <td class=" "><a style="width: 100px;" target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
                                             <td class=" "><label style="width: 100px;">@p.CPU</label></td>
                                             <td class=" "><label style="width: 100px;">@p.VGA</label></td>
                                             <td class=" "><label style="width: 100px;">@p.HDD</label></td>
@@ -484,7 +514,7 @@
                                             <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
                                         <td class=" ">@p.Name</td>
-                                        <td class=" ">@p.Imagelink</td>
+                                        <td class=" "><a style="width: 100px;" target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
                                         <td class=" ">@p.CPU</td>
                                         <td class=" ">@p.VGA</td>
                                         <td class=" ">@p.HDD</td>
@@ -571,7 +601,7 @@
                                             <input style="width: 19px;" value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
                                         <td class=" ">@p.Name</td>
-                                        <td class=" ">@p.Imagelink</td>
+                                        <td class=" "><a style="width: 100px;" target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
                                         <td class=" ">@p.CPU</td>
                                         <td class=" ">@p.VGA</td>
                                         <td class=" ">@p.HDD</td>
@@ -656,6 +686,22 @@
     // change image on popup when click
     function ChangeImagePopup(i){
         document.getElementById("idViewImage"+i).src=document.getElementById("idImagelinkCorect"+i).value;
+    }
+
+    // show Info số lượng trong danh sách đúng trùng lỗi
+    function showInfo()
+    {
+        string = "ok";
+        var postData = {showinfo: string };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/TraningLaptop/showInfo1",
+            data: postData,
+            success: function(data){
+                $('#showInfo').html(data);
+            },
+
+        });
     }
 
     // Lưu sản phẩm đúng và ghi log file
@@ -848,6 +894,7 @@
                         $("#Edit-"+stt+"-Popup-div").dialog( "close");
                         tabsanphamdung();
                         tabsanphamtrung();
+                        showInfo();
                     },
 
                 });
@@ -881,6 +928,7 @@
             data: postData,
             success: function(data){
                 $('#white-icon').html(data);
+                showInfo();
             },
 
         });
@@ -897,6 +945,7 @@
             data: postData,
             success: function(data){
                 $('#CorrectID').html(data);
+                showInfo();
             },
 
         });
@@ -949,7 +998,6 @@
             data: postData,
             success: function(data){
                 $('#black-icon').html(data);
-                //  tabsanphamtrung()
                 tabsanphamdung();
             },
 
@@ -982,7 +1030,6 @@
                         data: postData,
                         success: function(data){
                             $('#black-icon').html(data);
-                            // tabsanphamtrung();
                             tabsanphamdung();                                               
                         },                                              
                     });  

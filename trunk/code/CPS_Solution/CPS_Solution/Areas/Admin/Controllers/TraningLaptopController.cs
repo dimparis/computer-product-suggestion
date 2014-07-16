@@ -1400,7 +1400,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             GhilaivaoTxt(listduplicate);
             ViewBag.listproduct = (List<LapData>)Session["listproductLapT"];
             ViewBag.listerror = (List<LapData>)Session["listerrorLap"];
-            ViewBag.listduplicate = (List<List<LapData>>)Session["ListdupLaptraning"];
+            ViewBag.ListdupLaptraning = (List<List<LapData>>)Session["ListdupLaptraning"];
             return View();
         }
 
@@ -1561,7 +1561,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             //cho vào viewbag
             ViewBag.listproduct = (List<LapData>)Session["listproductLapT"];
             ViewBag.listerror = (List<LapData>)Session["listerrorLapT"];
-            ViewBag.listduplicate = (List<List<LapData>>)Session["ListdupLaptraning"];
+            ViewBag.ListdupLaptraning = (List<List<LapData>>)Session["ListdupLaptraning"];
 
             return View();
         }
@@ -2450,7 +2450,21 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Show thông tin về số lượng của 3 tab.
+        /// </summary>
+        /// <param name="showInfo"></param>
+        /// <returns></returns>
+        public ActionResult showInfo1(string showInfo)
+        {
+            if (showInfo.Equals("ok"))
+            {
+                ViewBag.ListdupLaptraning = (List<List<LapData>>)Session["ListdupLaptraning"];
+                ViewBag.listproduct = (List<LapData>)Session["listproductLapT"];
+                ViewBag.listduplicatenewLap = (List<List<LapData>>)Session["listduplicatenewLapT"];
+            }
+            return View();
+        }
 
         #region
         ///// <summary>

@@ -7,6 +7,7 @@
     List<LapData> list = ViewBag.listproduct;
     List<LapData> listError = ViewBag.listerror;
     List<List<LapData>> listDup = ViewBag.listduplicate;
+    List<LapData> listExistedLap = ViewBag.listExistedLap;
     // danh sách lỗi khi lỗi quá nhiều
     List<LapData> danhsachlaploi = ViewBag.danhsachlaploi;
     int countlistdup = 0;
@@ -377,6 +378,50 @@
 
         </div>
     </div>
+</div>
+<div id="showInfo" class="grid_4">
+
+    <div class="da-message info">
+        Thông tin:
+         <ul>
+             @if (listExistedLap != null)
+             {
+                 if (listExistedLap.Count > 0)
+                 {              
+                 <li>Có @listExistedLap.Count sản phẩm đã tồn tại trong cơ sở dữ liệu hệ thống tự động bỏ qua!</li>
+                 }
+             }
+             @if (list != null)
+             {
+                 if (list.Count > 0)
+                 {  
+                 <li>Có @list.Count sản phẩm trong danh sách đúng!</li>
+                 }
+             }
+             @if (listError != null)
+             {
+                 if (listError.Count > 0)
+                 {  
+                 <li>Có @listError.Count sản phẩm trong danh sách lỗi đang chờ xử lý!</li>
+             }
+             }
+              @if (listDup != null)
+              {
+                  if (listDup.Count > 0)
+                  {  
+                  <li>Có @listDup.Count nhóm sản phẩm trong danh sách trùng đang chờ xử lý!</li>
+                  }
+              }
+             @if (listDupnew != null)
+             {
+                 if (listDupnew.Count > 0)
+                 {  
+                 <li>Khi lưu sản phẩm vào cơ sở dư liệu hệ thống phát hiện có @listDupnew.Count nhóm sản phẩm có thể trùng vui lòng mở tab "sản phẩm trùng" để xử lý!</li>
+                 }
+             }
+         </ul>
+    </div>
+    </br>
 </div>
 <div class="grid_4">
     <!---------------->
@@ -756,17 +801,25 @@
                                         foreach (LapData p in list)
                                         {
                                         <tr class="odd">
-                                            
+
                                             <td class=" sorting_1">@p.stt </td>
-                                            <td class=" "> <label style="width: 100px;">@p.Name</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.Imagelink</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.CPU</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.VGA</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.HDD</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.Display</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.RAM</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.Price</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.Url</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.Name</label></td>
+                                            <td class=" "><a style="width: 100px;" target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.CPU</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.VGA</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.HDD</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.Display</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.RAM</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.Price</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.Url</label></td>
                                             <td class=" ">
                                                 <input name="sttproduct" type="hidden"  value="@p.stt" />
                                                 <a onclick="xoasanphamdung(@p.stt)">
@@ -856,7 +909,7 @@
                                                                             <span class="formNote">Địa chỉ website bán phải tồn tại</span>
                                                                             <input id="idUrlCorect@(p.stt)" value="@p.Url" type="text">
                                                                         </div>
-                                                                    </div>                                                           
+                                                                    </div>
                                                                     <div class="da-button-row">
                                                                         <input onclick="EditCorrectPro(@p.stt)" type="button" value="Lưu" class="da-button green">
                                                                     </div>
@@ -1210,8 +1263,8 @@
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
-                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Giá</th>
-                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Địa chỉ máy</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Giá</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Địa chỉ máy</th>
 
                                     <th style="width: 92px;">Chọn tên chính</th>
                                 </tr>
@@ -1226,7 +1279,7 @@
                                             <input style="width: 19px;" value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
                                         <td class=" ">@p.Name</td>
-                                        <td class=" ">@p.Imagelink</td>
+                                        <td class=" "><a style="width: 100px;" target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
                                         <td class=" ">@p.CPU</td>
                                         <td class=" ">@p.VGA</td>
                                         <td class=" ">@p.HDD</td>
@@ -1318,7 +1371,7 @@
                                             <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
                                         <td class=" ">@p.Name</td>
-                                        <td class=" ">@p.Imagelink</td>
+                                        <td class=" "><a style="width: 100px;" target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
                                         <td class=" ">@p.CPU</td>
                                         <td class=" ">@p.VGA</td>
                                         <td class=" ">@p.HDD</td>
@@ -1393,6 +1446,21 @@
         document.getElementById("idViewImage"+i).src=document.getElementById("idImagelinkCorect"+i).value;
     }
 
+    // show Info số lượng trong danh sách đúng trùng lỗi
+    function showInfo()
+    {
+        string = "ok";
+        var postData = {showinfo: string };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ImportExcelLap/showInfo1",
+            data: postData,
+            success: function(data){
+                $('#showInfo').html(data);
+            },
+
+        });
+    }
     // Lưu sản phẩm đúng và ghi log file
     function saveCorrectProduct(x) { 
         var val = ""; 
@@ -1459,6 +1527,7 @@
                     $('#white-icon').html(data);
                     tabsanphamdung();
                     tabsanphamtrung();
+                    showInfo();
                 },
 
             });
@@ -1664,6 +1733,7 @@
                 success: function(data){
                     $('#CorrectID').html(data);
                     tabsanphamdung();
+                    showInfo();
                 },
             });
         } else {
@@ -1700,6 +1770,7 @@
                 $('#black-icon').html(data);
                 //  tabsanphamtrung()
                 tabsanphamdung();
+                showInfo();
             },
 
         });     
@@ -1732,7 +1803,8 @@
                         success: function(data){
                             $('#black-icon').html(data);
                             // tabsanphamtrung();
-                            tabsanphamdung();                                               
+                            tabsanphamdung(); 
+                            showInfo();
                         },                                              
                     });  
                     break;
@@ -1761,7 +1833,8 @@
             data: postData,
             success: function(data){
                 $('#black-icon').html(data);
-                tabsanphamdung();                                               
+                tabsanphamdung();      
+                showInfo();
             },                                             
         });  
 
@@ -1780,7 +1853,8 @@
             data: postData,
             success: function(data){
                 $('#black-icon').html(data);
-                tabsanphamdung();                                               
+                tabsanphamdung();    
+                showInfo();
             },
 
                                                 

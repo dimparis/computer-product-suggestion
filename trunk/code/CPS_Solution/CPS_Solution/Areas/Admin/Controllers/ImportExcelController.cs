@@ -39,6 +39,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // danh sách trùng với database
             ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
 
+            // danh sách product đã tồn tại trong database
+            ViewBag.listExistedProduct = (List<ProductMap>)TempData["listExistedProduct"];
+
             // quá nhiều lỗi hiện thị ra dòng và sản phẩm bị lỗi.
             ViewBag.danhsachloi = (List<ProductMap>)Session["danhsachloi"];
             // dòng chứa lỗi
@@ -1113,6 +1116,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             using (CPS_SolutionEntities db = new CPS_SolutionEntities())
             {
+                List<ProductMap> listExistedProduct = new List<ProductMap>();
                 List<Hardware> listNameIndb = new List<Hardware>();
                 var listAlias = (from x in db.Hardwares select x);
                 listNameIndb = listAlias.ToList();
@@ -1122,6 +1126,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     {
                         if (listpro[i].ten.Equals(listNameIndb[j].Name))
                         {
+                            listExistedProduct.Add(listpro[i]);
                             listpro.RemoveAt(i);
                             i--;
                             break;
@@ -1137,13 +1142,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     {
                         if (listpro[i].ten.Equals(listNameMapIndb[j].Name))
                         {
+                            listExistedProduct.Add(listpro[i]);
                             listpro.RemoveAt(i);
                             i--;
                             break;
                         }
                     }
                 }
-
+                TempData["listExistedProduct"] = listExistedProduct;                
             }
             // call function listerror
             listerror = ListErrorProduct(listpro);
@@ -1271,7 +1277,23 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             return duplicatelist;
         }
+       
+        public ActionResult showInfo1(string showInfo)
+        {
+            if (showInfo.Equals("ok"))
+            {
+                // danh sahcs đúng, trùng, lỗi
+                ViewBag.listproduct = (List<ProductMap>)Session["listproduct"];
+                ViewBag.listerror = (List<ProductMap>)Session["listerror"];
+                ViewBag.listduplicate = (List<List<ProductMap>>)Session["listduplicate"];
+                // danh sách trùng với database
+                ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
 
+                // danh sách product đã tồn tại trong database
+                ViewBag.listExistedProduct = (List<LapData>)TempData["listExistedProduct"];
+            }
+            return View();
+        }
     }
 }
 

@@ -1,0 +1,37 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    Layout = null;
+    List<LapData> list = ViewBag.listproduct;
+    List<List<LapData>> listDup = ViewBag.ListdupLaptraning;
+    List<List<LapData>> listDupnew = ViewBag.listduplicatenewLap;
+}
+
+  <div class="da-message info">
+        Thông tin:
+         <ul>            
+             @if (list != null)
+             {
+                 if (list.Count > 0)
+                 {  
+                 <li>Có @list.Count sản phẩm trong danh sách đúng để lưu vào cơ sở dữ liệu!</li>
+                 }
+             }            
+              @if (listDup != null)
+              {
+                  if (listDup.Count > 0)
+                  {  
+                  <li>Có @listDup.Count nhóm sản phẩm trong danh sách trùng đang chờ xử lý!</li>
+                  }
+              }
+             @if (listDupnew != null)
+             {
+                 if (listDupnew.Count > 0)
+                 {  
+                 <li>Khi lưu sản phẩm vào cơ sở dư liệu hệ thống phát hiện có @listDupnew.Count nhóm sản phẩm có thể trùng vui lòng mở tab "sản phẩm trùng cơ sở dữ liệu" để xử lý!</li>
+                 }
+             }
+         </ul>
+    </div>
+    </br>
