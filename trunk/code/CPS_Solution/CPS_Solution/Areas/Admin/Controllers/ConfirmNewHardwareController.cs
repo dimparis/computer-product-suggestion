@@ -28,12 +28,26 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return View();
         }
 
+        /// <summary>
+        /// load lại table
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult LoadTableAjax()
+        {
+            List<HardwareConfirm> listOfHardware = loadHardwareFalse();
+            ViewBag.listOfHardware = listOfHardware;
+            //var approvedHardwares = db.Hardwares.Where(x => x.IsActive == true).ToList();
+            //var approveListHardware = new List<SelectListItem>();
+
+            return View();
+        }
         // Tải những phần cứng isActive false lên.
 
         public List<HardwareConfirm> loadHardwareFalse()
         {
             // lấy tất cả hardware có isactive là false
-            var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == false).ToList();
+            var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == null).ToList();
             // lấy tất cả productatribute
             var productAttribures = db.ProductAttributes.ToList();
             HardwareConfirm newConfirm = null;
@@ -52,7 +66,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             CodetypeHardware = item.Codetype.Name,
                             NameHardware = item.Name,
                             WeightHardware = item.WeightCriteraPoint,
-                            IsActive = item.IsActive.Value,
                             IdProduct = att.ProductID,
                             NameProduct = att.Product.Name
                         };
@@ -241,15 +254,16 @@ namespace CPS_Solution.Areas.Admin.Controllers
             int count = result.Count();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        [HttpPost]
-        public ActionResult confirmIsNewHardware(int id)
-        {
 
+        [HttpPost]
+        public string ActiveHardware(string stringid)
+        {
+            int id = Convert.ToInt32(stringid);
             var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
             bool statusFlag = false;
             if (ModelState.IsValid)
             {
-                if (hardware.IsActive.Value)
+                if (hardware.IsActive.ToString().Equals(""))
                 {
                     hardware.IsActive = true;
                     statusFlag = false;
@@ -261,12 +275,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
                 db.SaveChanges();
             }
-            // Display the confirmation message
-            var results = new Hardware
-            {
-                IsActive = statusFlag
-            };
-            return Json(results);
+            // Display the confirmation message       
+            return "";
         }
     }
 }

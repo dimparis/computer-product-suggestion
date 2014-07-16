@@ -206,7 +206,8 @@
 {
 }
 <!----------------------------------------------- Content Area --------------------------------------------->
-<div class="da-panel collapsible">
+<div id="idTable">
+<div  class="da-panel collapsible">
     <div class="da-panel-header">
         <span class="da-panel-title">
             <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
@@ -247,12 +248,13 @@
                                 <label style="width: 100px;" id="hiddenCodetype">@h.CodetypeHardware</label>
 
                             </td>
-
+                            
                             <td class=" ">
                                 <label style="width: 100px;">@h.WeightHardware</label></td>
                             <td class=" ">
                                 <label style="width: 100px;">@h.NameProduct</label></td>
-                            <td class=" ">@Html.TextBox("Hardware" + @h.CodetypeHardware.Trim())</td>
+                            <td class=" "> <input style="width:52px" onclick="ActiveHardware(@h.IdHardware)" value="Kích Hoạt" class="da-button green">
+                            </td>
                             <td class=" ">
                                 <input name="idproduct" type="hidden"  value="@h.IdProduct" />
                                 <a onclick="showPopupEdit(@h.IdHardware)">
@@ -284,7 +286,7 @@
                                                         <label>Tên thành phần</label>
                                                         <div class="da-form-item">
                                                             <span class="formNote">Tên thành phần phải từ 5 tới 100 ký tự.</span>
-                                                            <input id="idNameHard@(h.IdHardware)" value="@h.NameHardware" type="text">
+                                                            <input name="idNameHard@(h.IdHardware)" id="Hardware"  type="text">
                                                         </div>
                                                     </div>
 
@@ -295,18 +297,6 @@
                                                             <input id="idWeightHard@(h.IdHardware)" value="@h.WeightHardware" type="text">
                                                         </div>
                                                     </div>
-                                                    <div class="da-form-row">
-                                                        <label>Trạng thái</label>
-                                                        <div class="da-form-item">
-                                                            <span class="formNote">Kích hoạt thành phần</span>
-                                                            <select disabled id ="IsActive@(h.IdHardware)" name="IsActive">
-                                                                <option value="true">Kích hoạt</option>
-                                                            </select>
-                                                            <input hidden id="idActiveCorect@(h.IdHardware)" value="@h.IsActive" type="text">
-                                                        </div>
-                                                    </div>
-
-
                                                     <div class="da-button-row">
                                                         <input onclick="EditHardware(@h.IdHardware)" type="button" value="Lưu" class="da-button green">
                                                     </div>
@@ -314,6 +304,30 @@
                                             </form>
                                         </div>
                                     </div>
+                                    <script type="text/javascript">
+                                        var loai = $('#hiddenCodetype').val();
+                                        $(document).ready(function () {
+                                            $("#Hardware").autocomplete({
+                                                source: function(request,response) {
+                                                    $.ajax({
+                                                        url: "../ConfirmNewHardware/AutoCompleteHardware",
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        data: JSON.stringify({ term: request.term}),
+                                                        contentType: 'application/json',
+                                                        success: function (data) {
+                                                            response($.map(data, function (item) {
+                                                                return { label: item.Name, value: item.Name };
+                                                            }))
+                                                        }
+                                                    })
+                                                },
+                                                messages: {
+                                                    noResults: "", results: ""
+                                                }
+                                            });
+                                        })
+</script>
                                 </div>
 
                                 <!----------------Popup------------------>
@@ -326,126 +340,8 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function updateStatus() {
+</div>
 
-        var values = $('input[type="checkbox"]:checked').map(function () {
-            return $(this).val();
-        }).toArray();
-
-        $.ajax({
-            url: "../ConfirmNewHardware/confirmIsNewHardware",
-            type: "POST",
-            datatype: "json",
-            data: JSON.stringify({ idList: values }),
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == true) {
-                    window.parent.location.href = window.parent.location.href;
-                }
-            }
-        })
-    }
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#HardwareHDD").autocomplete({
-            source: function(request,response) {
-                $.ajax({
-                    url: "../ConfirmNewHardware/AutoCompleteHardware",
-                    type: "POST",
-                    dataType: "json",
-                    data: JSON.stringify({ term: request.term,codetype:"H"}),
-                    contentType: 'application/json',
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Name };
-                        }))
-                    }
-                })
-            },
-            messages: {
-                noResults: "", results: ""
-            }
-        });
-        $("#HardwareCPU").autocomplete({
-            source: function(request,response) {
-                $.ajax({
-                    url: "../ConfirmNewHardware/AutoCompleteHardware",
-                    type: "POST",
-                    dataType: "json",
-                    data: JSON.stringify({ term: request.term,codetype:"C"}),
-                    contentType: 'application/json',
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Name };
-                        }))
-                    }
-                })
-            },
-            messages: {
-                noResults: "", results: ""
-            }
-        });
-        $("#HardwareVGA").autocomplete({
-            source: function(request,response) {
-                $.ajax({
-                    url: "../ConfirmNewHardware/AutoCompleteHardware",
-                    type: "POST",
-                    dataType: "json",
-                    data: JSON.stringify({ term: request.term,codetype:"V"}),
-                    contentType: 'application/json',
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Name };
-                        }))
-                    }
-                })
-            },
-            messages: {
-                noResults: "", results: ""
-            }
-        });
-        $("#HardwareRAM").autocomplete({
-            source: function(request,response) {
-                $.ajax({
-                    url: "../ConfirmNewHardware/AutoCompleteHardware",
-                    type: "POST",
-                    dataType: "json",
-                    data: JSON.stringify({ term: request.term,codetype:"R"}),
-                    contentType: 'application/json',
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Name };
-                        }))
-                    }
-                })
-            },
-            messages: {
-                noResults: "", results: ""
-            }
-        });
-        $("#HardwareDISPLAY").autocomplete({
-            source: function(request,response) {
-                $.ajax({
-                    url: "../ConfirmNewHardware/AutoCompleteHardware",
-                    type: "POST",
-                    dataType: "json",
-                    data: JSON.stringify({ term: request.term,codetype:"D"}),
-                    contentType: 'application/json',
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Name };
-                        }))
-                    }
-                })
-            },
-            messages: {
-                noResults: "", results: ""
-            }
-        });
-    })
-</script>
 <script>
     //Hiện popup để sửa 1 sản phẩm đúng.
     function showPopupEdit(i){
@@ -464,6 +360,42 @@
         $("#Edit-"+i+"-Popup-div").dialog("option", {modal: true}).dialog("open");
         event.preventDefault();
 		
+    }
+
+    //Load lại ajax
+    function LoadTableAjax()
+    {
+        var string =  "ok";
+
+        var postData = {stringid: string };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ConfirmNewHardware/LoadTableAjax",
+            data: postData,
+            success: function(data){
+               $('#idTable').html(data);
+            },
+
+        });
+    }
+
+    //Kich hoạt 1 phần cứng
+    function ActiveHardware(id)
+    {
+        if (confirm("Bạn có chắc chắn muôn xóa sản phẩm này?")) {
+            var postData = {stringid: id };
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ConfirmNewHardware/ActiveHardware",
+                data: postData,
+                success: function(data){
+                    LoadTableAjax();
+                },
+
+            });
+        }else {
+                                               
+        }
     }
 
 
