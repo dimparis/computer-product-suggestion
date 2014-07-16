@@ -1,204 +1,113 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
-
 @{
-    ViewBag.Title = "Trang chủ";
-    Layout = "~/Views/Shared/_LayoutUserPage.cshtml";
+    ViewBag.Title = "Tìm kiếm";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="breadcrumb-container">
-    <div class="container">
-        <div class="relative">
-            <ul class="bc push-up unstyled clearfix">
-                <li>Trang chủ</li>
-                <li class="active">Tìm kiếm</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<main id="main-content" role="main">
-    <div class="container">
-        <div class="row">
-            <div class="m-t-b clearfix">
-                <!-- SIDEBAR -->
-                <aside class="col-xs-12 col-sm-4 col-md-3">
-                    <section class="sidebar push-up">
-                        <!-- Search Panel -->
-                        <section class="side-section bg-white">
-                            <header class="side-section-header">
-                                <h3 class="side-section-title">Tìm Kiếm</h3>
-                            </header>
-                            <div class="side-section-content">
-                                <!-- SEARCH BOX -->
-                                <div class="search-box">
-                                    @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post))
-                                    {
-                                        <div class="input-iconed prepend">
-                                            <button class="input-icon"><i class="iconfont-search"></i></button>
-                                            <div class="round-input">
-                                                @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { style = "margin-left: 10%; margin-rigth: 10%; border: none; width: 70%" })
-                                            </div>
-                                        </div>                                        
-                                    }
-                                </div>
-                                <!-- // SEARCH BOX -->
-                            </div>
-                        </section>
-                        <!-- // Search Panel -->
-                    </section>
-                </aside>
-                <!-- // SIDEBAR -->
-
-                <section class="col-xs-12 col-sm-8 col-md-9">
-                    <section class="products-wrapper">
-                        <header class="products-header">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-6 center-xs">
-                                    <!-- DISPLAY MODE -->
-                                    <ul class="unstyled inline-li li-m-r-l-sm pull-left">
-                                        <li><a class="round-icon active" href="#" data-toggle="tooltip" data-layout="grid" data-title="Switch to List Grid Mode"><i class="iconfont-th"></i></a></li>
-                                        <li><a class="round-icon" href="#" data-toggle="tooltip" data-layout="list" data-title="Switch to List View Mode"><i class="iconfont-list"></i></a></li>
-                                    </ul>
-                                    <!-- // DISPLAY MODE -->
-                                    <!-- NUMBER OF ITEMS TO BE DISPLAY -->
-                                    <div class="pull-right m-l-lg">
-                                        <span class="inline-middle m-r-sm text-xs">Show</span>
-                                        <div class="inline-middle styled-dd">
-                                            <select>
-                                                <option value="9">9</option>
-                                                <option value="12" selected>12</option>
-                                                <option value="24">24</option>
-                                                <option value="36">36</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- // NUMBER OF ITEMS TO BE DISPLAY -->
-                                </div>
-
-                                <div class="space30 visible-xs"></div>
-
-                                <!-- PAGINATION -->
-                                <div class="col-xs-12 col-sm-12 col-md-6 center-xs">
-                                    <ul class="paginator li-m-r-l pull-right">
-                                        <li><a class="round-icon" href="#" data-toggle="tooltip" data-title="Previous Page"><i class="iconfont-angle-left"></i></a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a class="round-icon" href="#" data-toggle="tooltip" data-title="Next Page"><i class="iconfont-angle-right"></i></a></li>
-                                    </ul>
-                                </div>
-                                <!-- // PAGINATION -->
-                            </div>
-                        </header>
-                        
-                        @if (@Model.Count() > 0)
-                        {
-                            <div class="products-layout grid m-t-b add-cart" data-product-id=".entry-id > p" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
-                            @foreach (var item in Model)
-                            {
-                            <div class="product" >
-                                <div class="entry-media">
-                                    <img style="width:100%; height:100%" src="@Url.Content("~/Images/I/" + @Html.DisplayFor(modelItem => item.ImageURL))" alt="" class="lazyLoad thumb" />
-                                    <div class="hover">
-                                        <ul class="icons unstyled">
-                                            <li>
-                                                <a href="javascript:void(0)" class="circle" data-product-id="@item.ID" data-product-name="@item.Name">
-                                                    <i class="iconfont-shopping-cart"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <div class="rate-bar" style="color:white; margin-top:-10px; text-align:right;">
-                                            <p>@Html.DisplayFor(modelItem => item.strCPU)</p>
-                                            <p>@Html.DisplayFor(modelItem => item.strVGA)</p>
-                                            <p>@Html.DisplayFor(modelItem => item.strRAM)</p>
-                                            <p>@Html.DisplayFor(modelItem => item.strHDD)</p>
-                                            <p>@Html.DisplayFor(modelItem => item.strDisplay)</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="entry-main">
-                                    <h5 class="entry-title"><a href="/Product/Details?Id=@item.ID" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
-                                    @*<div class="entry-description"><p>@Html.DisplayFor(modelItem => item.strHDD)</p></div>*@
-                                    <div class="entry-description">@item.Price <span>VNĐ</span></div>
-                                    <input type='hidden' value="@item.ID"/>   
-                                    <div class="entry-links clearfix">
-										<a href="@item.URL" target="_blank"><button type="button" class="btn btn-primary btn-xs pull-right">Tới nơi bán</button></a>
-                                        <p></p>
-									</div>                                     
-                                </div>
-                            </div>
-                            }
-                        </div>  
-                        }
-                        else
-                        {
-                              <br>
-                              <br>
-                                  <div class="product" style="border:none">
-                                    
-                                     <center>  <h4><strong>Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp với từ khóa của bạn.</strong></h4></center>
-        <h3>
-            <p class="text-warning">Hãy thử lại với những cách sau: </p>
-        </h3>
-
-
-        <table>
-            <tr>
-                <td><span class="label label-success">1)</span></td>
-                <td>
-                    <h4>Kiểm tra lại từ khóa có thể bạn đã gõ sai (Ví dụ: Asus3500 = Ass3500)</h4>
-                </td>
-            </tr>
-
-            <tr>
-                <td><span class="label label-success">2)</span></td>
-                <td>
-                    <h4>Dùng từ khóa ngắn gọn và đơn giản hơn.</h4>
-                </td>
-            </tr>
-            <tr>
-                <td><span class="label label-success">3)</span></td>
-                <td>
-                    <h4>Click vào <a>đây</a> để thử lại.</h4>
-                </td>
-            </tr>
-            <tr>
-                <td><span class="label label-success">4)</span><br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </td>
-                <td>
-                    <h4>Vẫn không tìm thấy sản phẩm bạn muốn. Xin hãy cung cấp cho chúng tôi thông tin về sản phẩm.  
-                        <br />
-                        <br />
-                        Bạn có thể lựa chọn gửi cho chúng tôi một trong hai thông tin dưới đây:
-					<br />
-                        - Nguồn gốc - Đường dẫn tới trang web chứa sản phẩm bạn muốn được gợi ý.
-                    <br />
-                        - Cấu hình -  cấu hình sản phẩm mà bạn muốn được gợi ý.
-					<br />
-                        <br />
-                        Chúng tôi sẽ liên lạc với bạn thông báo về tình trạng sản phẩm này.</h4>
-
-                </td>
-            </tr>
-        </table>
-                                  </div>
-                        }                                              
-                    </section>
-                </section>
+@section navigator
+{
+    <div id="top-image" class="top-image3">
+        <div class="container">
+            <div id="top-image-caption">
+                <h2>tìm sản phẩm</h2>
             </div>
         </div>
     </div>
 
-    <script type="text/javascript">
-        createInfo();
-    </script>
-</main>
+    <div id="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="span8">
+                    <ul class="breadcrumb">
+                        <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
+                        <li><p>tìm kiếm</p></li>
+                    </ul>
+                </div>
+
+                <div class="span4">
+                    <div class="search-container">
+                        @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post)) {
+                            <i class="icon-search search-box-icon"></i>
+                            @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { @type="text", @name="search", @class ="search-box", placeholder="Tên sản phẩm" })
+                            
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="isotope posts">
+    
+        @foreach (var item in Model) {
+        <div class="isotope-item post span6">
+            <div class="row">
+                <div class="span3">
+                    <div class="thumbnail post-media">
+                        <img src="~/Images/I/default.jpg" />
+                        <div class="thumbnail-hover">
+                            <div class="post-info clearfix">
+                                <div class="post-date">
+                                    <i class="icon-caret-right">CPU:</i>
+                                    <p>@item.strCPU</p>
+                                </div>
+                                <div class="post-date">
+                                    <i class="icon-caret-right">VGA:</i>
+                                    <p>@item.strVGA</p>
+                                </div>
+                                <div class="post-date">
+                                    <i class="icon-caret-right">RAM:</i>
+                                    <p>@item.strRAM</p>
+                                </div>
+                                <div class="post-date">
+                                    <i class="icon-caret-right">HDD:</i>
+                                    <p>@item.strHDD</p>
+                                </div>
+                                <div class="post-date">
+                                    <i class="icon-caret-right">Display:</i>
+                                    <p>@item.strDisplay</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span3">
+                    <div class="post-content">
+                        <div class="post-title">
+                            <h3>
+                                <i class="icon-bookmark post-title-icon"></i>
+                                <span class="product-name" title="@item.Name">@item.Name</span>
+                            </h3>
+                        </div>
+
+                        <div class="post-info clearfix">
+                            <div class="post-date">
+                                <i class="icon-usd"></i>
+                                <p>@item.Price</p>
+                            </div>
+                        </div>
+
+                        <div style="clear: both"></div>
+
+                        <div class="post-excerpt">
+                            <p>
+                                Donec magna nunc, vestibulum
+                                at erat ac, mollis varius nunc. Maecenas nec hendrerit nunc. Integer interdum neque lorem, eget mattis dui vehicula at.
+                            </p>
+                        </div>
+
+                        <div class="stylish-button">
+                            <a href="@Url.Action("Details", "Product")">chi tiết</a>
+                        </div>
+                        <div class="stylish-button">
+                            <a href="#">thêm vào so sánh</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        }
+</div>
+

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title - Computer Product Suggestion</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="" name="description" />
@@ -44,6 +44,11 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/styles/elements.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/styles/custom.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/styles/theme-responsive.css")" />
+
+    <!-- jquery Libraries -->
+    <script src="@Url.Content("~/Template/GFashion/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Template/GFashion/js/jquery-ui.js")"></script>
+    
 </head>
 <body>
     <header>
@@ -257,44 +262,13 @@
             </div>
         </div>
     </header>
-
-    <div id="top-image" class="top-image3">
-        <div class="container">
-            <div id="top-image-caption">
-                <h2>grid blog</h2>
-            </div>
-        </div>
-    </div>
-
-    <div id="breadcrumbs">
-        <div class="container">
-            <div class="row">
-                <div class="span8">
-                    <ul class="breadcrumb">
-                        <li><a href="#">home</a><span class="divider">/</span></li>
-                        <li><p>blog</p><span class="divider">/</span></li>
-                        <li><p>grid blog</p></li>
-                    </ul>
-                </div>
-
-                <div class="span4">
-                    <div class="search-container">
-                        <i class="icon-search search-box-icon"></i>
-                        <input type="text" name="search" class="search-box" value="" placeholder="Search..." />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
+    @RenderSection("navigator", false) 
 
     <div class="main-content">
         <div class="container">
             <div class="row">
-                <div class="isotope posts">
-                    <div>
-                        @RenderBody()
-                    </div>
-                </div>
+                @RenderBody()
                 @*Load More Button*@
                 <div class="load-more">
                     <div class="stylish-button">
@@ -381,10 +355,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- jquery Libraries -->
-    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery.min.js")"></script>
-    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery-ui.min.js")"></script>
     
     <!-- Bootstrap Libraries -->
     <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/bootstrap/js/bootstrap.js")"></script>
