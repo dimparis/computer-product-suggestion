@@ -14,7 +14,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class ConfirmNewHardwareController : Controller
     {
-        // private CPS_SolutionEntities context = new CPS_SolutionEntities();
+        // private CPS_SolutionEntities db = new CPS_SolutionEntities();
         //
         // GET: /Admin/ConfirmNewHardware/
         CPS_SolutionEntities db = new CPS_SolutionEntities();
@@ -24,6 +24,88 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.listOfHardware = listOfHardware;
             //var approvedHardwares = db.Hardwares.Where(x => x.IsActive == true).ToList();
             //var approveListHardware = new List<SelectListItem>();
+
+            // Load CPU list
+            var cpus = db.Hardwares.Where(x => x.CodetypeID == "C")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var cpuList = new List<SelectListItem>();
+            foreach (var cpu in cpus)
+            {
+                var item = new SelectListItem
+                {
+                    Text = cpu.Name,
+                    Value = cpu.ID.ToString()
+                };
+                cpuList.Add(item);
+            }
+            ViewBag.cpuList = cpuList;
+
+            // Load VGA list
+            var vgas = db.Hardwares.Where(x => x.CodetypeID == "V")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var vgaList = new List<SelectListItem>();
+            foreach (var vga in vgas)
+            {
+                var item = new SelectListItem
+                {
+                    Text = vga.Name,
+                    Value = vga.ID.ToString()
+                };
+                vgaList.Add(item);
+            }
+            ViewBag.vgaList = vgaList;
+
+            // Load HDD list
+            var hdds = db.Hardwares.Where(x => x.CodetypeID == "H")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var hddList = new List<SelectListItem>();
+            foreach (var hdd in hdds)
+            {
+                var item = new SelectListItem
+                {
+                    Text = hdd.Name,
+                    Value = hdd.ID.ToString()
+                };
+                hddList.Add(item);
+            }
+            ViewBag.hddList = hddList;
+
+
+            // Load Ram list
+            var rams = db.Hardwares.Where(x => x.CodetypeID == "R")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var ramList = new List<SelectListItem>();
+            foreach (var ram in rams)
+            {
+                var item = new SelectListItem
+                {
+                    Text = ram.Name,
+                    Value = ram.ID.ToString()
+                };
+                ramList.Add(item);
+            }
+            ViewBag.ramList = ramList;
+
+            // Load Display list
+            var displays = db.Hardwares.Where(x => x.CodetypeID == "D")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var displayList = new List<SelectListItem>();
+            foreach (var display in displays)
+            {
+                var item = new SelectListItem
+                {
+                    Text = display.Name,
+                    Value = display.ID.ToString()
+                };
+                displayList.Add(item);
+            }
+            ViewBag.displayList = displayList;
+
 
             return View();
         }
@@ -244,16 +326,24 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return "";
         }
 
-        public JsonResult AutoCompleteHardware(string term, string codetype)
-        {
-            if (term == null)
-            {
-                term = "";
-            }
-            var result = db.Hardwares.Select(x => new {x.ID,x.Name,x.CodetypeID }).Where(x => x.Name.ToLower().Contains(term.ToLower()) && x.CodetypeID==codetype).Distinct();
-            int count = result.Count();
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult AutoCompleteHardware(string term, string codetype)
+        //{
+        //    if (codetype == null)
+        //    {
+        //        codetype = "";
+        //        if (term == null)
+        //        {
+        //            term = "";
+        //        }
+        //    }
+        //    else
+        //    {
+        //        codetype = codetype.First() + "";
+        //    }
+        //    var result = db.Hardwares.Select(x => new { x.ID, x.Name, x.CodetypeID }).Where(x => x.Name.ToLower().Contains(term.ToLower()) && x.CodetypeID == codetype).Distinct();
+        //    int count = result.Count();
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public string ActiveHardware(string stringid)
