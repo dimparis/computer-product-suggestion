@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.HistoryDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.History.CompareTime)
+            @foreach (var pro in item.History.HistoryDetails) {
+                if (item.HistoryID == item.History.ID) { 
+                    @pro.ProductID <span> </span>
+                    @pro.isWinner                    
+                }
+            }
+        </td>     
+    </tr>
+}
+</table>
+

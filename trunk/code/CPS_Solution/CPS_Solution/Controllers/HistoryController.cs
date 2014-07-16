@@ -55,17 +55,17 @@ namespace CPS_Solution.Controllers
             return View(hdvModel);
         }
 
-        ////
-        //// GET: /History/
+        //
+        // GET: /History/
 
-        //public ActionResult Index()
-        //{
-        //    var histories = db.Histories.Include(h => h.Account);
-        //    return View(histories.ToList());
-        //}
+        public ActionResult Index()
+        {
+            var histories = db.Histories.Include(h => h.Account);
+            return View(histories.ToList());
+        }
 
-        ////
-        //// GET: /History/Details/5
+        //
+        // GET: /History/Details/5
 
         //public ActionResult Details(int id = 0)
         //{

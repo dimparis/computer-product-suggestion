@@ -51,7 +51,7 @@ namespace CPS_Solution.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Thông tin đăng nhập không hợp lệ.");
+            ModelState.AddModelError("","Tên tài khoản hoặc mật khẩu chưa đúng.");
             return View(model);
         }
 
