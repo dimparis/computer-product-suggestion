@@ -21,14 +21,19 @@ namespace CPS_Solution.Controllers
         {
             return View();
         }
-
+        public ActionResult SearchForProduct() 
+        {
+            var products = db.Products.Where(x => x.IsActive == true).ToList();
+            return View(products);
+        }
+        [HttpPost]
         public ActionResult SearchForProduct(string productName)
         {
-            var products = db.Products.Where(x=>x.IsActive ==true).ToList();
 
+            var listP = new List<Product>();
             if (!String.IsNullOrEmpty(productName))
             {
-                var listP = new List<Product>();
+                var products = db.Products.Where(x => x.IsActive == true).ToList();
                 foreach (var p in products)
                 {
                     if (p.Name.ToUpper().Contains(productName.ToUpper()))
@@ -39,8 +44,7 @@ namespace CPS_Solution.Controllers
                 return View(listP); ;
 
             }
-
-            return View(products);
+            return View(listP);
         }
         
         public ActionResult Compare(int p1, int p2, int p3)
