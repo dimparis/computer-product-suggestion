@@ -1382,7 +1382,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
 
                 // dòng lỗi link ảnh lap
-                list[i].Imagelink = list[i].Imagelink.ToLower();
+                list[i].Imagelink = list[i].Imagelink.ToLower().Trim();
 
                 bool checkimage = IsImageUrl(list[i].Imagelink);
                 Uri myUri;
@@ -1445,7 +1445,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     count++;
                 }
                 // dòng lỗi URL
-                list[i].Url = list[i].Url.ToLower();
+                list[i].Url = list[i].Url.ToLower().Trim();
                 bool checkURL = IsUrl(list[i].Url);
                 Uri myUri1;
                 if (!Uri.TryCreate(list[i].Url, UriKind.RelativeOrAbsolute, out myUri1) || checkURL == false)
@@ -2945,5 +2945,20 @@ namespace CPS_Solution.Areas.Admin.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// show thông tin về số lượng sản phẩm trong 3 tab
+        /// </summary>
+        /// <param name="showInfo"></param>
+        /// <returns></returns>
+        public ActionResult showInfo1(string showInfo)
+        {
+            if(showInfo.Equals("ok")){
+                ViewBag.listproduct = (List<LapData>)Session["listproductLap"];
+                ViewBag.listerror = (List<LapData>)Session["listerrorLap"];
+                ViewBag.listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
+                ViewBag.listduplicatenewLap = (List<List<LapData>>)Session["listduplicatenewLap"];
+            }
+            return View();
+        }
     }
 }

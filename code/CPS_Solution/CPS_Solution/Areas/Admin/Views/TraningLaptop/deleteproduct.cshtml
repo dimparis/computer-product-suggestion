@@ -28,22 +28,7 @@
 <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
   <!-------------------------------------------------------------------------------------------> 
 @{countlist = countlist+1-1;}
-    <!--tab1------------------------------------------------------------------------------------->
-            @if (list != null)
-            {
-                <div class="da-panel-toolbar top">
-                    <ul>
-                        <form action="~/Admin/ImportExcelLap/saveAllProduct" method="post" enctype="multipart/form-data">
-                            <li>
-                                <a onclick="saveCorrectProduct()" id="da-ex-dialog-modal">
-                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</a></li>                        
-                        </form>
-                        <li><a href="~/Admin/ImportExcelLap/huyimport">
-                            <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
-                    </ul>
-                </div>
-            }           
-            <div id="CorrectID">
+    <!--tab1------------------------------------------------------------------------------------->         
                 <!------------------------------------------------------------------------------------------->
                 <div class="da-panel collapsible">
                     <div class="da-panel-header">
@@ -85,7 +70,7 @@
                                             
                                             <td class=" sorting_1">@p.stt </td>
                                             <td class=" "> <label style="width: 100px;">@p.Name</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.Imagelink</label></td>
+                                            <td class=" "><a style="width: 100px;" target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
                                             <td class=" "><label style="width: 100px;">@p.CPU</label></td>
                                             <td class=" "><label style="width: 100px;">@p.VGA</label></td>
                                             <td class=" "><label style="width: 100px;">@p.HDD</label></td>

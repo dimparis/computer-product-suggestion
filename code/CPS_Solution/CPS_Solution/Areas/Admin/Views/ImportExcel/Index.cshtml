@@ -6,6 +6,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     List<ProductMap> list = ViewBag.listproduct;
     List<ProductMap> listError = ViewBag.listerror;
+    List<ProductMap> listExistedProduct = ViewBag.listExistedProduct;
     List<List<ProductMap>> listDup = ViewBag.listduplicate;
     int countlistdup = 0;
     int countlist = 0;
@@ -287,6 +288,50 @@
 
         </div>
     </div>
+</div>
+<div id="showInfo" class="grid_4">
+
+    <div class="da-message info">
+        Thông tin:
+         <ul>
+             @if (listExistedProduct != null)
+             {
+                 if (listExistedProduct.Count > 0)
+                 {              
+                 <li>Có @listExistedProduct.Count thành phần đã tồn tại trong cơ sở dữ liệu hệ thống tự động bỏ qua!</li>
+                 }
+             }
+             @if (list != null)
+             {
+                 if (list.Count > 0)
+                 {  
+                 <li>Có @list.Count thành phần trong danh sách đúng!</li>
+                 }
+             }
+             @if (listError != null)
+             {
+                 if (listError.Count > 0)
+                 {  
+                 <li>Có @listError.Count thành phần trong danh sách lỗi đang chờ xử lý!</li>
+             }
+             }
+              @if (listDup != null)
+              {
+                  if (listDup.Count > 0)
+                  {  
+                  <li>Có @listDup.Count nhóm thành phần trong danh sách trùng đang chờ xử lý!</li>
+                  }
+              }
+             @if (listDupnew != null)
+             {
+                 if (listDupnew.Count > 0)
+                 {  
+                 <li>Khi lưu thành phần vào cơ sở dư liệu hệ thống phát hiện có @listDupnew.Count nhóm sản phẩm có thể trùng vui lòng mở tab "sản phẩm trùng" để xử lý!</li>
+                 }
+             }
+         </ul>
+    </div>
+    </br>
 </div>
 <div class="grid_4">
     <div id="da-icon-tab" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
@@ -885,7 +930,21 @@
 		
                 }
             
+                // show Info số lượng trong danh sách đúng trùng lỗi
+                function showInfo()
+                {
+                    string = "ok";
+                    var postData = {showinfo: string };
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/ImportExcel/showInfo1",
+                        data: postData,
+                        success: function(data){
+                            $('#showInfo').html(data);
+                        },
 
+                    });
+                }
             // Lưu sản phẩm đúng và ghi log file
                 function saveCorrectProduct(x) { 
                 var val = ""; 

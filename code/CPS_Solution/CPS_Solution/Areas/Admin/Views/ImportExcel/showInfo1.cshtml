@@ -1,0 +1,53 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    Layout = null;
+    List<ProductMap> list = ViewBag.listproduct;
+    List<ProductMap> listError = ViewBag.listerror;
+    List<ProductMap> listExistedProduct = ViewBag.listExistedProduct;
+    List<List<ProductMap>> listDup = ViewBag.listduplicate;
+    List<List<ProductMap>> listDupnew = ViewBag.listduplicatenew;
+}
+
+  <div class="da-message info">
+        Thông tin:
+         <ul>
+             @if (listExistedProduct != null)
+             {
+                 if (listExistedProduct.Count > 0)
+                 {              
+                 <li>Có @listExistedProduct.Count thành phần đã tồn tại trong cơ sở dữ liệu hệ thống tự động bỏ qua!</li>
+                 }
+             }
+             @if (list != null)
+             {
+                 if (list.Count > 0)
+                 {  
+                 <li>Có @list.Count thành phần trong danh sách đúng!</li>
+                 }
+             }
+             @if (listError != null)
+             {
+                 if (listError.Count > 0)
+                 {  
+                 <li>Có @listError.Count thành phần trong danh sách lỗi đang chờ xử lý!</li>
+             }
+             }
+              @if (listDup != null)
+              {
+                  if (listDup.Count > 0)
+                  {  
+                  <li>Có @listDup.Count nhóm thành phần trong danh sách trùng đang chờ xử lý!</li>
+                  }
+              }
+             @if (listDupnew != null)
+             {
+                 if (listDupnew.Count > 0)
+                 {  
+                 <li>Khi lưu thành phần vào cơ sở dư liệu hệ thống phát hiện có @listDupnew.Count nhóm sản phẩm có thể trùng vui lòng mở tab "sản phẩm trùng" để xử lý!</li>
+                 }
+             }
+         </ul>
+    </div>
+    </br>
