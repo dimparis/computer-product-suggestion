@@ -414,25 +414,23 @@ iframe {
 }
 
 #header-navigation .nav > li {
-	margin-right:10px;
-	margin-top: 5%;
+    margin: 0 0 0 1px;
 }
 
 #header-navigation .nav > li > a {
     display: block;
-    height: 35px;
-    width: 125px;
-
+    height: 100px;
+    width: 100px;
     text-align: center;
     color: #ffffff;
-    border-radius: 2px;
+    border-radius: 0;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
 
 #header-navigation .nav > li > a:hover, #header-navigation .nav > li > a:focus {
-    background-color: red;
+    background-color: transparent;
 }
 
 .nav-icon {
@@ -456,7 +454,7 @@ iframe {
 }
 
 .nav li ul li a:hover, .nav li ul li a:focus {
-    background-color: red;
+    background-color: transparent;
 }
 
 #header-navigation .dropdown-menu {
@@ -545,8 +543,8 @@ iframe {
 }
 
 .header-small .nav > li > a {
-    width: 35px !important;
-    height: 35px !important;
+    width: 70px !important;
+    height: 70px !important;
 }
 
 .header-small ul.dropdown-menu > li:first-child {
