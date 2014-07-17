@@ -9,27 +9,10 @@
 
 @section headScript
 {
-    <!-- iOS webapp icons -->
-    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
-
-    <!-- CSS Reset -->
-    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
-    <!--  Fluid Grid System -->
-    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
-    <!-- Theme Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.theme.css" media="screen" />
-    <!--  Main Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
-    <!-- Demo Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
-    <!-- jQuery JavaScript File -->
+   <!-- jQuery JavaScript File -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
     <!-- jQuery-UI JavaScript Files -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
     <!-- Plugin Files -->
     <!-- FileInput Plugin -->
@@ -60,6 +43,11 @@
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
     <!-- Demo JavaScript Files -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
+    <!-- Chosen Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
+
     <!----------------------------- Lên datatable Plugin------------------------------------------>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
@@ -225,9 +213,9 @@
                     <tr role="row">
                         <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">ID</th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên Laptop</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Loại</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Trọng số</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Lap chứa thành phần</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">CPU</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">RAM</th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Kích Hoạt</th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 50px;">Thực hiện</th>
                     </tr>
@@ -250,16 +238,16 @@
                             </td>
                             
                             <td class=" ">
-                                <label style="width: 100px;">@h.strDisplay</label></td>
+                                <label style="width: 100px;">@h.strVGA</label></td>
                             <td class=" ">
-                                <label style="width: 100px;">@h.strDisplay</label></td>
-                            <td class=" "> <input style="width:52px" onclick="ActiveHardware(@h.ID)" value="Kích Hoạt" class="da-button green">
+                                <label style="width: 100px;">@h.strRAM</label></td>
+                            <td class=" "> <input style="width:52px" onclick="ActiveLaptop(@h.ID)" value="Kích Hoạt" class="da-button green">
                             </td>
                             <td class=" ">
                            
                                 <a onclick="showPopupEdit(@h.ID)">
                                     <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
-                                    Sửa</a>
+                                    Mapping</a>
 
                                 <!----------------Popup sửa sản phẩm đúng----------->
                                 <div id="Edit-@h.ID-Popup-div" style="display: none;">
@@ -267,44 +255,46 @@
                                         <div class="da-panel-content">
                                             <form class="da-form">
                                                 <div class="da-form-inline">
-                                                    <div class="da-form-row">
+                                                     <div style="display:none" class="da-form-row">
                                                         <label>Laptop</label>
                                                         <div class="da-form-item">
-                                                            <span class="formNote">Laptop chứa thành phần</span>
+                                                            <span class="formNote">Tên thành phần</span>
                                                             <input disabled id="idNameProduct@(h.ID)" value="@h.Name" type="text">
                                                             <input hidden id="idproduct@(h.ID)" value="@h.ID" type="text">
                                                         </div>
                                                     </div>
-                                                    <div class="da-form-row">
+                                                    <div style="display:none" class="da-form-row">
                                                         <label>Loại</label>
                                                         <div class="da-form-item">
                                                             <span class="formNote">Loại thành phần</span>
                                                             <input id="idCodetypeHard@(h.ID)" disabled value="@h.Name" type="text">
                                                         </div>
                                                     </div>
-                                                    <div class="da-form-row">
-                                                        <label>Tên thành phần</label>
+                                                    <div style="display:none" class="da-form-row">
+                                                        <label>Tên Laptop</label>
                                                         <div class="da-form-item">
                                                             <span class="formNote">Tên thành phần phải từ 5 tới 100 ký tự.</span>
-                                                            <input name="idNameHard@(h.ID)" id="Hardware"  type="text">
+                                                            <input disabled name="idNameHard@(h.ID)" id="Hardware" value="@h.Name"  type="text">
                                                         </div>
                                                     </div>
-
+                                                    
                                                     <div class="da-form-row">
-                                                        <label>Trọng số</label>
-                                                        <div class="da-form-item">
-                                                            <span class="formNote">Trọng số phải là số nguyên</span>
-                                                            <input id="idWeightHard@(h.ID)" value="@h.ID" type="text">
-                                                        </div>
-                                                    </div>
+                                                                <label>Laptop Mapping</label>
+                                                                <div class="da-form-item">
+                                                                    <span class="formNote">Danh sách các Laptop</span>
+                                                                    @Html.DropDownList("ProductList", ViewBag.ProductList as List<SelectListItem>, new { @class = "chzn-select", id = @h.ID,@style = "width: 250px;" })
+                                                                </div>
+                                                     </div> 
                                                     <div class="da-button-row">
-                                                        <input onclick="EditHardware(@h.ID)" type="button" value="Lưu" class="da-button green">
+                                                        <input onclick="EditHardware
+    
+    (@h.ID)" type="button" value="Lưu" class="da-button green">
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                    <script type="text/javascript">
+                                  @*  <script type="text/javascript">
                                         var loai = $('#hiddenCodetype').val();
                                         $(document).ready(function () {
                                             $("#Hardware").autocomplete({
@@ -327,7 +317,7 @@
                                                 }
                                             });
                                         })
-</script>
+</script>*@
                                 </div>
 
                                 <!----------------Popup------------------>
@@ -341,8 +331,16 @@
     </div>
 </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ui-autocomplete').css("z-index", "1000");
+    });
 
+</script>
 <script>
+
+
+
     //Hiện popup để sửa 1 sản phẩm đúng.
     function showPopupEdit(i){
         $("#Edit-"+i+"-Popup-div").dialog({
@@ -370,7 +368,7 @@
         var postData = {stringid: string };
         $.ajax({
             type: "POST",
-            url: "/Admin/ConfirmNewHardware/LoadTableAjax",
+            url: "/Admin/ConfirmNewLaptop/LoadTableAjax",
             data: postData,
             success: function(data){
                $('#idTable').html(data);
@@ -380,13 +378,13 @@
     }
 
     //Kich hoạt 1 phần cứng
-    function ActiveHardware(id)
+    function ActiveLaptop(id)
     {
-        if (confirm("Bạn có chắc chắn muôn xóa sản phẩm này?")) {
+        if (confirm("Bạn có chắc chắn muốn kích hoạt sản phẩm này?")) {
             var postData = {stringid: id };
             $.ajax({
                 type: "POST",
-                url: "/Admin/ConfirmNewHardware/ActiveHardware",
+                url: "/Admin/ConfirmNewLaptop/ActiveLaptop",
                 data: postData,
                 success: function(data){
                     LoadTableAjax();
@@ -398,50 +396,70 @@
         }
     }
 
+    //
+    function EditHardware(stt){   
+        var div = document.getElementById(stt+"_chzn");
+      //  var spans = div.getElementsByTagName("span");
+     //   var nameHardware =  spans[0].innerHTML;
+        var IdHardware =   $( "#"+stt ).val();
+        var string = stt+'@@'+IdHardware;
+        
+        var postData = {HardInfo: string };
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ConfirmNewLaptop/MappingLaptop",
+            data: postData,
+            success: function(data){
+                LoadTableAjax();
+                $("#Edit-"+stt+"-Popup-div").dialog( "close");
+            },
 
-    // Sửa sản phẩm đúng
-    function EditHardware(stt){                               
-        var Name =  document.getElementById("idNameHard"+stt).value;
-        var Weight = document.getElementById("idWeightHard"+stt).value;
-        var IsActive = document.getElementById("IsActive"+stt).value;
-        var ProductID = document.getElementById("idproduct"+stt).value;
-        var string = stt +'@@'+Name+'@@'+Weight+'@@'+ IsActive+'@@'+ProductID;
-        var count =0;                            
-        // kiểm tra tên
-        if(Name.length<1||Name.length>100)
-        {
-            document.getElementById("idNameHard"+stt).style.borderColor='red';
-            count++;
-        }else {
-            document.getElementById("idNameHard"+stt).style.borderColor="";
-        }                        
-        // kiểm tra trọng số
-        // kiểm tra giá
-        myFunction(Weight);
-        function myFunction(Weight) {
-            val = parseFloat(Weight);
-            if(isNaN(val)){
-                document.getElementById("idWeightHard"+stt).style.borderColor='red';
-                count++;
-            }else{
-                document.getElementById("idWeightHard"+stt).style.borderColor="";
-            }
-        }                
-        if(count==0)
-        {
-            var postData = {HardInfo: string };
-            $.ajax({
-                type: "POST",
-                url: "/Admin/ConfirmNewHardware/EditHardware",
-                data: postData,
-                success: function(data){
-                    // $('#white-icon').html(data);
-                    $("#Edit-"+stt+"-Popup-div").dialog( "close");
-                },
+        });
 
-            });
-        }       
-        // nếu không phát hiện lỗi thì gửi về controller để xử lý                       
-    }   
+    }
+    //// Sửa sản phẩm đúng
+    //function EditHardware(stt){                               
+    //    var Name =  document.getElementById("idNameHard"+stt).value;
+    //    var Weight = document.getElementById("idWeightHard"+stt).value;
+    //    var IsActive = document.getElementById("IsActive"+stt).value;
+    //    var ProductID = document.getElementById("idproduct"+stt).value;
+    //    var string = stt +'@@'+Name+'@@'+Weight+'@@'+ IsActive+'@@'+ProductID;
+    //    var count =0;                            
+    //    // kiểm tra tên
+    //    if(Name.length<1||Name.length>100)
+    //    {
+    //        document.getElementById("idNameHard"+stt).style.borderColor='red';
+    //        count++;
+    //    }else {
+    //        document.getElementById("idNameHard"+stt).style.borderColor="";
+    //    }                        
+    //    // kiểm tra trọng số
+    //    // kiểm tra giá
+    //    myFunction(Weight);
+    //    function myFunction(Weight) {
+    //        val = parseFloat(Weight);
+    //        if(isNaN(val)){
+    //            document.getElementById("idWeightHard"+stt).style.borderColor='red';
+    //            count++;
+    //        }else{
+    //            document.getElementById("idWeightHard"+stt).style.borderColor="";
+    //        }
+    //    }                
+    //    if(count==0)
+    //    {
+    //        var postData = {HardInfo: string };
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/Admin/ConfirmNewLaptop/EditHardware",
+    //            data: postData,
+    //            success: function(data){
+    //                // $('#white-icon').html(data);
+    //                $("#Edit-"+stt+"-Popup-div").dialog( "close");
+    //            },
+
+    //        });
+    //    }       
+    //    // nếu không phát hiện lỗi thì gửi về controller để xử lý                       
+    //}   
 </script>
 
