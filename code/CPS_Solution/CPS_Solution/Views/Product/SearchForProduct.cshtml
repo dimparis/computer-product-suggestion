@@ -28,7 +28,7 @@
                     <div class="search-container">
                         @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post)) {
                             <i class="icon-search search-box-icon"></i>
-                            @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { @type="text", @name="search", @class ="search-box", placeholder="Tên sản phẩm" })
+                            @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { @style="color:white;", @type="text", @name="search", @class ="search-box" })
                             
                         }
                     </div>
@@ -102,11 +102,11 @@
                             </p>
                         </div>
 
-                        <div class="stylish-button">
+                        <div class="stylish-button" style="background-color: #FF3333">
                             <a href="@Url.Action("Details", "Product")">chi tiết</a>
                         </div>
-                        <div class="stylish-button">
-                            <a href="#">thêm vào so sánh</a>
+                        <div class="stylish-button" style="background-color: #666699">
+                            <a href="#"> + thêm vào so sánh</a>
                         </div>
                     </div>
                 </div>
