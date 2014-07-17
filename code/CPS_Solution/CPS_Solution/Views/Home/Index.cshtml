@@ -1,6 +1,492 @@
-﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
 
-@{
-    ViewBag.Title = "Trang Chủ";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+
+    <title>Homepage</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/bootstrap/css/bootstrap.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/bootstrap/css/bootstrap-responsive.css")" />
+
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/font-awesome/css/font-awesome.css")" />
+
+    <!-- Linecons CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/linecons/style.css")" />
+
+    <!-- Revolution Slider CSS -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/revolution-slider/css/settings.css")" />
+
+    <!-- Quote Rotator CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/quote-rotator/css/quoterotator.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/quote-rotator/css/animate.css")" />
+
+    <!-- Magnific Popup Plugin CSS-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/magnific-popup/magnific-popup.css")" />
+
+    <!-- Animations Libraries -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/animations/animate.css")" />
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/styles/main.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/styles/elements.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/styles/custom.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/styles/theme-responsive.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Template/stylish.holobest.com/css/style.css")" type="text/css" media="screen"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }
+
+        .title {
+            width: 703px;
+            height: 144px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background: transparent url(title.png) no-repeat top left;
+        }
+
+        a.back {
+            background: transparent url(back.png) no-repeat top left;
+            position: fixed;
+            width: 150px;
+            height: 27px;
+            outline: none;
+            bottom: 0px;
+            left: 0px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="header-container" class="navbar-fixed-top header-small">
+            <div class="container">
+                <div id="logo" class="animated fadeLeft">
+                    <h1>
+                        <a href="index.html">CPS</a>
+                    </h1>
+                </div>
+
+                <nav id="header-navigation" class="animated fadeRight">
+                    <div class="menu">
+                        <div class="item">
+                            <a class="link icon_mail"></a>
+                            <div class="item_content">
+                                <h2>Liên hệ</h2>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <a class="link icon_help"></a>
+                            <div class="item_content">
+                                <h2>Đề xuất</h2>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <a class="link icon_find"></a>
+                            <div class="item_content">
+                                <h2>Tìm kiếm</h2>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <a class="link icon_photos"></a>
+                            <div class="item_content">
+                                <h2>Sản Phẩm nổi bật</h2>
+
+                            </div>
+                        </div>
+                        <div class="item">
+                            <a class="link icon_home"></a>
+                            <div class="item_content">
+                                <h2>Trang chủ</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="jquery-css-transform.js" type="text/javascript"></script>
+                    <script src="jquery-animate-css-rotate-scale.js" type="text/javascript"></script>
+                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                    <script>
+                        $('.item').hover(
+                            function () {
+                                var $this = $(this);
+                                expand($this);
+                            },
+                            function () {
+                                var $this = $(this);
+                                collapse($this);
+                            }
+                        );
+                        function expand($elem) {
+                            var angle = 0;
+                            var t = setInterval(function () {
+                                if (angle == 1440) {
+                                    clearInterval(t);
+                                    return;
+                                }
+                                angle += 40;
+                                $('.link', $elem).stop().animate({ rotate: '+=-40deg' }, 0);
+                            }, 10);
+                            $elem.stop().animate({ width: '268px' }, 1000)
+                            .find('.item_content').fadeIn(400, function () {
+                                $(this).find('p').stop(true, true).fadeIn(600);
+                            });
+                        }
+                        function collapse($elem) {
+                            var angle = 1440;
+                            var t = setInterval(function () {
+                                if (angle == 0) {
+                                    clearInterval(t);
+                                    return;
+                                }
+                                angle -= 40;
+                                $('.link', $elem).stop().animate({ rotate: '+=40deg' }, 0);
+                            }, 10);
+                            $elem.stop().animate({ width: '52px' }, 1000)
+                            .find('.item_content').stop(true, true).fadeOut().find('p').stop(true, true).fadeOut();
+                        }
+        </script>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="rev-slider-wrapper">
+        <div class="rev-slider">
+            <ul class="unstyled">
+                <li data-transition="slideup" data-slotamount="1">
+                    <img src="~/Template/stylish.holobest.com/images/slide-bg-1.png" alt="slide background" />
+                    <div class="caption lfl image-caption" data-x="center" data-y="center" data-hoffset="-300" data-voffset="130" data-speed="700" data-start="1000" data-easing="easeOutBack">
+                        <img src="~/Template/stylish.holobest.com/images/slide-image-1.png" alt="slide image" /></div>
+                    <div class="caption lfr black-medium" data-x="center" data-y="center" data-hoffset="160" data-voffset="100" data-speed="700" data-start="1700" data-easing="easeOutBack">Hope to Enjoy</div>
+                    <div class="caption lfr orange-big" data-x="center" data-y="center" data-hoffset="280" data-voffset="190" data-speed="700" data-start="1900" data-easing="easeOutBack">Our Creative</div>
+                    <div class="caption lfr black-small" data-x="center" data-y="center" data-hoffset="437" data-voffset="265" data-speed="500" data-start="2100" data-easing="easeOutBack">Ideas & Concepts</div>
+                </li>
+
+                <li data-transition="slideright" data-slotamount="1">
+                    <img src="~/Template/stylish.holobest.com/images/slide-bg-2.png" alt="slider-image" />
+                    <div class="caption lfr image-caption" data-x="right" data-y="center" data-hoffset="15" data-voffset="310" data-speed="700" data-start="1000" data-easing="easeOutBack">
+                        <img src="~/Template/stylish.holobest.com/images/slide-image-2.png" alt="slide image" /></div>
+                    <div class="caption lft image-caption" data-x="right" data-y="center" data-hoffset="115" data-voffset="200" data-speed="700" data-start="1700" data-easing="easeOutBounce">
+                        <img src="~/Template/stylish.holobest.com/images/slide-image-3.png" alt="slide image" /></div>
+                    <div class="caption lfl black-medium" data-x="left" data-y="center" data-hoffset="-120" data-voffset="100" data-speed="700" data-start="2500" data-easing="easeOutBack">Responsive &</div>
+                    <div class="caption lfl green-big" data-x="left" data-y="center" data-hoffset="-122" data-voffset="170" data-speed="700" data-start="2700" data-easing="easeOutBack">Retina Display</div>
+                    <div class="caption lfl black-small" data-x="left" data-y="center" data-hoffset="137" data-voffset="240" data-speed="500" data-start="2900" data-easing="easeOutBack">Design Concept</div>
+                </li>
+
+                <li data-transition="slideleft" data-slotamount="1">
+                    <img src="~/Template/stylish.holobest.com/images/slide-bg-3.png" alt="slider-image" />
+                    <div class="caption lft image-caption" data-x="left" data-y="center" data-hoffset="-115" data-voffset="200" data-speed="700" data-start="1000" data-easing="easeOutBack">
+                        <img src="~/Template/stylish.holobest.com/images/slide-image-4.png" alt="slide image" /></div>
+                    <div class="caption lfr black-medium" data-x="right" data-y="center" data-hoffset="-205" data-voffset="100" data-speed="700" data-start="1700" data-easing="easeOutBack">Metro Inspired</div>
+                    <div class="caption lfr violet-big" data-x="right" data-y="center" data-hoffset="123" data-voffset="180" data-speed="700" data-start="1900" data-easing="easeOutBack">Theme Design</div>
+                    <div class="caption lfr black-small" data-x="right" data-y="center" data-hoffset="116" data-voffset="260" data-speed="500" data-start="2100" data-easing="easeOutBack">Ideas & Concepts</div>
+                </li>
+
+                <li data-transition="slidedown" data-slotamount="1">
+                    <img src="~/Template/stylish.holobest.com/images/slide-bg-4.png" alt="slider-image" />
+                    <div class="caption lfb video-caption" data-x="right" data-y="center" data-hoffset="120" data-voffset="230" data-speed="700" data-start="1000" data-easing="easeOutBack">
+                        <img src="~/Template/stylish.holobest.com/images/slide-image-5.png" alt="slider-image" />
+                        <iframe src="http://player.vimeo.com/video/29298709?title=0&amp;byline=0&amp;portrait=0;api=1" width="384" height="240"></iframe>
+                    </div>
+                    <div class="caption lfl black-medium" data-x="left" data-y="center" data-hoffset="-120" data-voffset="100" data-speed="700" data-start="2500" data-easing="easeOutBack">Revolution</div>
+                    <div class="caption lfl blue-big" data-x="left" data-y="center" data-hoffset="-116" data-voffset="180" data-speed="700" data-start="2700" data-easing="easeOutBack">Video Slide</div>
+                    <div class="caption lfl black-small" data-x="left" data-y="center" data-hoffset="142" data-voffset="260" data-speed="500" data-start="2900" data-easing="easeOutBack">Ideas & Concepts</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-element">
+        <div class="container">
+            <div class="latest-posts fadeDown">
+                <h4>Sản phẩm mới nhất</h4>
+                <div class="posts">
+                    <div class="row">
+                        <div class="span6">
+                            <div class="post">
+                                <div class="row">
+                                    <div class="span3 latest-post-media">
+                                        <div class="thumbnail post-media">
+                                            <img src="~/Template/stylish.holobest.com/images/blog-thumbnail02.png" alt="post image" />
+
+                                            <div class="thumbnail-hover">
+                                                <a href="~/Template/stylish.holobest.com/images/pop-up.png"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span3 latest-post-content">
+                                        <div class="post-content">
+                                            <div class="post-title">
+                                                <h3><i class="icon-camera post-title-icon"></i>Never Give Up</h3>
+                                            </div>
+
+                                            <div class="post-info clearfix">
+                                                <div class="post-date">
+                                                    <i class="icon-calendar"></i>
+                                                    <p>Nov 10, 2012</p>
+                                                </div>
+
+                                                <div class="post-category">
+                                                    <i class="icon-pencil"></i>
+                                                    <a href="#">Design</a>
+                                                </div>
+
+                                                <div class="post-comments">
+                                                    <i class="icon-comments"></i>
+                                                    <a href="#">(3)</a>
+                                                </div>
+                                            </div>
+
+                                            <div style="clear: both"></div>
+
+                                            <div class="post-excerpt">
+                                                <p>
+                                                    Donec magna nunc, vestibulum
+                                                    at erat ac, mollis varius nunc. Maecenas nec hendrerit nunc. Integer interdum neque lorem, eget mattis dui vehicula at.
+                                               
+                                                </p>
+                                            </div>
+
+                                            <div class="stylish-button">
+                                                <a href="#">read more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span6 latest-post">
+                            <div class="post">
+                                <div class="row">
+                                    <div class="span3 latest-post-media">
+                                        <div class="thumbnail post-media">
+                                            <img src="~/Template/stylish.holobest.com/images/blog-thumbnail03.png" alt="post image" />
+
+                                            <div class="thumbnail-hover">
+                                                <a href="~/Template/stylish.holobest.com/images/pop-up.png"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span3 latest-post-content">
+                                        <div class="post-content">
+                                            <div class="post-title">
+                                                <h3><i class="icon-camera post-title-icon"></i>Perfect Business</h3>
+                                            </div>
+
+                                            <div class="post-info clearfix">
+                                                <div class="post-date">
+                                                    <i class="icon-calendar"></i>
+                                                    <p>Nov 10, 2012</p>
+                                                </div>
+
+                                                <div class="post-category">
+                                                    <i class="icon-pencil"></i>
+                                                    <a href="#">Design</a>
+                                                </div>
+
+                                                <div class="post-comments">
+                                                    <i class="icon-comments"></i>
+                                                    <a href="#">(3)</a>
+                                                </div>
+                                            </div>
+
+                                            <div style="clear: both"></div>
+
+                                            <div class="post-excerpt">
+                                                <p>
+                                                    Donec magna nunc, vestibulum
+                                                    at erat ac, mollis varius nunc. Maecenas nec hendrerit nunc. Integer interdum neque lorem, eget mattis dui vehicula at.
+                                               
+                                                </p>
+                                            </div>
+
+                                            <div class="stylish-button">
+                                                <a href="#">read more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span6 latest-post">
+                            <div class="post">
+                                <div class="row">
+                                    <div class="span3">
+                                        <div class="thumbnail post-media">
+                                            <img src="~/Template/stylish.holobest.com/images/blog-thumbnail.png" alt="post image" />
+
+                                            <div class="thumbnail-hover">
+                                                <a href="~/Template/stylish.holobest.com/images/pop-up.png"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span3">
+                                        <div class="post-content">
+                                            <div class="post-title">
+                                                <h3><i class="icon-camera post-title-icon"></i>Emotional State</h3>
+                                            </div>
+
+                                            <div class="post-info clearfix">
+                                                <div class="post-date">
+                                                    <i class="icon-calendar"></i>
+                                                    <p>Nov 10, 2012</p>
+                                                </div>
+
+                                                <div class="post-category">
+                                                    <i class="icon-pencil"></i>
+                                                    <a href="#">Design</a>
+                                                </div>
+
+                                                <div class="post-comments">
+                                                    <i class="icon-comments"></i>
+                                                    <a href="#">(3)</a>
+                                                </div>
+                                            </div>
+
+                                            <div style="clear: both"></div>
+
+                                            <div class="post-excerpt">
+                                                <p>
+                                                    Donec magna nunc, vestibulum
+                                                    at erat ac, mollis varius nunc. Maecenas nec hendrerit nunc. Integer interdum neque lorem, eget mattis dui vehicula at.
+                                               
+                                                </p>
+                                            </div>
+
+                                            <div class="stylish-button">
+                                                <a href="#">read more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="testimonials" class="page-element">
+        <div class="container">
+            <h3>WHAT PEOPLE ARE SAYING</h3>
+            <p>Chính sách cam kết</p>
+
+            <div id="testimonial-content">
+                <ul id="hidden-quotes">
+                    <li data-author="Kiều&nbsp;Trọng&nbsp;Khánh">Chúng tôi hiểu rằng, để tạo dựng được niềm tin của khách hàng ngoài chất lượng sản phẩm dịch vụ còn ở chính sự cam kết của chúng tôi trong suốt quá trình hoạt động.</li>
+                    <li data-author="Phạm&nbsp;Hồng&nbsp;Sang">Chúng tôi cam kết đảm bảo tính công khai thiết yếu mà mọi người tìm kiếm trên mỗi sản phẩm để có được sự lựa chọn phù hợp nhất.</li>
+                    <li data-author="Huỳnh&nbsp;Thanh&nbsp;Việt">Với khối lượng dữ liệu lớn cũng với mô hình xử lý thông minh.Chúng tôi tin rằng chúng tôi sẽ tạo ra được bước đột phá mới trong việc xử lý thông tin.</li>
+                </ul>
+
+                <div class="quote">
+                    <blockquote>
+                        <p class="quote-content" />
+                    </blockquote>
+
+                    <cite class="quote-author"></cite>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <footer>
+        <div id="inner-footer">
+            <div class="container">
+                <div class="row">
+                    <div id="footer-left-side" class="span8">
+                        <div id="footer-menu">
+                            <ul class="nav nav-pills">
+                                <li><a href="~/">trang chủ</a></li>
+                                <li><a class="last" href="~/">liên hệ</a></li>
+                            </ul>
+                        </div>
+
+                        <div id="footer-container-info">
+                            <div class="row">
+                                <div id="address-info" class="span4">
+                                    <p><i class="icon-home"></i> Innovation Building, Công viên phần mềm Quang Trung</p>
+                                </div>
+                                <div class="span2">
+                                    <i class="icon-phone"></i><p>+08 (223)-445-6678</p>
+                                </div>
+                                <div class="span2">
+                                    <i class="icon-envelope"></i><p>hotro@cps.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="footer-right-side" class="span3">
+                        <div id="stay-connected">
+                            <p>kết nối với chúng tôi</p>
+                        </div>
+
+                        <div id="footer-social-icons" class="clearfix">
+                            <a href="javascript:void(0)" class="facebook-icon social-icon"><i class="icon-facebook"></i></a>
+                            <a href="javascript:void(0)" class="twitter-icon social-icon"><i class="icon-twitter"></i></a>
+                            <a href="javascript:void(0)" class="dribble-icon social-icon"><i class="icon-dribbble"></i></a>
+                            <a href="javascript:void(0)" class="pinterest-icon social-icon"><i class="icon-pinterest"></i></a>
+                            <a href="javascript:void(0)" class="googleplus-icon social-icon"><i class="icon-google-plus"></i></a>
+                            <a href="javascript:void(0)" class="tumblr-icon social-icon"><i class="icon-tumblr"></i></a>
+                            <a href="javascript:void(0)" class="instagram-icon social-icon"><i class="icon-instagram"></i></a>
+                            <a href="javascript:void(0)" class="rss-icon social-icon"><i class="icon-rss"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="copyright-container" class="container">
+            <div class="container">
+                <p>&copy;Copyright 2014 CPS Solution BY Group 13. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="scroll-up-button">
+        <i class="icon-angle-up"></i>
+    </div>
+
+        <!-- jquery Libraries -->
+    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery-ui.min.js")"></script>
+    
+    <!-- Bootstrap Libraries -->
+    <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/bootstrap/js/bootstrap.js")"></script>
+
+    <!-- Masonry Library -->
+    <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/isotope/jquery.isotope.min.js")"></script>
+    <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/isotope/imagesloaded.pkgd.min.js")"></script>
+
+    <!-- Revolution Slider jQuery-->
+    <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/revolution-slider/js/jquery.themepunch.revolution.min.js")"></script>
+
+    <!-- Quote Rotator jQuery-->
+    <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/quote-rotator/js/jquery.quoterotator.min.js")"></script>
+
+    <!-- Inview Plugin-->
+    <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/inview/jquery.inview.js")"></script>
+
+    <!-- Magnific Popup Plugin -->
+    <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/magnific-popup/jquery.magnific-popup.min.js")"></script>
+    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/main.js")"></script>
+    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/custom.js")"></script>
+    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/plugins.js")"></script>
+</body>
+</html>
