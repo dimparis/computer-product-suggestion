@@ -35,9 +35,9 @@
                                                 <img src="images/icons/color/page_white_text.png" alt="">Lưu file</a></li>
                                         </ul>
                                     </div> *@
-            <div class="da-panel collapsible">
+                    <div class="da-panel collapsible">
                   @if (listDup != null)
-                {
+                  {
                 <div class="da-panel-header">
                     <span class="da-panel-title">
                         <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
@@ -50,12 +50,12 @@
                     <input style="visibility: hidden" />
                 </div>
               
-                    int i = 0;
+                      int i = 0;
 
-                    foreach (List<ProductMap> listp in listDup)
-                    {
-                        i++;
-                        // nút gộp tách
+                      foreach (List<ProductMap> listp in listDup)
+                      {
+                          i++;
+                          // nút gộp tách
                     <div class="da-panel-toolbar top" style="border-color: yellowgreen">
                         <ul>
                             <li style="text-align: right"><a id ="link_@(i)"  onclick="gop1table(@(i))">
@@ -88,8 +88,8 @@
                                             <input style="width: 19px;" value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
                                         <td>@p.ten</td>
-                                        <td>@p.trongso</td>                              
-                                        <td class=" ">@p.loai</td>
+                                        <td>@p.trongso</td>
+                                         <td class=" ">@p.loai</td>
                                         <td class="da-icon-column">
 
                                             <!-- Nếu là sản phẩm đầu tiên thì check radio-->
@@ -111,15 +111,15 @@
                     <div class="da-panel-content">
                         <input style="visibility: hidden" />
                     </div>
-                    }
-                }
+                      }
+                  }
 
 
             </div>
              <!-------------------listdupnew--------------------------------------------------------------------------------------->
              <div class="da-panel collapsible">
                   @if (listDupnew != null)
-                {
+                  {
                 <div class="da-panel-header">
                     <span class="da-panel-title">
                         <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
@@ -132,17 +132,17 @@
                     <input style="visibility: hidden" />
                 </div>
                
-                    int i = 0;
+                      int i = 0;
 
-                    foreach (List<ProductMap> listp in listDupnew)
-                    {
-                        i++;
-                        // nút gộp tách
+                      foreach (List<ProductMap> listp in listDupnew)
+                      {
+                          i++;
+                          // nút gộp tách
                     <div class="da-panel-toolbar top" style="border-color: yellowgreen">
                         <ul>
                             <li style="text-align: right"><a id ="link_@(i)"  onclick="gopdatabase(@(i))">
                                 <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_in.png" alt="">Gộp</a></li>
-                            <li style="text-align: right"><a  onclick="tachdatabase(@(i))" > 
+                            <li style="text-align: right"><a  onclick="showPopupEditTach(@(i))" > 
                                 <img src="~/Areas/Admin/Dandelion/images/icons/color/arrow_out.png" alt="">Tách</a></li>
                             <center><label style="font-size:medium">Nhóm sản phẩm trùng</label> </center>
                         </ul>
@@ -169,21 +169,52 @@
                                         <td id="@(y)" class="checked">
                                             <input style="width: 19px;" checked="checked" disabled value="@p.stt" id="checkbox@(y)" type="checkbox">
                                         </td>
-                                        <td>@p.ten</td>
-                                        <td>@p.trongso</td>  
-                                       <td class=" ">@p.loai</td>
-                                       @*   <td class="da-icon-column">
+                                        <td><label>@p.ten</label></td>
+                                        <td><label>@p.trongso</label></td>                                 
+                                        <td  class=" "><label>@p.loai</label>
 
-                                           Nếu là sản phẩm đầu tiên thì check radio
-                                            @if (y == 1)
-                                            {
-                                                <input name="radio_@(i)" value="@p.stt" type="radio" checked="checked" >
-                                            }
-                                            else
-                                            {
-                                                <input name="radio_@(i)" value="@p.stt" type="radio"> 
-                                            }
-                                        </td>*@
+ 
+                                            @if(y>1){
+                                                <!----------------Popup sửa sản phẩm đúng----------->                                          
+                                                <div id="Edit-@i-Popup-div" style="display: none;">
+                                                    <div class="da-panel">
+                                                        <div class="da-panel-content">
+                                                            <form class="da-form">
+                                                                <div class="da-form-inline">
+                                                                    <div class="da-form-row">
+                                                                        <label>Tên thành phần</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Tên thành phần phải từ 5 tới 100 ký tự.</span>
+                                                                            <input  id="idTenDup@(p.stt)" value="@p.ten" type="text">
+                                                                        </div>
+                                                                    </div>                                                                   
+                                                                    <div class="da-form-row">
+                                                                        <label>Trọng số thành phần</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Trọng số thành phần phải là số</span>
+                                                                            <input id="idTrongsoDup@(p.stt)" value="@p.trongso" type="text">
+                                                                        </div>
+                                                                    </div>                                                                                                                                 
+                                                                    <div class="da-form-row">
+                                                                        <label>Loại thành phần</label>
+                                                                        <div class="da-form-item">
+                                                                            <span class="formNote">Loại thành phần phải là C,V,H,D,R</span>
+                                                                            <input id="idLoaiDup@(p.stt)" value="@p.loai" type="text">                                                                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="da-button-row">
+                                                                        <input id="socuapopup@(p.stt)" value="@i" hidden type="text">    
+                                                                                                                                         
+                                                                        <input onclick="EditTachPro(@p.stt.Substring(1, 1))" type="button" value="Lưu" class="da-button green">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!----------------Popup------------------>
+                                                }
+                                        </td>                                    
                                     </tr> 
                                                             
                                 }
@@ -193,8 +224,6 @@
                     <div class="da-panel-content">
                         <input style="visibility: hidden" />
                     </div>
-                    }
-                }
-
-
+                      }
+                  }
             </div>

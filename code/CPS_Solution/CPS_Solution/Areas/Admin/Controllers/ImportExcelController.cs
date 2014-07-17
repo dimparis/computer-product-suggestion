@@ -1062,6 +1062,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         i--;
                         break;
                     }
+
+                }
+                if (count2 > 0)
+                {
+                    break;
                 }
             }
              ViewBag.listduplicatenew = (List<List<ProductMap>>)Session["listduplicatenew"];
