@@ -48,27 +48,25 @@
                     <div class="thumbnail post-media">
                         <img src="~/Images/I/default.jpg" />
                         <div class="thumbnail-hover">
-                            <div class="post-info clearfix">
+                            <div class="post-info">
+                                <div class="post-date"><strong style="color:white;">Thông tin sản phẩm</strong></div>
+                                <div class="post-date"><br /><br /></div>
                                 <div class="post-date">
-                                    <i class="icon-caret-right">CPU:</i>
-                                    <p>@item.strCPU</p>
-                                </div>
-                                <div class="post-date">
-                                    <i class="icon-caret-right">VGA:</i>
-                                    <p>@item.strVGA</p>
-                                </div>
-                                <div class="post-date">
-                                    <i class="icon-caret-right">RAM:</i>
-                                    <p>@item.strRAM</p>
-                                </div>
-                                <div class="post-date">
-                                    <i class="icon-caret-right">HDD:</i>
-                                    <p>@item.strHDD</p>
-                                </div>
-                                <div class="post-date">
-                                    <i class="icon-caret-right">Display:</i>
-                                    <p>@item.strDisplay</p>
-                                </div>
+                                    <i class="icon-caret-right"><strong style="color:white;">CPU : </strong></i>
+                                    <p><strong style="color:white;">@item.strCPU</strong></p>
+                                    <br />
+                                    <i class="icon-caret-right"><strong style="color:white;">VGA : </strong></i>
+                                    <p><strong style="color:white;">@item.strVGA</strong></p>
+                                    <br />
+                                    <i class="icon-caret-right"><strong style="color:white;">RAM : </strong></i>
+                                    <p><strong style="color:white;">@item.strRAM</strong></p>   
+                                    <br />
+                                    <i class="icon-caret-right"><strong style="color:white;">HDD : </strong></i>
+                                    <p><strong style="color:white;">@item.strHDD</strong></p>
+                                    <br />
+                                    <i class="icon-caret-right"><strong style="color:white;">Display : </strong></i>
+                                    <p><strong style="color:white;">@item.strDisplay</strong></p>
+                                </div>                                
                             </div>
                         </div>
                     </div>
@@ -80,6 +78,11 @@
                             <h3>
                                 <i class="icon-bookmark post-title-icon"></i>
                                 <span class="product-name" title="@item.Name">@item.Name</span>
+                                @*@if(@item.Name.Length > 40){
+                                    @item.Name.Substring(0, 10);
+                                    <span>...</span>
+                                }*@
+                                
                             </h3>
                         </div>
 
@@ -173,4 +176,17 @@
         </div>
     }
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var product_name = $('.product-name');
+        for (var i = 0; i >= product_name.length; i++ ){
+            if (product_name[i].innerHTML > 40) {
+                console.log(product_name[i].innerHTML)
+            } else if (product_name[i].innerHTML < 17) {
+                console.log(product_name[i].innerHTML)
+            }
+        }
+    });
+</script>
 
