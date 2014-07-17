@@ -1,0 +1,145 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    Layout = null;
+    List<Product> listproconfirm = ViewBag.listproconfirm;
+}
+
+<!-- Demo JavaScript Files -->
+<script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+  <!-------------------------------------------------------------------------------------------> 
+<!------------------------------------------------------------------------------------------->
+<div  class="da-panel collapsible">
+    <div class="da-panel-header">
+        <span class="da-panel-title">
+            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+            Kích hoạt Laptop mới trong cơ sở dữ liệu.
+        </span>
+
+        <span class="da-panel-toggler"></span>
+    </div>
+    <div class="da-panel-content">
+        <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+
+
+            <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">ID</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên Laptop</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên Laptop</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Tên Laptop</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Tên Laptop</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Kích Hoạt</th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 50px;">Thực hiện</th>
+                    </tr>
+                </thead>
+
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                    @if (listproconfirm != null)
+                    {
+                        foreach (Product h in listproconfirm)
+                        {
+                        <tr class="odd">
+
+                            <td class=" sorting_1">@h.ID</td>
+                            <td class=" ">
+                                <label style="width: 100px;">@h.Name</label></td>
+                            <td class=" ">
+                                <label style="width: 100px;" id="hiddenCodetype">@h.strCPU</label>
+
+                            </td>
+                            
+                            <td class=" ">
+                                <label style="width: 100px;">@h.strDisplay</label></td>
+                            <td class=" ">
+                                <label style="width: 100px;">@h.strDisplay</label></td>
+                            <td class=" "> <input style="width:52px" onclick="ActiveLaptop(@h.ID)" value="Kích Hoạt" class="da-button green">
+                            </td>
+                            <td class=" ">
+                           
+                                <a onclick="showPopupEdit(@h.ID)">
+                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
+                                    Sửa</a>
+
+                                <!----------------Popup sửa sản phẩm đúng----------->
+                                <div id="Edit-@h.ID-Popup-div" style="display: none;">
+                                    <div class="da-panel">
+                                        <div class="da-panel-content">
+                                            <form class="da-form">
+                                                <div class="da-form-inline">
+                                                    <div class="da-form-row">
+                                                        <label>Laptop</label>
+                                                        <div class="da-form-item">
+                                                            <span class="formNote">Laptop chứa thành phần</span>
+                                                            <input disabled id="idNameProduct@(h.ID)" value="@h.Name" type="text">
+                                                            <input hidden id="idproduct@(h.ID)" value="@h.ID" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="da-form-row">
+                                                        <label>Loại</label>
+                                                        <div class="da-form-item">
+                                                            <span class="formNote">Loại thành phần</span>
+                                                            <input id="idCodetypeHard@(h.ID)" disabled value="@h.Name" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="da-form-row">
+                                                        <label>Tên thành phần</label>
+                                                        <div class="da-form-item">
+                                                            <span class="formNote">Tên thành phần phải từ 5 tới 100 ký tự.</span>
+                                                            <input name="idNameHard@(h.ID)" id="Hardware"  type="text">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="da-form-row">
+                                                                <label>Laptop</label>
+                                                                <div class="da-form-item">
+                                                                    <span class="formNote">Danh sách các Laptop</span>
+                                                                    @Html.DropDownList("CPUList", ViewBag.ProductList as List<SelectListItem>, new { @class = "chzn-select", id = @h.ID,@style = "width: 250px;" })
+                                                                </div>
+                                                     </div> 
+                                                    <div class="da-button-row">
+                                                        <input onclick="EditHardware(@h.ID)" type="button" value="Lưu" class="da-button green">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                  @*  <script type="text/javascript">
+                                        var loai = $('#hiddenCodetype').val();
+                                        $(document).ready(function () {
+                                            $("#Hardware").autocomplete({
+                                                source: function(request,response) {
+                                                    $.ajax({
+                                                        url: "../ConfirmNewHardware/AutoCompleteHardware",
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        data: JSON.stringify({ term: request.term}),
+                                                        contentType: 'application/json',
+                                                        success: function (data) {
+                                                            response($.map(data, function (item) {
+                                                                return { label: item.Name, value: item.Name };
+                                                            }))
+                                                        }
+                                                    })
+                                                },
+                                                messages: {
+                                                    noResults: "", results: ""
+                                                }
+                                            });
+                                        })
+</script>*@
+                                </div>
+
+                                <!----------------Popup------------------>
+                            </td>
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
