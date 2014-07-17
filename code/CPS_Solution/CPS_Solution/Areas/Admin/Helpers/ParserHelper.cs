@@ -728,7 +728,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     var attAD = context.Hardwares.FirstOrDefault(a => a.ID == id);
                     if (attAD != null)
                     {
-                        content = newProductID + "-" + attAD.Name + '|' + attAD.CodetypeID + '|' + attAD.WeightCriteraPoint +'|'+ "#";
+                        content = newProductID + "~" + attAD.Name + '|' + attAD.CodetypeID + '|' + attAD.WeightCriteraPoint +'|'+ "#";
                     }
                 }
             }
