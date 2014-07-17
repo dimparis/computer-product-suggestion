@@ -1653,7 +1653,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng HDD 3
                             for (int x = 0; x < listHDD.Count; x++)
                             {
-                                if (listduplicatenew[i][j].HDD.Equals(listHDD[x].Name))
+                                if (listduplicatenew[i][j].HDD.Trim().Equals(listHDD[x].Name))
                                 {
                                     break;
                                 }
@@ -2445,7 +2445,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         break;
                     }
                 }
-                ViewBag.listduplicatenew = (List<List<LapData>>)Session["listduplicatenewLapT"];
+                ViewBag.listduplicatenewLap = (List<List<LapData>>)Session["listduplicatenewLapT"];
                 return View();
             }
         }
