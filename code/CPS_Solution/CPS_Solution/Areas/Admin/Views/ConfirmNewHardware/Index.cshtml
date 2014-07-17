@@ -253,27 +253,26 @@
                                     <input name="idproduct" type="hidden"  value="@h.IdProduct" />
                                     <a onclick="showPopupEdit(@h.IdHardware);">
                                         <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
-                                        Sửa</a>
-
+                                        Mapping</a>
                                     <!----------------Popup sửa sản phẩm đúng----------->
                                     <div id="Edit-@h.IdHardware-Popup-div" style="display: none;">
                                         <div class="da-panel">
                                             <div class="da-panel-content">
                                                 <form class="da-form">
                                                     <div class="da-form-inline">
-                                                        <div class="da-form-row">
+                                                        <div hidden class="da-form-row">
                                                             <label>Laptop</label>
-                                                            <div class="da-form-item">
+                                                            <div  class="da-form-item">
                                                                 <span class="formNote">Laptop chứa thành phần</span>
                                                                 <input disabled id="idNameProduct@(h.IdHardware)" value="@h.NameProduct" type="text">
                                                                 <input hidden id="idproduct@(h.IdHardware)" value="@h.IdProduct" type="text">
                                                             </div>
                                                         </div>
-                                                        <div class="da-form-row">
-                                                            <label>Loại</label>
+                                                        <div hidden class="da-form-row">
+                                                            <label>Tên</label>
                                                             <div class="da-form-item">
-                                                                <span class="formNote">Loại thành phần</span>
-                                                                <input id="idCodetypeHard@(h.IdHardware)" disabled value="@h.CodetypeHardware" type="text">
+                                                                <span class="formNote">Tên thành phần</span>
+                                                                <input disabled id="idCodetypeHard@(h.IdHardware)"  value="@h.NameHardware" type="text">
                                                             </div>
                                                         </div>
                                                         @if (h.CodetypeHardware == "CPU")
@@ -326,15 +325,15 @@
                                                                 </div>
                                                             </div> 
                                                         }
-                                                        <div class="da-form-row">
+                                                        <div hidden class="da-form-row">
                                                             <label>Trọng số</label>
                                                             <div class="da-form-item">
                                                                 <span class="formNote">Trọng số phải là số nguyên</span>
-                                                                <input id="idWeightHard@(h.IdHardware)" value="@h.WeightHardware" type="text">
+                                                                <input disabled id="idWeightHard@(h.IdHardware)" value="@h.WeightHardware" type="text">
                                                             </div>
                                                         </div>
                                                         <div class="da-button-row">
-                                                            <input onclick="EditHardware(@h.IdHardware);" type="button" value="Lưu" class="da-button green">
+                                                            <input onclick="EditHardware(@h.IdHardware)" type="button" value="Mapping" class="da-button green">
                                                         </div>
                                                     </div>
                                                 </form>
@@ -367,7 +366,7 @@
     function showPopupEdit(i){
         $("#Edit-"+i+"-Popup-div").dialog({
             autoOpen: false, 
-            title: "Xác nhận hoặc sửa thành phần mới", 
+            title: "Mapping tên thành phần", 
             width: "600", 
             modal: true             
             //buttons: [{
@@ -401,7 +400,7 @@
     //Kich hoạt 1 phần cứng
     function ActiveHardware(id)
     {
-        if (confirm("Bạn có chắc chắn muôn xóa sản phẩm này?")) {
+        if (confirm("Bạn có chắc chắn muôn kích hoạt thành phần này?")) {
             var postData = {stringid: id };
             $.ajax({
                 type: "POST",
@@ -417,49 +416,70 @@
         }
     }
 
-
-    // Sửa sản phẩm đúng
-    function EditHardware(stt){                               
-        var Name =  document.getElementById("idNameHard"+stt).value;
-        var Weight = document.getElementById("idWeightHard"+stt).value;
-        var IsActive = document.getElementById("IsActive"+stt).value;
+    //
+    function EditHardware(stt){   
+        var div = document.getElementById(stt+"_chzn");
+        var spans = div.getElementsByTagName("span");
+        var nameHardware =  spans[0].innerHTML;
+        var IdHardware =   $( "#"+stt ).val();
         var ProductID = document.getElementById("idproduct"+stt).value;
-        var string = stt +'@@'+Name+'@@'+Weight+'@@'+ IsActive+'@@'+ProductID;
-        var count =0;                            
-        // kiểm tra tên
-        if(Name.length<1||Name.length>100)
-        {
-            document.getElementById("idNameHard"+stt).style.borderColor='red';
-            count++;
-        }else {
-            document.getElementById("idNameHard"+stt).style.borderColor="";
-        }                        
-        // kiểm tra trọng số
-        // kiểm tra giá
-        myFunction(Weight);
-        function myFunction(Weight) {
-            val = parseFloat(Weight);
-            if(isNaN(val)){
-                document.getElementById("idWeightHard"+stt).style.borderColor='red';
-                count++;
-            }else{
-                document.getElementById("idWeightHard"+stt).style.borderColor="";
-            }
-        }                
-        if(count==0)
-        {
-            var postData = {HardInfo: string };
-            $.ajax({
-                type: "POST",
-                url: "/Admin/ConfirmNewHardware/EditHardware",
-                data: postData,
-                success: function(data){
-                    // $('#white-icon').html(data);
-                    $("#Edit-"+stt+"-Popup-div").dialog( "close");
-                },
+        var string = stt+'@@'+IdHardware+'@@'+ProductID;
+        
+        var postData = {HardInfo: string };
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/ConfirmNewHardware/EditHardware",
+                    data: postData,
+                    success: function(data){
+                        LoadTableAjax();
+                        $("#Edit-"+stt+"-Popup-div").dialog( "close");
+                    },
 
-            });
-        }       
-        // nếu không phát hiện lỗi thì gửi về controller để xử lý                       
-    }   
+                });
+
+    }
+    //// Sửa sản phẩm đúng
+    //function EditHardware(stt){                               
+    //    var Name =  document.getElementById("idNameHard"+stt).value;
+    //    var Weight = document.getElementById("idWeightHard"+stt).value;
+    //    var IsActive = document.getElementById("IsActive"+stt).value;
+    //    var ProductID = document.getElementById("idproduct"+stt).value;
+    //    var string = stt +'@@'+Name+'@@'+Weight+'@@'+ IsActive+'@@'+ProductID;
+    //    var count =0;                            
+    //    // kiểm tra tên
+    //    if(Name.length<1||Name.length>100)
+    //    {
+    //        document.getElementById("idNameHard"+stt).style.borderColor='red';
+    //        count++;
+    //    }else {
+    //        document.getElementById("idNameHard"+stt).style.borderColor="";
+    //    }                        
+    //    // kiểm tra trọng số
+    //    // kiểm tra giá
+    //    myFunction(Weight);
+    //    function myFunction(Weight) {
+    //        val = parseFloat(Weight);
+    //        if(isNaN(val)){
+    //            document.getElementById("idWeightHard"+stt).style.borderColor='red';
+    //            count++;
+    //        }else{
+    //            document.getElementById("idWeightHard"+stt).style.borderColor="";
+    //        }
+    //    }                
+    //    if(count==0)
+    //    {
+    //        var postData = {HardInfo: string };
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/Admin/ConfirmNewHardware/EditHardware",
+    //            data: postData,
+    //            success: function(data){
+    //                // $('#white-icon').html(data);
+    //                $("#Edit-"+stt+"-Popup-div").dialog( "close");
+    //            },
+
+    //        });
+    //    }       
+    //    // nếu không phát hiện lỗi thì gửi về controller để xử lý                       
+    //}   
 </script>
