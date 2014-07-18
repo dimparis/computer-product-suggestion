@@ -20,7 +20,7 @@
 			backgroundPatterns = {
 			blueprint: {
 				name: 'Blueprint', 
-				file: 'images/bg/blueprint.png'
+				file: 'images/bg/blueprint123.png'
 			}, 
 			bricks: {
 				name: 'Bricks', 

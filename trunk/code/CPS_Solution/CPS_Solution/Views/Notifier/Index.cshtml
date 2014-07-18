@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<head>
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/reset.css")" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/fluid.css")" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.theme.css")" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.css")" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/demo.css")" media="screen" />
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js")"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.placeholder.js")"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js")"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js")"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js")"></script>
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css")" media="screen" />
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css")" />
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+
+
+</head>
+<h2>Index</h2>
+<div id="show">
+    <div id="new"></div>
+</div>
+<script>
+
+    setInterval(function () {
+        $.ajax({
+            url: "/Notifier/GetNotify",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ username: "member1" }),
+            success: function (data) {
+
+                if (data != "NoneData") {
+                    alert("so sanh string");
+                } else if (data != "NoneData" && data.length > 0) {
+                    alert("right flow");
+                    var target = $("#new");
+                    target.empty();
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        target.append('<p>' + item.Username + '</p>');
+                    }
+                }
+                else {
+                    alert("None Model Here");
+                }
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+
+    }, 2000);
+</script>
