@@ -17,6 +17,7 @@ namespace CPS_Solution.EntityFramework
         public int ID { get; set; }
         public int HistoryID { get; set; }
         public int ProductID { get; set; }
+        public Nullable<bool> isWinner { get; set; }
     
         public virtual History History { get; set; }
         public virtual Product Product { get; set; }

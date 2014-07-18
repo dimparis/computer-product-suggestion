@@ -89,6 +89,7 @@
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="lastLogin" Type="datetime" />
         </EntityType>
         <EntityType Name="AliasProduct">
           <Key>
@@ -144,6 +145,7 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="HistoryID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="isWinner" Type="bit" />
         </EntityType>
         <EntityType Name="LogFile">
           <Key>
@@ -220,6 +222,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="200" />
           <Property Name="IsApprove" Type="bit" />
           <Property Name="RecommendTime" Type="datetime" />
+          <Property Name="IsSeen" Type="bit" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -505,6 +508,7 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="lastLogin" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Role" Relationship="CPS_SolutionModel.FK_Account_Role" FromRole="Account" ToRole="Role" />
           <NavigationProperty Name="Histories" Relationship="CPS_SolutionModel.FK_History_Account" FromRole="Account" ToRole="History" />
           <NavigationProperty Name="RatingProducts" Relationship="CPS_SolutionModel.FK_RatingProduct_Account" FromRole="Account" ToRole="RatingProduct" />
@@ -574,6 +578,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="HistoryID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="isWinner" Type="Boolean" />
           <NavigationProperty Name="History" Relationship="CPS_SolutionModel.FK_HistoryDetail_History" FromRole="HistoryDetail" ToRole="History" />
           <NavigationProperty Name="Product" Relationship="CPS_SolutionModel.FK_HistoryDetail_Product" FromRole="HistoryDetail" ToRole="Product" />
         </EntityType>
@@ -661,6 +666,7 @@
           <Property Name="Name" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="IsApprove" Type="Boolean" />
           <Property Name="RecommendTime" Type="DateTime" Precision="3" />
+          <Property Name="IsSeen" Type="Boolean" />
           <NavigationProperty Name="Account" Relationship="CPS_SolutionModel.FK_RecommendProduct_Account" FromRole="RecommendProduct" ToRole="Account" />
         </EntityType>
         <EntityType Name="Role">
@@ -874,6 +880,7 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="lastLogin" ColumnName="lastLogin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -935,6 +942,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="isWinner" ColumnName="isWinner" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1018,6 +1026,7 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
                 <ScalarProperty Name="RecommendTime" ColumnName="RecommendTime" />
+                <ScalarProperty Name="IsSeen" ColumnName="IsSeen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
