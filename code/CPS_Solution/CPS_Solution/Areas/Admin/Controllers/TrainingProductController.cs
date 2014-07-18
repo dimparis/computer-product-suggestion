@@ -31,7 +31,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.Listduptraning = (List<List<ProductMap>>)Session["ListduptraningProduct"];
             return View();
         }
-
+        
         //LoadThanhPhanTrung từ txt
         public List<List<ProductMap>> LoadThanhPhanTrung()
         {
