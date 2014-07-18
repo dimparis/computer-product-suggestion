@@ -395,7 +395,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     {
                         #region  lưu product và product alias
                         Product p = new Product();
-                        p.ImageURL = listpro[i].Imagelink;
+                        string urlServer = urlImageServer(listpro[i].Imagelink);
+                        p.ImageURL = urlServer;
                         p.Price = 0;
                         p.TotalWeightPoint = 0;
                         p.IsActive = false;
@@ -948,8 +949,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     if (errorCount == 0)
                     {
                         Product p = new Product();
-
-                        p.ImageURL = listpro[i].Imagelink;
+                        string urlServer = urlImageServer(listpro[i].Imagelink);
+                        p.ImageURL = urlServer;
                         p.Price = 0;
                         p.TotalWeightPoint = 0;
                         p.IsActive = false;
@@ -2139,7 +2140,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 #region  lưu product và product alias
                                 Product p = new Product();
-                                p.ImageURL = listduplicatenew[i][j].Imagelink;
+                                string urlServer = urlImageServer(listduplicatenew[i][j].Imagelink);
+                                p.ImageURL = urlServer;
                                 p.Price = 0;
                                 p.TotalWeightPoint = 0;
                                 p.IsActive = false;
@@ -2591,8 +2593,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             {
                                 //-------------- nếu không phát hiện trùng linh kiện thì cho add mới sản phẩm ---------------------------
                                 Product p = new Product();
-
-                                p.ImageURL = listduplicatenew[i][j].Imagelink;
+                                string urlServer = urlImageServer(listduplicatenew[i][j].Imagelink);
+                                p.ImageURL = urlServer;
                                 p.Price = 0;
                                 p.TotalWeightPoint = 0;
                                 p.IsActive = false;
@@ -2944,6 +2946,29 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
         }
         #endregion
+
+        /// <summary>
+        /// Save image in server to insert db
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public string urlImageServer(string url)
+        {
+            try
+            {
+                //string url = "http://laptopno1.com/images/Products/129930991376352255.jpg";
+                string exts = Path.GetExtension(url);
+                string strRealname = Path.GetFileName(url);
+                string name = url.Replace('/', 'a');
+                name = name.Replace(':', 'b');
+                System.Net.WebClient wc = new System.Net.WebClient();
+                string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), name + exts);
+                wc.DownloadFile(url, path);
+                return path;
+            }catch(Exception ex){
+                return url;
+            }
+        }
 
         /// <summary>
         /// show thông tin về số lượng sản phẩm trong 3 tab
