@@ -30,11 +30,15 @@
 }
 <div class="page-element gray-element">
     <div class="container">
-        <div class="span4">
+        @*<h4 class="element-title">@Html.DisplayFor(model => model.Name)</h4>*@
+        <div class="span4" style="border-right-style:solid; border-right-color:#7dbb18; border-right-width:1px;">
             <img src="~/Images/I/default.jpg" alt="gallery image" />
         </div>
 
         <div class="span4">
+            <h4 class="element-title">@Html.DisplayFor(model => model.Name)</h4>
+            <div class="stylish-light-separator" style="margin-bottom:-50px;"></div>
+
             <div id="message-boxes" class="fadeRight">
                 <div class="row">
                     <div class="span4">
