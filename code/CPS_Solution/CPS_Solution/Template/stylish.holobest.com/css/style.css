@@ -88,3 +88,79 @@
     float:left;
     margin-right:5px;
 }
+
+/*Viet - Compare Cart*/
+#compare_panel {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 268px;
+    width: 300px;
+    text-decoration: none;
+    z-index: 200;
+    border: 1px solid #0078be;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    padding:10px 20px;
+    background: #FFF;
+    -webkit-box-shadow: #CCC -2px 2px 4px; 
+    -moz-box-shadow: #CCC -2px 2px 4px;
+    box-shadow: #CCC -2px 2px 4px;
+}
+
+#compare_panel ul {
+    padding:10px 0;
+}
+
+#compare_panel ul li {
+    padding:3px 0;
+    border-bottom: dotted #ccc 1px;
+}
+
+#compare_panel .compare-remove {
+    float: right;
+    color: #f40;
+    cursor: pointer;
+}
+
+#compare_panel .compare-close {
+    float: right;
+    margin-right: -6px;
+    background-image: url('http://ii.alatest.com/css/common/nb_close.gif');
+    height: 19px;
+    width: 19px;
+    cursor: pointer;
+}
+
+#compare_panel label {
+    display: block;
+    float: right;
+    padding-left: 10px;
+    height: 23px;
+    background: transparent url('http://ii.alatest.com/css/category/compare-button.png') 0 0;
+    cursor: pointer;
+}
+
+#compare_panel label.compare-button span{
+    display: inline-block;
+    height: 23px;
+    line-height: 23px;
+    white-space: nowrap;
+    font-size: 90%;
+    padding-right: 10px;
+    background:transparent url('http://ii.alatest.com/css/category/compare-button.png') 100% 0;
+}
+
+#compare_panel label.compare-button span {
+    color: #fff;
+    background-position: 100% -24px;
+}
+
+#compare_panel label.compare-button {
+    background-position: 0 -48px;
+}
+
+#compare_panel label.compare-button span {
+    color: #fff;
+    background-position: 100% -48px;
+}
