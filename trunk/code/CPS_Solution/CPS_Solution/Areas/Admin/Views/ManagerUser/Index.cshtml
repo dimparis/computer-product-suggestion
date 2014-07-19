@@ -231,7 +231,7 @@
                                 <input type="text" id="usernameCre">
                             </div>
                         </div>
-                        <div class="da-form-row">                         
+                        <div class="da-form-row">
                             <label>Mật Khẩu <span class="required">*</span></label>
                             <div class="da-form-item large">
                                 <span class="formNote">Mật khẩu phải từ 5 tới 100 ký tự</span>
@@ -239,15 +239,15 @@
                             </div>
                         </div>
                         <div class="da-form-row">
-                             <span class="formNote"></span>
+                            <span class="formNote"></span>
                             <label>Xác nhận mật khẩu<span class="required">*</span></label>
                             <div class="da-form-item large">
                                 <span class="formNote">Phải trùng với mật khẩu bên trên</span>
                                 <input type="password" name="password" id="pass2Cre">
                             </div>
                         </div>
-                         <div class="da-form-row">
-                             <span class="formNote"></span>
+                        <div class="da-form-row">
+                            <span class="formNote"></span>
                             <label>Email<span class="required">*</span></label>
                             <div class="da-form-item large">
                                 <span class="formNote">Ví dụ: hiepkhach@yahoo.com</span>
@@ -258,14 +258,14 @@
                             <label>Vai trò<span class="required">*</span></label>
                             <div class="da-form-item large">
                                 <select id="roleCre">
-                                   @if (listRole != null)
-                                   {
-                                       foreach (Role r in listRole)
-                                       {
-                                           <option value="@r.ID">@r.Rolename</option>   
-                                       }
-                                   }
-                                       
+                                    @if (listRole != null)
+                                    {
+                                        foreach (Role r in listRole)
+                                        {
+                                        <option value="@r.ID">@r.Rolename</option>   
+                                        }
+                                    }
+
                                 </select>
                             </div>
                         </div>
@@ -280,132 +280,135 @@
         </div>
     </div>
     <!----------------Popup------------------>
-    <div id ="loadtable">
-    <div class="da-panel collapsible">
-        <div class="da-panel-header">
-            <span class="da-panel-title">
-                <img src="images/icons/black/16/list.png" alt="">
-                Danh sách tài khoản
-            </span>
+    <div id="loadtable">
+        <div class="da-panel collapsible">
+            <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="images/icons/black/16/list.png" alt="">
+                    Danh sách tài khoản
+                </span>
 
-            <span class="da-panel-toggler"></span>
-        </div>
-        <div class="da-panel-content">
-            <div id="da-ex-datatable-default_wrapper" class="dataTables_wrapper" role="grid">
+                <span class="da-panel-toggler"></span>
+            </div>
+            <div class="da-panel-content">
+                <div id="da-ex-datatable-default_wrapper" class="dataTables_wrapper" role="grid">
 
 
-                <table id="da-ex-datatable-default" class="da-table dataTable" aria-describedby="da-ex-datatable-default_info">
-                    <thead>
-                        <tr role="row">
-                            <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 196px;">Tên Tài Khoản</th>
-                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 290px;">Email</th>
-                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 264px;">Vai trò</th>
-                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 169px;">Kích Hoạt</th>
-                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 133px;">Sửa</th>
-                        </tr>
-                    </thead>
-
-                    <tbody role="alert" aria-live="polite" aria-relevant="all">
-                        @if (listUser != null)
-                        {
-                            int i = 0;
-                            foreach (Account acc in listUser)
-                            {
-                                i++;
-                            <tr class="odd">
-                                <td class=" sorting_1">@acc.Username</td>
-                                <td class=" ">@acc.Email</td>
-                                <td class=" ">@acc.Role.Rolename</td>
-                                <td class=" ">
-                                      <input type="text" hidden  id="usernameActive@(i)" value ="@acc.Username">
-                                    @if(acc.IsActive!=true)
-                                    {                                     
-                                    <input type="button" onclick="ActiveUser(@i)" value="Không hoạt động" class="da-button red" >
-                                    }else
-                                    {
-                                    <input type="button" onclick="ActiveUser(@i)" value="Hoạt động" class="da-button blue" style="width:120px" data-id="5">
-                                    }
-                                </td>
-                                <td class=" ">
-                                    <a onclick="showPopupEdit(@i)">
-                                        <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
-                                        Sửa
-                                    </a>
-                                          
-                                                <!----------------Popup sửa tài khoản----------->
-                                                <div id="Edit-@(i)-Popup-div" style="display: none;">
-                                                    <div class="da-panel">     
-                                                        <div class="da-panel-content">
-                                                            <form id="da-ex-validate5" class="da-form" style="padding-top: 23px;" novalidate="novalidate">
-                                                                <fieldset class="da-form-inline">
-                                                                    <legend>Thông tin tài khoản</legend>
-                                                                    <div class="da-form-row">
-                                                                        <label>Tên tài khoản <span class="required">*</span></label>
-                                                                        <div class="da-form-item large">
-                                                                            <span class="formNote">Tên tài khoản phải từ 5 tới 100 ký tự</span>
-                                                                            <input type="text" id="usernameEdit@(i)" value ="@acc.Username" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="da-form-row">                         
-                                                                        <label>Mật Khẩu <span class="required">*</span></label>
-                                                                        <div class="da-form-item large">
-                                                                            <span class="formNote">Mật khẩu phải từ 5 tới 100 ký tự</span>
-                                                                            <input type="password" name="password" id="pass1Edit@(i)">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="da-form-row">
-                                                                         <span class="formNote"></span>
-                                                                        <label>Xác nhận mật khẩu<span class="required">*</span></label>
-                                                                        <div class="da-form-item large">
-                                                                            <span class="formNote">Phải trùng với mật khẩu bên trên</span>
-                                                                            <input type="password" name="password" id="pass2Edit@(i)">
-                                                                        </div>
-                                                                    </div>
-                                                                     <div class="da-form-row">
-                                                                         <span class="formNote"></span>
-                                                                        <label>Email<span class="required">*</span></label>
-                                                                        <div class="da-form-item large">
-                                                                            <span class="formNote">Ví dụ: hiepkhach@yahoo.com</span>
-                                                                            <input type="text" name="email" id="emailEdit@(i)">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="da-form-row">
-                                                                        <label>Vai trò<span class="required">*</span></label>
-                                                                        <div class="da-form-item large">
-                                                                            <select id="roleEdit@(i)">
-                                                                               @if (listRole != null)
-                                                                               {
-                                                                                   foreach (Role r in listRole)
-                                                                                   {
-                                                                                       <option value="@r.ID">@r.Rolename</option>   
-                                                                                   }
-                                                                               }                             
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </fieldset>
-
-                                                                <div class="da-button-row">                                                               
-                                                                    <input type="button" value="Update" onclick="EditAccount(@i)" class="da-button green">
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!----------------Popup------------------>
-                                </td>
+                    <table id="da-ex-datatable-default" class="da-table dataTable" aria-describedby="da-ex-datatable-default_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 196px;">Tên Tài Khoản</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 290px;">Email</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 264px;">Vai trò</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 169px;">Kích Hoạt</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 133px;">Sửa</th>
                             </tr>
+                        </thead>
+
+                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            @if (listUser != null)
+                            {
+                                int i = 0;
+                                foreach (Account acc in listUser)
+                                {
+                                    i++;
+                                <tr class="odd">
+                                    <td class=" sorting_1">@acc.Username</td>
+                                    <td class=" ">@acc.Email</td>
+                                    <td class=" ">@acc.Role.Rolename</td>
+                                    <td class=" ">
+                                        <input type="text" hidden  id="usernameActive@(i)" value ="@acc.Username">
+                                        <input type="text" hidden  id="RoleAcc@(i)" value ="@acc.RoleID">
+                                        @if (acc.IsActive != true)
+                                        {                                     
+                                            <input type="button" onclick="ActiveUser(@i)" value="Không hoạt động" class="da-button red" >
+                                        }
+                                        else
+                                        {
+                                            <input type="button" onclick="ActiveUser(@i)" value="Hoạt động" class="da-button blue" style="width:120px" data-id="5">
+                                        }
+                                    </td>
+                                    <td class=" ">
+                                        <a onclick="showPopupEdit(@i)">
+                                            <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
+                                            Sửa
+                                        </a>
+
+                                        <!----------------Popup sửa tài khoản----------->
+                                        <div id="Edit-@(i)-Popup-div" style="display: none;">
+                                            <div class="da-panel">
+                                                <div class="da-panel-content">
+                                                    <form id="da-ex-validate5" class="da-form" style="padding-top: 23px;" novalidate="novalidate">
+                                                        <fieldset class="da-form-inline">
+                                                            <legend>Thông tin tài khoản</legend>
+                                                            <div class="da-form-row">
+                                                                <label>Tên tài khoản <span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <span class="formNote">Tên tài khoản phải từ 5 tới 100 ký tự</span>
+                                                                    <input type="text" id="usernameEdit@(i)" value ="@acc.Username" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="da-form-row">
+                                                                <label>Mật Khẩu <span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <span class="formNote">Mật khẩu phải từ 5 tới 100 ký tự</span>
+                                                                    <input type="password" name="password" id="pass1Edit@(i)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="da-form-row">
+                                                                <span class="formNote"></span>
+                                                                <label>Xác nhận mật khẩu<span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <span class="formNote">Phải trùng với mật khẩu bên trên</span>
+                                                                    <input type="password" name="password" id="pass2Edit@(i)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="da-form-row">
+                                                                <span class="formNote"></span>
+                                                                <label>Email<span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <span class="formNote">Ví dụ: hiepkhach@yahoo.com</span>
+                                                                    <input type="text" name="email" value="@acc.Email" id="emailEdit@(i)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="da-form-row">
+                                                                <label>Vai trò<span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <select id="roleEdit@(i)">
+                                                                        @if (listRole != null)
+                                                                        {
+                                                                            foreach (Role r in listRole)
+                                                                            {
+                                                                            <option value="@r.ID">@r.Rolename</option>   
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+
+                                                        <div class="da-button-row">
+                                                            <input type="button" value="Update" onclick="EditAccount(@i)" class="da-button green">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!----------------Popup------------------>
+                                    </td>
+                                </tr>
+                                }
                             }
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-        </div>
 </div>
 <!-----------------------------------------javascript -------------------------------------->
 <script>
+   
 
     //Hiện popup để tạo tài khoản.
     function showPopupCreate() {
@@ -427,6 +430,7 @@
     //Hiện popup để edit tài khoản.
 
     function showPopupEdit(i) {
+          
         $("#Edit-"+i+"-Popup-div").dialog({
             autoOpen: false,
             title: "Sửa thông tin tài khoản!",
@@ -440,6 +444,8 @@
         });
         $("#Edit-"+i+"-Popup-div").dialog("option", { modal: true }).dialog("open");
         event.preventDefault();
+        var roleID = document.getElementById("RoleAcc"+i).value;
+        document.getElementById("roleEdit"+i).value = roleID;   
     }
 
  
@@ -613,40 +619,40 @@
         }
     }
 
-      ///  Active or deactive user
+    ///  Active or deactive user
     function ActiveUser(i) {
         var username = document.getElementById("usernameActive"+i).value;
         var postData = {username: username };
-            $.ajax({
-                type: "POST",
-                url: "/Admin/ManagerUser/ActiveUser",
-                data: postData,
-                success: function (data) {
-                    if(data=="admin")
-                    {
-                        alert("Bạn không thể cho một tài khoản admin ngừng hoạt động!");
-                    }
-                    else{
-                        loadTableAgain();
-                    }
-                },
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ManagerUser/ActiveUser",
+            data: postData,
+            success: function (data) {
+                if(data=="admin")
+                {
+                    alert("Bạn không thể cho một tài khoản admin ngừng hoạt động!");
+                }
+                else{
+                    loadTableAgain();
+                }
+            },
 
-            });
+        });
 
-        }
+    }
 
 
-      // load lại table
-        function loadTableAgain() {         
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin/ManagerUser/loadTableAgain",
-                    success: function (data) {
+    // load lại table
+    function loadTableAgain() {         
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ManagerUser/loadTableAgain",
+            success: function (data) {
                        
-                        $('#loadtable').html(data);
-                    },
-                });         
-        }
+                $('#loadtable').html(data);
+            },
+        });         
+    }
 
       
 
