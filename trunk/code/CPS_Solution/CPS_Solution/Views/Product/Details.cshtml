@@ -2,94 +2,106 @@
 
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
-    Layout = "~/Views/Shared/_Compare.cshtml";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-<!-- BREADCRUMB -->
-<div class="breadcrumb-container" style="height: 60px">
+
+@section navigator
+{
+    <div id="top-image" class="top-image3">
+        <div class="container">
+            <div id="top-image-caption">
+                <h2>chi tiết sản phẩm</h2>
+            </div>
+        </div>
+    </div>
+
+    <div id="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="span8">
+                    <ul class="breadcrumb">
+                        <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
+                        <li><p>chi tiết sản phẩm</p></li>
+                    </ul>
+                </div>                
+            </div>
+        </div>
+    </div>
+}
+<div class="page-element gray-element">
     <div class="container">
-        <div class="relative">
-            <ul class="bc unstyled clearfix">
-                <li><a href="~/">Trang chủ</a></li>
-                <li><a href="~/Product/SearchForProduct">Sản phẩm</a></li>
-                <li class="active">Chi tiết</li>
-            </ul>
+        <div class="span4">
+            <img src="~/Images/I/default.jpg" alt="gallery image" />
+        </div>
+
+        <div class="span4">
+            <div id="message-boxes" class="fadeRight">
+                <div class="row">
+                    <div class="span4">
+                        <div class="skill-bars-wrapper fadeCenter">
+                            <div class="skill-bar" style="background-color:#A1ECEC">
+                                <div class="skill-bar-header">
+                                    <h5>
+                                        Chipset
+                                        <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
+                                        <span>@Html.DisplayFor(model => model.strCPU)</span>
+
+                                    </h5>
+                                </div>
+                                <div class="skill-bar-fill" data-width="25"></div>
+                            </div>
+                            <div class="skill-bar" style="background-color:#A1ECEC">
+                                <div class="skill-bar-header">
+                                    <h5>
+                                        VGA
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
+                                        <span>@Html.DisplayFor(model => model.strVGA)</span>
+
+                                    </h5>
+                                </div>
+                                <div class="skill-bar-fill" data-width="25"></div>
+                            </div>
+                            <div class="skill-bar" style="background-color:#A1ECEC">
+                                <div class="skill-bar-header">
+                                    <h5>
+                                        RAM
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
+                                        <span>@Html.DisplayFor(model => model.strRAM)</span>
+
+                                    </h5>
+                                </div>
+                                <div class="skill-bar-fill" data-width="25"></div>
+                            </div>
+                            <div class="skill-bar" style="background-color:#A1ECEC">
+                                <div class="skill-bar-header">
+                                    <h5>
+                                        HDD
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
+                                        <span>@Html.DisplayFor(model => model.strHDD)</span>
+
+                                    </h5>
+                                </div>
+                                <div class="skill-bar-fill" data-width="25"></div>
+                            </div>
+                            <div class="skill-bar" style="background-color:#A1ECEC">
+                                <div class="skill-bar-header">
+                                    <h5>
+                                        Display
+                                        <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
+                                        <span>@Html.DisplayFor(model => model.strDisplay)</span>
+
+                                    </h5>
+                                </div>
+                                <div class="skill-bar-fill" data-width="25"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<!-- // BREADCRUMB -->
 
-<!-- SITE MAIN CONTENT -->
-<main id="main-content" role="main">
-    <section class="section">
-	    <div class="container">
-			<div class="row">
-                <!-- PRODUCT PREVIEW -->
-				<div class="col-xs-12 col-sm-4">
-					<div class="product-preview">
-						<div class="big-image">
-							<a href="@Url.Content("~/Template/GFashion/img/big-laptop.jpg")" data-toggle="lightbox">
-								<img src="@Url.Content("~/Template/GFashion/img/big-laptop.jpg")" alt="" />
-							</a>
-						</div>
-					</div>
-				</div>
-				<!-- // PRODUCT PREVIEW -->
-                <!-- PRODUCT DETAILS -->
-				<div class="col-xs-12 col-sm-8">
-					<section class="product-details add-cart">
-                        <header class="entry-header">
-							<h2 class="entry-title uppercase">@Html.DisplayFor(model => model.Name)</h2>
-						</header>
-                        <article class="entry-content">
-                            <figure>
-                                <span class="entry-price inline-middle">@Html.DisplayFor(model => model.Price) VNĐ</span>
-                                <ul class="entry-meta unstyled">
-									<li>
-										<span class="key">Chipset:</span>
-										<span class="value">@Html.DisplayFor(model => model.strCPU)</span>
-									</li>
-									<li>
-										<span class="key">Graphic card:</span>
-										<span class="value">@Html.DisplayFor(model => model.strVGA)</span>
-									</li>
-                                    <li>
-										<span class="key">Ram:</span>
-										<span class="value">@Html.DisplayFor(model => model.strRAM)</span>
-									</li>
-                                    <li>
-										<span class="key">Hard disk:</span>
-										<span class="value">@Html.DisplayFor(model => model.strHDD)</span>
-									</li>
-                                    <li>
-										<span class="key">Display:</span>
-										<span class="value">@Html.DisplayFor(model => model.strDisplay)</span>
-									</li>
-								</ul>
-                                <div class="clearfix"></div>
-                                <figcaption class="m-b-sm">
-                                    <h5 class="subheader uppercase">Quick Overview:</h5>
-                                    <p>@Html.DisplayFor(model => model.Description)</p>
-                                </figcaption>
-                                <ul class="inline-li li-m-r-l m-t-lg">
-									<li>
-										<a href="javascript:void(0)" class="btn btn-default btn-lg btn-round" id="btnAdd" data- product-id="@Html.DisplayFor(model => model.ID)" data-product-name="@Html.DisplayFor(model => model.Name)">Tới nơi bán</a>
-									</li>
-								</ul>
-                            </figure>
-                        </article>
-                    </section>  
-                                 
-                </div>
-              <div class="col-xs-12 col-sm-12" style="float:left">
-                    <section class="section" id="ui-buttons">
-							<div class="space30"></div>
-                             <pre class="code m-b m-t">
-                                 @{ Html.RenderPartial("TakeAliasProduct", Model.AliasProducts); }
-                             </pre>					
-					</section>     
-              </div>
-            </div>
-        </div>
-    </section>
-</main>
-<!-- // SITE MAIN CONTENT -->
