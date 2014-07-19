@@ -28,7 +28,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public void SendEmail(string address, string subject, string lapName)
         {
             string email = "latopsuggestion@gmail.com"; string password = "latopsuggestion1";
-            string message = "Laptop "+lapName+" mà bạn gợi ý cho hệ thống hiện đã được chúng tôi cập nhập"+
+            string message = "Laptop " + lapName + " mà bạn gợi ý cho hệ thống hiện đã được chúng tôi cập nhập" +
                 "\n Xin hãy vào địa chỉ để xem lại" + "http://localhost:28758/";
 
             var loginInfo = new NetworkCredential(email, password);
@@ -46,6 +46,37 @@ namespace CPS_Solution.Areas.Admin.Controllers
             smtpClient.Credentials = loginInfo; smtpClient.Send(msg);
         }
 
+        /// <summary>
+        /// Ghi lại report của user về latop
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <param name="idLap"></param>
+        /// <param name="contextReport"></param>
+        public void SaveLogReportLaptop(string idUser,string idLap, string contextReport)
+        {
+            // lấy dữ liệu trong file text traning ra LogFileReportLaptop;
+            string path = Server.MapPath("~Areas/Admin/LogFiles/LogFileReportLaptop.txt.txt");
+            if (System.IO.File.Exists(path))
+            {   // lấy hết dòng trong file txt ra.
+                string[] lines = System.IO.File.ReadAllLines(path);
+                // tảo mảng mới chứa dữ dữ liệu trùng.
+                string[] newlines = new string[1];
+                string newline = idLap + '|' + contextReport;
+                newlines[0] = newline;
+                //Gộp hai bảng thành mảng mới và lưu vào txt lại
+                string[] save = new string[lines.Length + newlines.Length];
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    save[i] = lines[i];
+                }
+                for (int i = 0; i < newlines.Length; i++)
+                {
+                    save[i + lines.Length] = newlines[i];
+                }
+                // ghi lại vào txt
+                System.IO.File.WriteAllLines(path, save);
+            }
+        }
 
     }
 }
