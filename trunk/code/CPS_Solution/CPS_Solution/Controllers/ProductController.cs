@@ -93,8 +93,56 @@ namespace CPS_Solution.Controllers
             {
                 return HttpNotFound();
             }
-            product.AliasProducts = db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == false).ToList();
+             product.AliasProducts = db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == false).ToList();
+            // lấy point Rating của product
+            double point = 0;
+            double allpoint = 0;
+            var Allrating = db.RatingProducts.Where(x => x.ProductID.Equals(id)).ToList();
+            if (Allrating.Count == 0)
+            {
+                point = 0;
+            }
+            else
+            {
+               foreach(RatingProduct r in Allrating){
+                   allpoint += r.Point;
+               }
+               point = allpoint / Allrating.Count;
+            }
+            string name = User.Identity.Name;
+             double pointLogint =0;
+             if (name != null)
+             {
+                 var pointUserLogin = db.RatingProducts.Where(x => x.ProductID.Equals(id) && x.Username.Equals(name)).SingleOrDefault();
+                 if (pointUserLogin != null)
+                 {
+                     pointLogint = pointUserLogin.Point;
+                 }
+             }
+             else
+             {
+                 pointLogint = -1;
+             }
+            Session["IdDetail"] = id;
+            ViewBag.pointLogin = pointLogint;
+            ViewBag.point = point;
+            //lấy rating của product trong db ra
             return View(product);
+        }
+
+        public string AddNewRating(string RatingPoint)
+        {
+           int id =  (int)Session["IdDetail"];
+            RatingProduct rating = new RatingProduct();
+            string name = User.Identity.Name;
+            rating.Point = Convert.ToInt32(RatingPoint);
+            rating.ProductID = id;
+            rating.Username = name;
+            db.RatingProducts.Add(rating);
+            db.SaveChanges();
+            Session["IdDetail"] = null;
+            return "";
+           
         }
 
         public ActionResult Recommend()

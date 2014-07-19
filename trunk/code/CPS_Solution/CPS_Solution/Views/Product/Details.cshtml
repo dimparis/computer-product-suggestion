@@ -3,7 +3,10 @@
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
+    double point = ViewBag.point;
+    double pointLogin = ViewBag.pointLogin;
 }
+
 
 @section navigator
 {
@@ -21,32 +24,46 @@
                 <div class="span8">
                     <ul class="breadcrumb">
                         <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
-                        <li><p>chi tiết sản phẩm</p></li>
+                        <li>
+                            <p>chi tiết sản phẩm</p>
+                        </li>
                     </ul>
-                </div>                
+                </div>
             </div>
         </div>
     </div>
 }
 <div class="page-element gray-element">
+
     <div class="container">
         @*<h4 class="element-title">@Html.DisplayFor(model => model.Name)</h4>*@
-        <div class="span4" style="border-right-style:solid; border-right-color:#7dbb18; border-right-width:1px;">
+        <div class="span4" style="border-right-style: solid; border-right-color: #7dbb18; border-right-width: 1px;">
             <img src="~/Images/I/default.jpg" alt="gallery image" />
         </div>
-
         <div class="span4">
             <h4 class="element-title">@Html.DisplayFor(model => model.Name)</h4>
-            <div class="stylish-light-separator" style="margin-bottom:-50px;"></div>
+            <!---Thẻ div này chính là rating @@----> 
+            @if (pointLogin > 0 || pointLogin<0)
+            {
+                <div class="exemple4" data-average="@point" data-id="4"></div>
+            }
+            else
+            {
+                 <div id="here" data-average="@point" data-id="6"></div>
+            }
+            
+           
+
+               
+            <div class="stylish-light-separator" style="margin-bottom: -50px;"></div>
 
             <div id="message-boxes" class="fadeRight">
                 <div class="row">
                     <div class="span4">
                         <div class="skill-bars-wrapper fadeCenter">
-                            <div class="skill-bar" style="background-color:#A1ECEC">
+                            <div class="skill-bar" style="background-color: #A1ECEC">
                                 <div class="skill-bar-header">
-                                    <h5>
-                                        Chipset
+                                    <h5>Chipset
                                         <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
                                         <span>@Html.DisplayFor(model => model.strCPU)</span>
 
@@ -54,10 +71,9 @@
                                 </div>
                                 <div class="skill-bar-fill" data-width="25"></div>
                             </div>
-                            <div class="skill-bar" style="background-color:#A1ECEC">
+                            <div class="skill-bar" style="background-color: #A1ECEC">
                                 <div class="skill-bar-header">
-                                    <h5>
-                                        VGA
+                                    <h5>VGA
                                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
                                         <span>@Html.DisplayFor(model => model.strVGA)</span>
@@ -66,10 +82,9 @@
                                 </div>
                                 <div class="skill-bar-fill" data-width="25"></div>
                             </div>
-                            <div class="skill-bar" style="background-color:#A1ECEC">
+                            <div class="skill-bar" style="background-color: #A1ECEC">
                                 <div class="skill-bar-header">
-                                    <h5>
-                                        RAM
+                                    <h5>RAM
                                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
                                         <span>@Html.DisplayFor(model => model.strRAM)</span>
@@ -78,10 +93,9 @@
                                 </div>
                                 <div class="skill-bar-fill" data-width="25"></div>
                             </div>
-                            <div class="skill-bar" style="background-color:#A1ECEC">
+                            <div class="skill-bar" style="background-color: #A1ECEC">
                                 <div class="skill-bar-header">
-                                    <h5>
-                                        HDD
+                                    <h5>HDD
                                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
                                         <span>@Html.DisplayFor(model => model.strHDD)</span>
@@ -90,10 +104,9 @@
                                 </div>
                                 <div class="skill-bar-fill" data-width="25"></div>
                             </div>
-                            <div class="skill-bar" style="background-color:#A1ECEC">
+                            <div class="skill-bar" style="background-color: #A1ECEC">
                                 <div class="skill-bar-header">
-                                    <h5>
-                                        Display
+                                    <h5>Display
                                         <span><i class="icon-caret-right">&nbsp;&nbsp;&nbsp;</i></span>
                                         <span>@Html.DisplayFor(model => model.strDisplay)</span>
 
@@ -108,4 +121,262 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="@Url.Content("~/Areas/Admin/Rating/js/jquery.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Rating/css/jRating.jquery.css")" media="screen" />
 
+
+
+
+ 
+@*<!-- jQuery JavaScript File -->
+
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+ *@
+<script type="text/javascript">
+    $(document).ready(function () {   
+        (function ($) {
+            $.fn.jRating = function (op) {
+                var defaults = {
+                    /** String vars **/
+                    bigStarsPath: '/Areas/Admin/Rating/image/stars.png', // path of the icon stars.png
+                    smallStarsPath: '/Areas/Admin/Rating/image/small.png', // path of the icon small.png
+                    phpPath: 'php/jRating.php', // path of the php file jRating.php
+                    type: 'big', // can be set to 'small' or 'big'
+
+                    /** Boolean vars **/
+                    step: false, // if true, mouseover binded star by star,
+                    isDisabled: false, // if true, user could not rate
+                    showRateInfo: true, // show rates informations when cursor moves onto the plugin
+                    canRateAgain: false, // if true, the user could rates {nbRates} times with jRating.. Default, 1 time
+                    sendRequest: true, // send values to server
+
+                    /** Integer vars **/
+                    length: 5, // number of star to display
+                    decimalLength: 0, // number of decimals.
+                    rateMax: 20, // maximal rate - integer from 0 to 9999 (or more)
+                    rateInfosX: -45, // relative position in X axis of the info box when mouseover
+                    rateInfosY: 5, // relative position in Y axis of the info box when mouseover
+                    nbRates: 1,
+
+                    /** Functions **/
+                    onSuccess: null, // Fires when the server response is ok
+                    onError: null, // Fires when the server response is not ok
+                    onClick: null // Fires when clicking on a star
+                };
+
+                if (this.length > 0)
+                    return this.each(function () {
+                        /*vars*/
+                        var opts = $.extend(defaults, op),
+                        newWidth = 0,
+                        starWidth = 0,
+                        starHeight = 0,
+                        bgPath = '',
+                        hasRated = false,
+                        globalWidth = 0,
+                        nbOfRates = opts.nbRates;
+
+                        if ($(this).hasClass('jDisabled') || opts.isDisabled)
+                            var jDisabled = true;
+                        else
+                            var jDisabled = false;
+
+                        getStarWidth();
+                        $(this).height(starHeight);
+
+                        var average = parseFloat($(this).attr('data-average')), // get the average of all rates
+                        idBox = parseInt($(this).attr('data-id')), // get the id of the box
+                        widthRatingContainer = starWidth * opts.length, // Width of the Container
+                        widthColor = average / opts.rateMax * widthRatingContainer, // Width of the color Container
+
+                        quotient =
+                        $('<div>',
+                        {
+                            'class': 'jRatingColor',
+                            css: {
+                                width: widthColor
+                            }
+                        }).appendTo($(this)),
+
+                        average =
+                        $('<div>',
+                        {
+                            'class': 'jRatingAverage',
+                            css: {
+                                width: 0,
+                                top: -starHeight
+                            }
+                        }).appendTo($(this)),
+
+                        jstar =
+                        $('<div>',
+                        {
+                            'class': 'jStar',
+                            css: {
+                                width: widthRatingContainer,
+                                height: starHeight,
+                                top: -(starHeight * 2),
+                                background: 'url(' + bgPath + ') repeat-x'
+                            }
+                        }).appendTo($(this));
+
+
+                        $(this).css({ width: widthRatingContainer, overflow: 'hidden', zIndex: 1, position: 'relative' });
+
+                        if (!jDisabled)
+                            $(this).unbind().bind({
+                                mouseenter: function (e) {
+                                    var realOffsetLeft = findRealLeft(this);
+                                    var relativeX = e.pageX - realOffsetLeft;
+                                    if (opts.showRateInfo)
+                                        var tooltip =
+                                        $('<p>', {
+                                            'class': 'jRatingInfos',
+                                            html: getNote(relativeX) + ' <span class="maxRate">/ ' + opts.rateMax + '</span>',
+                                            css: {
+                                                top: (e.pageY + opts.rateInfosY),
+                                                left: (e.pageX + opts.rateInfosX)
+                                            }
+                                        }).appendTo('body').show();
+                                },
+                                mouseover: function (e) {
+                                    $(this).css('cursor', 'pointer');
+                                },
+                                mouseout: function () {
+                                    $(this).css('cursor', 'default');
+                                    if (hasRated) average.width(globalWidth);
+                                    else average.width(0);
+                                },
+                                mousemove: function (e) {
+                                    var realOffsetLeft = findRealLeft(this);
+                                    var relativeX = e.pageX - realOffsetLeft;
+                                    if (opts.step) newWidth = Math.floor(relativeX / starWidth) * starWidth + starWidth;
+                                    else newWidth = relativeX;
+                                    average.width(newWidth);
+                                    if (opts.showRateInfo)
+                                        $("p.jRatingInfos")
+                                        .css({
+                                            left: (e.pageX + opts.rateInfosX)
+                                        })
+                                        .html(getNote(newWidth) + ' <span class="maxRate">/ ' + opts.rateMax + '</span>');
+                                },
+                                mouseleave: function () {
+                                    $("p.jRatingInfos").remove();
+                                },
+                                click: function (e) {
+                                    var element = this;
+
+                                    /*set vars*/
+                                    hasRated = true;
+                                    globalWidth = newWidth;
+                                    nbOfRates--;
+
+                                    if (!opts.canRateAgain || parseInt(nbOfRates) <= 0) $(this).unbind().css('cursor', 'default').addClass('jDisabled');
+
+                                    if (opts.showRateInfo) $("p.jRatingInfos").fadeOut('fast', function () { $(this).remove(); });
+                                    e.preventDefault();
+                                    var rate = getNote(newWidth);
+                                    average.width(newWidth);
+
+
+                                    /** ONLY FOR THE DEMO, YOU CAN REMOVE THIS CODE **/
+                                    $('.datasSent p').html('<strong>idBox : </strong>' + idBox + '<br /><strong>rate : </strong>' + rate + '<br /><strong>action :</strong> rating');
+                                    $('.serverResponse p').html('<strong>Loading...</strong>');
+                                    /** END ONLY FOR THE DEMO **/
+
+                                    if (opts.onClick) opts.onClick(element, rate);
+
+                                    if (opts.sendRequest) {
+                                        $.post(opts.phpPath, {
+                                            idBox: idBox,
+                                            rate: rate,
+                                            action: 'rating'
+                                        },
+                                        function (data) {
+                                            if (!data.error) {
+                                                /** ONLY FOR THE DEMO, YOU CAN REMOVE THIS CODE **/
+                                                $('.serverResponse p').html(data.server);
+                                                /** END ONLY FOR THE DEMO **/
+
+
+                                                /** Here you can display an alert box,
+                                                or use the jNotify Plugin :) http://www.myqjqueryplugins.com/jNotify
+                                                exemple : */
+                                                if (opts.onSuccess) opts.onSuccess(element, rate);
+                                            }
+                                            else {
+
+                                                /** ONLY FOR THE DEMO, YOU CAN REMOVE THIS CODE **/
+                                                $('.serverResponse p').html(data.server);
+                                                /** END ONLY FOR THE DEMO **/
+
+                                                /** Here you can display an alert box,
+                                                or use the jNotify Plugin :) http://www.myqjqueryplugins.com/jNotify
+                                                exemple : */
+                                                if (opts.onError) opts.onError(element, rate);
+                                            }
+                                        },
+                                        'json'
+                                        );
+                                    }
+
+                                }
+                            });
+
+                        function getNote(relativeX) {
+                            var noteBrut = parseFloat((relativeX * 100 / widthRatingContainer) * parseInt(opts.rateMax) / 100);
+                            var dec = Math.pow(10, parseInt(opts.decimalLength));
+                            var note = Math.round(noteBrut * dec) / dec;
+                            return note;
+                        };
+
+                        function getStarWidth() {
+                            switch (opts.type) {
+                                case 'small':
+                                    starWidth = 12; // width of the picture small.png
+                                    starHeight = 5; // height of the picture small.png
+                                    bgPath = opts.smallStarsPath;
+                                    break;
+                                default:
+                                    starWidth = 23; // width of the picture stars.png
+                                    starHeight = 20; // height of the picture stars.png
+                                    bgPath = opts.bigStarsPath;
+                            }
+                        };
+
+                        function findRealLeft(obj) {
+                            if (!obj) return 0;
+                            return obj.offsetLeft + findRealLeft(obj.offsetParent);
+                        };
+                    });
+
+            }
+        })(jQuery);      
+        $('#here').jRating({
+            onClick: function (element, rate) {
+               // alert(rate);
+                var postData = { RatingPoint: rate };
+                // Gửi điểm rating về để insert
+                $.ajax({
+                    type: "POST",
+                    url: "/Product/AddNewRating",
+                    data: postData,
+                    success: function (data) {
+                        $('#black-icon').html(data);
+                    },
+                });
+            },
+            onError: function () {
+                alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+            }
+
+        });
+
+        $(".exemple4").jRating({
+            isDisabled: true
+        });
+
+    });
+</script>
