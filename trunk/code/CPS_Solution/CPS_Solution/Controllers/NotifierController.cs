@@ -36,7 +36,7 @@ namespace CPS_Solution.Controllers
                 context.SaveChanges();
                 if (data.Count > 0)
                 {
-                    return Json(data, JsonRequestBehavior.AllowGet);
+                    return Json(data.Select(product => new { name = product.Name, parseLink = product.Parselink}).ToList(), JsonRequestBehavior.AllowGet);
                 }
             }
             return Json("NoneData", JsonRequestBehavior.AllowGet);

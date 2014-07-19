@@ -29,7 +29,9 @@
                 <div class="span8">
                     <ul class="breadcrumb">
                         <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
-                        <li><p>đề xuất</p></li>
+                        <li>
+                            <p>đề xuất</p>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -55,38 +57,49 @@
                 <h3>thông tin gợi ý</h3>
 
                 <ul class="list">
-                    <li><p>Vẫn không tìm thấy sản phẩm bạn muốn. Xin hãy cung cấp cho chúng tôi thông tin về sản phẩm.</p></li>
-                    <li><p>Bạn có thể lựa chọn gửi cho chúng tôi một trong hai thông tin dưới đây:</p></li>
-                    <li><p>Nguồn gốc - Đường dẫn tới trang web chứa sản phẩm bạn muốn được gợi ý.</p></li>
-                    <li><p>Cấu hình -  cấu hình sản phẩm mà bạn muốn được gợi ý.</p></li>
-                    <li><p>Chúng tôi sẽ liên lạc với bạn thông báo về tình trạng sản phẩm này.</p></li>
+                    <li>
+                        <p>Vẫn không tìm thấy sản phẩm bạn muốn. Xin hãy cung cấp cho chúng tôi thông tin về sản phẩm.</p>
+                    </li>
+                    <li>
+                        <p>Bạn có thể lựa chọn gửi cho chúng tôi một trong hai thông tin dưới đây:</p>
+                    </li>
+                    <li>
+                        <p>Nguồn gốc - Đường dẫn tới trang web chứa sản phẩm bạn muốn được gợi ý.</p>
+                    </li>
+                    <li>
+                        <p>Cấu hình -  cấu hình sản phẩm mà bạn muốn được gợi ý.</p>
+                    </li>
+                    <li>
+                        <p>Chúng tôi sẽ liên lạc với bạn thông báo về tình trạng sản phẩm này.</p>
+                    </li>
                 </ul>
 
 
             </div>
 
-            <div class="span6" style="float:left;">
+            <div class="span6" style="float: left;">
                 <h3>thông tin đề xuất</h3>
                 @using (Html.BeginForm())
                 {
                     @Html.ValidationSummary(true)
-                    //Product name
-                    <div class="form-group stylish-input">
-                        <label class="required">Tên sản phẩm</label>
-                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Name)
-                    </div>
                     //Product url
                     <div class="form-group stylish-input">
                         <label class="required">Đường dẫn sản phẩm</label>
-                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control",id ="link" })
+                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link" })
                         @Html.ValidationMessageFor(model => model.Parselink)
-                        <input type="button" value="Kiểm tra" onclick="LinkCheck()" class="btn btn-info" style="margin-top:-10px;"/>
+                        <input type="button" value="Kiểm tra" onclick="LinkCheck()" class="btn btn-info" style="margin-top: -10px;" />
                         <div id="status" />
+                    </div>
+                    //Product name
+                    <div class="form-group stylish-input">
+                        <label class="required">Tên sản phẩm</label>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @disabled="disabled"})
+                        @Html.ValidationMessageFor(model => model.Name)
                     </div>                                        
-                    <p><input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="btn btn-info btn-xsp pull-left"/></p>
+                    <p>
+                        <input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="btn btn-info btn-xsp pull-left" /></p>
                 }
-                
+
             </div>
         </div>
     </div>
@@ -100,10 +113,13 @@
         $.post("/Product/checkLink",
         { link: $("#link").val() },
         function (data) {
-            if (data == 1) {
+            if (data != 0) {
                 $("#status").html("<img src='@Url.Content("~/Images/I/good.gif")' width='25px'" + "height='25px'/><span style='color:green'>Đường dẫn có thực.</span>");
                 $("#link").css('background-color', '');
-                document.getElementById("btnSubmit").disabled = false;
+                $("#btnSubmit").prop("disabled", false)
+                $('#Name').val(data);
+                $('#Name').prop("disabled", false);
+                $("#Name").focus();
             }
             else {
                 $("#status").html("<img src='@Url.Content("~/Images/I/bad.gif")' width='25px'" + "height='25px'/><span style='color:red'>Đường dẫn không có thực.</span>");
