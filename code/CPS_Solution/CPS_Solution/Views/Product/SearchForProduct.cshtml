@@ -103,10 +103,12 @@
                         </div>
 
                         <div class="stylish-button" style="background-color: #FF3333">
-                            <a href="@Url.Action("Details", "Product")">chi tiết</a>
+                            <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
                         </div>
                         <div class="stylish-button" style="background-color: #666699">
-                            <a href="#"> + thêm vào so sánh</a>
+                            <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">
+                               + thêm vào so sánh
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -176,17 +178,76 @@
         </div>
     }
 </div>
+@*Load More Button*@
+<div class="load-more">
+    <div class="stylish-button">
+        <a href="javascript:;" class="load-more-button"><i class="icon-rotate-right"></i>load more</a>
+    </div>
+</div>
+
+@*Compare cart*@
+<div id="compare_panel" style="display: block;">
+    <h3>So sánh<a class="compare-close"></a></h3>
+    <ul></ul>
+    <label class="compare-button">
+        <span>So sánh</span>
+    </label>
+</div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        var product_name = $('.product-name');
-        for (var i = 0; i >= product_name.length; i++ ){
-            if (product_name[i].innerHTML > 40) {
-                console.log(product_name[i].innerHTML)
-            } else if (product_name[i].innerHTML < 17) {
-                console.log(product_name[i].innerHTML)
-            }
-        }
-    });
-</script>
+    (function ($) {
+        var productID = [];
+        $(document).ready(function () {
+            function removeProduct(id) {
+                for (var i = 0; i < productID.length; ++i) {
+                    if (productID[i] == x) {
+                        productID.splice(i, 1);
+                        console.log(productID);
+                        return;
+                    }
+                }
+            };
 
+            $('#compare_panel .compare-close').click(function () {
+                productID = [];
+                console.log(productID);
+                $("#compare_panel").hide().fadeOut(1000);
+
+            });
+            
+
+        });
+
+        function isExisted(id) {
+            for (var i = 0; i < productID.length; ++i) {
+                if (productID[i] == id) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        
+
+        $('.addToCompare').on('click', function () {
+            var id = this.attributes['product-id'].value;
+            var name = this.attributes['product-name'].value;
+
+            $(".addToCompare[product-id='" + id + "']").hide();
+            
+            productID.push(id);
+            //$('#quantity').html(a.length);
+            for (var key in [productID]) {
+                var al_id = productID[key];
+                $("#compare_panel ul").append('<li class="al_id:' + al_id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
+            }
+            console.log(productID);
+            $("#compare_panel").show();
+        });
+
+
+       
+
+        
+    })(jQuery);
+</script>
