@@ -89,7 +89,6 @@
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="lastLogin" Type="datetime" />
         </EntityType>
         <EntityType Name="AliasProduct">
           <Key>
@@ -192,7 +191,7 @@
           <Property Name="Description" Type="nchar" MaxLength="2000" />
           <Property Name="ImageURL" Type="nvarchar" MaxLength="200" />
           <Property Name="TotalWeightPoint" Type="float" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="ProductAttribute">
           <Key>
@@ -222,7 +221,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="200" />
           <Property Name="IsApprove" Type="bit" />
           <Property Name="RecommendTime" Type="datetime" />
-          <Property Name="IsSeen" Type="bit" />
+          <Property Name="IsSeen" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -508,7 +507,6 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="lastLogin" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Role" Relationship="CPS_SolutionModel.FK_Account_Role" FromRole="Account" ToRole="Role" />
           <NavigationProperty Name="Histories" Relationship="CPS_SolutionModel.FK_History_Account" FromRole="Account" ToRole="History" />
           <NavigationProperty Name="RatingProducts" Relationship="CPS_SolutionModel.FK_RatingProduct_Account" FromRole="Account" ToRole="RatingProduct" />
@@ -628,7 +626,7 @@
           <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="true" />
           <Property Name="ImageURL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="TotalWeightPoint" Type="Double" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="AliasProducts" Relationship="CPS_SolutionModel.FK_AliasProduct_Product" FromRole="Product" ToRole="AliasProduct" />
           <NavigationProperty Name="HistoryDetails" Relationship="CPS_SolutionModel.FK_HistoryDetail_Product" FromRole="Product" ToRole="HistoryDetail" />
           <NavigationProperty Name="ProductAttributes" Relationship="CPS_SolutionModel.FK_ProductAttribute_Product" FromRole="Product" ToRole="ProductAttribute" />
@@ -666,7 +664,7 @@
           <Property Name="Name" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="IsApprove" Type="Boolean" />
           <Property Name="RecommendTime" Type="DateTime" Precision="3" />
-          <Property Name="IsSeen" Type="Boolean" />
+          <Property Name="IsSeen" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="CPS_SolutionModel.FK_RecommendProduct_Account" FromRole="RecommendProduct" ToRole="Account" />
         </EntityType>
         <EntityType Name="Role">
@@ -880,7 +878,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="lastLogin" ColumnName="lastLogin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

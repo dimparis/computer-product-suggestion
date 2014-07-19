@@ -26,7 +26,7 @@ namespace CPS_Solution.EntityFramework
         public string Description { get; set; }
         public string ImageURL { get; set; }
         public double TotalWeightPoint { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         public virtual ICollection<AliasProduct> AliasProducts { get; set; }
         public virtual ICollection<HistoryDetail> HistoryDetails { get; set; }

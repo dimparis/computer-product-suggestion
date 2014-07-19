@@ -101,9 +101,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 parser.NameXPath = model.NameXPath;
                 parser.PagingXPath = model.PagingXPath;
                 parser.ParseAttributelink = model.ParseAttributelink;
-                parser.IsActive = model.IsActive;
+                parser.PointXPath = model.PointXPath;
                 parser.CodetypeID = model.CodetypeID;
-
                 context.SaveChanges();
                 message = "success";
 

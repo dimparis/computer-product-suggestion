@@ -20,7 +20,7 @@ namespace CPS_Solution.EntityFramework
         public string Name { get; set; }
         public Nullable<bool> IsApprove { get; set; }
         public Nullable<System.DateTime> RecommendTime { get; set; }
-        public Nullable<bool> IsSeen { get; set; }
+        public bool IsSeen { get; set; }
     
         public virtual Account Account { get; set; }
     }

@@ -28,10 +28,7 @@ namespace CPS_Solution.Controllers
                 foreach (var a in approveRecommendProduct)
                 {
                     data.Add(a);
-                    if (a.IsSeen.HasValue)
-                    {
                         a.IsSeen = true;
-                    }
                 }
                 context.SaveChanges();
                 if (data.Count > 0)
