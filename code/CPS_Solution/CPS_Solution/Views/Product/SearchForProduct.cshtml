@@ -28,7 +28,7 @@
                     <div class="search-container">
                         @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post)) {
                             <i class="icon-search search-box-icon"></i>
-                            @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { @style="color:white;", @type="text", @name="search", @class ="search-box" })
+                            @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { @style="color:white;", @type="text", @name="search", @class ="search-box",placeholder="Search here" })
                             
                         }
                     </div>

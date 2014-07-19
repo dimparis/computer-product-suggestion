@@ -37,9 +37,26 @@
 </head>
 <h2>Index</h2>
 <div id="show">
-    <div id="new"></div>
+    <div id="dialog"></div>
+    <input type="text" /> 
 </div>
 <script>
+    $("#dialog").dialog({
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 1000
+        },
+        hide: {
+            effect: "explode",
+            duration: 1000
+        },
+        position: {
+            my: "right bottom+20",
+            at: "right bottom",
+            of: window
+        }
+    });
 
     setInterval(function () {
         $.ajax({
@@ -50,19 +67,16 @@
             data: JSON.stringify({ username: "member1" }),
             success: function (data) {
 
-                if (data != "NoneData") {
-                    alert("so sanh string");
-                } else if (data != "NoneData" && data.length > 0) {
-                    alert("right flow");
-                    var target = $("#new");
+                if (data != "NoneData" && data.length > 0) {
+                    var target = $("#dialog");
                     target.empty();
                     for (var i = 0; i < data.length; i++) {
                         var item = data[i];
-                        target.append('<p>' + item.Username + '</p>');
+                        target.append('<p>' + item.name + '</p>');
                     }
+                    $("#dialog").dialog("open");
                 }
                 else {
-                    alert("None Model Here");
                 }
             },
             error: function (data) {
@@ -70,5 +84,5 @@
             }
         });
 
-    }, 2000);
+    }, 5000);
 </script>

@@ -7,13 +7,14 @@ using System.Web;
 using System.Web.Mvc;
 using CPS_Solution.EntityFramework;
 using System.Net;
+using HtmlAgilityPack;
 
 namespace CPS_Solution.Controllers
 {
     public class ProductController : Controller
     {
         private CPS_SolutionEntities db = new CPS_SolutionEntities();
-
+        private string title = "";
         //
         // GET: /Product/
 
@@ -21,7 +22,7 @@ namespace CPS_Solution.Controllers
         {
             return View();
         }
-        public ActionResult SearchForProduct() 
+        public ActionResult SearchForProduct()
         {
             var products = db.Products.Where(x => x.IsActive == true).ToList();
             return View(products);
@@ -46,7 +47,7 @@ namespace CPS_Solution.Controllers
             }
             return View(listP);
         }
-        
+
         public ActionResult Compare(int p1, int p2, int p3)
         {
             int[] vals = new int[] { p1, p2, p3 };
@@ -56,7 +57,7 @@ namespace CPS_Solution.Controllers
             products = products.Where(c => vals.Contains(c.ID));
 
             var bestProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
-                
+
             //Move down the first
             var temp = bestProducts[0];
             bestProducts[0] = bestProducts[1];
@@ -64,8 +65,8 @@ namespace CPS_Solution.Controllers
 
             return View(bestProducts);
         }
-		
-		 public ActionResult CompareDetail(int p1, int p2, int p3)
+
+        public ActionResult CompareDetail(int p1, int p2, int p3)
         {
             int[] vals = new int[] { p1, p2, p3 };
 
@@ -120,46 +121,67 @@ namespace CPS_Solution.Controllers
             ViewBag.Username = new SelectList(db.Accounts, "member1", "123456", recommendproduct.Username);
             return View(recommendproduct);
         }
-        public JsonResult checkLink(string link) 
+        public JsonResult checkLink(string link)
         {
             System.Threading.Thread.Sleep(1500);
             //string name = form["link"];
             if (IsUrl(link))
             {
-                return Json(1);
+                return Json(title);
             }
-            else 
+            else
             {
                 return Json(0);
             }
         }
         private bool IsUrl(string URL)
         {
-            HttpWebResponse response = null;
-            if (URL.Equals(""))
-            {
-                return false;
-            }
-            var request = (HttpWebRequest)WebRequest.Create(URL);
-            request.Method = "HEAD";
+            //Load website
             try
             {
-                response = (HttpWebResponse)request.GetResponse();
-                return true;
-            }
-            catch (WebException ex)
-            {
-                /* A WebException will be thrown if the status of the response is not `200 OK` */
-                return false;
-            }
-            finally
-            {
-                // Don't forget to close your response.
-                if (response != null)
+                var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
+                 var document = web.Load(URL);
+                if (web.StatusCode == HttpStatusCode.OK)
                 {
-                    response.Close();
+
+                    title = document.DocumentNode.SelectSingleNode("//title").InnerText;
+                    return true;
                 }
             }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return false;
+
+            //HttpWebResponse response = null;
+            //if (URL.Equals(""))
+            //{
+            //    return false;
+            //}
+            //var request = (HttpWebRequest)WebRequest.Create(URL);
+            //request.Method = "HEAD";
+
+            //request.Accept = "text/html";
+            //request.UserAgent = "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.157 CoRom/35.0.1916.157 Safari/537.36";
+            //try
+            //{
+            //    response = (HttpWebResponse)request.GetResponse();
+            //    return true;
+            //}
+            //catch (WebException ex)
+            //{
+            //    /* A WebException will be thrown if the status of the response is not `200 OK` */
+            //    return false;
+            //}
+            //finally
+            //{
+            //    // Don't forget to close your response.
+            //    if (response != null)
+            //    {
+            //        response.Close();
+            //    }
+            //}
         }
         protected override void Dispose(bool disposing)
         {
