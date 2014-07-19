@@ -5,52 +5,54 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-@section head
+@section navigator
 {
-    @*Scripts.Render("~/bundles/jqueryval")*@
+    <div id="top-image" class="top-image3">
+        <div class="container">
+            <div id="top-image-caption">
+                <h2>đăng nhập</h2>
+            </div>
+        </div>
+    </div>
 
-
-    <link rel="stylesheet" href="@Url.Content("~/Template/Account/Style/css/style.css")" />
-    <script src="@Url.Content("~/Template/Account/Style/js/modernizr.js")"></script>
+    <div id="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="span8">
+                    <ul class="breadcrumb">
+                        <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
+                        <li><p>đăng nhập</p></li>
+                    </ul>
+                </div>                
+            </div>
+        </div>
+    </div>
 }
 
-<div class="breadcrumb-container">
-    <div class="container">
-        <div class="relative">
-            <ul class="bc push-up unstyled clearfix">
-                <li>Trang chủ</li>
-                <li class="active">Đăng nhập</li>
-            </ul>
+<div class="page-element gray-element standard-element-container-2">
+    <div class="container standard-element">
+        <div class="row">
+            <div class="span6 fadeLeft">
+                <h3>đăng nhập</h3>
+                @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+                        @Html.AntiForgeryToken()
+                        <p>
+                            @Html.TextBoxFor(model => model.UserName, new { @type="text", @placeholder="Tên người dùng", @maxlength=36})                         
+                            <span class="text-warning">@Html.ValidationMessageFor(m => m.UserName)</span>
+					    </p>
+                        <p>
+                            @Html.TextBoxFor(model => model.Password, new { @type="password", @placeholder="Mật khẩu", @maxlength=36})
+                            <span class="text-warning">@Html.ValidationMessageFor(m => m.Password)</span>
+					    </p>
+                        <p style="margin-top:-3%;">@Html.ValidationSummary(true)</p>
+                        <p class="stylish-button" style="margin-top:0%;"> 
+                            <input type="submit" value="đăng nhập">
+                        </p>
+                        
+                    }
+            </div>
+            <div class="span6">
+            </div>
         </div>
     </div>
 </div>
-
-<main id="main-content" role="main">
-    <div class="container">
-        <div class="row">
-            <section class="main">
-				<div class="form-1">
-                    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
-                        @Html.AntiForgeryToken()
-                        <p class="field">
-                            @Html.TextBoxFor(model => model.UserName, new { @type="text", @name="login", @placeholder="Tên người dùng", @maxlength=36})
-                            <i class="iconfont-user icon-large"></i>                            
-                            @*<span class="text-warning">@Html.ValidationMessageFor(m => m.UserName)</span>*@
-					    </p>
-                        <p class="field">
-                            @Html.TextBoxFor(model => model.Password, new { @type="password", @name="password", @placeholder="Mật khẩu", @maxlength=36})
-						    <i class="iconfont-lock icon-large"></i>
-                            @*<span class="text-warning">@Html.ValidationMessageFor(m => m.Password)</span>*@
-					    </p>
-                        
-                        <p class="submit">
-						    <button type="submit" name="submit"><i class="iconfont-arrow-right icon-large"></i></button>
-					    </p>
-                        <p style="color:aqua">@Html.ValidationSummary(true)</p>
-                    }
-				</div>
-			</section>
-		
-        </div>
-    </div>
-</main>
