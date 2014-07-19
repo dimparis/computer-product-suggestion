@@ -24,6 +24,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
         {
             //Create agent of website
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
+            try{
             //Load website
             var document = web.Load(parseAttributeLink);
             //Remove all script
@@ -37,6 +38,15 @@ namespace CPS_Solution.Areas.Admin.Helpers
             string fileName = "tmp.html";
             string path = Path.Combine(ConstantManager.SavedPath, fileName);
             document.Save(path, new UTF8Encoding());
+             }
+            catch (System.Net.WebException ex)
+            {
+                LoadWebProduct(parseAttributeLink);
+            }
+            catch (HtmlWebException ex)
+            {
+                LoadWebProduct(parseAttributeLink);
+            }
 
         }
         [ValidateInput(false)]
@@ -467,7 +477,6 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         att.WeightCriteraPoint = point;
                         try
                         {
-
                             context.SaveChanges();
                             success++;
                         }
@@ -481,7 +490,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     else
                     {
                         //Add a new record
-                        var newADitem = new Hardware { Name = pair.Key, CodetypeID = codetypeID, WeightCriteraPoint = point };
+                        var newADitem = new Hardware { Name = pair.Key, CodetypeID = codetypeID, WeightCriteraPoint = point,IsActive=true };
                         context.Hardwares.Add(newADitem);
                         try
                         {

@@ -26,7 +26,6 @@ namespace CPS_Solution.EntityFramework
         public string Email { get; set; }
         public int RoleID { get; set; }
         public bool IsActive { get; set; }
-        public Nullable<System.DateTime> lastLogin { get; set; }
     
         public virtual Role Role { get; set; }
         public virtual ICollection<History> Histories { get; set; }

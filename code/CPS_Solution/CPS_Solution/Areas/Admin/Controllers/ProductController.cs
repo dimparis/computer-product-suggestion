@@ -53,7 +53,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             bool statusFlag = false;
             if (ModelState.IsValid)
             {
-                if (product.IsActive)
+                if (product.IsActive.HasValue)
                 {
                     product.IsActive = false;
                     statusFlag = false;
