@@ -18,7 +18,7 @@
 
     @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post, new { @class = "form-wrapper cf" }))
     {
-        @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa...", @required = "", @type = "text" })
+        @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
         <button type="submit">Tìm kiếm</button>               
     }
     <div class="isotope posts">
