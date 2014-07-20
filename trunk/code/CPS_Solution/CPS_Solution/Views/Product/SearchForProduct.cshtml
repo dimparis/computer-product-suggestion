@@ -13,172 +13,143 @@
             </div>
         </div>
     </div>
-
-    <div id="breadcrumbs">
-        <div class="container">
-            <div class="row">
-                <div class="span8">
-                    <ul class="breadcrumb">
-                        <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
-                        <li><p>tìm kiếm</p></li>
-                    </ul>
-                </div>
-
-                <div class="span4">
-                    <div class="search-container">
-                        @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post)) {
-                            <i class="icon-search search-box-icon"></i>
-                            @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { @style="color:white;", @type="text", @name="search", @class ="search-box",placeholder="Search here" })
-                            
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 }
 <div class="page-element gray-element">
 
-<div class="isotope posts">
-    @if (@Model.Count() > 0)
+    @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post, new { @class = "form-wrapper cf" }))
     {
-        foreach (var item in Model) {
-        <div class="isotope-item post span6">
-            <div class="row">
-                <div class="span3">
-                    <div class="thumbnail post-media">
-                        <img src="~/Images/I/default.jpg" id="@item.ID"/>
-                        <div class="thumbnail-hover">
-                            <div class="post-info">
-                                <div class="post-date"><strong style="color:white;">Thông tin sản phẩm</strong></div>
-                                <div class="post-date"><br /><br /></div>
+        @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa...", @required = "", @type = "text" })
+        <button type="submit">Tìm kiếm</button>               
+    }
+    <div class="isotope posts">
+        @if (@Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+            <div class="isotope-item post span6 shadow">
+                <div class="row">
+                    <div class="span3">
+                        <div class="thumbnail post-media">
+                            <img src="~/Images/I/default.jpg" />
+                            <div class="thumbnail-hover">
                                 <div class="post-date">
-                                    <i class="icon-caret-right"><strong style="color:white;">CPU : </strong></i>
-                                    <p><strong style="color:white;">@item.strCPU</strong></p>
-                                    <br />
-                                    <i class="icon-caret-right"><strong style="color:white;">VGA : </strong></i>
-                                    <p><strong style="color:white;">@item.strVGA</strong></p>
-                                    <br />
-                                    <i class="icon-caret-right"><strong style="color:white;">RAM : </strong></i>
-                                    <p><strong style="color:white;">@item.strRAM</strong></p>   
-                                    <br />
-                                    <i class="icon-caret-right"><strong style="color:white;">HDD : </strong></i>
-                                    <p><strong style="color:white;">@item.strHDD</strong></p>
-                                    <br />
-                                    <i class="icon-caret-right"><strong style="color:white;">Display : </strong></i>
-                                    <p><strong style="color:white;">@item.strDisplay</strong></p>
-                                </div>                                
+                                    <h3 style="color: white;">~Thông tin chi tiết~</h3>
+                                    <h4 style="color: white;overflow-wrap:break-word;" title="@item.strCPU">-CPU : @item.strCPU</h4>
+                                    <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strVGA">-VGA : @item.strVGA</h4>
+                                    <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strRAM">-RAM : @item.strRAM</h4>
+                                    <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strHDD">-HDD : @item.strHDD</h4>
+                                    <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strDisplay">-Display : @item.strDisplay</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="span3">
-                    <div class="post-content">
-                        <div class="post-title">
-                            <h3>
-                                <i class="icon-bookmark post-title-icon"></i>
-                                <span class="product-name" title="@item.Name" style="overflow-wrap:break-word; height:100px;">@item.Name</span>
-                                @*@if(@item.Name.Length > 40){
+                    <div class="span3">
+                        <div class="post-content">
+                            <div class="post-title" style="width: 260px">
+                                <h3>
+                                    <i class="icon-bookmark post-title-icon"></i>
+                                    <span class="product-name" title="@item.Name" style="overflow-wrap:break-word; height:100px;">@item.Name</span>
+                                    @*@if(@item.Name.Length > 40){
                                     @item.Name.Substring(0, 10);
                                     <span>...</span>
                                 }*@
-                                
-                            </h3>
-                        </div>
 
-                        <div class="post-info clearfix">
-                            <div class="post-date">
-                                <i class="icon-usd"></i>
-                                <p>@item.Price</p>
+                                </h3>
                             </div>
-                        </div>
 
-                        <div style="clear: both"></div>
+                            <div class="post-info clearfix">
+                                <div class="post-date">
+                                    <i class="icon-usd"></i>
+                                    <p>@item.Price</p>
+                                </div>
+                            </div>
 
-                        <div class="post-excerpt">
-                            <p>
-                                Donec magna nunc, vestibulum
+                            <div style="clear: both"></div>
+
+                            <div class="post-excerpt">
+                                <p>
+                                    Donec magna nunc, vestibulum
                                 at erat ac, mollis varius nunc. Maecenas nec hendrerit nunc. Integer interdum neque lorem, eget mattis dui vehicula at.
-                            </p>
-                        </div>
+                                </p>
+                            </div>
 
-                        <div class="stylish-button" style="background-color: #FF3333">
-                            <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
-                        </div>
-                        <div class="stylish-button" style="background-color: #666699">
-                            <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">
-                               + thêm vào so sánh
-                            </a>
+                            <div class="stylish-button" style="background-color: #FF3333">
+                                <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
+                            </div>
+                            <div class="stylish-button" style="background-color: #666699">
+                                <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ vào so sánh
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div> 
+            </div> 
+            }
         }
-    } else {
-        <div class="isotope-item post span12">
-            <br>
-            <br>
-            <div class="product" style="border:none">
-                <center>
+        else
+        {
+            <div class="isotope-item post span12">
+                <br>
+                <br>
+                <div class="product" style="border: none">
+                    <center>
                     <h4>
                         <strong>Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp với từ khóa của bạn.</strong>
                     </h4>
                 </center>
-                <h3>
-                    <p class="text-warning">Hãy thử lại với những cách sau: </p>
-                </h3>
+                    <h3>
+                        <p class="text-warning">Hãy thử lại với những cách sau: </p>
+                    </h3>
 
-                <table>
-                    <tr>
-                        <td><span class="label label-success">1)</span></td>
-                        <td>
-                            <h4>Kiểm tra lại từ khóa có thể bạn đã gõ sai (Ví dụ: Asus3500 = Ass3500)</h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="label label-success">2)</span></td>
-                        <td>
-                            <h4>Dùng từ khóa ngắn gọn và đơn giản hơn.</h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="label label-success">3)</span></td>
-                        <td>
-                            <h4>Click vào <a href="@Url.Action("Recommend", "Product")"><span style="color:blue;">đây</span></a> để thử lại.</h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="label label-success">4)</span><br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                        </td>
-                        <td>
-                            <h4>
-                                Vẫn không tìm thấy sản phẩm bạn muốn. Xin hãy cung cấp cho chúng tôi thông tin về sản phẩm.  
+                    <table>
+                        <tr>
+                            <td><span class="label label-success">1)</span></td>
+                            <td>
+                                <h4>Kiểm tra lại từ khóa có thể bạn đã gõ sai (Ví dụ: Asus3500 = Ass3500)</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-success">2)</span></td>
+                            <td>
+                                <h4>Dùng từ khóa ngắn gọn và đơn giản hơn.</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-success">3)</span></td>
+                            <td>
+                                <h4>Click vào <a href="@Url.Action("Recommend", "Product")"><span style="color: blue;">đây</span></a> để thử lại.</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-success">4)</span><br />
                                 <br />
                                 <br />
-                                Bạn có thể lựa chọn gửi cho chúng tôi một trong hai thông tin dưới đây:
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            </td>
+                            <td>
+                                <h4>Vẫn không tìm thấy sản phẩm bạn muốn. Xin hãy cung cấp cho chúng tôi thông tin về sản phẩm.  
+                                <br />
+                                    <br />
+                                    Bạn có thể lựa chọn gửi cho chúng tôi một trong hai thông tin dưới đây:
 				                <br />
-                                - Nguồn gốc - Đường dẫn tới trang web chứa sản phẩm bạn muốn được gợi ý.
+                                    - Nguồn gốc - Đường dẫn tới trang web chứa sản phẩm bạn muốn được gợi ý.
                                 <br />
-                                - Cấu hình -  cấu hình sản phẩm mà bạn muốn được gợi ý.
+                                    - Cấu hình -  cấu hình sản phẩm mà bạn muốn được gợi ý.
 				                <br />
-                                <br />
-                                Chúng tôi sẽ liên lạc với bạn thông báo về tình trạng sản phẩm này.
-                            </h4>
-                        </td>
-                    </tr>
-                </table>
+                                    <br />
+                                    Chúng tôi sẽ liên lạc với bạn thông báo về tình trạng sản phẩm này.
+                                </h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
 </div>
 @*Load More Button*@

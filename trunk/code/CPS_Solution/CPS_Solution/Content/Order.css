@@ -1,0 +1,299 @@
+﻿@font-face {
+font-family: 'Steelfish';
+src: url('../Fonts/uosm_steelfish_rg4.eot');
+src: url('../Fonts/uosm_steelfish_rg4.eot?#iefix') format('embedded-opentype'),
+url('../Fonts/uosm_steelfish_rg4.ttf') format('truetype'),
+url('../Fonts/uosm_steelfish_rg4.woff') format('woff'),
+url('../Fonts/uosm_steelfish_rg4.svg#steelfish_rgregular') format('svg');
+}
+.btn {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 5px 10px;
+    box-shadow: 0px 2px 6px #c7d0d2;
+    border: 1px solid #949494;
+    border-radius: 5px;
+}
+
+.saveCart {
+background: #a3cf3c url("../Images/noise.png") repeat;
+color: #fff !important;
+font-size: 16px;
+box-shadow: 1px 2px 1px rgb(0, 112, 63);
+text-shadow: 2px 1px rgb(129, 129, 129);
+font-weight: 400;
+}
+    .saveCart a {
+    color:white;
+    }
+.saveCart:hover {
+background-color:greenyellow;
+}
+.btn-large
+{
+    background-color: #FE9D00;
+    border-color: #F37800;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 4px;
+    color: white;
+    cursor: pointer;
+    font-family: Steelfish;
+    font-size: 28px;
+    margin: 9px;
+    padding: 5px;
+    text-align: center;
+    width: 230px;
+}
+
+.btn-normal
+{
+      background-color: #FE9D00;
+    border-color: #F37800;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 4px;
+    color: white;
+    cursor: pointer;
+    font-family: Steelfish;
+    font-size: 20px;
+    margin: 9px;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.btn-red
+{
+    background-color: #343434;
+    border-color: #262626;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 4px;
+    color: white;
+    cursor: pointer;
+    font-family: Steelfish;
+    font-size: 20px;
+    margin: 9px;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.btn-delete
+{
+    color: white;
+    background-color: red;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    height: 20px;
+    width: 20px;
+    display: none;
+}
+
+/*Order**********************************
+    ***********************************/
+#order-summary
+{
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+     background-image: url("../../../Images/bglines.png");
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 0 2px 0 #333333;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    height: 55px;
+    line-height: 27px;
+    text-shadow: 0 1px rgba(0, 0, 255, 0.298);
+    width: 200px;
+}
+#btn-checkout
+{
+     background-color: transparent;
+    background-image: url("../../../Images/shopping_cart_accept.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: medium none;
+    color: transparent;
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+}
+#btn-checkout:hover
+{
+    position: relative;
+    top: -5px;
+}
+#btn-checkout:active
+{
+    position: relative;
+    top: 0px;
+}
+.hint-order
+{
+    font-size: 14px;
+    padding: 10px;
+}
+#btn-addcart
+{
+    background-color: transparent;
+    background-image: url("../../../Images/add_to_shopping_cart.png");
+   
+    height: 14px;
+    width: 14px;
+}
+
+
+.AddToCardDetail{
+background-image: url("../../../Images/bglines.png");
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 0 2px 0 #333333;
+    color: #2E2E2E;
+    height: 25px;
+    width: 50%;
+    text-shadow: 0 1px rgba(0, 0, 255, 0.298);
+    color: white;
+    line-height: 27px;
+    float:left
+}
+.btnAddToCardDetail{
+position: relative;
+width: 40px;
+height: 30px;
+float: left;
+left: -5px;
+top:-5px;
+border: none;
+background-color: transparent;
+background-image: url(../../../Images/add_to_shopping_cart.png);
+background-repeat: no-repeat;
+background-position: center;
+background-size:cover;
+color: transparent;
+cursor: pointer;
+}
+.btnAddToCardDetail:hover {
+	top: 0px;
+	
+}
+.btnAddToCardDetail:active {
+	top: -5px;	
+}
+
+.SuggestPrice{
+background-image: url("../../../Images/bglines2.png");
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 0 2px 0 #333333;
+    color: #FF9900;
+    height: 25px;
+    width:45%;
+    text-shadow: 0 1px rgba(0, 0, 255, 0.298);
+    color: white;
+    line-height: 27px;
+    float:left;
+    margin-left:10px;
+}
+.btnSuggestPrice{
+position: relative;
+width: 30px;
+height: 30px;
+float: left;
+left: -5px;
+top:-5px;
+border: none;
+background-color: transparent;
+background-image: url(../../../Images/dollar.png);
+background-repeat: no-repeat;
+background-position: center;
+background-size:cover;
+color: transparent;
+cursor: pointer;
+}
+.btnSuggestPrice:hover {
+	top: 0px;
+	
+}
+.btnSuggestPrice:active {
+	top: -5px;	
+}
+
+.blueButton {
+color: #666699;
+}
+
+.bg-address {
+border: 1px solid #f0f3f4;
+padding: 5px;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+margin-left: 0px;
+background-color: white;
+}
+
+.bgSizeCover {
+    
+    background: url(../../images/bg-cover5.jpg) ;
+    background-size:cover;
+}
+.bgContainCover {
+    
+    background: url(../../images/bg-cover7.png) ;
+    background-size:cover;
+    
+}
+.redWeek {
+    background-color: rgba(255, 0, 0, 0.56) !important;
+}
+.yellowWeek {
+    background-color: rgba(246, 255, 27, 0.6) !important;
+}
+
+.titlespec {
+/*background: #fff url("../Images/bg-repeat.png") repeat;
+border-bottom: #cfcfcf 1px solid;
+margin-bottom: 0px;
+height: 40px;
+text-indent: 0px;
+padding: 0px;*/
+background: #a3cf3c url("../Images/noise.png") repeat;
+color: #fff !important;
+font-size: 16px;
+box-shadow: 1px 2px 1px rgb(0, 112, 63);
+text-shadow: 2px 1px rgb(129, 129, 129);
+font-weight: 400;
+}
+
+.bg-header {
+background: #a3cf3c url("../Images/noise.png") repeat;
+color: #fff !important;
+font-size: 16px;
+box-shadow: 1px 2px 1px rgb(0, 112, 63);
+text-shadow: 2px 1px rgb(129, 129, 129);
+font-weight: 400;
+}
+    .bg-header a {
+    color:white;
+    }
+
+.ProductNameDetail {
+height: 35px;
+margin-bottom: 5px;
+text-indent: 10px;
+padding: 0px;
+line-height: 30px;
+background: #a3cf3c url("../Images/noise.png") repeat;
+color: #FFF !important;
+font-size: 26px;
+box-shadow: 1px 2px 1px rgb(0, 112, 63);
+text-shadow: 2px 1px rgb(129, 129, 129);
+}
+
+.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('../../Images/loader.gif') 50% 50% no-repeat rgb(249,249,249);
+}

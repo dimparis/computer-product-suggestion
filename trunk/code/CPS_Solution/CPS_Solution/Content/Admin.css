@@ -1,0 +1,23 @@
+﻿
+.bg-header {
+background: #a3cf3c url("../Images/noise.png") repeat;
+color: #fff !important;
+font-size: 14px;
+box-shadow: 1px 2px 1px rgb(0, 112, 63);
+text-shadow: 2px 1px rgb(129, 129, 129);
+font-weight: 400;
+}
+    .bg-header a {
+    color:white;
+    }
+
+.activeStatus {
+    background-image: -webkit-linear-gradient(top,#2c74de,#2964c7);
+    height: 25px;
+    color:white;
+}
+.de-activeStatus {
+   background-color: rgb(224, 36, 36);
+   height: 25px;
+   color:white;
+}
