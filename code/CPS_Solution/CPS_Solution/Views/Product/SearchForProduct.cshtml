@@ -78,7 +78,7 @@
                         <div class="post-title">
                             <h3>
                                 <i class="icon-bookmark post-title-icon"></i>
-                                <span class="product-name" title="@item.Name">@item.Name</span>
+                                <span class="product-name" title="@item.Name" style="overflow-wrap:break-word; height:100px;">@item.Name</span>
                                 @*@if(@item.Name.Length > 40){
                                     @item.Name.Substring(0, 10);
                                     <span>...</span>
@@ -198,59 +198,13 @@
 </div>
 
 <script type="text/javascript">
-    (function ($) {
-        var productID = [];
-        $(document).ready(function () {
-            function removeProduct(id) {
-                for (var i = 0; i < productID.length; ++i) {
-                    if (productID[i] == x) {
-                        productID.splice(i, 1);
-                        console.log(productID);
-                        return;
-                    }
-                }
-            };
 
-            $('#compare_panel .compare-close').click(function () {
-                productID = [];
-                console.log(productID);
-                $("#compare_panel").hide().fadeOut(1000);
+$(document).ready(function () {
+    if ($("#compare_panel ul").html() != "") {
+        $("#compare_panel").show();
+    } else {
+        $("#compare_panel").hide();
+    }
+});
 
-            });
-            
-
-        });
-
-        function isExisted(id) {
-            for (var i = 0; i < productID.length; ++i) {
-                if (productID[i] == id) {
-                    return true;
-                }
-            }
-            return false;
-        };
-
-        
-
-        $('.addToCompare').on('click', function () {
-            var id = this.attributes['product-id'].value;
-            var name = this.attributes['product-name'].value;
-
-            $(".addToCompare[product-id='" + id + "']").hide();
-            
-            productID.push(id);
-            //$('#quantity').html(a.length);
-            for (var key in [productID]) {
-                var al_id = productID[key];
-                $("#compare_panel ul").append('<li class="al_id:' + al_id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
-            }
-            console.log(productID);
-            $("#compare_panel").show();
-        });
-
-
-       
-
-        
-    })(jQuery);
 </script>
