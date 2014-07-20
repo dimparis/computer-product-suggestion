@@ -76,7 +76,7 @@
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PagedList">
-      <HintPath>..\..\..\..\SmartBuy\smart-buy\Code\Smart Buy\ smart-buy\Code\Smart Buy\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <HintPath>..\..\..\..\Small Buy\ smart-buy\Code\Smart Buy\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
     <Reference Include="Quartz, Version=2.2.3.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -173,6 +173,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AuthenticationController.cs" />
     <Compile Include="Areas\Admin\Controllers\ConfirmNewHardwareController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConfirmNewLaptopController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmailSenderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -210,7 +212,9 @@
     <Compile Include="CommonClass\MyAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HistoryController.cs" />
+    <Compile Include="Controllers\HistoryDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotifierController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="EntityFramework\Account.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
@@ -310,6 +314,7 @@
     <Content Include="Areas\Admin\Dandelion\css\core\panel.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\plugins.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\statistic.css" />
+    <Content Include="Areas\Admin\Dandelion\css\core\style.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\table.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\typography.css" />
     <Content Include="Areas\Admin\Dandelion\css\core\wizard.css" />
@@ -3005,6 +3010,11 @@
     <Content Include="Areas\Admin\Dandelion\plugins\validate\jquery.validate.js" />
     <Content Include="Areas\Admin\Dandelion\plugins\validate\jquery.validate.min.js" />
     <Content Include="Areas\Admin\LogFiles\0q3cojfe.efl.txt" />
+    <Content Include="Areas\Admin\Rating\css\jRating.jquery.css" />
+    <Content Include="Areas\Admin\Rating\image\bg_jRatingInfos.png" />
+    <Content Include="Areas\Admin\Rating\image\small.png" />
+    <Content Include="Areas\Admin\Rating\image\stars.png" />
+    <Content Include="Areas\Admin\Rating\js\jRating.jquery.js" />
     <Content Include="Areas\Admin\SavedPages\ProductTmp.html" />
     <Content Include="Areas\Admin\SavedPages\tmp.html" />
     <Content Include="Areas\Admin\Scripts\getXPath.js" />
@@ -3149,6 +3159,9 @@
     <Content Include="obj\Debug\TempPE\CPS_Solution.Designer.cs.dll" />
     <Content Include="obj\Debug\TempPE\EntityFramework.CPS_Solution.cs.dll" />
     <Content Include="obj\Debug\TempPE\EntityFramework.CPS_Solution.Designer.cs.dll" />
+    <Content Include="Areas\Admin\Views\ConfirmNewHardware\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ConfirmNewLaptop\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ConfirmNewLaptop\LoadTableAjax.cshtml" />
     <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
@@ -3166,7 +3179,7 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\ConfirmNewHardware\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ConfirmNewHardware\LoadTableAjax.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -3226,6 +3239,181 @@
     <Content Include="Template\GFashion\js\product-list.js" />
     <Content Include="Template\GFashion\js\products.js" />
     <Content Include="Template\GFashion\js\sortable.js" />
+    <Content Include="Template\stylish.holobest.com\accordions-toggles.html" />
+    <Content Include="Template\stylish.holobest.com\blog-grid-sidebar.html" />
+    <Content Include="Template\stylish.holobest.com\blog-grid.html" />
+    <Content Include="Template\stylish.holobest.com\blog-single.html" />
+    <Content Include="Template\stylish.holobest.com\blog-standard.html" />
+    <Content Include="Template\stylish.holobest.com\buttons-social.html" />
+    <Content Include="Template\stylish.holobest.com\columns.html" />
+    <Content Include="Template\stylish.holobest.com\content-boxes.html" />
+    <Content Include="Template\stylish.holobest.com\css\style.css" />
+    <Content Include="Template\stylish.holobest.com\font-awesome.html" />
+    <Content Include="Template\stylish.holobest.com\full-width-section.html" />
+    <Content Include="Template\stylish.holobest.com\gallery.html" />
+    <Content Include="Template\stylish.holobest.com\google-maps.html" />
+    <Content Include="Template\stylish.holobest.com\home-basic.html" />
+    <Content Include="Template\stylish.holobest.com\home-creative.html" />
+    <Content Include="Template\stylish.holobest.com\images\author-image.png" />
+    <Content Include="Template\stylish.holobest.com\images\blog-thumbnail.png" />
+    <Content Include="Template\stylish.holobest.com\images\blog-thumbnail02.png" />
+    <Content Include="Template\stylish.holobest.com\images\blog-thumbnail03.png" />
+    <Content Include="Template\stylish.holobest.com\images\brand01.png" />
+    <Content Include="Template\stylish.holobest.com\images\brand02.png" />
+    <Content Include="Template\stylish.holobest.com\images\brand03.png" />
+    <Content Include="Template\stylish.holobest.com\images\browser1.png" />
+    <Content Include="Template\stylish.holobest.com\images\buttons-loop.png" />
+    <Content Include="Template\stylish.holobest.com\images\carousel-img.png" />
+    <Content Include="Template\stylish.holobest.com\images\carousel-img02.png" />
+    <Content Include="Template\stylish.holobest.com\images\carousel-img03.png" />
+    <Content Include="Template\stylish.holobest.com\images\carousel-img04.png" />
+    <Content Include="Template\stylish.holobest.com\images\element-bg-image1.png" />
+    <Content Include="Template\stylish.holobest.com\images\element-bg-image2.png" />
+    <Content Include="Template\stylish.holobest.com\images\element-image1.png" />
+    <Content Include="Template\stylish.holobest.com\images\element-image2.png" />
+    <Content Include="Template\stylish.holobest.com\images\favicon.png" />
+    <Content Include="Template\stylish.holobest.com\images\find.png" />
+    <Content Include="Template\stylish.holobest.com\images\font-awesome.png" />
+    <Content Include="Template\stylish.holobest.com\images\gallery01.png" />
+    <Content Include="Template\stylish.holobest.com\images\gallery02.png" />
+    <Content Include="Template\stylish.holobest.com\images\gallery03.png" />
+    <Content Include="Template\stylish.holobest.com\images\gallery04.png" />
+    <Content Include="Template\stylish.holobest.com\images\gallery05.png" />
+    <Content Include="Template\stylish.holobest.com\images\gallery06.png" />
+    <Content Include="Template\stylish.holobest.com\images\gallery07.png" />
+    <Content Include="Template\stylish.holobest.com\images\gallery08.png" />
+    <Content Include="Template\stylish.holobest.com\images\header-image.png" />
+    <Content Include="Template\stylish.holobest.com\images\header-image2.png" />
+    <Content Include="Template\stylish.holobest.com\images\header-image3.png" />
+    <Content Include="Template\stylish.holobest.com\images\header-image4.png" />
+    <Content Include="Template\stylish.holobest.com\images\help.png" />
+    <Content Include="Template\stylish.holobest.com\images\home.png" />
+    <Content Include="Template\stylish.holobest.com\images\mail.png" />
+    <Content Include="Template\stylish.holobest.com\images\member-photo1.png" />
+    <Content Include="Template\stylish.holobest.com\images\member-photo2.png" />
+    <Content Include="Template\stylish.holobest.com\images\member-photo3.png" />
+    <Content Include="Template\stylish.holobest.com\images\member-photo4.png" />
+    <Content Include="Template\stylish.holobest.com\images\photos.png" />
+    <Content Include="Template\stylish.holobest.com\images\pop-up.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-2columns-image1.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-2columns-image2.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-2columns-image3.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-2columns-image4.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-2columns-image5.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-4columns-image1.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-4columns-image2.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-4columns-image3.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-4columns-image4.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-4columns-image5.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-4columns-image6.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-4columns-image7.png" />
+    <Content Include="Template\stylish.holobest.com\images\portfolio-4columns-image8.png" />
+    <Content Include="Template\stylish.holobest.com\images\sidebar-thumbnail.png" />
+    <Content Include="Template\stylish.holobest.com\images\single-portfolio-image.png" />
+    <Content Include="Template\stylish.holobest.com\images\single-post-image.png" />
+    <Content Include="Template\stylish.holobest.com\images\slide-bg-1.png" />
+    <Content Include="Template\stylish.holobest.com\images\slide-bg-2.png" />
+    <Content Include="Template\stylish.holobest.com\images\slide-bg-3.png" />
+    <Content Include="Template\stylish.holobest.com\images\slide-bg-4.png" />
+    <Content Include="Template\stylish.holobest.com\images\slide-image-1.png" />
+    <Content Include="Template\stylish.holobest.com\images\slide-image-2.png" />
+    <Content Include="Template\stylish.holobest.com\images\slide-image-3.png" />
+    <Content Include="Template\stylish.holobest.com\images\slide-image-4.png" />
+    <Content Include="Template\stylish.holobest.com\images\slide-image-5.png" />
+    <Content Include="Template\stylish.holobest.com\images\testimonial-bg.png" />
+    <Content Include="Template\stylish.holobest.com\images\toggle-image.png" />
+    <Content Include="Template\stylish.holobest.com\index.html" />
+    <Content Include="Template\stylish.holobest.com\jquery-animate-css-rotate-scale.js" />
+    <Content Include="Template\stylish.holobest.com\jquery-css-transform.js" />
+    <Content Include="Template\stylish.holobest.com\latest-posts.html" />
+    <Content Include="Template\stylish.holobest.com\latest-work.html" />
+    <Content Include="Template\stylish.holobest.com\media.html" />
+    <Content Include="Template\stylish.holobest.com\message-boxes.html" />
+    <Content Include="Template\stylish.holobest.com\page-404.html" />
+    <Content Include="Template\stylish.holobest.com\page-contact.html" />
+    <Content Include="Template\stylish.holobest.com\page-elements.html" />
+    <Content Include="Template\stylish.holobest.com\page-full-width.html" />
+    <Content Include="Template\stylish.holobest.com\page-pricing-tables.html" />
+    <Content Include="Template\stylish.holobest.com\page-services.html" />
+    <Content Include="Template\stylish.holobest.com\page-sidebar.html" />
+    <Content Include="Template\stylish.holobest.com\page-team.html" />
+    <Content Include="Template\stylish.holobest.com\page-typography.html" />
+    <Content Include="Template\stylish.holobest.com\persons.html" />
+    <Content Include="Template\stylish.holobest.com\Pleas Read.txt" />
+    <Content Include="Template\stylish.holobest.com\portfolio-2columns.html" />
+    <Content Include="Template\stylish.holobest.com\portfolio-4columns.html" />
+    <Content Include="Template\stylish.holobest.com\portfolio-masonry.html" />
+    <Content Include="Template\stylish.holobest.com\portfolio-single.html" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\back.png" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\bg.png" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\css\style.css" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\images\find.png" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\images\help.png" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\images\home.png" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\images\mail.png" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\images\photos.png" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\index.html" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\jquery-animate-css-rotate-scale.js" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\jquery-css-transform.js" />
+    <Content Include="Template\stylish.holobest.com\RockingRollingMenu\title.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\custom.js" />
+    <Content Include="Template\stylish.holobest.com\scripts\jquery-ui.min.js" />
+    <Content Include="Template\stylish.holobest.com\scripts\jquery.min.js" />
+    <Content Include="Template\stylish.holobest.com\scripts\main.js" />
+    <Content Include="Template\stylish.holobest.com\scripts\plugins.js" />
+    <Content Include="Template\stylish.holobest.com\skills-bar.html" />
+    <Content Include="Template\stylish.holobest.com\sliders.html" />
+    <Content Include="Template\stylish.holobest.com\styles\custom.css" />
+    <Content Include="Template\stylish.holobest.com\styles\elements.css" />
+    <Content Include="Template\stylish.holobest.com\styles\img\header-bg.png" />
+    <Content Include="Template\stylish.holobest.com\styles\img\plus.png" />
+    <Content Include="Template\stylish.holobest.com\styles\main.css" />
+    <Content Include="Template\stylish.holobest.com\styles\theme-responsive.css" />
+    <Content Include="Template\stylish.holobest.com\tabs.html" />
+    <Content Include="Template\stylish.holobest.com\vendors\animations\animate.css" />
+    <Content Include="Template\stylish.holobest.com\vendors\bootstrap\css\bootstrap-responsive.css" />
+    <Content Include="Template\stylish.holobest.com\vendors\bootstrap\css\bootstrap.css" />
+    <Content Include="Template\stylish.holobest.com\vendors\bootstrap\js\bootstrap.js" />
+    <Content Include="Template\stylish.holobest.com\vendors\font-awesome\css\font-awesome.css" />
+    <Content Include="Template\stylish.holobest.com\vendors\font-awesome\font\fontawesome-webfont.svg" />
+    <Content Include="Template\stylish.holobest.com\vendors\inview\jquery.inview.js" />
+    <Content Include="Template\stylish.holobest.com\vendors\isotope\imagesloaded.pkgd.min.js" />
+    <Content Include="Template\stylish.holobest.com\vendors\isotope\jquery.isotope.min.js" />
+    <Content Include="Template\stylish.holobest.com\vendors\linecons\style.css" />
+    <Content Include="Template\stylish.holobest.com\vendors\magnific-popup\jquery.magnific-popup.min.js" />
+    <Content Include="Template\stylish.holobest.com\vendors\magnific-popup\magnific-popup.css" />
+    <Content Include="Template\stylish.holobest.com\vendors\quote-rotator\css\animate.css" />
+    <Content Include="Template\stylish.holobest.com\vendors\quote-rotator\css\quoterotator.css" />
+    <Content Include="Template\stylish.holobest.com\vendors\quote-rotator\js\jquery.quoterotator.min.js" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\arrowleft.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\arrowright.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\arrow_left.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\arrow_left2.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\arrow_right.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\arrow_right2.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\boxed_bgtile.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\bullet.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\bullets.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\bullets2.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\bullet_boxed.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\coloredbg.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\large_left.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\large_right.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\loader.gif" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\navigdots.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\navigdots_bgtile.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\shadow1.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\shadow2.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\shadow3.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\small_left.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\small_left_boxed.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\small_right.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\small_right_boxed.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\assets\timer.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\css\settings.css" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\images\gradient\g30.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\images\gradient\g40.png" />
+    <Content Include="Template\stylish.holobest.com\vendors\revolution-slider\js\jquery.themepunch.revolution.min.js" />
     <Content Include="UploadedExcelFiles\ErrorLap.txt" />
     <Content Include="UploadedExcelFiles\LapDatadbTraning.txt" />
     <Content Include="UploadedExcelFiles\LapDataTraning.txt" />
@@ -3273,6 +3461,26 @@
     <Content Include="UploadedExcelFiles\ProductNameTraining.txt.r280" />
     <Content Include="Views\Product\checkLink.cshtml" />
     <Content Include="Views\Product\TakeAliasProduct.cshtml" />
+    <Content Include="Views\History\CompareHistory.cshtml" />
+    <Content Include="Views\History\Create.cshtml" />
+    <Content Include="Views\History\Delete.cshtml" />
+    <Content Include="Views\History\Details.cshtml" />
+    <Content Include="Views\History\Edit.cshtml" />
+    <Content Include="Views\History\Index.cshtml" />
+    <Content Include="Views\Product\_NoneProductDisplay.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_MainLayout.cshtml" />
+    <Content Include="Views\Home\Index_.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\HistoryDetail\Index.cshtml" />
+    <Content Include="Views\Notifier\Index.cshtml" />
+    <Content Include="Template\stylish.holobest.com\vendors\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="Template\stylish.holobest.com\vendors\font-awesome\font\fontawesome-webfont_2d2816fe.eot" />
+    <Content Include="Template\stylish.holobest.com\vendors\font-awesome\font\fontawesome-webfont_aea8981c.eot" />
+    <Content Include="Template\stylish.holobest.com\vendors\font-awesome\font\fontawesome-webfont_aea8981c.ttf" />
+    <Content Include="Template\stylish.holobest.com\vendors\font-awesome\font\fontawesome-webfont_aea8981c.woff" />
+    <Content Include="Template\stylish.holobest.com\vendors\linecons\fonts\linecons.eot" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Dandelion\plugins\elfinder\files\.tmb\" />
