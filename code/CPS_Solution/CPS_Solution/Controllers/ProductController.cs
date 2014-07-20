@@ -111,7 +111,7 @@ namespace CPS_Solution.Controllers
             }
             string name = User.Identity.Name;
              double pointLogint =0;
-             if (name != null)
+             if (name != "")
              {
                  var pointUserLogin = db.RatingProducts.Where(x => x.ProductID.Equals(id) && x.Username.Equals(name)).SingleOrDefault();
                  if (pointUserLogin != null)
