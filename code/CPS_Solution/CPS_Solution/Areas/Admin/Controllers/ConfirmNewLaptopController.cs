@@ -42,8 +42,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
         }
         public List<Product> ProductNotConfirm()
         {
-            // lấy tất cả hardware có isactive là false
-            var ProductNotConfirm = db.Products.Where(x => x.IsActive == false).ToList();                   
+            // lấy tất cả hardware có isactive là null lên để confirm
+            var ProductNotConfirm = db.Products.Where(x => x.IsActive == null).ToList();                   
             return ProductNotConfirm;
         }
 
@@ -52,9 +52,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             List<Product> listproconfirm = ProductNotConfirm();
             ViewBag.listproconfirm = listproconfirm;
-
-
-
             // lấy product có isactive = true để autocomplete
             var ProductTrue = db.Products.Where(x => x.IsActive == true).ToList();
             var ProductList = new List<SelectListItem>();
@@ -78,19 +75,30 @@ namespace CPS_Solution.Areas.Admin.Controllers
             int numstt = Convert.ToInt32(stt);
             string newstt = info[1];
             // những hardware mới vào chưa kích hoạt.
-            var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == false).ToList();
+            var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == null).ToList();
             // tìm tới hardware có id = stt
 
                 var product = db.Products.Where(x => x.ID.Equals(numstt)).SingleOrDefault();
                 product.IsActive = false;
                 db.SaveChanges();
-                AliasProduct newAli = new AliasProduct();
-                newAli.ProductID = Convert.ToInt32(newstt);
-                newAli.Name = product.Name;
-                newAli.IsMain = false;
-                newAli.IsActive = true;
-                db.AliasProducts.Add(newAli);
-                db.SaveChanges();
+                int id = product.ID;
+                var aliasPro = db.AliasProducts.Where(x => x.ProductID.Equals(id)).ToList();
+
+                foreach (AliasProduct ali in aliasPro)
+                {
+                    ali.ProductID = Convert.ToInt32(newstt);
+                    db.SaveChanges();
+                }
+                //AliasProduct newAli = new AliasProduct();
+                //newAli.ProductID = Convert.ToInt32(newstt);
+                //newAli.Name = product.Name;
+                //newAli.Price = product.Price;
+                //newAli.URL = product.URL;
+                
+                //newAli.IsMain = false;
+                //newAli.IsActive = true;
+                //db.AliasProducts.Add(newAli);
+                //db.SaveChanges();
             #region code comment
             //for (int i = 0; i < unConfrimedProducts.Count; i++)
             //{

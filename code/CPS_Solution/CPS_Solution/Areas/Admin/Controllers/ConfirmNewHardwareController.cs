@@ -205,7 +205,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             return View();
         }
-        // Tải những phần cứng isActive false lên.
+        // Tải những phần cứng isActive null lên.
         public List<HardwareConfirm> loadHardwareFalse()
         {
             // lấy tất cả hardware có isactive là false
