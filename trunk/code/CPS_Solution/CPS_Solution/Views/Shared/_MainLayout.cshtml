@@ -58,6 +58,7 @@
 
     @*  ssdfsdfsdfd*@
     <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/compare-cart.js")"></script>
+    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/dropdown.js")"></script>
 
 
     <style>
@@ -136,19 +137,47 @@
 
                 <nav id="header-navigation" class="animated fadeRight">
                     <div class="menu">
-                        <div class="item">
-                            <a class="link icon_home" href="@Url.Action("Contact","Product")"></a>
-                            <div class="item_content">
+                        <div class="item3">
+                            @if (User.Identity.IsAuthenticated) {
+                                <span class="dropdown" style="font-weight:bolder; color:white; width:200px;">
+                                        Xin chào, @User.Identity.Name
+                                        <a class="dropdown" data-toggle="dropdown" href="javascript:void(0)">
+                                            <i style="font-size:20px;" class="icon-gear"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li></li>
+                                            <li>
+                                                <a href="javascript:void(0)"><i class="icon-flag"></i>  Lịch sử so sánh</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("LogOff","Account")"><i class="icon-signout"></i>  Đăng xuất</a>
+                                                
+                                            </li>
+                                            
+                                        </ul>
+                                </span>
+                            } else {
+                                <span>Xin chào, Guest</span>
+                            }
+                        </div>
+                        @if (User.Identity.IsAuthenticated) {
+                            <div class="item2">
+                                <a class="link icon_user" href="@Url.Action("Login","Account")"></a>
                                 <div class="item_content">
-                                    @if (User.Identity.IsAuthenticated)
-                                        {
-                                            <h2>@User.Identity.Name! <a href="@Url.Action("LogOff", "Account")"><i class="icon-off"></i></a></h2>
-                                        } else {
-                                            <h2>GUEST</h2>
-                                        }
+                                    <div class="item_content">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        } else {
+                            <div class="item2">
+                                <a class="link icon_guest" href="@Url.Action("Login","Account")"></a>
+                                <div class="item_content">
+                                    <div class="item_content">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
                         <div class="item">
                             <a class="link icon_mail" href="@Url.Action("Contact","Product")"></a>
                             <div class="item_content">
