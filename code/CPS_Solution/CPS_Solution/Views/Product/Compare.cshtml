@@ -1,20 +1,34 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
 
 @{
-    ViewBag.Title = "Kết quả so sánh";
-    Layout = "~/Views/Shared/_Compare.cshtml";
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="breadcrumb-container" @*style="height:60px"*@>
-    <div class="container" >
-        <div class="relative">
-            <ul class="bc push-up unstyled clearfix">
-                <li>Trang chủ</li>
-                <li class="active">So sánh</li>
-            </ul>
+@section navigator
+{
+    <div id="top-image" class="top-image3">
+        <div class="container">
+            <div id="top-image-caption">
+                <h2>so sánh sản phẩm</h2>
+            </div>
         </div>
     </div>
-</div>
+
+    <div id="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="span8">
+                    <ul class="breadcrumb">
+                        <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
+                        <li><p>so sánh</p></li>
+                    </ul>
+                </div>                
+            </div>
+        </div>
+    </div>
+}
+
 <style type="text/css">
     .parent {
         position: relative;
@@ -47,178 +61,84 @@
     }
 </style>
 
-<main id="main-content" role="main">
+<div class="page-element gray-element">
     <div class="container">
-        <div class="row">
-            <div class="m-t-b clearfix">
-                <section class="col-xs-12 col-sm-4 col-md-3" style="margin-top: 0%">
-                    <section class="sidebar push-up">
-                        <!-- Search Panel -->
-                        <section class="side-section bg-white" style="height:330px">
-                            <header class="side-section-header">
-                                <h3 class="side-section-title">...</h3>
-                            </header>
-                            <div class="side-section-content">
-                                <!-- SEARCH BOX -->
-                                <div class="search-box">
-                                    @*@using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Get))
-                                    {
-                                        <div class="input-iconed prepend">
-                                            <button class="input-icon"><i class="iconfont-search"></i></button>
-                                            <div class="round-input">
-                                                @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { style = "margin-left: 10%; margin-rigth: 10%; border: none; width: 70%" })
-                                            </div>
-                                        </div>                                        
-                                    }*@
-                                </div>
-                                <!-- // SEARCH BOX -->
-                            </div>
-                        </section>
-                        <!-- // Search Panel -->
-                    </section>
-                    <section class="sidebar push-up" style="margin-top: 0%">
-                        <section class="side-section bg-white">
-                            <header class="side-section-header">
-							    <h3 class="side-section-title">Thông tin</h3>
-						    </header>
-                            <table class="table" style="text-align:center;">
-                                <thead>
-                                    <tr><td style="background-color:#F7A191; font-weight:bold; font-size:14px;">CPU</td></tr>
-                                    <tr><td style="font-weight:bold; font-size:14px;">Card màn hình</td></tr>
-                                    <tr><td style="background-color:#F7A191; font-weight:bold; font-size:14px;">Ram</td></tr>
-                                    <tr><td style="font-weight:bold; font-size:14px;">Ổ cứng</td></tr>
-                                    <tr><td style="background-color:#F7A191; font-weight:bold; font-size:14px;">Độ phân giải</td></tr>
-                                </thead>
-                            </table>
-                        </section>
-                    </section>
-
-                </section>
-                <section class="col-xs-12 col-sm-8 col-md-9">
-                    <div class="products-layout grid m-t-b add-cart">
-                        @{ int bestProductID = Model.ElementAt(1).ID; }
-                        @foreach (var item in Model)
-                        {
-                            if (item.ID == bestProductID)
-                            {
-                                <div class="product" id="@item.ID" style="border-style:solid; border-width:2px; border-color:#FA6F57; border-radius:10px;">
-                                    <div class="entry-main" style="height:40px;"><button type="button" class="btn btn-primary btn-sm" disabled style="background-color:#fa6f57">WINNER</button></div>
-                                    <div class="entry-main">
-                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details/@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
-                                    </div>  
-                                    <div class="entry-media parent">
-                                        <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="@item.Name" class="lazyLoad thumb caption-wrapper" />
-                                        <div class="child">@Html.DisplayFor(modelItem => item.TotalWeightPoint)</div>
-                                    </div>
-                                    <div class="entry-main">
-                                        <table class="table">
-                                                @if (item.strCPU != null) { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strCPU)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                                @if (item.strVGA != null)
-                                                { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strVGA)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                                @if (item.strRAM != null)
-                                                { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strRAM)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                                @if (item.strHDD != null)
-                                                { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strHDD)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                                @if (item.strDisplay != null)
-                                                { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strDisplay)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                        </table>
-                                    </div>
-                                </div> 
-                            }
-                            else
-                            {
-                                <div class="product" id="@item.ID">
-                                    <div class="entry-main" style="height:40px;"><button type="button" class="btn btn-info btn-sm" disabled>RUNNER-UP</button></div>
-                                    <div class="entry-main">
-                                        <h5 class="entry-title" style="border:groove; border-radius:10px;"><a href="/Product/Details/@item.ID", target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h5>
-                                    </div>  
-                                    <div class="entry-media parent">
-                                        <img style="width:100%; height:100%" src="@Url.Content("~/Template/GFashion/img/laptop.jpg")" alt="@item.Name" class="lazyLoad thumb caption-wrapper" />
-                                        <div class="child">@Html.DisplayFor(modelItem => item.TotalWeightPoint)</div>
-                                    </div>
-                                    <div class="entry-main">
-                                        <table class="table">
-                                                @if (item.strCPU != null) { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strCPU)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                                @if (item.strVGA != null)
-                                                { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strVGA)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                                @if (item.strRAM != null)
-                                                { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strRAM)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                                @if (item.strHDD != null)
-                                                { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strHDD)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                                @if (item.strDisplay != null)
-                                                { 
-                                                    <tr><td>@Html.DisplayFor(modelItem => item.strDisplay)</td></tr>
-                                                } else {
-                                                    <tr><td>N/A</td></tr>
-                                                }
-                                        </table>
-                                    </div>
-                                </div>
-                            }
-                        }
+        <div class="pricing-tables-wrapper clearfix">
+            <div class="pricing-table" style="margin-top:27%;">
+                <div class="pricing-table-header">
+                    <div class="lower-header">
+                        <p class="pricing-table-price">Tổng điểm</p>
                     </div>
-                    
-                    <button class="button" onclick="goCompareDetail()">Xem chi tiết</button>
-                 
-                </section>
+                </div>
+                <div class="pricing-table-content">
+                    <div class="table-row odd"><p>CPU</p></div>
+                    <div class="table-row even"><p>VGA</p></div>
+                    <div class="table-row odd"><p>RAM</p></div>
+                    <div class="table-row even"><p>HDD</p></div>
+                    <div class="table-row odd"><p>Display</p></div>
+                </div>
             </div>
+            
+
+            @{ int bestProductID = Model.ElementAt(1).ID; }
+            @foreach (var item in Model)
+            {
+                if (item.ID == bestProductID)
+                {
+                    <div class="pricing-table highlighted-table">
+                        <div class="pricing-table-header">
+                            <div class="upper-header">
+                                <h4>@item.Name</h4>
+                                <img src="~/Images/I/default.jpg" style="margin-bottom:50px;"/>
+                            </div>
+                            <div class="lower-header">
+                                <p class="pricing-table-price">@item.TotalWeightPoint</p>
+                            </div>
+                        </div>
+
+                        <div class="pricing-table-content">
+                            <div class="table-row odd"><p>@item.strCPU</p></div>
+                            <div class="table-row even"><p>@item.strVGA</p></div>
+                            <div class="table-row odd"><p>@item.strRAM</p></div>
+                            <div class="table-row even"><p>@item.strHDD</p></div>
+                            <div class="table-row odd"><p>@item.strDisplay</p></div>
+                            
+                        </div>
+                        <div class="pricing-table-footer">
+                            <div class="stylish-button" style="background-color: #F87912">
+                                <a href="#">Báo sai</a>
+                            </div>
+                        </div>
+                    </div>
+                } else 
+                {
+                    <div class="pricing-table ">
+                        <div class="pricing-table-header">
+                            <div class="upper-header">
+                                <h4>@item.Name</h4>
+                                <img src="~/Images/I/default.jpg" style="margin-bottom:50px;"/>
+                            </div>
+                            <div class="lower-header">
+                                <p class="pricing-table-price">@item.TotalWeightPoint</p>
+                            </div>
+                        </div>
+                        <div class="pricing-table-content">
+                            <div class="table-row odd"><p>@item.strCPU</p></div>
+                            <div class="table-row even"><p>@item.strVGA</p></div>
+                            <div class="table-row odd"><p>@item.strRAM</p></div>
+                            <div class="table-row even"><p>@item.strHDD</p></div>
+                            <div class="table-row odd"><p>@item.strDisplay</p></div>
+                        </div>
+                        <div class="pricing-table-footer">
+                            <div class="stylish-button" style="background-color: #F87912">
+                                <a href="#">Báo sai</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
-</main>
-
-<script>
-	var a = [];
-	$('.products-layout').find(".product").each(function () {
-	    a.push(this.id);
-	})
-
-	function goCompareDetail() {
-        if (a.length == 2) {
-	        //Khi danh sach chi co 2 san pham thi id san pham 3 = -1
-	        window.location.replace('CompareDetail?p1=' + a[0] + '&p2=' + a[1] + '&p3=-1');
-	    } else {
-	        //Khi danh sach co du 3 san pham
-	        window.location.replace('CompareDetail?p1=' + a[0] + '&p2=' + a[1] + '&p3=' + a[2]);
-	    }
-	}
-</script>
-
-
+</div>
 
 
