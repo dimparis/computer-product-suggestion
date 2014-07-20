@@ -55,7 +55,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public void SaveLogReportLaptop(string idUser,string idLap, string contextReport)
         {
             // lấy dữ liệu trong file text traning ra LogFileReportLaptop;
-            string path = Server.MapPath("~Areas/Admin/LogFiles/LogFileReportLaptop.txt.txt");
+            string path = Server.MapPath("~Areas/Admin/LogFiles/LogFileReportLaptop.txt");
             if (System.IO.File.Exists(path))
             {   // lấy hết dòng trong file txt ra.
                 string[] lines = System.IO.File.ReadAllLines(path);

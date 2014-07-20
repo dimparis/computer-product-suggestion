@@ -873,7 +873,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             }
                             if(count11==0){
                                 Hardware p = new Hardware();
-
+                                p.IsActive = true;
                                 String[] mangten = proTach.ten.ToString().Split(';');
                                 if (mangten.Length >= 2)
                                 {
@@ -912,6 +912,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         else
                         {
                             Hardware p = new Hardware();
+                            p.IsActive = true;
                             String[] mangten = listduplicatenew[i][1].ten.ToString().Split(';');
                             if (mangten.Length >= 2)
                             {
