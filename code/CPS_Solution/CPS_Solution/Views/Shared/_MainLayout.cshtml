@@ -46,13 +46,20 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/styles/custom.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/styles/theme-responsive.css")" />
     <link rel="stylesheet" href="@Url.Content("~/Template/stylish.holobest.com/css/style.css")" type="text/css" media="screen"/>
-        <!-- Metro -->
-    <link rel="stylesheet" href="@Url.Content("~/Template/Metro/css/metro-bootstrap.css")" />
-    <script src="@Url.Content("~/Template/Metro/js/jquery/jquery.widget.min.js")"></script>
-    <script src="@Url.Content("~/Template/Metro/js/metro/metro.min.js")"></script>
 
+    <!-- jQuery Libraries -->
+    <link rel="stylesheet" href="@Url.Content("~/Template/Metro/css/metro-bootstrap.css")" />
+    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery-ui.min.js")"></script>
+    <script src="@Url.Content("~/Template/stylish.holobest.com/jquery-css-transform.js")" type="text/javascript"></script>
     <link rel="stylesheet" href="@Url.Content("~/Content/Error.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/login.css")" />
+    <script src="@Url.Content("~/Template/stylish.holobest.com/jquery-animate-css-rotate-scale.js")" type="text/javascript"></script>
+
+    @*  ssdfsdfsdfd*@
+    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/compare-cart.js")"></script>
+
+
     <style>
         * {
             margin: 0;
@@ -78,24 +85,76 @@
             bottom: 0px;
             left: 0px;
         }
-    </style>
+
+        /*Initialize*/
+        ul#menu, ul#menu ul.sub-menu {
+            padding:0;
+            margin: 0;
+        }
+        ul#menu li, ul#menu ul.sub-menu li {
+            list-style-type: none;
+            display: inline-block;
+        }
+        /*Link Appearance*/
+        ul#menu li a, ul#menu li ul.sub-menu li a {
+            text-decoration: none;
+            color: #fff;
+            background: #666;
+            padding: 5px;
+            display:inline-block;
+        }
+        /*Make the parent of sub-menu relative*/
+        ul#menu li {
+            position: relative;
+        }
+        /*sub menu*/
+        ul#menu li ul.sub-menu {
+            display:none;
+            position: absolute;
+            top: 30px;
+            left: 0;
+            width: 100px;
+        }
+        ul#menu li:hover ul.sub-menu {
+            display:block;
+        }
+        .ui-effects-transfer { border: 2px dotted gray; }
+</style>
 </head>
 <body>
     <header>
         <div id="header-container" class="navbar-fixed-top header-small">
             <div class="container">
-                <div id="logo" class="animated fadeLeft">
+                <div id="logo" style="background:none;" class="animated fadeLeft">
                     <h1>
-                        <a href="#">CPS</a>
+                        <a href="#">
+                            <img src="~/Template/stylish.holobest.com/images/logo.png" />
+
+                        </a>
                     </h1>
                 </div>
 
                 <nav id="header-navigation" class="animated fadeRight">
-                       <div class="menu">
+                    <div class="menu">
+                        <div class="item">
+                            <a class="link icon_home" href="@Url.Action("Contact","Product")"></a>
+                            <div class="item_content">
+                                <div class="item_content">
+                                    @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <h2>@User.Identity.Name! <a href="@Url.Action("LogOff", "Account")"><i class="icon-off"></i></a></h2>
+                                        } else {
+                                            <h2>GUEST</h2>
+                                        }
+                                </div>
+                            </div>
+                        </div>
                         <div class="item">
                             <a class="link icon_mail" href="@Url.Action("Contact","Product")"></a>
                             <div class="item_content">
-                                <h2>Liên hệ</h2>
+                                <div class="item_content">
+                                    <h2>Đề xuất</h2>
+                                </div>
                             </div>
                         </div>
                         <div class="item">
@@ -121,11 +180,13 @@
                             <div class="item_content">
                                 <h2>Trang chủ</h2>
                             </div>
-                        </div>
+                        </div
                     </div>
                     <script src="@Url.Content("~/Template/stylish.holobest.com/jquery-css-transform.js")" type="text/javascript"></script>
                     <script src="@Url.Content("~/Template/stylish.holobest.com/jquery-animate-css-rotate-scale.js")" type="text/javascript"></script>
                     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                    
+                    
                     <script>
                         $('.item').hover(
                             function () {

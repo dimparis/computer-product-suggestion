@@ -28,12 +28,30 @@
     overflow: hidden;
 }
 
-.link {
-    left: 2px;
-    top: 2px;
-    position: absolute;
-    width: 48px;
-    height: 48px;
+.item2{
+    position:relative;
+    background-color:#f0f0f0;
+    float:right;
+    width:52px;
+    margin:0px 5px;
+    height:52px;
+    border:2px solid #ddd;
+    -moz-border-radius:30px;
+    -webkit-border-radius:30px;
+    border-radius:30px;
+    -moz-box-shadow:1px 1px 3px #555;
+    -webkit-box-shadow:1px 1px 3px #555;
+    box-shadow:1px 1px 3px #555;
+    cursor:pointer;
+    overflow:hidden;
+}
+
+.link{
+    left:2px;
+    top:2px;
+    position:absolute;
+    width:48px;
+    height:48px;
 }
 
 .icon_home {
@@ -109,10 +127,9 @@
 
 /*Viet - Compare Cart*/
 #compare_panel {
-    display: none;
     position: fixed;
     right: 0;
-    top: 268px;
+    top: 100px;
     width: 300px;
     text-decoration: none;
     z-index: 200;
