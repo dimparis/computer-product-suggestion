@@ -9,11 +9,29 @@
 
 @section headScript
 {
+
+    <!-- iOS webapp icons -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
+
+      <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.theme.css" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
    <!-- jQuery JavaScript File -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
     <!-- jQuery-UI JavaScript Files -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+        <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
     <!-- Plugin Files -->
     <!-- FileInput Plugin -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
@@ -213,9 +231,6 @@
                     <tr role="row">
                         <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">ID</th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên Laptop</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">CPU</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">RAM</th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Kích Hoạt</th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 50px;">Thực hiện</th>
                     </tr>
@@ -232,15 +247,7 @@
                             <td class=" sorting_1">@h.ID</td>
                             <td class=" ">
                                 <label style="width: 100px;">@h.Name</label></td>
-                            <td class=" ">
-                                <label style="width: 100px;" id="hiddenCodetype">@h.strCPU</label>
-
-                            </td>
-                            
-                            <td class=" ">
-                                <label style="width: 100px;">@h.strVGA</label></td>
-                            <td class=" ">
-                                <label style="width: 100px;">@h.strRAM</label></td>
+                          
                             <td class=" "> <input style="width:52px" onclick="ActiveLaptop(@h.ID)" value="Kích Hoạt" class="da-button green">
                             </td>
                             <td class=" ">
@@ -336,11 +343,9 @@
         $('.ui-autocomplete').css("z-index", "1000");
     });
 
+
 </script>
 <script>
-
-
-
     //Hiện popup để sửa 1 sản phẩm đúng.
     function showPopupEdit(i){
         $("#Edit-"+i+"-Popup-div").dialog({
@@ -417,49 +422,166 @@
         });
 
     }
-    //// Sửa sản phẩm đúng
-    //function EditHardware(stt){                               
-    //    var Name =  document.getElementById("idNameHard"+stt).value;
-    //    var Weight = document.getElementById("idWeightHard"+stt).value;
-    //    var IsActive = document.getElementById("IsActive"+stt).value;
-    //    var ProductID = document.getElementById("idproduct"+stt).value;
-    //    var string = stt +'@@'+Name+'@@'+Weight+'@@'+ IsActive+'@@'+ProductID;
-    //    var count =0;                            
-    //    // kiểm tra tên
-    //    if(Name.length<1||Name.length>100)
-    //    {
-    //        document.getElementById("idNameHard"+stt).style.borderColor='red';
-    //        count++;
-    //    }else {
-    //        document.getElementById("idNameHard"+stt).style.borderColor="";
-    //    }                        
-    //    // kiểm tra trọng số
-    //    // kiểm tra giá
-    //    myFunction(Weight);
-    //    function myFunction(Weight) {
-    //        val = parseFloat(Weight);
-    //        if(isNaN(val)){
-    //            document.getElementById("idWeightHard"+stt).style.borderColor='red';
-    //            count++;
-    //        }else{
-    //            document.getElementById("idWeightHard"+stt).style.borderColor="";
-    //        }
-    //    }                
-    //    if(count==0)
-    //    {
-    //        var postData = {HardInfo: string };
-    //        $.ajax({
-    //            type: "POST",
-    //            url: "/Admin/ConfirmNewLaptop/EditHardware",
-    //            data: postData,
-    //            success: function(data){
-    //                // $('#white-icon').html(data);
-    //                $("#Edit-"+stt+"-Popup-div").dialog( "close");
-    //            },
-
-    //        });
-    //    }       
-    //    // nếu không phát hiện lỗi thì gửi về controller để xử lý                       
-    //}   
+   
 </script>
+  <script>
+      (function ($) {
+          $(document).ready(function (e) {
+              // dialog popup
+              $("#da-ex-accordion, #da-ex-accordion-plain").accordion();
 
+              $("#da-ex-tabs, #da-ex-tabs-plain").tabs();
+
+              $("#da-ex-datepicker, #da-ex-datepicker-inline").datepicker({ showOtherMonths: true });
+
+              $("#da-ex-datepicker-week").datepicker({ showOtherMonths: true, showWeek: true });
+
+              $("#da-ex-datepicker-months").datepicker({ showOtherMonths: true, numberOfMonths: 3 });
+
+              $("#da-ex-datetimepicker").datetimepicker();
+
+              $("#da-ex-timepicker").timepicker({});
+
+              $(".da-ex-buttons").button();
+
+              $("#da-ex-buttons-radio, #da-ex-buttons-checkbox").buttonset();
+
+              $("#da-ex-buttons-icon button:first").button({
+                  icons: {
+                      primary: "ui-icon-locked"
+                  },
+                  text: false
+              }).next().button({
+                  icons: {
+                      primary: "ui-icon-locked"
+                  }
+              }).next().button({
+                  icons: {
+                      primary: "ui-icon-gear",
+                      secondary: "ui-icon-triangle-1-s"
+                  }
+              }).next().button({
+                  icons: {
+                      primary: "ui-icon-gear",
+                      secondary: "ui-icon-triangle-1-s"
+                  },
+                  text: false
+              });
+
+              var availableTags = [
+                  "ActionScript",
+                  "AppleScript",
+                  "Asp",
+                  "BASIC",
+                  "C",
+                  "C++",
+                  "Clojure",
+                  "COBOL",
+                  "ColdFusion",
+                  "Erlang",
+                  "Fortran",
+                  "Groovy",
+                  "Haskell",
+                  "Java",
+                  "JavaScript",
+                  "Lisp",
+                  "Perl",
+                  "PHP",
+                  "Python",
+                  "Ruby",
+                  "Scala",
+                  "Scheme"
+              ];
+
+              $("#da-ex-autocomplete").autocomplete({
+                  source: availableTags
+              });
+
+              $("#da-ex-slider").slider();
+
+              $("#da-ex-slider-range").slider({
+                  range: true,
+                  min: 0,
+                  max: 500,
+                  values: [75, 300],
+                  slide: function (event, ui) {
+                      $("#da-ex-slider-range-info .da-highlight").html("$" + ui.values[0] + " - $" + ui.values[1]);
+                  }
+              });
+
+              $(".da-ex-color-slider").slider({
+                  range: "min",
+                  value: 45,
+                  min: 1,
+                  max: 100
+              });
+
+              $("#da-ex-slider-range-fixed").slider({
+                  range: "min",
+                  value: 37,
+                  min: 1,
+                  max: 700,
+                  slide: function (event, ui) {
+                      $("#da-ex-slider-range-fixed-info .da-highlight").html("$" + ui.value);
+                  }
+              });
+
+              $("#da-slider-equalizer > span").each(function () {
+                  var value = parseInt($(this).text(), 10);
+
+                  $(this).empty().slider({
+                      value: value,
+                      range: "min",
+                      animate: true,
+                      orientation: "vertical"
+                  });
+              });
+
+              $(".da-ex-color-pb, #da-ex-pb, #da-ex-pba").each(function () {
+                  $(this).progressbar({
+                      value: 25 + Math.floor(Math.random() * 50)
+                  });
+              });
+
+              $("#da-ex-pba-trigger").bind('click', function (e) {
+                  $(this).parent().next("#da-ex-pba").progressbar('value', 20 + Math.floor(Math.random() * 80));
+                  e.preventDefault();
+              });
+
+              $("#da-ex-dialog-div").dialog({
+                  autoOpen: false,
+                  title: "Chọn log file bạn muốn ghi lại, để sau đó có thể tiếp tục xử lý.",
+                  modal: true,
+                  width: "550",
+                  buttons: [{
+                      text: "Đóng",
+                      click: function () {
+                          $(this).dialog("close");
+                      }
+                  }]
+              });
+
+
+
+
+              $("#da-ex-dialog").bind("click", function (event) {
+                  $("#da-ex-dialog-div").dialog("option", { modal: false }).dialog("open");
+                  event.preventDefault();
+              });
+              $("#da-ex-dialog-modal").bind("click", function (event) {
+                  $("#da-ex-dialog-div").dialog("option", { modal: true }).dialog("open");
+                  event.preventDefault();
+              });
+              $("#da-ex-dialog-form").bind("click", function (event) {
+                  $("#da-ex-dialog-form-div").dialog("option", { modal: true }).dialog("open");
+                  event.preventDefault();
+              });
+              //  Growl Notifications 
+              if ($.jGrowl) {
+
+                  $("#da-ex-growl-2").bind("click", function (event) {
+                      $.jGrowl("Con cò bé bé", { header: "Nhắc nhở!", position: "bottom-right" });
+                  });
+              }
+          });
+      })(jQuery); 		</script>
