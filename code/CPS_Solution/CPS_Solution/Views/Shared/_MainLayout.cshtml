@@ -141,19 +141,18 @@
                             @if (User.Identity.IsAuthenticated) {
                                 <span class="dropdown" style="font-weight:bolder; color:white; width:200px;">
                                         Xin chào, @User.Identity.Name
-                                        <a class="dropdown" data-toggle="dropdown" href="javascript:void(0)">
+                                        <a data-toggle="dropdown" href="#">
                                             <i style="font-size:20px;" class="icon-gear"></i>
                                         </a>
-                                        <ul class="dropdown-menu">
+                                        <ul class="dropdown-menu" style="top:20px; right:-55px; left:100px;">
                                             <li></li>
                                             <li>
-                                                <a href="javascript:void(0)"><i class="icon-flag"></i>  Lịch sử so sánh</a>
+                                                <a href="javascript:void(0)"><i class="icon-h-sign"></i>  Lịch sử so sánh</a>
                                             </li>
                                             <li>
                                                 <a href="@Url.Action("LogOff","Account")"><i class="icon-signout"></i>  Đăng xuất</a>
                                                 
                                             </li>
-                                            
                                         </ul>
                                 </span>
                             } else {
