@@ -5,10 +5,51 @@
     Layout = null;
     List<Product> listproconfirm = ViewBag.listproconfirm;
 }
+      <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+    <!-- Plugin Files -->
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.icons.js"></script>
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.core.js"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
 
-<!-- Demo JavaScript Files -->
-<script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
-  <!-------------------------------------------------------------------------------------------> 
+    <!--  Demo JavaScript Files popup Ui Popup 
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
+    <!-- jGrowl Plugin   -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
+
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
+    <!-- Chosen Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
+
+    <!----------------------------- Lên datatable Plugin------------------------------------------>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 <!------------------------------------------------------------------------------------------->
 <div  class="da-panel collapsible">
     <div class="da-panel-header">
@@ -28,9 +69,6 @@
                     <tr role="row">
                         <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">ID</th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên Laptop</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Tên Laptop</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Tên Laptop</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Tên Laptop</th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Kích Hoạt</th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 50px;">Thực hiện</th>
                     </tr>
@@ -47,22 +85,14 @@
                             <td class=" sorting_1">@h.ID</td>
                             <td class=" ">
                                 <label style="width: 100px;">@h.Name</label></td>
-                            <td class=" ">
-                                <label style="width: 100px;" id="hiddenCodetype">@h.strCPU</label>
-
-                            </td>
-                            
-                            <td class=" ">
-                                <label style="width: 100px;">@h.strDisplay</label></td>
-                            <td class=" ">
-                                <label style="width: 100px;">@h.strDisplay</label></td>
+                          
                             <td class=" "> <input style="width:52px" onclick="ActiveLaptop(@h.ID)" value="Kích Hoạt" class="da-button green">
                             </td>
                             <td class=" ">
                            
                                 <a onclick="showPopupEdit(@h.ID)">
                                     <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
-                                    Sửa</a>
+                                    Mapping</a>
 
                                 <!----------------Popup sửa sản phẩm đúng----------->
                                 <div id="Edit-@h.ID-Popup-div" style="display: none;">
@@ -70,38 +100,40 @@
                                         <div class="da-panel-content">
                                             <form class="da-form">
                                                 <div class="da-form-inline">
-                                                    <div class="da-form-row">
+                                                     <div style="display:none" class="da-form-row">
                                                         <label>Laptop</label>
                                                         <div class="da-form-item">
-                                                            <span class="formNote">Laptop chứa thành phần</span>
+                                                            <span class="formNote">Tên thành phần</span>
                                                             <input disabled id="idNameProduct@(h.ID)" value="@h.Name" type="text">
                                                             <input hidden id="idproduct@(h.ID)" value="@h.ID" type="text">
                                                         </div>
                                                     </div>
-                                                    <div class="da-form-row">
+                                                    <div style="display:none" class="da-form-row">
                                                         <label>Loại</label>
                                                         <div class="da-form-item">
                                                             <span class="formNote">Loại thành phần</span>
                                                             <input id="idCodetypeHard@(h.ID)" disabled value="@h.Name" type="text">
                                                         </div>
                                                     </div>
-                                                    <div class="da-form-row">
-                                                        <label>Tên thành phần</label>
+                                                    <div style="display:none" class="da-form-row">
+                                                        <label>Tên Laptop</label>
                                                         <div class="da-form-item">
                                                             <span class="formNote">Tên thành phần phải từ 5 tới 100 ký tự.</span>
-                                                            <input name="idNameHard@(h.ID)" id="Hardware"  type="text">
+                                                            <input disabled name="idNameHard@(h.ID)" id="Hardware" value="@h.Name"  type="text">
                                                         </div>
                                                     </div>
-
+                                                    
                                                     <div class="da-form-row">
-                                                                <label>Laptop</label>
+                                                                <label>Laptop Mapping</label>
                                                                 <div class="da-form-item">
                                                                     <span class="formNote">Danh sách các Laptop</span>
-                                                                    @Html.DropDownList("CPUList", ViewBag.ProductList as List<SelectListItem>, new { @class = "chzn-select", id = @h.ID,@style = "width: 250px;" })
+                                                                    @Html.DropDownList("ProductList", ViewBag.ProductList as List<SelectListItem>, new { @class = "chzn-select", id = @h.ID,@style = "width: 250px;" })
                                                                 </div>
                                                      </div> 
                                                     <div class="da-button-row">
-                                                        <input onclick="EditHardware(@h.ID)" type="button" value="Lưu" class="da-button green">
+                                                        <input onclick="EditHardware
+    
+    (@h.ID)" type="button" value="Lưu" class="da-button green">
                                                     </div>
                                                 </div>
                                             </form>
@@ -143,3 +175,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ui-autocomplete').css("z-index", "1000");
+    });
+
+</script>
