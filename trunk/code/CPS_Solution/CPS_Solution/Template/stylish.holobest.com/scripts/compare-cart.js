@@ -22,13 +22,7 @@ $(function () {
             return false;
         }
         $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
-
-        
-
-      
-        
-        
-        checkCart();
+       checkCart();
     });
        
     $('.compare-button').on('click', function () {
