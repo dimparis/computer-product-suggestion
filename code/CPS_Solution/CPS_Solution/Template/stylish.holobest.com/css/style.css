@@ -1,118 +1,111 @@
-.menu{
-    width:800px;
-    height:100px;
-    position:relative;
-	margin-top:0.75%;
+.menu {
+    width: 800px;
+    height: 100px;
+    position: relative;
+    margin-top: 0.75%;
     font-family: "Trebuchet MS", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: bold;
     text-transform: uppercase;
 }
-.item{
-    position:relative;
-    background-color:#f0f0f0;
-    float:right;
-    width:52px;
-    margin:0px 5px;
-    height:52px;
-    border:2px solid #ddd;
-    -moz-border-radius:30px;
-    -webkit-border-radius:30px;
-    border-radius:30px;
-    -moz-box-shadow:1px 1px 3px #555;
-    -webkit-box-shadow:1px 1px 3px #555;
-    box-shadow:1px 1px 3px #555;
-    cursor:pointer;
-    overflow:hidden;
+
+.item {
+    position: relative;
+    background-color: #f0f0f0;
+    float: right;
+    width: 52px;
+    margin: 0px 5px;
+    height: 52px;
+    border: 2px solid #ddd;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    -moz-box-shadow: 1px 1px 3px #555;
+    -webkit-box-shadow: 1px 1px 3px #555;
+    box-shadow: 1px 1px 3px #555;
+    cursor: pointer;
+    overflow: hidden;
 }
 
-.link{
-    left:2px;
-    top:2px;
-    position:absolute;
-    width:48px;
-    height:48px;
+.link {
+    left: 2px;
+    top: 2px;
+    position: absolute;
+    width: 48px;
+    height: 48px;
 }
-.icon_home{
-    background:transparent url(../images/home.png) no-repeat top left;
+
+.icon_home {
+    background: transparent url(../images/home.png) no-repeat top left;
 }
-.icon_mail{
-    background:transparent url(../images/mail.png) no-repeat top left;
+
+.icon_mail {
+    background: transparent url(../images/mail.png) no-repeat top left;
 }
-.icon_help{
-    background:transparent url(../images/help.png) no-repeat top left;
+
+.icon_help {
+    background: transparent url(../images/help.png) no-repeat top left;
 }
-.icon_find{
-    background:transparent url(../images/find.png) no-repeat top left;
+
+.icon_find {
+    background: transparent url(../images/find.png) no-repeat top left;
 }
-.icon_photos{
-    background:transparent url(../images/photos.png) no-repeat top left;
+
+.icon_photos {
+    background: transparent url(../images/photos.png) no-repeat top left;
 }
-.item_content{
-    position:absolute;
-    height:52px;
-    width:220px;
-    overflow:hidden;
-    left:56px;
-    background:transparent;
-    display:none;
+
+.item_content {
+    position: absolute;
+    height: 52px;
+    width: 220px;
+    overflow: hidden;
+    left: 56px;
+    background: transparent;
+    display: none;
 }
-.item_content h2{
-    color:#aaa;
-	margin-top:7.5px;
-    text-shadow: 1px 1px 1px #fff;
-    background-color:transparent;
-    font-size:16px;
-}
-.item_content a{
-    background-color:transparent;
-    float:left;
-    margin-right:7px;
-    color:#bbb;
-    text-shadow: 1px 1px 1px #fff;
-    text-decoration:none;
-    font-size:12px;
-}
-.item_content a:hover{
-    color:#0b965b;
-}
-.item_content p {
-    background-color:transparent;
-    display:none;
-}
-.item_content p input{
-    border:1px solid #ccc;
-    padding:1px;
-    width:155px;
-    float:left;
-    margin-right:5px;
-}
+
+    .item_content h2 {
+        color: #aaa;
+        margin-top: 7.5px;
+        text-shadow: 1px 1px 1px #fff;
+        background-color: transparent;
+        font-size: 16px;
+    }
+
+    .item_content a {
+        background-color: transparent;
+        float: left;
+        margin-right: 7px;
+        color: #bbb;
+        text-shadow: 1px 1px 1px #fff;
+        text-decoration: none;
+        font-size: 12px;
+    }
+
+        .item_content a:hover {
+            color: #0b965b;
+        }
+
+    .item_content p {
+        background-color: transparent;
+        display: none;
+    }
+
+        .item_content p input {
+            border: 1px solid #ccc;
+            padding: 1px;
+            width: 155px;
+            float: left;
+            margin-right: 5px;
+        }
 
 .post-title {
-    height:60px;
-    overflow:hidden;
+    height: 60px;
+    overflow: hidden;
 }
 
-#productName::-webkit-input-placeholder
-{
-  color:    #fff;
-}
-
-#productName:-moz-placeholder 
-{
-  color:    #fff;
-}
-
-#productName::-moz-placeholder 
-{
-  color:    #fff;
-}
-
-#productName:-ms-input-placeholder 
-{
-  color:    #fff;
-}
 
 /*Viet - Compare Cart*/
 #compare_panel {
@@ -126,66 +119,190 @@
     border: 1px solid #0078be;
     border-right: none;
     border-radius: 5px 0 0 5px;
-    padding:10px 20px;
+    padding: 10px 20px;
     background: #FFF;
-    -webkit-box-shadow: #CCC -2px 2px 4px; 
+    -webkit-box-shadow: #CCC -2px 2px 4px;
     -moz-box-shadow: #CCC -2px 2px 4px;
     box-shadow: #CCC -2px 2px 4px;
 }
 
-#compare_panel ul {
-    padding:10px 0;
+    #compare_panel ul {
+        padding: 10px 0;
+    }
+
+        #compare_panel ul li {
+            padding: 3px 0;
+            border-bottom: dotted #ccc 1px;
+        }
+
+    #compare_panel .compare-remove {
+        float: right;
+        color: #f40;
+        cursor: pointer;
+    }
+
+    #compare_panel .compare-close {
+        float: right;
+        margin-right: -6px;
+        background-image: url('http://ii.alatest.com/css/common/nb_close.gif');
+        height: 19px;
+        width: 19px;
+        cursor: pointer;
+    }
+
+    #compare_panel label {
+        display: block;
+        float: right;
+        padding-left: 10px;
+        height: 23px;
+        background: transparent url('http://ii.alatest.com/css/category/compare-button.png') 0 0;
+        cursor: pointer;
+    }
+
+        #compare_panel label.compare-button span {
+            display: inline-block;
+            height: 23px;
+            line-height: 23px;
+            white-space: nowrap;
+            font-size: 90%;
+            padding-right: 10px;
+            background: transparent url('http://ii.alatest.com/css/category/compare-button.png') 100% 0;
+        }
+
+        #compare_panel label.compare-button span {
+            color: #fff;
+            background-position: 100% -24px;
+        }
+
+        #compare_panel label.compare-button {
+            background-position: 0 -48px;
+        }
+
+            #compare_panel label.compare-button span {
+                color: #fff;
+                background-position: 100% -48px;
+            }
+
+a {
+    color: #ccc;
 }
 
-#compare_panel ul li {
-    padding:3px 0;
-    border-bottom: dotted #ccc 1px;
+/*-------------------------------------*/
+
+.cf:before, .cf:after {
+    content: "";
+    display: table;
 }
 
-#compare_panel .compare-remove {
-    float: right;
-    color: #f40;
-    cursor: pointer;
+.cf:after {
+    clear: both;
 }
 
-#compare_panel .compare-close {
-    float: right;
-    margin-right: -6px;
-    background-image: url('http://ii.alatest.com/css/common/nb_close.gif');
-    height: 19px;
-    width: 19px;
-    cursor: pointer;
+.cf {
+    zoom: 1;
 }
 
-#compare_panel label {
-    display: block;
-    float: right;
-    padding-left: 10px;
-    height: 23px;
-    background: transparent url('http://ii.alatest.com/css/category/compare-button.png') 0 0;
-    cursor: pointer;
+/*-------------------------------------*/
+
+.form-wrapper {
+    width: 450px;
+    margin-left:350px;
+    background: #444;
+    background: rgba(0,0,0,.2);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+    box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
 }
 
-#compare_panel label.compare-button span{
-    display: inline-block;
-    height: 23px;
-    line-height: 23px;
-    white-space: nowrap;
-    font-size: 90%;
-    padding-right: 10px;
-    background:transparent url('http://ii.alatest.com/css/category/compare-button.png') 100% 0;
-}
+    .form-wrapper input {
+        width: 330px;
+        height: 20px;
+        padding: 10px 5px;
+        float: left;
+        font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+        border: 0;
+        background: #eee;
+        -moz-border-radius: 3px 0 0 3px;
+        -webkit-border-radius: 3px 0 0 3px;
+        border-radius: 3px 0 0 3px;
+    }
 
-#compare_panel label.compare-button span {
-    color: #fff;
-    background-position: 100% -24px;
-}
+        .form-wrapper input:focus {
+            outline: 0;
+            background: #fff;
+            -moz-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+            -webkit-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+            box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+        }
 
-#compare_panel label.compare-button {
-    background-position: 0 -48px;
-}
+        .form-wrapper input::-webkit-input-placeholder {
+            color: #999;
+            font-weight: normal;
+            font-style: italic;
+        }
 
-#compare_panel label.compare-button span {
-    color: #fff;
-    background-position: 100% -48px;
-}
+        .form-wrapper input:-moz-placeholder {
+            color: #999;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        .form-wrapper input:-ms-input-placeholder {
+            color: #999;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+    .form-wrapper button {
+        overflow: visible;
+        position: relative;
+        float: right;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        height: 40px;
+        width: 110px;
+        font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+        color: #fff;
+        text-transform: uppercase;
+        background: #d83c3c;
+        -moz-border-radius: 0 3px 3px 0;
+        -webkit-border-radius: 0 3px 3px 0;
+        border-radius: 0 3px 3px 0;
+        text-shadow: 0 -1px 0 rgba(0, 0,0, .3);
+    }
+
+        .form-wrapper button:hover {
+            background: #e54040;
+        }
+
+        .form-wrapper button:active,
+        .form-wrapper button:focus {
+            background: #c42f2f;
+        }
+
+        .form-wrapper button:before {
+            content: '';
+            position: absolute;
+            border-width: 8px 8px 8px 0;
+            border-style: solid solid solid none;
+            border-color: transparent #d83c3c transparent;
+            top: 12px;
+            left: -6px;
+        }
+
+        .form-wrapper button:hover:before {
+            border-right-color: #e54040;
+        }
+
+        .form-wrapper button:focus:before {
+            border-right-color: #c42f2f;
+        }
+
+        .form-wrapper button::-moz-focus-inner {
+            border: 0;
+            padding: 0;
+        }
