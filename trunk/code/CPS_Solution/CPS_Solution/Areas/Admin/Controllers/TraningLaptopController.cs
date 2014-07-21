@@ -1799,7 +1799,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.listproduct = (List<LapData>)Session["listproductLapT"];
             ViewBag.listerror = (List<LapData>)Session["listerrorLapT"];
             ViewBag.ListdupLaptraning = (List<List<LapData>>)Session["ListdupLaptraning"];
-
             return View();
         }
 
@@ -1813,7 +1812,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 List<List<LapData>> listduplicatenew = (List<List<LapData>>)Session["listduplicatenewLapT"];
                 String[] tachdup = valuestach.ToString().Split('@');
-                List<String> listtrunglinhkien = (List<String>)Session["listtrunglinhkienT"];
+            //    List<String> listtrunglinhkien = (List<String>)Session["listtrunglinhkienT"];
                 List<LapData> danhsachLaptrunglinhkien = (List<LapData>)Session["danhsachLaptrunglinhkienT"];
                 // lấy cái id mới nhất trong db ra để khi lưu atribute biết hard mới hay là dùng lại hard cũ lưu true false
                 int idBig = 0;
@@ -1867,14 +1866,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng CPU 1
                             for (int x = 0; x < listCPU.Count; x++)
                             {
-                                if (listduplicatenew[i][j].CPU.Equals(listCPU[x].Name))
+                                if (listduplicatenew[i][j].CPU.Trim().Equals(listCPU[x].Name.Trim()))
                                 {
                                     break;
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU, listCPU[x].Name) > 80)
                                 {
                                     CPU = listCPU[x];
-                                    listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                              //      listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorCPU = listCPU[x].Name;
                                     break;
@@ -1883,14 +1882,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng VGA 2
                             for (int x = 0; x < listVGA.Count; x++)
                             {
-                                if (listduplicatenew[i][j].VGA.Equals(listVGA[x].Name))
+                                if (listduplicatenew[i][j].VGA.Trim().Equals(listVGA[x].Name.Trim()))
                                 {
                                     break;
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA, listVGA[x].Name) > 80)
                                 {
                                     VGA = listVGA[x];
-                                    listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                               //     listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorVGA = listVGA[x].Name;
                                     break;
@@ -1899,14 +1898,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng HDD 3
                             for (int x = 0; x < listHDD.Count; x++)
                             {
-                                if (listduplicatenew[i][j].HDD.Trim().Equals(listHDD[x].Name))
+                                if (listduplicatenew[i][j].HDD.Trim().Equals(listHDD[x].Name.Trim()))
                                 {
                                     break;
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD, listHDD[x].Name) > 80)
                                 {
                                     HDD = listHDD[x];
-                                    listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                              //      listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorHDD = listHDD[x].Name;
                                     break;
@@ -1915,14 +1914,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng Display 4
                             for (int x = 0; x < listDisplay.Count; x++)
                             {
-                                if (listduplicatenew[i][j].Display.Equals(listDisplay[x].Name))
+                                if (listduplicatenew[i][j].Display.Trim().Equals(listDisplay[x].Name.Trim()))
                                 {
                                     break;
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display, listDisplay[x].Name) > 80)
                                 {
                                     Display = listDisplay[x];
-                                    listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                             //       listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorDisplay = listDisplay[x].Name;
                                     break;
@@ -1931,14 +1930,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng Ram
                             for (int x = 0; x < listRam.Count; x++)
                             {
-                                if (listduplicatenew[i][j].RAM.Equals(listRam[x].Name))
+                                if (listduplicatenew[i][j].RAM.Trim().Equals(listRam[x].Name.Trim()))
                                 {
                                     break;
                                 }
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM, listRam[x].Name) > 80)
                                 {
                                     Ram = listRam[x];
-                                    listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                              //      listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorRam = listRam[x].Name;
                                     break;
@@ -2542,6 +2541,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 // thêm biến đếm số dòng lỗi được thêm vào.                   
                                 listduplicatenew[i].RemoveAt(j);
                                 j = j - 1;
+                                if (listduplicatenew[i].Count < 2)
+                                {
+                                    listduplicatenew.RemoveAt(i);
+                                    i = i--;
+                                }
                             }
                             if (errorCount == 0)
                             {
@@ -2868,7 +2872,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 }
                             }
                             Session["listduplicatenewLapT"] = listduplicatenew;
-                            Session["listtrunglinhkienT"] = listtrunglinhkien;
+                           // Session["listtrunglinhkienT"] = listtrunglinhkien;
                             Session["danhsachLaptrunglinhkienT"] = danhsachLaptrunglinhkien;
 
                             ViewBag.listduplicatenewLap = (List<List<LapData>>)Session["listduplicatenewLapT"];
@@ -2954,6 +2958,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     a.ProductID = Convert.ToInt32(listduplicatenew[i][0].stt);
                                     a.ProductID = Convert.ToInt32(listduplicatenew[i][0].stt);
                                     a.Price = Convert.ToDouble(listduplicatenew[i][1].Price);
+                                    a.URL = listduplicatenew[i][1].Url;
                                     a.StoreID = StoreID;
                                     a.IsMain = false;
                                     a.IsActive = true;
