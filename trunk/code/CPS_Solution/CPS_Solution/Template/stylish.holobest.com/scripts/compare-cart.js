@@ -1,28 +1,23 @@
 ﻿
 var arr_product = [];
 
-
 $(function () {
-    
     //Add product to compare cart
     $('.addToCompare').on('click', function () {
-
         var id = this.attributes['product-id'].value;
         var name = this.attributes['product-name'].value;
-        
 
-        if (add(id, name)) {
-            runEffect(id);
+        if (sessionStorage.length <= 2) {
+            sessionStorage.setItem("'product-" + id, id);
+            $(".addToCompare[product-id='" + id + "']").hide();
             
-            var img = $("img[id=" + id + "]").attr("src");
-
-            $(".ui-effects-transfer:last").css("background-image", "url(" + img + ")");
-            $(".ui-effects-transfer:last").css("opacity", 0.4);
         } else {
+            alert("Nhieu hon 3 sp");
             return false;
         }
         $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
-       checkCart();
+        $("#compare_panel").show();
+
     });
        
     $('.compare-button').on('click', function () {
@@ -45,9 +40,6 @@ $(function () {
         }
         
     });
-
-    
-
 });
 
 function add(id, name) {
@@ -66,6 +58,7 @@ function removeProduct(x) {
             sessionStorage.removeItem(sessionStorage.key(i));
             $('.' + x).remove();
             $(".addToCompare[product-id='" + x + "']").show();
+            checkCart();
             return;
         }
     }
@@ -98,7 +91,6 @@ function runEffect(id) {
     var options = {
         to: "#compare_panel",
         className: "ui-effects-transfer",
-        
     };
 
     $("#"+id).effect("transfer", options, 1000);

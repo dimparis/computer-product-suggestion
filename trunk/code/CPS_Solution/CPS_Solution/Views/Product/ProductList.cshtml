@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
 @foreach (var item in Model)
 {
-    <div class="isotope-item post span6 shadow">
+    <div class="isotope-item post span6">
         <div class="row">
             <div class="span3">
                 <div class="thumbnail post-media">
@@ -31,8 +31,9 @@
 
                     <div class="post-info clearfix">
                         <div class="post-date">
-                            <i class="icon-usd"></i>
-                            <p>@item.Price</p>
+                            <label style="color:#f00; font-weight:bold; font-size:23px; margin-bottom:0; padding:2px">
+                                @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
+                            </label>
                         </div>
                     </div>
 
@@ -48,7 +49,7 @@
                         <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
                     </div>
                     <div class="stylish-button" style="background-color: #666699">
-                        <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ vào so sánh
+                        <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ thêm vào so sánh
                         </a>
                     </div>
                 </div>
@@ -56,3 +57,10 @@
         </div>
     </div>
 }
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        checkSession();
+    });
+</script>
