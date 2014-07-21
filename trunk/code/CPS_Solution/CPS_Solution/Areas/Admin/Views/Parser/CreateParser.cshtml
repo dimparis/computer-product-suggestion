@@ -36,7 +36,7 @@
 }
 @section sidebar
 {
-  <!-- Main Navigation -->
+   <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
             <li>
@@ -230,20 +230,20 @@
                     <strong>Parser</strong>
                 </a>
                 <ul>
-                    <li>
+                    <li style="background-color: #a6d037;">
                         <a href="@Url.Action("CreateParser", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
                             <strong>Tạo parser linh kiện</strong>
                         </a>
                     </li>
 
-                    <li style="background-color: #a6d037;">
+                    <li >
                         <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
                         </a>
                     </li>
-                    <li>
+                    <li >
                         <a href="#">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
                             <strong>Tạo parser sản phẩm</strong>
@@ -269,11 +269,11 @@
 @section mainHeader
 {
     <ul>
-        <li style="margin-right: 5px"><a style="cursor: default;">
+        <li style="margin-right: 5px"><a style="cursor: default;font-size:27px;">
             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Parser</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
-            <a href="@Url.Action("ConfigureSystem", "System")" style="font-style:italic;text-decoration:underline">Tạo mới Parser</a>
+            <a href="@Url.Action("CreateParser", "Parser")" style="font-size:20px;font-style:italic;text-decoration:underline">Tạo Parser</a>
         </li>
     </ul>
 }
