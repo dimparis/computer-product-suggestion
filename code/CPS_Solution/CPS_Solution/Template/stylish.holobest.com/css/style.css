@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "test";
+    src: url(~/Template/stylish.holobest.com/css/test.TTF) format("truetype");
+}
+
 .menu {
     width: 800px;
     height: 100px;
@@ -46,9 +51,15 @@
     overflow:hidden;
 }
 
+.item3{
+    position: relative;
+    float: right;
+    width: 190px;
+    margin: 18px 5px;
+    height: 45px;
+}
+
 .link{
-    left:2px;
-    top:2px;
     position:absolute;
     width:48px;
     height:48px;
@@ -72,6 +83,14 @@
 
 .icon_photos {
     background: transparent url(../images/photos.png) no-repeat top left;
+}
+
+.icon_guest {
+    background: transparent url(../images/guest.png) no-repeat top left;
+}
+
+.icon_user {
+    background: transparent url(../images/user.png) no-repeat top left;
 }
 
 .item_content {
@@ -126,11 +145,17 @@
 
 
 /*Viet - Compare Cart*/
+.compare-show {
+    position: fixed;
+    top: 100px;
+    right: 400px;
+    background-color:red;
+}
 #compare_panel {
     position: fixed;
     right: 0;
     top: 100px;
-    width: 300px;
+    width: 400px;
     text-decoration: none;
     z-index: 200;
     border: 1px solid #0078be;
