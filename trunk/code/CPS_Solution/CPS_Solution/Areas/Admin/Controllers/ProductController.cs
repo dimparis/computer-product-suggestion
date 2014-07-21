@@ -8,6 +8,7 @@ using CPS_Solution.Areas.Admin.Models;
 using System.IO;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "staff")]
     public class ProductController : Controller
     {
         //
