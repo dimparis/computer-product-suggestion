@@ -54,7 +54,7 @@ namespace CPS_Solution.EntityFramework
             {
                 if (AliasProducts != null && AliasProducts.Count > 0)
                 {
-                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value);
+                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value && ali.IsActive ==true);
                     if (mainAlias != null)
                     {
                         return mainAlias.Name;
