@@ -260,7 +260,7 @@
                     {
                         foreach (Product h in listproconfirm)
                         {
-                        <tr class="odd">
+                        <tr id="IdTr@(h.ID)" class="odd">
 
                             <td class=" sorting_1">@h.ID</td>
                             <td class=" ">
@@ -410,7 +410,8 @@
                 url: "/Admin/ConfirmNewLaptop/ActiveLaptop",
                 data: postData,
                 success: function(data){
-                    LoadTableAjax();
+                    // LoadTableAjax();
+                    document.getElementById("IdTr"+id).style.display='none';
                 },
 
             });
