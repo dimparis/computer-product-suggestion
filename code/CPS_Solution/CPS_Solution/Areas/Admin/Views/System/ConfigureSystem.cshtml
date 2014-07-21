@@ -65,10 +65,10 @@
 
 @section sidebar
 {
-    <!-- Main Navigation -->
+  <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
-            <li>
+            <li class="active">
                 <a href="#">
 
                     <span class="da-nav-count">1</span>
@@ -78,8 +78,8 @@
                     </span>
                     <strong>Hệ thống</strong>
                 </a>
-                <ul class="closed">
-                    <li>
+                <ul >
+                    <li style="background-color: #a6d037;">
                         <a href="@Url.Action("ConfigureSystem", "System")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/setting.png")" alt="" />
                             <strong>Cấu hình hệ thống</strong>
@@ -112,7 +112,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li >
                 <a href="#">
                     <!-- Nav Notification -->
                     <span class="da-nav-count">3</span>
@@ -123,7 +123,7 @@
                     <strong>Dữ liệu</strong>
                 </a>
                 <ul class="closed">
-                    <li>
+                    <li >
                         <a href="/Admin/importexcelLap">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
                             <strong>Nhập Laptop từ Excel</strong>
@@ -249,7 +249,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="active">
+            <li>
                 <a href="#">
                     <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
@@ -258,7 +258,7 @@
                     </span>
                     <strong>Parser</strong>
                 </a>
-                <ul>
+                <ul class="closed">
                     <li>
                         <a href="@Url.Action("CreateParser", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
@@ -266,7 +266,7 @@
                         </a>
                     </li>
 
-                    <li style="background-color: #a6d037;">
+                    <li >
                         <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
@@ -294,15 +294,16 @@
             </li>
         </ul>
     </div>
+
 }
 @section mainHeader
 {
     <ul>
-        <li style="margin-right:5px"><a style="cursor: default;">
+        <li style="margin-right:5px"><a style="cursor: default;font-size:27px;">
             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Hệ thống</strong></a></li>
         <li style="margin-right:5px;font-weight:bold">>></li>
         <li class="active">
-            <a href="@Url.Action("ConfigureSystem", "System")" style="font-style:italic;text-decoration:underline">Cấu hình hệ thống</a>
+            <a href="@Url.Action("ConfigureSystem", "System")" style="font-size:20px;font-style:italic;text-decoration:underline">Cấu hình hệ thống</a>
         </li>
     </ul>
 }

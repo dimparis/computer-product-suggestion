@@ -170,7 +170,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="active">
                 <a href="#">
                     <!-- Nav Notification -->
                     <span class="da-nav-count">3</span>
@@ -180,8 +180,8 @@
                     </span>
                     <strong>Dữ liệu</strong>
                 </a>
-                <ul class="closed">
-                    <li>
+                <ul>
+                    <li style="background-color: #a6d037;">
                         <a href="/Admin/importexcelLap">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
                             <strong>Nhập Laptop từ Excel</strong>
@@ -307,7 +307,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="active">
+            <li>
                 <a href="#">
                     <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
@@ -316,7 +316,7 @@
                     </span>
                     <strong>Parser</strong>
                 </a>
-                <ul>
+                <ul class="closed">
                     <li>
                         <a href="@Url.Action("CreateParser", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
@@ -324,7 +324,7 @@
                         </a>
                     </li>
 
-                    <li style="background-color: #a6d037;">
+                    <li >
                         <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
