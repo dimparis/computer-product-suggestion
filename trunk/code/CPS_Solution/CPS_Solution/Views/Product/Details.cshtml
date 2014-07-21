@@ -314,22 +314,30 @@
 
         <div class="row" style="margin-right: 15px">
             @*<h4 class="element-title">@Html.DisplayFor(model => model.Name)</h4>*@
-            <div class="span4">
-                <img src="~/Images/I/default.jpg" style="background-size: cover; height: 277px; width: 369px">
+            <div class="span3">
+                <img src="~/Images/I/default.jpg" style="background-size: cover;">
             </div>
-            <div class="span4">
+            <div class="span5">
                 <h4 style="overflow-wrap: break-word;">
-                    <strong>Chức năng, cấu hình</strong>
-                    <span style="font-style: italic; text-decoration: underline">@Model.Name</span>
+                    
+                    <strong style="font-style: italic;">@Model.Name</strong>
                 </h4>
-                <table>
-                    <tr>
-                        <td>Giá</td>
-                        <td>@Model.Price</td>
-                    </tr>
+                <div class="post-info clearfix" style="border:3px solid #EAE8E8">
+                    <div class="post-date">
+                        <label style="color:#f00; font-weight:bold; font-size:23px; margin-bottom:0; padding:2px">
+                            @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price)
+                        </label>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                <div>
+                    <strong>Thông tin cấu hình</strong>
+                </div>
+                <table class="table table-bordered table-hover">
+                    <tbody>
                     <tr>
                         <td style="width: 25%">CPU</td>
-                        <td style="width: 100%">@Model.strCPU sdfsdfsdfssdfsdfsdfsdfsd</td>
+                        <td style="width: 100%">@Model.strCPU</td>
                     </tr>
                     <tr>
                         <td>RAM</td>
@@ -351,19 +359,20 @@
                         <td>Đánh giá</td>
                         <td>10/10</td>
                     </tr>
+                        </tbody>
                 </table>
             </div>
             <div class="span4">
                 <h4 style="overflow-wrap: break-word;">
                     <strong>sản phẩm cùng mức giá</strong>
                 </h4>
-                <img src="~/Images/I/default.jpg" style="background-size: cover; height: 277px; width: 369px">
+                <img src="~/Images/I/default.jpg" style="background-size: cover;">
             </div>
-            <div class="span8">
-                <h3 style="overflow-wrap: break-word;">
-                    <strong>Mô tả sản phẩm</strong>
-                </h3>
-                <p>@Model.Description</p>
+            <div class="span8" style="border-style:solid; padding:10px;">
+                @if(@Model.AliasProducts.Count>0)
+                {               
+                    @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x=>x.IsActive=true && x.IsMain==false));
+                }
             </div>
             <div class="span4">
                 <h4 style="overflow-wrap: break-word;">
@@ -371,12 +380,9 @@
                 </h4>
                 <img src="~/Images/I/default.jpg" style="background-size: cover; height: 277px; width: 369px">
             </div>
-            <div class="stylish-light-separator"></div>
+            
         </div>
-        @if(@Model.AliasProducts.Count>0)
-        {               
-                    @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x=>x.IsActive=true && x.IsMain==false));
-        }
+        
 
     </div>
 </div>
