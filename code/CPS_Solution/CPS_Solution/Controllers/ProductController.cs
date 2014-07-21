@@ -100,7 +100,7 @@ namespace CPS_Solution.Controllers
             {
                 return HttpNotFound();
             }
-             product.AliasProducts = db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == false).ToList();
+            product.AliasProducts = db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == false).ToList();
             // lấy point Rating của product
             double point = 0;
             double allpoint = 0;
@@ -111,25 +111,26 @@ namespace CPS_Solution.Controllers
             }
             else
             {
-               foreach(RatingProduct r in Allrating){
-                   allpoint += r.Point;
-               }
-               point = allpoint / Allrating.Count;
+                foreach (RatingProduct r in Allrating)
+                {
+                    allpoint += r.Point;
+                }
+                point = allpoint / Allrating.Count;
             }
             string name = User.Identity.Name;
-             double pointLogint =0;
-             if (name != "")
-             {
-                 var pointUserLogin = db.RatingProducts.Where(x => x.ProductID.Equals(id) && x.Username.Equals(name)).SingleOrDefault();
-                 if (pointUserLogin != null)
-                 {
-                     pointLogint = pointUserLogin.Point;
-                 }
-             }
-             else
-             {
-                 pointLogint = -1;
-             }
+            double pointLogint = 0;
+            if (name != "")
+            {
+                var pointUserLogin = db.RatingProducts.Where(x => x.ProductID.Equals(id) && x.Username.Equals(name)).SingleOrDefault();
+                if (pointUserLogin != null)
+                {
+                    pointLogint = pointUserLogin.Point;
+                }
+            }
+            else
+            {
+                pointLogint = -1;
+            }
             Session["IdDetail"] = id;
             ViewBag.pointLogin = pointLogint;
             ViewBag.point = point;
@@ -139,7 +140,7 @@ namespace CPS_Solution.Controllers
 
         public string AddNewRating(string RatingPoint)
         {
-           int id =  (int)Session["IdDetail"];
+            int id = (int)Session["IdDetail"];
             RatingProduct rating = new RatingProduct();
             string name = User.Identity.Name;
             rating.Point = Convert.ToInt32(RatingPoint);
@@ -149,7 +150,7 @@ namespace CPS_Solution.Controllers
             db.SaveChanges();
             Session["IdDetail"] = null;
             return "";
-           
+
         }
 
         public ActionResult Recommend()
@@ -195,7 +196,7 @@ namespace CPS_Solution.Controllers
             try
             {
                 var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
-                 var document = web.Load(URL);
+                var document = web.Load(URL);
                 if (web.StatusCode == HttpStatusCode.OK)
                 {
 
@@ -288,6 +289,47 @@ namespace CPS_Solution.Controllers
             jsonModel.NoMoreData = products.Count < BlockSize;
             jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
             return Json(jsonModel);
-        } 
+        }
+        public ActionResult SamePriceProduct(int id)
+        {
+            double minPrice = 0;
+            double maxPrice = 0;
+            var product = db.Products.Where(x => x.ID == id).FirstOrDefault();
+            if (product != null)
+            {
+                minPrice = product.Price - 1000000;
+                maxPrice = product.Price + 1000000;
+            }
+            else
+            {
+                minPrice = 0;
+                maxPrice = 0;
+            }
+            var samePriceProducts = db.Products.Where(x => x.IsActive == true).ToList();
+            samePriceProducts.Remove(product);
+            var top3SameProduct = samePriceProducts.Where(x => x.Price <= maxPrice && x.Price >= minPrice).Take(4);
+            return PartialView(top3SameProduct);
+        }
+        public ActionResult LoadProductByPoint(int id) 
+        {
+            double minPoint = 0;
+            double maxPoint = 0;
+            var product = db.Products.Where(x => x.ID == id).FirstOrDefault();
+            if (product != null)
+            {
+                minPoint = product.TotalWeightPoint - 10;
+                maxPoint = product.TotalWeightPoint + 10;
+            }
+            else
+            {
+                minPoint = 0;
+                maxPoint = 0;
+            }
+            var samePointProducts = db.Products.Where(x => x.IsActive == true).ToList();
+            samePointProducts.Remove(product);
+            var top3SameProduct = samePointProducts.Where(x => x.TotalWeightPoint <= maxPoint && x.Price >= minPoint).Take(4);
+
+            return PartialView(top3SameProduct);
+        }
     }
 }

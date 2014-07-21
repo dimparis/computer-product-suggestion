@@ -1,0 +1,18 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
+
+@{
+    foreach (var item in Model)
+    {
+    <div class="media tab-row">
+        <a class="pull-left" href="@Url.Action("Details", "Product", new { id = item.ID })">
+            <img src="/@item.ImageURL" alt="@item.Name" style="width:60px;height:60px">
+        </a>
+        <div class="media-body">
+            <p class="tab-row-title">@item.Name</p>
+
+            <p class="tab-row-date"><strong>@item.Price</strong>(Có <strong>@item.SellPlacers</strong> nơi bán )</p>
+        </div>
+    </div>
+    }
+}
+

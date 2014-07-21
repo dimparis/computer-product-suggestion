@@ -25,7 +25,7 @@ namespace CPS_Solution.EntityFramework
         private int _ramScore;
         private int _hddScore;
         private int _displayScore;
-
+        private int _sellPlace;
 
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
 
@@ -148,8 +148,6 @@ namespace CPS_Solution.EntityFramework
             }
             set { this._ramId = value; }
         }
-
-
         public int DisplayID
         {
             get
@@ -170,6 +168,17 @@ namespace CPS_Solution.EntityFramework
             }
             set { this._displayId = value; }
         }
+
+        public int SellPlacers 
+        {
+            get 
+            {
+                var productAlias = AliasProducts.Where(x => x.ProductID == ID && x.IsActive==true).ToList();
+                return productAlias.Count;
+            }
+            set { this._sellPlace = value; }
+        }
+
         public string strCPU
         {
             get
@@ -387,5 +396,6 @@ namespace CPS_Solution.EntityFramework
                 this._price = value;
             }
         }
+
     }
 }
