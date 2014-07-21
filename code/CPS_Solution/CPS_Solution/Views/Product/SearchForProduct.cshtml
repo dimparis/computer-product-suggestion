@@ -21,17 +21,19 @@
         @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
         <button type="submit">Tìm kiếm</button>               
     }
-    <div id="loadItemcontainer" class="row">        
-        @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
-    </div>
-    <div id="loadingDiv" style="text-align: center; display: none;margin-left:580px; margin-bottom: 20px; height:32px;width:32px">
-        <img alt="Loading" src="@Url.Content("~/Images/112.gif")" />
-    </div>
-</div>
+    @if (Model.Count() > 0)
+    {
+        <div id="loadItemcontainer" class="row">
+            @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
+        </div>
+        <div id="loadingDiv" style="text-align: center; display: none; margin-left: 580px; margin-bottom: 20px; height: 32px; width: 32px">
+            <img alt="Loading" src="@Url.Content("~/Images/112.gif")" />
+        </div>
 
-
-@*  else
-        {
+    }
+    else
+    {
+        <div class="row">
             <div class="isotope-item post span12">
                 <br>
                 <br>
@@ -91,9 +93,12 @@
                     </table>
                 </div>
             </div>
-        }*@
 
+        </div>
+      
+    }
 
+</div>
 @*Compare cart*@
 <div id="compare_panel" style="display: block;">
     <h3>So sánh<a class="compare-close"></a></h3>
