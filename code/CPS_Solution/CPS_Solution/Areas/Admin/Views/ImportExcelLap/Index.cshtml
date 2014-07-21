@@ -123,29 +123,22 @@
 }
 @section sidebar
 {
-    <!-- Main Navigation -->
+   <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
             <li>
                 <a href="#">
 
-                    <span class="da-nav-count">2</span>
+                    <span class="da-nav-count">1</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/home.png")" alt="Trang chủ" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/home.png")" alt="Trang chủ" />
                     </span>
                     <strong>Hệ thống</strong>
                 </a>
                 <ul class="closed">
                     <li>
-                        <a href="#">
-                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/info.png")" alt="" />
-                            <strong>Thông tin hệ thống</strong>
-                        </a>
-
-                    </li>
-                    <li>
-                        <a href="#">
+                        <a href="@Url.Action("ConfigureSystem", "System")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/setting.png")" alt="" />
                             <strong>Cấu hình hệ thống</strong>
                         </a>
@@ -155,56 +148,83 @@
             <li>
                 <a href="#">
                     <!-- Icon Container -->
-                    <span class="da-nav-count">3</span>
+                    <span class="da-nav-count">2</span>
                     <span class="da-nav-icon">
-                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/graph.png")" alt="Charts" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/graph.png")" alt="Charts" />
                     </span>
                     <strong>Thống kê</strong>
                 </a>
                 <ul class="closed">
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("Rating", "StatisticProduct")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/rating.png")" alt="" />
                             <strong>Đánh giá</strong>
                         </a>
 
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("HistoryCompare", "StatisticProduct")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/topsearch.png")" alt="" />
                             <strong>Lịch sử</strong>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="active">
+            <li>
                 <a href="#">
                     <!-- Nav Notification -->
                     <span class="da-nav-count">3</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/graph.png")" alt="Charts" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/documents_1.png")" alt="Charts" />
                     </span>
                     <strong>Dữ liệu</strong>
                 </a>
-                <ul>
+                <ul class="closed">
                     <li>
-                        <a href="#">
+                        <a href="/Admin/importexcelLap">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
-                            <strong>Nhập từ Excel</strong>
+                            <strong>Nhập Laptop từ Excel</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="/Admin/importexcel">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
+                            <strong>Nhập linh kiện từ Excel</strong>
                         </a>
 
                     </li>
                     <li>
 
-                        <a href="#">
+                        <a href="/admin/TraningLaptop">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
-                            <strong>Sản phẩm trùng</strong>
+                            <strong>Xử lý Laptop trùng</strong>
                         </a>
                     </li>
-                    <li style="background-color: #a6d037;">
+                     <li>
 
-                        <a href="#">
+                        <a href="/Admin/TrainingProduct">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xử lý linh kiện trùng</strong>
+                        </a>
+                    </li>
+                     <li>
+
+                        <a href="/Admin/ConfirmNewLaptop">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xác nhận laptop mới</strong>
+                        </a>
+                           </li>
+                           <li>
+                         <a href="/Admin/ConfirmNewHardware">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xác nhận linh kiện mới</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="@Url.Action("CreateProductParser", "Recommend")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/arrow.png")" alt="" />
                             <strong>Sản phẩm đề xuất</strong>
                         </a>
@@ -212,17 +232,17 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="@Url.Action("Index", "Product")">
                     <span class="da-nav-count">2</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/day_calendar.png")" alt="Calendar" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/day_calendar.png")" alt="Calendar" />
                     </span>
                     <strong>Quản lí sản phẩm</strong>
                 </a>
                 <ul class="closed">
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("CreateProductTest", "Product")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/add.png")" alt="" />
                             <strong>Tạo mới sản phẩm</strong>
                         </a>
@@ -230,9 +250,16 @@
                     </li>
                     <li>
 
-                        <a href="#">
+                        <a href="@Url.Action("Index", "Product")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Danh sách sản phẩm</strong>
+                        </a>
+                    </li>
+                     <li>
+
+                        <a href="@Url.Action("Index", "ViewFeedback")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Xem góp ý sản phẩm</strong>
                         </a>
                     </li>
                 </ul>
@@ -242,7 +269,7 @@
                     <!-- Icon Container -->
                     <span class="da-nav-count">2</span>
                     <span class="da-nav-icon">
-                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/file_cabinet.png")" alt="File Handling" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/file_cabinet.png")" alt="File Handling" />
                     </span>
                     <strong>Quản lí từ điển</strong>
                 </a>
@@ -267,7 +294,7 @@
                 <a href="#">
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/settings.png")" alt="" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/settings.png")" alt="" />
                     </span>
                     <strong>Quản lí trọng số</strong>
                 </a>
@@ -280,25 +307,25 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="active">
                 <a href="#">
                     <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
-                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/cog_4.png")" alt="" />
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/cog_4.png")" alt="" />
                     </span>
                     <strong>Parser</strong>
                 </a>
-                <ul class="closed">
+                <ul>
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("CreateParser", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
                             <strong>Tạo parser linh kiện</strong>
                         </a>
                     </li>
 
-                    <li>
-                        <a href="#">
+                    <li style="background-color: #a6d037;">
+                        <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
                         </a>
@@ -310,13 +337,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("Index", "Recommend")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser sản phẩm</strong>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("Index", "LogFile")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/log.png")" alt="" />
                             <strong>Danh sách log file</strong>
                         </a>
@@ -329,11 +356,11 @@
 @section mainHeader
 {
     <ul>
-        <li style="margin-right: 5px"><a style="cursor: default;">
-            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Hệ thống</strong></a></li>
+        <li style="margin-right: 5px"><a style="cursor: default;font-size:27px;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Nhập từ excel</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
-            <a href="@Url.Action("ConfigureSystem", "System")" style="font-style:italic;text-decoration:underline">Cấu hình hệ thống</a>
+            <a href="@Url.Action("ConfigureSystem", "System")" style="font-size:20px;font-style:italic;text-decoration:underline">Laptop</a>
         </li>
     </ul>
 }

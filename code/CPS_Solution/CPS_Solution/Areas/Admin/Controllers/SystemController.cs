@@ -21,7 +21,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                return RedirectToAction("Index", "Parser");
+                return RedirectToAction("Index", "ManagerUser");
             }
             if (User.IsInRole("Staff"))
             {

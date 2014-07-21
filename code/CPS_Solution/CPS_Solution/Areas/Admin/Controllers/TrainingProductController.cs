@@ -31,7 +31,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.Listduptraning = (List<List<ProductMap>>)Session["ListduptraningProduct"];
             return View();
         }
-        
+
         //LoadThanhPhanTrung từ txt
         public List<List<ProductMap>> LoadThanhPhanTrung()
         {
@@ -44,22 +44,24 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 string[] lines = System.IO.File.ReadAllLines(path1);
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    List<ProductMap> duppro = new List<ProductMap>();
-                    String[] line = lines[i].Split('#');
-                    for (int j = 0; j < line.Length; j++)
+                    if (!String.IsNullOrWhiteSpace(lines[i].Trim()))
                     {
-                        h++;
-                        String[] Atrr = line[j].Split('|');
-                        ProductMap pro = new ProductMap();
-                        pro.stt = h.ToString();
-                        pro.ten = Atrr[0];
-                        pro.loai = Atrr[1];
-                        pro.trongso = Atrr[2];
-                        duppro.Add(pro);
+                        List<ProductMap> duppro = new List<ProductMap>();
+                        String[] line = lines[i].Split('#');
+                        for (int j = 0; j < line.Length; j++)
+                        {
+                            h++;
+                            String[] Atrr = line[j].Split('|');
+                            ProductMap pro = new ProductMap();
+                            pro.stt = h.ToString();
+                            pro.ten = Atrr[0];
+                            pro.loai = Atrr[1];
+                            pro.trongso = Atrr[2];
+                            duppro.Add(pro);
 
+                        }
+                        ListdupProductTraning.Add(duppro);
                     }
-                    ListdupProductTraning.Add(duppro);
-
                 }
             }
             #endregion
@@ -77,44 +79,54 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 int h = 999;
                 string[] lines = System.IO.File.ReadAllLines(path);
+
+
+
+
+
+
+
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    h++;
-                    List<ProductMap> duppro = new List<ProductMap>();
-                    string[] seperators = { "~", "#" };
-                    // tách ra làm 3 phần tử.
-                    String[] line = lines[i].Split(seperators, StringSplitOptions.RemoveEmptyEntries);
-                    // cho id vào list ID
-                    string productId = line[0];
-                    // tên sản phẩm đã có trong database
-                    string[] produc1 = line[1].Split('|');
-                    ProductMap p1 = new ProductMap();
-                    p1.stt = produc1[3];
-                    p1.ten = produc1[0];
-                    p1.loai = produc1[1];
-                    p1.trongso = produc1[2];
-                    p1.productid = line[0];
-                    duppro.Add(p1);
-                    // tên product bị trùng với product đã có trong database
-                    string[] produc2 = line[2].Split('|');
-                    ProductMap p2 = new ProductMap();
-                    p2.stt = produc2[3] + 'z';
-                    p2.ten = produc2[0];
-                    p2.loai = produc1[1];
-
-                    if (produc2[2].Equals(""))
+                    if (!String.IsNullOrWhiteSpace(lines[i].Trim()))
                     {
-                        p2.trongso = "0";
-                    }
-                    else
-                    {
-                        p2.trongso = produc2[2];
-                    }
-                    p2.productid = line[0];
-                    duppro.Add(p2);
+                        h++;
+                        List<ProductMap> duppro = new List<ProductMap>();
+                        string[] seperators = { "~", "#" };
+                        // tách ra làm 3 phần tử.
+                        String[] line = lines[i].Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+                        // cho id vào list ID
+                        string productId = line[0];
+                        // tên sản phẩm đã có trong database
+                        string[] produc1 = line[1].Split('|');
+                        ProductMap p1 = new ProductMap();
+                        p1.stt = produc1[3];
+                        p1.ten = produc1[0];
+                        p1.loai = produc1[1];
+                        p1.trongso = produc1[2];
+                        p1.productid = line[0];
+                        duppro.Add(p1);
+                        // tên product bị trùng với product đã có trong database
+                        string[] produc2 = line[2].Split('|');
+                        ProductMap p2 = new ProductMap();
+                        p2.stt = produc2[3] + 'z';
+                        p2.ten = produc2[0];
+                        p2.loai = produc1[1];
 
-                    Listduptraning.Add(duppro);
+                        if (produc2[2].Equals(""))
+                        {
+                            p2.trongso = "0";
+                        }
+                        else
+                        {
+                            p2.trongso = produc2[2];
+                        }
+                        p2.productid = line[0];
+                        duppro.Add(p2);
 
+                        Listduptraning.Add(duppro);
+
+                    }
                 }
             }
             #endregion
@@ -560,7 +572,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             }
 
 
-                           
+
 
                         }
                     }
