@@ -84,7 +84,7 @@
                         </div>
                         <div id="da-header-button-container">
                             <ul>
-                                <li class="da-header-button notif">
+                            @*    <li class="da-header-button notif">
                                     @{
                                         CPS_Solution.Areas.Admin.Models.ShowInfo show = (CPS_Solution.Areas.Admin.Models.ShowInfo)TempData["ShowInfo"];
                                         if (show != null)
@@ -126,7 +126,7 @@
                                         }
                                     }
 
-                                </li>
+                                </li>*@
                                 <li class="da-header-button logout">
                                     <a href="@Url.Action("LogOff", "Authentication")">Đăng xuất</a>
                                 </li>
@@ -140,6 +140,11 @@
             <div id="da-header-bottom">
                 <!-- Container -->
                 <div class="da-container clearfix">
+                    <div id="da-search">
+                    	<form >
+                        	<gcse:searchbox-only></gcse:searchbox-only>
+                        </form>
+                    </div>
                     <!-- Breadcrumbs -->
                     <div id="da-breadcrumb">
                         @RenderSection("mainHeader", false)
@@ -149,7 +154,14 @@
             </div>
         </div>
 
-
+     <script>
+         (function ()
+ {
+     var cx = '008254990418147094948:3tfz3vmcqmi';
+     var gcse = document.createElement('script');
+     gcse.type = 'text/javascript'; gcse.async = true; gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+ })(); </script> 
 
 
         <!-- Content -->
