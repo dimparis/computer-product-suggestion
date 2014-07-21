@@ -237,5 +237,41 @@ namespace CPS_Solution.Controllers
             base.Dispose(disposing);
         }
 
+        public string Feedback(string FeedbackInfo)
+        {
+            String[] info = FeedbackInfo.Trim().Split('|');
+            string Ten = info[0];
+            string Noidung = info[1];
+            DateTime now = DateTime.Now;
+            string Time = now.ToShortDateString();
+            SaveLogReportLaptop(Ten, Noidung, Time);
+            return "";
+        }
+
+        public void SaveLogReportLaptop(string Ten, string Noidung, string Time)
+        {
+            // lấy dữ liệu trong file text traning ra LogFileReportLaptop;
+            string path = Server.MapPath("/Areas/Admin/LogFiles/LogFileReportLaptop.txt");
+            if (System.IO.File.Exists(path))
+            {   // lấy hết dòng trong file txt ra.
+                string[] lines = System.IO.File.ReadAllLines(path);
+                // tảo mảng mới chứa dữ dữ liệu trùng.
+                string[] newlines = new string[1];
+                string newline = Ten + '|' + Noidung + '|' + Time;
+                newlines[0] = newline;
+                //Gộp hai bảng thành mảng mới và lưu vào txt lại
+                string[] save = new string[lines.Length + newlines.Length];
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    save[i] = lines[i];
+                }
+                for (int i = 0; i < newlines.Length; i++)
+                {
+                    save[i + lines.Length] = newlines[i];
+                }
+                // ghi lại vào txt
+                System.IO.File.WriteAllLines(path, save);
+            }
+        }
     }
 }
