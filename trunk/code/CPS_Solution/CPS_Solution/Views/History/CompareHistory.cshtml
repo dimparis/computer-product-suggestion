@@ -3,10 +3,19 @@
 
 @{
     ViewBag.Title = "Lịch sử so sánh";
-    Layout = "~/Views/Shared/_Compare.cshtml";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h2>CompareHistory</h2>
+@section navigator
+{
+    <div id="top-image" class="top-image3">
+        <div class="container">
+            <div id="top-image-caption">
+                <h2 style="font-family:Tahoma, Geneva, sans-serif">Lịch sử so sánh</h2>
+            </div>
+        </div>
+    </div>
+}
 
 <div class="main-content" style="padding: 60px 20px 20px 20px; min-height: 700px;">
             <div>
@@ -45,6 +54,6 @@
 
                     </tbody>
                 </table>
-                @Html.PagedListPager(Model, page => Url.Action("BuyingHistory", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                @Html.PagedListPager(Model, page => Url.Action("CompareHistory", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
             </div>
         </div>
