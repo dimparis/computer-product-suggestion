@@ -209,6 +209,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             int stt = listproindatabase[j].ID;
                             pro.Imagelink = listproindatabase[j].ImageURL;
                             pro.Name = listproindatabase[j].Name;
+                            pro.Price = listproindatabase[j].Price.ToString();
+                            pro.Url = listproindatabase[j].URL;
                             // lấy CPU của product ra
                             var idAttrC = (from a in db.ProductAttributes where a.Hardware.CodetypeID.Equals("C") && a.ProductID == stt select a.AttributeID).SingleOrDefault();
                             if (idAttrC == 0)
@@ -270,7 +272,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 int idRAM = Convert.ToInt32(idAttrR.ToString());
                                 var RAM = (from a in db.Hardwares where a.ID.Equals(idRAM) select a.Name).FirstOrDefault();
                                 pro.RAM = RAM.ToString();
-                            }                             
+                            }          
+                           
                             // add list dup
                             duplicateProduct.Add(pro);
                             listpro[i].stt = "z" + listpro[i].stt;
@@ -2311,7 +2314,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU, listCPU[x].Name) > 80)
                                 {
                                     CPU = listCPU[x];
-                                    listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                    //listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorCPU = listCPU[x].Name;
                                     break;
@@ -2327,7 +2330,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA, listVGA[x].Name) > 80)
                                 {
                                     VGA = listVGA[x];
-                                    listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                  //  listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorVGA = listVGA[x].Name;
                                     break;
@@ -2343,7 +2346,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD, listHDD[x].Name) > 80)
                                 {
                                     HDD = listHDD[x];
-                                    listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                 //   listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorHDD = listHDD[x].Name;
                                     break;
@@ -2359,7 +2362,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display, listDisplay[x].Name) > 80)
                                 {
                                     Display = listDisplay[x];
-                                    listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                 //   listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorDisplay = listDisplay[x].Name;
                                     break;
@@ -2375,7 +2378,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 else if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM, listRam[x].Name) > 80)
                                 {
                                     Ram = listRam[x];
-                                    listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                //    listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
                                     errorCount++;
                                     errorRam = listRam[x].Name;
                                     break;
@@ -2447,7 +2450,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                                     int idinsert = Convert.ToInt32(pronew.ID);
                                     AliasProduct proAli = new AliasProduct();
-                                    proAli.Name = mangten[i];
+                                    proAli.Name = mangten[0];
                                     proAli.ProductID = idinsert;
                                     proAli.Price = Convert.ToDouble(listduplicatenew[i][j].Price);
                                     proAli.StoreID = StoreID;
@@ -3426,7 +3429,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         break;
                     }
                 }
-                ViewBag.listduplicatenew = (List<List<LapData>>)Session["listduplicatenewLap"];
+                ViewBag.listduplicatenewLap = (List<List<LapData>>)Session["listduplicatenewLap"];
                 return View();
             }
         }

@@ -410,26 +410,26 @@
 367~4 GB DDR3|R|0|1211#8GB DDR3|||
 
 
-369~Intel(R) Core(TM) i5-4200U|C|0|1262#Intel(R) Core(TM) i5-4200U (|||
-369~4 GB DDR3|R|0|1211#4 GB DDR3L |||
-370~4 GB DDR3|R|0|1211#4 GB DDR3L|||
+384~Intel(R) Core(TM) i5-4200U|C|0|1262#Intel(R) Core(TM) i5-4200U (|||
+384~4 GB DDR3|R|0|1211#4 GB DDR3L |||
+384~4 GB DDR3|R|0|1211#4 GB DDR3L|||
 
-372~ Intel HD Graphics|V|0|1193#Intel Graphic HD4000|||
-372~500 GB|H|0|1224#500 GB |||
-372~4 GB DDR3|R|0|1211#4 GB DDR3L|||
-373~Intel® Core™ i5-3317U |C|0|1247#Intel® Core™ i5-3337U|||
-373~500GB |H|0|1229#750GB |||
-373~4 GB DDR3|R|0|1211#4 GB DDR3L|||
-374~Intel Core i3-3217U|C|0|1267#Intel Core i3-3217U |||
-374~500GB |H|0|1229# 500GB|||
+384~ Intel HD Graphics|V|0|1193#Intel Graphic HD4000|||
+384~500 GB|H|0|1224#500 GB |||
+384~4 GB DDR3|R|0|1211#4 GB DDR3L|||
+384~Intel® Core™ i5-3317U |C|0|1247#Intel® Core™ i5-3337U|||
+384~500GB |H|0|1229#750GB |||
+384~4 GB DDR3|R|0|1211#4 GB DDR3L|||
+384~Intel Core i3-3217U|C|0|1267#Intel Core i3-3217U |||
+384~500GB |H|0|1229# 500GB|||
 
 
-375~4 GB DDR3|R|0|1211#4 GB DDR3L |||
+384~4 GB DDR3|R|0|1211#4 GB DDR3L |||
 
-376~Intel Ivy Haswell Core i5|C|0|1337#Intel Haswell Core i5- 4200U|||
+384~Intel Ivy Haswell Core i5|C|0|1337#Intel Haswell Core i5- 4200U|||
 
-377~Intel Ivy Haswell Core i5- 4200U|C|0|1347#Intel Haswell Core i5- 4200U |||
+384~Intel Ivy Haswell Core i5- 4200U|C|0|1347#Intel Haswell Core i5- 4200U |||
 
-378~ Intel HD Graphics|V|0|1193#Intel Graphics HD 4400|||
-378~4 GB DDR3|R|0|1211#4 GB DDR3L |||
-379~Intel® Core™ i5-3317U |C|0|1247#Intel® Core™ i5-3337U |||
+384~ Intel HD Graphics|V|0|1193#Intel Graphics HD 4400|||
+384~4 GB DDR3|R|0|1211#4 GB DDR3L |||
+384~Intel® Core™ i5-3317U |C|0|1247#Intel® Core™ i5-3337U |||

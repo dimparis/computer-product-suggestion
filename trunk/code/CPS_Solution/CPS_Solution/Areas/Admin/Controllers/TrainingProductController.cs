@@ -855,7 +855,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     for (int j = 0; j < listduplicatenew[i].Count; j++)
                     {
                         //  line += listduplicatenew[i][j].ten + "#";
-                        line += listduplicatenew[i][j].ten + "|" + listduplicatenew[i][j].loai + "|" + listduplicatenew[i][j].trongso + "#";
+                        line += listduplicatenew[i][j].ten + "|" + listduplicatenew[i][j].loai + "|" + listduplicatenew[i][j].trongso + "|" + listduplicatenew[i][j].stt + "#";
                     }
                     line = line.Substring(0, line.Length - 1);
                     lines[i] = line;
