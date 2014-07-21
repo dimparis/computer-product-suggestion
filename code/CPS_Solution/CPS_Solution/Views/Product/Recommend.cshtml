@@ -61,7 +61,7 @@
                 </ul>
             </div>
 
-            <div class="span6  fadeRight animated fadeInRight" style="float: left;">
+            <div class="span6 fadeRight animated fadeInRight" style="float:left;width:500px">
                 <h3>thông tin đề xuất</h3>
                 @using (Html.BeginForm())
                 {
@@ -69,7 +69,7 @@
                     //Product url
                     <div class="form-group stylish-input ">
                         <h4>Đường dẫn sản phẩm</h4>
-                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link",@style="height:40px;" })
+                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link",@style="height:40px;width:300px" })
                         @Html.ValidationMessageFor(model => model.Parselink)
                         <input type="button" value="Kiểm tra" onclick="LinkCheck()" class="stylish-button" style="margin-top: -10px;height:40px;width:100px;background-color: #FF3333" />
                         <div id="status"/>
