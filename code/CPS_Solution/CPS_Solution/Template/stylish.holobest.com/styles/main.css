@@ -448,7 +448,7 @@ iframe {
 #header-container {
     width: 100%;
     height: 100px;
-    background: transparent url(../images/new.jpg);
+    background: transparent url(img/header-bg.png) top left repeat;
     background-size:50%;
 }
 
