@@ -255,6 +255,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             int stt = listproindatabase[j].ID;
                             pro.Imagelink = listproindatabase[j].ImageURL;
                             pro.Name = listproindatabase[j].Name;
+                            pro.Price = listproindatabase[j].Price.ToString();
+                            pro.Url = listproindatabase[j].URL;
                             // lấy CPU của product ra
                             var idAttrC = (from a in db.ProductAttributes where a.Hardware.CodetypeID.Equals("C") && a.ProductID == stt select a.AttributeID).SingleOrDefault();
                             if (idAttrC == 0)
@@ -517,7 +519,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             var pronew = db.Products.OrderByDescending(pro => pro.ID).FirstOrDefault();
                             int idinsert = Convert.ToInt32(pronew.ID);
                             AliasProduct proAli = new AliasProduct();
-                            proAli.Name = mangten[i];
+                            proAli.Name = mangten[0];
                             proAli.ProductID = idinsert;
                             proAli.Price = Convert.ToDouble(listpro[i].Price);
                             proAli.StoreID = StoreID;

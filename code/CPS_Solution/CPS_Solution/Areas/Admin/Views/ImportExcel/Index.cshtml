@@ -916,6 +916,7 @@
 
                       foreach (List<ProductMap> listp in listDupnew)
                       {
+                          
                           i++;
                           // nút gộp tách
                     <div class="da-panel-toolbar top" style="border-color: yellowgreen">
@@ -985,7 +986,7 @@
                                                                     <div class="da-button-row">
                                                                         <input id="socuapopup@(p.stt)" value="@i" hidden type="text">    
                                                                                                                                          
-                                                                        <input onclick="EditTachPro(@p.stt.Substring(1, 1))" type="button" value="Lưu" class="da-button green">
+                                                                        <input onclick="EditTachPro(@p.stt.Substring(1))" type="button" value="Lưu" class="da-button green">
                                                                     </div>
                                                                 </div>
                                                             </form>
@@ -1292,7 +1293,7 @@
             }
 
             // Sửa sản phẩm tách
-            function EditTachPro(stt){                          
+            function EditTachPro(stt){
                 var i =  document.getElementById("socuapopupz"+stt).value;
                 var Ten =  document.getElementById("idTenDupz"+stt).value;
                 var TrongSo = document.getElementById("idTrongsoDupz"+stt).value;
@@ -1331,9 +1332,10 @@
                         type: "POST",
                         url: "/Admin/ImportExcel/tachdatabase",
                         data: postData,
-                        success: function(data){
-                            $('#black-icon').html(data);
+                        success: function(data){                                              
                             $("#Edit-"+i+"-Popup-div").dialog( "close");
+                            document.getElementById("Edit-"+i+"-Popup-div").id ='0';
+                            $('#black-icon').html(data); 
                             showInfo();
                         },
 

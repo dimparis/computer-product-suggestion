@@ -9,14 +9,17 @@ using System.IO;
 using LinqToExcel;
 using LinqToExcel.Query;
 using CPS_Solution.Areas.Admin.Helpers;
+using CPS_Solution.CommonClass;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
+    //[MyAuthorize(Roles = "staff")]
     public class ImportExcelController : Controller
     {
 
         CPS_SolutionEntities db = new CPS_SolutionEntities();
         //
         // GET: /Admin/ImportExcel/
+       
         [HttpGet]
         public ActionResult Index()
         {
@@ -140,7 +143,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         Name = listpro[i].ten;
                     }
                     // nếu đã có trong database rồi thì xóa đi.
-                    if (listproindatabase[j].Name.ToString().Equals(Name))
+                    if (listproindatabase[j].Name.Trim().ToString().Equals(Name.Trim()))
                     {
                         listproindatabase.RemoveAt(j);
                         listpro.RemoveAt(i);
