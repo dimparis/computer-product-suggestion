@@ -15,7 +15,32 @@
         {
             if (item.URL.Contains(store.StoreUrl))
             {
-    <div class="row" style="margin-right: 15px">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td width="20%">
+                                <img src="@store.LogoImage" style="padding:1px; border-style:solid; border-width:1px; width:250px; height:60px;"/>
+                                <label>@store.StoreUrl</label>
+                            </td>
+                            <td width="25%" style="vertical-align:middle; text-align:center;">
+                                <label for="name" style="color:#F87912; font-weight:bold; font-size:20px;">
+                                    @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
+                                </label>
+                                <div class="stylish-button" style="background-color: #FF3333">
+                                    <a href="@item.URL" target="_blank">Tới nơi bán</a>
+                                </div>
+                            </td>
+                            <td width="55%">
+                                <div>
+                                    <label>@item.Name</label>
+                                    <label>Kho hàng : liên hệ</label>
+                                    <label><a href="#">@item.URL</a></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+    @*<div class="row" style="border-style:solid; padding:5px;">
         <div class="span1" style="width: 140px">
             <div class="row" style="height: 50%; width: 80%">
                 <img src="@store.LogoImage" style="padding:1px; border-style:solid; border-width:1px; width:250px; height:60px;"/>
@@ -37,15 +62,15 @@
         </div>
         <div class="span3">
             <div class="row" style="overflow-wrap: break-word; width: 500px">
-                <div class="span6" style="width: 80%">
+                <div class="span4">
                     <label>@item.Name</label>
                     <label>Kho hàng : liên hệ</label>
                     <label><a href="#">@item.URL</a></label>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="stylish-light-separator" style="margin: 5px; border-top: 1px solid #111213; width: 800px"></div>
+    </div><br />*@
+    @*<div class="stylish-light-separator" style="margin: 5px; border-top: 1px solid #111213; width: 800px"></div>*@
             }
         }
 

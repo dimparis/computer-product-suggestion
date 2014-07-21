@@ -6,6 +6,103 @@
     double point = ViewBag.point;
     double pointLogin = ViewBag.pointLogin;
 }
+
+@section navigator
+{
+    <div id="top-image" class="top-image3">
+        <div class="container">
+            <div id="top-image-caption">
+                <h2>chi tiết sản phẩm</h2>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="page-element gray-element">
+    <div class="container">
+        <div class="row" style="margin-right: 15px">
+            <div class="span3">
+                <img src="~/Images/I/default.jpg" style="background-size: cover;">
+            </div>
+            <div class="span5">
+                <h4 style="overflow-wrap: break-word;">
+                    
+                    <strong style="font-style: italic;">@Model.Name</strong>
+                </h4>
+                <div class="post-info clearfix" style="border:3px solid #EAE8E8">
+                    <div class="post-date">
+                        <label style="color:#f00; font-weight:bold; font-size:23px; margin-bottom:0; padding:2px">
+                            @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price)
+                        </label>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                <div>
+                    <strong><u>Thông tin cấu hình</u></strong>
+                </div>
+                <br />
+                <table class="table table-bordered table-hover">
+                    <tbody>
+                    <tr>
+                        <td style="width: 25%">CPU</td>
+                        <td style="width: 100%">@Model.strCPU</td>
+                    </tr>
+                    <tr>
+                        <td>RAM</td>
+                        <td>@Model.strRAM</td>
+                    </tr>
+                    <tr>
+                        <td>Đĩa cứng</td>
+                        <td>@Model.strHDD</td>
+                    </tr>
+                    <tr>
+                        <td>Đồ họa</td>
+                        <td>@Model.strVGA</td>
+                    </tr>
+                    <tr>
+                        <td>Màn hình</td>
+                        <td>@Model.strDisplay</td>
+                    </tr>
+                    <tr>
+                        <td>Đánh giá</td>
+                        <td>10/10</td>
+                    </tr>
+                        </tbody>
+                </table>
+            </div>
+            <div class="span4">
+                <h4 style="overflow-wrap: break-word;">
+                    <strong>sản phẩm cùng mức giá</strong>
+                </h4>
+                <img src="~/Images/I/default.jpg" style="background-size: cover;">
+            </div>
+            <div class="span8" style="border-style:none; padding:20px;">
+                @if(@Model.AliasProducts.Count>0)
+                {               
+                    @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x=>x.IsActive=true && x.IsMain==false));
+                }
+            </div>
+            <div class="span4">
+                <h4 style="overflow-wrap: break-word;">
+                    <strong>sản phẩm tương tự</strong>
+                </h4>
+                <img src="~/Images/I/default.jpg" style="background-size: cover; height: 277px; width: 369px">
+            </div>
+            
+        </div>
+        
+
+    </div>
+</div>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Rating/css/jRating.jquery.css")" media="screen" />
+@*<!-- jQuery JavaScript File -->
+
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+ *@
+
+
 <script type="text/javascript">
     $(document).ready(function () {
         (function ($) {
@@ -252,144 +349,3 @@
 
     });
 </script>
-
-<style>
-    table {
-        color: #333;
-        font-family: Helvetica, Arial, sans-serif;
-        width: 370px;
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-
-    td {
-        border: 1px solid transparent; /* No more visible border */
-        height: 30px;
-        transition: all 0.3s; /* Simple transition for hover effect */
-        padding-left: 5px;
-        padding-right: 5px;
-        font-family: 'Arial Unicode MS';
-        font-weight: bolder;
-    }
-
-    th {
-        background: #DFDFDF; /* Darken header a bit */
-        font-weight: bold;
-    }
-
-    td {
-        background: #FEFEFE;
-        text-align: left;
-    }
-
-    /* Cells in even rows (2,4,6...) are one color */
-    tr:nth-child(even) td {
-        background: #F1F1F1;
-    }
-
-    /* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
-    tr:nth-child(odd) td {
-        background: #FEFEFE;
-    }
-
-    tr td:hover {
-        background: #666;
-        color: #FFF;
-    }
-    /* Hover cell effect! */
-</style>
-@section navigator
-{
-    <div id="top-image" class="top-image3">
-        <div class="container">
-            <div id="top-image-caption">
-                <h2>chi tiết sản phẩm</h2>
-            </div>
-        </div>
-    </div>
-}
-<div class="page-element gray-element">
-
-    <div class="container">
-
-        <div class="row" style="margin-right: 15px">
-            @*<h4 class="element-title">@Html.DisplayFor(model => model.Name)</h4>*@
-            <div class="span3">
-                <img src="~/Images/I/default.jpg" style="background-size: cover;">
-            </div>
-            <div class="span5">
-                <h4 style="overflow-wrap: break-word;">
-                    
-                    <strong style="font-style: italic;">@Model.Name</strong>
-                </h4>
-                <div class="post-info clearfix" style="border:3px solid #EAE8E8">
-                    <div class="post-date">
-                        <label style="color:#f00; font-weight:bold; font-size:23px; margin-bottom:0; padding:2px">
-                            @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price)
-                        </label>
-                    </div>
-                </div>
-                <div style="clear: both"></div>
-                <div>
-                    <strong>Thông tin cấu hình</strong>
-                </div>
-                <table class="table table-bordered table-hover">
-                    <tbody>
-                    <tr>
-                        <td style="width: 25%">CPU</td>
-                        <td style="width: 100%">@Model.strCPU</td>
-                    </tr>
-                    <tr>
-                        <td>RAM</td>
-                        <td>@Model.strRAM</td>
-                    </tr>
-                    <tr>
-                        <td>Đĩa cứng</td>
-                        <td>@Model.strHDD</td>
-                    </tr>
-                    <tr>
-                        <td>Đồ họa</td>
-                        <td>@Model.strVGA</td>
-                    </tr>
-                    <tr>
-                        <td>Màn hình</td>
-                        <td>@Model.strDisplay</td>
-                    </tr>
-                    <tr>
-                        <td>Đánh giá</td>
-                        <td>10/10</td>
-                    </tr>
-                        </tbody>
-                </table>
-            </div>
-            <div class="span4">
-                <h4 style="overflow-wrap: break-word;">
-                    <strong>sản phẩm cùng mức giá</strong>
-                </h4>
-                <img src="~/Images/I/default.jpg" style="background-size: cover;">
-            </div>
-            <div class="span8" style="border-style:solid; padding:10px;">
-                @if(@Model.AliasProducts.Count>0)
-                {               
-                    @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x=>x.IsActive=true && x.IsMain==false));
-                }
-            </div>
-            <div class="span4">
-                <h4 style="overflow-wrap: break-word;">
-                    <strong>sản phẩm tương tự</strong>
-                </h4>
-                <img src="~/Images/I/default.jpg" style="background-size: cover; height: 277px; width: 369px">
-            </div>
-            
-        </div>
-        
-
-    </div>
-</div>
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Rating/css/jRating.jquery.css")" media="screen" />
-@*<!-- jQuery JavaScript File -->
-
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
-    <!-- jQuery-UI JavaScript Files -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
- *@
