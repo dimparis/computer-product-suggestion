@@ -2982,6 +2982,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 // thêm biến đếm số dòng lỗi được thêm vào.                   
                                 listduplicatenew[i].RemoveAt(j);
                                 j = j - 1;
+                                if (listduplicatenew[i].Count < 2)
+                                {
+                                    listduplicatenew.RemoveAt(i);
+                                    i = i--;
+                                }
                             }
                             if (errorCount == 0)
                             {
