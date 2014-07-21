@@ -11,8 +11,10 @@
 {
     foreach (var store in stores)
     {
-        if (item.URL.Contains(store.StoreUrl))
+        if (store != null)
         {
+            if (item.URL.Contains(store.StoreUrl))
+            {
     <div class="row" style="margin-right: 15px">
         <div class="span3" style="width: 140px">
             <div class="row" style="height: 50%; width: 80%">
@@ -30,8 +32,8 @@
             </div>
         </div>
         <div class="span6">
-            <div class="row" style="overflow-wrap:break-word; width:500px ">
-                <div class="span6" style="width:80%" >
+            <div class="row" style="overflow-wrap: break-word; width: 500px">
+                <div class="span6" style="width: 80%">
                     <label>@item.Name</label>
                     <label>Kho hàng : liên hệ</label>
                     <label><a href="#">@item.URL</a></label>
@@ -39,8 +41,10 @@
             </div>
         </div>
     </div>
-            <div class="stylish-light-separator" style="margin:5px;border-top: 1px solid #111213;width:800px"></div>
+    <div class="stylish-light-separator" style="margin: 5px; border-top: 1px solid #111213; width: 800px"></div>
+            }
         }
+
     }
 
 }

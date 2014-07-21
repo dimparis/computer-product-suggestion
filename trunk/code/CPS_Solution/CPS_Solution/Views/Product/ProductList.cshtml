@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
+@foreach (var item in Model)
+{
+    <div class="isotope-item post span6 shadow">
+        <div class="row">
+            <div class="span3">
+                <div class="thumbnail post-media">
+                    <img src="~/Images/I/default.jpg" />
+                    <div class="thumbnail-hover">
+                        <div class="post-date">
+                            <h3 style="color: white;">~Thông tin chi tiết~</h3>
+                            <h4 style="color: white;overflow-wrap:break-word;" title="@item.strCPU">-CPU : @item.strCPU</h4>
+                            <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strVGA">-VGA : @item.strVGA</h4>
+                            <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strRAM">-RAM : @item.strRAM</h4>
+                            <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strHDD">-HDD : @item.strHDD</h4>
+                            <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strDisplay">-Display : @item.strDisplay</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3">
+                <div class="post-content">
+                    <div class="post-title" style="width: 260px">
+                        <h3>
+                            <i class="icon-bookmark post-title-icon"></i>
+                            <span class="product-name" title="@item.Name" style="overflow-wrap:break-word; height:100px;">@item.Name</span>
+
+                        </h3>
+                    </div>
+
+                    <div class="post-info clearfix">
+                        <div class="post-date">
+                            <i class="icon-usd"></i>
+                            <p>@item.Price</p>
+                        </div>
+                    </div>
+
+                    <div style="clear: both"></div>
+
+                    <div class="post-excerpt">
+                        <p>
+                            Donec magna nunc, vestibulum
+                                at erat ac, mollis varius nunc. Maecenas nec hendrerit nunc. Integer interdum neque lorem, eget mattis dui vehicula at.
+                        </p>
+                    </div>
+                    <div class="stylish-button" style="background-color: #FF3333">
+                        <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
+                    </div>
+                    <div class="stylish-button" style="background-color: #666699">
+                        <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ vào so sánh
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -11,12 +11,6 @@
 
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
 
-    @*
-    <link rel="stylesheet" type="text/css" href="@Url.Content("")" />
-    <script src="@Url.Content("")"></script>
-    *@
-        <!-- jquery Libraries -->
-    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery.min.js")"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/bootstrap/css/bootstrap.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Template/stylish.holobest.com/vendors/bootstrap/css/bootstrap-responsive.css")" />
@@ -50,7 +44,6 @@
     <!-- jQuery Libraries -->
     <link rel="stylesheet" href="@Url.Content("~/Template/Metro/css/metro-bootstrap.css")" />
     <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery.min.js")"></script>
-    <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery-ui.min.js")"></script>
     <script src="@Url.Content("~/Template/stylish.holobest.com/jquery-css-transform.js")" type="text/javascript"></script>
     <link rel="stylesheet" href="@Url.Content("~/Content/Error.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/login.css")" />
@@ -89,44 +82,56 @@
 
         /*Initialize*/
         ul#menu, ul#menu ul.sub-menu {
-            padding:0;
+            padding: 0;
             margin: 0;
         }
-        ul#menu li, ul#menu ul.sub-menu li {
-            list-style-type: none;
-            display: inline-block;
+
+            ul#menu li, ul#menu ul.sub-menu li {
+                list-style-type: none;
+                display: inline-block;
+            }
+                /*Link Appearance*/
+                ul#menu li a, ul#menu li ul.sub-menu li a {
+                    text-decoration: none;
+                    color: #fff;
+                    background: #666;
+                    padding: 5px;
+                    display: inline-block;
+                }
+            /*Make the parent of sub-menu relative*/
+            ul#menu li {
+                position: relative;
+            }
+                /*sub menu*/
+                ul#menu li ul.sub-menu {
+                    display: none;
+                    position: absolute;
+                    top: 30px;
+                    left: 0;
+                    width: 100px;
+                }
+
+                ul#menu li:hover ul.sub-menu {
+                    display: block;
+                }
+
+        .ui-effects-transfer {
+            border: 2px dotted gray;
         }
-        /*Link Appearance*/
-        ul#menu li a, ul#menu li ul.sub-menu li a {
-            text-decoration: none;
-            color: #fff;
-            background: #666;
-            padding: 5px;
-            display:inline-block;
-        }
-        /*Make the parent of sub-menu relative*/
-        ul#menu li {
-            position: relative;
-        }
-        /*sub menu*/
-        ul#menu li ul.sub-menu {
-            display:none;
-            position: absolute;
-            top: 30px;
-            left: 0;
-            width: 100px;
-        }
-        ul#menu li:hover ul.sub-menu {
-            display:block;
-        }
-        .ui-effects-transfer { border: 2px dotted gray; }
-</style>
+        .ui-widget-overlay.custom-overlay
+{
+    background-color: black;
+    background-image: none;
+    opacity: 0.9;
+    z-index: 1040;    
+}
+    </style>
 </head>
 <body>
     <header>
         <div id="header-container" class="navbar-fixed-top header-small">
             <div class="container">
-                <div id="logo" style="background:none;" class="animated fadeLeft">
+                <div id="logo" style="background: none;" class="animated fadeLeft">
                     <h1>
                         <a href="#">
                             <img src="~/Template/stylish.holobest.com/images/logo.png" />
@@ -138,47 +143,52 @@
                 <nav id="header-navigation" class="animated fadeRight">
                     <div class="menu">
                         <div class="item3">
-                            @if (User.Identity.IsAuthenticated) {
-                                <span class="dropdown" style="font-weight:bolder; color:white; width:200px;">
-                                        Xin chào, @User.Identity.Name
-                                        <a data-toggle="dropdown" href="#">
-                                            <i style="font-size:20px;" class="icon-gear"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" style="top:20px; right:-55px; left:100px;">
-                                            <li></li>
-                                            <li>
-                                                <a href="javascript:void(0)"><i class="icon-h-sign"></i>  Lịch sử so sánh</a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("LogOff","Account")"><i class="icon-signout"></i>  Đăng xuất</a>
-                                                
-                                            </li>
-                                        </ul>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <span class="dropdown" style="font-weight: bolder; color: white; width: 200px;">Xin chào, @User.Identity.Name
+                                    <a data-toggle="dropdown" href="#">
+                                        <i style="font-size: 20px;" class="icon-gear"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" style="top: 20px; right: -55px; left: 100px;">
+                                        <li></li>
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="icon-h-sign"></i>Lịch sử so sánh</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("LogOff", "Account")"><i class="icon-signout"></i>Đăng xuất</a>
+
+                                        </li>
+                                    </ul>
                                 </span>
-                            } else {
+                            }
+                            else
+                            {
                                 <span>Xin chào, Guest</span>
                             }
                         </div>
-                        @if (User.Identity.IsAuthenticated) {
+                        @if (User.Identity.IsAuthenticated)
+                        {
                             <div class="item2">
-                                <a class="link icon_user" href="@Url.Action("Login","Account")"></a>
-                                <div class="item_content">
-                                    <div class="item_content">
-                                    </div>
-                                </div>
-                            </div>
-                        } else {
-                            <div class="item2">
-                                <a class="link icon_guest" href="@Url.Action("Login","Account")"></a>
+                                <a class="link icon_user" href="@Url.Action("Login", "Account")"></a>
                                 <div class="item_content">
                                     <div class="item_content">
                                     </div>
                                 </div>
                             </div>
                         }
-                        
+                        else
+                        {
+                            <div class="item2">
+                                <a class="link icon_guest" href="@Url.Action("Login", "Account")"></a>
+                                <div class="item_content">
+                                    <div class="item_content">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                         <div class="item">
-                            <a class="link icon_mail" href="@Url.Action("Contact","Product")"></a>
+                            <a class="link icon_mail" href="@Url.Action("Contact", "Product")"></a>
                             <div class="item_content">
                                 <div class="item_content">
                                     <h2>Đề xuất</h2>
@@ -186,35 +196,35 @@
                             </div>
                         </div>
                         <div class="item">
-                            <a class="link icon_help" href="@Url.Action("Recommend","Product")"></a>
+                            <a class="link icon_help" href="@Url.Action("Recommend", "Product")"></a>
                             <div class="item_content">
                                 <h2>Đề xuất</h2>
                             </div>
                         </div>
                         <div class="item">
-                            <a class="link icon_find" href="@Url.Action("SearchForProduct","Product")"></a>
+                            <a class="link icon_find" href="@Url.Action("SearchForProduct", "Product")"></a>
                             <div class="item_content">
                                 <h2>Tìm kiếm</h2>
                             </div>
                         </div>
                         <div class="item">
-                            <a class="link icon_photos" href="@Url.Action("SearchForProduct","Product")"></a>
+                            <a class="link icon_photos" href="@Url.Action("SearchForProduct", "Product")"></a>
                             <div class="item_content">
                                 <h2>Sản Phẩm nổi bật</h2>
                             </div>
                         </div>
                         <div class="item">
-                            <a class="link icon_home" href="@Url.Action("Index","Home")"></a>
+                            <a class="link icon_home" href="@Url.Action("Index", "Home")"></a>
                             <div class="item_content">
                                 <h2>Trang chủ</h2>
                             </div>
-                        </div
+                        </div>
                     </div>
                     <script src="@Url.Content("~/Template/stylish.holobest.com/jquery-css-transform.js")" type="text/javascript"></script>
                     <script src="@Url.Content("~/Template/stylish.holobest.com/jquery-animate-css-rotate-scale.js")" type="text/javascript"></script>
                     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-                    
-                    
+
+
                     <script>
                         $('.item').hover(
                             function () {
@@ -296,7 +306,7 @@
             </div>
         </div>
     </div>
-
+    <div id="noticator"></div>
     <footer>
         <div id="inner-footer">
             <div class="container">
@@ -355,10 +365,8 @@
 
 
     <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery-ui.min.js")"></script>
-
     <!-- Bootstrap Libraries -->
     <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/bootstrap/js/bootstrap.js")"></script>
-
     <!-- Masonry Library -->
     <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/isotope/jquery.isotope.min.js")"></script>
     <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/isotope/imagesloaded.pkgd.min.js")"></script>
@@ -455,5 +463,60 @@
             return elementsString;
         }
     </script>
+    @if (User.Identity.Name != null)
+    {
+        <script>
+            $("#noticator").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                position: {
+                    my: "right bottom+20",
+                    at: "right bottom",
+                    of: window
+                },
+                open: function () {
+                    $('.ui-widget-overlay').addClass('custom-overlay');
+                },
+                close: function () {
+                    $('.ui-widget-overlay').removeClass('custom-overlay');
+                }
+            });
+
+            setInterval(function () {
+                $.ajax({
+                    url: "/Notifier/GetNotify",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ username: "@User.Identity.Name" }),
+                    success: function (data) {
+
+                        if (data != "NoneData" && data.length > 0) {
+                            var target = jQuery("#noticator");
+                            target.empty();
+                            for (var i = 0; i < data.length; i++) {
+                                var item = data[i];
+                                target.append('<p>' + item.name + '</p>');
+                            }
+                            jQuery("#noticator").dialog("open");
+                        }
+                        else {
+                        }
+                    },
+                    error: function (data) {
+                        alert("error");
+                    }
+                });
+            }, 5000);
+        </script>
+    }
+
 </body>
 </html>

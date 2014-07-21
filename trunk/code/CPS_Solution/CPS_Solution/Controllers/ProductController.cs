@@ -8,7 +8,8 @@ using System.Web.Mvc;
 using CPS_Solution.EntityFramework;
 using System.Net;
 using HtmlAgilityPack;
-
+using System.IO;
+using CPS_Solution.Models;
 namespace CPS_Solution.Controllers
 {
     public class ProductController : Controller
@@ -20,21 +21,27 @@ namespace CPS_Solution.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            DataManager manager = new DataManager();
+            int BlockSize = 4;
+            var products = manager.GetProducts(1, BlockSize);
+            return View(products);
         }
         public ActionResult SearchForProduct()
         {
-            var products = db.Products.Where(x => x.IsActive == true).ToList();
+            DataManager manager = new DataManager();
+            int BlockSize = 4;
+            var products = manager.GetProducts(1, BlockSize);
             return View(products);
         }
         [HttpPost]
         public ActionResult SearchForProduct(string productName)
         {
-
+            DataManager manager = new DataManager();
+            int BlockSize = 4;
+            var products = manager.GetProducts(1, BlockSize);
             var listP = new List<Product>();
             if (!String.IsNullOrEmpty(productName))
             {
-                var products = db.Products.Where(x => x.IsActive == true).ToList();
                 foreach (var p in products)
                 {
                     if (p.Name.ToUpper().Contains(productName.ToUpper()))
@@ -201,35 +208,6 @@ namespace CPS_Solution.Controllers
                 return false;
             }
             return false;
-
-            //HttpWebResponse response = null;
-            //if (URL.Equals(""))
-            //{
-            //    return false;
-            //}
-            //var request = (HttpWebRequest)WebRequest.Create(URL);
-            //request.Method = "HEAD";
-
-            //request.Accept = "text/html";
-            //request.UserAgent = "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.157 CoRom/35.0.1916.157 Safari/537.36";
-            //try
-            //{
-            //    response = (HttpWebResponse)request.GetResponse();
-            //    return true;
-            //}
-            //catch (WebException ex)
-            //{
-            //    /* A WebException will be thrown if the status of the response is not `200 OK` */
-            //    return false;
-            //}
-            //finally
-            //{
-            //    // Don't forget to close your response.
-            //    if (response != null)
-            //    {
-            //        response.Close();
-            //    }
-            //}
         }
         protected override void Dispose(bool disposing)
         {
@@ -273,5 +251,43 @@ namespace CPS_Solution.Controllers
                 System.IO.File.WriteAllLines(path, save);
             }
         }
+
+        [ChildActionOnly]
+        public ActionResult ProductList(List<Product> Model)
+        {
+            return PartialView(Model);
+        }
+        protected string RenderPartialViewToString(string viewName, object model)
+        {
+            if (string.IsNullOrEmpty(viewName))
+                viewName = ControllerContext.RouteData.GetRequiredString("action");
+
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult viewResult =
+                ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext viewContext = new ViewContext
+                (ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+        [HttpPost]
+        public ActionResult InfinateScroll(int BlockNumber)
+        {
+            //////////////// THis line of code only for demo. Needs to be removed ////
+            System.Threading.Thread.Sleep(2000);
+            //////////////////////////////////////////////////////////////////////////
+            int BlockSize = 4;
+            DataManager manager = new DataManager();
+            var products = manager.GetProducts(BlockNumber, BlockSize);
+            CPS_Solution.Models.DataManager.JsonModel jsonModel = new CPS_Solution.Models.DataManager.JsonModel();
+            jsonModel.NoMoreData = products.Count < BlockSize;
+            jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
+            return Json(jsonModel);
+        } 
     }
 }

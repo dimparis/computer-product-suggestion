@@ -348,7 +348,7 @@
                         int counter = 1;
                         foreach (var item in Model)
                         {
-                            bool status = item.IsActive;
+                            bool status = item.IsActive.Value;
                         <tr>
                             <td>@counter</td>
                             <td>@item.Name</td>
