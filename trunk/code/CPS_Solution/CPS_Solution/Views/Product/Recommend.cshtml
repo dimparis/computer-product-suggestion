@@ -8,10 +8,21 @@
 }
 
 
-@using System.Web.Optimization
+@*@using System.Web.Optimization
 
 @Scripts.Render("~/Scripts/jquery")
 @Scripts.Render("~/Scripts/knockout")
+
+
+@*<script>
+    $(document).ready(function () {
+        $("input[name$='recommend']").click(function () {
+            var type = $(this).val();
+            $("div.desc").hide();
+            $("#recommend" + type).fadeIn(1500);
+        });
+    });
+</script>*@
 
 @section navigator
 {
@@ -23,61 +34,51 @@
         </div>
     </div>
 
-    <div id="breadcrumbs">
-        <div class="container">
-            <div class="row">
-                <div class="span8">
-                    <ul class="breadcrumb">
-                        <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
-                        <li>
-                            <p>đề xuất</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 }
-
-<script>
-    $(document).ready(function () {
-        $("input[name$='recommend']").click(function () {
-            var type = $(this).val();
-            $("div.desc").hide();
-            $("#recommend" + type).fadeIn(1500);
-        });
-    });
-</script>
-
 
 <div class="page-element gray-element standard-element-container-2">
     <div class="container standard-element">
         <div class="row">
-            <div class="span6 fadeLeft">
-                <h3>thông tin gợi ý</h3>
-
-                <ul class="list">
-                    <li>
-                        <p>Vẫn không tìm thấy sản phẩm bạn muốn. Xin hãy cung cấp cho chúng tôi thông tin về sản phẩm.</p>
-                    </li>
-                    <li>
-                        <p>Bạn có thể lựa chọn gửi cho chúng tôi một trong hai thông tin dưới đây:</p>
-                    </li>
-                    <li>
-                        <p>Nguồn gốc - Đường dẫn tới trang web chứa sản phẩm bạn muốn được gợi ý.</p>
-                    </li>
-                    <li>
-                        <p>Cấu hình -  cấu hình sản phẩm mà bạn muốn được gợi ý.</p>
-                    </li>
-                    <li>
-                        <p>Chúng tôi sẽ liên lạc với bạn thông báo về tình trạng sản phẩm này.</p>
+            <div class="span6 fadeLeft animated fadeInLeft" style="visibility: visible;">
+                <h3>Thông Tin Gợi Ý</h3>
+                <ul class="list unstyled custom-list-small">
+                    <li><i class="icon-ok"></i>
+                        <p>Xin bạn vui lòng làm theo các bước như sau :</p>
                     </li>
                 </ul>
-
-
+                <ul class="list unstyled custom-list-small">
+                    <li><i class="icon-ok"></i>
+                        <p>Dán đường dẫn của sản phẩm mà bạn muốn đề xuất và bấm nút kiểm tra.</p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li><i class="icon-ok"></i>
+                        <p>Hệ thống sẽ tự thộng lấy tên của sản phẩm và cho bạn chỉnh sửa.</p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li><i class="icon-ok"></i>
+                        <p>Trường hợp đường dẩn không tồn tại, hệ thống sẽ không lấy được tên sản phẩm.</p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li><i class="icon-ok"></i>
+                        <p>Sau khi có được tên sản phẩm, bạn bấm vào "Gửi Đề Xuất" để hoàn tất việc gửi đề xuất lên cho hệ thống.</p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li><i class="icon-ok"></i>
+                        <p>Hệ thống sẽ tự đông thông báo cho bạn khi sản phẩm đã được cập nhật thành công. </p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li><i class="icon-ok"></i>
+                        <p>Mọi đóng góp của bạn sẽ giúp hệ thống hoạt động tốt hơn. </p>
+                    </li>
+                </ul>
             </div>
 
-            <div class="span6" style="float: left;">
+            <div class="span6  fadeRight animated fadeInRight" style="float: left;">
                 <h3>thông tin đề xuất</h3>
                 @using (Html.BeginForm())
                 {
@@ -87,17 +88,18 @@
                         <label class="required">Đường dẫn sản phẩm</label>
                         @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link" })
                         @Html.ValidationMessageFor(model => model.Parselink)
-                        <input type="button" value="Kiểm tra" onclick="LinkCheck()" class="btn btn-info" style="margin-top: -10px;" />
+                        <input type="button" value="Kiểm tra" onclick="LinkCheck()" class="stylish-button" style="margin-top: -10px;" />
                         <div id="status" />
                     </div>
                     //Product name
                     <div class="form-group stylish-input">
                         <label class="required">Tên sản phẩm</label>
-                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @disabled="disabled"})
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @disabled = "disabled" })
                         @Html.ValidationMessageFor(model => model.Name)
                     </div>                                        
                     <p>
-                        <input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="btn btn-info btn-xsp pull-left" /></p>
+                        <input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="btn btn-info btn-xsp pull-left" />
+                    </p>
                 }
 
             </div>
