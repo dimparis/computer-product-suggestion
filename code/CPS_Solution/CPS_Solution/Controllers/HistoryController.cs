@@ -33,26 +33,13 @@ namespace CPS_Solution.Controllers
 
         public ActionResult CompareHistoryDetail(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var modelHistory = db.Histories.Include(h => h.HistoryDetails).Single(q => q.ID == id);
-            var modelProduct = from p in db.ProductAttributes
-                               group p by p.ID into grp
-                               select grp.OrderByDescending(o => o.ProductID).FirstOrDefault();
-
-            var hdvModel = new HistoryDetailViewModel
-            {
-                History = modelHistory,
-                ProductAttributes = modelProduct
-            };
-            if (modelHistory == null)
+            var details = db.HistoryDetails.Where(x=>x.HistoryID ==id).ToList();
+            if (details == null)
             {
                 return HttpNotFound();
             }
 
-            return View(hdvModel);
+            return View(details);
         }
 
         //
