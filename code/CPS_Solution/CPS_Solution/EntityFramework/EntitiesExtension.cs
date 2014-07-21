@@ -62,7 +62,7 @@ namespace CPS_Solution.EntityFramework
                 }
                 return _name;
             }
-            set 
+            set
             {
                 this._name = value;
             }
@@ -121,7 +121,7 @@ namespace CPS_Solution.EntityFramework
                         {
                             return dic.ID;
                         }
-                      
+
                     }
                 }
                 return _vgaId;
@@ -141,7 +141,7 @@ namespace CPS_Solution.EntityFramework
                         if (dic.CodetypeID == "R" && dic.ID == attribute.AttributeID)
                         {
                             return dic.ID;
-                        }        
+                        }
                     }
                 }
                 return _ramId;
@@ -163,15 +163,17 @@ namespace CPS_Solution.EntityFramework
                         if (dic.CodetypeID == "D" && dic.ID == attribute.AttributeID)
                         {
                             return dic.ID;
-                        }                 
+                        }
                     }
                 }
                 return _displayId;
             }
             set { this._displayId = value; }
         }
-        public string strCPU {
-            get {
+        public string strCPU
+        {
+            get
+            {
                 var attributes = ProductAttributes.Where(x => x.ProductID == ID).ToList();
                 var attDictionarys = context.Hardwares.ToList();
                 foreach (var attribute in attributes)
@@ -264,7 +266,7 @@ namespace CPS_Solution.EntityFramework
             }
         }
 
-        public int cpuScore 
+        public int cpuScore
         {
             get
             {
@@ -372,10 +374,10 @@ namespace CPS_Solution.EntityFramework
                         {
                             return mainAlias.Price.Value;
                         }
-                        else 
+                        else
                         {
                             return 0;
-                        }                     
+                        }
                     }
                 }
                 return _price;
