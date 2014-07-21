@@ -222,7 +222,7 @@
         <div class="da-panel-header">
             <span class="da-panel-title">
                 <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                Kích hoạt hoặc sửa thành phần mới chưa tồn tại trong cơ sở dữ liệu.
+                Kích hoạt hoặc ánh xạ thành phần mới.
             </span>
 
             <span class="da-panel-toggler"></span>
@@ -252,7 +252,7 @@
                         {
                             foreach (HardwareConfirm h in listOfHardware)
                             {
-                            <tr class="odd">
+                            <tr id="IdTr@(h.IdHardware)" class="odd">
 
                                 <td class=" sorting_1">@h.IdHardware</td>
                                 <td class=" ">
@@ -263,7 +263,7 @@
                                 </td>
 
                                 <td class=" ">
-                                    <label style="width: 100px;">@h.NameProduct</label></td>
+                                    <label style="width: 100px;">@h.WeightHardware</label></td>
                                 <td class=" ">
                                     <label style="width: 100px;">@h.NameProduct</label></td>
                                 <td class=" ">
@@ -427,7 +427,8 @@
                 url: "/Admin/ConfirmNewHardware/ActiveHardware",
                 data: postData,
                 success: function(data){
-                    LoadTableAjax();
+                    // LoadTableAjax();
+                    document.getElementById("IdTr"+id).style.display='none';
                 },
 
             });
