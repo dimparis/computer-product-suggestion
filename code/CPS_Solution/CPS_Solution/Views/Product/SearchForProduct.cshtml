@@ -42,7 +42,7 @@
                             <img class="standard-element-image" src="~/Template/stylish.holobest.com/images/element-image1.png" alt="standard-element-image" style="width: 600px; height: 467px">
                         </div>
 
-                        <div class="span6 fadeRight animated fadeInRight" style="visibility: visible;width:520px">
+                        <div class="span6 fadeRight animated fadeInRight" style="visibility: visible; width: 520px">
                             <h3>Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp với từ khóa của bạn.</h3>
                             <ul class="list unstyled custom-list-small">
                                 <li><i class="icon-ok"></i>
@@ -81,7 +81,6 @@
                     </div>
                 </div>
             </div>
-
         </div> 
     }
 
@@ -94,7 +93,16 @@
         <span>So sánh</span>
     </label>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#compare_panel ul").html() != "") {
+            return false;
+        } else {
+            checkSession();
 
+        }
+    });
+</script>
 <script type="text/javascript">
     var BlockNumber = 2;  //Infinate Scroll starts from second block
     var NoMoreData = false;
