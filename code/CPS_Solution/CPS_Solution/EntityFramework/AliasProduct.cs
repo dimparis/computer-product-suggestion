@@ -20,9 +20,12 @@ namespace CPS_Solution.EntityFramework
         public string URL { get; set; }
         public Nullable<double> Price { get; set; }
         public Nullable<int> StoreID { get; set; }
+        public Nullable<int> BrandID { get; set; }
+        public Nullable<System.DateTime> UpdateTime { get; set; }
         public Nullable<bool> IsMain { get; set; }
         public bool IsActive { get; set; }
     
+        public virtual Brand Brand { get; set; }
         public virtual Product Product { get; set; }
         public virtual Store Store { get; set; }
     }

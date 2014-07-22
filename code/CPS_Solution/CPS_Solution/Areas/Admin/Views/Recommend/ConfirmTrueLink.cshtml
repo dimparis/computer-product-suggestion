@@ -1,0 +1,404 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.RecommendProduct>
+
+@{
+    ViewBag.Title = "Đề xuất sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section headScript
+{
+
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js")"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.placeholder.js")"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js")"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js")"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js")"></script>
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css")" media="screen" />
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css")" />
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+    <style>
+        .da-buttonRed {
+            display: inline-block;
+            background-color: rgb(225,86,86);
+            background-image: linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -o-linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -moz-linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -webkit-linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -ms-linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(225,86,86)), color-stop(1, rgb(247,114,114)) );
+            border-color: #bb2929 border: none;
+            outline: none;
+            font: 12px/17px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            padding: 4px 12px;
+            margin: 0;
+            width: auto;
+            cursor: pointer;
+            text-decoration: none;
+            zoom: 1;
+            overflow: hidden;
+            color: #ffffff;
+            border: 1px solid;
+            text-shadow: 1px 1px rgba(0, 0, 0, 0.35);
+            -webkit-border-radius: 2px;
+            -o-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            -webkit-appearance: none;
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+    </style>
+}
+@section sidebar
+{
+    <!-- Main Navigation -->
+    <div id="da-main-nav" class="da-button-container">
+        <ul>
+            <li>
+                <a href="#">
+
+                    <span class="da-nav-count">1</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/home.png")" alt="Trang chủ" />
+                    </span>
+                    <strong>Hệ thống</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("ConfigureSystem", "System")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/setting.png")" alt="" />
+                            <strong>Cấu hình hệ thống</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-count">2</span>
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/graph.png")" alt="Charts" />
+                    </span>
+                    <strong>Thống kê</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("Rating", "StatisticProduct")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/rating.png")" alt="" />
+                            <strong>Đánh giá</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="@Url.Action("HistoryCompare", "StatisticProduct")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/topsearch.png")" alt="" />
+                            <strong>Lịch sử</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Nav Notification -->
+                    <span class="da-nav-count">3</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/documents_1.png")" alt="Charts" />
+                    </span>
+                    <strong>Dữ liệu</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="/Admin/importexcelLap">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
+                            <strong>Nhập Laptop từ Excel</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="/Admin/importexcel">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
+                            <strong>Nhập linh kiện từ Excel</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="/admin/TraningLaptop">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xử lý Laptop trùng</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="/Admin/TrainingProduct">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xử lý linh kiện trùng</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="/Admin/ConfirmNewLaptop">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xác nhận laptop mới</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/ConfirmNewHardware">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xác nhận linh kiện mới</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="@Url.Action("CreateProductParser", "Recommend")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/arrow.png")" alt="" />
+                            <strong>Sản phẩm đề xuất</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Product")">
+                    <span class="da-nav-count">2</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/day_calendar.png")" alt="Calendar" />
+                    </span>
+                    <strong>Quản lí sản phẩm</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("CreateProductTest", "Product")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/add.png")" alt="" />
+                            <strong>Tạo mới sản phẩm</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="@Url.Action("Index", "Product")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Danh sách sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="@Url.Action("Index", "ViewFeedback")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Xem góp ý sản phẩm</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-count">2</span>
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/file_cabinet.png")" alt="File Handling" />
+                    </span>
+                    <strong>Quản lí từ điển</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/alias.png")" alt="" />
+                            <strong>Tạo mới trường</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/dic2.png")" alt="" />
+                            <strong>Danh sách các trường</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/settings.png")" alt="" />
+                    </span>
+                    <strong>Quản lí trọng số</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("Index", "FillWeightHardWare")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/manager.png")" alt="" />
+                            <strong>Danh sách trọng số</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <span class="da-nav-count">5</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/cog_4.png")" alt="" />
+                    </span>
+                    <strong>Parser</strong>
+                </a>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("CreateParser", "Parser")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser linh kiện</strong>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "Parser")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser linh kiện</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li style="background-color: #a6d037;">
+                        <a href="@Url.Action("Index", "Recommend")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "LogFile")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/log.png")" alt="" />
+                            <strong>Danh sách log file</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+}
+@section mainHeader
+{
+    <ul>
+        <li style="margin-right: 5px"><a style="cursor: default; font-size: 27px;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Hệ thống</strong></a></li>
+        <li style="margin-right: 5px; font-weight: bold">>></li>
+        <li class="active">
+            <a href="@Url.Action("index", "Recommend")" style="font-size:20px;font-style:italic;text-decoration:underline">Cấu hình hệ thống</a>
+        </li>
+    </ul>
+}
+@section footScript
+{
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js")"></script>
+
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.tables.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".da-button").click(function () {
+                // Get the id from the link
+                var recordToSet = $(this).attr("data-id");
+
+                if (recordToSet != '') {
+
+                    // Perform the ajax post
+                    $.post("/Admin/Recommend/SetIsTrue", { "id": recordToSet },
+                        function (data) {
+                            location.reload();
+                        });
+                }
+            });
+            $(".da-buttonRed").click(function () {
+                // Get the id from the link
+                var recordToSet = $(this).attr("data-id");
+
+                if (recordToSet != '') {
+
+                    // Perform the ajax post
+                    $.post("/Admin/Recommend/SetIsFalse", { "id": recordToSet },
+                        function (data) {
+                            location.reload();
+                        });
+                }
+            });
+        });
+    </script>
+}
+
+<div class="grid_4">
+    <div class="da-panel-content">
+        @if (TempData["SetIsTrue"] != null)
+        {
+            <div class="da-message success">
+                Xác nhận đề xuất đúng thành công.
+            </div>
+        }
+        else if (TempData["SetIsFalse"] != null)
+        {
+            <div class="da-message info">
+                Xác nhận hủy bỏ đề xuất thành công.
+            </div>
+        }
+    </div>
+</div>
+<div class="grid_4">
+    <div class="da-panel collapsible">
+        <div class="da-panel-header">
+            <span class="da-panel-title">
+                <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/16/list.png")" alt="" />
+                Danh sách các đề xuất cần được kiểm tra
+            </span>
+        </div>
+        <div class="da-panel-content">
+            <table id="da-ex-datatable-numberpaging" class="da-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Người dùng</th>
+                        <th>Đường dẫn</th>
+                        <th>Thời gian đề xuất</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+                        foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.Username</td>
+                            <td><a href="@item.Parselink">Xem đường dẫn</a></td>
+                            <td>@item.RecommendTime</td>
+                            <td>
+                                <input type="submit" value="Xác nhận" class="da-button blue" style="width:120px" data-id="@item.ID"/>
+                                <input type="submit" value="Hủy bỏ" class="da-buttonRed" style="width:120px" data-id="@item.ID"/>
+                            </td>
+                        </tr>
+                            counter++;
+                        } 
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

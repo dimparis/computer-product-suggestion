@@ -8,6 +8,7 @@
         <EntityContainer Name="CPS_SolutionModelStoreContainer">
           <EntitySet Name="Account" EntityType="CPS_SolutionModel.Store.Account" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AliasProduct" EntityType="CPS_SolutionModel.Store.AliasProduct" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Brand" EntityType="CPS_SolutionModel.Store.Brand" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Codetype" EntityType="CPS_SolutionModel.Store.Codetype" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Dictionary" EntityType="CPS_SolutionModel.Store.Dictionary" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Hardware" EntityType="CPS_SolutionModel.Store.Hardware" store:Type="Tables" Schema="dbo" />
@@ -26,6 +27,10 @@
           <AssociationSet Name="FK_Account_Role" Association="CPS_SolutionModel.Store.FK_Account_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AliasProduct_Brand" Association="CPS_SolutionModel.Store.FK_AliasProduct_Brand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="AliasProduct" EntitySet="AliasProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_AliasProduct_Product" Association="CPS_SolutionModel.Store.FK_AliasProduct_Product">
             <End Role="Product" EntitySet="Product" />
@@ -100,8 +105,17 @@
           <Property Name="URL" Type="nvarchar" MaxLength="200" />
           <Property Name="Price" Type="float" />
           <Property Name="StoreID" Type="int" />
+          <Property Name="BrandID" Type="int" />
+          <Property Name="UpdateTime" Type="datetime" />
           <Property Name="IsMain" Type="bit" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Codetype">
           <Key>
@@ -220,6 +234,7 @@
           <Property Name="Parselink" Type="nvarchar" MaxLength="200" />
           <Property Name="Name" Type="nvarchar" MaxLength="200" />
           <Property Name="IsApprove" Type="bit" />
+          <Property Name="IsTrue" Type="bit" />
           <Property Name="RecommendTime" Type="datetime" />
           <Property Name="IsSeen" Type="bit" Nullable="false" />
         </EntityType>
@@ -259,6 +274,18 @@
             </Principal>
             <Dependent Role="Account">
               <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AliasProduct_Brand">
+          <End Role="Brand" Type="CPS_SolutionModel.Store.Brand" Multiplicity="0..1" />
+          <End Role="AliasProduct" Type="CPS_SolutionModel.Store.AliasProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AliasProduct">
+              <PropertyRef Name="BrandID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -426,6 +453,7 @@
         <EntityContainer Name="CPS_SolutionEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="CPS_SolutionModel.Account" />
           <EntitySet Name="AliasProducts" EntityType="CPS_SolutionModel.AliasProduct" />
+          <EntitySet Name="Brands" EntityType="CPS_SolutionModel.Brand" />
           <EntitySet Name="Codetypes" EntityType="CPS_SolutionModel.Codetype" />
           <EntitySet Name="Dictionaries" EntityType="CPS_SolutionModel.Dictionary" />
           <EntitySet Name="Hardwares" EntityType="CPS_SolutionModel.Hardware" />
@@ -456,6 +484,10 @@
           <AssociationSet Name="FK_RecommendProduct_Account" Association="CPS_SolutionModel.FK_RecommendProduct_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="RecommendProduct" EntitySet="RecommendProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AliasProduct_Brand" Association="CPS_SolutionModel.FK_AliasProduct_Brand">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="AliasProduct" EntitySet="AliasProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_AliasProduct_Product" Association="CPS_SolutionModel.FK_AliasProduct_Product">
             <End Role="Product" EntitySet="Products" />
@@ -522,10 +554,21 @@
           <Property Name="URL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="Price" Type="Double" />
           <Property Name="StoreID" Type="Int32" />
+          <Property Name="BrandID" Type="Int32" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
           <Property Name="IsMain" Type="Boolean" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Brand" Relationship="CPS_SolutionModel.FK_AliasProduct_Brand" FromRole="AliasProduct" ToRole="Brand" />
           <NavigationProperty Name="Product" Relationship="CPS_SolutionModel.FK_AliasProduct_Product" FromRole="AliasProduct" ToRole="Product" />
           <NavigationProperty Name="Store" Relationship="CPS_SolutionModel.FK_AliasProduct_Store" FromRole="AliasProduct" ToRole="Store" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AliasProducts" Relationship="CPS_SolutionModel.FK_AliasProduct_Brand" FromRole="Brand" ToRole="AliasProduct" />
         </EntityType>
         <EntityType Name="Codetype">
           <Key>
@@ -663,6 +706,7 @@
           <Property Name="Parselink" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="Name" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="IsApprove" Type="Boolean" />
+          <Property Name="IsTrue" Type="Boolean" />
           <Property Name="RecommendTime" Type="DateTime" Precision="3" />
           <Property Name="IsSeen" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="CPS_SolutionModel.FK_RecommendProduct_Account" FromRole="RecommendProduct" ToRole="Account" />
@@ -741,6 +785,18 @@
             </Principal>
             <Dependent Role="RecommendProduct">
               <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AliasProduct_Brand">
+          <End Role="Brand" Type="CPS_SolutionModel.Brand" Multiplicity="0..1" />
+          <End Role="AliasProduct" Type="CPS_SolutionModel.AliasProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AliasProduct">
+              <PropertyRef Name="BrandID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -890,8 +946,18 @@
                 <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="IsMain" ColumnName="IsMain" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="CPS_SolutionModel.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1022,6 +1088,7 @@
                 <ScalarProperty Name="Parselink" ColumnName="Parselink" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+                <ScalarProperty Name="IsTrue" ColumnName="IsTrue" />
                 <ScalarProperty Name="RecommendTime" ColumnName="RecommendTime" />
                 <ScalarProperty Name="IsSeen" ColumnName="IsSeen" />
               </MappingFragment>

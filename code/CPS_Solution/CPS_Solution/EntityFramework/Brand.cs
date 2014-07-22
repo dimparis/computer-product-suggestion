@@ -12,17 +12,16 @@ namespace CPS_Solution.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class RecommendProduct
+    public partial class Brand
     {
-        public int ID { get; set; }
-        public string Username { get; set; }
-        public string Parselink { get; set; }
-        public string Name { get; set; }
-        public Nullable<bool> IsApprove { get; set; }
-        public Nullable<bool> IsTrue { get; set; }
-        public Nullable<System.DateTime> RecommendTime { get; set; }
-        public bool IsSeen { get; set; }
+        public Brand()
+        {
+            this.AliasProducts = new HashSet<AliasProduct>();
+        }
     
-        public virtual Account Account { get; set; }
+        public int ID { get; set; }
+        public string BrandName { get; set; }
+    
+        public virtual ICollection<AliasProduct> AliasProducts { get; set; }
     }
 }

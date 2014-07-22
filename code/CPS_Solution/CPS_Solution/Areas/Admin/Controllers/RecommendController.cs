@@ -17,7 +17,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
         public ActionResult Index()
         {
-            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove == null);
+            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue==true);
 
             return View(recommendProduct);
         }
@@ -123,6 +123,45 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 TempData["updateStatus"] = message;
                 return Json(check, JsonRequestBehavior.AllowGet);
             }
+        }
+        public ActionResult ConfirmTrueLink() 
+        {
+            var recommends = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == false).ToList();
+            return View(recommends);
+        }
+        [HttpPost]
+        public ActionResult SetIsTrue(int id)
+        {
+            var recommend = context.RecommendProducts.FirstOrDefault(x => x.ID == id && x.IsApprove == null);
+            if (ModelState.IsValid)
+            {
+                recommend.IsTrue = true;
+                TempData["SetIsTrue"] = "success";
+                context.SaveChanges();
+            }
+            // Display the confirmation message
+            var results = new RecommendProduct
+            {
+                IsTrue = true
+            };
+            return Json(results);
+        }
+        [HttpPost]
+        public ActionResult SetIsFalse(int id)
+        {
+            var recommend = context.RecommendProducts.FirstOrDefault(x => x.ID == id && x.IsApprove == null);
+            if (ModelState.IsValid)
+            {
+                recommend.IsApprove = false;
+                TempData["SetIsFalse"] = "success";
+                context.SaveChanges();
+            }
+            // Display the confirmation message
+            var results = new RecommendProduct
+            {
+                IsApprove = false
+            };
+            return Json(results);
         }
     }
 }
