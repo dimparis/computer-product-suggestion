@@ -322,22 +322,24 @@
 
 <div class="page-element gray-element">
     <div class="container">
-        <div class="span9 fadeLeft" style="margin-left:0">
+        <div class="span9 fadeLeft" style="margin-left: 0">
             <div class="span3">
                 <img src="~/Images/I/default.jpg" style="background-size: cover;">
+                <div class="post-info clearfix" style="border:none">
+                    <div class="post-date">
+                        <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0">
+                            Giá:@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price)
+                        </label>
+                    </div>
+                    <div class="stylish-button" style="background-color: #00CCCC;margin-top:10px">
+                        <a href="@Model.URL">Nơi cung cấp sản phẩm</a>
+                    </div>
+                </div>
             </div>
             <div class="span5">
                 <h4 style="overflow-wrap: break-word;">
-                    <strong style="font-style:italic; font-size:25px">@Model.Name</strong>
+                    <strong style="font-style: italic; font-size: 25px">@Model.Name</strong>
                 </h4>
-
-                <div class="post-info clearfix" style="border:3px solid #EAE8E8">
-                    <div class="post-date">
-                        <label style="color:#f00; font-weight:bold; font-size:23px; margin-bottom:0; padding:2px">
-                            @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price)
-                        </label>
-                    </div>
-                </div>
 
                 <div style="clear: both"></div>
                 <div>
@@ -345,45 +347,51 @@
                 </div>
                 <table class="table table-bordered">
                     <tbody>
-                    <tr>
-                        <td style="width: 25%">CPU</td>
-                        <td style="width: 100%">@Model.strCPU</td>
-                    </tr>
-                    <tr>
-                        <td>RAM</td>
-                        <td>@Model.strRAM</td>
-                    </tr>
-                    <tr>
-                        <td>Đĩa cứng</td>
-                        <td>@Model.strHDD</td>
-                    </tr>
-                    <tr>
-                        <td>Đồ họa</td>
-                        <td>@Model.strVGA</td>
-                    </tr>
-                    <tr>
-                        <td>Màn hình</td>
-                        <td>@Model.strDisplay</td>
-                    </tr>
-                    <tr>
-                        <td>Đánh giá</td>
-                        <td>10/10</td>
-                    </tr>
-                        </tbody>
+                        <tr>
+                            <td style="width: 25%">CPU</td>
+                            <td style="width: 100%">@Model.strCPU</td>
+                        </tr>
+                        <tr>
+                            <td>RAM</td>
+                            <td>@Model.strRAM</td>
+                        </tr>
+                        <tr>
+                            <td>Đĩa cứng</td>
+                            <td>@Model.strHDD</td>
+                        </tr>
+                        <tr>
+                            <td>Đồ họa</td>
+                            <td>@Model.strVGA</td>
+                        </tr>
+                        <tr>
+                            <td>Màn hình</td>
+                            <td>@Model.strDisplay</td>
+                        </tr>
+                        <tr>
+                            <td>Đánh giá</td>
+                            <td>10/10</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-            <div class="span8" style="border-style:solid; padding:20px;">
-                @if(@Model.AliasProducts.Count>0)
+            <div class="span8">
+                <h3 style="overflow-wrap: break-word;">
+                    <strong>Mô tả sản phẩm</strong>
+                </h3>
+                <p>@Model.Description</p>
+            </div>
+            <div class="span8" style="border-style: solid; padding: 20px;">
+                @if (@Model.AliasProducts.Count > 0)
                 {               
-                    @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x=>x.IsActive=true && x.IsMain==false));
+                    @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x => x.IsActive = true && x.IsMain == false));
                 }
             </div>
         </div>
-        <div class="span3 sidebar row fadeRight" style="margin-left:0">
+        <div class="span3 sidebar row fadeRight" style="margin-left: 0">
             <div class="tabs-widget widget" style="height: 100%">
-                <div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+                <div class="">
                     <ul class="nav nav-pills ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
-                        <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="true"><a href="#tabs-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">Sản phẩm có mức giá tương tự</a></li>
+                        <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="true"><a href="#tabs-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1" style="width:100%">Sản phẩm có mức giá tương tự</a></li>
                     </ul>
                     <div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false" style="display: block">
                         @Html.Action("SamePriceProduct", "Product", new { id = Model.ID })
@@ -391,9 +399,9 @@
                 </div>
 
                 <div class="tabs-widget widget" style="height: 100%">
-                    <div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    <div class="" style="width:100%">
                         <ul class="nav nav-pills ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
-                            <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="true"><a href="#tabs-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Sản phẩm tương tự</a></li>
+                            <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="true"><a href="#tabs-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2" style="width:100%">Sản phẩm tương tự</a></li>
                         </ul>
                         <div id="tabs-2" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false" style="display: block">
                             @Html.Action("LoadProductByPoint", "Product", new { id = Model.ID })
