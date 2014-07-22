@@ -4,22 +4,22 @@ var arr_product = [];
 $(function () {
 
     //Add product to compare cart
-    $('.addToCompare').on('click', function () {
-
+    $('#loadItemcontainer').on('click', '.addToCompare', function () {
         var id = this.attributes['product-id'].value;
         var name = this.attributes['product-name'].value;
 
-        if (sessionStorage.length <= 2) {
+        if (sessionStorage.length < 6) {
             sessionStorage.setItem("'product-" + id, id);
-            arr_product.push(id);
+            sessionStorage.setItem("'product-" + id + "-name", name);
             $(".addToCompare[product-id='" + id + "']").hide();
 
         } else {
-            alert("Danh sách không được nhi ềuhơn 3 sản phẩm.");
+            alert("Danh sách không được nhiều hơn 3 sản phẩm.");
             return false;
         }
         $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
         checkCart();
+
     });
 
     $('.compare-button').on('click', function () {
@@ -48,23 +48,6 @@ $(function () {
     });
 });
 
-function addToCompare() {
-	var id = this.attributes['product-id'].value;
-    var name = this.attributes['product-name'].value;
-
-    if (sessionStorage.length <= 2) {
-        sessionStorage.setItem("'product-" + id, id);
-        $(".addToCompare[product-id='" + id + "']").hide();
-
-    } else {
-        alert("Nhieu hon 3 sp");
-        return false;
-    }
-    $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
-    $("#compare_panel").show();
-
-}
-
 $('.compare-button').on('click', function () {
     if (sessionStorage.length < 2) {
         //Danh sach it hon 2 san pham thi bao loi
@@ -86,38 +69,11 @@ $('.compare-button').on('click', function () {
 
 });
 
-$('.addToCompare').on('click', function () {
-    var id = this.attributes['product-id'].value;
-    var name = this.attributes['product-name'].value;
-
-    if (sessionStorage.length <= 2) {
-        sessionStorage.setItem("'product-" + id, id);
-        $(".addToCompare[product-id='" + id + "']").hide();
-
-    } else {
-        alert("Nhieu hon 3 sp");
-        return false;
-    }
-    $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
-    $("#compare_panel").show();
-
-});
-
-function add(id, name) {
-    if (sessionStorage.length <= 2) {
-        sessionStorage.setItem("'product-" + id, id);
-        $(".addToCompare[product-id='" + id + "']").hide();
-        return true;
-    } else {
-        return false;
-    }
-};
-
 function removeProduct(x) {
     for (var i = 0; i < sessionStorage.length; i++) {
         if (sessionStorage.getItem(sessionStorage.key(i)) == x) {
             sessionStorage.removeItem(sessionStorage.key(i));
-            arr_product.slice(x, 1);
+            sessionStorage.removeItem(sessionStorage.key(i));
             $('.' + x).remove();
             $(".addToCompare[product-id='" + x + "']").show();
             checkCart();
@@ -141,7 +97,8 @@ function checkSession() {
     } else {
         for (var i = 0; i < sessionStorage.length; i++) {
             var id = sessionStorage.getItem(sessionStorage.key(i));
-            var name = $(".addToCompare[product-id=" + id + "]").attr("product-name");
+            var name = sessionStorage.getItem(sessionStorage.key(i + 1));
+            i++;
             $(".addToCompare[product-id='" + id + "']").hide();
             $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
 
