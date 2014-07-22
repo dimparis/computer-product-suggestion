@@ -109,7 +109,7 @@
     </div>
 </div>
 
-<div class="page-element">
+<div class="page-element gray-element">
         <div class="container">
             @*Tin nhan*@
             <div class="message-box info-message-box clearfix  fadeDown animated fadeInDown" 
@@ -336,37 +336,37 @@
             max = pro03_score;
 
         //Highlight cac san pham co diem theo tieu chi uu tien cao nhat
-        if (max == pro01_score) {
-            $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
-            $('.' + pro02_attr03).removeClass('winner');
-            $('.' + pro03_attr03).removeClass('winner');
-        } else if (max == pro02_score) {
-            $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
-            $('.' + pro01_attr03).removeClass('winner');
-            $('.' + pro03_attr03).removeClass('winner');
-        } else if (max == pro03_score) {
-            $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
-            $('.' + pro01_attr03).removeClass('winner');
-            $('.' + pro02_attr03).removeClass('winner');
-        }
-        if (max == pro01_score && max == pro02_score) {
-            $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
-            $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
-            $('.' + pro03_attr03).removeClass('winner');
-        } else if (max == pro01_score && max == pro03_score) {
-            $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
-            $('.' + pro02_attr03).removeClass('winner');
-            $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
-        } else if (max == pro02_score && max == pro03_score) {
-            $('.' + pro01_attr03).removeClass('winner');
-            $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
-            $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
-        }
-        if (max == pro01_score && max == pro02_score && max == pro03_score) {
-            $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
-            $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
-            $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
-        }
+        //if (max == pro01_score) {
+        //    $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
+        //    $('.' + pro02_attr03).removeClass('winner');
+        //    $('.' + pro03_attr03).removeClass('winner');
+        //} else if (max == pro02_score) {
+        //    $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
+        //    $('.' + pro01_attr03).removeClass('winner');
+        //    $('.' + pro03_attr03).removeClass('winner');
+        //} else if (max == pro03_score) {
+        //    $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
+        //    $('.' + pro01_attr03).removeClass('winner');
+        //    $('.' + pro02_attr03).removeClass('winner');
+        //}
+        //if (max == pro01_score && max == pro02_score) {
+        //    $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
+        //    $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
+        //    $('.' + pro03_attr03).removeClass('winner');
+        //} else if (max == pro01_score && max == pro03_score) {
+        //    $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
+        //    $('.' + pro02_attr03).removeClass('winner');
+        //    $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
+        //} else if (max == pro02_score && max == pro03_score) {
+        //    $('.' + pro01_attr03).removeClass('winner');
+        //    $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
+        //    $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
+        //}
+        //if (max == pro01_score && max == pro02_score && max == pro03_score) {
+        //    $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
+        //    $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
+        //    $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
+        //}
     }
 </script>
 
