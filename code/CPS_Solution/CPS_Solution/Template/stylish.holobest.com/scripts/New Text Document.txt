@@ -1,0 +1,14 @@
+var a = [];
+    $('.pricing-table').find(".product_id").each(function () {
+        a.push(this.id);
+    })
+
+    function goCompareDetail() {
+        if (a.length == 2) {
+            //Khi danh sach chi co 2 san pham thi id san pham 3 = -1
+            window.location.replace('CompareDetail?p1=' + a[0] + '&p2=' + a[1] + '&p3=-1');
+        } else {
+            //Khi danh sach co du 3 san pham
+            window.location.replace('CompareDetail?p1=' + a[0] + '&p2=' + a[1] + '&p3=' + a[2]);
+        }
+    }
