@@ -77,6 +77,10 @@
                     <div class="table-row odd"><p>RAM</p></div>
                     <div class="table-row even"><p>HDD</p></div>
                     <div class="table-row odd"><p>Display</p></div>
+                    
+                    <div class="stylish-button" style="background-color: #F87912">
+                            <a href="javascript:void(0)" onclick="goCompareDetail()">So sanh chi tiet</a>
+                       </div>
                 </div>
             </div>
             
@@ -89,7 +93,7 @@
                     <div class="pricing-table highlighted-table">
                         <div class="pricing-table-header">
                             <div class="upper-header">
-                                <h4>@item.Name</h4>
+                               <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID">@item.Name</h4>
                                 <img src="~/Images/I/default.jpg" style="margin-bottom:50px;"/>
                             </div>
                             <div class="lower-header">
@@ -111,12 +115,13 @@
                             </div>
                         </div>
                     </div>
-                } else 
+                }
+                else
                 {
                     <div class="pricing-table ">
                         <div class="pricing-table-header">
                             <div class="upper-header">
-                                <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name">@item.Name</h4>
+                                <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID">@item.Name</h4>
                                 <img src="~/Images/I/default.jpg" style="margin-bottom:50px;"/>
                             </div>
                             <div class="lower-header">
@@ -175,6 +180,21 @@
 </div>
 
 <script>
+    var a = [];
+    $('.pricing-table').find(".product_id").each(function () {
+        a.push(this.id);
+    })
+
+    function goCompareDetail() {
+        if (a.length == 2) {
+            //Khi danh sach chi co 2 san pham thi id san pham 3 = -1
+            window.location.replace('CompareDetail?p1=' + a[0] + '&p2=' + a[1] + '&p3=-1');
+        } else {
+            //Khi danh sach co du 3 san pham
+            window.location.replace('CompareDetail?p1=' + a[0] + '&p2=' + a[1] + '&p3=' + a[2]);
+        }
+    }
+
     function Feedback(){   
         var Ten =   $( "#TenFeedback" ).val();
         var Noidung = $( "#NoidungFeedback" ).val();
