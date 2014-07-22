@@ -27,6 +27,7 @@ namespace CPS_Solution.EntityFramework
     
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AliasProduct> AliasProducts { get; set; }
+        public DbSet<Brand> Brands { get; set; }
         public DbSet<Codetype> Codetypes { get; set; }
         public DbSet<Dictionary> Dictionaries { get; set; }
         public DbSet<Hardware> Hardwares { get; set; }
