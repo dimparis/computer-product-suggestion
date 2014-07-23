@@ -67,24 +67,39 @@
 	}
 
     .topAttr {
-        background-color:aliceblue;
+        background-color:rgba(26, 88, 200, 0.70);
+        color:#FFFFFF;
+    }
+
+    .topAttrr {
+        background-color:rgba(26, 88, 200, 0.70);
+        color:#FFFFFF;
     }
 
     .winner {
-        background-color: rgba(51, 153, 255, 0.75);     
+        font-size:18px;
+        font-weight:bold;
+        color:#FFFFFF;
+        background-color:#f56c1c; 
+    }
+    .test {
+        background-color: rgba(128, 128, 128, 0.66);
+        background-repeat: repeat-y;
+        /* Safari 5.1, Chrome 10+ */
+        background: -webkit-radial-gradient(circle, rgba(120, 120, 120, 0.82), rgba(0, 0, 0, 0.8490));
     }
 
-    .product-name {
-        font-size:15px;
+
+    .product-css {
+        font-size:18px;
+        font-weight:bold;
+        color:#f56c1c;
+        background-color:rgba(0, 0, 0, 0.82);
     }
 
     .center-info {
         text-align: center;
         vertical-align: middle;
-    }
-
-    td > span > .pull-left {
-        margin-right: 10px;
     }
 </style>
 
@@ -105,16 +120,30 @@
 <div class="page-element gray-element">
         <div class="container">
             @*Tin nhan*@
-            <div class="message-box info-message-box clearfix  fadeDown animated fadeInDown" 
-                style="margin:0 auto; width:73%;">
-                <div class="message-icon-box">
-                    <i class="icon-info"></i>
+            <div class="span5" style="margin-left:8%">
+                <div class="message-box info-message-box clearfix  fadeDown">
+                    <div class="message-icon-box">
+                        <i class="icon-info"></i>
+                    </div>
+                    <div class="message-container">
+                        <p style="margin-top:8px; font-size:15px; color:rgb(0, 0, 0)">
+                            Kéo thả để thay đổi vị trí các thành phần cấu hình. 
+                            Hệ thống sẽ đề xuất sản phẩm theo tiêu chí ưu tiên của bạn.
+                        </p>
+                    </div>
                 </div>
-                <div class="message-container">
-                    <p style="margin-top:8px; font-size:15px; color:rgb(0, 0, 0)">
-                        Kéo thả để thay đổi vị trí các thành phần cấu hình. 
-                        Hệ thống sẽ đề xuất sản phẩm theo tiêu chí ưu tiên của bạn.
-                    </p>
+            </div>
+            <div class="span5">
+                <div class="message-box info-message-box clearfix fadeDown">
+                    <div class="message-icon-box">
+                        <i class="icon-info"></i>
+                    </div>
+                    <div class="message-container">
+                        <p style="margin-top:8px; font-size:15px; color:rgb(0, 0, 0)">
+                            Những thành phần ưu tiên sẽ được phủ <span class="topAttrr" style="opacity:0.7; font-weight:bold">nền xanh</span>. 
+                            Hãy sắp xếp các thành phần ưu tiên theo tiêu chí của bạn.
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -127,9 +156,9 @@
                 <li class="disabled">
                     <table class="table">
                         <tr>
-                            <td style="width:20%; text-align:center; vertical-align:middle">Tên sản phẩm</td>
+                            <td class="test"; style="width:20%; text-align:center; vertical-align:middle"><img src="~/Template/Images/title.png" /></td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" class="product-name @item.ID">@Html.DisplayFor(modelItem => item.Name)</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" class="product-name @item.ID product-css"><span style="font-weight:bold; text-shadow:1px 0 1.6em #FFFFFF">@Html.DisplayFor(modelItem => item.Name)</span></td>
                             }
                         </tr>
                     </table>
@@ -137,16 +166,16 @@
 
                 @*Thong tin CPU*@
                 <li draggable="true" id="scoreCPU">
-                    <table class="table table-hover">
+                    <table class="table">
                         <tr>
-                            <td style="width:20%" class="handle">
+                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
                                 <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px;">
+                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
                                 </span>
-                                Chip xử lý (CPU)
+                                <strong>Chip xử lý (CPU)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU)</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU)</td>
                                 <td class="hidden"><span class="cpuScore">@item.cpuScore</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
@@ -156,16 +185,16 @@
 
                 @*Thong tin VGA*@
                 <li draggable="true" id="scoreVGA">
-                    <table class="table table-hover">
+                    <table class="table">
                         <tr>
-                            <td style="width:20%" class="handle">
+                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
                                 <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px;">
+                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
                                 </span>
-                                Card màn hình (VGA)
+                                <strong>Card màn hình (VGA)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA)</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA)</td>
                                 <td class="hidden"><span class="cpuScore">@item.vgaScore</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
@@ -175,16 +204,16 @@
 
                 @*Thong tin RAM*@
                 <li draggable="true" id="scoreRAM">
-                    <table class="table table-hover">
+                    <table class="table">
                         <tr>
-                            <td style="width:20%" class="handle">
+                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
                                 <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px;">
+                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
                                 </span>
-                                Bộ nhớ đệm (RAM)
+                                <strong>Bộ nhớ đệm (RAM)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM)</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM)</td>
                                 <td class="hidden"><span class="cpuScore">@item.ramScore</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
@@ -194,16 +223,16 @@
 
                 @*Thong tin HDD*@
                 <li draggable="true" id="scoreHDD">
-                    <table class="table table-hover">
+                    <table class="table">
                         <tr>
-                            <td style="width:20%" class="handle">
+                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
                                 <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px;">
+                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
                                 </span>
-                                Ổ cứng (HDD)
+                                <strong>Ổ cứng (HDD)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD)</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD)</td>
                                 <td class="hidden"><span class="cpuScore">@item.hddScore</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
@@ -213,18 +242,28 @@
 
                 @*Thong tin Display*@
                 <li draggable="true" id="scoreDisplay">
-                    <table class="table table-hover">
+                    <table class="table">
                         <tr>
-                            <td style="width:20%" class="handle">
+                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
                                 <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px;">
+                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
                                 </span>
-                                Độ phân giải (Sreen Solution)
+                                <strong>Độ phân giải (Sreen Solution)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strDisplay)</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strDisplay)</td>
                                 <td class="hidden"><span class="cpuScore">@item.displayScore</span></td>
                                 <td class="hidden">@item.ID</td>
+                            }
+                        </tr>
+                    </table>
+                </li>
+                <li class="disabled">
+                    <table class="table">
+                        <tr>
+                            <td class="test"; style="width:20%; text-align:center; vertical-align:middle"><p style="font-size:16px; color:#FFFFFF">TỔNG ĐIỂM ƯU TIÊN</p></td>
+                            @foreach (var item in Model) {
+                                <td style="width:25%; text-align:center; vertical-align:middle" class="product-css"><p class="total_score_@item.ID" style="font-size:20px; font-weight:bold; color:#f56c1c; text-shadow:1px 0 1.6em #FFFFFF"></p></td>
                             }
                         </tr>
                     </table>
@@ -236,6 +275,7 @@
 <script>
     $(document).ready(function () {
         updateClass();
+        calc();
         $(function () {
             $('.sortable-with-handles').sortable({
                 handle: '.handle',
@@ -283,7 +323,7 @@
     }
 
     function calc() {
-
+        //Lay vi tri phan cung uu tien cua cac san pham
         var products = $('.product-name');
         var attr01 = $('.topAttr')[0];
         var attr02 = $('.topAttr')[1];
@@ -335,53 +375,57 @@
 
         //Highlight san pham co diem uu tien max
         if (max == pro01_score) {
+            //Doi thanh class winner
+            $('.' + pro01_attr03).removeClass('product-css');
             $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
+
+            //In diem uu tien
+            $('.total_score_' + pro01_attr03).text(pro01_score);
+            $('.total_score_' + pro02_attr03).text(pro02_score);
+            $('.total_score_' + pro03_attr03).text(pro03_score);
+
+            //Xoa class winner
             $('.' + pro02_attr03).removeClass('winner');
             $('.' + pro03_attr03).removeClass('winner');
+
+            //Them lai class product
+            $('.' + pro02_attr03).addClass("product-css", 1000, "easeOutSine");
+            $('.' + pro03_attr03).addClass("product-css", 1000, "easeOutSine");
         } else if (max == pro02_score) {
+            //Doi thanh class winner
+            $('.' + pro02_attr03).removeClass('product-css');
             $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
+
+            //In diem uu tien
+            $('.total_score_' + pro01_attr03).text(pro01_score);
+            $('.total_score_' + pro02_attr03).text(pro02_score);
+            $('.total_score_' + pro03_attr03).text(pro03_score);
+
+            //Xoa class winner
             $('.' + pro01_attr03).removeClass('winner');
             $('.' + pro03_attr03).removeClass('winner');
+
+            //Them lai class product
+            $('.' + pro01_attr03).addClass("product-css", 1000, "easeOutSine");
+            $('.' + pro03_attr03).addClass("product-css", 1000, "easeOutSine");
         } else if (max == pro03_score) {
+            //Doi thanh class winner
+            $('.' + pro03_attr03).removeClass('product-css');
             $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
+
+            //In diem uu tien
+            $('.total_score_' + pro01_attr03).text(pro01_score);
+            $('.total_score_' + pro02_attr03).text(pro02_score);
+            $('.total_score_' + pro03_attr03).text(pro03_score);
+
+            //Xoa class winner
             $('.' + pro01_attr03).removeClass('winner');
             $('.' + pro02_attr03).removeClass('winner');
+
+            //Them lai class product
+            $('.' + pro01_attr03).addClass("product-css", 1000, "easeOutSine");
+            $('.' + pro02_attr03).addClass("product-css", 1000, "easeOutSine");
         }
-
-
-
-        //Highlight cac san pham co diem theo tieu chi uu tien cao nhat
-        //if (max == pro01_score) {
-        //    $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
-        //    $('.' + pro02_attr03).removeClass('winner');
-        //    $('.' + pro03_attr03).removeClass('winner');
-        //} else if (max == pro02_score) {
-        //    $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
-        //    $('.' + pro01_attr03).removeClass('winner');
-        //    $('.' + pro03_attr03).removeClass('winner');
-        //} else if (max == pro03_score) {
-        //    $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
-        //    $('.' + pro01_attr03).removeClass('winner');
-        //    $('.' + pro02_attr03).removeClass('winner');
-        //}
-        //if (max == pro01_score && max == pro02_score) {
-        //    $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
-        //    $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
-        //    $('.' + pro03_attr03).removeClass('winner');
-        //} else if (max == pro01_score && max == pro03_score) {
-        //    $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
-        //    $('.' + pro02_attr03).removeClass('winner');
-        //    $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
-        //} else if (max == pro02_score && max == pro03_score) {
-        //    $('.' + pro01_attr03).removeClass('winner');
-        //    $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
-        //    $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
-        //}
-        //if (max == pro01_score && max == pro02_score && max == pro03_score) {
-        //    $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
-        //    $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
-        //    $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
-        //}
     }
 </script>
 
