@@ -611,6 +611,7 @@
                 var check =[];
                 var radio ="";
                 var count = 0;
+                var ChoiceName =0;
                 $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
                     val +='@@'+ $(this).val();
                     check[i]= $(this).val();
@@ -625,6 +626,7 @@
                     for(var x =0; x <check.length; x++)
                     {
                         if(check[x] == radio){
+                            ChoiceName ++;
                             var postData = { valuest: val };
                             $.ajax({
                                 type: "POST",
@@ -637,12 +639,11 @@
                                 },                                              
                             });  
                             break;
-                        }else{
-                            $.jGrowl("Vui lòng chọn tên chính để gộp sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
-                            break;
                         }
                     }
-                   
+                    if(ChoiceName==0){          
+                        $.jGrowl("Vui lòng chọn tên chính để gộp sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});       
+                    }               
                 }else{
                     $.jGrowl("Để gộp vui lòng chọn ít nhất 2 sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
                 }            

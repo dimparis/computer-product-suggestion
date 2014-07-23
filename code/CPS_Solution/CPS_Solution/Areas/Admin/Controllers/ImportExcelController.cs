@@ -404,6 +404,17 @@ namespace CPS_Solution.Areas.Admin.Controllers
             string sttTenchinh = values.Last();
             values.Remove(values.Last());
 
+            // value chỉ chứa các giá trị khác ngoài tên chính
+            for (int t = 0; t < values.Count; t++)
+            {
+                if (values[t].Trim().Equals(sttTenchinh.Trim()))
+                {
+                    values.RemoveAt(t);
+                    break;
+                }
+            }
+
+
             // tên sản phẩm gộp
             string tenmoi = "";
             ProductMap sanphamgop = new ProductMap();
@@ -411,40 +422,16 @@ namespace CPS_Solution.Areas.Admin.Controllers
             int count = 0;
             for (int i = 0; i < listduplicate.Count; i++)
             {
+                // duyệt list nhỏ
                 for (int j = 0; j < listduplicate[i].Count; j++)
                 {
-                    // duyệt để tim thấy list có chưa id tách được gửi về.
-                    for (int t = 0; t < values.Count; t++)
+                    // nếu stt của listdup = stt của tên chính thì cho nó thành sản phẩm gộp.                      
+                    if (listduplicate[i][j].stt.ToString().Equals(sttTenchinh))
                     {
-                        if (listduplicate[i][j].stt.ToString().Equals(sttTenchinh))
-                        {
-                            count++;
-                            tenmoi = listduplicate[i][j].ten;
-                            sanphamgop = listduplicate[i][j];
-                            listduplicate[i].Remove(listduplicate[i][j]);
-                        }
-                        if (listduplicate[i][j].stt.ToString().Equals(values[t].ToString()))
-                        {
-                            tenmoi += ";" + listduplicate[i][j].ten;
-                            listduplicate[i].Remove(listduplicate[i][j]);
-                        }
-                        if (listduplicate[i].Count == 0)
-                        {
-                            break;
-                        }
-                    }
-                    // kiểm tra trong list nhỏ còn có 1 phần tử thì tách nó luôn cho vào list correct
-                    if (listduplicate[i].Count == 1)
-                    {
-                        listpro.Add(listduplicate[i].First());
-                        listduplicate[i].Remove(listduplicate[i].First());
-                        //Xóa list rỗng trong list bự duplicate 
-                        listduplicate.Remove(listduplicate[i]);
-                    }
-                    else if (listduplicate[i].Count == 0)
-                    {
-                        //Xóa list rỗng trong list bự duplicate 
-                        listduplicate.Remove(listduplicate[i]);
+                        count++;
+                        tenmoi = listduplicate[i][j].ten;
+                        sanphamgop = listduplicate[i][j];
+                        listduplicate[i].Remove(listduplicate[i][j]);
                     }
                     if (count > 0)
                     {
@@ -456,6 +443,44 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 {
 
                     break;
+                }
+            }
+            // duyệt để tim thấy list có chưa id tách được gửi về.
+            for (int t = 0; t < values.Count; t++)
+            {
+                // duyệt list bự lấy tên phụ
+                for (int i = 0; i < listduplicate.Count; i++)
+                {
+                    // duyệt list nhỏ
+                    for (int j = 0; j < listduplicate[i].Count; j++)
+                    {
+
+                        // nếu stt của listdup = stt của tên chính thì cho nó thành sản phẩm gộp.                      
+                        if (listduplicate[i][j].stt.ToString().Equals(values[t]))
+                        {
+
+                            tenmoi += ";" + listduplicate[i][j].ten;
+                            listduplicate[i].Remove(listduplicate[i][j]);
+                            break;
+                        }
+                    }
+                }
+            }
+            // duyệt list bự xóa list rỗng hoặc list có 1 phần tử cho vào phần tử đúng
+            for (int i = 0; i < listduplicate.Count; i++)
+            {
+                // kiểm tra trong list nhỏ còn có 1 phần tử thì tách nó luôn cho vào list correct
+                if (listduplicate[i].Count == 1)
+                {
+                    listpro.Add(listduplicate[i].First());
+                    listduplicate[i].Remove(listduplicate[i].First());
+                    //Xóa list rỗng trong list bự duplicate 
+                    listduplicate.Remove(listduplicate[i]);
+                }
+                else if (listduplicate[i].Count == 0)
+                {
+                    //Xóa list rỗng trong list bự duplicate 
+                    listduplicate.Remove(listduplicate[i]);
                 }
             }
 

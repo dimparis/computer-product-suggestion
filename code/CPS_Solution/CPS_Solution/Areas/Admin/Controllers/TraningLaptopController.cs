@@ -10,6 +10,8 @@ using LinqToExcel;
 using LinqToExcel.Query;
 using CPS_Solution.Areas.Admin.Helpers;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.Globalization;
 
 namespace CPS_Solution.Areas.Admin.Controllers
 {
@@ -26,6 +28,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.ListdupLaptraning = (List<List<LapData>>)Session["ListdupLaptraning"];
             ViewBag.listproduct = (List<LapData>)Session["listproductLapT"];
             ViewBag.listduplicatenewLap = (List<List<LapData>>)Session["listduplicatenewLapT"];
+           
+            LoadListLoi();
+            ViewBag.errorLineLap1 = Session["errorLineLap1"];
+            ViewBag.ListerrorTraning = (List<LapData>)Session["ListerrorTraning"];
+           
             return View();
             // list sản phẩm trùng database
           //  Session["LapDatadbTraning"] = LapDatadbTraning;
@@ -48,33 +55,37 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 string[] lines = System.IO.File.ReadAllLines(path);
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    List<LapData> duppro = new List<LapData>();
-                    String[] line = lines[i].Split('#');
-                    for (int j = 0; j < line.Length; j++)
+                    if (!String.IsNullOrWhiteSpace(lines[i].Trim()))
                     {
-                        h++;
-                        String[] Atrr = line[j].Split('|');
-                        LapData pro = new LapData();
-                        pro.stt = h.ToString();
-                        pro.Name = Atrr[0];
-                        pro.Imagelink = Atrr[1];
-                        pro.CPU = Atrr[2];
-                        pro.VGA = Atrr[3];
-                        pro.HDD = Atrr[4];
-                        pro.Display = Atrr[5];
-                        pro.RAM = Atrr[6];
-                        pro.Price = Atrr[7];
-                        pro.Url = Atrr[8];
-                        duppro.Add(pro);
+                        List<LapData> duppro = new List<LapData>();
+                        String[] line = lines[i].Split('#');
+                        for (int j = 0; j < line.Length; j++)
+                        {
+                            h++;
+                            String[] Atrr = line[j].Split('|');
+                            LapData pro = new LapData();
+                            pro.stt = h.ToString();
+                            pro.Name = Atrr[0];
+                            pro.Imagelink = Atrr[1];
+                            pro.CPU = Atrr[2];
+                            pro.VGA = Atrr[3];
+                            pro.HDD = Atrr[4];
+                            pro.Display = Atrr[5];
+                            pro.RAM = Atrr[6];
+                            pro.Price = Atrr[7];
+                            pro.Url = Atrr[8];
+                            duppro.Add(pro);
 
+                        }
+                        ListdupLaptraning.Add(duppro);
                     }
-                    ListdupLaptraning.Add(duppro);
                 }
             }
             return ListdupLaptraning;
             #endregion
         }
 
+     
         /// <summary>
         /// Ghi vào txt trùng lại
         /// </summary>
@@ -104,6 +115,443 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 System.IO.File.WriteAllLines(path, newlines);
             }
                   
+        }
+
+
+        /// <summary>
+        /// Load danh sách lỗi từ ErrorLap.txt
+        /// </summary>
+        /// <returns></returns>
+        public void LoadListLoi()
+        {
+
+            string path = Server.MapPath("~/UploadedExcelFiles/ErrorLap.txt");
+            List<LapData> ListerrorTraning = new List<LapData>();
+
+            if (System.IO.File.Exists(path))
+            {
+                int h = 0;
+                string[] lines = System.IO.File.ReadAllLines(path);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (!String.IsNullOrWhiteSpace(lines[i].Trim()))
+                    {
+                        h++;
+                        String[] line = lines[i].Split('|');
+                        LapData p = new LapData();
+                        p.stt = h.ToString();
+                        p.Name = line[0];
+                        p.Imagelink = line[1];
+                        p.CPU = line[2];
+                        p.VGA = line[3];
+                        p.HDD = line[4];
+                        p.Display = line[5];
+                        p.RAM = line[6];
+                        p.Price = line[7];
+                        p.Url = line[8];
+                        ListerrorTraning.Add(p);
+                    }
+                }
+            }
+            List<LapData> errorlist = new List<LapData>();
+            // quá nhiều lỗi
+            List<String> errorLine = new List<String>();
+            // list dòng lỗi 1 Name, 2 Linkimage, 3 Display, 4 CPU, 5 HDD, 6 VGA, 7 Ram
+            for (int i = 0; i < 10; i++)
+            {
+                errorLine.Add("");
+            }
+             int count = 0;
+             for (int i = 0; i < ListerrorTraning.Count; i++)
+            {
+                int loi = 0;
+
+                // dòng lỗi tên Lap
+                if (ListerrorTraning[i].Name.Length < 5 || ListerrorTraning[i].Name.Length > 100)
+                {
+                    errorLine[1] += (Convert.ToInt32(ListerrorTraning[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+
+                // dòng lỗi link ảnh lap
+                ListerrorTraning[i].Imagelink = ListerrorTraning[i].Imagelink.ToLower().Trim();
+
+                bool checkimage = IsImageUrl(ListerrorTraning[i].Imagelink);
+                Uri myUri;
+                if (!Uri.TryCreate(ListerrorTraning[i].Imagelink, UriKind.RelativeOrAbsolute, out myUri) || checkimage == false)
+                {
+                    errorLine[2] += (Convert.ToInt32(ListerrorTraning[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi Display
+                if (ListerrorTraning[i].Display.Length < 1 || ListerrorTraning[i].Display.Length > 100)
+                {
+                    errorLine[3] += (Convert.ToInt32(ListerrorTraning[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+
+                // dòng lỗi CPU
+                if (ListerrorTraning[i].CPU.Length < 5 || ListerrorTraning[i].CPU.Length > 100)
+                {
+                    errorLine[4] += (Convert.ToInt32(ListerrorTraning[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi HDD
+                //int distance;
+                //if (!int.TryParse(list[i].HDD, out distance))
+                //{
+                if (ListerrorTraning[i].HDD.Length < 1 || ListerrorTraning[i].HDD.Length > 100)
+                {
+                    errorLine[5] += (Convert.ToInt32(ListerrorTraning[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi VGA
+                if (ListerrorTraning[i].VGA.Length < 5 || ListerrorTraning[i].VGA.Length > 100)
+                {
+                    errorLine[6] += (Convert.ToInt32(ListerrorTraning[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi Ram
+                    /*int distance1;
+                    if (!int.TryParse(list[i].RAM, out distance1))
+                    { */
+                if (ListerrorTraning[i].RAM.Length < 1 || ListerrorTraning[i].RAM.Length > 100)
+                {
+                    errorLine[7] += (Convert.ToInt32(ListerrorTraning[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+
+
+                // dòng lỗi Price
+                double distance1;
+                if (!double.TryParse(ListerrorTraning[i].Price, out distance1))
+                {
+                    errorLine[8] += (Convert.ToInt32(ListerrorTraning[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi URL
+                ListerrorTraning[i].Url = ListerrorTraning[i].Url.ToLower().Trim();
+                bool checkURL = IsUrl(ListerrorTraning[i].Url);
+                Uri myUri1;
+                if (!Uri.TryCreate(ListerrorTraning[i].Url, UriKind.RelativeOrAbsolute, out myUri1) || checkURL == false)
+                {
+                    errorLine[9] += (Convert.ToInt32(ListerrorTraning[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // cho vào list lỗi @@
+                if (loi > 0)
+                {
+                    errorlist.Add(ListerrorTraning[i]);
+                    // thêm biến đếm số dòng lỗi được thêm vào.                   
+                    ListerrorTraning.RemoveAt(i);
+                    i = i - 1;
+                }            
+            }
+            errorLine[0] = count.ToString();
+            Session["errorLineLap1"] = errorLine;
+            Session["ListerrorTraning"] = errorlist;
+        }
+
+
+        public void GhilaiTxtLoi(List<LapData> listerror)
+        {
+            // lấy dữ liệu trong file text traning ra LapDataTraning;
+            string path2 = Server.MapPath("~/UploadedExcelFiles/ErrorLap.txt");
+            if (System.IO.File.Exists(path2))
+            {   
+                // tảo mảng mới chứa dữ dữ liệu trùng.
+                string[] newlines = new string[listerror.Count];
+                for (int i = 0; i < listerror.Count; i++)
+                {
+                    string newline = "";
+                    newline += listerror[i].Name + "|" + listerror[i].Imagelink + "|" +
+                                   listerror[i].CPU + "|" + listerror[i].VGA + "|" +
+                                   listerror[i].HDD + "|" + listerror[i].Display + "|" +
+                                   listerror[i].RAM + "|" + listerror[i].Price + "|" + listerror[i].Url;
+                    newline = newline.Substring(0, newline.Length - 1);
+                    newlines[i] = newline;
+                }
+                //Gộp hai bảng thành mảng mới và lưu vào txt lại           
+                // ghi lại vào txt
+                System.IO.File.WriteAllLines(path2, newlines);
+            }
+
+        }
+
+        /// <summary>
+        /// Sản phẩm lỗi đã được sửa.
+        /// </summary>
+        /// <param name="delstt"></param>
+        /// <returns></returns>
+        public ActionResult fixedErrorProduct(String stringpro)
+        {
+            if (!stringpro.Equals("nothing"))
+            {
+                // get list product in session.
+                List<LapData> listpro = (List<LapData>)Session["listproductLapT"];
+                List<LapData> listerror = (List<LapData>)Session["ListerrorTraning"];
+                // số sản phẩm lỗi trước khi được test
+                int count1 = listerror.Count;
+                List<List<LapData>> listduplicate = (List<List<LapData>>)Session["ListdupLaptraning"];
+
+                if (listpro == null)
+                {
+                    listpro = new List<LapData>();
+                }
+                if (listduplicate == null)
+                {
+                    listduplicate = new List<List<LapData>>();
+                }
+                
+                String[] info = stringpro.ToString().Split('@');
+                string stt = info[0].Trim();
+                string Name = info[1].Trim();
+                string ImageLink = info[2].Trim();
+                string CPU = info[3].Trim();
+                string VGA = info[4].Trim();
+                string HDD = info[5].Trim();
+                string Display = info[6].Trim();
+                string Ram = info[7].Trim();
+                string Price = info[8].Trim();
+                string Url = info[9].Trim();
+                //gán vào list mới để kiểm tra
+                List<LapData> newlisterror = listerror;
+                foreach (LapData l in newlisterror)
+                {
+                    if (l.stt.Equals(stt))
+                    {
+                        l.Name = Name;
+                        l.Imagelink = ImageLink;
+                        l.CPU = CPU;
+                        l.VGA = VGA;
+                        l.HDD = HDD;
+                        l.Display = Display;
+                        l.RAM = Ram;
+                        l.Price = Price;
+                        l.Url = Url;
+                        break;
+                    }
+                }
+                List<LapData> newlisterror1 = ListErrorProduct(newlisterror);
+                // gọi hàm kiểm tra lỗi và đếm xem có bao nhiêu sản phẩm lỗi
+                int count2 = newlisterror1.Count;
+                // nếu phát hiện số sản phẩm lỗi giảm đi 1 thì kiểm tra trùng với list pro và list dup, xóa trong list error
+                if ((count1 - count2) == 1)
+                {
+                    // xóa sản phẩm trong list error và cập nhập vào session
+                    LapData delpro = new LapData();
+                    foreach (LapData p in newlisterror1)
+                    {
+                        if (p.stt.Equals(stt))
+                        {
+                            delpro = p;
+                            break;
+                        }
+                    }
+                    listerror.Remove(delpro);
+                    Session["ListerrorTraning"] = newlisterror1;
+                    // xử lý sản phẩm lỗi đã được update.
+                    LapData update = new LapData();
+                    update.stt = stt.Trim();
+                    update.Name = Name.Trim();
+                    update.Imagelink = ImageLink.Trim();
+                    update.CPU = CPU.Trim();
+                    update.VGA = VGA.Trim();
+                    update.HDD = HDD.Trim();
+                    update.Display = Display.Trim();
+                    update.RAM = Ram.Trim();
+                    update.Price = Price.Trim();
+                    update.Url = Url.Trim();
+                    // so trùng với correct list và duplicate list
+                    List<LapData> listtam = new List<LapData>();
+                    listtam.Add(update);
+
+                    if (listpro != null)
+                    {
+                    
+                    //Duyệt hết list correct
+                    for (int i = 0; i < listpro.Count; i++)
+                    {
+                        // nếu phát hiện trùng
+                        if (CompareStringHelper.CompareString(listpro[i].Name.ToString(), update.Name) >= 80)
+                        {
+                            listtam.Add(listpro[i]);
+                            listpro.Remove(listpro[i]);
+                            i--;
+                        }
+                    }
+                    }
+                    //Kiểm tra xem list tạm lớn hơn 1 tức là trong correct product có trùng.
+                    if (listtam.Count > 1)
+                    {
+                        listduplicate.Add(listtam);
+                    }
+                    // trong correct ko trùng thì bay qua list duplicate tìm trùng.
+                    else
+                    {
+                        if (listduplicate != null)
+                        {
+                            int count = 0;
+                            for (int i = 0; i < listduplicate.Count; i++)
+                            {
+                                if (CompareStringHelper.CompareString(listduplicate[i][0].Name.ToString(), update.Name) >= 80)
+                                {
+                                    listduplicate[i].Add(update);
+                                    count++;
+                                    break;
+                                }
+                            }
+                            if (count == 0)
+                            {
+                                listpro.Add(update);
+                            }
+                        }
+                    }
+                }
+                // update listerrorLap
+                if ((count1 - count2) == 0)
+                {
+                    Session["ListerrorTraning"] = newlisterror1;
+                }
+                //update listError and listDuplicate
+                Session["listproductLapT"] = listpro;
+                Session["ListdupLaptraning"] = listduplicate;
+                GhilaiTxtLoi(newlisterror1);
+            }
+
+          
+            ViewBag.listproduct = (List<LapData>)Session["listproductLapT"];
+            ViewBag.listerror = (List<LapData>)Session["ListerrorTraning"];
+      //      ViewBag.listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
+            // quá nhiều lỗi hiện thị ra dòng và sản phẩm bị lỗi.
+        //    ViewBag.danhsachlaploi = (List<LapData>)Session["danhsachlaploi"];
+            // dòng chứa lỗi
+            ViewBag.errorLineLap = Session["errorLineLap1"];
+            return View();
+        }
+
+        /// <summary>
+        /// Get error product list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public List<LapData> ListErrorProduct(List<LapData> list)
+        {
+            List<LapData> errorlist = new List<LapData>();
+            // quá nhiều lỗi
+            List<String> errorLine = new List<String>();
+            // list dòng lỗi 1 Name, 2 Linkimage, 3 Display, 4 CPU, 5 HDD, 6 VGA, 7 Ram, 8 Price, 9 URL
+            for (int i = 0; i < 10; i++)
+            {
+                errorLine.Add("");
+            }
+            int count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                int loi = 0;
+
+                // dòng lỗi tên Lap
+                if (list[i].Name.Length < 5 || list[i].Name.Length > 100)
+                {
+                    errorLine[1] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+
+                // dòng lỗi link ảnh lap
+                list[i].Imagelink = list[i].Imagelink.ToLower().Trim();
+
+                bool checkimage = IsImageUrl(list[i].Imagelink);
+                Uri myUri;
+                if (!Uri.TryCreate(list[i].Imagelink, UriKind.RelativeOrAbsolute, out myUri) || checkimage == false)
+                {
+                    errorLine[2] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi Display
+                if (list[i].Display.Length < 1 || list[i].Display.Length > 100)
+                {
+                    errorLine[3] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+
+                // dòng lỗi CPU
+                if (list[i].CPU.Length < 5 || list[i].CPU.Length > 100)
+                {
+                    errorLine[4] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi HDD
+                //int distance;
+                //if (!int.TryParse(list[i].HDD, out distance))
+                //{
+                if (list[i].HDD.Length < 1 || list[i].HDD.Length > 100)
+                {
+                    errorLine[5] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi VGA
+                if (list[i].VGA.Length < 5 || list[i].VGA.Length > 100)
+                {
+                    errorLine[6] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi Ram
+                /*int distance1;
+                if (!int.TryParse(list[i].RAM, out distance1))
+                { */
+                if (list[i].RAM.Length < 1 || list[i].RAM.Length > 100)
+                {
+                    errorLine[7] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+
+
+                // dòng lỗi Price
+                double distance1;
+                if (!double.TryParse(list[i].Price, out distance1))
+                {
+                    errorLine[8] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // dòng lỗi URL
+                list[i].Url = list[i].Url.ToLower().Trim();
+                bool checkURL = IsUrl(list[i].Url);
+                Uri myUri1;
+                if (!Uri.TryCreate(list[i].Url, UriKind.RelativeOrAbsolute, out myUri1) || checkURL == false)
+                {
+                    errorLine[9] += (Convert.ToInt32(list[i].stt) + 2).ToString() + ",";
+                    loi++;
+                    count++;
+                }
+                // cho vào list lỗi @@
+                if (loi > 0)
+                {
+                    errorlist.Add(list[i]);
+                    // thêm biến đếm số dòng lỗi được thêm vào.                   
+                    list.RemoveAt(i);
+                    i = i - 1;
+                }
+            }
+            errorLine[0] = count.ToString();
+            Session["errorLineLap1"] = errorLine;
+            return errorlist;
         }
 
         /// <summary>
@@ -1576,6 +2024,17 @@ namespace CPS_Solution.Areas.Admin.Controllers
             string sttTenchinh = values.Last();
             values.Remove(values.Last());
 
+
+            // value chỉ chứa các giá trị khác ngoài tên chính
+            for (int t = 0; t < values.Count; t++)
+            {
+                if (values[t].Trim().Equals(sttTenchinh.Trim()))
+                {
+                    values.RemoveAt(t);
+                    break;
+                }
+            }
+
             // tên sản phẩm gộp
             string tenmoi = "";
             LapData sanphamgop = new LapData();
@@ -1583,40 +2042,16 @@ namespace CPS_Solution.Areas.Admin.Controllers
             int count = 0;
             for (int i = 0; i < listduplicate.Count; i++)
             {
+                // duyệt list nhỏ
                 for (int j = 0; j < listduplicate[i].Count; j++)
                 {
-                    // duyệt để tim thấy list có chưa id tách được gửi về.
-                    for (int t = 0; t < values.Count; t++)
+                    // nếu stt của listdup = stt của tên chính thì cho nó thành sản phẩm gộp.                      
+                    if (listduplicate[i][j].stt.ToString().Equals(sttTenchinh))
                     {
-                        if (listduplicate[i][j].stt.ToString().Equals(sttTenchinh))
-                        {
-                            count++;
-                            tenmoi = listduplicate[i][j].Name;
-                            sanphamgop = listduplicate[i][j];
-                            listduplicate[i].Remove(listduplicate[i][j]);
-                        }
-                        if (listduplicate[i][j].stt.ToString().Equals(values[t].ToString()))
-                        {
-                            tenmoi += ";" + listduplicate[i][j].Name;
-                            listduplicate[i].Remove(listduplicate[i][j]);
-                        }
-                        if (listduplicate[i].Count == 0)
-                        {
-                            break;
-                        }
-                    }
-                    // kiểm tra trong list nhỏ còn có 1 phần tử thì tách nó luôn cho vào list correct
-                    if (listduplicate[i].Count == 1)
-                    {
-                        listpro.Add(listduplicate[i].First());
-                        listduplicate[i].Remove(listduplicate[i].First());
-                        //Xóa list rỗng trong list bự duplicate 
-                        listduplicate.Remove(listduplicate[i]);
-                    }
-                    else if (listduplicate[i].Count == 0)
-                    {
-                        //Xóa list rỗng trong list bự duplicate 
-                        listduplicate.Remove(listduplicate[i]);
+                        count++;
+                        tenmoi = listduplicate[i][j].Name;
+                        sanphamgop = listduplicate[i][j];
+                        listduplicate[i].Remove(listduplicate[i][j]);
                     }
                     if (count > 0)
                     {
@@ -1628,6 +2063,44 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 {
 
                     break;
+                }
+            }
+            // duyệt để tim thấy list có chưa id tách được gửi về.
+            for (int t = 0; t < values.Count; t++)
+            {
+                // duyệt list bự lấy tên phụ
+                for (int i = 0; i < listduplicate.Count; i++)
+                {
+                    // duyệt list nhỏ
+                    for (int j = 0; j < listduplicate[i].Count; j++)
+                    {
+
+                        // nếu stt của listdup = stt của tên chính thì cho nó thành sản phẩm gộp.                      
+                        if (listduplicate[i][j].stt.ToString().Equals(values[t]))
+                        {
+
+                            tenmoi += ";" + listduplicate[i][j].Name;
+                            listduplicate[i].Remove(listduplicate[i][j]);
+                            break;
+                        }
+                    }
+                }
+            }
+            // duyệt list bự xóa list rỗng hoặc list có 1 phần tử cho vào phần tử đúng
+            for (int i = 0; i < listduplicate.Count; i++)
+            {
+                // kiểm tra trong list nhỏ còn có 1 phần tử thì tách nó luôn cho vào list correct
+                if (listduplicate[i].Count == 1)
+                {
+                    listpro.Add(listduplicate[i].First());
+                    listduplicate[i].Remove(listduplicate[i].First());
+                    //Xóa list rỗng trong list bự duplicate 
+                    listduplicate.Remove(listduplicate[i]);
+                }
+                else if (listduplicate[i].Count == 0)
+                {
+                    //Xóa list rỗng trong list bự duplicate 
+                    listduplicate.Remove(listduplicate[i]);
                 }
             }
 
@@ -3030,6 +3503,67 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 return url;
             }
         }
+
+        /// <summary>
+        /// Kiểm tra url image có tồn tại không.
+        /// </summary>
+        /// <param name="URL"></param>
+        /// <returns></returns>
+        #region Kiểm tra url image có tồn tại không.
+        bool IsImageUrl(string URL)
+        {
+            var req = (HttpWebRequest)HttpWebRequest.Create(URL);
+            req.Method = "HEAD";
+            try
+            {
+                using (var resp = req.GetResponse())
+                {
+                    return resp.ContentType.ToLower(CultureInfo.InvariantCulture)
+                               .StartsWith("image/");
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Kiểm tra url có tồn tại không.
+        /// </summary>
+        /// <param name="URL"></param>
+        /// <returns></returns>
+        #region Kiểm tra url  có tồn tại không.
+        bool IsUrl(string URL)
+        {
+            HttpWebResponse response = null;
+            if (URL.Equals(""))
+            {
+                return false;
+            }
+            var request = (HttpWebRequest)WebRequest.Create(URL);
+            request.Method = "HEAD";
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+                return true;
+            }
+            catch (WebException ex)
+            {
+                /* A WebException will be thrown if the status of the response is not `200 OK` */
+                return false;
+            }
+            finally
+            {
+                // Don't forget to close your response.
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
+        }
+        #endregion
         #region
         ///// <summary>
         ///// Gộp 1 table trùng
