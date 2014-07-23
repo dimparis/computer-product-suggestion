@@ -3275,6 +3275,7 @@
     </Content>
     <Content Include="Areas\Admin\Views\Recommend\ConfirmTrueLink.cshtml" />
     <Content Include="Areas\Admin\Views\FillWeightHardWare\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\TakeSummary.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -3689,6 +3690,7 @@
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Product\SamePriceProduct.cshtml" />
     <Content Include="Views\Product\LoadProductByPoint.cshtml" />
+    <Content Include="Views\Product\SearchByPriceAndBrand.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Dandelion\plugins\elfinder\files\.tmb\" />
