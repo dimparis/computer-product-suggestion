@@ -15,6 +15,12 @@ namespace CPS_Solution.Controllers
     public class ProductController : Controller
     {
         private CPS_SolutionEntities db = new CPS_SolutionEntities();
+        private const double _8M = 8000000;
+        private const double _10M = 10000000;
+        private const double _13M = 13000000;
+        private const double _16M = 16000000;
+        private const double _20M = 20000000;
+        private const double _25M = 25000000;
         private string title = "";
         //
         // GET: /Product/
@@ -24,6 +30,8 @@ namespace CPS_Solution.Controllers
             DataManager manager = new DataManager();
             int BlockSize = 4;
             var products = manager.GetProducts(1, BlockSize);
+            LoadDropDownList();
+
             return View(products);
         }
         public ActionResult SearchForProduct()
@@ -31,6 +39,7 @@ namespace CPS_Solution.Controllers
             DataManager manager = new DataManager();
             int BlockSize = 4;
             var products = manager.GetProducts(1, BlockSize);
+            LoadDropDownList();
             return View(products);
         }
         [HttpPost]
@@ -40,6 +49,7 @@ namespace CPS_Solution.Controllers
             int BlockSize = 4;
             var products = manager.GetProducts(1, BlockSize);
             var listP = new List<Product>();
+            LoadDropDownList();
             if (!String.IsNullOrEmpty(productName))
             {
                 foreach (var p in products)
@@ -310,7 +320,7 @@ namespace CPS_Solution.Controllers
             var top3SameProduct = samePriceProducts.Where(x => x.Price <= maxPrice && x.Price >= minPrice).Take(4);
             return PartialView(top3SameProduct);
         }
-        public ActionResult LoadProductByPoint(int id) 
+        public ActionResult LoadProductByPoint(int id)
         {
             double minPoint = 0;
             double maxPoint = 0;
@@ -330,6 +340,206 @@ namespace CPS_Solution.Controllers
             var top3SameProduct = samePointProducts.Where(x => x.TotalWeightPoint <= maxPoint && x.Price >= minPoint).Take(4);
 
             return PartialView(top3SameProduct);
+        }
+
+        public ActionResult SearchByPriceAndBrand(string brands, string prices)
+        {
+            int brandInt = 13;// load tat ca  cac thuong hieu
+            int priceInt = 8;// load tat ca cac loai gia
+            LoadDropDownList();
+            if (!String.IsNullOrEmpty(brands))
+            {
+                brandInt = Int32.Parse(brands);
+            }
+            if (!String.IsNullOrEmpty(prices))
+            {
+                priceInt = Int32.Parse(prices);
+            }
+            if (String.IsNullOrEmpty(prices) && String.IsNullOrEmpty(brands))
+            {
+                brandInt = 13;
+                priceInt = 8;
+            }
+
+            var products = ListOfProductLoad(priceInt, brandInt);
+            return View(products);
+
+        }
+        private List<SelectListItem> CreateDropDownBoxPrive()
+        {
+            List<SelectListItem> ListPrice = new List<SelectListItem>();
+            SelectListItem value1 = new SelectListItem { Text = " Dưới 8 triệu", Value = "1" };
+            SelectListItem value2 = new SelectListItem { Text = " 8 triệu - 10 triệu ", Value = "2" };
+            SelectListItem value3 = new SelectListItem { Text = " 10 triệu - 13 triệu ", Value = "3" };
+            SelectListItem value4 = new SelectListItem { Text = " 13 triệu - 16 triệu ", Value = "4" };
+            SelectListItem value5 = new SelectListItem { Text = " 16 triệu - 20 triệu ", Value = "5" };
+            SelectListItem value6 = new SelectListItem { Text = " 20 triệu - 25triệu ", Value = "6" };
+            SelectListItem value7 = new SelectListItem { Text = " Trên 25 triệu", Value = "7" };
+            SelectListItem value8 = new SelectListItem { Text = " Tất Cả", Value = "8" };
+            ListPrice.Add(value1); ListPrice.Add(value2); ListPrice.Add(value3); ListPrice.Add(value4);
+            ListPrice.Add(value5); ListPrice.Add(value6); ListPrice.Add(value7); ListPrice.Add(value8);
+            return ListPrice;
+        }
+        private void LoadDropDownList()
+        {
+            List<SelectListItem> ListBrand = new List<SelectListItem>();
+            var brands = db.Brands.ToList();
+            List<Product> ListOfProduct = new List<Product>();
+            foreach (var item in brands)
+            {
+                SelectListItem avaiableItem = new SelectListItem
+                {
+                    Text = item.BrandName,
+                    Value = item.ID.ToString()
+                };
+                ListBrand.Add(avaiableItem);
+            }
+            ViewBag.ListBrands = ListBrand;
+            ViewBag.ListPrices = CreateDropDownBoxPrive();
+        }
+        private List<Product> ListOfProductLoad(int value, int brandID)
+        {
+            List<Product> ListOFProducts = new List<Product>();
+            var BrandLaptop = db.Brands.Where(x => x.ID == brandID).FirstOrDefault();
+            DataManager manager = new DataManager();
+            int BlockSize = 4;
+            var products = manager.GetProductsByPrice(1, BlockSize, brandID);
+            if (BrandLaptop != null)
+            {
+                // Specify brand
+                if (BrandLaptop.ID != 13)
+                {
+                    // Price from  < 8 mil
+                    if (value == 1)
+                    {
+                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID && x.Price < _8M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   8 mil < 10 mil
+                    else if (value == 2)
+                    {
+                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
+                           && x.Price > _8M
+                           && x.Price <= _10M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   10 mil < 13 mil
+                    else if (value == 3)
+                    {
+                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
+                            && x.Price > _10M
+                            && x.Price <= _13M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   13 mil < 16 mil
+                    else if (value == 4)
+                    {
+                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
+                            && x.Price > _13M
+                            && x.Price <= _16M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   16 mil < 20 mil
+                    else if (value == 5)
+                    {
+                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
+                           && x.Price > _16M
+                           && x.Price <= _20M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   20 mil < 25 mil
+                    else if (value == 6)
+                    {
+                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
+                            && x.Price > _20M
+                            && x.Price <= _25M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   > 25 mil
+                    else if (value == 7)
+                    {
+                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
+                            && x.Price > _25M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    else if (value == 8)
+                    {
+                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                } // All Price
+                else
+                {
+                    // Price from  < 8 mil
+                    if (value == 1)
+                    {
+                        var filterProduct = products.Where(x =>  x.Price < _8M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   8 mil < 10 mil
+                    else if (value == 2)
+                    {
+                        var filterProduct = products.Where(x => x.Price > _8M
+                           && x.Price <= _10M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   10 mil < 13 mil
+                    else if (value == 3)
+                    {
+                        var filterProduct = products.Where(x => x.Price > _10M
+                            && x.Price <= _13M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   13 mil < 16 mil
+                    else if (value == 4)
+                    {
+                        var filterProduct = products.Where(x => x.Price > _13M
+                            && x.Price <= _16M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   16 mil < 20 mil
+                    else if (value == 5)
+                    {
+                        var filterProduct = products.Where(x => x.Price > _16M
+                           && x.Price <= _20M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   20 mil < 25 mil
+                    else if (value == 6)
+                    {
+                        var filterProduct = products.Where(x => x.Price > _20M
+                            && x.Price <= _25M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    // Price from   > 25 mil
+                    else if (value == 7)
+                    {
+                        var filterProduct = products.Where(x => x.Price > _25M).ToList();
+                        ListOFProducts = filterProduct;
+                        return ListOFProducts;
+                    }
+                    else if (value == 8)
+                    {
+                        ListOFProducts = products;
+                        return ListOFProducts;
+                    }
+                }
+            }
+            return ListOFProducts;
         }
 
     }

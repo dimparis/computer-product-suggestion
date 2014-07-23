@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
 @{
-    ViewBag.Title = "Tìm kiếm";
+    ViewBag.Title = "Tìm kiếm theo giá";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
@@ -20,20 +20,20 @@
 
     <div class="tabbable  tabs-left" style="margin-left: 300px">
         <ul class="nav nav-tabs" data-tabs="tabs">
-            <li class="active"><a href="#searchByName" data-toggle="tab" style="background: #d83c3c; font-size: larger; font-weight: 500; color: #fff"><strong>Tìm kiếm theo tên</strong></a>
+            <li class=""><a href="#searchByName" data-toggle="tab" style="background: #d83c3c; font-size: larger; font-weight: 500; color: #fff"><strong>Tìm kiếm theo tên</strong></a>
             </li>
-            <li class=""><a href="#searchByPrice" data-toggle="tab" style="background: #d83c3c; font-size: larger; font-weight: 500; color: #fff"><strong>Tìm kiếm theo giá</strong></a>
+            <li class="active"><a href="#searchByPrice" data-toggle="tab" style="background: #d83c3c; font-size: larger; font-weight: 500; color: #fff"><strong>Tìm kiếm theo giá</strong></a>
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane fade in active" id="searchByName">
+            <div class="tab-pane fade " id="searchByName">
                 @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
                 {
                     @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
                     <button type="submit">Tìm kiếm</button>               
                 }
             </div>
-            <div class="tab-pane fade" id="searchByPrice">
+            <div class="tab-pane fade in active" id="searchByPrice">
 
                 @using (Html.BeginForm("SearchByPriceAndBrand", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
                 {
