@@ -8,9 +8,11 @@
             <img src="/@item.ImageURL" alt="@item.Name" style="width:60px;height:60px">
         </a>
         <div class="media-body">
-            <p class="tab-row-title">@item.Name</p>
-
-            <p class="tab-row-date"><strong>@item.Price</strong>(Có <strong>@item.SellPlacers</strong> nơi bán )</p>
+            <a href="@Url.Action("Details", "Product", new { id = item.ID })">
+                <p class="tab-row-title">@item.Name</p>
+            </a>
+            <p class="tab-row-date"><strong>@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)</strong></p>
+            <p>(Có <strong>@item.SellPlacers</strong> nơi bán )</p>
         </div>
     </div>
     }
