@@ -94,34 +94,37 @@
             margin: 0;
         }
 
-            ul#menu li, ul#menu ul.sub-menu li {
-                list-style-type: none;
-                display: inline-block;
-            }
-                /*Link Appearance*/
-                ul#menu li a, ul#menu li ul.sub-menu li a {
-                    text-decoration: none;
-                    color: #fff;
-                    background: #666;
-                    padding: 5px;
-                    display: inline-block;
-                }
-            /*Make the parent of sub-menu relative*/
-            ul#menu li {
-                position: relative;
-            }
-                /*sub menu*/
-                ul#menu li ul.sub-menu {
-                    display: none;
-                    position: absolute;
-                    top: 30px;
-                    left: 0;
-                    width: 100px;
-                }
+        ul#menu li, ul#menu ul.sub-menu li {
+            list-style-type: none;
+            display: inline-block;
+        }
 
-                ul#menu li:hover ul.sub-menu {
-                    display: block;
-                }
+        /*Link Appearance*/
+        ul#menu li a, ul#menu li ul.sub-menu li a {
+            text-decoration: none;
+            color: #fff;
+            background: #666;
+            padding: 5px;
+            display: inline-block;
+        }
+
+        /*Make the parent of sub-menu relative*/
+        ul#menu li {
+            position: relative;
+        }
+
+        /*sub menu*/
+        ul#menu li ul.sub-menu {
+            display: none;
+            position: absolute;
+            top: 30px;
+            left: 0;
+            width: 100px;
+        }
+
+        ul#menu li:hover ul.sub-menu {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -148,10 +151,10 @@
                                     <ul class="dropdown-menu" style="top: 20px; right: -55px; left: 100px;">
                                         <li></li>
                                         <li>
-                                            <a href="javascript:void(0)"><i class="icon-h-sign"></i>Lịch sử so sánh</a>
+                                            <a href="javascript:void(0)"><i class="icon-h-sign"></i>  Lịch sử so sánh</a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("LogOff", "Account")"><i class="icon-signout"></i>Đăng xuất</a>
+                                            <a href="@Url.Action("LogOff", "Account")"><i class="icon-signout"></i>  Đăng xuất</a>
 
                                         </li>
                                     </ul>
@@ -228,9 +231,9 @@
                                     return;
                                 }
                                 angle += 40;
-                                $('.link', $elem).stop().animate({ rotate: '+=-40deg' }, 0);
+                                //$('.link', $elem).stop().animate({ rotate: '+=-40deg' }, 0);
                             }, 10);
-                            $elem.stop().animate({ width: '268px' }, 1000)
+                            $elem.stop().animate({ width: '220px' }, 500)
                             .find('.item_content').fadeIn(400, function () {
                                 $(this).find('p').stop(true, true).fadeIn(600);
                             });
@@ -243,9 +246,9 @@
                                     return;
                                 }
                                 angle -= 40;
-                                $('.link', $elem).stop().animate({ rotate: '+=40deg' }, 0);
+                                //$('.link', $elem).stop().animate({ rotate: '+=40deg' }, 0);
                             }, 10);
-                            $elem.stop().animate({ width: '52px' }, 1000)
+                            $elem.stop().animate({ width: '52px' }, 500)
                             .find('.item_content').stop(true, true).fadeOut().find('p').stop(true, true).fadeOut();
                         }
                     </script>
@@ -259,12 +262,6 @@
         <div class="container">
             <div class="row">
                 @RenderBody()
-                @*Load More Button*@
-                @*<div class="load-more">
-                    <div class="stylish-button">
-                        <a href="javascript:;" class="load-more-button"><i class="icon-rotate-right"></i>load more</a>
-                    </div>
-                </div>*@
             </div>
         </div>
     </div>
@@ -347,7 +344,6 @@
         </div>
     </footer>
 
-
     <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/jquery-ui.js")"></script>
     <!-- Bootstrap Libraries -->
     <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/bootstrap/js/bootstrap.js")"></script>
@@ -370,83 +366,6 @@
     <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/custom.js")"></script>
     <script src="@Url.Content("~/Template/stylish.holobest.com/scripts/plugins.js")"></script>
 
-    <script type="text/javascript">
-        function createMasonryElement() {
-            var image1 = '<img src="images/portfolio-4columns-image1.png" alt="portfolio-image" />';
-            var image2 = '<img src="images/portfolio-4columns-image2.png" alt="portfolio-image" />';
-            var image3 = '<img src="images/portfolio-4columns-image3.png" alt="portfolio-image" />';
-            var image4 = '<img src="images/portfolio-4columns-image4.png" alt="portfolio-image" />';
-            var image5 = '<img src="images/portfolio-4columns-image5.png" alt="portfolio-image" />';
-            var image6 = '<img src="images/portfolio-4columns-image6.png" alt="portfolio-image" />';
-            var image7 = '<img src="images/portfolio-4columns-image7.png" alt="portfolio-image" />';
-
-            var elements = '';
-            var element = '';
-            var image = '';
-
-            for (var i = 0; i < 2; i++) {
-                var randomNumber = Math.random();
-
-                if (randomNumber < 0.15)
-                    image = image1;
-                else if (randomNumber < 0.30)
-                    image = image2;
-                else if (randomNumber < 0.45)
-                    image = image3;
-                else if (randomNumber < 0.60)
-                    image = image4;
-                else if (randomNumber < 0.75)
-                    image = image5;
-                else if (randomNumber < 0.90)
-                    image = image6;
-                else
-                    image = image7;
-
-                element =
-                        '<div class="isotope-item post span6">' +
-                                '<div class="row">' +
-                                '<div class="span3">' +
-                                '<div class="post-media">' +
-                                '<iframe src="http://player.vimeo.com/video/25451551" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' +
-                                '</div>' +
-                                '</div>' +
-
-                                '<div class="span3">' +
-                                '<div class="post-content">' +
-                                '<div class="post-title">' +
-                                '<h3><i class="icon-film post-title-icon"></i>Short Movie</h3>' +
-                                '</div>' +
-
-                                '<div class="post-info clearfix">' +
-                                '<div class="post-date"><i class="icon-calendar"></i> <p>Nov 10, 2012</p></div>' +
-                                '<div class="post-category"><i class="icon-pencil"></i> <a href="#">Design</a></div>' +
-                                '<div class="post-comments"><i class="icon-comments"></i> <a href="#">(3)</a></div>' +
-                                '</div>' +
-
-                                '<div style="clear: both"></div>' +
-
-                                '<div class="post-excerpt">' +
-                                '<p>' +
-                                'Donec magna nunc, vestibulum' +
-                                'at erat ac, mollis varius nunc. Maecenas nec hendrerit nunc. Integer interdum neque lorem, eget mattis dui vehicula at.' +
-                                '</p>' +
-                                '</div>' +
-
-                                '<div class="stylish-button"><a href="#">read more</a></div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>';
-
-                elements += element;
-            }
-
-
-            var elementsString = jQuery(elements);
-
-            return elementsString;
-        }
-    </script>
     @if (User.Identity.Name != null)
     {
         <script>
