@@ -209,7 +209,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var productAtt = new ProductAttribute
                {
                    ProductID = product.ID,
-                   AttributeID = item,       
+                   AttributeID = item,
                };
                 context.ProductAttributes.Add(productAtt);
             }
@@ -234,7 +234,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult EditProduct(int id) 
+        public ActionResult EditProduct(int id)
         {
             var product = context.Products.Where(x => x.ID == id).FirstOrDefault();
             TempData["id"] = id;
@@ -331,7 +331,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             var product = context.Products.Where(x => x.ID == model.ID).FirstOrDefault();
             string message = "";
-            if (product != null) 
+            if (product != null)
             {
                 product.Description = model.Description;
                 product.URL = model.URL;
@@ -345,19 +345,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 listOfAttribute.Add(model.DisplayID);
 
                 var atts = context.ProductAttributes.Where(x => x.ProductID == model.ID).ToList();
-                foreach (var att in atts) 
+                foreach (var att in atts)
                 {
-                    foreach (var item in listOfAttribute) 
+                    foreach (var item in listOfAttribute)
                     {
                         att.AttributeID = item;
                         context.SaveChanges();
                         listOfAttribute.Remove(item);
                         break;
                     }
-  
+
                     continue;
                 }
-               
+
                 context.SaveChanges();
                 message = "success";
             }
@@ -369,7 +369,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public RedirectToRouteResult UpdatePrice() 
+        public RedirectToRouteResult UpdatePrice()
         {
             // Auto Parser Product
             var parseInfoes = context.ParseInfoes.Where(x => x.IsActive == true).OrderBy(x => x.Parselink).ToList();
@@ -378,5 +378,22 @@ namespace CPS_Solution.Areas.Admin.Controllers
             Task.Factory.StartNew(() => job.AutoUpdatePriceTask(aliasproduct, parseInfoes));
             return RedirectToAction("Index");
         }
+        public ActionResult TakeSummary()
+        {
+            ShowInfoRepository show = new ShowInfoRepository();
+            ShowInfo info = show.GetNewInfo();
+            return PartialView(info);
+        }
+        public JsonResult GetNotifyForAdmin(string username)
+        {
+            ShowInfoRepository show = new ShowInfoRepository();
+            ShowInfo info = show.GetNewInfo();
+            if (info != null) 
+            {
+                return Json(info, JsonRequestBehavior.AllowGet);
+            }
+            return Json("NoneData", JsonRequestBehavior.AllowGet);
+        }
+        
     }
 }
