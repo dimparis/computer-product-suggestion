@@ -67,14 +67,7 @@
 	}
 
     .topAttr {
-        background: rgb(99,182,219);
-		background: -moz-radial-gradient(center, ellipse cover,  rgba(99,182,219,1) 0%, rgba(48,157,207,1) 100%);
-		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(99,182,219,1)), color-stop(100%,rgba(48,157,207,1)));
-		background: -webkit-radial-gradient(center, ellipse cover,  rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%);
-		background: -o-radial-gradient(center, ellipse cover,  rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%);
-		background: -ms-radial-gradient(center, ellipse cover,  rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%);
-		background: radial-gradient(ellipse at center,  rgba(99,182,219,1) 0%,rgba(48,157,207,1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=1 );
+        background-color:aliceblue;
     }
 
     .winner {
@@ -118,7 +111,7 @@
                     <i class="icon-info"></i>
                 </div>
                 <div class="message-container">
-                    <p style="margin-top:8px; font-size:16px; color:rgb(0, 0, 0)">
+                    <p style="margin-top:8px; font-size:15px; color:rgb(0, 0, 0)">
                         Kéo thả để thay đổi vị trí các thành phần cấu hình. 
                         Hệ thống sẽ đề xuất sản phẩm theo tiêu chí ưu tiên của bạn.
                     </p>
@@ -132,7 +125,7 @@
             <ul class="sortable-with-handles">
                 @*Ten san pham*@
                 <li class="disabled">
-                    <table class="table table-bordered">
+                    <table class="table">
                         <tr>
                             <td style="width:20%; text-align:center; vertical-align:middle">Tên sản phẩm</td>
                             @foreach (var item in Model) {
@@ -144,7 +137,7 @@
 
                 @*Thong tin CPU*@
                 <li draggable="true" id="scoreCPU">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-hover">
                         <tr>
                             <td style="width:20%" class="handle">
                                 <span class="pull-left">
@@ -163,7 +156,7 @@
 
                 @*Thong tin VGA*@
                 <li draggable="true" id="scoreVGA">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-hover">
                         <tr>
                             <td style="width:20%" class="handle">
                                 <span class="pull-left">
@@ -182,7 +175,7 @@
 
                 @*Thong tin RAM*@
                 <li draggable="true" id="scoreRAM">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-hover">
                         <tr>
                             <td style="width:20%" class="handle">
                                 <span class="pull-left">
@@ -201,7 +194,7 @@
 
                 @*Thong tin HDD*@
                 <li draggable="true" id="scoreHDD">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-hover">
                         <tr>
                             <td style="width:20%" class="handle">
                                 <span class="pull-left">
@@ -220,7 +213,7 @@
 
                 @*Thong tin Display*@
                 <li draggable="true" id="scoreDisplay">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-hover">
                         <tr>
                             <td style="width:20%" class="handle">
                                 <span class="pull-left">
@@ -254,6 +247,7 @@
         });
     });
 
+    //Highlight phan cung duoc uu tien
     function updateClass() {
         var scoreCPU = $('#scoreCPU').index();
         var scoreVGA = $('#scoreVGA').index();
@@ -294,32 +288,36 @@
         var attr01 = $('.topAttr')[0];
         var attr02 = $('.topAttr')[1];
 
-        //Lay thong tin diem tung san pham
+        //Lay diem tung san 
         if (products.length == 3) {
-            //Product 1
+            //Lay diem phan cung uu tien
             var pro01_attr01 = attr01.getElementsByTagName('span')[1].innerHTML;
             var pro01_attr02 = attr02.getElementsByTagName('span')[1].innerHTML;
+            //Lay ID san pham 1
             var pro01_attr03 = attr02.getElementsByTagName('td')[3].innerHTML;
 
-
-            //Product 2
+            //Lay diem phan cung uu tien
             var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML;
             var pro02_attr02 = attr02.getElementsByTagName('span')[2].innerHTML;
+            //Lay ID san pham 2
             var pro02_attr03 = attr02.getElementsByTagName('td')[6].innerHTML;
 
-            //Product 3
+            //Lay diem phan cung uu tien
             var pro03_attr01 = attr01.getElementsByTagName('span')[3].innerHTML;
             var pro03_attr02 = attr02.getElementsByTagName('span')[3].innerHTML;
+            //Lay ID san pham 3
             var pro03_attr03 = attr02.getElementsByTagName('td')[9].innerHTML;
         } else {
-            //Product 1
+            //Lay diem phan cung uu tien
             var pro01_attr01 = attr01.getElementsByTagName('span')[1].innerHTML;
             var pro01_attr02 = attr02.getElementsByTagName('span')[1].innerHTML;
+            //:ay ID san pham 1
             var pro01_attr03 = attr02.getElementsByTagName('td')[3].innerHTML;
 
-            //Product 2
+            //Lay diem phan cung uu tien
             var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML();
             var pro02_attr02 = attr02.getElementsByTagName('span')[2].innerHTML;
+            //Lay ID san pham 2
             var pro02_attr03 = attr02.getElementsByTagName('td')[6].innerHTML;
         }
         //Tinh diem cac tieu chi uu tien
@@ -328,12 +326,29 @@
         var pro03_score = parseFloat(pro03_attr01) + parseFloat(pro03_attr02);
         console.log(pro01_score, pro02_score, pro03_score)
 
-        //So sanh san pham theo diem uu tien cao nhat
+        //Tim max diem uu tien cua cac san pham
         var max = pro01_score;
         if (pro02_score > max)
             max = pro02_score
         if (pro03_score > max)
             max = pro03_score;
+
+        //Highlight san pham co diem uu tien max
+        if (max == pro01_score) {
+            $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
+            $('.' + pro02_attr03).removeClass('winner');
+            $('.' + pro03_attr03).removeClass('winner');
+        } else if (max == pro02_score) {
+            $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
+            $('.' + pro01_attr03).removeClass('winner');
+            $('.' + pro03_attr03).removeClass('winner');
+        } else if (max == pro03_score) {
+            $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
+            $('.' + pro01_attr03).removeClass('winner');
+            $('.' + pro02_attr03).removeClass('winner');
+        }
+
+
 
         //Highlight cac san pham co diem theo tieu chi uu tien cao nhat
         //if (max == pro01_score) {

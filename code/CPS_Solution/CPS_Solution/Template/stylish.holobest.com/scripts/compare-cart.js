@@ -26,16 +26,16 @@ $(function () {
         if (sessionStorage.length < 2) {
             //Danh sach it hon 2 san pham thi bao loi
             alert("Phải có ít nhất 2 sản phẩm để so sánh.", "warn");
-        } else if (sessionStorage.length == 2) {
+        } else if (sessionStorage.length == 4) {
             //Khi danh sach chi co 2 san pham thi id san pham 3 = -1
             var p1 = sessionStorage.getItem(sessionStorage.key(0))
-            var p2 = sessionStorage.getItem(sessionStorage.key(1))
+            var p2 = sessionStorage.getItem(sessionStorage.key(2))
             sessionStorage.clear();
             window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=-1');
         } else {
             var p1 = sessionStorage.getItem(sessionStorage.key(0))
-            var p2 = sessionStorage.getItem(sessionStorage.key(1))
-            var p3 = sessionStorage.getItem(sessionStorage.key(2))
+            var p2 = sessionStorage.getItem(sessionStorage.key(2))
+            var p3 = sessionStorage.getItem(sessionStorage.key(4))
             sessionStorage.clear();
             //Khi danh sach co du 3 san pham
             window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=' + p3);
