@@ -84,7 +84,7 @@
                         </div>
                         <div id="da-header-button-container">
                             <ul>
-                            @*    <li class="da-header-button notif">
+                                @*    <li class="da-header-button notif">
                                     @{
                                         CPS_Solution.Areas.Admin.Models.ShowInfo show = (CPS_Solution.Areas.Admin.Models.ShowInfo)TempData["ShowInfo"];
                                         if (show != null)
@@ -141,8 +141,8 @@
                 <!-- Container -->
                 <div class="da-container clearfix">
                     <div id="da-search">
-                    	<form >
-                        	<gcse:searchbox-only></gcse:searchbox-only>
+                        <form>
+                            <gcse:searchbox-only></gcse:searchbox-only>
                         </form>
                     </div>
                     <!-- Breadcrumbs -->
@@ -154,14 +154,13 @@
             </div>
         </div>
 
-     <script>
-         (function ()
- {
-     var cx = '008254990418147094948:3tfz3vmcqmi';
-     var gcse = document.createElement('script');
-     gcse.type = 'text/javascript'; gcse.async = true; gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
-     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
- })(); </script> 
+        <script>
+            (function () {
+                var cx = '008254990418147094948:3tfz3vmcqmi';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript'; gcse.async = true; gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+            })(); </script>
 
 
         <!-- Content -->
@@ -183,7 +182,9 @@
                     <!-- Main Content Wrapper -->
 
                     <div id="da-content-wrap" class="clearfix">
+
                         <div id="da-content-area">
+                            @Html.Action("TakeSummary", "Product")
                             @RenderBody()
                         </div>
                     </div>
@@ -199,5 +200,49 @@
         </div>
         @RenderSection("footScript", false)
     </div>
+    <script>
+        setInterval(function () {
+            $.ajax({
+                url: "/Admin/Product/GetNotifyForAdmin",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ username: "staff" }),
+                success: function (data) {
+                    var value = $("#newRecommend").text();
+                    var value1 = $("#noPointHardwares").text();
+                    var value2 = $("#newLaptop").text();
+                    var value3 = $("#newHardware").text();
+
+                    if (data != "NoneData") {
+                        var target = $("#newRecommend");
+                        var target1 = $("#noPointHardwares");
+                        var target2 = $("#newLaptop");
+                        var target3 = $("#newHardware");
+                        target.text(data.NumberOfNewRecommends + ' đề xuất mới chờ duyệt');
+                        target1.text(data.NumberOfHardwaresNoPoint + ' linh kiện chưa có điểm');
+                        target2.text(data.NumberOfNewLaptops + ' laptop mới chờ duyệt');
+                        target3.text(data.NumberOfNewHardwares + ' linh kiện mới chờ duyệt');
+                        if (value != target.text()) {
+                            target.effect("highlight", 3000);
+                        }                     
+                        if (value1 != target1.text()) {
+                            target1.effect("highlight", 3000);
+                        }                      
+                        if (value2 != target2.text()) {
+                            target2.effect("highlight", 3000);
+                        }                   
+                        if (value3 != target3.text()) {
+                            target3.effect("highlight", 3000);
+                        }
+                    }
+
+                },
+                error: function (data) {
+
+                }
+            });
+        }, 5000);
+    </script>
 </body>
 </html>

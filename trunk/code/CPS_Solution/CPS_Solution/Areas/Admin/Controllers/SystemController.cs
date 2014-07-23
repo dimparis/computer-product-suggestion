@@ -23,35 +23,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index", "ManagerUser");
             }
-            if (User.IsInRole("Staff"))
+            else if (User.IsInRole("Staff"))
             {
-                //ShowInfo info = new ShowInfo();
-                //int? unRatedProduct = context.Hardwares.Where(x => x.WeightCriteraPoint == 0).Count();
-                //int? unApproveProduct = context.RecommendProducts.Where(x => x.IsApprove==null).Count();
-                //info.NumberOfProductNoPoint = (int) unRatedProduct;
-                //info.NumberofRecordUnratedWeight = (int)unApproveProduct;
-                //info.LastExecutionDate = DateTime.Now;
-                //if (unRatedProduct.HasValue && unApproveProduct.HasValue)
-                //{
-                //    info.NumberOfStatus = 2;
-                //}
-                //else if (!unRatedProduct.HasValue && !unApproveProduct.HasValue)
-                //{
-                //    info.NumberOfStatus = 0;
-                //}
-                //else
-                //{
-                //    info.NumberOfStatus = 1;
-                //}
-
-                //if (info != null)
-                //{
-                //    TempData["ShowInfo"] = info;
-                //}
-
                 return RedirectToAction("ConfigureSystem", "System");
             }
-            if (User.IsInRole("Member"))
+            else if (User.IsInRole("Member"))
             {
                 return RedirectToAction("SearchForProduct", "Product");
             }

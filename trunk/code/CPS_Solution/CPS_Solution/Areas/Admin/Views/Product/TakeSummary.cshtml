@@ -1,0 +1,74 @@
+﻿@model CPS_Solution.Areas.Admin.Models.ShowInfo
+
+@if (Model != null) 
+{
+<div class="grid_1">
+    <div class="da-panel-widget" id ="newRecommendDiv">
+        <ul class="da-summary-stat">
+            <li>
+                <a href="#">
+                    <span class="da-summary-icon" style="background-color:#e15656;">
+                        <img src="/Areas/Admin/Dandelion/images/icons/black/32/settings.png" alt="">
+                    </span>
+                    <span class="da-summary-text">
+                        <span class="value">Đề xuất</span>
+                        <span class="label" id="newRecommend">@Model.NumberOfNewRecommends đề mới xuất chờ duyệt </span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="grid_1">
+    <div class="da-panel-widget">
+        <ul class="da-summary-stat">
+            <li>
+                <a href="#">
+                    <span class="da-summary-icon" style="background-color: #656565;">
+                        <img src="/Areas/Admin/Dandelion/images/icons/white/32/day_calendar.png" alt="">
+                    </span>
+                    <span class="da-summary-text">
+                        <span class="value">Trọng số</span>
+                        <span class="label" id="noPointHardwares">@Model.NumberOfHardwaresNoPoint linh kiện chưa có điểm</span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="grid_1">
+    <div class="da-panel-widget">
+        <ul class="da-summary-stat">
+            <li>
+                <a href="#">
+                    <span class="da-summary-icon" style="background-color:#61a5e4;">
+                        <img src="/Areas/Admin/Dandelion/images/icons/white/32/file_cabinet.png" alt="">
+                    </span>
+                    <span class="da-summary-text">
+                        <span class="value">Sản phẩm</span>
+                        <span class="label" id="newLaptop">@Model.NumberOfNewLaptops laptop mới chờ duyệt</span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="grid_1">
+    <div class="da-panel-widget">
+        <ul class="da-summary-stat">
+            <li>
+                <a href="#">
+                    <span class="da-summary-icon" style="background-color:#fab241;">
+                        <img src="/Areas/Admin/Dandelion/images/icons/white/32/abacus.png" alt="">
+                    </span>
+                    <span class="da-summary-text">
+                        <span class="value">Linh kiện</span>
+                        <span class="label" id="newHardware">@Model.NumberOfNewHardwares linh kiện mới chờ duyệt</span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+}

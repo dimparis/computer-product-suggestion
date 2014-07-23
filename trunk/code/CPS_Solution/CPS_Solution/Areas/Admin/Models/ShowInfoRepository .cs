@@ -6,47 +6,27 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using CPS_Solution.EntityFramework;
 namespace CPS_Solution.Areas.Admin.Models
 {
     public class ShowInfo
     {
-        public int NumberOfProductNoPoint { get; set; }
-        public string Description { get; set; }
-        public int NumberofRecordUnratedWeight { get; set; }
-        public DateTime LastExecutionDate { get; set; }
-        public int NumberOfStatus { get; set; }
+        public int NumberOfHardwaresNoPoint { get; set; }
+        public int NumberOfNewLaptops { get; set; }
+        public int NumberOfNewHardwares { get; set; }
+        public int NumberOfNewRecommends { get; set; }
     }
     public class ShowInfoRepository
     {
-        public ShowInfo GetData()
+        private CPS_SolutionEntities context = new CPS_SolutionEntities();
+        public ShowInfo GetNewInfo() 
         {
-            var show = new ShowInfo();
-
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(@"SELECT * FROM [dbo].[Hardware] WHERE a =0", connection))
-                {
-                    command.Notification = null;
-                    SqlDependency dependency = new SqlDependency(command);
-                    dependency.OnChange += new OnChangeEventHandler(dependency_OnChange);
-                    if (connection.State == ConnectionState.Closed)
-                        connection.Open();
-                    using (var reader = command.ExecuteReader())
-                        return reader.Cast<IDataRecord>()
-                            .Select(x => new ShowInfo()
-                            {
-                                //JobID = x.GetInt32(0),
-                                //Name = x.GetString(1),
-                                //LastExecutionDate = x.GetDateTime(2),
-                                NumberOfStatus = x.GetInt32(3)
-                            }).FirstOrDefault();
-                }
-            }
-        }
-        private void dependency_OnChange(object sender, SqlNotificationEventArgs e)
-        {
-            //ShowHub.Show();
+            ShowInfo info = new ShowInfo();
+            info.NumberOfHardwaresNoPoint = context.Hardwares.Where(x => x.WeightCriteraPoint <= 0).Count();
+            info.NumberOfNewLaptops = context.Products.Where(x => x.IsActive == null).Count();
+            info.NumberOfNewHardwares = context.Products.Where(x => x.IsActive == null).Count();
+            info.NumberOfNewRecommends = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == false).Count();
+            return info;
         }
     }
 }
