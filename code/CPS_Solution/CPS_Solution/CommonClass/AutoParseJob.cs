@@ -16,8 +16,9 @@ namespace CPS_Solution.CommonClass
         private CPS_SolutionEntities databaseContext = new CPS_SolutionEntities();
         public void Execute(IJobExecutionContext context)
         {
+            // Auto Parser Product
             var parseInfoes = databaseContext.ParseInfoes.Where(x => x.IsActive == true).OrderBy(x => x.Parselink).ToList();
-            var rcmdProduct = databaseContext.RecommendProducts.Where(x => x.IsApprove == null).OrderBy(x => x.Parselink).ToList();
+            var rcmdProduct = databaseContext.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue==true).OrderBy(x => x.Parselink).ToList();
             Task.Factory.StartNew(() => DoTask(rcmdProduct, parseInfoes));
         }
         public void DoTask(List<RecommendProduct> listOfRecommend, List<ParseInfo> listOfParseInfo)

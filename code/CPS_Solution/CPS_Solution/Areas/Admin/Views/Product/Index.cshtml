@@ -58,7 +58,7 @@
 }
 @section sidebar
 {
-     <!-- Main Navigation -->
+    <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
             <li>
@@ -137,22 +137,22 @@
                             <strong>Xử lý Laptop trùng</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="/Admin/TrainingProduct">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="/Admin/ConfirmNewLaptop">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận laptop mới</strong>
                         </a>
-                           </li>
-                           <li>
-                         <a href="/Admin/ConfirmNewHardware">
+                    </li>
+                    <li>
+                        <a href="/Admin/ConfirmNewHardware">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận linh kiện mới</strong>
                         </a>
@@ -176,7 +176,7 @@
                     <strong>Quản lí sản phẩm</strong>
                 </a>
                 <ul>
-                    <li >
+                    <li>
                         <a href="@Url.Action("CreateProductTest", "Product")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/add.png")" alt="" />
                             <strong>Tạo mới sản phẩm</strong>
@@ -190,7 +190,7 @@
                             <strong>Danh sách sản phẩm</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="@Url.Action("Index", "ViewFeedback")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -208,7 +208,7 @@
                     </span>
                     <strong>Quản lí từ điển</strong>
                 </a>
-                <ul >
+                <ul>
                     <li>
                         <a href="#">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/alias.png")" alt="" />
@@ -234,7 +234,7 @@
                     <strong>Quản lí trọng số</strong>
                 </a>
                 <ul class="closed">
-                   <li>
+                    <li>
                         <a href="@Url.Action("Index", "FillWeightHardWare")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/manager.png")" alt="" />
                             <strong>Danh sách trọng số</strong>
@@ -259,7 +259,7 @@
                         </a>
                     </li>
 
-                    <li >
+                    <li>
                         <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
@@ -291,7 +291,7 @@
 @section mainHeader
 {
     <ul>
-        <li style="margin-right: 5px"><a style="cursor: default;font-size:27px;">
+        <li style="margin-right: 5px"><a style="cursor: default; font-size: 27px;">
             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Quản lý sản phẩm</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
@@ -357,6 +357,18 @@
                 <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/list.png")" alt="" />
                 Danh sách các Sản Phẩm
             </span>
+            @using (Html.BeginForm("UpdatePrice", "Product"))
+            {
+                if (CPS_Solution.CommonClass.ConstantManager.IsUpdateRunning)
+                {
+                <input type="submit" value="Giá đang được cập nhật" disabled="disabled" class="da-button red" style="position: absolute; right: 75px; top: 15px; width: 120px" />
+                }
+                else
+                {
+                <input type="submit" value="Cập nhật giá" class="da-button blue" style="position: absolute; right: 75px; top: 15px; width: 120px" />
+                           
+                }
+            }
         </div>
         <div class="da-panel-content">
             <table id="da-ex-datatable-numberpaging" class="da-table">
@@ -373,14 +385,15 @@
                 <tbody>
                     @{
                         int counter = 1;
-                         bool status = false;
+                        bool status = false;
                         foreach (var item in Model)
                         {
-                            
-                            if(item.IsActive.HasValue){
-                                if(item.IsActive.Value == true)
+
+                            if (item.IsActive.HasValue)
+                            {
+                                if (item.IsActive.Value == true)
                                 {
-                               status = item.IsActive.Value;
+                                    status = item.IsActive.Value;
                                 }
                             }
                             

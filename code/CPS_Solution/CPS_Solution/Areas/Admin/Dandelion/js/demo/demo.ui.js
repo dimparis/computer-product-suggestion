@@ -24,6 +24,7 @@
 		$("#da-ex-datetimepicker").datetimepicker();
 		
 		$("#da-ex-timepicker").timepicker({});
+		$("#da-ex-timepickerUpdateTime").timepicker({});
 		
 		$(".da-ex-buttons").button();
 		

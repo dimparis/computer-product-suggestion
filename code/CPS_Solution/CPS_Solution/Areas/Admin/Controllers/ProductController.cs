@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using CPS_Solution.EntityFramework;
 using CPS_Solution.Areas.Admin.Models;
 using System.IO;
+using CPS_Solution.CommonClass;
+using System.Threading.Tasks;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     [Authorize(Roles = "staff")]
@@ -366,6 +368,15 @@ namespace CPS_Solution.Areas.Admin.Controllers
             TempData["edit"] = message;
             return RedirectToAction("Index");
         }
-
+        [HttpPost]
+        public RedirectToRouteResult UpdatePrice() 
+        {
+            // Auto Parser Product
+            var parseInfoes = context.ParseInfoes.Where(x => x.IsActive == true).OrderBy(x => x.Parselink).ToList();
+            var aliasproduct = context.AliasProducts.Where(x => x.IsActive == true).ToList();
+            AutoUpdatePrice job = new AutoUpdatePrice();
+            Task.Factory.StartNew(() => job.AutoUpdatePriceTask(aliasproduct, parseInfoes));
+            return RedirectToAction("Index");
+        }
     }
 }

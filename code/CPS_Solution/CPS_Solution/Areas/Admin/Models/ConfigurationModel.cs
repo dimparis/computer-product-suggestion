@@ -10,5 +10,6 @@ namespace CPS_Solution.Areas.Admin.Models
         public int LimitRequestPerDay { get; set; }
         public double TotalPoint { get; set; }
         public string ParseTime{ get; set; }
+        public string UpdateTimePrice { get; set; }
     }
 }

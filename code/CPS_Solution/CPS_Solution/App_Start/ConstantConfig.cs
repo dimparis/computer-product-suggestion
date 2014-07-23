@@ -16,6 +16,8 @@ namespace CPS_Solution.App_Start
             ConstantManager.TrainingFilePathForProduct = server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
             ConstantManager.DefaultImage = server.MapPath("~/images/I/default.jpg");
             ConstantManager.IsParserRunning = false;
+            ConstantManager.IsRecommendRunning = false;
+            ConstantManager.IsUpdateRunning = false;
         }
     }
 }

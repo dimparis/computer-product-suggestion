@@ -24,21 +24,22 @@ namespace CPS_Solution.Areas.Admin.Helpers
         {
             //Create agent of website
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
-            try{
-            //Load website
-            var document = web.Load(parseAttributeLink);
-            //Remove all script
-            var src = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["src"] != null));
-            var link = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["href"] != null));
-            CorrectLink(src, parseAttributeLink, "src");
-            CorrectLink(link, parseAttributeLink, "href");
-            //Save file path
-            document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
+            try
+            {
+                //Load website
+                var document = web.Load(parseAttributeLink);
+                //Remove all script
+                var src = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["src"] != null));
+                var link = new List<HtmlNode>(document.DocumentNode.Descendants().Where(x => x.Attributes["href"] != null));
+                CorrectLink(src, parseAttributeLink, "src");
+                CorrectLink(link, parseAttributeLink, "href");
+                //Save file path
+                document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
 
-            string fileName = "tmp.html";
-            string path = Path.Combine(ConstantManager.SavedPath, fileName);
-            document.Save(path, new UTF8Encoding());
-             }
+                string fileName = "tmp.html";
+                string path = Path.Combine(ConstantManager.SavedPath, fileName);
+                document.Save(path, new UTF8Encoding());
+            }
             catch (System.Net.WebException ex)
             {
                 LoadWebProduct(parseAttributeLink);
@@ -268,6 +269,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
         #region
         public static void ParseProductData(ProductParserCreator model)
         {
+            ConstantManager.IsRecommendRunning = true;
             // Create Firefox browser
             var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
             //do more to get data
@@ -278,6 +280,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 var parseinfo = context.ParseInfoes.Where(p => p.IsActive && p.Parselink.Contains(host)).FirstOrDefault();
                 var data = GetProductData(web, parseinfo);
                 InsertProductToDb(data, model);
+                ConstantManager.IsRecommendRunning = false;
             }
         }
         [ValidateInput(false)]
@@ -285,12 +288,12 @@ namespace CPS_Solution.Areas.Admin.Helpers
         {
             var data = new ProductData();
             try
-            {               
+            {
                 //load page
                 System.Net.ServicePointManager.Expect100Continue = false;
                 var uri = new Uri(parseInfo.Parselink);
                 string host = uri.GetLeftPart(UriPartial.Authority);
-                HtmlNode.ElementsFlags.Remove("form");                
+                HtmlNode.ElementsFlags.Remove("form");
                 var doc = web.Load(parseInfo.Parselink);
                 data = MatchingProductData(host, doc, parseInfo.Name, parseInfo.PriceXPath, parseInfo.ImageXpath, parseInfo.CPUXPath, parseInfo.VGAXPath, parseInfo.HDDXPath, parseInfo.RAMXPath, parseInfo.DisplayXPath);
                 return data;
@@ -490,7 +493,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     else
                     {
                         //Add a new record
-                        var newADitem = new Hardware { Name = pair.Key, CodetypeID = codetypeID, WeightCriteraPoint = point,IsActive=true };
+                        var newADitem = new Hardware { Name = pair.Key, CodetypeID = codetypeID, WeightCriteraPoint = point, IsActive = true };
                         context.Hardwares.Add(newADitem);
                         try
                         {
@@ -572,7 +575,16 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             StoreID = newStore.ID;
                         }
                         //Add alias product
-                        prod.AliasProducts.Add(new AliasProduct() { Name = data.Name, URL = model.ParseProductLink, Price = valPrice, StoreID = StoreID, IsMain = true, IsActive = true });
+                        prod.AliasProducts.Add(new AliasProduct()
+                                        {
+                                            Name = data.Name,
+                                            URL = model.ParseProductLink,
+                                            Price = valPrice,
+                                            StoreID = StoreID,
+                                            IsMain = true,
+                                            IsActive = true,
+                                            UpdateTime = DateTime.Now
+                                        });
                         context.Products.Add(prod);
                         context.SaveChanges();
 
@@ -737,7 +749,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     var attAD = context.Hardwares.FirstOrDefault(a => a.ID == id);
                     if (attAD != null)
                     {
-                        content = newProductID + "~" + attAD.Name + '|' + attAD.CodetypeID + '|' + attAD.WeightCriteraPoint +'|'+ attAD.ID+ "#";
+                        content = newProductID + "~" + attAD.Name + '|' + attAD.CodetypeID + '|' + attAD.WeightCriteraPoint + '|' + attAD.ID + "#";
                     }
                 }
             }
@@ -797,6 +809,45 @@ namespace CPS_Solution.Areas.Admin.Helpers
         {
             string result = data.Replace(splitOne, replaceOne);
             return result;
+        }
+        public static void UpdatePriceParser(int id, string parserLink)
+        {
+            // Create Firefox browser
+            var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
+            //do more to get data
+            var uri = new Uri(parserLink);
+            string host = uri.GetLeftPart(UriPartial.Authority);
+            using (var context = new CPS_SolutionEntities())
+            {
+                var parseinfo = context.ParseInfoes.Where(p => p.IsActive && p.Parselink.Contains(host)).FirstOrDefault();
+                var data = GetProductData(web, parseinfo);
+                UpdatePriceToDb(id, data);
+            }
+        }
+        public static void UpdatePriceToDb(int productID, ProductData data)
+        {
+            ConstantManager.IsUpdateRunning = true;      
+            //Convert Price
+                double valPrice = 0;
+                if (!String.IsNullOrEmpty(data.Price))
+                {
+                    valPrice = PriceHelper.ConvertPrice(data.Price);
+                }
+                else
+                {
+                    valPrice = 0;
+                }
+            using (var context = new CPS_SolutionEntities())
+            {
+                var alias = context.AliasProducts.Where(x => x.ID == productID).FirstOrDefault();
+                if (alias != null)
+                {
+                    alias.Price = valPrice;
+                    alias.UpdateTime = DateTime.Now;
+                    context.SaveChanges();
+                }
+                ConstantManager.IsUpdateRunning = false;      
+            }
         }
     }
 }

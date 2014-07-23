@@ -65,7 +65,7 @@
 
 @section sidebar
 {
-  <!-- Main Navigation -->
+    <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
             <li class="active">
@@ -78,7 +78,7 @@
                     </span>
                     <strong>Hệ thống</strong>
                 </a>
-                <ul >
+                <ul>
                     <li style="background-color: #a6d037;">
                         <a href="@Url.Action("ConfigureSystem", "System")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/setting.png")" alt="" />
@@ -112,7 +112,7 @@
                     </li>
                 </ul>
             </li>
-            <li >
+            <li>
                 <a href="#">
                     <!-- Nav Notification -->
                     <span class="da-nav-count">3</span>
@@ -123,7 +123,7 @@
                     <strong>Dữ liệu</strong>
                 </a>
                 <ul class="closed">
-                    <li >
+                    <li>
                         <a href="/Admin/importexcelLap">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
                             <strong>Nhập Laptop từ Excel</strong>
@@ -144,22 +144,22 @@
                             <strong>Xử lý Laptop trùng</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="/Admin/TrainingProduct">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="/Admin/ConfirmNewLaptop">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận laptop mới</strong>
                         </a>
-                           </li>
-                           <li>
-                         <a href="/Admin/ConfirmNewHardware">
+                    </li>
+                    <li>
+                        <a href="/Admin/ConfirmNewHardware">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận linh kiện mới</strong>
                         </a>
@@ -197,7 +197,7 @@
                             <strong>Danh sách sản phẩm</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="@Url.Action("Index", "ViewFeedback")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -266,7 +266,7 @@
                         </a>
                     </li>
 
-                    <li >
+                    <li>
                         <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
@@ -299,9 +299,9 @@
 @section mainHeader
 {
     <ul>
-        <li style="margin-right:5px"><a style="cursor: default;font-size:27px;">
+        <li style="margin-right: 5px"><a style="cursor: default; font-size: 27px;">
             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Hệ thống</strong></a></li>
-        <li style="margin-right:5px;font-weight:bold">>></li>
+        <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
             <a href="@Url.Action("ConfigureSystem", "System")" style="font-size:20px;font-style:italic;text-decoration:underline">Cấu hình hệ thống</a>
         </li>
@@ -362,13 +362,19 @@
                     </div>
                 </div>
                 <div class="da-form-row ">
-                    <label>Thời gian chạy parser hằng ngày</label>
+                    <label>Thời gian chạy parser mỗi ngày</label>
                     <div class="da-form-item">
-                        @Html.TextBoxFor(x => x.ParseTime, new { id = "da-ex-timepicker",@onchange="validateHhMm(this);" })
+                        @Html.TextBoxFor(x => x.ParseTime, new { id = "da-ex-timepicker", @onchange = "validateHhMm(this);" })
+                    </div>
+                </div>
+                <div class="da-form-row ">
+                    <label>Thời gian cập nhật giá mỗi ngày</label>
+                    <div class="da-form-item">
+                        @Html.TextBoxFor(x => x.UpdateTimePrice, new { id = "da-ex-timepickerUpdateTime", @onchange = "validateHhMm(this);" })
                     </div>
                 </div>
                 <div class="da-button-row">
-                    <input type="submit" value="Submit" class="da-button blue" />
+                    <input type="submit" value="Cập nhật" class="da-button blue" />
                 </div>
             }
         </div>

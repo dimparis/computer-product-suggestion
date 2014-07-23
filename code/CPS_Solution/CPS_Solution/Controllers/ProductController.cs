@@ -330,6 +330,6 @@ namespace CPS_Solution.Controllers
             var top3SameProduct = samePointProducts.Where(x => x.TotalWeightPoint <= maxPoint && x.Price >= minPoint).Take(4);
 
             return PartialView(top3SameProduct);
-        }
+        }       
     }
 }

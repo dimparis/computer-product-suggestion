@@ -175,11 +175,13 @@
     <Compile Include="Areas\Admin\Controllers\ConfirmNewHardwareController.cs" />
     <Compile Include="Areas\Admin\Controllers\ConfirmNewLaptopController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmailSenderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FillWeightHardWareController.cs" />
     <Compile Include="Areas\Admin\Controllers\ImportExcelController.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\Admin\Controllers\ImportExcelLapController.cs" />
     <Compile Include="Areas\Admin\Controllers\LogFileController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManagerUserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductShowController.cs" />
@@ -188,12 +190,14 @@
     <Compile Include="Areas\Admin\Controllers\TrainingController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrainingProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\TraningLaptopController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ViewFeedbackController.cs" />
     <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ConfigureHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ImageHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\LogFileHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ParserHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\PriceHelper.cs" />
+    <Compile Include="Areas\Admin\Models\feedbackinfo.cs" />
     <Compile Include="Areas\Admin\Models\HardwareConfirm.cs" />
     <Compile Include="Areas\Admin\Models\LapData.cs" />
     <Compile Include="Areas\Admin\Models\ProductData.cs" />
@@ -205,6 +209,7 @@
     <Compile Include="Areas\Admin\Models\ProductParserCreator.cs" />
     <Compile Include="Areas\Admin\Models\ShowInfoRepository .cs" />
     <Compile Include="CommonClass\AutoParseJob.cs" />
+    <Compile Include="CommonClass\AutoUpdatePrice.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
     <Compile Include="CommonClass\CustomMembershipProvider.cs" />
     <Compile Include="CommonClass\CustomRoleProvinder.cs" />
@@ -220,6 +225,9 @@
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\AliasProduct.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Brand.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Codetype.cs">
@@ -288,6 +296,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\AccountHelper.cs" />
+    <Compile Include="Helper\DayHelper.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\DataManager.cs" />
@@ -3237,6 +3246,16 @@
     <Content Include="Areas\Admin\Views\ConfirmNewHardware\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ConfirmNewLaptop\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ConfirmNewLaptop\LoadTableAjax.cshtml" />
+    <Content Include="Areas\Admin\Views\ConfirmNewHardware\LoadTableAjax.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagerUser\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagerUser\loadTableAgain.cshtml" />
+    <Content Include="Areas\Admin\Views\ViewFeedback\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcel\showInfo1.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportExcelLap\showInfo1.cshtml" />
+    <Content Include="Areas\Admin\Views\TraningLaptop\deleteproduct.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Admin\Views\TraningLaptop\showInfo1.cshtml" />
     <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
@@ -3254,7 +3273,8 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\ConfirmNewHardware\LoadTableAjax.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommend\ConfirmTrueLink.cshtml" />
+    <Content Include="Areas\Admin\Views\FillWeightHardWare\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -3272,6 +3292,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\RouteBoxer.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Template\Account\Style\css\style.css" />
+    <Content Include="Template\Account\Style\js\modernizr.js" />
     <Content Include="Template\GFashion\css\flexslider.css" />
     <Content Include="Template\GFashion\css\innerpage.css" />
     <Content Include="Template\GFashion\css\isotope.css" />
@@ -3514,7 +3536,27 @@
     <Content Include="Template\stylish.holobest.com\scripts\compare-cart.js" />
     <Content Include="Template\stylish.holobest.com\scripts\custom.js" />
     <Content Include="Template\stylish.holobest.com\scripts\dropdown.js" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\animated-overlay.gif" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-icons_222222_256x240.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Template\stylish.holobest.com\scripts\jquery-ui.css" />
+    <Content Include="Template\stylish.holobest.com\scripts\jquery-ui.js" />
     <Content Include="Template\stylish.holobest.com\scripts\jquery-ui.min.js" />
+    <Content Include="Template\stylish.holobest.com\scripts\jquery-ui.structure.css" />
+    <Content Include="Template\stylish.holobest.com\scripts\jquery-ui.theme.css" />
+    <Content Include="Template\stylish.holobest.com\scripts\jquery.js" />
     <Content Include="Template\stylish.holobest.com\scripts\jquery.min.js" />
     <Content Include="Template\stylish.holobest.com\scripts\main.js" />
     <Content Include="Template\stylish.holobest.com\scripts\plugins.js" />
@@ -3645,6 +3687,8 @@
     <Content Include="Template\Metro\fonts\iconFont.woff" />
     <Content Include="Template\Metro\js\metro\README.md" />
     <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Product\SamePriceProduct.cshtml" />
+    <Content Include="Views\Product\LoadProductByPoint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Dandelion\plugins\elfinder\files\.tmb\" />

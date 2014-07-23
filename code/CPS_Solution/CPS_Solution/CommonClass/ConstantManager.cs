@@ -14,6 +14,8 @@ namespace CPS_Solution.CommonClass
         public static string TrainingFilePathForProduct { get; set; }
         public static string DefaultImage { get; set; }
         public static bool IsParserRunning { get; set; }
+        public static bool IsUpdateRunning { get; set; }
+        public static bool IsRecommendRunning { get; set; }
     }
     public enum SystemRole { 
         Admin = 1,
