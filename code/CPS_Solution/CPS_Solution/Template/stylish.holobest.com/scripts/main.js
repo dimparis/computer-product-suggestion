@@ -25,7 +25,7 @@ $(document).ready(function () {
             $(header).addClass('header-small');
         }
         else {
-            $(header).removeClass('header-small');
+            $(header).addClass('header-small');
         }
 
 
@@ -177,7 +177,7 @@ $(document).ready(function () {
                 $(header).addClass('header-small');
             }
             else {
-                $(header).removeClass('header-small');
+                $(header).addClass('header-small');
             }
         });
     }
