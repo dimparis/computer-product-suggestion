@@ -24,6 +24,46 @@
     {
         countlistdup1 = listDupnew.Count;
     }
+    
+    
+    //Listerror
+    List<LapData> listError = ViewBag.ListerrorTraning;
+    // dòng bị lỗi
+    // dòng bị lỗi
+    List<String> errorLineLap = ViewBag.errorLineLap1;
+    int sodongloi = 0;
+    String[] loiName = null; int checkName = 0;
+    String[] loiImageLink = null;
+    String[] loiDisplay = null;
+    String[] loiCPU = null;
+    String[] loiHDD = null;
+    String[] loiVGA = null;
+    String[] loiRam = null;
+    String[] loiPrice = null;
+    String[] loiURL = null;
+    if (errorLineLap != null)
+    {
+        // số dòng bị lỗi
+        sodongloi = Convert.ToInt32(errorLineLap[0]);
+        // lỗi Name
+        loiName = errorLineLap[1].ToString().Split(',');
+        // lỗi link image
+        loiImageLink = errorLineLap[2].ToString().Split(',');
+        // lỗi Display
+        loiDisplay = errorLineLap[3].ToString().Split(',');
+        // lỗi CPU
+        loiCPU = errorLineLap[4].ToString().Split(',');
+        // lỗi HDD
+        loiHDD = errorLineLap[5].ToString().Split(',');
+        // lỗi VGA
+        loiVGA = errorLineLap[6].ToString().Split(',');
+        // lỗi Ram
+        loiRam = errorLineLap[7].ToString().Split(',');
+        // lỗi Price
+        loiPrice = errorLineLap[8].ToString().Split(',');
+        // lỗi URL
+        loiURL = errorLineLap[9].ToString().Split(',');
+    }
 
 }
 @section headScript
@@ -393,6 +433,9 @@
             <li class="ui-state-default ui-corner-top"><a href="#white-icon">@**@
                 <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">
                 Danh sách sản phẩm trùng với database</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#blue-icon">@**@
+                <img src="~/Areas/Admin/Dandelion/images/message-error.png" alt="">
+                Danh sách sản phẩm lỗi</a></li>
             <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#black-icon">
                 <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">
                 Danh sách sản phẩm trùng</a></li>
@@ -668,6 +711,287 @@
             <!--ket thuc tab2------------------------------------------------------------------------------------------------------------------------------------------------------>
 
         </div>
+          <div id="blue-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+  <!-- tab2 -------------------------------------------------------------------------------------------------- <p class="el-finder-err" style="display: block;width:90%;height:1px;margin-left:5%"><strong></strong></p>----->
+            <div id="ErrorID">
+                <div class="da-message error">
+                    Lỗi dữ liệu:
+                                        <ul>
+                                            @if (errorLineLap != null && listError != null)
+                                            {
+                                                if (loiName.Length > 1)
+                                                {                     
+                                                <li>Tên sản phẩm phải từ 5 đến 100 ký tự!</li>                 
+                                                }
+                                                if (loiImageLink.Length > 1)
+                                                {                     
+                                                <li>Đường dẫn ảnh không đúng định dạng!</li>                   
+                                                }
+                                                if (loiDisplay.Length > 1)
+                                                {                     
+                                                <li>Display của sản phẩm phải từ 5 tới 100 ký tự!</li>  
+                                                }
+                                                if (loiCPU.Length > 1)
+                                                {                     
+                                                <li>CPU của sản phẩm phải từ 5 đến 100 ký tự!</li>        
+                                                }
+                                                if (loiHDD.Length > 1)
+                                                {                     
+                                                <li>HDD của sản phẩm không được để trống và không quá 100 ký tự!</li>        
+                                                }
+                                                if (loiVGA.Length > 1)
+                                                {                     
+                                                <li>VGA của sản phẩm phải từ 5 tới 100 ký tự!</li>  
+                                                }
+                                                if (loiRam.Length > 1)
+                                                {                     
+                                                <li>Ram không được để trống và không quá 100 ký tự!</li>  
+                                                }
+                                                if (loiPrice.Length > 1)
+                                                {  
+                                                <li>Giá của sản phẩm phải là số nguyên!</li>                   
+                                                }
+                                                if (loiURL.Length > 1)
+                                                {
+                                                <li>Địa chỉ bán sản phẩm phải tồn tại!</li>
+                                                }
+                                            }
+                                        </ul>
+                </div>
+                <div class="da-panel collapsible">
+                    <div class="da-panel-header">
+                        <span class="da-panel-title">
+                            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                            Sản phẩm bị lỗi chờ xử lý.
+                        </span>
+
+                        <!--  <span class="da-panel-toggler"></span> -->
+                    </div>
+
+                    <div class="da-panel-content">
+                        <table class="da-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;">STT</th>
+                                    <th style="width: 180px;">Tên máy</th>
+                                    <th style="width: 200px;">Địa chỉ ảnh</th>
+                                    <th style="width: 100px;">CPU</th>
+                                    <th style="width: 100px;">VGA</th>
+                                    <th style="width: 50px;">HDD</th>
+                                    <th style="width: 100px;">Màn hình</th>
+                                    <th style="width: 40px;">Ram</th>
+                                    <th style="width: 40px;">Giá</th>
+                                    <th style="width: 40px;">Địa chỉ máy</th>
+                                    <th style="width: 50px;">Thực hiện</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @if (listError != null)
+                                {
+                                    foreach (LapData p in listError)
+                                    {
+                                                         
+                                    <tr>
+                                        <td style="width: 15px;" class=" ">@(Convert.ToInt32(@p.stt) + 2) </td>
+                                        <!------------------------ Tên------------------------------>
+                                        @for (int i = 0; i < loiName.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiName[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea id="idName_@p.stt" cols="14.5%" rows="2" style="border-color:red"> @p.Name</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea id="idName_@p.stt"  cols="14.5%" rows="2"> @p.Name</textarea></td> 
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+                                        <!------------------------ Imagelink------------------------------>
+                                        @for (int i = 0; i < loiImageLink.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiImageLink[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea id="idImageLink_@p.stt" cols="30%" rows="3" style="border-color:red"> @p.Imagelink</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea id="idImageLink_@p.stt" cols="30%" rows="3">@p.Imagelink</textarea>
+                                            </td> 
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+
+                                        <!------------------------ CPU------------------------------>
+                                        @for (int i = 0; i < loiCPU.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiCPU[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea id="idCPU_@p.stt"  cols="9.5%" rows="2" style="border-color:red"> @p.CPU</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea id="idCPU_@p.stt"  cols="9.5%" rows="2"> @p.CPU</textarea></td>
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+                                        <!------------------------ VGA------------------------------>
+                                        @for (int i = 0; i < loiVGA.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiVGA[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea id="idVGA_@p.stt" cols="11%" rows="2" style="border-color:red"> @p.VGA</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea id="idVGA_@p.stt"  cols="11%" rows="2"> @p.VGA</textarea></td>
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+
+                                        <!------------------------ HDD------------------------------>
+                                        @for (int i = 0; i < loiHDD.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiHDD[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea id="idHDD_@p.stt" cols="5%" rows="2" style="border-color:red"> @p.HDD</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea id="idHDD_@p.stt" cols="5%" rows="2"> @p.HDD</textarea></td>
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+                                        <!------------------------ Display------------------------------>
+                                        @for (int i = 0; i < loiDisplay.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiDisplay[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea id="idDisplay_@p.stt" cols="10" rows="2" style="border-color:red"> @p.Display</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea id="idDisplay_@p.stt" cols="10" rows="2"> @p.Display</textarea></td>
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+                                        <!------------------------ RAM------------------------------>
+                                        @for (int i = 0; i < loiRam.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiRam[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea id="idRam_@p.stt" cols="3" rows="2" style="border-color:red"> @p.RAM</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea id="idRam_@p.stt" cols="3" rows="2"> @p.RAM</textarea></td>
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+                                        <!------------------------ Price------------------------------>
+                                        @for (int i = 0; i < loiPrice.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiPrice[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea id="idPrice_@p.stt" cols="10" rows="2" style="border-color:red"> @p.Price</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea id="idPrice_@p.stt" cols="10" rows="2"> @p.Price</textarea></td>
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+                                        <!------------------------ URL------------------------------>
+                                        @for (int i = 0; i < loiURL.Length; i++)
+                                        {
+                                            int j = (Convert.ToInt32(@p.stt) + 2);
+                                            if (loiURL[i].Equals(j.ToString()))
+                                            {
+                                            <td class=" ">
+                                                <textarea id="idURL_@p.stt" cols="20%" rows="2" style="border-color:red"> @p.Url</textarea></td>
+                                                checkName++;
+                                            }
+                                        }
+                                        @if (checkName < 1)
+                                        {
+                                            <td class=" ">
+                                                <textarea id="idURL_@p.stt" cols="20%" rows="2"> @p.Url</textarea></td>
+                                        }
+                                        @if (checkName > 0)
+                                        {
+                                            checkName--;
+                                        }
+                                        <td style="width: 5%" class=" ">
+                                            <a onclick="luusanphamloi(@p.stt)">
+                                                <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" />Lưu</a>
+                                        </td>
+                                    </tr> 
+                                                      
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--ket thuc tab2------------------------------------------------------------------------------------------------------------------------------------------------------>
+          </div>
         <div id="black-icon" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
             <!--tab3--------------------------------------------------------------------------------------------------------------------------------------------------------------->
             <div class="da-panel collapsible">
@@ -832,6 +1156,7 @@
         });
     }
 
+
     // Lưu sản phẩm đúng và ghi log file
     function saveCorrectProduct() { 
         var val = ""; 
@@ -881,7 +1206,7 @@
                 url: "/Admin/TraningLaptop/fixedErrorProduct",
                 data: postData,
                 success: function(data){
-                    $('#white-icon').html(data);
+                    $('#blue-icon').html(data);
                     tabsanphamdung();
                     tabsanphamtrung();
                 },
@@ -1137,6 +1462,7 @@
         var check =[];
         var radio ="";
         var count = 0;
+        var ChoiceName =0;
         $("#table_" + i).find("tbody").find("input:checkbox:checked").each(function(i){                                               
             val +='@@'+ $(this).val();
             check[i]= $(this).val();
@@ -1151,6 +1477,7 @@
             for(var x =0; x <check.length; x++)
             {
                 if(check[x] == radio){
+                    ChoiceName ++;
                     var postData = { valuest: val };
                     $.ajax({
                         type: "POST",
@@ -1162,12 +1489,11 @@
                         },                                              
                     });  
                     break;
-                }else{
-                    $.jGrowl("Vui lòng chọn tên chính để gộp sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
-                    break;
                 }
             }
-                   
+            if(ChoiceName==0){          
+                $.jGrowl("Vui lòng chọn tên chính để gộp sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});       
+            }      
         }else{
             $.jGrowl("Để gộp vui lòng chọn ít nhất 2 sản phẩm", {header: "Nhắc nhở!", position: "bottom-right"});
         }            
