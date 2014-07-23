@@ -12,6 +12,7 @@ namespace CPS_Solution.EntityFramework
         private int _vgaId;
         private int _displayId;
         private int _ramId;
+        private int _brandId;
         private double _price;
         private string _cpuName;
         private string _hddName;
@@ -168,6 +169,27 @@ namespace CPS_Solution.EntityFramework
             }
             set { this._displayId = value; }
         }
+
+        public int BrandID 
+        {
+            get
+            {
+                if (AliasProducts != null && AliasProducts.Count > 0)
+                {
+                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value && ali.IsActive == true);
+                    if (mainAlias != null)
+                    {
+                        return mainAlias.BrandID.Value;
+                    }
+                }
+                return _brandId;
+            }
+            set
+            {
+                this._brandId = value;
+            }
+        }
+
 
         public int SellPlacers 
         {
