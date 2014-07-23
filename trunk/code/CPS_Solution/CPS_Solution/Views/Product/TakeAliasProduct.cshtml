@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.AliasProduct>
 @using CPS_Solution.EntityFramework;
-
+@using CPS_Solution.Helper;
 <h3>CÁC WEBSITE CÓ SẢN PHẨM TƯƠNG TỰ</h3>
 @{
     CPS_SolutionEntities context = new CPS_SolutionEntities();
-    string name = "";
+    string timeAgo = "";
     var stores = context.Stores.Where(x => x.IsActive == true).ToList();
 }
 @foreach (var item in Model)
@@ -15,6 +15,7 @@
         {
             if (item.URL.Contains(store.StoreUrl))
             {
+                timeAgo = DayHelper.ToRelativeDate(item.UpdateTime.Value);
                 <table class="table">
                     <tbody>
                         <tr>
@@ -26,6 +27,7 @@
                                 <label for="name" style="color:#F87912; font-weight:bold; font-size:20px;">
                                     @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
                                 </label>
+                                <label>@timeAgo</label>
                                 <div class="stylish-button" style="background-color: #FF3333">
                                     <a href="@item.URL" target="_blank">Tới nơi bán</a>
                                 </div>

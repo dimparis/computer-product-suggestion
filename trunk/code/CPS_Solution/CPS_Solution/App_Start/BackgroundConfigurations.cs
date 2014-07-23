@@ -37,5 +37,25 @@ namespace CPS_Solution.App_Start
                 .Build();
             scheduler.RescheduleJob(parserTrigger.Key, trigger);
         }
+
+        // Update Price for all Product
+        public static void ScheduleUpdatePrice()
+        {
+            IJobDetail job = JobBuilder.Create<AutoUpdatePrice>().WithIdentity("AutoUpdatePrice", "Job").Build();
+
+            ITrigger trigger = TriggerBuilder.Create().WithIdentity("UpdatePriceTrigger", "Trigger")
+                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(1, 0))
+                .Build();
+            parserTrigger = trigger;
+
+            scheduler.ScheduleJob(job, trigger);
+        }
+        public static void RescheduleUpdatePrice(int hours, int minutes)
+        {
+            ITrigger trigger = TriggerBuilder.Create().WithIdentity("AutoUpdatePriceTrigger", "Trigger")
+                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(hours, minutes))
+                .Build();
+            scheduler.RescheduleJob(parserTrigger.Key, trigger);
+        }
     }
 }

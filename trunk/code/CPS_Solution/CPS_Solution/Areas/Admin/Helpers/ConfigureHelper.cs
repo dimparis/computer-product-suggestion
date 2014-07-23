@@ -17,7 +17,8 @@ namespace CPS_Solution.Areas.Admin.Helpers
             {
                 LimitRequestPerDay = GetLimitPerDay(),
                 ParseTime = GetParseTime(),
-                TotalPoint = GetTotalMaxPoint()
+                TotalPoint = GetTotalMaxPoint(),
+                UpdateTimePrice = GetUpdatePriceTime()
             };
                 return model;
         }
@@ -26,6 +27,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             SetLimitPerDay(model.LimitRequestPerDay);
             SetParseTime(model.ParseTime);
             SetToTalMaxPoint(model.TotalPoint);
+            SetUpdatePriceTime(model.UpdateTimePrice);
         }
         public int GetLimitPerDay() 
         {
@@ -113,6 +115,44 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 eleTotal.Value = point.ToString();
             }
             xmlDoc.Save(xmlFilePath);
+        }
+        public string GetUpdatePriceTime()
+        {
+            string result = "";
+            XDocument xmlDoc = XDocument.Load(xmlFilePath);
+            var hour = xmlDoc.Root.Element("UpdatePriceTime").Element("hours");
+            if (hour != null)
+            {
+                result += hour.Value;
+            }
+            var minutes = xmlDoc.Root.Element("UpdatePriceTime").Element("minutes");
+            if (minutes != null)
+            {
+                result += ":" + minutes.Value;
+            }
+            return result;
+        }
+        public void SetUpdatePriceTime(string parseTime)
+        {
+            string[] splitTime = parseTime.Split(':');
+            string hours = splitTime[0];
+            string minutes = splitTime[1];
+            XDocument xmlDoc = XDocument.Load(xmlFilePath);
+            var eleHours = xmlDoc.Root.Element("UpdatePriceTime").Element("hours");
+            if (eleHours != null)
+            {
+                eleHours.Value = hours;
+            }
+            var eleMinutes = xmlDoc.Root.Element("UpdatePriceTime").Element("minutes");
+            if (eleMinutes != null)
+            {
+                eleMinutes.Value = minutes;
+            }
+            xmlDoc.Save(xmlFilePath);
+            // Chạy schedules
+            int time_hours = Int32.Parse(hours);
+            int times_minutes = Int32.Parse(minutes);
+            BackgroundConfigurations.RescheduleUpdatePrice(time_hours, times_minutes);
         }
     }
 }

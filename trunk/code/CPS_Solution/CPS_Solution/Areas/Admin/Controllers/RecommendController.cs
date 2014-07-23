@@ -7,6 +7,7 @@ using CPS_Solution.EntityFramework;
 using CPS_Solution.Areas.Admin.Models;
 using CPS_Solution.Areas.Admin.Helpers;
 using System.Threading.Tasks;
+using CPS_Solution.CommonClass;
 using HtmlAgilityPack;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
@@ -162,6 +163,16 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 IsApprove = false
             };
             return Json(results);
+        }
+
+        [HttpPost]
+        public RedirectToRouteResult ParseRecommend()
+        {
+            var parseInfoes = context.ParseInfoes.Where(x => x.IsActive == true).OrderBy(x => x.Parselink).ToList();
+            var rcmdProduct = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == true).OrderBy(x => x.Parselink).ToList();
+            AutoParseJob job = new AutoParseJob();
+            Task.Factory.StartNew(() => job.DoTask(rcmdProduct, parseInfoes));
+            return RedirectToAction("Index");
         }
     }
 }

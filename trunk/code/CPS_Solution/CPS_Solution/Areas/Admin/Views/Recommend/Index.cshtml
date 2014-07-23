@@ -332,6 +332,18 @@
                 <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/16/list.png")" alt="" />
                 Danh sách các sản phẩm được người dùng đề cử  
             </span>
+            @using (Html.BeginForm("ParseRecommend", "Recommend"))
+            {
+                if (CPS_Solution.CommonClass.ConstantManager.IsRecommendRunning)
+                {
+                <input type="submit" value="Cập nhật đề xuất" disabled="disabled" class="da-button red" style="position: absolute; right: 75px; top: 15px; width: 120px" />
+                }
+                else
+                {
+                <input type="submit" value="Đang đề xuất" class="da-button blue" style="position: absolute; right: 75px; top: 15px; width: 120px" />
+                           
+                }
+            }
         </div>
         <div class="da-panel-content">
             <table id="da-ex-datatable-numberpaging" class="da-table">
