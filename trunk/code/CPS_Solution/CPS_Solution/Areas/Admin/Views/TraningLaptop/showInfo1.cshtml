@@ -6,6 +6,7 @@
     List<LapData> list = ViewBag.listproduct;
     List<List<LapData>> listDup = ViewBag.ListdupLaptraning;
     List<List<LapData>> listDupnew = ViewBag.listduplicatenewLap;
+    List<LapData> listError = ViewBag.ListerrorTraning;
 }
 
   <div class="da-message info">
@@ -17,7 +18,14 @@
                  {  
                  <li>Có @list.Count sản phẩm trong danh sách đúng để lưu vào cơ sở dữ liệu!</li>
                  }
-             }            
+             }    
+              @if (listError != null)
+             {
+                 if (listError.Count > 0)
+                 {  
+                 <li>Có @listError.Count sản phẩm trong danh sách lỗi chờ xử lý</li>
+                 }
+             }             
               @if (listDup != null)
               {
                   if (listDup.Count > 0)

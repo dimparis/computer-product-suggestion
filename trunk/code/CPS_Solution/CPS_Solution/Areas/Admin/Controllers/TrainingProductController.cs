@@ -180,6 +180,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     {
                         count++;
                         tenmoi = listduplicate[i][j].ten;
+                        tenchinh = listduplicate[i][j].ten;
                         sanphamgop = listduplicate[i][j];
                         listduplicate[i].Remove(listduplicate[i][j]);
                     }
@@ -282,7 +283,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         duplicateProduct.Add(pro);
                         listpro[i].stt = "z" + listpro[i].stt;
                         duplicateProduct.Add(listpro[i]);
-
+                        listpro.RemoveAt(i);
+                        i = i--;
                         //lấy dữ liệu trong file text traning ra ProductNameTraining;
                         string path1 = Server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
                         if (System.IO.File.Exists(path1))
@@ -558,6 +560,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 duplicateProduct.Add(pro);
                                 listpro[i].stt = "z" + listpro[i].stt;
                                 duplicateProduct.Add(listpro[i]);
+                                listpro.RemoveAt(i);
+                                i = i--;
 
                                 //lấy dữ liệu trong file text traning ra ProductNameTraining;
                                 string path1 = Server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
@@ -886,8 +890,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
                 }
                 System.IO.File.WriteAllLines(path, lines);
+                ViewBag.Listduptraning = (List<List<ProductMap>>)Session["ListduptraningProduct"];
             }
-            ViewBag.Listduptraning = (List<List<ProductMap>>)Session["ListduptraningProduct"];
+            else
+            {
+                ViewBag.Listduptraning = LoadThanhPhanTrungDB();
+            }
+          
             return View();
         }
 

@@ -403,7 +403,14 @@
                  {  
                  <li>Có @list.Count sản phẩm trong danh sách đúng để lưu vào cơ sở dữ liệu!</li>
                  }
-             }            
+             }     
+             @if (listError != null)
+             {
+                 if (listError.Count > 0)
+                 {  
+                 <li>Có @listError.Count sản phẩm trong danh sách lỗi chờ xử lý</li>
+                 }
+             }        
               @if (listDup != null)
               {
                   if (listDup.Count > 0)
@@ -415,7 +422,7 @@
              {
                  if (listDupnew.Count > 0)
                  {  
-                 <li>Khi lưu sản phẩm vào cơ sở dư liệu hệ thống phát hiện có @listDupnew.Count nhóm sản phẩm có thể trùng vui lòng mở tab "sản phẩm trùng cơ sở dữ liệu" để xử lý!</li>
+                 <li>Khi lưu sản phẩm vào cơ sở dư liệu hệ thống phát hiện có @listDupnew.Count nhóm sản phẩm có thể trùng vui lòng mở tab "Trùng với dữ liệu đã tồn tại" để xử lý!</li>
                  }
              }
          </ul>
@@ -432,7 +439,7 @@
                 Danh sách sản phẩm đúng</a></li>
             <li class="ui-state-default ui-corner-top"><a href="#white-icon">@**@
                 <img src="~/Areas/Admin/Dandelion/images/message-warning.png" alt="">
-                Danh sách sản phẩm trùng với database</a></li>
+                Trùng với dữ liệu đã tồn tại</a></li>
             <li class="ui-state-default ui-corner-top"><a href="#blue-icon">@**@
                 <img src="~/Areas/Admin/Dandelion/images/message-error.png" alt="">
                 Danh sách sản phẩm lỗi</a></li>
@@ -455,7 +462,7 @@
                                 <a onclick="saveCorrectProduct()" id="da-ex-dialog-modal">
                                     <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</a></li>                        
                         </form>
-                        <li><a href="~/Admin/ImportExcelLap/huyimport">
+                        <li style="display:none;"><a href="~/Admin/ImportExcelLap/huyimport">
                             <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
                     </ul>
                 </div>
