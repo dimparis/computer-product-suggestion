@@ -20,7 +20,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
         // GET: /Admin/ImportExcelLap/
         public ActionResult Index()
-        {
+        {           
             using (CPS_SolutionEntities db = new CPS_SolutionEntities())
             {
 
@@ -442,6 +442,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
                         #endregion
 
+                        // lấy id brand của Laptop
+                        int brandID = BrandID(listpro[i].Name);
+
                         String[] mangten = listpro[i].Name.ToString().Split(';');
                         // nếu mảng tên >=2 thì lưu cái tên đầu tiên làm tên chính.
                         if (mangten.Length >= 2)
@@ -453,6 +456,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             proAli.ProductID = idinsert;
                             proAli.Price = Convert.ToDouble(listpro[i].Price);
                             proAli.StoreID = StoreID;
+                            proAli.UpdateTime = DateTime.Now;
+                            if (brandID > 0)
+                            {
+                                proAli.BrandID = brandID;
+                            }
                             proAli.URL = listpro[i].Url;
                             proAli.IsMain = true;
                             proAli.IsActive = true;
@@ -469,6 +477,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             proAli.ProductID = idinsert;
                             proAli.Price = Convert.ToDouble(listpro[i].Price);
                             proAli.StoreID = StoreID;
+                            proAli.UpdateTime = DateTime.Now;
+                            if (brandID > 0)
+                            {
+                                proAli.BrandID = brandID;
+                            }
                             proAli.URL = listpro[i].Url;
                             proAli.IsMain = true;
                             proAli.IsActive = true;
@@ -490,6 +503,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 proAli.ProductID = idinsert;
                                 proAli.Price = Convert.ToDouble(listpro[i].Price);
                                 proAli.StoreID = StoreID;
+                                proAli.UpdateTime = DateTime.Now;
+                                if (brandID > 0)
+                                {
+                                    proAli.BrandID = brandID;
+                                }
                                 proAli.URL = listpro[i].Url;
                                 proAli.IsMain = false;
                                 proAli.IsActive = true;
@@ -1065,7 +1083,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             StoreID = newStore.ID;
                         }
                         #endregion
-
+                        // lấy id brand của Laptop
+                        int brandID = BrandID(listpro[i].Name);
                         String[] mangten = listpro[i].Name.ToString().Split(';');
                         if (mangten.Length >= 2)
                         {
@@ -1076,6 +1095,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             proAli.ProductID = idinsert;
                             proAli.Price = Convert.ToDouble(listpro[i].Price);
                             proAli.StoreID = StoreID;
+                            proAli.UpdateTime = DateTime.Now;
+                            if (brandID > 0)
+                            {
+                                proAli.BrandID = brandID;
+                            }
                             proAli.URL = listpro[i].Url;
                             proAli.IsMain = true;
                             proAli.IsActive = true;
@@ -1091,6 +1115,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             proAli.ProductID = idinsert;
                             proAli.Price = Convert.ToDouble(listpro[i].Price);
                             proAli.StoreID = StoreID;
+                            proAli.UpdateTime = DateTime.Now;
+                            if (brandID > 0)
+                            {
+                                proAli.BrandID = brandID;
+                            }
                             proAli.URL = listpro[i].Url;
                             proAli.IsMain = true;
                             proAli.IsActive = true;
@@ -1112,6 +1141,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 proAli.ProductID = idinsert;
                                 proAli.Price = Convert.ToDouble(listpro[i].Price);
                                 proAli.StoreID = StoreID;
+                                proAli.UpdateTime = DateTime.Now;
+                                if (brandID > 0)
+                                {
+                                    proAli.BrandID = brandID;
+                                }
                                 proAli.URL = listpro[i].Url;
                                 proAli.IsMain = false;
                                 proAli.IsActive = true;
@@ -2449,6 +2483,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 }
                                 #endregion
 
+                                // lấy id brand của Laptop
+                                int brandID = BrandID(listduplicatenew[i][j].Name);
+
                                 String[] mangten = listduplicatenew[i][j].Name.ToString().Split(';');
                                 // nếu mảng tên >=2 thì lưu cái tên đầu tiên làm tên chính.
                                 if (mangten.Length >= 2)
@@ -2460,6 +2497,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     proAli.ProductID = idinsert;
                                     proAli.Price = Convert.ToDouble(listduplicatenew[i][j].Price);
                                     proAli.StoreID = StoreID;
+                                    proAli.UpdateTime = DateTime.Now;
+                                    if (brandID > 0)
+                                    {
+                                        proAli.BrandID = brandID;
+                                    }
                                     proAli.URL = listduplicatenew[i][j].Url;
                                     proAli.IsMain = true;
                                     proAli.IsActive = true;
@@ -2476,6 +2518,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     proAli.ProductID = idinsert;
                                     proAli.Price = Convert.ToDouble(listduplicatenew[i][j].Price);
                                     proAli.StoreID = StoreID;
+                                    proAli.UpdateTime = DateTime.Now;
+                                    if (brandID > 0)
+                                    {
+                                        proAli.BrandID = brandID;
+                                    }
                                     proAli.URL = listduplicatenew[i][j].Url;
                                     proAli.IsMain = true;
                                     proAli.IsActive = true;
@@ -2497,6 +2544,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                         proAli.ProductID = idinsert;
                                         proAli.Price = Convert.ToDouble(listduplicatenew[i][j].Price);
                                         proAli.StoreID = StoreID;
+                                        proAli.UpdateTime = DateTime.Now;
+                                        if (brandID > 0)
+                                        {
+                                            proAli.BrandID = brandID;
+                                        }
                                         proAli.URL = listduplicatenew[i][j].Url;
                                         proAli.IsMain = false;
                                         proAli.IsActive = true;
@@ -3053,6 +3105,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     StoreID = newStore.ID;
                                 }
                                 #endregion
+
+                                // lấy id brand của Laptop
+                                int brandID = BrandID(listduplicatenew[i][j].Name);
                                 String[] mangten = listduplicatenew[i][j].Name.ToString().Split(';');
                                 if (mangten.Length >= 2)
                                 {
@@ -3063,6 +3118,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     proAli.ProductID = idinsert;
                                     proAli.Price = Convert.ToDouble(listduplicatenew[i][j].Price);
                                     proAli.StoreID = StoreID;
+                                    proAli.UpdateTime = DateTime.Now;
+                                    if (brandID > 0)
+                                    {
+                                        proAli.BrandID = brandID;
+                                    }
                                     proAli.URL = listduplicatenew[i][j].Url;
                                     proAli.IsMain = true;
                                     proAli.IsActive = true;
@@ -3078,6 +3138,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     proAli.ProductID = idinsert;
                                     proAli.Price = Convert.ToDouble(listduplicatenew[i][j].Price);
                                     proAli.StoreID = StoreID;
+                                    proAli.UpdateTime = DateTime.Now;
+                                    if (brandID > 0)
+                                    {
+                                        proAli.BrandID = brandID;
+                                    }
                                     proAli.URL = listduplicatenew[i][j].Url;
                                     proAli.IsMain = true;
                                     proAli.IsActive = true;
@@ -3098,6 +3163,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                         proAli.ProductID = idinsert;
                                         proAli.Price = Convert.ToDouble(listduplicatenew[i][j].Price);
                                         proAli.StoreID = StoreID;
+                                        proAli.UpdateTime = DateTime.Now;
+                                        if (brandID > 0)
+                                        {
+                                            proAli.BrandID = brandID;
+                                        }
                                         proAli.URL = listduplicatenew[i][j].Url;
                                         proAli.IsMain = false;
                                         proAli.IsActive = true;
@@ -3398,7 +3468,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             }
                             #endregion
 
-
+                            // lấy id brand của Laptop
+                            int brandID = BrandID(listduplicatenew[i][j].Name);
                             String[] mangten = listduplicatenew[i][1].Name.ToString().Split(';');
                             for (int h = 0; h < mangten.Length; h++)
                             {
@@ -3425,6 +3496,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     a.ProductID = Convert.ToInt32(listduplicatenew[i][0].stt);
                                     a.Price = Convert.ToDouble(listduplicatenew[i][1].Price);
                                     a.StoreID = StoreID;
+                                    a.UpdateTime = DateTime.Now;
+                                    if (brandID > 0)
+                                    {
+                                        a.BrandID = brandID;
+                                    }
                                     a.URL = listduplicatenew[i][1].Url;
                                     a.IsMain = false;
                                     a.IsActive = true;
@@ -3540,6 +3616,30 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 return url;
             }
         }
+
+        /// <summary>
+        /// Lấy brand Id từ laptopName
+        /// </summary>
+        /// <param name="LaptopName"></param>
+        /// <returns></returns>
+        public int BrandID(string LaptopName)
+        {
+             int brandID = 0;
+             using (CPS_SolutionEntities db = new CPS_SolutionEntities())
+            {
+                var Listbrand = db.Brands.ToList();
+                foreach (Brand b in Listbrand)
+                {
+                    if(LaptopName.ToUpper().Trim().Contains(b.BrandName.ToUpper())){
+                        brandID = b.ID;
+                        break;
+                    }
+                }
+            
+            }
+            return (brandID);            
+        }
+
 
         /// <summary>
         /// show thông tin về số lượng sản phẩm trong 3 tab

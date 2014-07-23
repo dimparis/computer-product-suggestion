@@ -368,7 +368,7 @@
 {
 }
 <!----------------------------------------------- Content Area --------------------------------------------->
-<div class="grid_1 ">
+<div class="grid_1">
     <div class="da-panel-widget">
         <ul class="da-summary-stat">
             <li>
@@ -503,16 +503,23 @@
                                     <input class="uniform" id="IdDuplicateLog" style="zoom: 1.8;" checked type="checkbox" name="sports[]">
                                     <label>
                                         <img src="/Areas/Admin/Dandelion/images/message-warning.png" alt="">Danh sách sản phẩm trùng</label>
-                                    &nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <input style="display:none;" class="uniform" id="IdErrorLog" style="zoom: 1.8;" type="checkbox" name="sports[]">
-                                    <label style="display:none;">
+                                    </br>
+                                    ________________________________________
+                                    </br>
+                                    <input class="uniform" id="IdErrorLog" style="zoom: 1.8;" type="checkbox" name="sports[]">
+                                    <label>
                                         <img src="/Areas/Admin/Dandelion/images/message-error.png" alt="">Danh sách sản phẩm lỗi</label>
-                                    <button type="button" onclick="saveCorrectProduct(@countlist)" class="da-button blue" style=" float: right;" role="button" aria-disabled="false"><span class="ui-button-text">Hoàn thành</span></button>
-                                </div>
+                                     </br>
+                                    ________________________________________
+                                    </br>
+                                    <button type="button" onclick="saveCorrectProduct(@countlist)" class="da-button blue" style=" float: right;" role="button" aria-disabled="false"><span class="ui-button-text">Hoàn thành</span></button>                             
+                               
+                                  </div>
+                              
                             </div>
                             <!----------------Popup------------------>
                         </form>
-                        <li><a href="~/Admin/ImportExcelLap/huyimport">
+                        <li><a href="~/Admin/ImportExcelLap/huyimport" onclick="return confirm('Bạn có chắc chắn muốn hủy bỏ mọi thứ?')">
                             <img src="~/Areas/Admin/Dandelion/images/icons/color/delete.png" alt="">Hủy</a></li>
                     </ul>
                 </div>
@@ -2043,14 +2050,14 @@
 		
                     $("#da-ex-dialog-div").dialog({
                         autoOpen: false, 
-                        title: "Chọn ghi lại sản phẩm lỗi và trùng chưa được xử lý, để sau đó có thể tiếp tục xử lý.", 
+                        title: "Lưu sản phẩm chưa được xử lý", 
                         modal: true, 
-                        width: "550", 
-                        buttons: [{
-                            text: "Đóng", 
-                            click: function() {
-                                $( this ).dialog( "close" );
-                            }}]
+                        width: "300", 
+                        //buttons: [{
+                        //    text: "Đóng", 
+                        //    click: function() {
+                        //        $( this ).dialog( "close" );
+                        //    }}]
                     });
 		
 		
