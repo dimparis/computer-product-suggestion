@@ -120,7 +120,7 @@
 <div class="page-element gray-element">
         <div class="container">
             @*Tin nhan*@
-            <div class="span5" style="margin-left:8%">
+            <div class="span5" style="margin-left:10%">
                 <div class="message-box info-message-box clearfix  fadeDown">
                     <div class="message-icon-box">
                         <i class="icon-info"></i>
@@ -276,7 +276,7 @@
     $(document).ready(function () {
         updateClass();
         calc();
-        $(function () {
+        (function ($) {
             $('.sortable-with-handles').sortable({
                 handle: '.handle',
                 items: ':not(.disabled)'
@@ -284,7 +284,7 @@
                 updateClass();
                 calc();
             });
-        });
+        })((jQuery));
     });
 
     //Highlight phan cung duoc uu tien

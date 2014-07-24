@@ -457,6 +457,7 @@ iframe {
     height: 120px;
     background: #ffffff;
     float: left;
+    margin-top:10px;
     margin-left:-15px;
 }
 
@@ -600,7 +601,7 @@ iframe {
 
 /*************************************************** Small Header ******************************************************/
 .header-small {
-    height: 70px !important;
+    height: 90px !important;
 }
 
     .header-small #logo {
@@ -940,31 +941,37 @@ iframe {
 .rev-slider-wrapper .black-medium {
     font-size: 48px;
     color: #000;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .orange-big {
     font-size: 100px;
     color: #F87912;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .black-small {
     font-size: 30px;
     color: #000;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .green-big {
     font-size: 75px;
     color: #91C240;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .violet-big {
     font-size: 100px;
     color: #7676A3;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .blue-big {
     font-size: 100px;
     color: #1AD0D1;
+    font-family: "Times New Roman", Times, serif;
 }
 
 /**********************************************************************************************************************/
