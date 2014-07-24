@@ -103,7 +103,7 @@
 /************************************************ Slider Captions *****************************************************/
 /**********************************************************************************************************************/
 .caption {
-    font-family: "open sans";
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 36px;
     font-weight: lighter;
     line-height: 45px;

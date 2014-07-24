@@ -7,7 +7,7 @@
     height: 100px;
     position: relative;
     right: -10px;
-    margin-top: 0.75%;
+    margin-top: 20px;
     font-family: "Trebuchet MS", sans-serif;
     font-size: 16px;
     vertical-align: middle;
@@ -71,7 +71,7 @@
 }
 
 .icon_mail {
-    background: transparent url(../images/mail.png) no-repeat top left;
+    background: transparent url(../images/email.png) no-repeat top left;
 }
 
 .icon_help {
