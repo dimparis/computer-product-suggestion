@@ -140,7 +140,7 @@
             inProgress = true;
             $("#loadingDiv").show();
 
-            $.post("@Url.Action("InfinateScroll", "Product")", { "BlockNumber": BlockNumber },
+            $.post("@Url.Action("InfinateScrollSearchByName", "Product")", { "BlockNumber": BlockNumber, "searchValue": $('#productName').val() },
                     function (data) {
 
                         BlockNumber = BlockNumber + 1;
