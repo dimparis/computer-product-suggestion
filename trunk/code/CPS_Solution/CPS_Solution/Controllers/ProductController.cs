@@ -15,12 +15,6 @@ namespace CPS_Solution.Controllers
     public class ProductController : Controller
     {
         private CPS_SolutionEntities db = new CPS_SolutionEntities();
-        private const double _8M = 8000000;
-        private const double _10M = 10000000;
-        private const double _13M = 13000000;
-        private const double _16M = 16000000;
-        private const double _20M = 20000000;
-        private const double _25M = 25000000;
         private string title = "";
         //
         // GET: /Product/
@@ -300,6 +294,35 @@ namespace CPS_Solution.Controllers
             jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
             return Json(jsonModel);
         }
+        [HttpPost]
+        public ActionResult InfinateScrollSearchByName(int BlockNumber, string searchValue)
+        {
+            //////////////// THis line of code only for demo. Needs to be removed ////
+            System.Threading.Thread.Sleep(2000);
+            //////////////////////////////////////////////////////////////////////////
+            int BlockSize = 4;
+            DataManager manager = new DataManager();
+            var products = manager.GetProductsByName(BlockNumber, BlockSize, searchValue);
+            CPS_Solution.Models.DataManager.JsonModel jsonModel = new CPS_Solution.Models.DataManager.JsonModel();
+            jsonModel.NoMoreData = products.Count < BlockSize;
+            jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
+            return Json(jsonModel);
+        }
+        [HttpPost]
+        public ActionResult InfinateScrollSearchByPrice(int BlockNumber, int brandID, int priceID)
+        {
+            //////////////// THis line of code only for demo. Needs to be removed ////
+            System.Threading.Thread.Sleep(2000);
+            //////////////////////////////////////////////////////////////////////////
+            int BlockSize = 4;
+            DataManager manager = new DataManager();
+            var products = manager.GetProductsByPrice(BlockNumber, BlockSize, brandID, priceID);
+            CPS_Solution.Models.DataManager.JsonModel jsonModel = new CPS_Solution.Models.DataManager.JsonModel();
+            jsonModel.NoMoreData = products.Count < BlockSize;
+            jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
+            return Json(jsonModel);
+        }
+
         public ActionResult SamePriceProduct(int id)
         {
             double minPrice = 0;
@@ -341,7 +364,6 @@ namespace CPS_Solution.Controllers
 
             return PartialView(top3SameProduct);
         }
-
         public ActionResult SearchByPriceAndBrand(string brands, string prices)
         {
             int brandInt = 13;// load tat ca  cac thuong hieu
@@ -361,7 +383,7 @@ namespace CPS_Solution.Controllers
                 priceInt = 8;
             }
 
-            var products = ListOfProductLoad(priceInt, brandInt);
+            var products = ListOfProductLoad(1, priceInt, brandInt);
             return View(products);
 
         }
@@ -390,154 +412,23 @@ namespace CPS_Solution.Controllers
                 SelectListItem avaiableItem = new SelectListItem
                 {
                     Text = item.BrandName,
-                    Value = item.ID.ToString()
+                    Value = item.ID.ToString(),
                 };
                 ListBrand.Add(avaiableItem);
             }
             ViewBag.ListBrands = ListBrand;
             ViewBag.ListPrices = CreateDropDownBoxPrive();
         }
-        private List<Product> ListOfProductLoad(int value, int brandID)
+        private List<Product> ListOfProductLoad(int BlockNumber, int value, int brandID)
         {
             List<Product> ListOFProducts = new List<Product>();
             var BrandLaptop = db.Brands.Where(x => x.ID == brandID).FirstOrDefault();
             DataManager manager = new DataManager();
             int BlockSize = 4;
-            var products = manager.GetProductsByPrice(1, BlockSize, brandID);
             if (BrandLaptop != null)
             {
-                // Specify brand
-                if (BrandLaptop.ID != 13)
-                {
-                    // Price from  < 8 mil
-                    if (value == 1)
-                    {
-                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID && x.Price < _8M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   8 mil < 10 mil
-                    else if (value == 2)
-                    {
-                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
-                           && x.Price > _8M
-                           && x.Price <= _10M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   10 mil < 13 mil
-                    else if (value == 3)
-                    {
-                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
-                            && x.Price > _10M
-                            && x.Price <= _13M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   13 mil < 16 mil
-                    else if (value == 4)
-                    {
-                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
-                            && x.Price > _13M
-                            && x.Price <= _16M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   16 mil < 20 mil
-                    else if (value == 5)
-                    {
-                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
-                           && x.Price > _16M
-                           && x.Price <= _20M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   20 mil < 25 mil
-                    else if (value == 6)
-                    {
-                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
-                            && x.Price > _20M
-                            && x.Price <= _25M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   > 25 mil
-                    else if (value == 7)
-                    {
-                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID
-                            && x.Price > _25M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    else if (value == 8)
-                    {
-                        var filterProduct = products.Where(x => x.BrandID == BrandLaptop.ID).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                } // All Price
-                else
-                {
-                    // Price from  < 8 mil
-                    if (value == 1)
-                    {
-                        var filterProduct = products.Where(x =>  x.Price < _8M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   8 mil < 10 mil
-                    else if (value == 2)
-                    {
-                        var filterProduct = products.Where(x => x.Price > _8M
-                           && x.Price <= _10M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   10 mil < 13 mil
-                    else if (value == 3)
-                    {
-                        var filterProduct = products.Where(x => x.Price > _10M
-                            && x.Price <= _13M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   13 mil < 16 mil
-                    else if (value == 4)
-                    {
-                        var filterProduct = products.Where(x => x.Price > _13M
-                            && x.Price <= _16M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   16 mil < 20 mil
-                    else if (value == 5)
-                    {
-                        var filterProduct = products.Where(x => x.Price > _16M
-                           && x.Price <= _20M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   20 mil < 25 mil
-                    else if (value == 6)
-                    {
-                        var filterProduct = products.Where(x => x.Price > _20M
-                            && x.Price <= _25M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    // Price from   > 25 mil
-                    else if (value == 7)
-                    {
-                        var filterProduct = products.Where(x => x.Price > _25M).ToList();
-                        ListOFProducts = filterProduct;
-                        return ListOFProducts;
-                    }
-                    else if (value == 8)
-                    {
-                        ListOFProducts = products;
-                        return ListOFProducts;
-                    }
-                }
+                var products = manager.GetProductsByPrice(BlockNumber, BlockSize, brandID, value);
+                ListOFProducts = products;
             }
             return ListOFProducts;
         }
