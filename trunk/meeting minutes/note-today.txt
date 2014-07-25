@@ -1,0 +1,79 @@
+note 01-07-2014
+
+===compare
+- xep winner o vi tri dau tien
+- lam noi bat winner
+
+===training
+- them man hinh staff map lan thu 2
+
+===lam thuat toan tinh diem so sanh
+- dat truong hop
+- cach giai quyet
+- vi du
+
+=== Excel
+- dong nhat ngon ngu theo tieng viet
+- sua ten loi: sai dinh dang hinh anh
+- kiem tra truong hop check trung db
+
+
+=> lam flow chay hoan chinh
+
+
+
+
+
+note 03-07-2014
+===training
+- sua bug cap nhat san pham
+- nhap toi thieu 30 san pham demo
+- lam du lieu mau hoan chinh
+- xem communication diagram
+- chuan bi report 5
+- cap nhat chuc nang tu dong parse doi voi nhung product da duoc parse
+
+
+note 08-07-2014
+- ghi log file moi lan auto parse
+- kiem tra linh kien co chinh xac hay khong?
+- 
+
+
+====15.07
+- search khong co > ghi log
+
+
+===
+search theo so tien voi hang
+them label san pham duoc cap nhat duoc bao lau
+thu 5 tu nghi kich ban > demo cho thay
+
+
+===
+Trang tim kiem:
+ > Font chu
+ > Pick 3 san pham tot nhat trong cung 1 dieu kien (gia tien) > redirect trang so sanh
+> thong bao cam on sau khi de xuat
+
+Recommend
+> 
+
+#Trang tim kiem
+1. Khi tim kiem theo ten/theo gia > highligh nut len
+
+
+#Script:
+1. Search ten > Add gio hang so sanh
+2. Search theo gia > Tu chuyen sang so sanh 3 san pham > Mo ta drag drop
+3. Search sp khong co > De xuat 
+	- Demo parser san pham moi
+	- Trong bo parse > Khi parse thi hien man hinh chay thu de kiem tra ket qua parse duoc hay khong (Co the hien popup)
+	-Truong hop trong bo parse:
+		+ Neu sp co bo parse > parse ve > notify cho nguoi dung
+		+ Neu san pham chua co bo parse (nhung san pham co roi)
+		+ 
+
+
+
+
