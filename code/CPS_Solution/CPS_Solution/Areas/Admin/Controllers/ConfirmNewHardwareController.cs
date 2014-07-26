@@ -26,7 +26,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             //var approveListHardware = new List<SelectListItem>();
 
             // Load CPU list
-            var cpus = db.Hardwares.Where(x => x.CodetypeID == "C")
+            var cpus = db.Hardwares.Where(x => x.CodetypeID == "C" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var cpuList = new List<SelectListItem>();
@@ -42,7 +42,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.cpuList = cpuList;
 
             // Load VGA list
-            var vgas = db.Hardwares.Where(x => x.CodetypeID == "V")
+            var vgas = db.Hardwares.Where(x => x.CodetypeID == "V" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var vgaList = new List<SelectListItem>();
@@ -58,7 +58,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.vgaList = vgaList;
 
             // Load HDD list
-            var hdds = db.Hardwares.Where(x => x.CodetypeID == "H")
+            var hdds = db.Hardwares.Where(x => x.CodetypeID == "H" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var hddList = new List<SelectListItem>();
@@ -75,7 +75,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             // Load Ram list
-            var rams = db.Hardwares.Where(x => x.CodetypeID == "R")
+            var rams = db.Hardwares.Where(x => x.CodetypeID == "R" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var ramList = new List<SelectListItem>();
@@ -91,7 +91,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.ramList = ramList;
 
             // Load Display list
-            var displays = db.Hardwares.Where(x => x.CodetypeID == "D")
+            var displays = db.Hardwares.Where(x => x.CodetypeID == "D" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var displayList = new List<SelectListItem>();
@@ -123,7 +123,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             //var approveListHardware = new List<SelectListItem>();
 
             // Load CPU list
-            var cpus = db.Hardwares.Where(x => x.CodetypeID == "C")
+            var cpus = db.Hardwares.Where(x => x.CodetypeID == "C" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var cpuList = new List<SelectListItem>();
@@ -139,7 +139,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.cpuList = cpuList;
 
             // Load VGA list
-            var vgas = db.Hardwares.Where(x => x.CodetypeID == "V")
+            var vgas = db.Hardwares.Where(x => x.CodetypeID == "V" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var vgaList = new List<SelectListItem>();
@@ -155,7 +155,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.vgaList = vgaList;
 
             // Load HDD list
-            var hdds = db.Hardwares.Where(x => x.CodetypeID == "H")
+            var hdds = db.Hardwares.Where(x => x.CodetypeID == "H" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var hddList = new List<SelectListItem>();
@@ -172,7 +172,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             // Load Ram list
-            var rams = db.Hardwares.Where(x => x.CodetypeID == "R")
+            var rams = db.Hardwares.Where(x => x.CodetypeID == "R" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var ramList = new List<SelectListItem>();
@@ -188,7 +188,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.ramList = ramList;
 
             // Load Display list
-            var displays = db.Hardwares.Where(x => x.CodetypeID == "D")
+            var displays = db.Hardwares.Where(x => x.CodetypeID == "D" && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var displayList = new List<SelectListItem>();
@@ -274,7 +274,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             string productid = info[2].Trim();
             int numProductid = Convert.ToInt32(productid);
             // những hardware mới vào chưa kích hoạt.
-            var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == false).ToList();
+            var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == null).ToList();
             // tìm tới hardware có id = stt
 
             if (productid.Trim().Equals("0"))
@@ -474,18 +474,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
             int id = Convert.ToInt32(stringid);
             var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
             bool statusFlag = false;
-            if (ModelState.IsValid)
+            if (hardware.IsActive==null)
             {
-                if (hardware.IsActive.ToString().Equals(""))
-                {
+               
                     hardware.IsActive = true;
-                    statusFlag = false;
-                }
-                else
-                {
-                    hardware.IsActive = null;
-                    statusFlag = true;
-                }
+                  
                 db.SaveChanges();
             }
             // Display the confirmation message       

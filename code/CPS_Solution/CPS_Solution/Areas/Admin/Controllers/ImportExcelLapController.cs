@@ -192,7 +192,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             break;
                         }
                         //nếu đã có trong database thì xóa đi.
-                        if (listproindatabase[j].Name.ToString().Equals(Name))
+                        if (listproindatabase[j].Name.Trim().ToString().Equals(Name.Trim()))
                         {
                             listproindatabase.RemoveAt(j);
                             listpro.RemoveAt(i);
@@ -299,6 +299,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // lấy hết CPU trong db ra
                     var listCPUdb = (from a in db.Hardwares where a.CodetypeID.Equals("C") && a.IsActive==true select a);
                     List<Hardware> listCPU = listCPUdb.ToList();
+
+               //    var list = (from a in db.Dictionaries where a.Hardware.CodetypeID.Equals("C") && a.Hardware.IsActive == true select a);
+
+    
                     // lấy hết VGA trong db ra
                     var listVGAdb = (from a in db.Hardwares where a.CodetypeID.Equals("V") && a.IsActive == true select a);
                     List<Hardware> listVGA = listVGAdb.ToList();
@@ -328,11 +332,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // trùng CPU 1
                     for (int x = 0; x < listCPU.Count; x++)
                     {
-                        if (listpro[i].CPU.Equals(listCPU[x].Name))
+                        if (listpro[i].CPU.Trim().Equals(listCPU[x].Name.Trim()))
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].CPU, listCPU[x].Name) >= 80)
+                        else if (CompareStringHelper.CompareString(listpro[i].CPU.Trim(), listCPU[x].Name.Trim()) >= 80)
                         {
                             CPU = listCPU[x];
                             errorCount++;
@@ -343,11 +347,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // trùng VGA 2
                     for (int x = 0; x < listVGA.Count; x++)
                     {
-                        if (listpro[i].VGA.Equals(listVGA[x].Name))
+                        if (listpro[i].VGA.Trim().Equals(listVGA[x].Name.Trim()))
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].VGA, listVGA[x].Name) >= 80)
+                        else if (CompareStringHelper.CompareString(listpro[i].VGA.Trim(), listVGA[x].Name.Trim()) >= 80)
                         {
                             VGA = listVGA[x];
                             errorCount++;
@@ -358,11 +362,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // trùng HDD 3
                     for (int x = 0; x < listHDD.Count; x++)
                     {
-                        if (listpro[i].HDD.Equals(listHDD[x].Name))
+                        if (listpro[i].HDD.Trim().Equals(listHDD[x].Name.Trim()))
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].HDD, listHDD[x].Name) >= 80)
+                        else if (CompareStringHelper.CompareString(listpro[i].HDD.Trim(), listHDD[x].Name.Trim()) >= 80)
                         {
                             HDD = listHDD[x];
                             errorCount++;
@@ -373,11 +377,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // trùng Display 4
                     for (int x = 0; x < listDisplay.Count; x++)
                     {
-                        if (listpro[i].Display.Equals(listDisplay[x].Name))
+                        if (listpro[i].Display.Trim().Equals(listDisplay[x].Name.Trim()))
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].Display, listDisplay[x].Name) >= 80)
+                        else if (CompareStringHelper.CompareString(listpro[i].Display.Trim(), listDisplay[x].Name.Trim()) >= 80)
                         {
                             Display = listDisplay[x];
                             errorCount++;
@@ -388,11 +392,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     // trùng Ram
                     for (int x = 0; x < listRam.Count; x++)
                     {
-                        if (listpro[i].RAM.Equals(listRam[x].Name))
+                        if (listpro[i].RAM.Trim().Equals(listRam[x].Name.Trim()))
                         {
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].RAM, listRam[x].Name) >= 80)
+                        else if (CompareStringHelper.CompareString(listpro[i].RAM.Trim(), listRam[x].Name.Trim()) >= 80)
                         {
                             Ram = listRam[x];
                             errorCount++;
@@ -538,7 +542,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // nếu có trong database rồi thì lấy ID sản phẩm có rồi
                         for (int x = 0; x < listCPU.Count; x++)
                         {
-                            if (listpro[i].CPU.Equals(listCPU[x].Name))
+                            if (listpro[i].CPU.Trim().Equals(listCPU[x].Name.Trim()))
                             {
                                 idCPU1 = listCPU[x].ID;
                                 break;
@@ -619,7 +623,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // kiểm tra xem có trong database chưa có rồi thì lấy ID đã có
                         for (int x = 0; x < listVGA.Count; x++)
                         {
-                            if (listpro[i].VGA.Equals(listVGA[x].Name))
+                            if (listpro[i].VGA.Trim().Equals(listVGA[x].Name.Trim()))
                             {
                                 idVGA2 = listVGA[x].ID;
                                 break;
@@ -698,7 +702,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // nếu có rồi trong database thì lấy ID ra
                         for (int x = 0; x < listHDD.Count; x++)
                         {
-                            if (listpro[i].HDD.Equals(listHDD[x].Name))
+                            if (listpro[i].HDD.Trim().Equals(listHDD[x].Name.Trim()))
                             {
                                 idHDD3 = listHDD[x].ID;
                                 break;
@@ -777,7 +781,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // nếu có rồi trong database thì lấy id ra
                         for (int x = 0; x < listDisplay.Count; x++)
                         {
-                            if (listpro[i].Display.Equals(listDisplay[x].Name))
+                            if (listpro[i].Display.Trim().Equals(listDisplay[x].Name.Trim()))
                             {
                                 idDisplay4 = listDisplay[x].ID;
                                 break;
@@ -857,7 +861,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // nếu có rồi trong database thì lấy id ra
                         for (int x = 0; x < listRam.Count; x++)
                         {
-                            if (listpro[i].RAM.Equals(listRam[x].Name))
+                            if (listpro[i].RAM.Trim().Equals(listRam[x].Name.Trim()))
                             {
                                 idRam5 = listRam[x].ID;
                                 break;
@@ -2363,11 +2367,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng CPU 1
                             for (int x = 0; x < listCPU.Count; x++)
                             {
-                                if (listduplicatenew[i][j].CPU.Equals(listCPU[x].Name))
+                                if (listduplicatenew[i][j].CPU.Trim().Equals(listCPU[x].Name.Trim()))
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU, listCPU[x].Name) > 80)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU.Trim(), listCPU[x].Name.Trim()) > 80)
                                 {
                                     CPU = listCPU[x];
                                     //listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
@@ -2379,11 +2383,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng VGA 2
                             for (int x = 0; x < listVGA.Count; x++)
                             {
-                                if (listduplicatenew[i][j].VGA.Equals(listVGA[x].Name))
+                                if (listduplicatenew[i][j].VGA.Trim().Equals(listVGA[x].Name.Trim()))
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA, listVGA[x].Name) > 80)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA.Trim(), listVGA[x].Name.Trim()) > 80)
                                 {
                                     VGA = listVGA[x];
                                   //  listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
@@ -2395,11 +2399,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng HDD 3
                             for (int x = 0; x < listHDD.Count; x++)
                             {
-                                if (listduplicatenew[i][j].HDD.Equals(listHDD[x].Name))
+                                if (listduplicatenew[i][j].HDD.Trim().Equals(listHDD[x].Name.Trim()))
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD, listHDD[x].Name) > 80)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD.Trim(), listHDD[x].Name.Trim()) > 80)
                                 {
                                     HDD = listHDD[x];
                                  //   listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
@@ -2411,11 +2415,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng Display 4
                             for (int x = 0; x < listDisplay.Count; x++)
                             {
-                                if (listduplicatenew[i][j].Display.Equals(listDisplay[x].Name))
+                                if (listduplicatenew[i][j].Display.Trim().Equals(listDisplay[x].Name.Trim()))
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display, listDisplay[x].Name) > 80)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display.Trim(), listDisplay[x].Name.Trim()) > 80)
                                 {
                                     Display = listDisplay[x];
                                  //   listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
@@ -2427,11 +2431,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             // trùng Ram
                             for (int x = 0; x < listRam.Count; x++)
                             {
-                                if (listduplicatenew[i][j].RAM.Equals(listRam[x].Name))
+                                if (listduplicatenew[i][j].RAM.Trim().Equals(listRam[x].Name.Trim()))
                                 {
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM, listRam[x].Name) > 80)
+                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM.Trim(), listRam[x].Name.Trim()) > 80)
                                 {
                                     Ram = listRam[x];
                                 //    listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
@@ -2578,7 +2582,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listCPU.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].CPU.Equals(listCPU[x].Name))
+                                    if (listduplicatenew[i][j].CPU.Trim().Equals(listCPU[x].Name.Trim()))
                                     {
                                         idCPU1 = listCPU[x].ID;
                                         break;
@@ -2652,7 +2656,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listVGA.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].VGA.Equals(listVGA[x].Name))
+                                    if (listduplicatenew[i][j].VGA.Trim().Equals(listVGA[x].Name.Trim()))
                                     {
                                         idVGA2 = listVGA[x].ID;
                                         break;
@@ -2726,7 +2730,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listHDD.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].HDD.Equals(listHDD[x].Name))
+                                    if (listduplicatenew[i][j].HDD.Trim().Equals(listHDD[x].Name.Trim()))
                                     {
                                         idHDD3 = listHDD[x].ID;
                                         break;
@@ -2802,7 +2806,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listDisplay.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].Display.Equals(listDisplay[x].Name))
+                                    if (listduplicatenew[i][j].Display.Trim().Equals(listDisplay[x].Name.Trim()))
                                     {
                                         idDisplay4 = listDisplay[x].ID;
                                         break;
@@ -2877,7 +2881,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listRam.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].RAM.Equals(listRam[x].Name))
+                                    if (listduplicatenew[i][j].RAM.Trim().Equals(listRam[x].Name.Trim()))
                                     {
                                         idRam5 = listRam[x].ID;
                                         break;
@@ -3610,7 +3614,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 System.Net.WebClient wc = new System.Net.WebClient();
                 string path = Path.Combine(Server.MapPath("~/Images/I"), name + exts);
                 wc.DownloadFile(url, path);
-                string newpath = "/Images/I/" + name + exts;
+                string newpath = "Images/I/" + name + exts;
                 return newpath;
             }catch(Exception ex){
                 return url;
