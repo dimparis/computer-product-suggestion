@@ -69,6 +69,24 @@ namespace CPS_Solution.Controllers
 
             var bestProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
 
+            //Diem san pham 1
+            bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 + 
+                                               (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
+            db.Entry(bestProducts[0]).State = EntityState.Modified;
+            db.SaveChanges();
+
+            //Diem san pham 2
+            bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
+                                               (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
+            db.Entry(bestProducts[1]).State = EntityState.Modified;
+            db.SaveChanges();
+
+            //Diem san pham 3
+            bestProducts[2].TotalWeightPoint = (bestProducts[2].cpuScore + bestProducts[2].vgaScore) * 6 +
+                                               (bestProducts[2].ramScore + bestProducts[2].hddScore + bestProducts[2].displayScore);
+            db.Entry(bestProducts[2]).State = EntityState.Modified;
+            db.SaveChanges();
+
             //Move down the first
             var temp = bestProducts[0];
             bestProducts[0] = bestProducts[1];
@@ -76,6 +94,7 @@ namespace CPS_Solution.Controllers
 
             return View(bestProducts);
         }
+
 
         public ActionResult CompareDetail(int p1, int p2, int p3)
         {
