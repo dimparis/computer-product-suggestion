@@ -707,7 +707,8 @@ namespace CPS_Solution.Areas.Admin.Helpers
         {
             List<string> data = ReadDataFromFile();
             string path = ConstantManager.TrainingFilePath;
-            string content = "";
+            string content = "0~";
+            string Loai = "";
             using (var context = new CPS_SolutionEntities())
             {
                 foreach (int id in match)
@@ -715,11 +716,13 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     var attAD = context.Hardwares.FirstOrDefault(a => a.ID == id);
                     if (attAD != null)
                     {
-                        content = attAD.Name + ";";
+                        content = attAD.Name + "|" + attAD.CodetypeID + "|" + attAD.WeightCriteraPoint + '|' + attAD.ID + "#";
+                        Loai = attAD.CodetypeID ;
+                      
                     }
                 }
             }
-            content += name;
+            content += name + "|" + Loai + "|" + '0' + '|' + '0';
             bool isExisted = false;
             foreach (string item in data)
             {

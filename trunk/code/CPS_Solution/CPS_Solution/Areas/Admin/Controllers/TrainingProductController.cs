@@ -318,6 +318,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
                     if (duplicateProduct.Count >= 2)
                     {
+                     
                         listduplicatenew.Add(duplicateProduct);
                         check++;
                     }
@@ -823,10 +824,25 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 {
                                     if (listmap[r].Name.Equals(mangten[h]))
                                     {
-                                        count1++;
+                                        count++;
+                                        if (!listduplicatenew[i][0].productid.Equals("0"))
+                                        {
+                                            // thêm ProductAtribute khi add sản phẩm :|
+                                            ProductAttribute proAttr = new ProductAttribute();
+                                            // proAttr.ProductID = Convert.ToInt32(listID[i]);
+                                            proAttr.ProductID = Convert.ToInt32(listduplicatenew[i][1].productid);
+                                            proAttr.AttributeID = listmap[r].AttributeDicID;
+                                            proAttr.IsActive = true;
+                                            db.ProductAttributes.Add(proAttr);
+                                            db.SaveChanges();
+                                        }
+                                        listduplicatenew.RemoveAt(i);
+                                        //listID.RemoveAt(i);
+                                        i = i - 1;
+                                        break;
                                     }
                                 }
-                                if (count1 > 0)
+                                if (count > 0)
                                 {
                                     break;
                                 }
@@ -845,6 +861,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                     // proAttr.ProductID = Convert.ToInt32(listID[i]);
                                     proAttr.ProductID = Convert.ToInt32(listduplicatenew[i][1].productid);
                                     proAttr.AttributeID = Convert.ToInt32(listduplicatenew[i][0].stt);
+                                    proAttr.IsActive = true;
                                     db.ProductAttributes.Add(proAttr);
                                     db.SaveChanges();
                                 }

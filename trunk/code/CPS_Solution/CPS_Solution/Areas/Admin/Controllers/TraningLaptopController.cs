@@ -3575,7 +3575,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 System.Net.WebClient wc = new System.Net.WebClient();
                 string path = Path.Combine(Server.MapPath("~/Images/I"), name + exts);
                 wc.DownloadFile(url, path);
-                string newpath = "/Images/I/" + name + exts;
+                string newpath = "Images/I/" + name + exts;
                 return newpath;
             }catch(Exception ex){
                 return url;
