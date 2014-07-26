@@ -707,7 +707,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
         {
             List<string> data = ReadDataFromFile();
             string path = ConstantManager.TrainingFilePath;
-            string content = "0~";
+            string content = "";
             string Loai = "";
             using (var context = new CPS_SolutionEntities())
             {
@@ -716,7 +716,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     var attAD = context.Hardwares.FirstOrDefault(a => a.ID == id);
                     if (attAD != null)
                     {
-                        content = attAD.Name + "|" + attAD.CodetypeID + "|" + attAD.WeightCriteraPoint + '|' + attAD.ID + "#";
+                        content = "0~"+ attAD.Name + "|" + attAD.CodetypeID + "|" + attAD.WeightCriteraPoint + '|' + attAD.ID + "#";
                         Loai = attAD.CodetypeID ;
                       
                     }
@@ -745,6 +745,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             List<string> data = ReadDataFromFileForProduct();
             string path = ConstantManager.TrainingFilePathForProduct;
             string content = "";
+            string loai = "";
             using (var context = new CPS_SolutionEntities())
             {
                 foreach (int id in match)
@@ -753,10 +754,11 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     if (attAD != null)
                     {
                         content = newProductID + "~" + attAD.Name + '|' + attAD.CodetypeID + '|' + attAD.WeightCriteraPoint + '|' + attAD.ID + "#";
+                        loai = attAD.CodetypeID;
                     }
                 }
             }
-            content += name + '|' + '|' + '|';
+            content += name + '|'+loai + '|'+ '0' +'|' +'0';
             bool isExisted = false;
             foreach (string item in data)
             {

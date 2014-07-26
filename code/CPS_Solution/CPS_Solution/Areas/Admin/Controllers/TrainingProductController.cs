@@ -696,8 +696,23 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             break;
                         }
                         p.WeightCriteraPoint = Convert.ToInt32(listduplicatenew[i][1].trongso);
+                        // nếu có trọng số rồi thì cho isactive = true
+                        if (Convert.ToInt32(listduplicatenew[i][1].trongso)>0)
+                        {
+                            p.IsActive = true;
+                        }
                         db.Hardwares.Add(p);
                         db.SaveChanges();
+
+                        // Lưu vào Dictionary
+                        var Pronewid = db.Hardwares.OrderByDescending(pro => pro.ID).FirstOrDefault();
+                        Dictionary newdiction = new Dictionary();
+                        newdiction.AttributeDicID = Pronewid.ID;
+                        newdiction.Name = Pronewid.Name;
+                        newdiction.IsActive = true;
+                        db.Dictionaries.Add(newdiction);
+                        db.SaveChanges();
+
 
                         //lấy id vừa mới insert cho vào bảng ProductAttibute------------------------------------------
                         if (!listduplicatenew[i][0].productid.Equals("0"))
