@@ -402,8 +402,13 @@ namespace CPS_Solution.Controllers
                 priceInt = 8;
             }
 
-            var products = ListOfProductLoad(1, priceInt, brandInt);
-            return View(products);
+            var products = ListOfProductLoad(1, priceInt, brandInt).OrderByDescending(x=>x.TotalWeightPoint).Take(3);
+            List<int> idList = new List<int>();
+            foreach (var item in products) 
+            {
+                idList.Add(item.ID);
+            }
+            return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1],p3= idList[2] });
 
         }
         private List<SelectListItem> CreateDropDownBoxPrive()
