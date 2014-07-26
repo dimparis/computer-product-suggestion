@@ -405,6 +405,103 @@ namespace CPS_Solution.Areas.Admin.Helpers
             }
             return data;
         }
+        public static ProductData MatchingProductDataPreview(string host, HtmlDocument doc, string nameXpath, string priceXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
+        {
+            var data = new ProductData();
+            HtmlNode name = null;
+            HtmlNode cpu = null;
+            HtmlNode vga = null;
+            HtmlNode hdd = null;
+            HtmlNode ram = null;
+            HtmlNode display = null;
+            HtmlNode image = null;
+            HtmlNode price = null;
+            // modify xpath for vienthong a 
+            if (host.Contains("vienthonga.vn"))
+            {
+                string[] seperator = { "/form" };
+                string take2stString = nameXpath.Split(seperator, StringSplitOptions.RemoveEmptyEntries)[1];
+                string final = "//form" + take2stString.Replace("/", "//");
+                name = doc.DocumentNode.SelectSingleNode(final);
+            }
+            else
+            {
+                name = doc.DocumentNode.SelectSingleNode(nameXpath);
+            }
+
+            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn"))
+            {
+                if (priceXpath != null)
+                {
+                    price = doc.DocumentNode.SelectSingleNode(priceXpath);
+                }
+                cpu = doc.DocumentNode.SelectSingleNode(ReplaceUntable(cpuXpath, "/t", "//t"));
+                vga = doc.DocumentNode.SelectSingleNode(ReplaceUntable(vgaXpath, "/t", "//t"));
+                hdd = doc.DocumentNode.SelectSingleNode(ReplaceUntable(hddXpath, "/t", "//t"));
+                ram = doc.DocumentNode.SelectSingleNode(ReplaceUntable(ramXpath, "/t", "//t"));
+                display = doc.DocumentNode.SelectSingleNode(ReplaceUntable(displayXpath, "/t", "//t"));
+            }
+            else
+            {
+                if (priceXpath != null)
+                {
+                    price = doc.DocumentNode.SelectSingleNode(priceXpath);
+                }
+                cpu = doc.DocumentNode.SelectSingleNode(cpuXpath);
+                vga = doc.DocumentNode.SelectSingleNode(vgaXpath);
+                hdd = doc.DocumentNode.SelectSingleNode(hddXpath);
+                ram = doc.DocumentNode.SelectSingleNode(ramXpath);
+                display = doc.DocumentNode.SelectSingleNode(displayXpath);
+            }
+
+            //Check null
+            if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
+                !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
+                !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
+            {
+                data.Name = name.InnerText;
+                data.CPU = cpu.InnerText;
+                data.VGA = vga.InnerText;
+
+                //Modifed for take Price
+                if (priceXpath != null)
+                {
+                    if (price != null)
+                    {
+                        data.Price = price.InnerText;
+                    }
+                    else
+                    {
+                        data.Price = "0";
+                    }
+                }
+                else
+                {
+                    data.Price = "0";
+                }
+                // modify xpath for lazada
+                if (host.Contains("lazada.vn"))
+                {
+                    string patter = "RAM |/|,| HDD ";
+                    Regex reg = new Regex(patter);
+                    string[] spltString = reg.Split(hdd.InnerText);
+                    data.RAM = spltString[1];
+                    data.HDD = spltString[3];
+                }
+                else
+                {
+                    data.HDD = hdd.InnerText;
+                    data.RAM = ram.InnerText;
+                }
+                data.Display = display.InnerText;
+                data.Image = ImageHelper.TakePathPreview(host, doc, imageXpath);
+                if (String.IsNullOrEmpty(data.Image))
+                {
+                    data.Image = ImageHelper.TakePathPreview(host, doc, imageXpath);
+                }
+            }
+            return data;
+        }
 
         #endregion
 
