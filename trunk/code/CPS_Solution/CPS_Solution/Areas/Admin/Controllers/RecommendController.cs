@@ -18,7 +18,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
         public ActionResult Index()
         {
-            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue==true);
+            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == true);
 
             return View(recommendProduct);
         }
@@ -44,25 +44,26 @@ namespace CPS_Solution.Areas.Admin.Controllers
         [HttpPost, ValidateInput(false)]
         public RedirectToRouteResult CreateProductParser(ProductParserCreator model)
         {
-         
+
             var uri = new Uri(model.ParseProductLink);
             string host = uri.GetLeftPart(UriPartial.Authority);
             var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Contains(host));
             if (parseInfo == null)
-            {   var productInfo = new ParseInfo
             {
-                Name = model.ProductNameXpath,
-                PriceXPath = model.PriceXpath,
-                ImageXpath = model.ImageXpath,
-                Parselink = model.ParseProductLink,
-                CPUXPath = model.CPUXpath,
-                DisplayXPath = model.DisplayXpath,
-                HDDXPath = model.HDDXpath,
-                RAMXPath = model.RAMXpath,
-                VGAXPath = model.VGAXpath,
-                IsActive = true,
+                var productInfo = new ParseInfo
+                    {
+                        Name = model.ProductNameXpath,
+                        PriceXPath = model.PriceXpath,
+                        ImageXpath = model.ImageXpath,
+                        Parselink = model.ParseProductLink,
+                        CPUXPath = model.CPUXpath,
+                        DisplayXPath = model.DisplayXpath,
+                        HDDXPath = model.HDDXpath,
+                        RAMXPath = model.RAMXpath,
+                        VGAXPath = model.VGAXpath,
+                        IsActive = true,
 
-            };
+                    };
                 //Create parser if not exist
                 context.ParseInfoes.Add(productInfo);
                 context.SaveChanges();
@@ -125,7 +126,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 return Json(check, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult ConfirmTrueLink() 
+        public ActionResult ConfirmTrueLink()
         {
             var recommends = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == false).ToList();
             return View(recommends);
@@ -173,6 +174,34 @@ namespace CPS_Solution.Areas.Admin.Controllers
             AutoParseJob job = new AutoParseJob();
             Task.Factory.StartNew(() => job.DoTask(rcmdProduct, parseInfoes));
             return RedirectToAction("Index");
+        }
+        public ActionResult LoadPreview(ProductParserCreator creator)
+        {
+            ProductData data = new ProductData();
+            try
+            {            // Create Firefox browser
+                var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
+                //do more to get data
+                var uri = new Uri(creator.ParseProductLink);
+                string host = uri.GetLeftPart(UriPartial.Authority);
+                //load page
+                System.Net.ServicePointManager.Expect100Continue = false;
+                HtmlNode.ElementsFlags.Remove("form");
+                var doc = web.Load(creator.ParseProductLink);
+
+                data = ParserHelper.MatchingProductData(host, doc, creator.ProductNameXpath, creator.PriceXpath, creator.ImageXpath, creator.CPUXpath, creator.VGAXpath, creator.HDDXpath, creator.RAMXpath, creator.DisplayXpath);
+                
+                return View(data);
+            }
+            catch (System.Net.WebException ex)
+            {
+                LoadPreview(creator);
+            }
+            catch (HtmlWebException ex)
+            {
+                LoadPreview(creator);
+            }
+            return View();
         }
     }
 }

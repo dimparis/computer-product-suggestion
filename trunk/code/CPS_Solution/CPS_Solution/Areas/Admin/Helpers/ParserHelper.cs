@@ -463,13 +463,13 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         else if (goodMatch.Count > 1)
                         {
                             // Match well with more than 1 product, admin decide
-                            ExportTrainingFile(goodMatch, pair.Key);
+                            ExportTrainingFile(goodMatch, pair.Key,pair.Value);
                             continue;
                         }
                         else if (averageMatch.Count > 0 && pId == -1)
                         {
                             // Only average match, admin decide
-                            ExportTrainingFile(averageMatch, pair.Key);
+                            ExportTrainingFile(averageMatch, pair.Key,pair.Value);
                             continue;
                         }
                     }
@@ -703,7 +703,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
         #endregion
         // Process File
         #region
-        public static void ExportTrainingFile(List<int> match, string name)
+        public static void ExportTrainingFile(List<int> match, string name,string point)
         {
             List<string> data = ReadDataFromFile();
             string path = ConstantManager.TrainingFilePath;
@@ -722,7 +722,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     }
                 }
             }
-            content += name + "|" + Loai + "|" + '0' + '|' + '0';
+            content += name + "|" + Loai + "|" + point + '|' + '0';
             bool isExisted = false;
             foreach (string item in data)
             {
