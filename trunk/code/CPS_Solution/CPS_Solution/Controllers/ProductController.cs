@@ -70,7 +70,7 @@ namespace CPS_Solution.Controllers
             var bestProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
 
             //Diem san pham 1
-            bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 + 
+            bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
                                                (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
             db.Entry(bestProducts[0]).State = EntityState.Modified;
             db.SaveChanges();
@@ -189,16 +189,23 @@ namespace CPS_Solution.Controllers
         public ActionResult Recommend(RecommendProduct recommendproduct)
         {
             recommendproduct.RecommendTime = DateTime.Now;
-            recommendproduct.Username = "member1";
-            if (ModelState.IsValid)
+           
+            recommendproduct.IsApprove = null;
+            recommendproduct.IsTrue = false;
+            if(User.Identity.Name ==null || User.Identity.Name =="Guest")
             {
-                db.RecommendProducts.Add(recommendproduct);
-                db.SaveChanges();
-                return RedirectToAction("SearchForProduct");
+                recommendproduct.Name = "Guest";                
             }
-
-            ViewBag.Username = new SelectList(db.Accounts, "member1", "123456", recommendproduct.Username);
-            return View(recommendproduct);
+            else if (User.Identity.Name != null && User.Identity.Name != "Guest")
+            {
+                if (ModelState.IsValid)
+                {
+                    recommendproduct.Name = User.Identity.Name;
+                }
+            }
+            db.RecommendProducts.Add(recommendproduct);
+            db.SaveChanges();
+            return RedirectToAction("SearchForProduct");;
         }
         public JsonResult checkLink(string link)
         {
@@ -402,13 +409,13 @@ namespace CPS_Solution.Controllers
                 priceInt = 8;
             }
 
-            var products = ListOfProductLoad(1, priceInt, brandInt).OrderByDescending(x=>x.TotalWeightPoint).Take(3);
+            var products = ListOfProductLoad(1, priceInt, brandInt).OrderByDescending(x => x.TotalWeightPoint).Take(3);
             List<int> idList = new List<int>();
-            foreach (var item in products) 
+            foreach (var item in products)
             {
                 idList.Add(item.ID);
             }
-            return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1],p3= idList[2] });
+            return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = idList[2] });
 
         }
         private List<SelectListItem> CreateDropDownBoxPrive()
