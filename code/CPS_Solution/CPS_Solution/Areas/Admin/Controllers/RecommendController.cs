@@ -18,7 +18,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
         public ActionResult Index()
         {
-            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == true);
+            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == false);
 
             return View(recommendProduct);
         }
@@ -126,6 +126,35 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 return Json(check, JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpPost, ActionName("setStatusAuto")]
+        public JsonResult setStatusAuto(string[] idListAuto)
+        {
+            bool check = false;
+            string message = "";
+            try
+            {
+                foreach (string id in idListAuto)
+                {
+                    int i = Int32.Parse(id);
+                    var recommendProduct = context.RecommendProducts.Where(x => x.ID == i).FirstOrDefault();
+                    recommendProduct.IsApprove = null;
+                    recommendProduct.IsTrue = true;
+                }
+                context.SaveChanges();
+                check = true;
+                message = "Success";
+                TempData["updateStatus"] = message;
+                return Json(check, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                check = false;
+                message = "Failed";
+                TempData["updateStatus"] = message;
+                return Json(check, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult ConfirmTrueLink()
         {
             var recommends = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == false).ToList();

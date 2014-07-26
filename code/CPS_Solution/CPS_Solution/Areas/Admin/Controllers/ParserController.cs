@@ -9,9 +9,10 @@ using CPS_Solution.Areas.Admin.Helpers;
 using CPS_Solution.EntityFramework;
 using CPS_Solution.Areas.Admin.Models;
 using System.Threading.Tasks;
+using CPS_Solution.CommonClass;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
-     //[MyAuthorize(Roles = "staff")]
+     [MyAuthorize(Roles = "staff")]
     public class ParserController : Controller
     {
          private CPS_SolutionEntities context = new CPS_SolutionEntities();

@@ -28,28 +28,46 @@
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
 
 
-   <script type="text/javascript">
-       $(function () {
-           $(".da-button").click(function () {
-               // Get the id from the link
-               var recordToSet = $(this).attr("data-id");
+    <script type="text/javascript">
+        function updateAuto() {
+            var vals = [];
+            $('input:checkbox[name=idListAuto]:checked').each(function () {
+                vals.push($(this).val());
+            });
 
-               if (recordToSet != '') {
+            $.ajax({
+                url: "/Admin/Recommend/setStatusAuto",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ idListAuto: vals }),
+                success: function (msg) {
+                    location.reload();
+                }
+            })
+        }
+        function removeRecommend() {
+            var vals = [];
+            $('input:checkbox[name=idList]:checked').each(function () {
+                vals.push($(this).val());
+            });
 
-                   // Perform the ajax post
-                   $.post("/Parser/SetActive", { "id": recordToSet },
-                       function (data) {
-                           location.reload();
-                       });
-               }
-           });
-
-       });
+            $.ajax({
+                url: "/Admin/Recommend/setStatus",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ idList: vals }),
+                success: function (msg) {
+                    location.reload();
+                }
+            })
+        }
     </script>
 }
 @section sidebar
 {
-   <!-- Main Navigation -->
+    <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
             <li>
@@ -128,22 +146,22 @@
                             <strong>Xử lý Laptop trùng</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="/Admin/TrainingProduct">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="/Admin/ConfirmNewLaptop">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận laptop mới</strong>
                         </a>
-                           </li>
-                           <li>
-                         <a href="/Admin/ConfirmNewHardware">
+                    </li>
+                    <li>
+                        <a href="/Admin/ConfirmNewHardware">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận linh kiện mới</strong>
                         </a>
@@ -181,7 +199,7 @@
                             <strong>Danh sách sản phẩm</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="@Url.Action("Index", "ViewFeedback")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -250,7 +268,7 @@
                         </a>
                     </li>
 
-                    <li >
+                    <li>
                         <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
@@ -282,7 +300,7 @@
 @section mainHeader
 {
     <ul>
-        <li style="margin-right: 5px"><a style="cursor: default;font-size:27px;">
+        <li style="margin-right: 5px"><a style="cursor: default; font-size: 27px;">
             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Hệ thống</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
@@ -351,12 +369,14 @@
                     <tr>
                         <th>STT</th>
                         <th>Người dùng</th>
-                        <th>Tên Máy</th>
                         <th>Đường dẫn</th>
                         <th>Thời gian đề xuất</th>
                         <th>Thao tác</th>
-                        <td>
-                            <input type="submit" value="Hủy bỏ" class="da-button pink:!important" onclick="updateStatus()" />
+                        <td style="width:1px !important">
+                            <input type="submit" value="Tự động" class="da-button blue" onclick="updateAuto()" />
+                        </td>
+                        <td style="width:1px !important">
+                            <input type="submit" value="Hủy bỏ" class="da-button red" onclick="removeRecommend()" />
                         </td>
                     </tr>
                 </thead>
@@ -366,23 +386,29 @@
                         foreach (var item in Model)
                         {
                             bool status = false;
-                            if(item.IsApprove == null)
+                            if (item.IsApprove == null)
                             {
                                 status = true;
                             }
-                            else if (item.IsApprove !=null && (bool)item.IsApprove ==false)
+                            bool autoButton = false;
+                            if (item.IsTrue.Value == false)
                             {
-                                status = false;
+                                autoButton = true;
                             }
                         <tr>
                             <td>@counter</td>
                             <td>@item.Username</td>
-                            <td>@item.Name</td>
                             <td><a href="@item.Parselink">Xem đường dẫn</a></td>
                             <td>@item.RecommendTime</td>
                             <td>
                                 @Html.ActionLink("Cập nhật", "LoadWebProduct", new { id = item.ID })
                             </td>
+                            @if (autoButton)
+                            {
+                                <td>
+                                    <input type="checkbox" name="idListAuto" value="@item.ID"/>
+                                </td>
+                            }
                             @if (status)
                             {
                                 <td>
