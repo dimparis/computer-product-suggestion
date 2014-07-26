@@ -175,33 +175,47 @@ namespace CPS_Solution.Areas.Admin.Controllers
             Task.Factory.StartNew(() => job.DoTask(rcmdProduct, parseInfoes));
             return RedirectToAction("Index");
         }
-        public ActionResult LoadPreview(ProductParserCreator creator)
+        [HttpPost]
+        public PartialViewResult LoadPreview(string parseLink,string name,string price,string hdd, string vga,string ram,string cpu,string display, string image)
         {
+            var model = new ProductParserCreator
+            {
+                ParseProductLink = parseLink,
+                ProductNameXpath = name,
+                PriceXpath = price,
+                ImageXpath = image,
+                HDDXpath =hdd,
+                VGAXpath = vga,
+                CPUXpath = cpu,
+                RAMXpath =ram,
+                DisplayXpath = display
+            };
+
             ProductData data = new ProductData();
             try
             {            // Create Firefox browser
                 var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
                 //do more to get data
-                var uri = new Uri(creator.ParseProductLink);
+                var uri = new Uri(model.ParseProductLink);
                 string host = uri.GetLeftPart(UriPartial.Authority);
                 //load page
                 System.Net.ServicePointManager.Expect100Continue = false;
                 HtmlNode.ElementsFlags.Remove("form");
-                var doc = web.Load(creator.ParseProductLink);
+                var doc = web.Load(model.ParseProductLink);
 
-                data = ParserHelper.MatchingProductData(host, doc, creator.ProductNameXpath, creator.PriceXpath, creator.ImageXpath, creator.CPUXpath, creator.VGAXpath, creator.HDDXpath, creator.RAMXpath, creator.DisplayXpath);
+                data = ParserHelper.MatchingProductDataPreview(host, doc, model.ProductNameXpath, model.PriceXpath, model.ImageXpath, model.CPUXpath, model.VGAXpath, model.HDDXpath, model.RAMXpath, model.DisplayXpath);
                 
-                return View(data);
+                return PartialView(data);
             }
             catch (System.Net.WebException ex)
             {
-                LoadPreview(creator);
+                LoadPreview(parseLink, name, price, hdd, vga, ram, cpu, display, image);
             }
             catch (HtmlWebException ex)
             {
-                LoadPreview(creator);
+                LoadPreview(parseLink, name, price, hdd, vga, ram, cpu, display, image);
             }
-            return View();
+            return PartialView();
         }
     }
 }

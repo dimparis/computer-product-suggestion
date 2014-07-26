@@ -1,0 +1,61 @@
+﻿@model CPS_Solution.Areas.Admin.Models.ProductData
+<!----------------Popup sửa sản phẩm đúng----------->
+<div class="da-panel">
+    <div class="grid_2" style="width: 300px; margin-top: 7%">
+        <li style="list-style:none">
+            <a href="#">
+                <!-- Icon Container -->
+                <span class="da-nav-icon">
+                    <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/32/cog_4.png")" alt="Charts" />
+                </span>
+                <strong style="font-size:18px">Hình ảnh sản phẩm</strong>
+            </a>
+        </li>
+        <img src="@Model.Image" width="300px" height="250px"/>
+
+    </div>
+    <div class="grid_2" style="width: 437px">
+        <div class="da-panel-header">
+            <span class="da-panel-title">
+                <img src="/Areas/Admin/Dandelion/images/icons/color/blog.png" alt="">
+                Thông số kĩ thuật của sản phẩm
+            </span>
+        </div>
+        <div class="da-panel-content">
+            <table class="da-table da-detail-view" style="width: 100%">
+                <tbody>
+                    <tr class="odd">
+                        <th style="width: 30px !important">Tên</th>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr class="even">
+                        <th>Giá</th>
+                        <td>@Model.Price</td>
+                    </tr>
+                    <tr class="odd">
+                        <th>CPU</th>
+                        <td>@Model.CPU</td>
+                    </tr>
+                    <tr class="even">
+                        <th>VGA</th>
+                        <td>@Model.VGA</td>
+                    </tr>
+                    <tr class="odd">
+                        <th>RAM</th>
+                        <td>@Model.RAM</td>
+                    </tr>
+                    <tr class="even">
+                        <th>HDD</th>
+                        <td>@Model.HDD</td>
+                    </tr>
+                    <tr class="odd">
+                        <th>Display</th>
+                        <td>@Model.Display</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>

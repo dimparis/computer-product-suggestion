@@ -1,10 +1,9 @@
 ﻿@model CPS_Solution.Areas.Admin.Models.ProductParserCreator
 @{
-    ViewBag.Title = "Tạo Parser";
+    ViewBag.Title = "Parser Laptop";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
 @section headScript
 {
     <!-- CSS Reset -->
@@ -18,25 +17,51 @@
     <!-- Demo Stylesheet -->
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/demo.css")" media="screen" />
 
-
-    <!-- jQuery JavaScript File -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
+    <!-- Plugin Files -->
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css" />
     <!-- Demo JavaScript Files -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.validation.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.dashboard.js")"></script>
-
-    <!-- Validation Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/validate/jquery.validate.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.circularstat.min.js")"></script>
-
-
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.icons.js"></script>
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.core.js"></script>
     <!-- Customizer JavaScript File (remove if not needed) -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js")"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
+
+    <!--  Demo JavaScript Files popup Ui Popup 
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
+    <!-- jGrowl Plugin   -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
+
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="~/AreaAdmin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
+    <!-- Chosen Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
+
+    <!----------------------------- Lên datatable Plugin------------------------------------------>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 }
 @section sidebar
 {
-   <!-- Main Navigation -->
+    <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
             <li>
@@ -73,7 +98,6 @@
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/rating.png")" alt="" />
                             <strong>Đánh giá</strong>
                         </a>
-
                     </li>
                     <li>
                         <a href="@Url.Action("HistoryCompare", "StatisticProduct")">
@@ -94,7 +118,7 @@
                     <strong>Dữ liệu</strong>
                 </a>
                 <ul>
-                    <li >
+                    <li>
                         <a href="/Admin/importexcelLap">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
                             <strong>Nhập Laptop từ Excel</strong>
@@ -115,22 +139,22 @@
                             <strong>Xử lý Laptop trùng</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="/Admin/TrainingProduct">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="/Admin/ConfirmNewLaptop">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận laptop mới</strong>
                         </a>
-                           </li>
-                           <li>
-                         <a href="/Admin/ConfirmNewHardware">
+                    </li>
+                    <li>
+                        <a href="/Admin/ConfirmNewHardware">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận linh kiện mới</strong>
                         </a>
@@ -168,7 +192,7 @@
                             <strong>Danh sách sản phẩm</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="@Url.Action("Index", "ViewFeedback")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -212,7 +236,7 @@
                     <strong>Quản lí trọng số</strong>
                 </a>
                 <ul class="closed">
-                   <li>
+                    <li>
                         <a href="@Url.Action("Index", "FillWeightHardWare")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/manager.png")" alt="" />
                             <strong>Danh sách trọng số</strong>
@@ -237,7 +261,7 @@
                         </a>
                     </li>
 
-                    <li >
+                    <li>
                         <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
@@ -270,11 +294,11 @@
 @section mainHeader
 {
     <ul>
-        <li style="margin-right: 5px"><a style="cursor: default;font-size:27px;">
-            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Khách hàng gợi ý</strong></a></li>
+        <li style="margin-right: 5px"><a style="cursor: default; font-size: 23px;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Sản phẩm đề xuất</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
-            <a href="@Url.Action("CreateProductParser", "Recommend")" style="font-size:20px;font-style:italic;text-decoration:underline">Tạo mới Parser<a>
+            <a href="@Url.Action("CreateProductParser", "Recommend")" style="font-size:20px;font-style:italic;text-decoration:underline">Xử lý đề xuất<a>
         </li>
     </ul>
 }
@@ -321,7 +345,6 @@
 }
 <!-- Content Area -->
 
-<h1>Tạo Parser </h1>
 <div class="grid_4">
     <div class="da-panel">
         <div class="da-panel-header">
@@ -333,18 +356,15 @@
         <div class="da-panel-content">
             @using (Html.BeginForm("LoadWebProduct", "Recommend", FormMethod.Post, new { @class = "da-form" }))
             {
+                var model = @Model;
                 <div id="da-ex-val1-error" class="da-message error" style="display: none;"></div>
                 <div class="da-form-inline">
                     <div class="da-form-row">
                         <label>Link cần lấy<span class="required">*</span></label>
                         <div class="da-form-item large">
-                            @Html.TextBoxFor(x => x.ParseProductLink, new { placeholder = "Nhập link cần parse", Value = TempData["link"], required = "required" })
+                            @Html.TextBoxFor(x => x.ParseProductLink, new { placeholder = "Nhập link cần parse", Value = TempData["link"], required = "required", id = "linkPreview",disabled="disabled" })
                         </div>
                     </div>
-                </div>
-                <div class="da-button-row">
-                    <input type="reset" value="Reset" class="da-button gray" />
-                    <input type="submit" id="btnSubmit" value="Summit" class="da-button green" />
                 </div>
             }
         </div>
@@ -473,14 +493,63 @@
                         <legend>Xác nhận</legend>
                         <div class="da-form-row">
                             <h1>Bạn chắc chắc với những gì đã chọn? </h1>
+                            <input type="button" id="previewbtn" value="Xem Trước" />
                         </div>
                     </fieldset>
                 }
             </div>
         </div>
     </div>
+    <div id="previewParser">
+    </div>
     <div class="grid_4">
         <iframe id="webDiv" src="@Url.Content("~/Areas/Admin/SavedPages/ProductTmp.html")" width="1043" height="600"></iframe>
     </div>       
             
 }
+<script>
+    //Xem trước sản phẩm
+    var $productName = $('#xpathProductName');
+    var $price = $('#xpathPrice');
+    var $cpu = $('#xpathCPU');
+    var $hdd = $('#xpathHDD');
+    var $vga = $('#xpathVGA');
+    var $ram = $('#xpathRAM');
+    var $image = $('#xpathImage');
+    var $display = $('#xpathDisplay');
+    var $parseLink = $('#linkPreview');
+    $(document).on('click', '#previewbtn', function(){
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadPreview", "Recommend")',
+            data: {
+                parseLink:$parseLink.val(),
+                name : $productName.val(),
+                price : $price.val(),
+                hdd: $hdd.val(),
+                vga: $vga.val(),
+                ram: $ram.val(),
+                cpu: $cpu.val(),
+                display: $display.val(),
+                image: $image.val(),
+            },
+            success: function (result) {
+                $('#previewParser').css("z-index", "1000");
+                $('#previewParser').html(result);
+                $("#previewParser").dialog({
+                    autoOpen: false, 
+                    title: "Xem trước các thành phần", 
+                    width: "800", 
+                    modal: true             
+                    //buttons: [{
+                    //    text: "Đóng", 
+                    //    click: function() {
+                    //        $( this ).dialog( "close" );
+                    //    }}]
+                });
+                $("#previewParser").dialog("option", {modal: true}).dialog("open");
+                event.preventDefault();
+            }
+        })
+    })
+</script>
