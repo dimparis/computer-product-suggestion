@@ -52,7 +52,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         /// <param name="idUser"></param>
         /// <param name="idLap"></param>
         /// <param name="contextReport"></param>
-        public void SaveLogReportLaptop(string idUser,string idLap, string contextReport)
+        public void SaveLogReportLaptop(string idUser, string idLap, string contextReport)
         {
             // lấy dữ liệu trong file text traning ra LogFileReportLaptop;
             string path = Server.MapPath("~Areas/Admin/LogFiles/LogFileReportLaptop.txt");
@@ -77,8 +77,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 System.IO.File.WriteAllLines(path, save);
             }
         }
-       
+
         
-      
+
+
     }
 }
