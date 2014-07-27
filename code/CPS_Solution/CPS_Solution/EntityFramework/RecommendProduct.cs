@@ -16,8 +16,10 @@ namespace CPS_Solution.EntityFramework
     {
         public int ID { get; set; }
         public string Username { get; set; }
+        public bool IsReceive { get; set; }
+        public bool IsMailSent { get; set; }
         public string Parselink { get; set; }
-        public string Name { get; set; }
+        public string Email { get; set; }
         public Nullable<bool> IsApprove { get; set; }
         public Nullable<bool> IsTrue { get; set; }
         public Nullable<System.DateTime> RecommendTime { get; set; }

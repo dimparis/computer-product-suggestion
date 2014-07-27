@@ -231,8 +231,10 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="IsReceive" Type="bit" Nullable="false" />
+          <Property Name="IsMailSent" Type="bit" Nullable="false" />
           <Property Name="Parselink" Type="nvarchar" MaxLength="200" />
-          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="IsApprove" Type="bit" />
           <Property Name="IsTrue" Type="bit" />
           <Property Name="RecommendTime" Type="datetime" />
@@ -703,8 +705,10 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="IsReceive" Type="Boolean" Nullable="false" />
+          <Property Name="IsMailSent" Type="Boolean" Nullable="false" />
           <Property Name="Parselink" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="Name" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="IsApprove" Type="Boolean" />
           <Property Name="IsTrue" Type="Boolean" />
           <Property Name="RecommendTime" Type="DateTime" Precision="3" />
@@ -1085,8 +1089,10 @@
               <MappingFragment StoreEntitySet="RecommendProduct">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="IsReceive" ColumnName="IsReceive" />
+                <ScalarProperty Name="IsMailSent" ColumnName="IsMailSent" />
                 <ScalarProperty Name="Parselink" ColumnName="Parselink" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
                 <ScalarProperty Name="IsTrue" ColumnName="IsTrue" />
                 <ScalarProperty Name="RecommendTime" ColumnName="RecommendTime" />

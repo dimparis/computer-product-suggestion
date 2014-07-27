@@ -61,7 +61,7 @@
                 </ul>
             </div>
 
-            <div class="span6 fadeRight animated fadeInRight" style="float:left;width:500px">
+            <div class="span6 fadeRight animated fadeInRight" style="float: left; width: 500px">
                 <h3>thông tin đề xuất</h3>
                 @using (Html.BeginForm())
                 {
@@ -69,18 +69,24 @@
                     //Product url
                     <div class="form-group stylish-input ">
                         <h4>Đường dẫn sản phẩm</h4>
-                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link",@style="height:40px;width:300px" })
+                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link", @style = "height:40px;width:300px", @onchange = "LinkCheck()" })
                         @Html.ValidationMessageFor(model => model.Parselink)
-                        <input type="button" value="Kiểm tra" onclick="LinkCheck()" class="stylish-button" style="margin-top: -10px;height:40px;width:100px;background-color: #FF3333" />
                         <div id="status"/>
                     </div>
                     //Product name
                     <div class="form-group stylish-input">
-                        <h4>Tên sản phẩm</h4>
-                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @disabled = "disabled",@style="height:40px;" })
-                        @Html.ValidationMessageFor(model => model.Name)
-                    </div>                                        
-                        <input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="stylish-button" style="height:40px;width:150px; margin-top:5px" />
+                        <h4>Email</h4>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", @style = "height:40px;width:300px", @onchange = "checkEmail()", @disabled = "disabled" })
+
+                        @Html.ValidationMessageFor(model => model.Email)
+                        <div id="statusEmail" />
+                    </div>
+                    <div class="form-group stylish-input">
+                         @Html.CheckBoxFor(model => model.IsReceive, new { @disabled="disabled",id="idMail"})<span>Nhận thông tin khi sản phẩm được cập nhật</span>
+
+                    </div>
+                                
+                    <input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="stylish-button" style="height: 40px; width: 150px; margin-top: 5px" />
                 }
 
             </div>
@@ -92,17 +98,16 @@
     function LinkCheck() {
         document.getElementById("btnSubmit").disabled = true;
         $("#status").html("<img src='@Url.Content("~/Images/I/loading.gif")' width='25px'" +
-                    "height='25px' style='width:25px;height:25px'/><span style='color:blue;v'>  Đang kiểm tra....</span>");
+                    "height='25px' style='width:25px;height:25px'/><span style='color:green'>  Đang kiểm tra....</span>");
         $.post("/Product/checkLink",
         { link: $("#link").val() },
         function (data) {
             if (data != 0) {
                 $("#status").html("<img src='@Url.Content("~/Images/I/good.gif")' width='25px'" + "height='25px'style='width:25px;height:25px'/><span style='color:green'>Đường dẫn có thực.</span>");
                 $("#link").css('background-color', '');
-                $("#btnSubmit").prop("disabled", false)
-                $('#Name').val(data);
-                $('#Name').prop("disabled", false);
-                $("#Name").focus();
+                //$("#btnSubmit").prop("disabled", false)
+                $('#email').prop("disabled", false);
+                $('#idMail').prop("disabled", false);
             }
             else {
                 $("#status").html("<img src='@Url.Content("~/Images/I/bad.gif")' width='25px'" + "height='25px' style='width:25px;height:25px'/><span style='color:red'>Đường dẫn không có thực.</span>");
@@ -110,6 +115,21 @@
                 document.getElementById("btnSubmit").disabled = true;
             }
         });
+    }
+    function checkEmail() {
+        //Match emailAddress
+        var emailAddress = $("#email").val()
+        var regex = /^[a-z0-9\.\_%+-]+@@[a-z0-9\.\-]+\.[a-z]{2,4}$/i;
+
+        if (!emailAddress.search(regex)) {
+            $("#statusEmail").html("<img src='@Url.Content("~/Images/I/good.gif")' width='25px'" + "height='25px'style='width:25px;height:25px'/><span style='color:green'>Email hợp lệ .</span>");
+            $("#email").css('background-color', '');
+            document.getElementById("btnSubmit").disabled = false;
+        }
+        else {
+            $("#statusEmail").html("<img src='@Url.Content("~/Images/I/bad.gif")' width='25px'" + "height='25px' style='width:25px;height:25px'/><span style='color:red'>Email không hợp lệ .</span>");
+            $("#email").css('background-color', '#e97878');
+        }
     }
 </script>
 

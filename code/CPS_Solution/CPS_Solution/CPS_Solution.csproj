@@ -209,6 +209,7 @@
     <Compile Include="Areas\Admin\Models\ProductParserCreator.cs" />
     <Compile Include="Areas\Admin\Models\ShowInfoRepository .cs" />
     <Compile Include="CommonClass\AutoParseJob.cs" />
+    <Compile Include="CommonClass\AutoSendMail.cs" />
     <Compile Include="CommonClass\AutoUpdatePrice.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
     <Compile Include="CommonClass\CustomMembershipProvider.cs" />
@@ -301,6 +302,7 @@
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\DataManager.cs" />
     <Compile Include="Models\HistoryDetailViewModel.cs" />
+    <Compile Include="Models\RecommendViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -3256,6 +3258,11 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Areas\Admin\Views\TraningLaptop\showInfo1.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommend\ConfirmTrueLink.cshtml" />
+    <Content Include="Areas\Admin\Views\FillWeightHardWare\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\TakeSummary.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommend\LoadPreview.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommend\UnApproveLink.cshtml" />
     <EntityDeploy Include="EntityFramework\CPS_Solution.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CPS_Solution.Designer.cs</LastGenOutput>
@@ -3273,11 +3280,6 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Recommend\ConfirmTrueLink.cshtml" />
-    <Content Include="Areas\Admin\Views\FillWeightHardWare\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\TakeSummary.cshtml" />
-    <Content Include="Areas\Admin\Views\Recommend\LoadPreview.cshtml" />
-    <Content Include="Areas\Admin\Views\Recommend\UnApproveLink.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -3693,6 +3695,7 @@
     <Content Include="Views\Product\SamePriceProduct.cshtml" />
     <Content Include="Views\Product\LoadProductByPoint.cshtml" />
     <Content Include="Views\Product\SearchByPriceAndBrand.cshtml" />
+    <Content Include="Views\Product\ThanksForRecommend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Dandelion\plugins\elfinder\files\.tmb\" />

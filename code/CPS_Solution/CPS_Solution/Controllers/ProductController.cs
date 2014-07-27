@@ -10,6 +10,7 @@ using System.Net;
 using HtmlAgilityPack;
 using System.IO;
 using CPS_Solution.Models;
+using CPS_Solution.CommonClass;
 namespace CPS_Solution.Controllers
 {
     public class ProductController : Controller
@@ -178,7 +179,6 @@ namespace CPS_Solution.Controllers
 
         public ActionResult Recommend()
         {
-            ViewBag.Username = new SelectList(db.Accounts, "member1", "123456");
             return View();
         }
 
@@ -194,18 +194,22 @@ namespace CPS_Solution.Controllers
             recommendproduct.IsTrue = false;
             if(User.Identity.Name ==null || User.Identity.Name =="Guest")
             {
-                recommendproduct.Name = "Guest";                
+                recommendproduct.Username = "Guest";                
             }
             else if (User.Identity.Name != null && User.Identity.Name != "Guest")
             {
                 if (ModelState.IsValid)
                 {
-                    recommendproduct.Name = User.Identity.Name;
+                    recommendproduct.Username = User.Identity.Name;
                 }
             }
             db.RecommendProducts.Add(recommendproduct);
             db.SaveChanges();
-            return RedirectToAction("SearchForProduct");;
+            return RedirectToAction("ThanksForRecommend");;
+        }
+        public ActionResult ThanksForRecommend() 
+        {
+            return View();
         }
         public JsonResult checkLink(string link)
         {
@@ -229,8 +233,6 @@ namespace CPS_Solution.Controllers
                 var document = web.Load(URL);
                 if (web.StatusCode == HttpStatusCode.OK)
                 {
-
-                    title = document.DocumentNode.SelectSingleNode("//title").InnerText;
                     return true;
                 }
             }

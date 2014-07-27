@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CPS_Solution.Areas.Admin.Helpers;
 using CPS_Solution.Areas.Admin.Models;
 using CPS_Solution.EntityFramework;
+using CPS_Solution.CommonClass;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class SystemController : Controller
@@ -25,6 +26,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             else if (User.IsInRole("Staff"))
             {
+                var recommendProducts = context.RecommendProducts.Where(x => x.IsMailSent == false &&
+                x.IsReceive == true && x.IsApprove == true).ToList();
+                AutoSendMail auto = new AutoSendMail();
+                auto.AutoSendMailforUser(recommendProducts);
                 return RedirectToAction("ConfigureSystem", "System");
             }
             else if (User.IsInRole("Member"))

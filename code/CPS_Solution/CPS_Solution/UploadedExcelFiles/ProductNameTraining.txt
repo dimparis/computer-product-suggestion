@@ -434,3 +434,4 @@
 384~4 GB DDR3|R|0|1211#4 GB DDR3L |||
 384~Intel® Core™ i5-3317U |C|0|1247#Intel® Core™ i5-3337U |||
 142~15.6 inch, HD (1366 x 768 pixels)|D|0|1125#14 inch, HD (1366 x 768 pixels)|||
+144~15.6 inch, HD (1366 x 768 pixels)|D|0|1125#14 inch, HD (1366 x 768 pixels)|D|0|0

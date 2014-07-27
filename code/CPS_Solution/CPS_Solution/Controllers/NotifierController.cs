@@ -33,7 +33,13 @@ namespace CPS_Solution.Controllers
                 context.SaveChanges();
                 if (data.Count > 0)
                 {
-                    return Json(data.Select(product => new { name = product.Name, parseLink = product.Parselink}).ToList(), JsonRequestBehavior.AllowGet);
+                    List<AliasProduct> products = new List<AliasProduct>();
+                    foreach (var item in data) 
+                    {
+                        var newItem = context.AliasProducts.Where(x => x.URL.Contains(item.Parselink)).FirstOrDefault();
+                        products.Add(newItem);
+                    }
+                    return Json(products.Select(product => new { name = product.Name ,parseLink = product.URL }).ToList(), JsonRequestBehavior.AllowGet);
                 }
             }
             return Json("NoneData", JsonRequestBehavior.AllowGet);
