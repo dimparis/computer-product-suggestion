@@ -19,8 +19,6 @@
     <!-- Demo Stylesheet -->
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/demo.css")" media="screen" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/core/core.css")" media="screen" />
-        <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
     @RenderSection("headScript", true)
     <title>@ViewBag.Title | CPS Solution</title>
 
@@ -50,7 +48,7 @@
                         </div>
                     </div>
 
-                    <div style="float:left; margin-left:-90px">
+                    <div style="float: left; margin-left: -90px">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/admin-panel.png")" alt="Dandelion Admin" />
                     </div>
 
@@ -231,13 +229,13 @@
                         target3.text(data.NumberOfNewHardwares + ' linh kiện mới chờ duyệt');
                         if (value != target.text()) {
                             target.effect("highlight", 3000);
-                        }                     
+                        }
                         if (value1 != target1.text()) {
                             target1.effect("highlight", 3000);
-                        }                      
+                        }
                         if (value2 != target2.text()) {
                             target2.effect("highlight", 3000);
-                        }                   
+                        }
                         if (value3 != target3.text()) {
                             target3.effect("highlight", 3000);
                         }

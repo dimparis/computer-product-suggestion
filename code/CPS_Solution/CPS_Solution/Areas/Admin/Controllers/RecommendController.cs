@@ -155,9 +155,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
         }
 
+        public ActionResult UnApproveLink()
+        {
+            var recommends = context.RecommendProducts.Where(x => x.IsApprove == false).ToList();
+            return View(recommends);
+        }
         public ActionResult ConfirmTrueLink()
         {
-            var recommends = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == false).ToList();
+            var recommends = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == true).ToList();
             return View(recommends);
         }
         [HttpPost]
@@ -166,7 +171,25 @@ namespace CPS_Solution.Areas.Admin.Controllers
             var recommend = context.RecommendProducts.FirstOrDefault(x => x.ID == id && x.IsApprove == null);
             if (ModelState.IsValid)
             {
-                recommend.IsTrue = true;
+                recommend.IsTrue = false;
+                TempData["SetIsTrue"] = "success";
+                context.SaveChanges();
+            }
+            // Display the confirmation message
+            var results = new RecommendProduct
+            {
+                IsTrue = true
+            };
+            return Json(results);
+        }
+        [HttpPost]
+        public ActionResult SetIsPending(int id)
+        {
+            var recommend = context.RecommendProducts.FirstOrDefault(x => x.ID == id);
+            if (ModelState.IsValid)
+            {
+                recommend.IsApprove = null;
+                recommend.IsTrue = false;
                 TempData["SetIsTrue"] = "success";
                 context.SaveChanges();
             }
@@ -194,7 +217,24 @@ namespace CPS_Solution.Areas.Admin.Controllers
             };
             return Json(results);
         }
-
+        [HttpPost]
+        public ActionResult SetIsAuto(int id)
+        {
+            var recommend = context.RecommendProducts.FirstOrDefault(x=>x.IsApprove.Value==false);
+            if (ModelState.IsValid)
+            {
+                recommend.IsApprove = null;
+                recommend.IsTrue = true;
+                TempData["SetIsAuto"] = "success";
+                context.SaveChanges();
+            }
+            // Display the confirmation message
+            var results = new RecommendProduct
+            {
+                IsApprove = false
+            };
+            return Json(results);
+        }
         [HttpPost]
         public RedirectToRouteResult ParseRecommend()
         {
