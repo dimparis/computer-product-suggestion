@@ -61,6 +61,9 @@
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
     </style>
+    <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 }
 @section sidebar
 {
@@ -343,13 +346,12 @@
         });
     </script>
 }
-
 <div class="grid_4">
     <div class="da-panel-content">
         @if (TempData["SetIsTrue"] != null)
         {
             <div class="da-message success">
-                Xác nhận đề xuất đúng thành công.
+                Đề xuất đã chuyển sang trang thái chờ duyệt.
             </div>
         }
         else if (TempData["SetIsFalse"] != null)
@@ -365,8 +367,20 @@
         <div class="da-panel-header">
             <span class="da-panel-title">
                 <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/16/list.png")" alt="" />
-                Danh sách các đề xuất cần được kiểm tra
+                Danh sách sản phẩm cập nhật tự động
             </span>
+            @using (Html.BeginForm("ParseRecommend", "Recommend"))
+            {
+                if (!CPS_Solution.CommonClass.ConstantManager.IsRecommendRunning)
+                {
+                <input type="submit" value="Cập nhật đề xuất" class="da-button blue" style="position: absolute; right: 75px; top: 15px; width: 120px" />
+                }
+                else
+                {
+                <input type="submit" value="Đang cập nhật đề xuất" disabled="disabled" class="da-button red" style="position: absolute; right: 75px; top: 15px; width: 120px" />
+                           
+                }
+            }
         </div>
         <div class="da-panel-content">
             <table id="da-ex-datatable-numberpaging" class="da-table">
@@ -376,7 +390,7 @@
                         <th>Người dùng</th>
                         <th>Đường dẫn</th>
                         <th>Thời gian đề xuất</th>
-                        <th>Thao tác</th>
+                        <td style="width: 1px !important">Thao tác </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -389,9 +403,9 @@
                             <td>@item.Username</td>
                             <td><a href="@item.Parselink">Xem đường dẫn</a></td>
                             <td>@item.RecommendTime</td>
-                            <td>
-                                <input type="submit" value="Xác nhận" class="da-button blue" style="width:120px" data-id="@item.ID"/>
-                                <input type="submit" value="Hủy bỏ" class="da-buttonRed" style="width:120px" data-id="@item.ID"/>
+                            <td style="width: 167px !important">
+                                <input type="submit" value="Khôi phục" class="da-button blue" style="width:80px" data-id="@item.ID"/>
+                                <input type="submit" value="Hủy bỏ" class="da-buttonRed" style="width:80px" data-id="@item.ID"/>
                             </td>
                         </tr>
                             counter++;
@@ -400,5 +414,39 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+<div class="grid_2">
+    <div class="da-panel-widget">
+        <ul class="da-summary-stat">
+            <li>
+                <a href="@Url.Action("Index", "Recommend")">
+                    <span class="da-summary-icon" style="background-color: #61a5e4;">
+                        <img src="/Areas/Admin/Dandelion/images/icons/black/32/settings.png" alt="">
+                    </span>
+                    <span class="da-summary-text">
+                        <span class="value">Đề xuất</span>
+                        <span class="label">Danh sách đề xuất chờ duyệt</span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="grid_2">
+    <div class="da-panel-widget">
+        <ul class="da-summary-stat">
+            <li>
+                <a href="@Url.Action("UnApproveLink", "Recommend")">
+                    <span class="da-summary-icon" style="background-color: #e15656;">
+                        <img src="/Areas/Admin/Dandelion/images/icons/black/32/settings.png" alt="">
+                    </span>
+                    <span class="da-summary-text">
+                        <span class="value">Hủy bỏ</span>
+                        <span class="label">Danh sách đề xuất đã được hủy bỏ</span>
+                    </span>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>

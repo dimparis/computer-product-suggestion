@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.RecommendProduct>
 
 @{
-    ViewBag.Title = "Đề xuất sản phẩm";
+    ViewBag.Title = " Hủy bỏ đề xuất sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 @section headScript
@@ -26,47 +26,44 @@
     <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css")" />
     <!-- Core JavaScript Files -->
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
-
     <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        function updateAuto() {
-            var vals = [];
-            $('input:checkbox[name=idListAuto]:checked').each(function () {
-                vals.push($(this).val());
-            });
-
-            $.ajax({
-                url: "/Admin/Recommend/setStatusAuto",
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ idListAuto: vals }),
-                success: function (msg) {
-                    location.reload();
-                }
-            })
+    <style>
+        .da-buttonRed {
+            display: inline-block;
+            background-color: rgb(225,86,86);
+            background-image: linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -o-linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -moz-linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -webkit-linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -ms-linear-gradient(bottom, rgb(225,86,86) 0%, rgb(247,114,114) 100%);
+            background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(225,86,86)), color-stop(1, rgb(247,114,114)) );
+            border-color: #bb2929 border: none;
+            outline: none;
+            font: 12px/17px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            padding: 4px 12px;
+            margin: 0;
+            width: auto;
+            cursor: pointer;
+            text-decoration: none;
+            zoom: 1;
+            overflow: hidden;
+            color: #ffffff;
+            border: 1px solid;
+            text-shadow: 1px 1px rgba(0, 0, 0, 0.35);
+            -webkit-border-radius: 2px;
+            -o-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            -webkit-appearance: none;
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
-        function removeRecommend() {
-            var vals = [];
-            $('input:checkbox[name=idList]:checked').each(function () {
-                vals.push($(this).val());
-            });
-
-            $.ajax({
-                url: "/Admin/Recommend/setStatus",
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ idList: vals }),
-                success: function (msg) {
-                    location.reload();
-                }
-            })
-        }
-    </script>
+    </style>
 }
 @section sidebar
 {
@@ -318,31 +315,50 @@
 
     <!-- Demo JavaScript Files -->
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.tables.js")"></script>
-}
+    <script type="text/javascript">
+        $(function () {
+            $(".da-button").click(function () {
+                // Get the id from the link
+                var recordToSet = $(this).attr("data-id");
 
+                if (recordToSet != '') {
+
+                    // Perform the ajax post
+                    $.post("/Admin/Recommend/SetIsPending", { "id": recordToSet },
+                        function (data) {
+                            location.reload();
+                        });
+                }
+            });
+            $(".da-buttonRed").click(function () {
+                // Get the id from the link
+                var recordToSet = $(this).attr("data-id");
+
+                if (recordToSet != '') {
+
+                    // Perform the ajax post
+                    $.post("/Admin/Recommend/SetIsAuto", { "id": recordToSet },
+                        function (data) {
+                            location.reload();
+                        });
+                }
+            });
+        });
+    </script>
+}
 <div class="grid_4">
     <div class="da-panel-content">
-        @if (TempData["createbyRecommendProduct"] != null)
+        @if (TempData["SetIsTrue"] != null)
         {
             <div class="da-message success">
-                Sản phẩm được đề xuất đã được cập nhật thành công.
+                Đề xuất đã chuyển sang trạng thái chờ duyệt.
             </div>
         }
-        @if (TempData["updateStatus"] != null)
+        else if (TempData["SetIsAuto"] != null)
         {
-            string statusMessage = TempData["updateStatus"].ToString();
-            if (statusMessage == "Success")
-            {
-            <div class="da-message success">
-                Đề xuất đã được cập nhật thành công.
+            <div class="da-message info">
+                Đề xuất đã chuyển sang trạng thái tự động.
             </div>
-            }
-            else if (statusMessage == "Failed")
-            {
-            <div class="da-message error">
-                Cập nhật Trạng Thái Sản Phẩm được đề xuất thất bại. Xin vui lòng thử lại.
-            </div>
-            }
         }
     </div>
 </div>
@@ -351,7 +367,7 @@
         <div class="da-panel-header">
             <span class="da-panel-title">
                 <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/16/list.png")" alt="" />
-                Danh sách các sản phẩm được người dùng đề cử  
+                Danh sách đề xuất đã được hủy bỏ
             </span>
         </div>
         <div class="da-panel-content">
@@ -362,13 +378,7 @@
                         <th>Người dùng</th>
                         <th>Đường dẫn</th>
                         <th>Thời gian đề xuất</th>
-                        <th>Thao tác</th>
-                        <td style="width: 1px !important">
-                            <input type="submit" value="Tự động" class="da-button blue" onclick="updateAuto()" />
-                        </td>
-                        <td style="width: 1px !important">
-                            <input type="submit" value="Hủy bỏ" class="da-button red" onclick="removeRecommend()" />
-                        </td>
+                        <td style="width: 1px !important">Thao tác </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -376,36 +386,15 @@
                         int counter = 1;
                         foreach (var item in Model)
                         {
-                            bool status = false;
-                            if (item.IsApprove == null)
-                            {
-                                status = true;
-                            }
-                            bool autoButton = false;
-                            if (item.IsTrue.Value == false)
-                            {
-                                autoButton = true;
-                            }
                         <tr>
                             <td>@counter</td>
                             <td>@item.Username</td>
                             <td><a href="@item.Parselink">Xem đường dẫn</a></td>
                             <td>@item.RecommendTime</td>
-                            <td>
-                                @Html.ActionLink("Cập nhật", "LoadWebProduct", new { id = item.ID })
+                            <td style="width: 167px !important">
+                                <input type="submit" value="Khôi phục" class="da-button blue" style="width:80px" data-id="@item.ID"/>
+                                <input type="submit" value="Tự động" class="da-buttonRed" style="width:80px" data-id="@item.ID"/>
                             </td>
-                            @if (autoButton)
-                            {
-                                <td>
-                                    <input type="checkbox" name="idListAuto" value="@item.ID"/>
-                                </td>
-                            }
-                            @if (status)
-                            {
-                                <td>
-                                    <input type="checkbox" name="idList" value="@item.ID"/>
-                                </td>  
-                            }
                         </tr>
                             counter++;
                         } 
@@ -419,13 +408,13 @@
     <div class="da-panel-widget">
         <ul class="da-summary-stat">
             <li>
-                <a href="@Url.Action("ConfirmTrueLink", "Recommend")">
+                <a href="@Url.Action("Index", "Recommend")">
                     <span class="da-summary-icon" style="background-color: #61a5e4;">
                         <img src="/Areas/Admin/Dandelion/images/icons/black/32/settings.png" alt="">
                     </span>
                     <span class="da-summary-text">
-                        <span class="value">Tự động</span>
-                        <span class="label">Danh sách đề xuất sẽ được tự động cập nhật</span>
+                        <span class="value">Khôi phục</span>
+                        <span class="label">Danh sách đề xuất chờ duyệt</span>
                     </span>
                 </a>
             </li>
@@ -436,13 +425,13 @@
     <div class="da-panel-widget">
         <ul class="da-summary-stat">
             <li>
-                <a href="@Url.Action("UnApproveLink", "Recommend")">
+                <a href="@Url.Action("ConfirmTrueLink", "Recommend")">
                     <span class="da-summary-icon" style="background-color: #e15656;">
                         <img src="/Areas/Admin/Dandelion/images/icons/black/32/settings.png" alt="">
                     </span>
                     <span class="da-summary-text">
-                        <span class="value">Hủy bỏ</span>
-                        <span class="label">Danh sách đề xuất dã được hủy bỏ</span>
+                        <span class="value">Tự động</span>
+                        <span class="label">Danh sách đề xuất sẽ được tự động cập nhật</span>
                     </span>
                 </a>
             </li>
