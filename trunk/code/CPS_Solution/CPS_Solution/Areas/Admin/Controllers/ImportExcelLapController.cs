@@ -298,11 +298,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     #region Lấy CPU VGA HDD Display Ram cho vào danh sách riêng để kiểm tra trùng linh kiện
                     // lấy hết CPU trong db ra
                     var listCPUdb = (from a in db.Hardwares where a.CodetypeID.Equals("C") && a.IsActive==true select a);
-                    List<Hardware> listCPU = listCPUdb.ToList();
-
-               //    var list = (from a in db.Dictionaries where a.Hardware.CodetypeID.Equals("C") && a.Hardware.IsActive == true select a);
-
-    
+                    List<Hardware> listCPU = listCPUdb.ToList();               
                     // lấy hết VGA trong db ra
                     var listVGAdb = (from a in db.Hardwares where a.CodetypeID.Equals("V") && a.IsActive == true select a);
                     List<Hardware> listVGA = listVGAdb.ToList();
@@ -542,11 +538,17 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // nếu có trong database rồi thì lấy ID sản phẩm có rồi
                         for (int x = 0; x < listCPU.Count; x++)
                         {
-                            if (listpro[i].CPU.Trim().Equals(listCPU[x].Name.Trim()))
+                            int dicID =listCPU[x].ID;
+                            var DictionaryCPU = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicCPU = DictionaryCPU.ToList();
+                            for (int z = 0; z < listDicCPU.Count; z++)
                             {
-                                idCPU1 = listCPU[x].ID;
-                                break;
-                            }                            
+                                if (listpro[i].CPU.Trim().Equals(listDicCPU[z].Name.Trim()))
+                                {
+                                    idCPU1 = listCPU[x].ID;
+                                    break;
+                                }
+                            }
                         }
                         // nếu chưa có
                         if(idCPU1==0)
@@ -623,11 +625,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // kiểm tra xem có trong database chưa có rồi thì lấy ID đã có
                         for (int x = 0; x < listVGA.Count; x++)
                         {
-                            if (listpro[i].VGA.Trim().Equals(listVGA[x].Name.Trim()))
+                            int dicID = listVGA[x].ID;
+                            var DictionaryVGA = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicVGA = DictionaryVGA.ToList();
+                            for (int z = 0; z < listDicVGA.Count; z++)
                             {
-                                idVGA2 = listVGA[x].ID;
-                                break;
-                            }                          
+                                if (listpro[i].VGA.Trim().Equals(listDicVGA[z].Name.Trim()))
+                                {
+                                    idVGA2 = listVGA[x].ID;
+                                    break;
+                                }     
+                            }
+                                                 
                         }
                         // nếu chưa có trong database
                         if(idVGA2==0)
@@ -702,11 +711,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // nếu có rồi trong database thì lấy ID ra
                         for (int x = 0; x < listHDD.Count; x++)
                         {
-                            if (listpro[i].HDD.Trim().Equals(listHDD[x].Name.Trim()))
+                            int dicID = listHDD[x].ID;
+                            var DictionaryHDD = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicHDD = DictionaryHDD.ToList();
+                            for (int z = 0; z < listDicHDD.Count; z++)
                             {
-                                idHDD3 = listHDD[x].ID;
-                                break;
-                            }                           
+                                if (listpro[i].HDD.Trim().Equals(listDicHDD[z].Name.Trim()))
+                                {
+                                    idHDD3 = listHDD[x].ID;
+                                    break;
+                                }    
+                            }
+                                                  
                         }
                         // nếu chưa có trong database
                         if(idHDD3==0)
@@ -781,11 +797,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // nếu có rồi trong database thì lấy id ra
                         for (int x = 0; x < listDisplay.Count; x++)
                         {
-                            if (listpro[i].Display.Trim().Equals(listDisplay[x].Name.Trim()))
+                            int dicID = listDisplay[x].ID;
+                            var DictionaryDisplay = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicDisplay = DictionaryDisplay.ToList();
+                            for (int z = 0; z < listDicDisplay.Count; z++)
                             {
-                                idDisplay4 = listDisplay[x].ID;
-                                break;
-                            }                           
+                                if (listpro[i].Display.Trim().Equals(listDicDisplay[z].Name.Trim()))
+                                {
+                                    idDisplay4 = listDisplay[x].ID;
+                                    break;
+                                }    
+                            }
+                                                  
                         }
                         // nếu chưa có trong database
                         if (idDisplay4 == 0)
@@ -861,11 +884,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // nếu có rồi trong database thì lấy id ra
                         for (int x = 0; x < listRam.Count; x++)
                         {
-                            if (listpro[i].RAM.Trim().Equals(listRam[x].Name.Trim()))
+                            int dicID = listRam[x].ID;
+                            var DictionaryRam = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicRam = DictionaryRam.ToList();
+                            for (int z = 0; z < listDicRam.Count; z++)
                             {
-                                idRam5 = listRam[x].ID;
-                                break;
+                                if (listpro[i].RAM.Trim().Equals(listDicRam[z].Name.Trim()))
+                                {
+                                    idRam5 = listRam[x].ID;
+                                    break;
+                                }
                             }
+                          
                         }
                         // nếu chưa có trong database
                         if(idRam5==0)
@@ -1169,11 +1199,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // id CPU 1
                         for (int x = 0; x < listCPU.Count; x++)
                         {
-                            if (listpro[i].CPU.Equals(listCPU[x].Name))
+                            int dicID = listCPU[x].ID;
+                            var DictionaryCPU = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicCPU = DictionaryCPU.ToList();
+                            for (int z = 0; z < listDicCPU.Count; z++)
                             {
-                                idCPU1 = listCPU[x].ID;
-                                break;
-                            }                           
+                                if (listpro[i].CPU.Trim().Equals(listDicCPU[z].Name.Trim()))
+                                {
+                                    idCPU1 = listCPU[x].ID;
+                                    break;
+                                }
+                            }
+                        
                         }
                         if (idCPU1 == 0)
                         {
@@ -1221,11 +1258,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // id VGA 2
                         for (int x = 0; x < listVGA.Count; x++)
                         {
-                            if (listpro[i].VGA.Equals(listVGA[x].Name))
+
+                            int dicID = listVGA[x].ID;
+                            var DictionaryVGA = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicVGA = DictionaryVGA.ToList();
+                            for (int z = 0; z < listDicVGA.Count; z++)
                             {
-                                idVGA2 = listVGA[x].ID;
-                                break;
-                            }                          
+                                if (listpro[i].VGA.Trim().Equals(listDicVGA[z].Name.Trim()))
+                                {
+                                    idVGA2 = listVGA[x].ID;
+                                    break;
+                                }
+                            }                     
                         }
                         if (idVGA2 == 0)
                         {
@@ -1271,11 +1315,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // id HDD 3
                         for (int x = 0; x < listHDD.Count; x++)
                         {
-                            if (listpro[i].HDD.Equals(listHDD[x].Name))
+                            int dicID = listHDD[x].ID;
+                            var DictionaryHDD = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicHDD = DictionaryHDD.ToList();
+                            for (int z = 0; z < listDicHDD.Count; z++)
                             {
-                                idHDD3 = listHDD[x].ID;
-                                break;
-                            }                          
+                                if (listpro[i].HDD.Trim().Equals(listDicHDD[z].Name.Trim()))
+                                {
+                                    idHDD3 = listHDD[x].ID;
+                                    break;
+                                }
+                            }
+                      
                         }
                         if (idHDD3 == 0)
                         {
@@ -1321,11 +1372,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // id Display 4
                         for (int x = 0; x < listDisplay.Count; x++)
                         {
-                            if (listpro[i].Display.Equals(listDisplay[x].Name))
+                            int dicID = listDisplay[x].ID;
+                            var DictionaryDisplay = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicDisplay = DictionaryDisplay.ToList();
+                            for (int z = 0; z < listDicDisplay.Count; z++)
                             {
-                                idDisplay4 = listDisplay[x].ID;
-                                break;
-                            }                         
+                                if (listpro[i].Display.Trim().Equals(listDicDisplay[z].Name.Trim()))
+                                {
+                                    idDisplay4 = listDisplay[x].ID;
+                                    break;
+                                }
+                            }
+                   
                         }
                         if (idDisplay4 == 0)
                         {
@@ -1373,11 +1431,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // id Ram
                         for (int x = 0; x < listRam.Count; x++)
                         {
-                            if (listpro[i].RAM.Equals(listRam[x].Name))
+                            int dicID = listRam[x].ID;
+                            var DictionaryRam = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                            List<Dictionary> listDicRam = DictionaryRam.ToList();
+                            for (int z = 0; z < listDicRam.Count; z++)
                             {
-                                idRam5 = listRam[x].ID;
-                                break;
-                            }                          
+                                if (listpro[i].RAM.Trim().Equals(listDicRam[z].Name.Trim()))
+                                {
+                                    idRam5 = listRam[x].ID;
+                                    break;
+                                }
+                            }
+                   
                         }
                         if (idRam5 == 0)
                         {
@@ -1926,8 +1991,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
             List<LapData> listpro = (List<LapData>)Session["listproductLap"];
             List<LapData> listerror = (List<LapData>)Session["listerrorLap"];
             List<List<LapData>> listduplicate = (List<List<LapData>>)Session["listduplicateLap"];
-
-
             String[] info = stringprocorrect.ToString().Split('@');
             string stt = info[0].Trim();
             string Name = info[1].Trim();
@@ -2582,11 +2645,17 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listCPU.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].CPU.Trim().Equals(listCPU[x].Name.Trim()))
+                                    int dicID = listCPU[x].ID;
+                                    var DictionaryCPU = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicCPU = DictionaryCPU.ToList();
+                                    for (int z = 0; z < listDicCPU.Count; z++)
                                     {
-                                        idCPU1 = listCPU[x].ID;
-                                        break;
-                                    }                                
+                                        if (listduplicatenew[i][j].CPU.Trim().Equals(listDicCPU[z].Name.Trim()))
+                                        {
+                                            idCPU1 = listCPU[x].ID;
+                                            break;
+                                        }   
+                                    }                                                         
                                 }
 
                                 if(idCPU1==0)
@@ -2656,11 +2725,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listVGA.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].VGA.Trim().Equals(listVGA[x].Name.Trim()))
+                                    int dicID = listVGA[x].ID;
+                                    var DictionaryVGA = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicVGA = DictionaryVGA.ToList();
+                                    for (int z = 0; z < listDicVGA.Count; z++)
                                     {
-                                        idVGA2 = listVGA[x].ID;
-                                        break;
-                                    }                                  
+                                        if (listduplicatenew[i][j].VGA.Trim().Equals(listDicVGA[z].Name.Trim()))
+                                        {
+                                            idVGA2 = listVGA[x].ID;
+                                            break;
+                                        }   
+                                    }
+
+                                                                  
                                 }
                                 if(idVGA2==0)
                                 {
@@ -2730,11 +2807,17 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listHDD.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].HDD.Trim().Equals(listHDD[x].Name.Trim()))
+                                    int dicID = listHDD[x].ID;
+                                    var DictionaryHDD = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicHDD = DictionaryHDD.ToList();
+                                    for (int z = 0; z < listDicHDD.Count; z++)
                                     {
-                                        idHDD3 = listHDD[x].ID;
-                                        break;
-                                    }                                                                     
+                                        if (listduplicatenew[i][j].HDD.Trim().Equals(listDicHDD[z].Name.Trim()))
+                                        {
+                                            idHDD3 = listHDD[x].ID;
+                                            break;
+                                        }     
+                                    }                                                                                               
                                 }
                                 if (idHDD3 == 0)
                                 {
@@ -2806,11 +2889,17 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listDisplay.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].Display.Trim().Equals(listDisplay[x].Name.Trim()))
+                                    int dicID = listDisplay[x].ID;
+                                    var DictionaryDisplay = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicDisplay = DictionaryDisplay.ToList();
+                                    for (int z = 0; z < listDicDisplay.Count; z++)
                                     {
-                                        idDisplay4 = listDisplay[x].ID;
-                                        break;
-                                    }                                  
+                                        if (listduplicatenew[i][j].Display.Trim().Equals(listDicDisplay[z].Name.Trim()))
+                                        {
+                                            idDisplay4 = listDisplay[x].ID;
+                                            break;
+                                        }      
+                                    }                                                                                                   
                                 }
                                 if(idDisplay4==0)
                                 {
@@ -2881,11 +2970,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 #region
                                 for (int x = 0; x < listRam.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].RAM.Trim().Equals(listRam[x].Name.Trim()))
+                                    int dicID = listRam[x].ID;
+                                    var DictionaryRam = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicRam = DictionaryRam.ToList();
+                                    for (int z = 0; z < listDicRam.Count; z++)
                                     {
-                                        idRam5 = listRam[x].ID;
-                                        break;
-                                    }                                   
+                                        if (listduplicatenew[i][j].RAM.Trim().Equals(listDicRam[z].Name.Trim()))
+                                        {
+                                            idRam5 = listRam[x].ID;
+                                            break;
+                                        }    
+                                    }
+
+                                                                  
                                 }
                                 if(idRam5==0)
                                 {
@@ -3190,11 +3287,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 // id CPU 1
                                 for (int x = 0; x < listCPU.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].CPU.Equals(listCPU[x].Name))
+                                    int dicID = listCPU[x].ID;
+                                    var DictionaryCPU = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicCPU = DictionaryCPU.ToList();
+                                    for (int z = 0; z < listDicCPU.Count; z++)
                                     {
-                                        idCPU1 = listCPU[x].ID;
-                                        break;
-                                    }                                  
+                                        if (listduplicatenew[i][j].CPU.Equals(listDicCPU[z].Name))
+                                        {
+                                            idCPU1 = listCPU[x].ID;
+                                            break;
+                                        }     
+                                    }
+
+                                                                 
                                 }
                                 if (idCPU1 == 0)
                                 {
@@ -3219,11 +3324,20 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 // id VGA 2
                                 for (int x = 0; x < listVGA.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].VGA.Equals(listVGA[x].Name))
+
+                                    int dicID = listVGA[x].ID;
+                                    var DictionaryVGA = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicVGA = DictionaryVGA.ToList();
+                                    for (int z = 0; z < listDicVGA.Count; z++)
                                     {
-                                        idVGA2 = listVGA[x].ID;
-                                        break;
-                                    }                                   
+                                        if (listduplicatenew[i][j].VGA.Equals(listDicVGA[z].Name))
+                                        {
+                                            idVGA2 = listVGA[x].ID;
+                                            break;
+                                        }      
+                                    }
+
+                                                               
                                 }
                                 if (idVGA2 == 0)
                                 {
@@ -3246,11 +3360,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 // id HDD 3
                                 for (int x = 0; x < listHDD.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].HDD.Equals(listHDD[x].Name))
+                                    int dicID = listHDD[x].ID;
+                                    var DictionaryHDD = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicHDD = DictionaryHDD.ToList();
+                                    for (int z = 0; z < listDicHDD.Count; z++)
                                     {
-                                        idHDD3 = listHDD[x].ID;
-                                        break;
-                                    }                                 
+                                        if (listduplicatenew[i][j].HDD.Equals(listDicHDD[z].Name))
+                                        {
+                                            idHDD3 = listHDD[x].ID;
+                                            break;
+                                        }   
+                                    }
+
+                                                                
                                 }
                                 if (idHDD3 == 0)
                                 {
@@ -3273,11 +3395,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 // id Display 4
                                 for (int x = 0; x < listDisplay.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].Display.Equals(listDisplay[x].Name))
+                                    int dicID = listDisplay[x].ID;
+                                    var DictionaryDisplay = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicDisplay = DictionaryDisplay.ToList();
+                                    for (int z = 0; z < listDicDisplay.Count; z++)
                                     {
-                                        idDisplay4 = listDisplay[x].ID;
-                                        break;
-                                    }                                 
+                                        if (listduplicatenew[i][j].Display.Equals(listDicDisplay[z].Name))
+                                        {
+                                            idDisplay4 = listDisplay[x].ID;
+                                            break;
+                                        }    
+                                    }
+
+                                                                
                                 }
                                 if (idDisplay4 == 0)
                                 {
@@ -3302,11 +3432,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
                                 // id Ram
                                 for (int x = 0; x < listRam.Count; x++)
                                 {
-                                    if (listduplicatenew[i][j].RAM.Equals(listRam[x].Name))
+                                    int dicID = listRam[x].ID;
+                                    var DictionaryRam = (from a in db.Dictionaries where a.AttributeDicID == dicID select a);
+                                    List<Dictionary> listDicRam = DictionaryRam.ToList();
+                                    for (int z = 0; z < listDicRam.Count; z++)
                                     {
-                                        idRam5 = listRam[x].ID;
-                                        break;
-                                    }                                  
+                                        if (listduplicatenew[i][j].RAM.Equals(listDicRam[z].Name))
+                                        {
+                                            idRam5 = listRam[x].ID;
+                                            break;
+                                        }   
+                                    }
+
+                                                                   
                                 }
                                 if (idRam5 == 0)
                                 {
