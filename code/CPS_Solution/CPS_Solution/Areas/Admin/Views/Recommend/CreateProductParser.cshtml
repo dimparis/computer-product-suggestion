@@ -503,7 +503,7 @@
             </div>
         </div>
     </div>
-    <div id="previewParser">
+    <div id="previewParser" style="z-index:200 !important">
     </div>
     <div class="grid_4">
         <iframe id="webDiv" src="@Url.Content("~/Areas/Admin/SavedPages/ProductTmp.html")" width="1043" height="600"></iframe>
@@ -537,7 +537,6 @@
                 image: $image.val(),
             },
             success: function (result) {
-                $('#previewParser').css("z-index", "1000");
                 $('#previewParser').html(result);
                 $("#previewParser").dialog({
                     autoOpen: false, 

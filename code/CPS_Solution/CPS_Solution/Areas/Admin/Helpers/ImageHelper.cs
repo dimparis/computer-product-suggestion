@@ -80,7 +80,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         tmp = host + tmp;
                         node.Attributes["src"].Value = tmp;
                     }
-                    else if (tmp.StartsWith("image"))
+                    else if (tmp.StartsWith("im") || tmp.StartsWith("up"))
                     {
                         tmp = host + "/" + tmp;
                         node.Attributes["src"].Value = tmp;

@@ -68,7 +68,10 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 CorrectLink(link, ParseProductLink, "href");
                 //Save file path
                 //Remove all script
-                //document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
+                if (ParseProductLink.Contains("thietbiso.com") || ParseProductLink.Contains("nguyenkim.com"))
+                {
+                    document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
+                }
 
                 string fileName = "ProductTmp.html";
                 string path = Path.Combine(ConstantManager.SavedPath, fileName);
@@ -110,7 +113,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             node.Attributes[attName].Value = tmp;
                             continue;
                         }//modified for laptopgiahuy
-                        else if (tmp.StartsWith("image"))
+                        else if (tmp.StartsWith("im"))
                         {
                             tmp = host + "/" + tmp;
                             node.Attributes["src"].Value = tmp;
@@ -429,7 +432,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 name = doc.DocumentNode.SelectSingleNode(nameXpath);
             }
 
-            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn"))
+            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn") || host.Contains("thietbiso.com"))
             {
                 if (priceXpath != null)
                 {
@@ -440,6 +443,10 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 hdd = doc.DocumentNode.SelectSingleNode(ReplaceUntable(hddXpath, "/t", "//t"));
                 ram = doc.DocumentNode.SelectSingleNode(ReplaceUntable(ramXpath, "/t", "//t"));
                 display = doc.DocumentNode.SelectSingleNode(ReplaceUntable(displayXpath, "/t", "//t"));
+                if (host.Contains("dienmaythienhoa")) 
+                {
+                    imageXpath = ReplaceUntable(imageXpath, "/t", "//t");
+                }
             }
             else
             {
