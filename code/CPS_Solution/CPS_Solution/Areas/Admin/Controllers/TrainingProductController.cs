@@ -689,12 +689,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
                         List<Codetype> Listcodetype = LCodeType.ToList();
 
-                        foreach (Codetype codety in Listcodetype)
-                        {
-                            codety.Name.Equals(listduplicatenew[i][1].loai);
-                            p.CodetypeID = codety.ID;
-                            break;
-                        }
+                        //foreach (Codetype codety in Listcodetype)
+                        //{
+                        //    codety.Name.Equals(listduplicatenew[i][1].loai);
+                            p.CodetypeID = listduplicatenew[i][1].loai;
+                        //    break;
+                        //}
                         p.WeightCriteraPoint = Convert.ToInt32(listduplicatenew[i][1].trongso);
                         // nếu có trọng số rồi thì cho isactive = true
                         if (Convert.ToInt32(listduplicatenew[i][1].trongso)>0)

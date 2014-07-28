@@ -460,13 +460,25 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             int id = Convert.ToInt32(stringid);
             var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
-            bool statusFlag = false;
+            var ProAtt = db.ProductAttributes.Where(x => x.AttributeID == id).ToList();
+
+            if (ProAtt != null)
+            {
+                foreach(ProductAttribute pro in ProAtt)
+                {
+                    pro.IsActive = true;
+                }
+            }
+
             if (hardware.IsActive == null)
             {
 
                 hardware.IsActive = true;
 
                 db.SaveChanges();
+
+
+
             }
             // Display the confirmation message       
             return "";
