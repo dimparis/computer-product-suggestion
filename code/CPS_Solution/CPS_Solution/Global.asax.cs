@@ -32,9 +32,9 @@ namespace CPS_Solution
 
             //Do schedules
             BackgroundConfigurations.StartScheduler();
+            BackgroundConfigurations.ScheduleSendMail();
+            BackgroundConfigurations.ScheduleUpdatePrice();
             BackgroundConfigurations.ScheduleParser();
-            //SqlDependency.Start(ConfigurationManager.ConnectionStrings["ConnStringForWebSecurity"].ConnectionString);
-            //RouteTable.Routes.MapHubs();
         }
     }
 }
