@@ -265,6 +265,26 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // Display the confirmation message       
             return "";
         }
+
+         [HttpPost]
+        public string HuyLaptop(string stringid)
+        {
+            int id = Convert.ToInt32(stringid);
+            var laptop = db.Products.FirstOrDefault(x => x.ID == id);
+
+            if (ModelState.IsValid)
+            {
+                if (laptop.IsActive == null)
+                {
+                    laptop.IsActive = false;
+                    db.SaveChanges();
+                }              
+              
+            }
+            // Display the confirmation message       
+            return "";
+        }
+        
     }
 }
 
