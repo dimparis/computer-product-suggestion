@@ -435,3 +435,5 @@
 384~Intel® Core™ i5-3317U |C|0|1247#Intel® Core™ i5-3337U |||
 142~15.6 inch, HD (1366 x 768 pixels)|D|0|1125#14 inch, HD (1366 x 768 pixels)|||
 144~15.6 inch, HD (1366 x 768 pixels)|D|0|1125#14 inch, HD (1366 x 768 pixels)|D|0|0
+145~Intel® HD Graphics, 32 MB Share 966 MB|V|0|1128#Intel® HD Graphics, Share|V|0|0
+145~15.6 inch, HD (1366 x 768 pixels)|D|0|1125#14 inch, HD (1366 x 768 pixels)|D|0|0

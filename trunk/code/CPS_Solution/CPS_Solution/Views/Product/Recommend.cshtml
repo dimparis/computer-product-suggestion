@@ -36,22 +36,22 @@
                 </ul>
                 <ul class="list unstyled custom-list-small">
                     <li><i class="icon-ok"></i>
-                        <p>Hệ thống sẽ tự thộng lấy tên của sản phẩm và cho bạn chỉnh sửa.</p>
+                        <p>Hệ thống sẽ tự động xác thực sự tồn tại của đường dẫn</p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
                     <li><i class="icon-ok"></i>
-                        <p>Trường hợp đường dẩn không tồn tại, hệ thống sẽ không lấy được tên sản phẩm.</p>
+                        <p>Trường hợp đường dẩn không tồn tại, hệ thống thông báo.</p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
                     <li><i class="icon-ok"></i>
-                        <p>Sau khi có được tên sản phẩm, bạn bấm vào "Gửi Đề Xuất" để hoàn tất việc gửi đề xuất lên cho hệ thống.</p>
+                        <p>Sau khi xác thực đường dẫn thành công.Hệ thống sẽ bắt buộc bạn xác thực địa chỉ email.</p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
                     <li><i class="icon-ok"></i>
-                        <p>Hệ thống sẽ tự đông thông báo cho bạn khi sản phẩm đã được cập nhật thành công. </p>
+                        <p>Nếu bạn đã là thành viên, hệ thống s4 tự động điền thông tin email.</p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
@@ -105,7 +105,11 @@
             if (data != 0) {
                 $("#status").html("<img src='@Url.Content("~/Images/I/good.gif")' width='25px'" + "height='25px'style='width:25px;height:25px'/><span style='color:green'>Đường dẫn có thực.</span>");
                 $("#link").css('background-color', '');
-                //$("#btnSubmit").prop("disabled", false)
+                if (data != 2)
+                {
+                    $('#email').val(data);
+                    document.getElementById("btnSubmit").disabled = false;
+                }
                 $('#email').prop("disabled", false);
                 $('#idMail').prop("disabled", false);
             }

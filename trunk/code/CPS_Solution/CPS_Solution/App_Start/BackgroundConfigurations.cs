@@ -44,7 +44,7 @@ namespace CPS_Solution.App_Start
             IJobDetail job = JobBuilder.Create<AutoUpdatePrice>().WithIdentity("AutoUpdatePrice", "Job").Build();
 
             ITrigger trigger = TriggerBuilder.Create().WithIdentity("UpdatePriceTrigger", "Trigger")
-                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(1, 0))
+                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(4, 0))
                 .Build();
             parserTrigger = trigger;
 
@@ -56,6 +56,18 @@ namespace CPS_Solution.App_Start
                 .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(hours, minutes))
                 .Build();
             scheduler.RescheduleJob(parserTrigger.Key, trigger);
+        }
+        public static void ScheduleSendMail()
+        {
+            IJobDetail job = JobBuilder.Create<AutoSendMail>().WithIdentity("AutoSendMail", "Job").Build();
+
+            ITrigger trigger = TriggerBuilder.Create().WithIdentity("AutoSendMailTrigger", "Trigger")
+                .StartNow()
+                .WithSchedule(SimpleScheduleBuilder.RepeatHourlyForever(2))
+                .Build();
+            parserTrigger = trigger;
+
+            scheduler.ScheduleJob(job, trigger);
         }
     }
 }

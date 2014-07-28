@@ -16,7 +16,7 @@ namespace CPS_Solution.Controllers
     public class ProductController : Controller
     {
         private CPS_SolutionEntities db = new CPS_SolutionEntities();
-        private string title = "";
+        private string email = "";
         //
         // GET: /Product/
 
@@ -192,16 +192,13 @@ namespace CPS_Solution.Controllers
            
             recommendproduct.IsApprove = null;
             recommendproduct.IsTrue = false;
-            if(User.Identity.Name ==null || User.Identity.Name =="Guest")
+            if(User.Identity.IsAuthenticated ==true)
             {
-                recommendproduct.Username = "Guest";                
+                recommendproduct.Username = User.Identity.Name;                
             }
-            else if (User.Identity.Name != null && User.Identity.Name != "Guest")
+            else
             {
-                if (ModelState.IsValid)
-                {
-                    recommendproduct.Username = User.Identity.Name;
-                }
+                    recommendproduct.Username = "Guest";
             }
             db.RecommendProducts.Add(recommendproduct);
             db.SaveChanges();
@@ -217,7 +214,16 @@ namespace CPS_Solution.Controllers
             //string name = form["link"];
             if (IsUrl(link))
             {
-                return Json(title);
+                if (User.Identity.IsAuthenticated == true)
+                {
+                   var account = db.Accounts.Select(x => new { x.Username,x.Email}).Where(x => x.Username == User.Identity.Name).FirstOrDefault();
+                   return Json(account.Email);
+                }
+                else 
+                {
+                    return Json(2);
+                }
+                
             }
             else
             {
