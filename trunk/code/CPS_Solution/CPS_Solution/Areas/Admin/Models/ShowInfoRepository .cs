@@ -24,7 +24,7 @@ namespace CPS_Solution.Areas.Admin.Models
             ShowInfo info = new ShowInfo();
             info.NumberOfHardwaresNoPoint = context.Hardwares.Where(x => x.WeightCriteraPoint <= 0).Count();
             info.NumberOfNewLaptops = context.Products.Where(x => x.IsActive == null).Count();
-            info.NumberOfNewHardwares = context.Products.Where(x => x.IsActive == null).Count();
+            info.NumberOfNewHardwares = context.Hardwares.Where(x => x.IsActive == null).Count();
             info.NumberOfNewRecommends = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == false).Count();
             return info;
         }

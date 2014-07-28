@@ -215,47 +215,34 @@ namespace CPS_Solution.Areas.Admin.Controllers
             HardwareConfirm newConfirm = null;
             List<HardwareConfirm> listOfHardware = new List<HardwareConfirm>();
             // cho vào list
-            int count = 0;
+
             foreach (var item in unConfrimedProducts)
+            {
+                newConfirm = new HardwareConfirm
+                {
+                    IdHardware = item.ID,
+                    CodetypeHardware = item.Codetype.Name,
+                    NameHardware = item.Name,
+                    WeightHardware = item.WeightCriteraPoint,
+                    IdProduct = 0,
+                    NameProduct = "Chưa có sản phẩm nào"
+                };
+                //Cho vào list Add
+                listOfHardware.Add(newConfirm);
+            }
+            foreach (var item in listOfHardware)
             {
                 foreach (var att in productAttribures)
                 {
                     // id của atribute trùng thì cho vào newConfirm
-                    if (att.AttributeID == item.ID)
+                    if (att.AttributeID == item.IdHardware)
                     {
-                        newConfirm = new HardwareConfirm
-                        {
-                            IdHardware = item.ID,
-                            CodetypeHardware = item.Codetype.Name,
-                            NameHardware = item.Name,
-                            WeightHardware = item.WeightCriteraPoint,
-                            IdProduct = att.ProductID,
-                            NameProduct = att.Product.Name
-                        };
+                        item.IdProduct = att.ProductID;
+                        item.NameProduct = att.Product.Name;
                         //Cho vào list Add
-                        listOfHardware.Add(newConfirm);
-                        count++;
                     }
                 }
 
-            }
-
-            if (count == 0)
-            {
-                foreach (var item in unConfrimedProducts)
-                {
-                    newConfirm = new HardwareConfirm
-                    {
-                        IdHardware = item.ID,
-                        CodetypeHardware = item.Codetype.Name,
-                        NameHardware = item.Name,
-                        WeightHardware = item.WeightCriteraPoint,
-                        IdProduct = 0,
-                        NameProduct = "Chưa có sản phẩm nào"
-                    };
-                    //Cho vào list Add
-                    listOfHardware.Add(newConfirm);
-                }
             }
             return listOfHardware;
         }
@@ -448,7 +435,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             #endregion
             return "";
         }
-            #region  code comment
+        #region  code comment
         //public JsonResult AutoCompleteHardware(string term, string codetype)
         //{
         //    if (codetype == null)
@@ -474,11 +461,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
             int id = Convert.ToInt32(stringid);
             var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
             bool statusFlag = false;
-            if (hardware.IsActive==null)
+            if (hardware.IsActive == null)
             {
-               
-                    hardware.IsActive = true;
-                  
+
+                hardware.IsActive = true;
+
                 db.SaveChanges();
             }
             // Display the confirmation message       

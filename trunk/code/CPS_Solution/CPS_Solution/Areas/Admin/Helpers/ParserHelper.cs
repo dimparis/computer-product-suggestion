@@ -644,7 +644,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             Description = "Fill me ",
                             ImageURL = data.Image,
                             TotalWeightPoint = 0,
-                            IsActive = false,
+                            IsActive= null,
                         };
                         //Check for Store
 
@@ -757,6 +757,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 {
                                     ProductID = prod.ID,
                                     AttributeID = pId,
+                                    IsActive =true
                                 };
                                 context.ProductAttributes.Add(productAtt);
                                 context.SaveChanges();
