@@ -9,15 +9,42 @@
     <div id="top-image" class="top-image3">
         <div class="container">
             <div id="top-image-caption">
-                <h2>tìm sản phẩm</h2>
+                <h2 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">tìm sản phẩm</h2>
+            </div>
+        </div>
+    </div>
+    <div id="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="span8">
+                    <ul class="breadcrumb">
+                        <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
+                        <li><p>tìm kiếm</p></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 }
-<style>
-</style>
-<div class="page-element gray-element">
 
+<div class="main-content">
+    <div class="container">
+        <div class="row">            
+            @if (Model.Count() > 0) {
+                <div id="loadItemcontainer" style="margin-top:40px">
+                        @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
+                </div>
+            }
+            else { 
+            }
+            
+        </div>
+        <div id="loadingDiv" style="display: none; margin-right:auto; margin-left:auto; margin-bottom: 20px; width:55px; height:55px">
+            <img alt="Loading" src="@Url.Content("~/Images/loading.gif")" />
+        </div>
+    </div>
+</div>
+@*<div class="page-element gray-element">
     <div class="tabbable  tabs-left" style="margin-left: 300px">
         <ul class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a href="#searchByName" data-toggle="tab" style="background: #d83c3c; font-size: larger; font-weight: 500; color: #fff"><strong>Tìm kiếm theo tên</strong></a>
@@ -48,7 +75,7 @@
 
     @if (Model.Count() > 0)
     {
-        <div id="loadItemcontainer" class="row">
+        <div id="loadItemcontainer" class="container">
             @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
         </div>
         <div id="loadingDiv" style="text-align: center; display: none; margin-left: 580px; margin-bottom: 20px; height: 32px; width: 32px">
@@ -109,9 +136,10 @@
         </div> 
     }
 
-</div>
+</div>*@
+
 @*Compare cart*@
-<div id="compare_panel" style="display: block;">
+<div id="compare_panel" style="display: block; z-index:9999">
     <h3>Các sản phẩm sẽ so sánh<a class="compare-close"></a></h3>
     <ul></ul>
     <label class="compare-button">
@@ -124,7 +152,6 @@
             return false;
         } else {
             checkSession();
-
         }
     });
 </script>
@@ -142,7 +169,6 @@
 
             $.post("@Url.Action("InfinateScrollSearchByName", "Product")", { "BlockNumber": BlockNumber, "searchValue": $('#productName').val() },
                     function (data) {
-
                         BlockNumber = BlockNumber + 1;
                         NoMoreData = data.NoMoreData;
                         $("#loadItemcontainer").append(data.HTMLString);

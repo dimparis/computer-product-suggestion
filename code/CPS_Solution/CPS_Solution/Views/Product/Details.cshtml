@@ -100,7 +100,8 @@
                                 width: widthRatingContainer,
                                 height: starHeight,
                                 top: -(starHeight * 2),
-                                background: 'url(' + bgPath + ') repeat-x'
+                                background: 'url(' + bgPath + ') space 0 0',
+
                             }
                         }).appendTo($(this));
 
@@ -347,6 +348,7 @@
                 </div>
                 <table class="table table-bordered">
                     <tbody>
+                        <tr></tr>
                         <tr>
                             <td style="width: 25%">CPU</td>
                             <td style="width: 100%">@Model.strCPU</td>
@@ -369,7 +371,17 @@
                         </tr>
                         <tr>
                             <td>Đánh giá</td>
-                            <td>10/10</td>
+                            <td>
+
+                                @if (pointLogin > 0 || pointLogin < 0)
+                                {
+                                    <div class="exemple4" data-average="@point" data-id="4"></div>
+                                }
+                                else
+                                {
+                                    <div id="here" data-average="@point" data-id="6"></div>
+                                }
+                            </td>
                         </tr>
                     </tbody>
                 </table>

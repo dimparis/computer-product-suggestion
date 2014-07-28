@@ -134,7 +134,7 @@
     <header>
         <div id="header-container" class="navbar-fixed-top header-small">
             <div class="container">
-                <div id="logo" style="background: none;" class="animated fadeLeft">
+                <div id="logo"  class="animated fadeLeft">
                     <h1>
                         <a href="#">
                             <img src="~/Template/stylish.holobest.com/images/logo.png" />
@@ -142,8 +142,9 @@
                     </h1>
                 </div>
 
-                <div style="float:left; width:340px; height:70px; margin-top:5px; margin-left:15px;">
-                    <img src="~/Template/stylish.holobest.com/images/banner.png" /></div>
+                <div style="height:70px; width:500px; float:left; margin-left:60px;">
+                    <img src="~/Template/stylish.holobest.com/images/text.png" />
+                </div>
 
                 <nav id="header-navigation" class="animated fadeRight">
                     <div class="menu">
@@ -266,14 +267,13 @@
     </header>
 
     <div id="noticator" title="Thông báo"></div>
-
+    
+    @*Navigator*@
     @RenderSection("navigator", false)
-    <div class="main-content">
-        <div class="container">
-            <div class="row">
-                @RenderBody()
-            </div>
-        </div>
+
+    @*Page Content*@
+    <div id="page-wrap">
+        @RenderBody()
     </div>
 
     <div id="testimonials" class="page-element">
@@ -298,9 +298,10 @@
             </div>
         </div>
     </div>
-    <footer>
+
+    <footer style="z-index:2">
         <div id="inner-footer">
-            <div class="container">
+            <div class="container" style="height:90%">
                 <div class="row">
                     <div id="footer-left-side" class="span8">
                         <div id="footer-menu">
@@ -353,6 +354,44 @@
             </div>
         </div>
     </footer>
+
+    <div id="bg">
+        <img src="~/Template/stylish.holobest.com/images/intel3.jpg" />
+        @*<img src="http://www.hdwallpapers.in/walls/intel_chip-wide.jpg" />*@
+    </div>
+
+    <style>
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+            #bg img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                min-width: 50%;
+                min-height: 50%;
+            }
+
+        #page-wrap {
+            position: relative;
+            z-index: 1;
+            width: 75%;
+            margin: 50px auto;
+            background: transparent;
+            -moz-box-shadow: 0 0 20px black;
+            -webkit-box-shadow: 0 0 20px black;
+            box-shadow: 0 0 20px white;
+        }
+    </style>
 
     <!-- Bootstrap Libraries -->
     <script src="@Url.Content("~/Template/stylish.holobest.com/vendors/bootstrap/js/bootstrap.js")"></script>
