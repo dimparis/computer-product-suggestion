@@ -495,7 +495,7 @@
                 url: "/Admin/ConfirmNewHardware/ActiveHardware",
                 data: postData,
                 success: function(data){
-                    // LoadTableAjax();
+                     LoadTableAjax();
                     document.getElementById("IdTr"+id).style.display='none';
                 },
 
@@ -520,8 +520,9 @@
             url: "/Admin/ConfirmNewHardware/EditHardware",
             data: postData,
             success: function(data){
-                LoadTableAjax();
+               
                 $("#Edit-"+stt+"-Popup-div").dialog( "close");
+                LoadTableAjax();
             },
 
         });
