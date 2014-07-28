@@ -4,64 +4,157 @@
 @{
     ViewBag.Title = "Đề xuất";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
-    
+
 }
 
 @section navigator
 {
-    <div id="top-image" class="top-image3">
+    <div id="top-image" class="top-image2" style="z-index:4">
         <div class="container">
             <div id="top-image-caption">
-                <h2>đề xuất sản phẩm mới</h2>
+                <h2 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">đề xuất sản phẩm mới</h2>
             </div>
         </div>
     </div>
-
+    <div id="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="span8">
+                    <ul class="breadcrumb">
+                        <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
+                        <li><p>đê xuất</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
-<div class="page-element gray-element standard-element-container-2">
-    <div class="container standard-element">
+
+<div class="main-content">
+    <div class="container">
         <div class="row">
-            <div class="span6 fadeLeft animated fadeInLeft" style="visibility: visible;">
+            <div class="span6 fadeRight" style="background-color:rgba(255, 255, 255, 0.80); border-radius:10px; margin:20px 20px; padding:10px;">
                 <h3>Thông Tin Gợi Ý</h3>
                 <ul class="list unstyled custom-list-small">
-                    <li><i class="icon-ok"></i>
+                    <li>
+                        <i class="icon-ok"></i>
                         <p>Xin bạn vui lòng làm theo các bước như sau :</p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
-                    <li><i class="icon-ok"></i>
+                    <li>
+                        <i class="icon-ok"></i>
                         <p>Dán đường dẫn của sản phẩm mà bạn muốn đề xuất và bấm nút kiểm tra.</p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
-                    <li><i class="icon-ok"></i>
-                        <p>Hệ thống sẽ tự động xác thực sự tồn tại của đường dẫn</p>
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Hệ thống sẽ tự thộng lấy tên của sản phẩm và cho bạn chỉnh sửa.</p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
-                    <li><i class="icon-ok"></i>
-                        <p>Trường hợp đường dẩn không tồn tại, hệ thống thông báo.</p>
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Trường hợp đường dẩn không tồn tại, hệ thống sẽ không lấy được tên sản phẩm.</p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
-                    <li><i class="icon-ok"></i>
-                        <p>Sau khi xác thực đường dẫn thành công.Hệ thống sẽ bắt buộc bạn xác thực địa chỉ email.</p>
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Sau khi có được tên sản phẩm, bạn bấm vào "Gửi Đề Xuất" để hoàn tất việc gửi đề xuất lên cho hệ thống.</p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
-                    <li><i class="icon-ok"></i>
-                        <p>Nếu bạn đã là thành viên, hệ thống s4 tự động điền thông tin email.</p>
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Hệ thống sẽ tự đông thông báo cho bạn khi sản phẩm đã được cập nhật thành công. </p>
                     </li>
                 </ul>
                 <ul class="list unstyled custom-list-small">
-                    <li><i class="icon-ok"></i>
+                    <li>
+                        <i class="icon-ok"></i>
                         <p>Mọi đóng góp của bạn sẽ giúp hệ thống hoạt động tốt hơn. </p>
                     </li>
                 </ul>
             </div>
 
-            <div class="span6 fadeRight animated fadeInRight" style="float: left; width: 500px">
+            <div class="span6 fadeRight" style="background-color:rgba(255, 255, 255, 0.80); border-radius:10px; margin:20px 20px; padding:10px">
+                <h3>Thông Tin Đề Xuất</h3>
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(false)
+                    //Product url
+                    <div class="form-group stylish-input">
+                        <h4>Đường dẫn sản phẩm</h4>
+                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link", @style = "height:40px;width:300px" })
+                        @Html.ValidationMessageFor(model => model.Parselink)
+                        <input type="button" value="Kiểm tra" onclick="LinkCheck()" class="stylish-button" style="margin-top: -10px;height:40px;width:100px;background-color: #FF3333" />
+                        <div id="status"></div>
+                    </div>
+                    //Product name
+                    <div class="form-group stylish-input">
+                        <h4>Tên sản phẩm</h4>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @disabled = "disabled", @style = "height:40px;" })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                    <input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="stylish-button" style="height:40px;width:150px; margin-top:5px" />
+                }
+
+
+            </div>
+        </div> 
+    </div>
+</div>
+
+            @*<div class="span6 fadeLeft animated fadeInLeft" style="visibility: visible;">
+                <h3>Thông Tin Gợi Ý</h3>
+                <ul class="list unstyled custom-list-small">
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Xin bạn vui lòng làm theo các bước như sau :</p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Dán đường dẫn của sản phẩm mà bạn muốn đề xuất và bấm nút kiểm tra.</p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Hệ thống sẽ tự thộng lấy tên của sản phẩm và cho bạn chỉnh sửa.</p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Trường hợp đường dẩn không tồn tại, hệ thống sẽ không lấy được tên sản phẩm.</p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Sau khi có được tên sản phẩm, bạn bấm vào "Gửi Đề Xuất" để hoàn tất việc gửi đề xuất lên cho hệ thống.</p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Hệ thống sẽ tự đông thông báo cho bạn khi sản phẩm đã được cập nhật thành công. </p>
+                    </li>
+                </ul>
+                <ul class="list unstyled custom-list-small">
+                    <li>
+                        <i class="icon-ok"></i>
+                        <p>Mọi đóng góp của bạn sẽ giúp hệ thống hoạt động tốt hơn. </p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="span6 fadeRight animated fadeInRight" style="float:left;width:500px">
                 <h3>thông tin đề xuất</h3>
                 @using (Html.BeginForm())
                 {
@@ -69,49 +162,37 @@
                     //Product url
                     <div class="form-group stylish-input ">
                         <h4>Đường dẫn sản phẩm</h4>
-                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link", @style = "height:40px;width:300px", @onchange = "LinkCheck()" })
+                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link", @style = "height:40px;width:300px" })
                         @Html.ValidationMessageFor(model => model.Parselink)
-                        <div id="status"/>
+                        <input type="button" value="Kiểm tra" onclick="LinkCheck()" class="stylish-button" style="margin-top: -10px;height:40px;width:100px;background-color: #FF3333" />
+                        <div id="status" />
                     </div>
                     //Product name
                     <div class="form-group stylish-input">
-                        <h4>Email</h4>
-                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", @style = "height:40px;width:300px", @onchange = "checkEmail()", @disabled = "disabled" })
-
-                        @Html.ValidationMessageFor(model => model.Email)
-                        <div id="statusEmail" />
+                        <h4>Tên sản phẩm</h4>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @disabled = "disabled", @style = "height:40px;" })
+                        @Html.ValidationMessageFor(model => model.Name)
                     </div>
-                    <div class="form-group stylish-input">
-                         @Html.CheckBoxFor(model => model.IsReceive, new { @disabled="disabled",id="idMail"})<span>Nhận thông tin khi sản phẩm được cập nhật</span>
-
-                    </div>
-                                
-                    <input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="stylish-button" style="height: 40px; width: 150px; margin-top: 5px" />
+                    <input type="submit" id="btnSubmit" disabled="disabled" value="Gửi đề xuất" class="stylish-button" style="height:40px;width:150px; margin-top:5px" />
                 }
+            </div>*@
 
-            </div>
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript">
     function LinkCheck() {
         document.getElementById("btnSubmit").disabled = true;
         $("#status").html("<img src='@Url.Content("~/Images/I/loading.gif")' width='25px'" +
-                    "height='25px' style='width:25px;height:25px'/><span style='color:green'>  Đang kiểm tra....</span>");
+                    "height='25px' style='width:25px;height:25px'/><span style='color:blue;v'>  Đang kiểm tra....</span>");
         $.post("/Product/checkLink",
         { link: $("#link").val() },
         function (data) {
             if (data != 0) {
                 $("#status").html("<img src='@Url.Content("~/Images/I/good.gif")' width='25px'" + "height='25px'style='width:25px;height:25px'/><span style='color:green'>Đường dẫn có thực.</span>");
                 $("#link").css('background-color', '');
-                if (data != 2)
-                {
-                    $('#email').val(data);
-                    document.getElementById("btnSubmit").disabled = false;
-                }
-                $('#email').prop("disabled", false);
-                $('#idMail').prop("disabled", false);
+                $("#btnSubmit").prop("disabled", false)
+                $('#Name').val(data);
+                $('#Name').prop("disabled", false);
+                $("#Name").focus();
             }
             else {
                 $("#status").html("<img src='@Url.Content("~/Images/I/bad.gif")' width='25px'" + "height='25px' style='width:25px;height:25px'/><span style='color:red'>Đường dẫn không có thực.</span>");
@@ -119,21 +200,6 @@
                 document.getElementById("btnSubmit").disabled = true;
             }
         });
-    }
-    function checkEmail() {
-        //Match emailAddress
-        var emailAddress = $("#email").val()
-        var regex = /^[a-z0-9\.\_%+-]+@@[a-z0-9\.\-]+\.[a-z]{2,4}$/i;
-
-        if (!emailAddress.search(regex)) {
-            $("#statusEmail").html("<img src='@Url.Content("~/Images/I/good.gif")' width='25px'" + "height='25px'style='width:25px;height:25px'/><span style='color:green'>Email hợp lệ .</span>");
-            $("#email").css('background-color', '');
-            document.getElementById("btnSubmit").disabled = false;
-        }
-        else {
-            $("#statusEmail").html("<img src='@Url.Content("~/Images/I/bad.gif")' width='25px'" + "height='25px' style='width:25px;height:25px'/><span style='color:red'>Email không hợp lệ .</span>");
-            $("#email").css('background-color', '#e97878');
-        }
     }
 </script>
 

@@ -4,10 +4,9 @@
 }
 
 .menu {
-    height: 100px;
     position: relative;
     right: -10px;
-    margin-top: 20px;
+    margin-top: 10px;
     font-family: "Trebuchet MS", sans-serif;
     font-size: 16px;
     vertical-align: middle;

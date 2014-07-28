@@ -318,7 +318,7 @@ namespace CPS_Solution.Controllers
         public ActionResult InfinateScroll(int BlockNumber)
         {
             //////////////// THis line of code only for demo. Needs to be removed ////
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(800);
             //////////////////////////////////////////////////////////////////////////
             int BlockSize = 4;
             DataManager manager = new DataManager();
@@ -332,7 +332,7 @@ namespace CPS_Solution.Controllers
         public ActionResult InfinateScrollSearchByName(int BlockNumber, string searchValue)
         {
             //////////////// THis line of code only for demo. Needs to be removed ////
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(800);
             //////////////////////////////////////////////////////////////////////////
             int BlockSize = 4;
             DataManager manager = new DataManager();
@@ -346,7 +346,7 @@ namespace CPS_Solution.Controllers
         public ActionResult InfinateScrollSearchByPrice(int BlockNumber, int brandID, int priceID)
         {
             //////////////// THis line of code only for demo. Needs to be removed ////
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(800);
             //////////////////////////////////////////////////////////////////////////
             int BlockSize = 4;
             DataManager manager = new DataManager();
