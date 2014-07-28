@@ -453,10 +453,12 @@ iframe {
 }
 
 #logo {
-    width: 200px;
+    width: 180px;
     height: 120px;
-    background: #ffffff;
+    background: rgba(250, 250, 251, 0.75);
     float: left;
+    border-radius:10px;
+    box-shadow: rgba(181, 187, 171, 0.90) 6px 4px 2px 2px;
 }
 
     #logo h1 {
