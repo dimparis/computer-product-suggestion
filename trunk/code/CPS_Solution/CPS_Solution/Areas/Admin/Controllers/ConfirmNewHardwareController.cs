@@ -455,6 +455,37 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //    return Json(result, JsonRequestBehavior.AllowGet);
         //}
         #endregion
+
+        
+             [HttpPost]
+        public string HuyboHard(string stringid)
+        {
+            int id = Convert.ToInt32(stringid);
+            var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
+            var ProAtt = db.ProductAttributes.Where(x => x.AttributeID == id).ToList();
+
+            if (ProAtt != null)
+            {
+                foreach(ProductAttribute pro in ProAtt)
+                {
+                    pro.IsActive = null;
+                }
+            }
+
+            if (hardware.IsActive == null)
+            {
+
+                hardware.IsActive = false;
+
+                db.SaveChanges();
+
+
+
+            }
+            // Display the confirmation message       
+            return "";
+        }
+
         [HttpPost]
         public string ActiveHardware(string stringid)
         {

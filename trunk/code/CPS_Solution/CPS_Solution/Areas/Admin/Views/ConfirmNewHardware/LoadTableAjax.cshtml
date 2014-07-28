@@ -51,7 +51,7 @@
     <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 
-        <div class="da-panel collapsible">
+         <div class="da-panel collapsible">
             <div class="da-panel-header">
                 <span class="da-panel-title">
                     <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
@@ -101,6 +101,7 @@
                                         <label style="width: 100px;">@h.NameProduct</label></td>
                                     <td class=" ">
                                         <input style="width:52px" onclick="ActiveHardware(@h.IdHardware)" value="Kích Hoạt" class="da-button green">
+                                        &nbsp&nbsp&nbsp <input style="width:52px" onclick="HuyboHard(@h.IdHardware)" value="Hủy bỏ" class="da-button red">
                                     </td>
                                     <td class=" ">
                                         <input name="idproduct" type="hidden"  value="@h.IdProduct" />
