@@ -1,0 +1,33 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    ViewBag.Title = "showInfo1";
+    List<List<ProductMap>> listDup = ViewBag.Listduptraning;
+    List<List<ProductMap>> listDup1 = ViewBag.ListdupProduct;
+    int countlistdup = 0;
+    if (listDup != null)
+    {
+        countlistdup = listDup.Count;
+    }
+}
+ <div class="da-message info">
+        Thông tin:
+         <ul>
+             @if (listDup1 != null)
+             {
+                 if (listDup1.Count > 0)
+                 {              
+                 <li>Có @listDup1.Count nhóm linh kiện trùng đang chờ xử lý ở tab "Thành phần trùng"</li>
+                 }
+             }
+             @if (listDup != null)
+             {
+                 if (listDup.Count > 0)
+                 {  
+                 <li>Có @listDup.Count nhóm linh kiện trùng đang chờ xử lý ở tab "Thành phần trùng với cơ sở dữ liệu"</li>
+                 }
+             }           
+         </ul>
+    </div>
+    </br>

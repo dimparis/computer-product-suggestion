@@ -933,6 +933,21 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Show info
+        /// </summary>
+        /// <param name="showInfo"></param>
+        /// <returns></returns>
+        public ActionResult showInfo1(string showInfo)
+        {
+            if (showInfo.Equals("ok"))
+            {
+                ViewBag.ListdupProduct = (List<List<ProductMap>>)Session["ListdupProduct"];
+                ViewBag.Listduptraning = (List<List<ProductMap>>)Session["ListduptraningProduct"];
+            }
+            return View();
+        }
+
     }
 
 

@@ -576,6 +576,22 @@
                 });     
             }
 
+            // show Info số lượng trong danh sách đúng trùng lỗi
+            function showInfo()
+            {
+                string = "ok";
+                var postData = {showinfo: string };
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/TraningProduct/showInfo1",
+                    data: postData,
+                    success: function(data){
+                        $('#showInfo').html(data);
+                    },
+
+                });
+            }
+
 
             //xóa sản phẩm đúng.
             function xoasanphamdung(stt){
@@ -588,6 +604,7 @@
                         success: function(data){
                             $('#CorrectID').html(data);
                             tabsanphamdung();
+                            showInfo();
                         },
                     });
                 } else {
@@ -624,6 +641,8 @@
                         $('#color-icon').html(data);
                         // load lại tab product trùng database
                         tabsanphamtrung();
+                        showInfo();
+
                     },
 
                 });     
@@ -659,6 +678,7 @@
                                     $('#color-icon').html(data);
                                     // load lại tab product trùng database
                                     tabsanphamtrung();
+                                    showInfo();
                                 },                                              
                             });  
                             break;
@@ -686,6 +706,7 @@
                     data: postData,
                     success: function(data){
                         $('#black-icon').html(data);
+                        showInfo();
                       //  tabsanphamdung();                                               
                     },                                             
                 });  
@@ -705,6 +726,7 @@
                     data: postData,
                     success: function(data){
                         $('#black-icon').html(data);
+                        showInfo();
                      //   tabsanphamdung();                                               
                     },
 
