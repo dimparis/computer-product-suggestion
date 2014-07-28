@@ -278,6 +278,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt)).SingleOrDefault();
                 Hardware.IsActive = false;
+                string name = Hardware.Name;
                 db.SaveChanges();
                 Dictionary newDic = new Dictionary();
                 newDic.AttributeDicID = Convert.ToInt32(newstt);
@@ -290,6 +291,20 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 ProAtt.AttributeID = Convert.ToInt32(newstt);
                 ProAtt.IsActive = true;
                 db.SaveChanges();
+
+                var ListHardware = db.Hardwares.Where(x => x.Name.Trim().Equals(name.Trim())&& x.IsActive ==null).ToList();
+
+                foreach (Hardware hard in ListHardware)
+                {
+                    int id = hard.ID;
+                    var ProAtt1 = db.ProductAttributes.Where(x => x.AttributeID ==id && x.IsActive!=true).SingleOrDefault();
+                    if (ProAtt1 != null)
+                    {
+                        ProAtt1.AttributeID = Convert.ToInt32(newstt);
+                        ProAtt1.IsActive = true;
+                        db.SaveChanges();
+                    }
+                }
 
             }
 
