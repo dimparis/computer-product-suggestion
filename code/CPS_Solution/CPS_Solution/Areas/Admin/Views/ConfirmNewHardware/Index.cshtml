@@ -306,7 +306,7 @@
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Loại</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Trọng số</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Lap chứa thành phần</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Kích Hoạt</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Lựa chọn</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 50px;">Thực hiện</th>
                             </tr>
                         </thead>
@@ -333,9 +333,9 @@
                                         <label style="width: 100px;">@h.WeightHardware</label></td>
                                     <td class=" ">
                                         <label style="width: 100px;">@h.NameProduct</label></td>
-                                    <td class=" ">
-                                        <input style="width:52px" onclick="ActiveHardware(@h.IdHardware)" value="Kích Hoạt" class="da-button green">
-                                        &nbsp&nbsp&nbsp <input style="width:52px" onclick="HuyboHard(@h.IdHardware)" value="Hủy bỏ" class="da-button red">
+                                    <td style="width: 21%" class=" ">
+                                        <input style="width:52px" onclick="ActiveHardware(@h.IdHardware)" value="Kích Hoạt" class="da-button green">&nbsp&nbsp&nbsp
+                                        <input style="width:52px" onclick="HuyboHard(@h.IdHardware)" value="Hủy bỏ" class="da-button red">
                                     </td>
                                     <td class=" ">
                                         <input name="idproduct" type="hidden"  value="@h.IdProduct" />
