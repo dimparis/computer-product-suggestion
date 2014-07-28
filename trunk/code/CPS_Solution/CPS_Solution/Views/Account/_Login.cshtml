@@ -1,0 +1,56 @@
+﻿@model CPS_Solution.Models.LoginModel
+
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@section head
+{
+    @*Scripts.Render("~/bundles/jqueryval")*@
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Template/Account/Style/css/style.css")" />
+    <script src="@Url.Content("~/Template/Account/Style/js/modernizr.js")"></script>
+}
+
+<div class="breadcrumb-container">
+    <div class="container">
+        <div class="relative">
+            <ul class="bc push-up unstyled clearfix">
+                <li>Trang chủ</li>
+                <li class="active">Đăng nhập</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<main id="main-content" role="main">
+    <div class="container">
+        <div class="row">
+            <section class="main">
+				<div class="form-1">
+                    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+                        @Html.AntiForgeryToken()
+                        <p class="field">
+                            @Html.TextBoxFor(model => model.UserName, new { @type="text", @name="login", @placeholder="Tên người dùng", @maxlength=36})
+                            <i class="iconfont-user icon-large"></i>                            
+                            @*<span class="text-warning">@Html.ValidationMessageFor(m => m.UserName)</span>*@
+					    </p>
+                        <p class="field">
+                            @Html.TextBoxFor(model => model.Password, new { @type="password", @name="password", @placeholder="Mật khẩu", @maxlength=36})
+						    <i class="iconfont-lock icon-large"></i>
+                            @*<span class="text-warning">@Html.ValidationMessageFor(m => m.Password)</span>*@
+					    </p>
+                        
+                        <p class="submit">
+						    <button type="submit" name="submit"><i class="iconfont-arrow-right icon-large"></i></button>
+					    </p>
+                        <p style="color:aqua">@Html.ValidationSummary(true)</p>
+                    }
+				</div>
+			</section>
+		
+        </div>
+    </div>
+</main>
