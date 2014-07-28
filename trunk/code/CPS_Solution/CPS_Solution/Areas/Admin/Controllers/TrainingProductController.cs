@@ -85,7 +85,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
 
-
+                int sttp = 0;
                 for (int i = 0; i < lines.Length; i++)
                 {
                     if (!String.IsNullOrWhiteSpace(lines[i].Trim()))
@@ -109,7 +109,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         // tên product bị trùng với product đã có trong database
                         string[] produc2 = line[2].Split('|');
                         ProductMap p2 = new ProductMap();
-                        p2.stt = produc2[3] + 'z';
+                        p2.stt = sttp.ToString() + 'z';
+                        sttp++;
                         p2.ten = produc2[0];
                         p2.loai = produc1[1];
 
@@ -647,7 +648,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 for (int j = 0; j < listduplicatenew[i].Count; j++)
                 {
                     // nếu phát hiện list nào có chứa giá trị tách trả về
-                    if (tachdup[1].Equals(listduplicatenew[i][j].stt))
+                    if (tachdup[1].Equals(listduplicatenew[i][j].stt)&&tachdup[2].Equals(listduplicatenew[i][1].stt))
                     {
 
                         Hardware p = new Hardware();
@@ -819,7 +820,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     for (int j = 0; j < listduplicatenew[i].Count; j++)
                     {
                         // nếu phát hiện list nào có chứa giá trị tách trả về
-                        if (tachdup[1].Equals(listduplicatenew[i][j].stt))
+                        if (tachdup[1].Equals(listduplicatenew[i][j].stt) && tachdup[2].Equals(listduplicatenew[i][1].stt))
                         {
 
                             Hardware p = new Hardware();

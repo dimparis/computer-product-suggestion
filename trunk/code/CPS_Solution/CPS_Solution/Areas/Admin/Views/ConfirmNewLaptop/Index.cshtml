@@ -375,7 +375,8 @@
                             <td class=" ">
                                 <label style="width: 100px;">@h.Name</label></td>
                           
-                            <td class=" "> <input style="width:52px" onclick="ActiveLaptop(@h.ID)" value="Kích Hoạt" class="da-button green">
+                            <td class=" "> <input style="width:52px" onclick="ActiveLaptop(@h.ID)" value="Kích Hoạt" class="da-button green">&nbsp&nbsp&nbsp
+                                <input style="width:52px" onclick="HuyLaptop(@h.ID)" value="Hủy bỏ" class="da-button red">
                             </td>
                             <td class=" ">
                            
@@ -509,6 +510,28 @@
         });
     }
 
+
+    //Kich hoạt 1 phần cứng
+    function HuyLaptop(id)
+    {
+        if (confirm("Bạn có chắc chắn muốn hủy bỏ sản phẩm này?")) {
+            var postData = {stringid: id };
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ConfirmNewLaptop/HuyLaptop",
+                data: postData,
+                success: function(data){
+                    document.getElementById("IdTr"+id).style.display='none';
+                    LoadTableAjax();          
+                },
+
+            });
+        }else {
+                                               
+        }
+    }
+
+
     //Kich hoạt 1 phần cứng
     function ActiveLaptop(id)
     {
@@ -519,8 +542,9 @@
                 url: "/Admin/ConfirmNewLaptop/ActiveLaptop",
                 data: postData,
                 success: function(data){
-                    // LoadTableAjax();
                     document.getElementById("IdTr"+id).style.display='none';
+                     LoadTableAjax();
+                   
                 },
 
             });
