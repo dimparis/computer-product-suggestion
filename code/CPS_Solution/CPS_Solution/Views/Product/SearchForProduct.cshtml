@@ -29,17 +29,92 @@
 
 <div class="main-content">
     <div class="container">
-        <div class="row">            
-            @if (Model.Count() > 0) {
-                <div id="loadItemcontainer" style="margin-top:40px">
-                        @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
+        <div class="row">
+            <div class="tabbable tabs-left" style="margin-top: 20px; margin-left:300px;">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="active"><a href="#searchByName" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff"><strong>Tìm kiếm theo tên</strong></a>
+                    </li>
+                    <li class=""><a href="#searchByPrice" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff"><strong>Tìm kiếm theo giá</strong></a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="searchByName">
+                        @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
+                        {
+                            @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
+                            <button type="submit">Tìm kiếm</button>               
+                }
+                    </div>
+                    <div class="tab-pane fade" id="searchByPrice">
+
+                        @using (Html.BeginForm("SearchByPriceAndBrand", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
+                        {
+                            @Html.DropDownList("brands", ViewBag.ListBrands as List<SelectListItem>, new { @style = "width:100px;height:40px" })
+                            @Html.DropDownList("prices", ViewBag.ListPrices as List<SelectListItem>, new { @style = "width:225px;height:40px" })
+                            <button type="submit" style="width: 126px; margin-left: -5px;">Tìm kiếm</button>               
+                }
+
+                    </div>
+                </div>
+            </div>
+            @if (Model.Count() > 0)
+            {
+                <div id="loadItemcontainer" style="margin-top: 40px">
+                    @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
                 </div>
             }
-            else { 
+            else
+            {
+                <div class="page-element standard-element-container-1">
+                    <div class="container element-container standard-element">
+                        <div class="row">
+                            <div class="span6 element-image-left fadeLeft animated fadeInLeft" style="visibility: visible;">
+                                <img class="standard-element-image" src="~/Template/stylish.holobest.com/images/element-image1.png" alt="standard-element-image" style="width: 600px; height: 467px">
+                            </div>
+
+                            <div class="span6 fadeRight animated fadeInRight" style="visibility: visible; width: 520px">
+                                <h3>Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp với từ khóa của bạn.</h3>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Hãy thử lại với những cách sau:</p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Kiểm tra lại <strong>từ khóa</strong> có thể bạn đã gõ sai <strong><u>(Ví dụ: Asus3500 = As3500)</u></strong> </p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Dùng từ khóa <strong>ngắn gọn</strong> và <strong>đơn giản</strong> hơn.</p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p><strong>Vẫn không tìm thấy</strong> sản phẩm bạn muốn. Xin hãy <strong>cung cấp</strong> cho chúng tôi thông tin về sản phẩm.</p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Chúng tôi sẽ <strong>liên lạc</strong> với bạn và <strong>thông báo</strong> về tình trạng sản phẩm này.</p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Click vào <a href="@Url.Action("SearchForProduct", "Product")"><span style="color: blue;"><strong>đây</strong></span></a> để thử lại.</p>
+                                    </li>
+                                </ul>
+                                <div class="stylish-button">
+                                    <a href="@Url.Action("Recommend", "Product")"><i class="icon-thumbs-up"></i>Gửi Đề xuất</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
             }
-            
+
         </div>
-        <div id="loadingDiv" style="display: none; margin-right:auto; margin-left:auto; margin-bottom: 20px; width:55px; height:55px">
+        <div id="loadingDiv" style="display: none; margin-right: auto; margin-left: auto; margin-bottom: 20px; width: 55px; height: 55px">
             <img alt="Loading" src="@Url.Content("~/Images/loading.gif")" />
         </div>
     </div>
