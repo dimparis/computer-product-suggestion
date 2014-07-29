@@ -153,7 +153,6 @@ div#da-wrapper.fluid
 div#da-wrapper .da-container, 
 div#da-wrapper.fluid .da-container
 {
-	width:96%;
 	margin:auto;
 }
 
@@ -745,8 +744,7 @@ div#da-content
 	
 	div#da-content #da-sidebar #da-main-nav.da-button-container
 	{
-		/* width:174px; */
-          background: url(/Areas/Admin/Dandelion/images/headers/carbon.png);
+          background-image: url(/Areas/Admin/Dandelion/images/bg/new.jpg);
 	}
 
 		/* (6.2.1) Main Navigation
@@ -815,6 +813,7 @@ div#da-content
 		{
 			display:block;
 			color:white;
+            font-size:16px;
 			cursor:pointer;
 			text-decoration:none;
 			padding:18px 32px 18px 48px;
@@ -986,7 +985,6 @@ div#da-footer p
 		
 		div#da-wrapper.fixed .da-container
 		{
-			width:96%;
 		}
 	}
 	
