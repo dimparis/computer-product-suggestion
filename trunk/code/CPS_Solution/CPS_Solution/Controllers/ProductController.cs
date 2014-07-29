@@ -42,7 +42,8 @@ namespace CPS_Solution.Controllers
         {
             DataManager manager = new DataManager();
             int BlockSize = 4;
-            var products = manager.GetProducts(1, BlockSize);
+            //var products = manager.GetProducts(1, BlockSize);
+            var products = db.Products.Where(x => x.IsActive == true).ToList();
             var listP = new List<Product>();
             LoadDropDownList();
             if (!String.IsNullOrEmpty(productName))
