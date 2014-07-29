@@ -21,12 +21,55 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             List<Product> listproconfirm = ProductNotConfirm();
             ViewBag.listproconfirm = listproconfirm;
-
-
-
+            List<Hardware> ListHardWarePro = new List<Hardware>();
+            #region lấy hết những hardware của các product chưa confirm có isactive = true
+         
+            List<int> listid = new List<int>();
+            foreach (Product p in listproconfirm)
+            {
+                if (p.CpuID != 0)
+                {
+                    listid.Add(p.CpuID);
+                }
+                if (p.VgaID != 0)
+                {
+                    listid.Add(p.VgaID);
+                }
+                if (p.HddID != 0)
+                {
+                    listid.Add(p.HddID);
+                }
+                if (p.RamID != 0)
+                {
+                    listid.Add(p.RamID);
+                }
+                if (p.DisplayID !=0)
+                {
+                    listid.Add(p.DisplayID);
+                }
+            }
+            // lấy list hardware của các sản phẩm có isactive = true;
+            foreach (int id in listid)
+            {
+                var HardwareSign = db.Hardwares.Where(x => x.ID == id && x.IsActive == true).SingleOrDefault();
+                if (HardwareSign != null)
+                {
+                    ListHardWarePro.Add(HardwareSign);
+                }
+            }
+            #endregion
+            ViewBag.ListHardWareProActive = ListHardWarePro;
+            // Giá trị mặc định không chọn gì cả
+            var itemdefault = new SelectListItem
+            {
+                Text = "Không chọn",
+                Value = "0"
+            };
+          
             // lấy product có isactive = true để autocomplete
             var ProductTrue = db.Products.Where(x => x.IsActive == true).ToList();
             var ProductList = new List<SelectListItem>();
+            ProductList.Add(itemdefault);
             foreach (var pro in ProductTrue)
             {
                 var item = new SelectListItem
@@ -38,6 +81,92 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             ViewBag.ProductList = ProductList;
 
+          
+            // Load CPU list
+            var cpus = db.Hardwares.Where(x => x.CodetypeID == "C" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var cpuList = new List<SelectListItem>();
+            cpuList.Add(itemdefault);
+            foreach (var cpu in cpus)
+            {
+                var item = new SelectListItem
+                {
+                    Text = cpu.Name,
+                    Value = cpu.ID.ToString()
+                };
+                cpuList.Add(item);
+            }
+            ViewBag.cpuList = cpuList;
+
+            // Load VGA list
+            var vgas = db.Hardwares.Where(x => x.CodetypeID == "V" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var vgaList = new List<SelectListItem>();
+            vgaList.Add(itemdefault);
+            foreach (var vga in vgas)
+            {
+                var item = new SelectListItem
+                {
+                    Text = vga.Name,
+                    Value = vga.ID.ToString()
+                };
+                vgaList.Add(item);
+            }
+            ViewBag.vgaList = vgaList;
+
+            // Load HDD list
+            var hdds = db.Hardwares.Where(x => x.CodetypeID == "H" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var hddList = new List<SelectListItem>();
+            hddList.Add(itemdefault);
+            foreach (var hdd in hdds)
+            {
+                var item = new SelectListItem
+                {
+                    Text = hdd.Name,
+                    Value = hdd.ID.ToString()
+                };
+                hddList.Add(item);
+            }
+            ViewBag.hddList = hddList;
+
+
+            // Load Ram list
+            var rams = db.Hardwares.Where(x => x.CodetypeID == "R" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var ramList = new List<SelectListItem>();
+            ramList.Add(itemdefault);
+            foreach (var ram in rams)
+            {
+                var item = new SelectListItem
+                {
+                    Text = ram.Name,
+                    Value = ram.ID.ToString()
+                };
+                ramList.Add(item);
+            }
+            ViewBag.ramList = ramList;
+
+            // Load Display list
+            var displays = db.Hardwares.Where(x => x.CodetypeID == "D" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var displayList = new List<SelectListItem>();
+            displayList.Add(itemdefault);
+            foreach (var display in displays)
+            {
+                var item = new SelectListItem
+                {
+                    Text = display.Name,
+                    Value = display.ID.ToString()
+                };
+                displayList.Add(item);
+            }
+            ViewBag.displayList = displayList;
             return View();
         }
         public List<Product> ProductNotConfirm()
@@ -74,9 +203,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
             string stt = info[0].Trim();
             int numstt = Convert.ToInt32(stt);
             string newstt = info[1];
-            // những hardware mới vào chưa kích hoạt.
-            var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == null).ToList();
-            // tìm tới hardware có id = stt
+
+            // Trường hợp mapping
+            if (!newstt.Trim().Equals("0"))
+            {
+                // những hardware mới vào chưa kích hoạt.
+                var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == null).ToList();
+                // tìm tới hardware có id = stt
 
                 var product = db.Products.Where(x => x.ID.Equals(numstt)).SingleOrDefault();
                 product.IsActive = false;
@@ -89,156 +222,100 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     ali.ProductID = Convert.ToInt32(newstt);
                     db.SaveChanges();
                 }
-                //AliasProduct newAli = new AliasProduct();
-                //newAli.ProductID = Convert.ToInt32(newstt);
-                //newAli.Name = product.Name;
-                //newAli.Price = product.Price;
-                //newAli.URL = product.URL;
-                
-                //newAli.IsMain = false;
-                //newAli.IsActive = true;
-                //db.AliasProducts.Add(newAli);
-                //db.SaveChanges();
-            #region code comment
-            //for (int i = 0; i < unConfrimedProducts.Count; i++)
-            //{
-            //    if (stt.Equals(unConfrimedProducts[i].ID.ToString()))
-            //    {
-            //        // trường hợp đổi tên
-            //        if (Name != unConfrimedProducts[i].Name.ToString())
-            //        {
-            //            try
-            //            {
-            //                // danh sahcs hardware đã kích hoạt có code type giống như code của harware cần sửa.
-            //                string test = unConfrimedProducts[i].CodetypeID;
-            //                var Hardwarecorect = db.Hardwares.Where(x => x.IsActive == true && x.CodetypeID.Equals(test)).ToList();
+            }
+            // trường hợp kích hoạt cả product cả hardware.
+            else
+            {
+                for (int i = 2; i < info.Length; i++)
+                {
+                    String[] list = info[i].ToString().Split('|');
+                    int numstt1 = Convert.ToInt32(list[0]);
+                    string newstt1 = list[1];
+                    string productid1 = stt;
+                    int numProductid = Convert.ToInt32(stt);
+                    // nếu không chọn hardware để map thì active nó 
+                    if (newstt1.Trim().Equals("0"))
+                    {
+                        int id = Convert.ToInt32(list[0]);
+                        var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
 
-            //                // trường hợp tên đã có trong database
-            //                for (int j = 0; j < Hardwarecorect.Count; j++)
-            //                {
-            //                    if (Name.Equals(Hardwarecorect[j].Name.ToString()))
-            //                    {
-            //                        // lấy proAttribute ra sửa
-            //                        var ProAtt = db.ProductAttributes.Where(x => x.AttributeID.Equals(numstt) && x.ProductID.Equals(numProductid)).SingleOrDefault();
-            //                        ProAtt.AttributeID = Hardwarecorect[j].ID;
-            //                        db.SaveChanges();
-            //                        count++;
-            //                        break;
-            //                    }// trường hợp đổi tên mà thuật toán trùng phát hiện trùng >80%     
-            //                    else if (CompareStringHelper.CompareString(Name, Hardwarecorect[j].Name.ToString()) >= 80)
-            //                    {
-            //                        List<ProductMap> duplicateProduct = new List<ProductMap>();
-            //                        // lấy pro trong db ra
-            //                        ProductMap pro = new ProductMap();
-            //                        pro.stt = Hardwarecorect[j].ID.ToString();
-            //                        pro.ten = Hardwarecorect[j].Name;
-            //                        pro.loai = Hardwarecorect[j].CodetypeID;
-            //                        pro.trongso = Hardwarecorect[j].WeightCriteraPoint.ToString();
-            //                        duplicateProduct.Add(pro);
-            //                        ProductMap pro1 = new ProductMap();
-            //                        pro1.stt = stt;
-            //                        pro1.ten = Name;
-            //                        pro1.loai = Hardwarecorect[j].CodetypeID;
-            //                        pro1.trongso = Weight;
-            //                        duplicateProduct.Add(pro1);
+                        // khi active thì tìm tất cả các sản phẩm có tên tương tự để kích hoạt trong bảng product atribute.
+                        var ProAtt = db.ProductAttributes.Where(x => x.AttributeID == id).ToList();
+                        if (ProAtt != null)
+                        {
+                            foreach (ProductAttribute pro in ProAtt)
+                            {
+                                pro.IsActive = true;
+                            }
+                        }
+                        if (hardware != null)
+                        {
+                            if (hardware.IsActive == null)
+                            {
+                                hardware.IsActive = true;
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                    // trường hợp staff mapping với 1 sản phẩm có sẵn
+                    else
+                    {
+                        // những hardware mới vào chưa kích hoạt.
+                        var unConfrimedProducts = db.Hardwares.Where(x => x.IsActive == null).ToList();
+                        // tìm tới hardware có id = stt
 
-            //                        //lấy dữ liệu trong file text traning ra ProductNameTraining;
-            //                        string path = Server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
-            //                        if (System.IO.File.Exists(path))
-            //                        {   // lấy hết dòng trong file txt ra.
-            //                            string[] lines = System.IO.File.ReadAllLines(path);
-            //                            // tảo mảng mới chứa dữ dữ liệu trùng.
-            //                            string[] newlines = new string[1];
-            //                            string newline = productid + '~';
-            //                            for (int h = 0; h < duplicateProduct.Count; h++)
-            //                            {
-            //                                newline += duplicateProduct[h].ten + "|" + duplicateProduct[h].loai + "|" +
-            //                                           duplicateProduct[h].trongso + "|" + duplicateProduct[h].stt + "#";
-            //                            }
-            //                            newline = newline.Substring(0, newline.Length - 1);
-            //                            newlines[0] = newline;
-            //                            //Gộp hai bảng thành mảng mới và lưu vào txt lại
-            //                            string[] save = new string[lines.Length + newlines.Length];
-            //                            for (int h = 0; h < lines.Length; h++)
-            //                            {
-            //                                save[h] = lines[h];
-            //                            }
-            //                            for (int h = 0; h < newlines.Length; h++)
-            //                            {
-            //                                save[h + lines.Length] = newlines[h];
-            //                            }
-            //                            // ghi lại vào txt
-            //                            System.IO.File.WriteAllLines(path, save);
-            //                        }
-            //                        // lấy proAttribute ra sửa
-            //                        var ProAtt = db.ProductAttributes.Where(x => x.AttributeID.Equals(numstt) && x.ProductID.Equals(numProductid)).SingleOrDefault();
-            //                        db.ProductAttributes.Remove(ProAtt);
-            //                        db.SaveChanges();
-            //                        count++;
-            //                        break;
-            //                    }
+                        if (productid1.Trim().Equals("0"))
+                        {
+                            var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt1)).SingleOrDefault();
+                            Hardware.IsActive = false;
+                            db.SaveChanges();
+                            Dictionary newDic = new Dictionary();
+                            newDic.AttributeDicID = Convert.ToInt32(newstt1);
+                            newDic.Name = Hardware.Name;
+                            newDic.IsActive = true;
+                        }
+                        else
+                        {
+                            var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt1)).SingleOrDefault();
+                            Hardware.IsActive = false;
+                            string name = Hardware.Name;
+                            db.SaveChanges();
+                            Dictionary newDic = new Dictionary();
+                            newDic.AttributeDicID = Convert.ToInt32(newstt1);
+                            newDic.Name = Hardware.Name;
+                            newDic.IsActive = true;
+                            db.Dictionaries.Add(newDic);
+                            db.SaveChanges();
+                            //  lấy proAttribute ra sửa
+                            var ProAtt = db.ProductAttributes.Where(x => x.AttributeID.Equals(numstt1) && x.ProductID.Equals(numProductid)).SingleOrDefault();
+                            ProAtt.AttributeID = Convert.ToInt32(newstt1);
+                            ProAtt.IsActive = true;
+                            db.SaveChanges();
 
-            //                }
-            //            }
-            //            // nếu ko có danh sách hardware trong database để so trùng
-            //            catch (Exception ex)
-            //            {
-            //                if (count == 0)
-            //                {
-            //                    var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt) && x.IsActive == false).SingleOrDefault();
-            //                    Hardware.Name = Name;
-            //                    Hardware.WeightCriteraPoint = Convert.ToInt32(Weight);
-            //                    if (isActive.Equals("true"))
-            //                    {
-            //                        Hardware.IsActive = true;
-            //                    }
-            //                    db.SaveChanges();
-            //                    count++;
-            //                    break;
+                            var ListHardware = db.Hardwares.Where(x => x.Name.Trim().Equals(name.Trim()) && x.IsActive == null).ToList();
 
-            //                }
-            //            }
+                            foreach (Hardware hard in ListHardware)
+                            {
+                                int id = hard.ID;
+                                var ProAtt1 = db.ProductAttributes.Where(x => x.AttributeID == id && x.IsActive != true).SingleOrDefault();
+                                if (ProAtt1 != null)
+                                {
+                                    ProAtt1.AttributeID = Convert.ToInt32(newstt1);
+                                    ProAtt1.IsActive = true;
+                                    db.SaveChanges();
+                                }
+                            }
 
-            //            if (count > 0)
-            //            {
-            //                break;
-            //            }
-            //            // trường hợp đổi tên mà ko bị trùng
-            //            if (count == 0)
-            //            {
-            //                var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt) && x.IsActive == false).SingleOrDefault();
-            //                Hardware.Name = Name;
-            //                Hardware.WeightCriteraPoint = Convert.ToInt32(Weight);
-            //                if (isActive.Equals("true"))
-            //                {
-            //                    Hardware.IsActive = true;
-            //                }
-            //                db.SaveChanges();
-            //                count++;
-            //                break;
-
-            //            }
-
-            //        }
+                        }
+                    }
+                }
 
 
-            //    }
-            //}
-            //// trường hợp không đổi tên   
-            //if (count == 0)
-            //{
-            //    var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt) && x.IsActive == false).SingleOrDefault();
-            //    Hardware.WeightCriteraPoint = Convert.ToInt32(Weight);
-            //    if (isActive.Equals("true"))
-            //    {
-            //        Hardware.IsActive = true;
-            //    }
-            //    db.SaveChanges();
-            //}
-
-            //// get list product in session.         
-
-            #endregion
+               int id1 = Convert.ToInt32(stt);
+               var laptop = db.Products.FirstOrDefault(x => x.ID == id1);               
+               laptop.IsActive = true;
+               db.SaveChanges();
+            }
             return "";
         }
 
@@ -247,18 +324,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             int id = Convert.ToInt32(stringid);
             var laptop = db.Products.FirstOrDefault(x => x.ID == id);
-            bool statusFlag = false;
+
             if (ModelState.IsValid)
             {
                 if (laptop.IsActive.ToString().Equals(""))
                 {
                     laptop.IsActive = true;
-                    statusFlag = false;
+ 
                 }
                 else
                 {
                     laptop.IsActive = true;
-                    statusFlag = true;
+
                 }
                 db.SaveChanges();
             }
