@@ -76,4 +76,11 @@ Recommend
 
 
 
-
+note 29/07
+- redirect tu man hinh cam on chuyen sang trang chu
+- trang admin
+ + lam tieu de to len
++ title diaglog to len
+- kich hoat laptop: thay doi mau nut
+- thao tac o man hinh mapping
+- khi parse san pham moi thi khi duyet phai xem truoc thong tin cua san pham do duoc
