@@ -1,9 +1,10 @@
 body
 {
-	background-image:url(../images/bg/blueprint123.png);
+	background-image:url(../images/bg/intel.jpg);
+    background-size:cover;
 }
 
 div#da-header #da-header-top
 {
-	background-image:url(../images/headers/carbon.png);
+	background-image:url(../images/bg/wood.png);
 }
