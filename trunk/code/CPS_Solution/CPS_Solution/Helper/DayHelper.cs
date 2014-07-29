@@ -21,7 +21,7 @@ namespace CPS_Solution.Helper
                 return timeSpan.Hours > 1 ? String.Format("Cập nhật {0} giờ trước", timeSpan.Hours) : "Cập nhật 1 giờ trước";
 
             if (timeSpan <= TimeSpan.FromDays(30))
-                return timeSpan.Days > 1 ? String.Format("Cập nhật {0} năm trước", timeSpan.Days) : "Cập nhật 1 ngày trước";
+                return timeSpan.Days > 1 ? String.Format("Cập nhật {0} ngày trước", timeSpan.Days) : "Cập nhật 1 ngày trước";
 
             if (timeSpan <= TimeSpan.FromDays(365))
                 return timeSpan.Days > 30 ? String.Format("Cập nhật {0} tháng trước", timeSpan.Days / 30) : "Cập nhật 1 tháng trước";
