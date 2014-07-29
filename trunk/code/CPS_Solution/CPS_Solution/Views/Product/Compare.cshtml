@@ -10,7 +10,7 @@
     <div id="top-image" class="top-image3">
         <div class="container">
             <div id="top-image-caption">
-                <h2>so sánh sản phẩm</h2>
+                <h2 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">so sánh sản phẩm</h2>
             </div>
         </div>
     </div>
@@ -21,9 +21,11 @@
                 <div class="span8">
                     <ul class="breadcrumb">
                         <li><a href="~/">trang chủ</a><span class="divider">/</span></li>
-                        <li><p>so sánh</p></li>
+                        <li>
+                            <p>so sánh</p>
+                        </li>
                     </ul>
-                </div>                
+                </div>
             </div>
         </div>
     </div>
@@ -38,7 +40,8 @@
     .child {
         /* CSS for warpper */
         position: absolute;
-        top: 0; right: 5px;
+        top: 0;
+        right: 5px;
         width: 50px;
         height: 60px;
         background-color: #F7A191;
@@ -65,118 +68,142 @@
 <div class="page-element gray-element">
     <div class="container">
         <div class="pricing-tables-wrapper clearfix">
-            <div class="pricing-table" style="margin-top:33%;">
+            <div class="pricing-table" style="margin-top: 33%;">
                 <div class="pricing-table-header">
                     <div class="lower-header">
                         <p class="pricing-table-price">Tổng điểm</p>
                     </div>
                 </div>
                 <div class="pricing-table-content">
-                    <div class="table-row odd"><p>CPU</p></div>
-                    <div class="table-row even"><p>VGA</p></div>
-                    <div class="table-row odd"><p>RAM</p></div>
-                    <div class="table-row even"><p>HDD</p></div>
-                    <div class="table-row odd"><p>Display</p></div>
-                    
-                    <div class="stylish-button" style="background-color: #F87912">
-                            <a href="javascript:void(0)" onclick="goCompareDetail()">So sanh chi tiet</a>
-                       </div>
+                    <div class="table-row odd">
+                        <p>CPU</p>
+                    </div>
+                    <div class="table-row even">
+                        <p>VGA</p>
+                    </div>
+                    <div class="table-row odd">
+                        <p>RAM</p>
+                    </div>
+                    <div class="table-row even">
+                        <p>HDD</p>
+                    </div>
+                    <div class="table-row odd">
+                        <p>Display</p>
+                    </div>
                 </div>
             </div>
-            
+
 
             @{ int bestProductID = Model.ElementAt(1).ID; }
             @foreach (var item in Model)
             {
                 if (item.ID == bestProductID)
                 {
-                    <div class="pricing-table highlighted-table">
-                        <div class="pricing-table-header">
-                            <div class="upper-header">
-                               <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID">@item.Name</h4>
-                                <img src="~/Images/I/default.jpg" style="margin-bottom:50px;"/>
-                            </div>
-                            <div class="lower-header">
-                                <p class="pricing-table-price">@item.TotalWeightPoint</p>
-                            </div>
+                <div class="pricing-table highlighted-table">
+                    <div class="pricing-table-header">
+                        <div class="upper-header">
+                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID">@item.Name</h4>
+                            <img src="~/Images/I/default.jpg" style="margin-bottom: 50px;" />
                         </div>
-
-                        <div class="pricing-table-content">
-                            <div class="table-row odd"><p>@item.strCPU</p></div>
-                            <div class="table-row even"><p>@item.strVGA</p></div>
-                            <div class="table-row odd"><p>@item.strRAM</p></div>
-                            <div class="table-row even"><p>@item.strHDD</p></div>
-                            <div class="table-row odd"><p>@item.strDisplay</p></div>
-                            
-                        </div>
-                        <div class="pricing-table-footer">
-                            <div class="stylish-button" style="background-color: #F87912">
-                                <a href="#">Báo sai</a>
-                            </div>
+                        <div class="lower-header">
+                            <p class="pricing-table-price">@item.TotalWeightPoint</p>
                         </div>
                     </div>
+
+                    <div class="pricing-table-content">
+                        <div class="table-row odd">
+                            <p>@item.strCPU</p>
+                        </div>
+                        <div class="table-row even">
+                            <p>@item.strVGA</p>
+                        </div>
+                        <div class="table-row odd">
+                            <p>@item.strRAM</p>
+                        </div>
+                        <div class="table-row even">
+                            <p>@item.strHDD</p>
+                        </div>
+                        <div class="table-row odd">
+                            <p>@item.strDisplay</p>
+                        </div>
+                    </div>
+                </div>
                 }
                 else
                 {
-                    <div class="pricing-table ">
-                        <div class="pricing-table-header">
-                            <div class="upper-header">
-                                <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID">@item.Name</h4>
-                                <img src="~/Images/I/default.jpg" style="margin-bottom:50px;"/>
-                            </div>
-                            <div class="lower-header">
-                                <p class="pricing-table-price">@item.TotalWeightPoint</p>
-                            </div>
+                <div class="pricing-table ">
+                    <div class="pricing-table-header">
+                        <div class="upper-header">
+                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID">@item.Name</h4>
+                            <img src="~/Images/I/default.jpg" style="margin-bottom: 50px;" />
                         </div>
-                        <div class="pricing-table-content">
-                            <div class="table-row odd"><p>@item.strCPU</p></div>
-                            <div class="table-row even"><p>@item.strVGA</p></div>
-                            <div class="table-row odd"><p>@item.strRAM</p></div>
-                            <div class="table-row even"><p>@item.strHDD</p></div>
-                            <div class="table-row odd"><p>@item.strDisplay</p></div>
-                        </div>
-                        <div class="pricing-table-footer">
-                            <div class="stylish-button" style="background-color: #F87912">
-                                <a href="#">Báo sai</a>
-                            </div>
+                        <div class="lower-header">
+                            <p class="pricing-table-price">@item.TotalWeightPoint</p>
                         </div>
                     </div>
+                    <div class="pricing-table-content">
+                        <div class="table-row odd">
+                            <p>@item.strCPU</p>
+                        </div>
+                        <div class="table-row even">
+                            <p>@item.strVGA</p>
+                        </div>
+                        <div class="table-row odd">
+                            <p>@item.strRAM</p>
+                        </div>
+                        <div class="table-row even">
+                            <p>@item.strHDD</p>
+                        </div>
+                        <div class="table-row odd">
+                            <p>@item.strDisplay</p>
+                        </div>
+                    </div>
+                </div>
                 }
             }
         </div>
+
+
+
     </div>
-    <div class="row"  >
-                <div class="span6">
-                    <div class="accordion fadeRight ui-accordion ui-widget ui-helper-reset animated fadeInRight" role="tablist" style="visibility: visible;">
-                         <h5 style="display:none"><i style="display:none"class="icon-plus-sign"></i>Web Design</h5>
-                        <div style="display:none">
-                            <p style="display:none">
-                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                            </p>
+    <div class="row">
+        <br />
+        <div class="stylish-button" style="background-color: #F87912; margin-left:580px;">
+            <a href="javascript:void(0)" onclick="goCompareDetail()">So sánh chi tiết</a>
+        </div>
+        <br />
+        <br />
+        <div class="span6" style="margin-left:390px;">
+            <div class="accordion fadeRight ui-accordion ui-widget ui-helper-reset animated fadeInRight" role="tablist" style="visibility: visible;">
+                <h5 style="display: none"><i style="display: none" class="icon-plus-sign"></i>Web Design</h5>
+                <div style="display: none">
+                    <p style="display: none">
+                        Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                            ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                            amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                            odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                    </p>
+                </div>
+
+                <h5 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" role="tab" id="ui-accordion-2-header-0" aria-controls="ui-accordion-2-panel-0" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span><i class="icon-plus-sign"></i>Góp ý và báo lỗi sản phẩm</h5>
+                <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-2-panel-0" aria-labelledby="ui-accordion-2-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+                    <label for="name">Tên sản phẩm bạn muốn góp ý*</label>
+                    <input type="text" id="TenFeedback" name="name" class="stylish-text-input span5" value="">
+                    <label for="website">Nội dung góp ý*</label>
+                    <textarea name="comment" id="NoidungFeedback" class="stylish-textarea contact-textarea span5" maxlength="4000"></textarea>
+                    <div class="row">
+                        <div class="span6">
+                            <div class="stylish-button">
+                                <input type="submit" onclick="Feedback()" name="submit" value="Gửi Phản Hồi">
+                            </div>
                         </div>
-                        
-                        <h5 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" role="tab" id="ui-accordion-2-header-0" aria-controls="ui-accordion-2-panel-0" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span><i class="icon-plus-sign"></i>Góp ý và báo lỗi sản phẩm</h5>
-                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-2-panel-0" aria-labelledby="ui-accordion-2-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
-                                <label for="name">Tên sản phẩm bạn muốn góp ý*</label>
-                                <input type="text" id="TenFeedback" name="name"  class="stylish-text-input span5" value="">                              
-                               <label for="website">Nội dung góp ý*</label>
-                                <textarea name="comment" id="NoidungFeedback"  class="stylish-textarea contact-textarea span5" maxlength="4000"></textarea>
-                                <div class="row">
-                                    <div class="span6">
-                                        <div class="stylish-button">
-                                            <input type="submit" onclick="Feedback()" name="submit" value="Gửi Phản Hồi">
-                                        </div>
-                                    </div>
-                                </div>                  
-                        </div>                    
                     </div>
                 </div>
             </div>
-    
-   
+        </div>
+    </div>
+
+
 </div>
 
 <script>
@@ -195,17 +222,17 @@
         }
     }
 
-    function Feedback(){   
-        var Ten =   $( "#TenFeedback" ).val();
-        var Noidung = $( "#NoidungFeedback" ).val();
-        var string = Ten + "|" + Noidung;	
-        var postData = {FeedbackInfo: string };
+    function Feedback() {
+        var Ten = $("#TenFeedback").val();
+        var Noidung = $("#NoidungFeedback").val();
+        var string = Ten + "|" + Noidung;
+        var postData = { FeedbackInfo: string };
         $.ajax({
             type: "POST",
             url: "/Product/Feedback",
             data: postData,
-            success: function(data){
-                document.getElementById('ui-accordion-2-header-0').style.display = 'none';             
+            success: function (data) {
+                document.getElementById('ui-accordion-2-header-0').style.display = 'none';
                 document.getElementById('ui-accordion-2-panel-0').style.display = 'none';
                 document.getElementById('TenFeedback').value = '';
                 document.getElementById('NoidungFeedback').value = '';
