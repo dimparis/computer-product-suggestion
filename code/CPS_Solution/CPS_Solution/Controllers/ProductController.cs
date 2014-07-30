@@ -258,7 +258,7 @@ namespace CPS_Solution.Controllers
             recommendproduct.IsTrue = false;
             if(User.Identity.IsAuthenticated ==true)
             {
-                recommendproduct.Username = User.Identity.Name;                
+                recommendproduct.Username = User.Identity.Name;  
             }
             else
             {

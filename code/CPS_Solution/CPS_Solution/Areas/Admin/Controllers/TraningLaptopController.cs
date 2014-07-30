@@ -175,7 +175,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
 
                 // dòng lỗi link ảnh lap
-                ListerrorTraning[i].Imagelink = ListerrorTraning[i].Imagelink.ToLower().Trim();
+                ListerrorTraning[i].Imagelink = ListerrorTraning[i].Imagelink.Trim();
 
                 bool checkimage = IsImageUrl(ListerrorTraning[i].Imagelink);
                 Uri myUri;
@@ -238,7 +238,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     count++;
                 }
                 // dòng lỗi URL
-                ListerrorTraning[i].Url = ListerrorTraning[i].Url.ToLower().Trim();
+                ListerrorTraning[i].Url = ListerrorTraning[i].Url.Trim();
                 bool checkURL = IsUrl(ListerrorTraning[i].Url);
                 Uri myUri1;
                 if (!Uri.TryCreate(ListerrorTraning[i].Url, UriKind.RelativeOrAbsolute, out myUri1) || checkURL == false)
@@ -468,7 +468,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
 
                 // dòng lỗi link ảnh lap
-                list[i].Imagelink = list[i].Imagelink.ToLower().Trim();
+                list[i].Imagelink = list[i].Imagelink.Trim();
 
                 bool checkimage = IsImageUrl(list[i].Imagelink);
                 Uri myUri;
@@ -531,7 +531,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     count++;
                 }
                 // dòng lỗi URL
-                list[i].Url = list[i].Url.ToLower().Trim();
+                list[i].Url = list[i].Url.Trim();
                 bool checkURL = IsUrl(list[i].Url);
                 Uri myUri1;
                 if (!Uri.TryCreate(list[i].Url, UriKind.RelativeOrAbsolute, out myUri1) || checkURL == false)
@@ -827,81 +827,126 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     string errorRam = "";
                     Hardware Ram = new Hardware();
                     int errorCount = 0;
-                    // trùng CPU 1
+                    // trùng CPU 1 
+                    int c1 = 0;
                     for (int x = 0; x < listCPU.Count; x++)
                     {
-                        if (listpro[i].CPU.Equals(listCPU[x].Name))
+                        if (listpro[i].CPU.Trim().Equals(listCPU[x].Name.Trim()))
                         {
+                            c1++;
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].CPU, listCPU[x].Name) >= 80)
+
+                    }
+                    if (c1 == 0)
+                    {
+                        for (int x = 0; x < listCPU.Count; x++)
                         {
-                            CPU = listCPU[x];
-                            errorCount++;
-                            errorCPU = listCPU[x].Name;
+                            if (CompareStringHelper.CompareString(listpro[i].CPU.Trim(), listCPU[x].Name.Trim()) >= 80)
+                            {
+                                CPU = listCPU[x];
+                                errorCount++;
+                                errorCPU = listCPU[x].Name;
+                                break;
+                            }
+                        }
+                    }
+
+                    // trùng VGA 2
+                    int v2 = 0;
+                    for (int x = 0; x < listVGA.Count; x++)
+                    {
+                        if (listpro[i].VGA.Trim().Equals(listVGA[x].Name.Trim()))
+                        {
+                            v2++;
                             break;
                         }
                     }
-                    // trùng VGA 2
-                    for (int x = 0; x < listVGA.Count; x++)
+                    if (v2 == 0)
                     {
-                        if (listpro[i].VGA.Equals(listVGA[x].Name))
+                        for (int x = 0; x < listVGA.Count; x++)
                         {
-                            break;
-                        }
-                        else if (CompareStringHelper.CompareString(listpro[i].VGA, listVGA[x].Name) >= 80)
-                        {
-                            VGA = listVGA[x];
-                            errorCount++;
-                            errorVGA = listVGA[x].Name;
-                            break;
+                            if (CompareStringHelper.CompareString(listpro[i].VGA.Trim(), listVGA[x].Name.Trim()) >= 80)
+                            {
+                                VGA = listVGA[x];
+                                errorCount++;
+                                errorVGA = listVGA[x].Name;
+                                break;
+                            }
                         }
                     }
                     // trùng HDD 3
+                    int h3 = 0;
                     for (int x = 0; x < listHDD.Count; x++)
                     {
-                        if (listpro[i].HDD.Equals(listHDD[x].Name))
+                        if (listpro[i].HDD.Trim().Equals(listHDD[x].Name.Trim()))
                         {
+                            h3++;
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].HDD, listHDD[x].Name) >= 80)
+                    }
+                    if (h3 == 0)
+                    {
+                        for (int x = 0; x < listHDD.Count; x++)
                         {
-                            HDD = listHDD[x];
-                            errorCount++;
-                            errorHDD = listHDD[x].Name;
-                            break;
+                            if (CompareStringHelper.CompareString(listpro[i].HDD.Trim(), listHDD[x].Name.Trim()) >= 80)
+                            {
+                                HDD = listHDD[x];
+                                errorCount++;
+                                errorHDD = listHDD[x].Name;
+                                break;
+                            }
                         }
                     }
                     // trùng Display 4
+                    int d4 = 0;
                     for (int x = 0; x < listDisplay.Count; x++)
                     {
-                        if (listpro[i].Display.Equals(listDisplay[x].Name))
+                        if (listpro[i].Display.Trim().Equals(listDisplay[x].Name.Trim()))
                         {
+                            d4++;
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].Display, listDisplay[x].Name) >= 80)
+
+                    }
+                    if (d4 == 0)
+                    {
+                        for (int x = 0; x < listDisplay.Count; x++)
                         {
-                            Display = listDisplay[x];
-                            errorCount++;
-                            errorDisplay = listDisplay[x].Name;
-                            break;
+                            if (CompareStringHelper.CompareString(listpro[i].Display.Trim(), listDisplay[x].Name.Trim()) >= 80)
+                            {
+                                Display = listDisplay[x];
+                                errorCount++;
+                                errorDisplay = listDisplay[x].Name;
+                                break;
+                            }
                         }
                     }
                     // trùng Ram
+                    int r5 = 0;
                     for (int x = 0; x < listRam.Count; x++)
                     {
-                        if (listpro[i].RAM.Equals(listRam[x].Name))
+                        if (listpro[i].RAM.Trim().Equals(listRam[x].Name.Trim()))
                         {
+                            r5++;
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].RAM, listRam[x].Name) >= 80)
+
+                    }
+                    if (r5 == 0)
+                    {
+                        for (int x = 0; x < listRam.Count; x++)
                         {
-                            Ram = listRam[x];
-                            errorCount++;
-                            errorRam = listRam[x].Name;
-                            break;
+                            if (CompareStringHelper.CompareString(listpro[i].RAM.Trim(), listRam[x].Name.Trim()) >= 80)
+                            {
+                                Ram = listRam[x];
+                                errorCount++;
+                                errorRam = listRam[x].Name;
+                                break;
+                            }
                         }
                     }
+
                     #endregion
                     //-----------------------------------------------------------------------------------------------------------------
                     //------- lưu những sản phẩm có linh kiện trùng và lưu linh kiện trùng với id sản phẩm vào logfile-----------------
@@ -2445,83 +2490,128 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
                             int errorCount = 0;
                             // trùng CPU 1
+                            int c1 = 0;
                             for (int x = 0; x < listCPU.Count; x++)
                             {
                                 if (listduplicatenew[i][j].CPU.Trim().Equals(listCPU[x].Name.Trim()))
                                 {
+                                    c1++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU, listCPU[x].Name) > 80)
+
+                            }
+                            if (c1 == 0)
+                            {
+                                for (int x = 0; x < listCPU.Count; x++)
                                 {
-                                    CPU = listCPU[x];
-                              //      listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorCPU = listCPU[x].Name;
-                                    break;
+                                    if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU.Trim(), listCPU[x].Name.Trim()) > 80)
+                                    {
+                                        CPU = listCPU[x];
+                                        //listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorCPU = listCPU[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             // trùng VGA 2
+                            int v2 = 0;
                             for (int x = 0; x < listVGA.Count; x++)
                             {
                                 if (listduplicatenew[i][j].VGA.Trim().Equals(listVGA[x].Name.Trim()))
                                 {
+                                    v2++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA, listVGA[x].Name) > 80)
+
+                            }
+                            if (v2 == 0)
+                            {
+                                for (int x = 0; x < listVGA.Count; x++)
                                 {
-                                    VGA = listVGA[x];
-                               //     listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorVGA = listVGA[x].Name;
-                                    break;
+                                    if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA.Trim(), listVGA[x].Name.Trim()) > 80)
+                                    {
+                                        VGA = listVGA[x];
+                                        //  listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorVGA = listVGA[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             // trùng HDD 3
+                            int h3 = 0;
                             for (int x = 0; x < listHDD.Count; x++)
                             {
                                 if (listduplicatenew[i][j].HDD.Trim().Equals(listHDD[x].Name.Trim()))
                                 {
+                                    h3++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD, listHDD[x].Name) > 80)
+
+                            }
+                            if (h3 == 0)
+                            {
+                                for (int x = 0; x < listHDD.Count; x++)
                                 {
-                                    HDD = listHDD[x];
-                              //      listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorHDD = listHDD[x].Name;
-                                    break;
+                                    if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD.Trim(), listHDD[x].Name.Trim()) > 80)
+                                    {
+                                        HDD = listHDD[x];
+                                        //   listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorHDD = listHDD[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             // trùng Display 4
+                            int d4 = 0;
                             for (int x = 0; x < listDisplay.Count; x++)
                             {
                                 if (listduplicatenew[i][j].Display.Trim().Equals(listDisplay[x].Name.Trim()))
                                 {
+                                    d4++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display, listDisplay[x].Name) > 80)
+
+                            }
+                            if (d4 == 0)
+                            {
+                                for (int x = 0; x < listDisplay.Count; x++)
                                 {
-                                    Display = listDisplay[x];
-                             //       listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorDisplay = listDisplay[x].Name;
-                                    break;
+                                    if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display.Trim(), listDisplay[x].Name.Trim()) > 80)
+                                    {
+                                        Display = listDisplay[x];
+                                        //   listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorDisplay = listDisplay[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             // trùng Ram
+                            int r5 = 0;
                             for (int x = 0; x < listRam.Count; x++)
                             {
                                 if (listduplicatenew[i][j].RAM.Trim().Equals(listRam[x].Name.Trim()))
                                 {
+                                    r5++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM, listRam[x].Name) > 80)
+
+                            }
+                            if (r5 == 0)
+                            {
+                                for (int x = 0; x < listRam.Count; x++)
                                 {
-                                    Ram = listRam[x];
-                              //      listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorRam = listRam[x].Name;
-                                    break;
+                                    if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM.Trim(), listRam[x].Name.Trim()) > 80)
+                                    {
+                                        Ram = listRam[x];
+                                        //    listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorRam = listRam[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             #endregion

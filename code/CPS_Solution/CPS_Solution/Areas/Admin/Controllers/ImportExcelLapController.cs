@@ -12,6 +12,7 @@ using CPS_Solution.Areas.Admin.Helpers;
 using System.Net;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using HtmlAgilityPack;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class ImportExcelLapController : Controller
@@ -325,79 +326,133 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     string errorRam = "";
                     Hardware Ram = new Hardware();
                     int errorCount = 0;
-                    // trùng CPU 1
-                    for (int x = 0; x < listCPU.Count; x++)
+                    // trùng CPU 1 
+                    int c1 = 0;
+                    var DictionaryC1 = (from a in db.Dictionaries where a.Hardware.CodetypeID =="C" select a);
+                    List<Dictionary> listDicC1 = DictionaryC1.ToList();
+                    for (int x = 0; x < listDicC1.Count; x++)
                     {
-                        if (listpro[i].CPU.Trim().Equals(listCPU[x].Name.Trim()))
+                        if (listpro[i].CPU.Trim().Equals(listDicC1[x].Name.Trim()))
                         {
+                            c1++;
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].CPU.Trim(), listCPU[x].Name.Trim()) >= 80)
+                       
+                    }
+                    if (c1 == 0)
+                    {
+                        for (int x = 0; x < listCPU.Count; x++)
                         {
-                            CPU = listCPU[x];
-                            errorCount++;
-                            errorCPU = listCPU[x].Name;
-                            break;
+                            if (CompareStringHelper.CompareString(listpro[i].CPU.Trim(), listCPU[x].Name.Trim()) >= 80)
+                            {
+                                CPU = listCPU[x];
+                                errorCount++;
+                                errorCPU = listCPU[x].Name;
+                                break;
+                            }
                         }
                     }
+
                     // trùng VGA 2
-                    for (int x = 0; x < listVGA.Count; x++)
+                    int v2 =0;
+                    var DictionaryV2 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "V" select a);
+                    List<Dictionary> listDicV2 = DictionaryV2.ToList();
+                    for (int x = 0; x < listDicV2.Count; x++)
                     {
-                        if (listpro[i].VGA.Trim().Equals(listVGA[x].Name.Trim()))
+                        if (listpro[i].VGA.Trim().Equals(listDicV2[x].Name.Trim()))
                         {
+                            v2++;
                             break;
-                        }
-                        else if (CompareStringHelper.CompareString(listpro[i].VGA.Trim(), listVGA[x].Name.Trim()) >= 80)
+                        }                      
+                    }
+                    if (v2 == 0)
+                    {
+                        for (int x = 0; x < listVGA.Count; x++)
                         {
-                            VGA = listVGA[x];
-                            errorCount++;
-                            errorVGA = listVGA[x].Name;
-                            break;
+                            if (CompareStringHelper.CompareString(listpro[i].VGA.Trim(), listVGA[x].Name.Trim()) >= 80)
+                            {
+                                VGA = listVGA[x];
+                                errorCount++;
+                                errorVGA = listVGA[x].Name;
+                                break;
+                            }
                         }
                     }
                     // trùng HDD 3
-                    for (int x = 0; x < listHDD.Count; x++)
+                    int h3 = 0;
+                    var DictionaryH3 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "H" select a);
+                    List<Dictionary> listDicH3 = DictionaryH3.ToList();
+                    for (int x = 0; x < listDicH3.Count; x++)
                     {
-                        if (listpro[i].HDD.Trim().Equals(listHDD[x].Name.Trim()))
+                        if (listpro[i].HDD.Trim().Equals(listDicH3[x].Name.Trim()))
                         {
+                            h3++;
                             break;
-                        }
-                        else if (CompareStringHelper.CompareString(listpro[i].HDD.Trim(), listHDD[x].Name.Trim()) >= 80)
-                        {
-                            HDD = listHDD[x];
-                            errorCount++;
-                            errorHDD = listHDD[x].Name;
-                            break;
+                        }                      
+                    }
+                    if (h3 == 0)
+                    {
+                        for (int x = 0; x < listHDD.Count; x++)
+                        {                           
+                           if (CompareStringHelper.CompareString(listpro[i].HDD.Trim(), listHDD[x].Name.Trim()) >= 80)
+                            {
+                                HDD = listHDD[x];
+                                errorCount++;
+                                errorHDD = listHDD[x].Name;
+                                break;
+                            }
                         }
                     }
                     // trùng Display 4
-                    for (int x = 0; x < listDisplay.Count; x++)
+                    int d4 = 0;
+                    var DictionaryD4 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "D" select a);
+                    List<Dictionary> listDicD4 = DictionaryD4.ToList();
+                    for (int x = 0; x < listDicD4.Count; x++)
                     {
-                        if (listpro[i].Display.Trim().Equals(listDisplay[x].Name.Trim()))
+                        if (listpro[i].Display.Trim().Equals(listDicD4[x].Name.Trim()))
                         {
+                            d4++;
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].Display.Trim(), listDisplay[x].Name.Trim()) >= 80)
+                        
+                    }
+                    if (d4 == 0)
+                    {
+                        for (int x = 0; x < listDisplay.Count; x++)
                         {
-                            Display = listDisplay[x];
-                            errorCount++;
-                            errorDisplay = listDisplay[x].Name;
-                            break;
+                             if (CompareStringHelper.CompareString(listpro[i].Display.Trim(), listDisplay[x].Name.Trim()) >= 80)
+                            {
+                                Display = listDisplay[x];
+                                errorCount++;
+                                errorDisplay = listDisplay[x].Name;
+                                break;
+                            }
                         }
                     }
                     // trùng Ram
-                    for (int x = 0; x < listRam.Count; x++)
+                    int r5 = 0;
+                    var DictionaryR5 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "R" select a);
+                    List<Dictionary> listDicR5 = DictionaryR5.ToList();
+                    for (int x = 0; x < listDicR5.Count; x++)
                     {
-                        if (listpro[i].RAM.Trim().Equals(listRam[x].Name.Trim()))
+                        if (listpro[i].RAM.Trim().Equals(listDicR5[x].Name.Trim()))
                         {
+                            r5++;
                             break;
                         }
-                        else if (CompareStringHelper.CompareString(listpro[i].RAM.Trim(), listRam[x].Name.Trim()) >= 80)
+                       
+                    }
+                    if (r5 == 0)
+                    {
+                        for (int x = 0; x < listRam.Count; x++)
                         {
-                            Ram = listRam[x];
-                            errorCount++;
-                            errorRam = listRam[x].Name;
-                            break;
+                            if (CompareStringHelper.CompareString(listpro[i].RAM.Trim(), listRam[x].Name.Trim()) >= 80)
+                            {
+                                Ram = listRam[x];
+                                errorCount++;
+                                errorRam = listRam[x].Name;
+                                break;
+                            }
                         }
                     }
                     #endregion
@@ -1727,7 +1782,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 }
 
                 // dòng lỗi link ảnh lap
-                list[i].Imagelink = list[i].Imagelink.ToLower().Trim();
+                list[i].Imagelink = list[i].Imagelink.Trim();
 
                 bool checkimage = IsImageUrl(list[i].Imagelink);
                 Uri myUri;
@@ -1790,7 +1845,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     count++;
                 }
                 // dòng lỗi URL
-                list[i].Url = list[i].Url.ToLower().Trim();
+                list[i].Url = list[i].Url.Trim();
                 bool checkURL = IsUrl(list[i].Url);
                 Uri myUri1;
                 if (!Uri.TryCreate(list[i].Url, UriKind.RelativeOrAbsolute, out myUri1) || checkURL == false)
@@ -2427,84 +2482,143 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             Hardware Ram = new Hardware();
 
                             int errorCount = 0;
-                            // trùng CPU 1
-                            for (int x = 0; x < listCPU.Count; x++)
+                            // trùng CPU 1 
+                            int c1=0;
+                            var DictionaryC1 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "C" select a);
+                            List<Dictionary> listDicC1 = DictionaryC1.ToList();
+
+                            for (int x = 0; x < listDicC1.Count; x++)
                             {
-                                if (listduplicatenew[i][j].CPU.Trim().Equals(listCPU[x].Name.Trim()))
+                                if (listduplicatenew[i][j].CPU.Trim().Equals(listDicC1[x].Name.Trim()))
                                 {
+                                    c1++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU.Trim(), listCPU[x].Name.Trim()) > 80)
+                                
+                            }
+                            if (c1 == 0)
+                            {
+                                for (int x = 0; x < listCPU.Count; x++)
                                 {
-                                    CPU = listCPU[x];
-                                    //listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorCPU = listCPU[x].Name;
-                                    break;
+                                     if (CompareStringHelper.CompareString(listduplicatenew[i][j].CPU.Trim(), listCPU[x].Name.Trim()) > 80)
+                                    {
+                                        CPU = listCPU[x];
+                                        //listtrunglinhkien[1] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorCPU = listCPU[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             // trùng VGA 2
-                            for (int x = 0; x < listVGA.Count; x++)
+                            int v2 = 0;
+                            var DictionaryV2 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "V" select a);
+                            List<Dictionary> listDicV2 = DictionaryV2.ToList();
+                            for (int x = 0; x < listDicV2.Count; x++)
                             {
-                                if (listduplicatenew[i][j].VGA.Trim().Equals(listVGA[x].Name.Trim()))
+                                if (listduplicatenew[i][j].VGA.Trim().Equals(listDicV2[x].Name.Trim()))
                                 {
+                                    v2++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA.Trim(), listVGA[x].Name.Trim()) > 80)
+                               
+                            }
+                            if (v2 == 0)
+                            {
+                                for (int x = 0; x < listVGA.Count; x++)
                                 {
-                                    VGA = listVGA[x];
-                                  //  listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorVGA = listVGA[x].Name;
-                                    break;
+                                    if (CompareStringHelper.CompareString(listduplicatenew[i][j].VGA.Trim(), listVGA[x].Name.Trim()) > 80)
+                                    {
+                                        VGA = listVGA[x];
+                                        //  listtrunglinhkien[2] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorVGA = listVGA[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             // trùng HDD 3
-                            for (int x = 0; x < listHDD.Count; x++)
+                            int h3 = 0;
+                            var DictionaryH3 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "H" select a);
+                            List<Dictionary> listDicH3 = DictionaryH3.ToList();
+
+                            for (int x = 0; x < listDicH3.Count; x++)
                             {
-                                if (listduplicatenew[i][j].HDD.Trim().Equals(listHDD[x].Name.Trim()))
+                                if (listduplicatenew[i][j].HDD.Trim().Equals(listDicH3[x].Name.Trim()))
                                 {
+                                    h3++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD.Trim(), listHDD[x].Name.Trim()) > 80)
+                               
+                            }
+                            if (h3 == 0)
+                            {
+                                for (int x = 0; x < listHDD.Count; x++)
                                 {
-                                    HDD = listHDD[x];
-                                 //   listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorHDD = listHDD[x].Name;
-                                    break;
+                                    if (CompareStringHelper.CompareString(listduplicatenew[i][j].HDD.Trim(), listHDD[x].Name.Trim()) > 80)
+                                    {
+                                        HDD = listHDD[x];
+                                        //   listtrunglinhkien[3] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorHDD = listHDD[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             // trùng Display 4
-                            for (int x = 0; x < listDisplay.Count; x++)
+                            int d4 = 0;
+                            var DictionaryD4 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "D" select a);
+                            List<Dictionary> listDicD4 = DictionaryD4.ToList();
+
+                            for (int x = 0; x < listDicD4.Count; x++)
                             {
-                                if (listduplicatenew[i][j].Display.Trim().Equals(listDisplay[x].Name.Trim()))
+                                if (listduplicatenew[i][j].Display.Trim().Equals(listDicD4[x].Name.Trim()))
                                 {
+                                    d4++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display.Trim(), listDisplay[x].Name.Trim()) > 80)
+                               
+                            }
+                            if (d4 == 0)
+                            {
+                                for (int x = 0; x < listDisplay.Count; x++)
                                 {
-                                    Display = listDisplay[x];
-                                 //   listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorDisplay = listDisplay[x].Name;
-                                    break;
+                                    if (CompareStringHelper.CompareString(listduplicatenew[i][j].Display.Trim(), listDisplay[x].Name.Trim()) > 80)
+                                    {
+                                        Display = listDisplay[x];
+                                        //   listtrunglinhkien[4] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorDisplay = listDisplay[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             // trùng Ram
-                            for (int x = 0; x < listRam.Count; x++)
+                            int r5 = 0;
+                            var DictionaryR5 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "R" select a);
+                            List<Dictionary> listDicR5 = DictionaryR5.ToList();
+
+                            for (int x = 0; x < listDicR5.Count; x++)
                             {
-                                if (listduplicatenew[i][j].RAM.Trim().Equals(listRam[x].Name.Trim()))
+                                if (listduplicatenew[i][j].RAM.Trim().Equals(listDicR5[x].Name.Trim()))
                                 {
+                                    r5++;
                                     break;
                                 }
-                                else if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM.Trim(), listRam[x].Name.Trim()) > 80)
+                               
+                            }
+                            if (r5 == 0)
+                            {
+                                for (int x = 0; x < listRam.Count; x++)
                                 {
-                                    Ram = listRam[x];
-                                //    listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
-                                    errorCount++;
-                                    errorRam = listRam[x].Name;
-                                    break;
+                                   if (CompareStringHelper.CompareString(listduplicatenew[i][j].RAM.Trim(), listRam[x].Name.Trim()) > 80)
+                                    {
+                                        Ram = listRam[x];
+                                        //    listtrunglinhkien[5] += Convert.ToInt32(listduplicatenew[i][j].stt).ToString() + ",";
+                                        errorCount++;
+                                        errorRam = listRam[x].Name;
+                                        break;
+                                    }
                                 }
                             }
                             #endregion
@@ -3707,31 +3821,46 @@ namespace CPS_Solution.Areas.Admin.Controllers
         #region Kiểm tra url  có tồn tại không.
         bool IsUrl(string URL)
         {
-            HttpWebResponse response = null;
-            if (URL.Equals(""))
-            {
-                return false;
-            }
-            var request = (HttpWebRequest)WebRequest.Create(URL);
-            request.Method = "HEAD";         
+            //Load website
             try
-            {               
-                response = (HttpWebResponse)request.GetResponse();
-                return true;
-            }
-            catch (WebException ex)
             {
-                /* A WebException will be thrown if the status of the response is not `200 OK` */
-                return false;
-            }
-            finally
-            {
-                // Don't forget to close your response.
-                if (response != null)
+                var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
+                var document = web.Load(URL);
+                if (web.StatusCode == HttpStatusCode.OK)
                 {
-                    response.Close();
+                    return true;
                 }
             }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return false;
+            //HttpWebResponse response = null;
+            //if (URL.Equals(""))
+            //{
+            //    return false;
+            //}
+            //var request = (HttpWebRequest)WebRequest.Create(URL);
+            //request.Method = "HEAD";         
+            //try
+            //{               
+            //    response = (HttpWebResponse)request.GetResponse();
+            //    return true;
+            //}
+            //catch (WebException ex)
+            //{
+            //    /* A WebException will be thrown if the status of the response is not `200 OK` */
+            //    return false;
+            //}
+            //finally
+            //{
+            //    // Don't forget to close your response.
+            //    if (response != null)
+            //    {
+            //        response.Close();
+            //    }
+            //}
         }
         #endregion
 
