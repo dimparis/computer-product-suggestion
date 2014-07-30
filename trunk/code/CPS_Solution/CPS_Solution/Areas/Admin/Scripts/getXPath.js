@@ -4,6 +4,7 @@ var $tile = $('#xpathTile');
 var $productName = $('#xpathProductName');
 var $productPoint = $('#xpathProductPoint');
 var $paging = $('#xpathPaging');
+var $url = $('#linkAttribute');
 $('#Parseform').daWizard({
     nextButtonLabel: 'Sau',
     prevButtonLabel: 'Trước',
@@ -140,9 +141,13 @@ function getPath(clickedNode, root) {
         if (node === root) {
             break;
         }
-        if (node.id !== "") {
-            foundId = true;
-            break;
+        if ($url.val().indexOf("cpuboss.com") != -1 || $url.val().indexOf("gpuboss.com") != -1 || $url.val().indexOf("benchmark.net") != -1 || $url.val().indexOf("primatelabs.com")) {
+            //do nothing to take absolute path
+        } else {
+            if (node.id !== "") {
+                foundId = true;
+                break;
+            }
         }
         parent = node.parentNode;
         children = parent.childNodes;
@@ -206,13 +211,25 @@ function getXPath(event) {
 function getTabularPath(event) {
     var xpath = getPath(event.target, webDiv);
     var result = "";
-    for (var i = 0; i < xpath.length; i++) {
-        if (xpath[i].tagName == "tr") {
-            xpath[i].position = -1;
-            xpath[i].tagName += "[i]";
-            break;
+    if ($url.val().indexOf("cpuboss.com") != -1 || $url.val().indexOf("gpuboss.com") != -1) {
+        for (var i = 0; i < xpath.length; i++) {
+            if (xpath[i].tagName == "tr") {
+                xpath[i].position = -1;
+                xpath[i].tagName += "[i]";
+                break;
+            }
         }
     }
+    else {
+        for (var i = 0; i < xpath.length; i++) {
+            if (xpath[i].tagName == "tr") {
+                xpath[i].position = -1;
+                xpath[i].tagName += "[i]";
+                break;
+            }
+        }
+    }
+   
     xpath.reverse();
     if (xpath[0].id != "") {
         result += "//*[@id='" + xpath[0].id + "']";
