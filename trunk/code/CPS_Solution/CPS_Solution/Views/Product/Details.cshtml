@@ -395,7 +395,7 @@
             <div class="span8" style="border-style: solid; padding: 20px;">
                 @if (@Model.AliasProducts.Count > 0)
                 {               
-                    @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x => x.IsActive = true && x.IsMain == false));
+                    @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x => x.IsActive = true && x.IsMain == false && x.ProductID == Model.ID));
                 }
             </div>
         </div>

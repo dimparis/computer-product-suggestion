@@ -181,9 +181,55 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             List<Product> listproconfirm = ProductNotConfirm();
             ViewBag.listproconfirm = listproconfirm;
+            List<Hardware> ListHardWarePro = new List<Hardware>();
+            #region lấy hết những hardware của các product chưa confirm có isactive = true
+
+            List<int> listid = new List<int>();
+            foreach (Product p in listproconfirm)
+            {
+                if (p.CpuID != 0)
+                {
+                    listid.Add(p.CpuID);
+                }
+                if (p.VgaID != 0)
+                {
+                    listid.Add(p.VgaID);
+                }
+                if (p.HddID != 0)
+                {
+                    listid.Add(p.HddID);
+                }
+                if (p.RamID != 0)
+                {
+                    listid.Add(p.RamID);
+                }
+                if (p.DisplayID != 0)
+                {
+                    listid.Add(p.DisplayID);
+                }
+            }
+            // lấy list hardware của các sản phẩm có isactive = true;
+            foreach (int id in listid)
+            {
+                var HardwareSign = db.Hardwares.Where(x => x.ID == id && x.IsActive == true).SingleOrDefault();
+                if (HardwareSign != null)
+                {
+                    ListHardWarePro.Add(HardwareSign);
+                }
+            }
+            #endregion
+            ViewBag.ListHardWareProActive = ListHardWarePro;
+            // Giá trị mặc định không chọn gì cả
+            var itemdefault = new SelectListItem
+            {
+                Text = "Không chọn",
+                Value = "0"
+            };
+
             // lấy product có isactive = true để autocomplete
             var ProductTrue = db.Products.Where(x => x.IsActive == true).ToList();
             var ProductList = new List<SelectListItem>();
+            ProductList.Add(itemdefault);
             foreach (var pro in ProductTrue)
             {
                 var item = new SelectListItem
@@ -194,6 +240,93 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 ProductList.Add(item);
             }
             ViewBag.ProductList = ProductList;
+
+
+            // Load CPU list
+            var cpus = db.Hardwares.Where(x => x.CodetypeID == "C" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var cpuList = new List<SelectListItem>();
+            cpuList.Add(itemdefault);
+            foreach (var cpu in cpus)
+            {
+                var item = new SelectListItem
+                {
+                    Text = cpu.Name,
+                    Value = cpu.ID.ToString()
+                };
+                cpuList.Add(item);
+            }
+            ViewBag.cpuList = cpuList;
+
+            // Load VGA list
+            var vgas = db.Hardwares.Where(x => x.CodetypeID == "V" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var vgaList = new List<SelectListItem>();
+            vgaList.Add(itemdefault);
+            foreach (var vga in vgas)
+            {
+                var item = new SelectListItem
+                {
+                    Text = vga.Name,
+                    Value = vga.ID.ToString()
+                };
+                vgaList.Add(item);
+            }
+            ViewBag.vgaList = vgaList;
+
+            // Load HDD list
+            var hdds = db.Hardwares.Where(x => x.CodetypeID == "H" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var hddList = new List<SelectListItem>();
+            hddList.Add(itemdefault);
+            foreach (var hdd in hdds)
+            {
+                var item = new SelectListItem
+                {
+                    Text = hdd.Name,
+                    Value = hdd.ID.ToString()
+                };
+                hddList.Add(item);
+            }
+            ViewBag.hddList = hddList;
+
+
+            // Load Ram list
+            var rams = db.Hardwares.Where(x => x.CodetypeID == "R" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var ramList = new List<SelectListItem>();
+            ramList.Add(itemdefault);
+            foreach (var ram in rams)
+            {
+                var item = new SelectListItem
+                {
+                    Text = ram.Name,
+                    Value = ram.ID.ToString()
+                };
+                ramList.Add(item);
+            }
+            ViewBag.ramList = ramList;
+
+            // Load Display list
+            var displays = db.Hardwares.Where(x => x.CodetypeID == "D" && x.IsActive == true)
+                .OrderBy(x => x.Name)
+                .ToList();
+            var displayList = new List<SelectListItem>();
+            displayList.Add(itemdefault);
+            foreach (var display in displays)
+            {
+                var item = new SelectListItem
+                {
+                    Text = display.Name,
+                    Value = display.ID.ToString()
+                };
+                displayList.Add(item);
+            }
+            ViewBag.displayList = displayList;
 
             return View();
         }
