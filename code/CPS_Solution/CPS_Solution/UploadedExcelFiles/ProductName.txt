@@ -1,0 +1,38 @@
+0~Intel Core i7-4770K @ 3.50GHz|C|10287|1155#Intel Core i7-4770 @ 3.40GHz|C|    9,938  |0
+0~Intel Core i7-4770K @ 3.50GHz|C|10287|1155#Intel Core i7-3770K @ 3.50GHz|C|    9,644  |0
+0~AMD FX-8350 Eight-Core|C|9029|1157#AMD FX-8320 Eight-Core|C|    8,086  |0
+0~Intel Core i7-4700HQ|C|6810|1033#Intel Core i7-4700HQ @ 2.40GHz|C|    7,981  |0
+0~Intel Core i7-3630QM |C|5750|1055#Intel Core i7-3630QM @ 2.40GHz|C|    7,704  |0
+0~AMD FX-8350 Eight-Core|C|9029|1157#AMD FX-8150 Eight-Core|C|    7,699  |0
+0~Intel Core i5-4670K @ 3.40GHz|C|7490|1161#Intel Core i5-3570K @ 3.40GHz|C|    7,168  |0
+0~Intel Core i5-4670K @ 3.40GHz|C|7490|1161#Intel Core i5-3570 @ 3.40GHz|C|    6,997  |0
+0~Intel Core i7-3632QM @ 2.20GHz|C|7004|1164#Intel Core i7-3612QM @ 2.10GHz|C|    6,852  |0
+0~AMD FX-8350 Eight-Core|C|9029|1157#AMD FX-8120 Eight-Core|C|    6,600  |0
+0~Intel Core i5-4570 @ 3.20GHz|C|7065|1163#Intel Core i5-3470 @ 3.20GHz|C|    6,570  |0
+0~Intel Core i7-2670QM |C|4710|1065#Intel Core i7-2670QM @ 2.20GHz|C|    6,027  |0
+0~Intel Core i5-4440 @ 3.10GHz|C|6495|1165#Intel Core i5-2400 @ 3.10GHz|C|    5,817  |0
+0~AMD Phenom II X6 1100T|C|5200|1061#AMD Phenom II X6 1090T|C|    5,700  |0
+0~AMD FX-6300 Six-Core|C|6358|1168#AMD FX-6100 Six-Core|C|    5,429  |0
+0~Intel Core i7 930 @ 2.80GHz|C|5209|1174#Intel Core i7 860 @ 2.80GHz|C|    5,099  |0
+0~AMD Phenom II X6 1075T |C|4870|1063#AMD Phenom II X6 1055T|C|    5,066  |0
+0~AMD A10-5800K|C|3590|1079#AMD A10-5800K APU|C|    4,657  |0
+0~AMD Phenom II X4 965|C|4271|1069#AMD Phenom II X4 955|C|    4,012  |0
+0~Intel Core i7 930 @ 2.80GHz|C|5209|1174#Intel Core i5 760 @ 2.80GHz|C|    3,924  |0
+0~Intel Core i3-3220 @ 3.30GHz|C|4226|1177#Intel Core i3-2120 @ 3.30GHz|C|    3,873  |0
+0~AMD Phenom II X4 965|C|4271|1069#AMD Phenom II X4 945|C|    3,765  |0
+0~Intel Core i7 920 @ 2.67GHz|C|5004|1175#Intel Core i5 750 @ 2.67GHz|C|    3,746  |0
+0~Intel Core i5-2520M @ 2.50GHz|C|3536|1184#Intel Core i5-2450M @ 2.50GHz|C|    3,442  |0
+0~AMD Athlon X4 740|C|3150|1092#AMD Athlon II X4 640|C|    3,351  |0
+0~Intel Core i5-2430M @ 2.40GHz|C|3266|1187#Intel Core i5-2410M @ 2.30GHz|C|    3,175  |0
+0~Intel Core i5-4570 @ 3.20GHz|C|7065|1163#Intel Core i5 650 @ 3.20GHz|C|    3,147  |0
+0~AMD A10-4600M|C|2220|1104#AMD A10-4600M APU|C|    3,130  |0
+0~Intel, Core i3, 3110M, 2.40 GHz|C|30|1137#Intel Core i3-3110M @ 2.40GHz|C|    3,062  |0
+0~Intel Core2 Quad Q9400 @ 2.66GHz|C|3422|1185#Intel Core2 Quad Q6600 @ 2.40GHz|C|    2,983  |0
+0~Intel Core i3-2350M @ 2.30GHz|C|2647|1195#Intel Core i3-2330M @ 2.20GHz|C|    2,535  |0
+0~Intel Core i3-2100 @ 3.10GHz|C|3621|1183#Intel Core i3-2310M @ 2.10GHz|C|    2,410  |0
+0~Intel Core i5-2430M @ 2.40GHz|C|3266|1187#Intel Core i5 520M @ 2.40GHz|C|    2,372  |0
+0~Intel Core i5 M 460 @ 2.53GHz|C|2373|1197#Intel Core i3 M 380 @ 2.53GHz|C|    2,122  |0
+0~Intel Core i5 M 430 @ 2.27GHz|C|2109|1201#Intel Core i3 M 350 @ 2.27GHz|C|    1,913  |0
+0~AMD Athlon II X2 270|C|2040|1108#AMD Athlon II X2 250|C|    1,759  |0
+0~Intel Core2 Duo E6600 @ 2.40GHz|C|1557|1206#Intel Core2 Duo P8600 @ 2.40GHz|C|    1,545  |0
+0~Intel Pentium D 830 @ 3.00GHz|C|648|1210#Intel Pentium 4 3.00GHz|C|    362  |0
