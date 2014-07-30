@@ -335,7 +335,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 name = doc.DocumentNode.SelectSingleNode(nameXpath);
             }
 
-            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn"))
+            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn") || host.Contains("thietbiso.com"))
             {
                 if (priceXpath != null)
                 {
@@ -346,6 +346,10 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 hdd = doc.DocumentNode.SelectSingleNode(ReplaceUntable(hddXpath, "/t", "//t"));
                 ram = doc.DocumentNode.SelectSingleNode(ReplaceUntable(ramXpath, "/t", "//t"));
                 display = doc.DocumentNode.SelectSingleNode(ReplaceUntable(displayXpath, "/t", "//t"));
+                if (host.Contains("dienmaythienhoa"))
+                {
+                    imageXpath = ReplaceUntable(imageXpath, "/t", "//t");
+                }
             }
             else
             {

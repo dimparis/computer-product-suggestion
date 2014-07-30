@@ -41,7 +41,14 @@ namespace CPS_Solution.CommonClass
 
             smtpClient.EnableSsl = true;
             smtpClient.UseDefaultCredentials = false;
-            smtpClient.Credentials = loginInfo; smtpClient.Send(msg);
+            try
+            {
+                smtpClient.Credentials = loginInfo; smtpClient.Send(msg);
+            }
+            catch (Exception ex)
+            {
+               //donothing.
+            }
         }
         public void AutoSendMailforUser(List<RecommendProduct> rcmProducts)
         {
