@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Quartz;
-using CPS_Solution.Areas.Admin.Helpers;
 using CPS_Solution.EntityFramework;
-using HtmlAgilityPack;
-using System.Text.RegularExpressions;
-using CPS_Solution.Areas.Admin.Models;
 using System.Threading.Tasks;
-using CPS_Solution.Areas.Admin.Controllers;
 using System.Net;
 using System.Net.Mail;
 namespace CPS_Solution.CommonClass
@@ -56,7 +49,7 @@ namespace CPS_Solution.CommonClass
             foreach (var item in rcmProducts)
             {
                 int havepointCount = 0;
-                var aliasProducts = db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == true && item.Parselink.Contains(x.URL)).FirstOrDefault();
+                var aliasProducts = db.AliasProducts.FirstOrDefault(x => x.IsActive == true && x.IsMain == true && item.Parselink.Contains(x.URL));
                 if (aliasProducts != null)
                 {
                     var countElement = db.ProductAttributes.Where(x => x.ProductID == aliasProducts.ProductID).ToList();
@@ -81,10 +74,10 @@ namespace CPS_Solution.CommonClass
                     mailSent.Add(item.ID);
                 }
             }
-            foreach (var i in mailSent) 
+            foreach (var i in mailSent)
             {
-                var itemRecommendMailSent = db.RecommendProducts.Where(x => x.ID == i).FirstOrDefault();
-                itemRecommendMailSent.IsMailSent = true;
+                var itemRecommendMailSent = db.RecommendProducts.FirstOrDefault(x => x.ID == i);
+                if (itemRecommendMailSent != null) itemRecommendMailSent.IsMailSent = true;
             }
             db.SaveChanges();
         }

@@ -289,9 +289,6 @@
     <Compile Include="EntityFramework\Store.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\sysdiagram.cs">
-      <DependentUpon>CPS_Solution.tt</DependentUpon>
-    </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

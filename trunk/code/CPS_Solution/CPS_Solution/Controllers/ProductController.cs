@@ -16,18 +16,18 @@ namespace CPS_Solution.Controllers
     public class ProductController : Controller
     {
         private CPS_SolutionEntities db = new CPS_SolutionEntities();
-        
+        private readonly DataManager _dataManager = new DataManager();
         private string email = "";
     
-        public ActionResult Index()
-        {
-            DataManager manager = new DataManager();
-            int BlockSize = 4;
-            var products = manager.GetProducts(1, BlockSize);
-            LoadDropDownList();
+        //public ActionResult Index()
+        //{
+        //    DataManager manager = new DataManager();
+        //    int BlockSize = 4;
+        //    var products = manager.GetProducts(1, BlockSize);
+        //    LoadDropDownList();
 
-            return View(products);
-        }
+        //    return View(products);
+        //}
         
         public ActionResult SearchForProduct()
         {
@@ -42,8 +42,7 @@ namespace CPS_Solution.Controllers
         {
             DataManager manager = new DataManager();
             int BlockSize = 4;
-            //var products = manager.GetProducts(1, BlockSize);
-            var products = db.Products.Where(x => x.IsActive == true).ToList();
+            var products = manager.GetProducts(1, BlockSize);
             var listP = new List<Product>();
             LoadDropDownList();
             if (!String.IsNullOrEmpty(productName))
@@ -59,6 +58,59 @@ namespace CPS_Solution.Controllers
 
             }
             return View(listP);
+        }
+
+        public ActionResult SearchByPriceAndBrand(string brands, string prices)
+        {
+            int brandInt = 13;// load tat ca  cac thuong hieu
+            int priceInt = 8;// load tat ca cac loai gia
+            LoadDropDownList();
+            if (!String.IsNullOrEmpty(brands))
+            {
+                brandInt = Int32.Parse(brands);
+            }
+            if (!String.IsNullOrEmpty(prices))
+            {
+                priceInt = Int32.Parse(prices);
+            }
+            if (String.IsNullOrEmpty(prices) && String.IsNullOrEmpty(brands))
+            {
+                brandInt = 13;
+                priceInt = 8;
+            }
+
+            var products = ListOfProductLoad(1, priceInt, brandInt);
+            return View(products);
+
+        }
+
+        public ActionResult SearchByPriceAndBrandTop3(string brands, string prices)
+        {
+            int brandInt = 13;// load tat ca  cac thuong hieu
+            int priceInt = 8;// load tat ca cac loai gia
+            LoadDropDownList();
+            if (!String.IsNullOrEmpty(brands))
+            {
+                brandInt = Int32.Parse(brands);
+            }
+            if (!String.IsNullOrEmpty(prices))
+            {
+                priceInt = Int32.Parse(prices);
+            }
+            if (String.IsNullOrEmpty(prices) && String.IsNullOrEmpty(brands))
+            {
+                brandInt = 13;
+                priceInt = 8;
+            }
+
+            var products = _dataManager.ListOfTop3ProductbyPrice(brandInt, priceInt).OrderByDescending(x=>x.TotalWeightPoint).Take(3);
+            if (products.Count() >=2)
+            {
+                var idList = products.Select(item => item.ID).ToList();
+                return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = idList[2] });
+            }
+            return RedirectToAction("LessThan2Product", "Product");
+
         }
 
         public ActionResult Compare(int p1, int p2, int p3)
@@ -339,11 +391,13 @@ namespace CPS_Solution.Controllers
             System.Threading.Thread.Sleep(800);
             //////////////////////////////////////////////////////////////////////////
             int BlockSize = 4;
-            DataManager manager = new DataManager();
+            var manager = new DataManager();
             var products = manager.GetProducts(BlockNumber, BlockSize);
-            CPS_Solution.Models.DataManager.JsonModel jsonModel = new CPS_Solution.Models.DataManager.JsonModel();
-            jsonModel.NoMoreData = products.Count < BlockSize;
-            jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
+            var jsonModel = new DataManager.JsonModel
+                                {
+                                    NoMoreData = products.Count < BlockSize,
+                                    HTMLString = RenderPartialViewToString("ProductList", products)
+                                };
             return Json(jsonModel);
         }
         
@@ -354,11 +408,13 @@ namespace CPS_Solution.Controllers
             System.Threading.Thread.Sleep(800);
             //////////////////////////////////////////////////////////////////////////
             int BlockSize = 4;
-            DataManager manager = new DataManager();
+            var manager = new DataManager();
             var products = manager.GetProductsByName(BlockNumber, BlockSize, searchValue);
-            CPS_Solution.Models.DataManager.JsonModel jsonModel = new CPS_Solution.Models.DataManager.JsonModel();
-            jsonModel.NoMoreData = products.Count < BlockSize;
-            jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
+            var jsonModel = new DataManager.JsonModel
+                                {
+                                    NoMoreData = products.Count < BlockSize,
+                                    HTMLString = RenderPartialViewToString("ProductList", products)
+                                };
             return Json(jsonModel);
         }
         
@@ -369,11 +425,13 @@ namespace CPS_Solution.Controllers
             System.Threading.Thread.Sleep(800);
             //////////////////////////////////////////////////////////////////////////
             int BlockSize = 4;
-            DataManager manager = new DataManager();
+            var manager = new DataManager();
             var products = manager.GetProductsByPrice(BlockNumber, BlockSize, brandID, priceID);
-            CPS_Solution.Models.DataManager.JsonModel jsonModel = new CPS_Solution.Models.DataManager.JsonModel();
-            jsonModel.NoMoreData = products.Count < BlockSize;
-            jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
+            var jsonModel = new DataManager.JsonModel
+                                {
+                                    NoMoreData = products.Count < BlockSize,
+                                    HTMLString = RenderPartialViewToString("ProductList", products)
+                                };
             return Json(jsonModel);
         }
 
@@ -419,36 +477,7 @@ namespace CPS_Solution.Controllers
 
             return PartialView(top3SameProduct);
         }
-        
-        public ActionResult SearchByPriceAndBrand(string brands, string prices)
-        {
-            int brandInt = 13;// load tat ca  cac thuong hieu
-            int priceInt = 8;// load tat ca cac loai gia
-            LoadDropDownList();
-            if (!String.IsNullOrEmpty(brands))
-            {
-                brandInt = Int32.Parse(brands);
-            }
-            if (!String.IsNullOrEmpty(prices))
-            {
-                priceInt = Int32.Parse(prices);
-            }
-            if (String.IsNullOrEmpty(prices) && String.IsNullOrEmpty(brands))
-            {
-                brandInt = 13;
-                priceInt = 8;
-            }
-
-            var products = ListOfProductLoad(1, priceInt, brandInt).OrderByDescending(x => x.TotalWeightPoint).Take(3);
-            List<int> idList = new List<int>();
-            foreach (var item in products)
-            {
-                idList.Add(item.ID);
-            }
-            return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = idList[2] });
-
-        }
-        
+       
         private List<SelectListItem> CreateDropDownBoxPrive()
         {
             List<SelectListItem> ListPrice = new List<SelectListItem>();
@@ -485,16 +514,16 @@ namespace CPS_Solution.Controllers
         
         private List<Product> ListOfProductLoad(int BlockNumber, int value, int brandID)
         {
-            List<Product> ListOFProducts = new List<Product>();
-            var BrandLaptop = db.Brands.Where(x => x.ID == brandID).FirstOrDefault();
-            DataManager manager = new DataManager();
+            var listOFProducts = new List<Product>();
+            var brandLaptop = db.Brands.FirstOrDefault(x => x.ID == brandID);
+            var manager = new DataManager();
             int BlockSize = 4;
-            if (BrandLaptop != null)
+            if (brandLaptop != null)
             {
                 var products = manager.GetProductsByPrice(BlockNumber, BlockSize, brandID, value);
-                ListOFProducts = products;
+                listOFProducts = products;
             }
-            return ListOFProducts;
+            return listOFProducts;
         }
     }
 }
