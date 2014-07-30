@@ -363,51 +363,70 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 ram = doc.DocumentNode.SelectSingleNode(ramXpath);
                 display = doc.DocumentNode.SelectSingleNode(displayXpath);
             }
-
-            //Check null
-            if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
-                !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
-                !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
+            if (cpu != null && vga != null && hdd != null &&
+                display != null && ram != null && name != null)
             {
-                data.Name = name.InnerText;
-                data.CPU = cpu.InnerText;
-                data.VGA = vga.InnerText;
-
-                //Modifed for take Price
-                if (priceXpath != null)
+                //Check null
+                if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
+                    !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
+                    !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
                 {
-                    if (price != null)
+                    data.Name = name.InnerText;
+                    data.CPU = cpu.InnerText;
+                    data.VGA = vga.InnerText;
+
+                    //Modifed for take Price
+                    if (priceXpath != null)
                     {
-                        data.Price = price.InnerText;
+                        if (price != null)
+                        {
+                            data.Price = price.InnerText;
+                        }
+                        else
+                        {
+                            data.Price = "0";
+                        }
                     }
                     else
                     {
                         data.Price = "0";
                     }
-                }
-                else
-                {
-                    data.Price = "0";
-                }
-                // modify xpath for lazada
-                if (host.Contains("lazada.vn"))
-                {
-                    string patter = "RAM |/|,| HDD ";
-                    Regex reg = new Regex(patter);
-                    string[] spltString = reg.Split(hdd.InnerText);
-                    data.RAM = spltString[1];
-                    data.HDD = spltString[3];
-                }
-                else
-                {
-                    data.HDD = hdd.InnerText;
-                    data.RAM = ram.InnerText;
-                }
-                data.Display = display.InnerText;
-                data.Image = ImageHelper.TakePath(host, doc, imageXpath);
-                if (String.IsNullOrEmpty(data.Image))
-                {
+                    // modify xpath for lazada
+                    if (host.Contains("lazada.vn"))
+                    {
+                        string patter = "RAM |/|,|-| HDD ";
+                        Regex reg = new Regex(patter);
+                        if (ram.InnerText.Contains(",") || ram.InnerText.Contains("/") || ram.InnerText.Contains("-"))
+                        {
+                            string[] spltRAMString = reg.Split(ram.InnerText);
+                            data.RAM = spltRAMString[1];
+                        }
+                        else
+                        {
+                            data.RAM = ram.InnerText;
+                        }
+                        if (hdd.InnerText.Contains(",") || hdd.InnerText.Contains("/") || hdd.InnerText.Contains("-"))
+                        {
+                            string[] spltHDDString = reg.Split(hdd.InnerText);
+                            data.HDD = spltHDDString[3];
+                        }
+                        else
+                        {
+                            data.HDD = hdd.InnerText;
+                        }
+                        imageXpath = "//*[@id='productZoom']";
+                    }
+                    else
+                    {
+                        data.HDD = hdd.InnerText;
+                        data.RAM = ram.InnerText;
+                    }
+                    data.Display = display.InnerText;
                     data.Image = ImageHelper.TakePath(host, doc, imageXpath);
+                    if (String.IsNullOrEmpty(data.Image))
+                    {
+                        data.Image = ImageHelper.TakePath(host, doc, imageXpath);
+                    }
                 }
             }
             return data;
@@ -447,7 +466,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 hdd = doc.DocumentNode.SelectSingleNode(ReplaceUntable(hddXpath, "/t", "//t"));
                 ram = doc.DocumentNode.SelectSingleNode(ReplaceUntable(ramXpath, "/t", "//t"));
                 display = doc.DocumentNode.SelectSingleNode(ReplaceUntable(displayXpath, "/t", "//t"));
-                if (host.Contains("dienmaythienhoa")) 
+                if (host.Contains("dienmaythienhoa"))
                 {
                     imageXpath = ReplaceUntable(imageXpath, "/t", "//t");
                 }
@@ -465,50 +484,72 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 display = doc.DocumentNode.SelectSingleNode(displayXpath);
             }
 
-            //Check null
-            if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
-                !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
-                !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
+            if (cpu != null && vga != null && hdd != null &&
+               display != null && ram != null && name != null)
             {
-                data.Name = name.InnerText;
-                data.CPU = cpu.InnerText;
-                data.VGA = vga.InnerText;
-
-                //Modifed for take Price
-                if (priceXpath != null)
+                //Check null
+                if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
+                    !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
+                    !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
                 {
-                    if (price != null)
+                    data.Name = name.InnerText;
+                    data.CPU = cpu.InnerText;
+                    data.VGA = vga.InnerText;
+
+                    //Modifed for take Price
+                    if (priceXpath != null)
                     {
-                        data.Price = price.InnerText;
+                        if (price != null)
+                        {
+                            data.Price = price.InnerText;
+                        }
+                        else
+                        {
+                            data.Price = "0";
+                        }
                     }
                     else
                     {
                         data.Price = "0";
                     }
-                }
-                else
-                {
-                    data.Price = "0";
-                }
-                // modify xpath for lazada
-                if (host.Contains("lazada.vn"))
-                {
-                    string patter = "RAM |/|,| HDD ";
-                    Regex reg = new Regex(patter);
-                    string[] spltString = reg.Split(hdd.InnerText);
-                    data.RAM = spltString[1];
-                    data.HDD = spltString[3];
-                }
-                else
-                {
-                    data.HDD = hdd.InnerText;
-                    data.RAM = ram.InnerText;
-                }
-                data.Display = display.InnerText;
-                data.Image = ImageHelper.TakePathPreview(host, doc, imageXpath);
-                if (String.IsNullOrEmpty(data.Image))
-                {
-                    data.Image = ImageHelper.TakePathPreview(host, doc, imageXpath);
+                    // modify xpath for lazada
+                    if (host.Contains("lazada.vn"))
+                    {
+                        string patter = "RAM |/|,|-| HDD ";
+                        Regex reg = new Regex(patter);
+                        if (ram.InnerText.Contains(",") || ram.InnerText.Contains("/") || ram.InnerText.Contains("-"))
+                        {
+                            string[] spltRAMString = reg.Split(ram.InnerText);
+                            data.RAM = spltRAMString[1];
+                        }
+                        else
+                        {
+                            data.RAM = ram.InnerText;
+                        }
+                        if (hdd.InnerText.Contains(",") || hdd.InnerText.Contains("/") || hdd.InnerText.Contains("-"))
+                        {
+                            string[] spltHDDString = reg.Split(hdd.InnerText);
+                            data.HDD = spltHDDString[3];
+                        }
+                        else
+                        {
+                            data.HDD = hdd.InnerText;
+                        }
+
+
+                        imageXpath = "//*[@id='productZoom']";
+                    }
+                    else
+                    {
+                        data.HDD = hdd.InnerText;
+                        data.RAM = ram.InnerText;
+                    }
+                    data.Display = display.InnerText;
+                    data.Image = ImageHelper.TakePath(host, doc, imageXpath);
+                    if (String.IsNullOrEmpty(data.Image))
+                    {
+                        data.Image = ImageHelper.TakePath(host, doc, imageXpath);
+                    }
                 }
             }
             return data;
@@ -571,13 +612,13 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         else if (goodMatch.Count > 1)
                         {
                             // Match well with more than 1 product, admin decide
-                            ExportTrainingFile(goodMatch, pair.Key,pair.Value);
+                            ExportTrainingFile(goodMatch, pair.Key, pair.Value);
                             continue;
                         }
                         else if (averageMatch.Count > 0 && pId == -1)
                         {
                             // Only average match, admin decide
-                            ExportTrainingFile(averageMatch, pair.Key,pair.Value);
+                            ExportTrainingFile(averageMatch, pair.Key, pair.Value);
                             continue;
                         }
                     }
@@ -655,7 +696,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             Description = "Fill me ",
                             ImageURL = data.Image,
                             TotalWeightPoint = 0,
-                            IsActive= null,
+                            IsActive = null,
                         };
                         //Check for Store
 
@@ -768,7 +809,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 {
                                     ProductID = prod.ID,
                                     AttributeID = pId,
-                                    IsActive =true
+                                    IsActive = true
                                 };
                                 context.ProductAttributes.Add(productAtt);
                                 context.SaveChanges();
@@ -812,7 +853,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
         #endregion
         // Process File
         #region
-        public static void ExportTrainingFile(List<int> match, string name,string point)
+        public static void ExportTrainingFile(List<int> match, string name, string point)
         {
             List<string> data = ReadDataFromFile();
             string path = ConstantManager.TrainingFilePath;
@@ -825,9 +866,9 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     var attAD = context.Hardwares.FirstOrDefault(a => a.ID == id);
                     if (attAD != null)
                     {
-                        content = "0~"+ attAD.Name + "|" + attAD.CodetypeID + "|" + attAD.WeightCriteraPoint + '|' + attAD.ID + "#";
-                        Loai = attAD.CodetypeID ;
-                      
+                        content = "0~" + attAD.Name + "|" + attAD.CodetypeID + "|" + attAD.WeightCriteraPoint + '|' + attAD.ID + "#";
+                        Loai = attAD.CodetypeID;
+
                     }
                 }
             }
@@ -867,7 +908,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     }
                 }
             }
-            content += name + '|'+loai + '|'+ '0' +'|' +'0';
+            content += name + '|' + loai + '|' + '0' + '|' + '0';
             bool isExisted = false;
             foreach (string item in data)
             {
@@ -940,17 +981,17 @@ namespace CPS_Solution.Areas.Admin.Helpers
         }
         public static void UpdatePriceToDb(int productID, ProductData data)
         {
-            ConstantManager.IsUpdateRunning = true;      
+            ConstantManager.IsUpdateRunning = true;
             //Convert Price
-                double valPrice = 0;
-                if (!String.IsNullOrEmpty(data.Price))
-                {
-                    valPrice = PriceHelper.ConvertPrice(data.Price);
-                }
-                else
-                {
-                    valPrice = 0;
-                }
+            double valPrice = 0;
+            if (!String.IsNullOrEmpty(data.Price))
+            {
+                valPrice = PriceHelper.ConvertPrice(data.Price);
+            }
+            else
+            {
+                valPrice = 0;
+            }
             using (var context = new CPS_SolutionEntities())
             {
                 var alias = context.AliasProducts.Where(x => x.ID == productID).FirstOrDefault();
@@ -960,7 +1001,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     alias.UpdateTime = DateTime.Now;
                     context.SaveChanges();
                 }
-                ConstantManager.IsUpdateRunning = false;      
+                ConstantManager.IsUpdateRunning = false;
             }
         }
     }

@@ -44,6 +44,25 @@ namespace CPS_Solution.Areas.Admin.Helpers
             string filename = "Laptop" + now;
             if (node != null)
             {
+                if (host.Contains("lazada.vn"))
+                {
+                    if (node.Attributes["data-zoom-image"] != null)
+                    {
+                        string tmp = node.Attributes["data-zoom-image"].Value;
+                        if (tmp.StartsWith("/"))
+                        {
+                            tmp = host + tmp;
+                            node.Attributes["data-zoom-image"].Value = tmp;
+                        }
+                        else if (tmp.StartsWith("im") || tmp.StartsWith("up"))
+                        {
+                            tmp = host + "/" + tmp;
+                            node.Attributes["data-zoom-image"].Value = tmp;
+                        }
+                        string Imageurl = node.Attributes["data-zoom-image"].Value;
+                        return Imageurl;
+                    }
+                }
                 if (node.Attributes["src"] != null)
                 {
                     string tmp = node.Attributes["src"].Value;
@@ -72,6 +91,25 @@ namespace CPS_Solution.Areas.Admin.Helpers
             string filename = "Laptop" + now;
             if (node != null)
             {
+                if (host.Contains("lazada.vn")) 
+                {
+                    if (node.Attributes["data-zoom-image"] != null)
+                    {
+                        string tmp = node.Attributes["data-zoom-image"].Value;
+                        if (tmp.StartsWith("/"))
+                        {
+                            tmp = host + tmp;
+                            node.Attributes["data-zoom-image"].Value = tmp;
+                        }
+                        else if (tmp.StartsWith("im") || tmp.StartsWith("up"))
+                        {
+                            tmp = host + "/" + tmp;
+                            node.Attributes["data-zoom-image"].Value = tmp;
+                        }
+                        string Imageurl = node.Attributes["data-zoom-image"].Value;
+                        return Imageurl;                    
+                    }   
+                }
                 if (node.Attributes["src"] != null)
                 {
                     string tmp = node.Attributes["src"].Value;
