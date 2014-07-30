@@ -1,0 +1,129 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
+@{
+    ViewBag.Title = "SearchByPriceAndBrandTop3";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            @if (Model.Any())
+            {
+                <div class="page-element standard-element-container-1">
+                    <div class="container element-container standard-element">
+                        <div class="row">
+                            <div class="span6 element-image-left fadeLeft animated fadeInLeft" style="visibility: visible;">
+                                <img class="standard-element-image" src="~/Template/stylish.holobest.com/images/element-image1.png" alt="standard-element-image" style="width: 600px; height: 467px">
+                            </div>
+
+                            <div class="span6 fadeRight animated fadeInRight" style="visibility: visible; width: 520px">
+                                @foreach (var item in Model)
+                                {
+                                    <h3><center>Chúng tôi chỉ tìm thấy một kết quả phù hợp với điều kiện của bạn.</center></h3>
+                                
+                                    <div class="isotope-item post span6" style="background-color: rgba(255, 255, 255, 0.75); margin-left: 0px">
+                                        <div class="row">
+                                            <div class="span3">
+                                                <div class="thumbnail post-media">
+                                                    <img src="~/Images/I/default.jpg" style="border-radius: 5px; height: 103%; margin-top: 15px" />
+                                                </div>
+
+                                            </div>
+                                            <div class="span3">
+                                                <div class="post-content">
+                                                    <div class="post-title" style="width: 260px; margin-top: 15px;">
+                                                        <h3>
+                                                            <i class="icon-bookmark post-title-icon"></i>
+                                                            <span class="product-name" title="@item.Name" style="overflow-wrap:break-word; height:100px;">@item.Name</span>
+                                                        </h3>
+                                                    </div>
+
+                                                    <div class="post-info clearfix">
+                                                        <div class="post-date">
+                                                            <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0; padding: 2px">
+                                                                @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="clear: both"></div>
+
+                                                    <div class="post-excerpt">
+                                                        <p>
+                                                            Donec magna nunc, vestibulum
+                                at erat ac, mollis varius nunc. Maecenas nec hendrerit nunc. Integer interdum neque lorem, eget mattis dui vehicula at.
+                                                        </p>
+                                                    </div>
+
+                                                    <div style="margin-top: -52px">
+                                                        <div class="stylish-button" style="background-color: #7DBB18">
+                                                            <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>                                  
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            }
+            else if (!Model.Any())
+            {
+                <div class="page-element standard-element-container-1">
+                    <div class="container element-container standard-element">
+                        <div class="row">
+                            <div class="span6 element-image-left fadeLeft animated fadeInLeft" style="visibility: visible;">
+                                <img class="standard-element-image" src="~/Template/stylish.holobest.com/images/element-image1.png" alt="standard-element-image" style="width: 600px; height: 467px">
+                            </div>
+
+                            <div class="span6 fadeRight animated fadeInRight" style="visibility: visible; width: 520px">
+                                <h3>Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp với từ khóa của bạn.</h3>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Hãy thử lại với những cách sau:</p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Kiểm tra lại <strong>từ khóa</strong> có thể bạn đã gõ sai <strong><u>(Ví dụ: Asus3500 = As3500)</u></strong> </p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Dùng từ khóa <strong>ngắn gọn</strong> và <strong>đơn giản</strong> hơn.</p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p><strong>Vẫn không tìm thấy</strong> sản phẩm bạn muốn. Xin hãy <strong>cung cấp</strong> cho chúng tôi thông tin về sản phẩm.</p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Chúng tôi sẽ <strong>liên lạc</strong> với bạn và <strong>thông báo</strong> về tình trạng sản phẩm này.</p>
+                                    </li>
+                                </ul>
+                                <ul class="list unstyled custom-list-small">
+                                    <li><i class="icon-ok"></i>
+                                        <p>Click vào <a href="@Url.Action("SearchForProduct", "Product")"><span style="color: blue;"><strong>đây</strong></span></a> để thử lại.</p>
+                                    </li>
+                                </ul>
+                                <div class="stylish-button">
+                                    <a href="@Url.Action("Recommend", "Product")"><i class="icon-thumbs-up"></i>Gửi Đề xuất</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            }
+        </div>
+        <div id="loadingDiv" style="display: none; margin-right: auto; margin-left: auto; margin-bottom: 20px; width: 55px; height: 55px">
+            <img alt="Loading" src="@Url.Content("~/Images/loading.gif")" />
+        </div>
+    </div>
+</div>

@@ -109,7 +109,7 @@ namespace CPS_Solution.Controllers
                 var idList = products.Select(item => item.ID).ToList();
                 return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = idList[2] });
             }
-            return RedirectToAction("LessThan2Product", "Product");
+            return View(products);
 
         }
 
@@ -360,9 +360,9 @@ namespace CPS_Solution.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult ProductList(List<Product> Model)
+        public ActionResult ProductList(List<Product> model)
         {
-            return PartialView(Model);
+            return PartialView(model);
         }
         
         protected string RenderPartialViewToString(string viewName, object model)
