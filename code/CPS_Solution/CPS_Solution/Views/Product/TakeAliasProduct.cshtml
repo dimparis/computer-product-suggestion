@@ -1,9 +1,9 @@
-﻿@model IEnumerable<CPS_Solution.EntityFramework.AliasProduct>
+﻿@model IEnumerable<AliasProduct>
 @using CPS_Solution.EntityFramework;
 @using CPS_Solution.Helper;
 <h3>CÁC WEBSITE CÓ SẢN PHẨM TƯƠNG TỰ</h3>
 @{
-    CPS_SolutionEntities context = new CPS_SolutionEntities();
+    var context = new CPS_SolutionEntities();
     string timeAgo = "";
     var stores = context.Stores.Where(x => x.IsActive == true).ToList();
 }
@@ -15,7 +15,10 @@
         {
             if (item.URL.Contains(store.StoreUrl))
             {
-                timeAgo = DayHelper.ToRelativeDate(item.UpdateTime.Value);
+                if (item.UpdateTime != null)
+                {
+                    timeAgo = DayHelper.ToRelativeDate(item.UpdateTime.Value);
+                }
                 <table class="table">
                     <tbody>
                         <tr>

@@ -42,6 +42,5 @@ namespace CPS_Solution.EntityFramework
         public DbSet<RecommendProduct> RecommendProducts { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Store> Stores { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
