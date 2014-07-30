@@ -499,7 +499,7 @@ a.rss-icon:hover { background-color: #F79638 !important; }
 
 .pricing-table-header .upper-header h4 {
     text-transform: uppercase;
-    line-height: 50px;
+    line-height: 80px;
     color: #fff;
     margin: 0;
 }
@@ -572,6 +572,12 @@ a.rss-icon:hover { background-color: #F79638 !important; }
 
 .highlighted-table .lower-header {
     background-color: #7DBB18;
+    height: 80px;
+    padding: 30px;
+}
+
+.highlighted-table2 .lower-header {
+    background-color: #0EA4FF;
     height: 60px;
     padding: 30px;
 }

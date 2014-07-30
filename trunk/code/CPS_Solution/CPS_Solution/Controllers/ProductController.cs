@@ -16,10 +16,9 @@ namespace CPS_Solution.Controllers
     public class ProductController : Controller
     {
         private CPS_SolutionEntities db = new CPS_SolutionEntities();
+        
         private string email = "";
-        //
-        // GET: /Product/
-
+    
         public ActionResult Index()
         {
             DataManager manager = new DataManager();
@@ -29,6 +28,7 @@ namespace CPS_Solution.Controllers
 
             return View(products);
         }
+        
         public ActionResult SearchForProduct()
         {
             DataManager manager = new DataManager();
@@ -71,23 +71,40 @@ namespace CPS_Solution.Controllers
 
             var bestProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
 
-            //Diem san pham 1
-            bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
-                                               (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
-            db.Entry(bestProducts[0]).State = EntityState.Modified;
-            db.SaveChanges();
+            if (p3 != -1) {
+                //Diem san pham 1
+                bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
+                                                   (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
+                db.Entry(bestProducts[0]).State = EntityState.Modified;
+                db.SaveChanges();
 
-            //Diem san pham 2
-            bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
-                                               (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
-            db.Entry(bestProducts[1]).State = EntityState.Modified;
-            db.SaveChanges();
+                //Diem san pham 2
+                bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
+                                                   (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
+                db.Entry(bestProducts[1]).State = EntityState.Modified;
+                db.SaveChanges();
 
-            //Diem san pham 3
-            bestProducts[2].TotalWeightPoint = (bestProducts[2].cpuScore + bestProducts[2].vgaScore) * 6 +
-                                               (bestProducts[2].ramScore + bestProducts[2].hddScore + bestProducts[2].displayScore);
-            db.Entry(bestProducts[2]).State = EntityState.Modified;
-            db.SaveChanges();
+                //Diem san pham 3
+                bestProducts[2].TotalWeightPoint = (bestProducts[2].cpuScore + bestProducts[2].vgaScore) * 6 +
+                                                   (bestProducts[2].ramScore + bestProducts[2].hddScore + bestProducts[2].displayScore);
+                db.Entry(bestProducts[2]).State = EntityState.Modified;
+                db.SaveChanges();
+
+            } else {
+                //Diem san pham 1
+                bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
+                                                   (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
+                db.Entry(bestProducts[0]).State = EntityState.Modified;
+                db.SaveChanges();
+
+                //Diem san pham 2
+                bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
+                                                   (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
+                db.Entry(bestProducts[1]).State = EntityState.Modified;
+                db.SaveChanges();
+
+
+            }
 
             //Move down the first
             var temp = bestProducts[0];
@@ -96,7 +113,6 @@ namespace CPS_Solution.Controllers
 
             return View(bestProducts);
         }
-
 
         public ActionResult CompareDetail(int p1, int p2, int p3)
         {
@@ -116,8 +132,6 @@ namespace CPS_Solution.Controllers
             return View(products);
         }
 
-        //
-        // GET: /Product/Details/{ID}
         public ActionResult Details(int id)
         {
             Product product = db.Products.Find(id);
@@ -183,9 +197,6 @@ namespace CPS_Solution.Controllers
             return View();
         }
 
-        //
-        // POST: /Test/Create
-
         [HttpPost]
         public ActionResult Recommend(RecommendProduct recommendproduct)
         {
@@ -205,10 +216,12 @@ namespace CPS_Solution.Controllers
             db.SaveChanges();
             return RedirectToAction("ThanksForRecommend");;
         }
+        
         public ActionResult ThanksForRecommend() 
         {
             return View();
         }
+        
         public JsonResult checkLink(string link)
         {
             System.Threading.Thread.Sleep(1500);
@@ -231,6 +244,7 @@ namespace CPS_Solution.Controllers
                 return Json(0);
             }
         }
+        
         private bool IsUrl(string URL)
         {
             //Load website
@@ -249,6 +263,7 @@ namespace CPS_Solution.Controllers
             }
             return false;
         }
+        
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
@@ -297,6 +312,7 @@ namespace CPS_Solution.Controllers
         {
             return PartialView(Model);
         }
+        
         protected string RenderPartialViewToString(string viewName, object model)
         {
             if (string.IsNullOrEmpty(viewName))
@@ -315,6 +331,7 @@ namespace CPS_Solution.Controllers
                 return sw.GetStringBuilder().ToString();
             }
         }
+        
         [HttpPost]
         public ActionResult InfinateScroll(int BlockNumber)
         {
@@ -329,6 +346,7 @@ namespace CPS_Solution.Controllers
             jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
             return Json(jsonModel);
         }
+        
         [HttpPost]
         public ActionResult InfinateScrollSearchByName(int BlockNumber, string searchValue)
         {
@@ -343,6 +361,7 @@ namespace CPS_Solution.Controllers
             jsonModel.HTMLString = RenderPartialViewToString("ProductList", products);
             return Json(jsonModel);
         }
+        
         [HttpPost]
         public ActionResult InfinateScrollSearchByPrice(int BlockNumber, int brandID, int priceID)
         {
@@ -378,6 +397,7 @@ namespace CPS_Solution.Controllers
             var top3SameProduct = samePriceProducts.Where(x => x.Price <= maxPrice && x.Price >= minPrice).Take(4);
             return PartialView(top3SameProduct);
         }
+
         public ActionResult LoadProductByPoint(int id)
         {
             double minPoint = 0;
@@ -399,6 +419,7 @@ namespace CPS_Solution.Controllers
 
             return PartialView(top3SameProduct);
         }
+        
         public ActionResult SearchByPriceAndBrand(string brands, string prices)
         {
             int brandInt = 13;// load tat ca  cac thuong hieu
@@ -427,6 +448,7 @@ namespace CPS_Solution.Controllers
             return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = idList[2] });
 
         }
+        
         private List<SelectListItem> CreateDropDownBoxPrive()
         {
             List<SelectListItem> ListPrice = new List<SelectListItem>();
@@ -442,6 +464,7 @@ namespace CPS_Solution.Controllers
             ListPrice.Add(value5); ListPrice.Add(value6); ListPrice.Add(value7); ListPrice.Add(value8);
             return ListPrice;
         }
+        
         private void LoadDropDownList()
         {
             List<SelectListItem> ListBrand = new List<SelectListItem>();
@@ -459,6 +482,7 @@ namespace CPS_Solution.Controllers
             ViewBag.ListBrands = ListBrand;
             ViewBag.ListPrices = CreateDropDownBoxPrive();
         }
+        
         private List<Product> ListOfProductLoad(int BlockNumber, int value, int brandID)
         {
             List<Product> ListOFProducts = new List<Product>();
@@ -472,6 +496,5 @@ namespace CPS_Solution.Controllers
             }
             return ListOFProducts;
         }
-
     }
 }
