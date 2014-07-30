@@ -18,7 +18,9 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 LimitRequestPerDay = GetLimitPerDay(),
                 ParseTime = GetParseTime(),
                 TotalPoint = GetTotalMaxPoint(),
-                UpdateTimePrice = GetUpdatePriceTime()
+                UpdateTimePrice = GetUpdatePriceTime(),
+                TimeoutTime = GetTimeoutTime()
+                
             };
                 return model;
         }
@@ -28,6 +30,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             SetParseTime(model.ParseTime);
             SetToTalMaxPoint(model.TotalPoint);
             SetUpdatePriceTime(model.UpdateTimePrice);
+            SetTimeoutTime(model.TimeoutTime);
         }
         public int GetLimitPerDay() 
         {
@@ -153,6 +156,29 @@ namespace CPS_Solution.Areas.Admin.Helpers
             int time_hours = Int32.Parse(hours);
             int times_minutes = Int32.Parse(minutes);
             BackgroundConfigurations.RescheduleUpdatePrice(time_hours, times_minutes);
+        }
+        public int GetTimeoutTime()
+        {
+            XDocument xmlDoc = XDocument.Load(xmlFilePath);
+            var eleTimeout = xmlDoc.Root.Element("SessionTimeOut");
+            if (eleTimeout !=null) {
+                int time = Int32.Parse(eleTimeout.Value);
+                if (time > 0)
+                {
+                    return time;
+                }
+            }
+            return -1;
+        }
+        public void SetTimeoutTime(int time)
+        {
+            XDocument xmlDoc = XDocument.Load(xmlFilePath);
+            var eleTime = xmlDoc.Root.Element("SessionTimeOut");
+            if (eleTime != null)
+            {
+                eleTime.Value = eleTime.ToString();
+            }
+            xmlDoc.Save(xmlFilePath);
         }
     }
 }

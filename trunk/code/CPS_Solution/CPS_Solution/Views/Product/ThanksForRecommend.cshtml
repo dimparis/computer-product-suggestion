@@ -1,9 +1,44 @@
-﻿@{
+﻿@using CPS_Solution.Areas.Admin.Helpers;
+@{
     ViewBag.Title = "Cảm ơn";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
+    ConfigureHelper helper = new ConfigureHelper();
+    int second = helper.GetTimeoutTime();
 }
 
+<script>
+    // Our countdown plugin takes a callback, a duration, and an optional message
+    $.fn.countdown = function (callback, duration, message) {
+        // If no message is provided, we use an empty string
+        message =  message || "";
+        // Get reference to container, and set initial content
+        var container = $(this[0]).html("Hệ thống sẽ tự động trở về trang chủ sau:" + duration + message);
+        // Get reference to the interval doing the countdown
+        var countdown = setInterval(function () {
+            // If seconds remain
+            if (--duration) {
+                // Update our container's message
+                container.html("Hệ thống sẽ tự động trở về trang chủ sau:" + duration + message);
+                // Otherwise
+            } else {
+                // Clear the countdown interval
+                clearInterval(countdown);
+                // And fire the callback passing our container as `this`
+                callback.call(container);
+            }
+            // Run interval every 1000ms (1 second)
+        }, 1000);
 
+    };
+
+    // Use p.countdown as container, pass redirect, duration, and optional message
+    $(".countdown").countdown(redirect,@second, " giây");
+
+    // Function to be called after 5 seconds
+    function redirect() {
+        window.location = "http://localhost:28758";
+    }
+</script>
 @section navigator
 {
     <div id="top-image" class="top-image4">
@@ -28,8 +63,11 @@
                         <li><p>Chúng tôi sẽ xem xét sản phẩm bạn vừa đề xuất trong thời gian sớm nhất.</p></li>
                         <li><p>Khi sản phẩm bạn đề xuất được cập nhật, chúng tôi sẽ gửi thông báo.</p></li>
                         <li><p>Chúng tôi xin chân thành cảm ơn sự tin tưởng và đề xuất, đóng góp quý giá từ bạn</p></li>
-                        <br /><br /><br /><br />
+                        <li><p class="countdown"></p></li>
+                        <li><p>Bấm vào <a href="@Url.Action("Index","Home")">đây</a> để quay về trang chủ</p></li>
+                        <br/> <br/> <br/> <br/><br/> <br/>
                     </ul>
+
                 </div>
             </div>
         </div>

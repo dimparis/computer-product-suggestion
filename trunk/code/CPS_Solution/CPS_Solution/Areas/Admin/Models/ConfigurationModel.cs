@@ -11,5 +11,6 @@ namespace CPS_Solution.Areas.Admin.Models
         public double TotalPoint { get; set; }
         public string ParseTime{ get; set; }
         public string UpdateTimePrice { get; set; }
+        public int TimeoutTime { get; set; }
     }
 }
