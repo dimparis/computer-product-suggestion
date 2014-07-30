@@ -10,6 +10,7 @@ var $vga = $('#xpathVGA');
 var $ram = $('#xpathRAM');
 var $image = $('#xpathImage');
 var $display = $('#xpathDisplay');
+var $url = $('#linkPreview');
 
 $('#Parseform').daWizard({
     nextButtonLabel: 'Sau',
@@ -172,9 +173,14 @@ function getPath(clickedNode, root) {
         if (node === root) {
             break;
         }
-        if (node.id !== "") {
-            foundId = true;
-            break;
+        if ($url.val().indexOf("www.nguyenkim.com") != -1) {
+            //do nothing to take absolute path
+        } else
+        {
+            if (node.id !== "") {
+                foundId = true;
+                break;
+            }
         }
         parent = node.parentNode;
         children = parent.childNodes;
