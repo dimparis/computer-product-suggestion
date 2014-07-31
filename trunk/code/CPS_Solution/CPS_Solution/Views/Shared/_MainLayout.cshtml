@@ -272,9 +272,10 @@
     @RenderSection("navigator", false)
 
     @*Page Content*@
-    <div id="page-wrap">
+    @RenderBody()
+    @*<div id="page-wrap">
         @RenderBody()
-    </div>
+    </div>*@
 
     <div id="testimonials" class="page-element">
         <div class="container">
@@ -384,8 +385,8 @@
         #page-wrap {
             position: relative;
             z-index: 1;
-            width: 95%;
-            margin: 50px auto;
+            width: 90%;
+            margin: 70px auto;
             background: transparent;
             -moz-box-shadow: 0 0 20px black;
             -webkit-box-shadow: 0 0 20px black;

@@ -6,7 +6,7 @@
 
 @section navigator
 {
-    <div id="top-image" class="top-image3">
+   @* <div id="top-image" class="top-image3">
         <div class="container">
             <div id="top-image-caption">
                 <h2 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">tìm sản phẩm</h2>
@@ -22,53 +22,68 @@
                         <li><p>tìm kiếm</p></li>
                     </ul>
                 </div>
-            </div>
+            </div>  
         </div>
-    </div>
+    </div>*@
 }
 
+<style>
+    .tabs-left
+    {
+        position: fixed;
+        padding: 28px 28px 0px 28px;
+         
+        top: 70px; 
+        left: 500px; 
+        z-index: 4; 
+        background-image: url(../Template/stylish.holobest.com/images/title.png);
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+</style>
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#searchByName" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo tên</strong></a>
+        </li>
+        <li class=""><a href="#searchByPrice" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo giá</strong></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="searchByName">
+            @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
+            {
+                @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
+                <button type="submit">Tìm kiếm</button>               
+            }
+        </div>
+        <div class="tab-pane fade" id="searchByPrice">
+
+            @using (Html.BeginForm("SearchByPriceAndBrandTop3", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
+            {
+                @Html.DropDownList("brands", ViewBag.ListBrands as List<SelectListItem>, new { @style = "width:100px;height:40px" })
+                @Html.DropDownList("prices", ViewBag.ListPrices as List<SelectListItem>, new { @style = "width:225px;height:40px" })
+                <button type="submit" style="width: 126px; margin-left: -5px; z-index: 4">Tìm kiếm</button>               
+            }
+        </div>
+    </div>
+</div>
+<div id="page-wrap">
 <div class="main-content">
     <div class="container">
-        <div class="row">
-            <div class="tabbable tabs-left" style="margin-top: 20px; margin-left:300px;">
-                <ul class="nav nav-tabs" data-tabs="tabs">
-                    <li class="active"><a href="#searchByName" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo tên</strong></a>
-                    </li>
-                    <li class=""><a href="#searchByPrice" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo giá</strong></a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="searchByName">
-                        @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
-                        {
-                            @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
-                            <button type="submit">Tìm kiếm</button>               
-                }
-                    </div>
-                    <div class="tab-pane fade" id="searchByPrice">
-
-                        @using (Html.BeginForm("SearchByPriceAndBrandTop3", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
-                        {
-                            @Html.DropDownList("brands", ViewBag.ListBrands as List<SelectListItem>, new { @style = "width:100px;height:40px" })
-                            @Html.DropDownList("prices", ViewBag.ListPrices as List<SelectListItem>, new { @style = "width:225px;height:40px" })
-                            <button type="submit" style="width: 126px; margin-left: -5px;">Tìm kiếm</button>               
-                }
-                    </div>
-                </div>
-            </div>
+        <div class="row" style="margin-top:120px;">
             @if (Model.Any())
             {
-                <div id="loadItemcontainer" style="margin-top: 40px">
+                <div id="loadItemcontainer" style="margin-top: 60px">
                     @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
                 </div>
             }
             else
             {
-                <div class="page-element standard-element-container-1">
+                <div class="page-element gray-element" style="margin-top:20px; margin-bottom:40px; border-radius:10px;">
                     <div class="container element-container standard-element">
                         <div class="row">
                             <div class="span6 element-image-left fadeLeft animated fadeInLeft" style="visibility: visible;">
-                                <img class="standard-element-image" src="~/Template/stylish.holobest.com/images/element-image1.png" alt="standard-element-image" style="width: 600px; height: 467px">
+                                <img class="standard-element-image" src="~/Template/stylish.holobest.com/images/element-image1.png" alt="standard-element-image" style="width: 600px; height: 430px">
                             </div>
 
                             <div class="span6 fadeRight animated fadeInRight" style="visibility: visible; width: 520px">
@@ -118,6 +133,7 @@
         </div>
     </div>
 </div>
+    </div>
 @*<div class="page-element gray-element">
     <div class="tabbable  tabs-left" style="margin-left: 300px">
         <ul class="nav nav-tabs" data-tabs="tabs">
