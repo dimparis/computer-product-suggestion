@@ -61,6 +61,7 @@ namespace CPS_Solution.Controllers
             return View(listP);
         }
 
+         [HttpPost]
         public ActionResult SearchByPriceAndBrand(string brands, string prices)
         {
             int brandInt = 13;// load tat ca  cac thuong hieu
@@ -105,11 +106,13 @@ namespace CPS_Solution.Controllers
             }
 
             var products = _dataManager.ListOfTop3ProductbyPrice(brandInt, priceInt).OrderByDescending(x=>x.TotalWeightPoint).Take(3);
+            Session["brandInt"] = brandInt;
+            Session["priceInt"] = priceInt;
             if (products.Count() >=2)
             {
                 var idList = products.Select(item => item.ID).ToList();
                 return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = idList[2] });
-            }
+            }          
             return View(products);
 
         }
