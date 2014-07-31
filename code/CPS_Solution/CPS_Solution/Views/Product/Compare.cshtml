@@ -102,7 +102,7 @@
                 <div class="pricing-table highlighted-table">
                     <div class="pricing-table-header">
                         <div class="upper-header">
-                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID">@item.Name</h4>
+                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h4>
                             <img src="~/Images/I/default.jpg" style="margin-bottom: 50px;" />
                         </div>
                         <div class="lower-header">
@@ -134,7 +134,7 @@
                 <div class="pricing-table">
                     <div class="pricing-table-header">
                         <div class="upper-header">
-                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID">@item.Name</h4>
+                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h4>
                             <img src="~/Images/I/default.jpg" style="margin-bottom: 50px;" />
                         </div>
                         <div class="lower-header">
