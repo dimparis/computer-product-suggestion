@@ -111,8 +111,8 @@
                     </div>
 
                     <div class="pricing-table-content">
-                        <div class="table-row odd">
-                            <p>@item.strCPU</p>
+                        <div class="table-row odd" >
+                            <p >@item.strCPU</p>
                         </div>
                         <div class="table-row even">
                             <p>@item.strVGA</p>
@@ -143,7 +143,7 @@
                     </div>
                     <div class="pricing-table-content">
                         <div class="table-row odd">
-                            <p>@item.strCPU</p>
+                            <p style="">@item.strCPU</p>
                         </div>
                         <div class="table-row even">
                             <p>@item.strVGA</p>
@@ -168,9 +168,17 @@
     </div>
     <div class="row">
         <br />
-        <div class="stylish-button" style="background-color: #F87912; margin-left:580px;">
+        <div class="stylish-button" style="background-color: #F87912; margin-left:550px;">
             <a href="javascript:void(0)" onclick="goCompareDetail()">So sánh chi tiết</a>
         </div>
+        @if (Session["brandInt"] != null && Session["priceInt"] != null) 
+        {
+            var brand = Session["brandInt"].ToString();
+            var price =Session["priceInt"].ToString();
+            <div class="stylish-button" style="background-color: #F87912">
+            <a href="@Url.Action("SearchByPriceAndBrand", "Product", new { brands=brand,prices=price})">Xem thêm sản phẩm</a>
+        </div>
+        }
         <br />
         <br />
         <div class="span6" style="margin-left:390px;">
