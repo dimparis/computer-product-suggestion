@@ -724,6 +724,22 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             StoreID = newStore.ID;
                         }
                         //Add alias product
+                        int brand = 13;
+                        var allBrands = context.Brands.ToList();
+                        foreach (var item in allBrands)
+                        {
+                            if (model.ParseProductLink.ToUpper().Contains(item.BrandName.ToUpper())) 
+                            {
+                                brand = item.ID;
+                            }
+                            else if (model.ParseProductLink.ToUpper().Contains("MACBOOK"))
+                            {
+                                brand = 3;
+                            }
+                            else {
+                                brand = 12;
+                            }
+                        }
                         prod.AliasProducts.Add(new AliasProduct()
                                         {
                                             Name = data.Name,
@@ -732,7 +748,8 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                             StoreID = StoreID,
                                             IsMain = true,
                                             IsActive = true,
-                                            UpdateTime = DateTime.Now
+                                            UpdateTime = DateTime.Now,
+                                            BrandID = brand
                                         });
                         context.Products.Add(prod);
                         context.SaveChanges();
