@@ -545,10 +545,10 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         data.RAM = ram.InnerText;
                     }
                     data.Display = display.InnerText;
-                    data.Image = ImageHelper.TakePath(host, doc, imageXpath);
+                    data.Image = ImageHelper.TakePathPreview(host, doc, imageXpath);
                     if (String.IsNullOrEmpty(data.Image))
                     {
-                        data.Image = ImageHelper.TakePath(host, doc, imageXpath);
+                        data.Image = ImageHelper.TakePathPreview(host, doc, imageXpath);
                     }
                 }
             }
