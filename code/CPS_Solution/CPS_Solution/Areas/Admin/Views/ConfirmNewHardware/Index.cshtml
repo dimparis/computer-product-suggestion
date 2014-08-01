@@ -353,10 +353,10 @@
                                                                 </div>
                                                             </div>
                                                             <div hidden class="da-form-row">
-                                                                <label>Tên</label>
+                                                                <label>Tên thành phần</label>
                                                                 <div class="da-form-item">
                                                                     <span class="formNote">Tên thành phần</span>
-                                                                    <input disabled id="idCodetypeHard@(h.IdHardware)"  value="@h.NameHardware" type="text">
+                                                                    <input id="idNewName@(h.IdHardware)"  value="@h.NameHardware" type="text">
                                                                 </div>
                                                             </div>
                                                             @if (h.CodetypeHardware == "CPU")
@@ -526,11 +526,12 @@
     //
     function EditHardware(stt){   
         var div = document.getElementById(stt+"_chzn");
-        var spans = div.getElementsByTagName("span");
+        var spans = div.getElementsByTagName("span");       
         var nameHardware =  spans[0].innerHTML;
         var IdHardware =   $( "#"+stt ).val();
         var ProductID = document.getElementById("idproduct"+stt).value;
-        var string = stt+'@@'+IdHardware+'@@'+ProductID;
+        var NewName = document.getElementById("idNewName"+stt).value;
+        var string = stt+'@@'+IdHardware+'@@'+ProductID+'@@'+NewName;
         
         var postData = {HardInfo: string };
         $.ajax({

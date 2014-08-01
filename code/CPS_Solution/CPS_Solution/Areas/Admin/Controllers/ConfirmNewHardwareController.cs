@@ -284,32 +284,58 @@ namespace CPS_Solution.Areas.Admin.Controllers
             int numstt = Convert.ToInt32(stt);
             string newstt = info[1];
             string productid = info[2].Trim();
+            string newName = info[3].Trim();
             int numProductid = Convert.ToInt32(productid);
-
             // nếu không chọn hardware để map thì active nó 
             if (newstt.Trim().Equals("0"))
             {
                 int id = Convert.ToInt32(stt);
                 var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
+                hardware.Name = newName.Trim();
 
-                // khi active thì tìm tất cả các sản phẩm có tên tương tự để kích hoạt trong bảng product atribute.
-                var ProAtt = db.ProductAttributes.Where(x => x.AttributeID == id).ToList();
-                if (ProAtt != null)
+                string Codetype = hardware.CodetypeID;
+                // lấy những hardware có codetype = true ra nếu tên mới trùng thì lấy id của cái có sẵn để thay vào attribute với sản phẩm
+                var DictionaryHardTrue = db.Dictionaries.Where(x => x.Hardware.IsActive == true && x.Hardware.CodetypeID.Equals(Codetype)).ToList();
+                int hardtrueid = 0;
+                foreach (Dictionary d in DictionaryHardTrue)
                 {
-                    foreach (ProductAttribute pro in ProAtt)
+                    if(d.Name.Trim().Equals(newName.Trim()))
                     {
-                        pro.IsActive = true;
+                        // lấy id của hardware true có sẵn trong db.
+                        hardtrueid = d.Hardware.ID;
+
+                        var ProAtt = db.ProductAttributes.Where(x => x.AttributeID == id).ToList();
+                        if (ProAtt != null)
+                        {
+                            foreach (ProductAttribute pro in ProAtt)
+                            {
+                                pro.AttributeID = hardtrueid;
+                                pro.IsActive = true;
+                              
+                            }
+
+                        }
+                        db.SaveChanges();
                     }
                 }
-                if (hardware.IsActive == null)
+
+                if (hardtrueid == 0)
                 {
+                    // khi active thì tìm tất cả các sản phẩm có tên tương tự để kích hoạt trong bảng product atribute.
+                    var ProAtt = db.ProductAttributes.Where(x => x.AttributeID == id).ToList();
+                    if (ProAtt != null)
+                    {
+                        foreach (ProductAttribute pro in ProAtt)
+                        {
+                            pro.IsActive = true;                        
+                        }
+                    }
+                    if (hardware.IsActive == null)
+                    {
 
-                    hardware.IsActive = true;
-
+                        hardware.IsActive = true;
+                    }
                     db.SaveChanges();
-
-
-
                 }
             }
                 // trường hợp staff mapping với 1 sản phẩm có sẵn
@@ -322,6 +348,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 if (productid.Trim().Equals("0"))
                 {
                     var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt)).SingleOrDefault();
+                    Hardware.Name = newName;
                     Hardware.IsActive = false;
                     db.SaveChanges();
                     Dictionary newDic = new Dictionary();
@@ -333,8 +360,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 {
                     var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt)).SingleOrDefault();
                     Hardware.IsActive = false;
-                    string name = Hardware.Name;
+                    Hardware.Name = newName;
                     db.SaveChanges();
+                    string name = Hardware.Name;
                     Dictionary newDic = new Dictionary();
                     newDic.AttributeDicID = Convert.ToInt32(newstt);
                     newDic.Name = Hardware.Name;
@@ -346,9 +374,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     ProAtt.AttributeID = Convert.ToInt32(newstt);
                     ProAtt.IsActive = true;
                     db.SaveChanges();
-
                     var ListHardware = db.Hardwares.Where(x => x.Name.Trim().Equals(name.Trim()) && x.IsActive == null).ToList();
-
                     foreach (Hardware hard in ListHardware)
                     {
                         int id = hard.ID;
