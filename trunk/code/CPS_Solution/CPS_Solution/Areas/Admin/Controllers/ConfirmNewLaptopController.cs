@@ -336,6 +336,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             string stt = info[0].Trim();
             int numstt = Convert.ToInt32(stt);
             string newstt = info[1];
+            string newName = info[2];
 
             // Trường hợp mapping
             if (!newstt.Trim().Equals("0"))
@@ -345,33 +346,38 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 // tìm tới hardware có id = stt
 
                 var product = db.Products.Where(x => x.ID.Equals(numstt)).SingleOrDefault();
+                product.Name = newName;
                 product.IsActive = false;
                 db.SaveChanges();
                 int id = product.ID;
                 var aliasPro = db.AliasProducts.Where(x => x.ProductID.Equals(id)).ToList();
-
                 foreach (AliasProduct ali in aliasPro)
                 {
                     ali.ProductID = Convert.ToInt32(newstt);
+                    ali.Name = newName;
                     db.SaveChanges();
                 }
             }
             // trường hợp kích hoạt cả product cả hardware.
             else
             {
-                for (int i = 2; i < info.Length; i++)
+                // đổi tên laptop.
+                var product = db.Products.Where(x => x.ID.Equals(numstt)).SingleOrDefault();
+                product.Name = newName;
+                db.SaveChanges();
+                for (int i = 3; i < info.Length; i++)
                 {
                     String[] list = info[i].ToString().Split('|');
                     int numstt1 = Convert.ToInt32(list[0]);
                     string newstt1 = list[1];
                     string productid1 = stt;
                     int numProductid = Convert.ToInt32(stt);
+                    string newNameHard = list[2].Trim();
                     // nếu không chọn hardware để map thì active nó 
                     if (newstt1.Trim().Equals("0"))
                     {
                         int id = Convert.ToInt32(list[0]);
                         var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
-
                         // khi active thì tìm tất cả các sản phẩm có tên tương tự để kích hoạt trong bảng product atribute.
                         var ProAtt = db.ProductAttributes.Where(x => x.AttributeID == id).ToList();
                         if (ProAtt != null)
@@ -385,10 +391,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         {
                             if (hardware.IsActive == null)
                             {
+                                hardware.Name = newNameHard;
                                 hardware.IsActive = true;
-                                db.SaveChanges();
+                                
                             }
                         }
+                        db.SaveChanges();
                     }
                     // trường hợp staff mapping với 1 sản phẩm có sẵn
                     else
@@ -400,6 +408,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         if (productid1.Trim().Equals("0"))
                         {
                             var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt1)).SingleOrDefault();
+                            Hardware.Name = newNameHard;
                             Hardware.IsActive = false;
                             db.SaveChanges();
                             Dictionary newDic = new Dictionary();
@@ -410,12 +419,13 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         else
                         {
                             var Hardware = db.Hardwares.Where(x => x.ID.Equals(numstt1)).SingleOrDefault();
+                            Hardware.Name = newNameHard;
                             Hardware.IsActive = false;
                             string name = Hardware.Name;
                             db.SaveChanges();
                             Dictionary newDic = new Dictionary();
                             newDic.AttributeDicID = Convert.ToInt32(newstt1);
-                            newDic.Name = Hardware.Name;
+                            newDic.Name = newNameHard;
                             newDic.IsActive = true;
                             db.Dictionaries.Add(newDic);
                             db.SaveChanges();

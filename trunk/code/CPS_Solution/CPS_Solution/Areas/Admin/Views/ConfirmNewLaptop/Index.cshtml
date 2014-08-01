@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
 
-      <!-- CSS Reset -->
+    <!-- CSS Reset -->
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
     <!--  Fluid Grid System -->
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
@@ -26,12 +26,12 @@
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
     <!-- Demo Stylesheet -->
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
-   <!-- jQuery JavaScript File -->
+    <!-- jQuery JavaScript File -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
     <!-- jQuery-UI JavaScript Files -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
-        <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
     <!-- Plugin Files -->
     <!-- FileInput Plugin -->
@@ -76,7 +76,7 @@
 }
 @section sidebar
 {
- <!-- Main Navigation -->
+    <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
             <li>
@@ -134,7 +134,7 @@
                     <strong>Dữ liệu</strong>
                 </a>
                 <ul>
-                    <li >
+                    <li>
                         <a href="/Admin/importexcelLap">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
                             <strong>Nhập Laptop từ Excel</strong>
@@ -155,22 +155,22 @@
                             <strong>Xử lý Laptop trùng</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="/Admin/TrainingProduct">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
-                     <li style="background-color: #a6d037;">
+                    <li style="background-color: #a6d037;">
 
                         <a href="/Admin/ConfirmNewLaptop">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận laptop mới</strong>
                         </a>
-                           </li>
-                           <li>
-                         <a href="/Admin/ConfirmNewHardware">
+                    </li>
+                    <li>
+                        <a href="/Admin/ConfirmNewHardware">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xác nhận linh kiện mới</strong>
                         </a>
@@ -208,7 +208,7 @@
                             <strong>Danh sách sản phẩm</strong>
                         </a>
                     </li>
-                     <li>
+                    <li>
 
                         <a href="@Url.Action("Index", "ViewFeedback")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -277,7 +277,7 @@
                         </a>
                     </li>
 
-                    <li >
+                    <li>
                         <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
@@ -310,7 +310,7 @@
 @section mainHeader
 {
     <ul>
-        <li style="margin-right: 5px"><a style="cursor: default;font-size:27px;">
+        <li style="margin-right: 5px"><a style="cursor: default; font-size: 27px;">
             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Xác nhận</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
@@ -321,7 +321,7 @@
 @section footScript
 {
 }
-<div class="grid_2" style="width:360px">
+<div class="grid_2" style="width: 360px">
     <div class="da-panel-widget">
         <ul class="da-summary-stat">
             <li>
@@ -341,189 +341,190 @@
 <div class="clear"></div>
 <!----------------------------------------------- Content Area --------------------------------------------->
 <div id="idTable">
-<div  class="da-panel collapsible">
-    <div class="da-panel-header">
-        <span class="da-panel-title">
-            <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-            Kích hoạt Laptop mới trong cơ sở dữ liệu.
-        </span>
+    <div class="da-panel collapsible">
+        <div class="da-panel-header">
+            <span class="da-panel-title">
+                <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
+                Kích hoạt Laptop mới trong cơ sở dữ liệu.
+            </span>
 
-        <span class="da-panel-toggler"></span>
-    </div>
-    <div class="da-panel-content">
-        <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
+            <span class="da-panel-toggler"></span>
+        </div>
+        <div class="da-panel-content">
+            <div id="da-ex-datatable-numberpaging_wrapper" class="dataTables_wrapper" role="grid">
 
 
-            <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
-                <thead>
-                    <tr role="row">
-                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">ID</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên Laptop</th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Lựa chọn</th>
-                       
-                    </tr>
-                </thead>
+                <table id="da-ex-datatable-numberpaging" class="da-table dataTable" aria-describedby="da-ex-datatable-numberpaging_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">ID</th>
+                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên Laptop</th>
+                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Lựa chọn</th>
 
-                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        </tr>
+                    </thead>
 
-                    @if (listproconfirm != null)
-                    {
-                        foreach (Product h in listproconfirm)
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                        @if (listproconfirm != null)
                         {
-                        <tr id="IdTr@(h.ID)" class="odd">
+                            foreach (Product h in listproconfirm)
+                            {
+                            <tr id="IdTr@(h.ID)" class="odd">
 
-                            <td class=" sorting_1">@h.ID</td>
-                            <td class=" ">
-                                <label style="width: 100px;">@h.Name</label></td>
-                          
-                            <td style="width: 20%;" class=" "> <input style="width:52px" onclick="showPopupEdit(@h.ID)" value="Kích Hoạt" class="da-button green">&nbsp&nbsp&nbsp
+                                <td class=" sorting_1">@h.ID</td>
+                                <td class=" ">
+                                    <label style="width: 100px;">@h.Name</label></td>
+
+                                <td style="width: 20%;" class=" ">
+                                    <input style="width:52px" onclick="showPopupEdit(@h.ID)" value="Kích Hoạt" class="da-button green">&nbsp&nbsp&nbsp
                                 <input style="width:52px" onclick="HuyLaptop(@h.ID)" value="Hủy bỏ" class="da-button red">
-                                
-                                <!----------------Popup sửa sản phẩm đúng----------->
-                                <div id="Edit-@h.ID-Popup-div" style="display: none;">
-                                    <div class="da-panel">
-                                        <div class="da-panel-content">
-                                            <form class="da-form">
-                                                <div class="da-form-inline">                                                                                                
-                                                    <div class="da-form-row">
-                                                        <label>Tên Laptop</label>
-                                                        <div class="da-form-item">
-                                                            <input disabled name="idNameHard@(h.ID)" id="Hardware" value="@h.Name"  type="text"></br>
-                                                              @Html.DropDownList("ProductList", ViewBag.ProductList as List<SelectListItem>, new {@onchange="HideHardware(this)",@class ="chzn-select", id = @h.ID, @style = "width: 250px;" })
+
+                                    <!----------------Popup sửa sản phẩm đúng----------->
+                                    <div id="Edit-@h.ID-Popup-div" style="display: none;">
+                                        <div class="da-panel">
+                                            <div class="da-panel-content">
+                                                <form class="da-form">
+                                                    <div class="da-form-inline">
+                                                        <div class="da-form-row">
+                                                            <label>Tên Laptop</label>
+                                                            <div class="da-form-item">
+                                                                <input name="idNameHard@(h.ID)" id="Laptopname@(h.ID)" value="@h.Name"  type="text"></br>
+                                                              @Html.DropDownList("ProductList", ViewBag.ProductList as List<SelectListItem>, new { @onchange = "HideHardware(this)", @class = "chzn-select", id = @h.ID, @style = "width: 250px;" })
+                                                            </div>
                                                         </div>
-                                                    </div>  
-                                                    @if (h.CpuID != 0 && h.VgaID != 0 && h.HddID != 0 && h.RamID != 0 && h.DisplayID != 0)
-                                                    {
-                                                    <div id ="linhkien">
-                                                     <div class="da-form-row">
-                                                        <label>CPU</label>
-                                                        <div class="da-form-item">
-                                                           @* <span class="formNote">Tên thành phần</span>*@                                                      
-                                                          @{int cpu = 0;}
-                                                          @foreach (Hardware hard in ListHardWareProActive)
-                                                          {
-                                                              if (hard.ID == h.CpuID)
-                                                              {
-                                                                    <input  id="idCPUProduct@(h.ID)" name="ok" value="@h.strCPU" type="text">                                                       
-                                                                  cpu++;
-                                                                  break;
-                                                              }
-                                                          }
-                                                           @if (cpu == 0)
-                                                           {
-                                                                 <input  id="idCPUProduct@(h.ID)" name="@h.CpuID" value="@h.strCPU" type="text">
-                                                                 @Html.DropDownList("CPUList", ViewBag.cpuList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlCPU" + @h.ID, @style = "width: 250px;" })
-                                                           }                                                       
-                                                        </div>
-                                                    </div>      
-                                                      <div class="da-form-row">
-                                                        <label>VGA</label>
-                                                        <div class="da-form-item">
-                                                           @* <span class="formNote">Tên thành phần</span>*@
-                                                              @{int vga = 0;}
-                                                          @foreach (Hardware hard in ListHardWareProActive)
-                                                          {
-                                                              if (hard.ID == h.VgaID)
-                                                              {
-                                                                    <input  id="idVGAProduct@(h.ID)" name="ok" value="@h.strVGA" type="text">
-                                                                  vga++;
-                                                                  break;
-                                                              }
-                                                          }
-                                                           @if (vga == 0)
-                                                           {
-                                                                 <input  id="idVGAProduct@(h.ID)" name="@h.VgaID" value="@h.strVGA" type="text">
+                                                        @if (h.CpuID != 0 && h.VgaID != 0 && h.HddID != 0 && h.RamID != 0 && h.DisplayID != 0)
+                                                        {
+                                                            <div id="linhkien@(h.ID)">
+                                                                <div class="da-form-row">
+                                                                    <label>CPU</label>
+                                                                    <div class="da-form-item">
+                                                                        @* <span class="formNote">Tên thành phần</span>*@
+                                                                        @{int cpu = 0;}
+                                                                        @foreach (Hardware hard in ListHardWareProActive)
+                                                                        {
+                                                                            if (hard.ID == h.CpuID)
+                                                                            {
+                                                                            <input disabled  id="idCPUProduct@(h.ID)" name="ok" value="@h.strCPU" type="text">                                                       
+                                                                                cpu++;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        @if (cpu == 0)
+                                                                        {
+                                                                            <input  id="idCPUProduct@(h.ID)" name="@h.CpuID" value="@h.strCPU" type="text">
+                                                                            @Html.DropDownList("CPUList", ViewBag.cpuList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlCPU" + @h.ID, @style = "width: 250px;" })
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <div class="da-form-row">
+                                                                    <label>VGA</label>
+                                                                    <div class="da-form-item">
+                                                                        @* <span class="formNote">Tên thành phần</span>*@
+                                                                        @{int vga = 0;}
+                                                                        @foreach (Hardware hard in ListHardWareProActive)
+                                                                        {
+                                                                            if (hard.ID == h.VgaID)
+                                                                            {
+                                                                            <input disabled  id="idVGAProduct@(h.ID)" name="ok" value="@h.strVGA" type="text">
+                                                                                vga++;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        @if (vga == 0)
+                                                                        {
+                                                                            <input  id="idVGAProduct@(h.ID)" name="@h.VgaID" value="@h.strVGA" type="text">
                                                                 
-                                                               @Html.DropDownList("VGAList", ViewBag.vgaList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlVGA" + @h.ID, @style = "width: 250px;" })
-                                                           }   
-                                                        </div>
-                                                    </div>        
-                                                    <div class="da-form-row">
-                                                        <label>HDD</label>
-                                                        <div class="da-form-item">
-                                                           @* <span class="formNote">Tên thành phần</span>*@
-                                                            @{int hdd = 0;}
-                                                          @foreach (Hardware hard in ListHardWareProActive)
-                                                          {
-                                                              if (hard.ID == h.HddID)
-                                                              {
-                                                                    <input  id="idHDDProduct@(h.ID)" name="ok" value="@h.strHDD" type="text">
-                                                                  hdd++;
-                                                                  break;
-                                                              }
-                                                          }
-                                                           @if (hdd == 0)
-                                                           {
-                                                                 <input  id="idHDDProduct@(h.ID)" name="@h.HddID" value="@h.strHDD" type="text">
+                                                                            @Html.DropDownList("VGAList", ViewBag.vgaList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlVGA" + @h.ID, @style = "width: 250px;" })
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <div class="da-form-row">
+                                                                    <label>HDD</label>
+                                                                    <div class="da-form-item">
+                                                                        @* <span class="formNote">Tên thành phần</span>*@
+                                                                        @{int hdd = 0;}
+                                                                        @foreach (Hardware hard in ListHardWareProActive)
+                                                                        {
+                                                                            if (hard.ID == h.HddID)
+                                                                            {
+                                                                            <input disabled  id="idHDDProduct@(h.ID)" name="ok" value="@h.strHDD" type="text">
+                                                                                hdd++;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        @if (hdd == 0)
+                                                                        {
+                                                                            <input  id="idHDDProduct@(h.ID)" name="@h.HddID" value="@h.strHDD" type="text">
                                                                
-                                                                @Html.DropDownList("HDDList", ViewBag.hddList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlHDD" + @h.ID, @style = "width: 250px;" })
-                                                           }   
-                                                        </div>
-                                                    </div>  
-                                                    <div class="da-form-row">
-                                                        <label>Ram</label>
-                                                        <div class="da-form-item">
-                                                           @* <span class="formNote">Tên thành phần</span>*@
-                                                             @{int ram = 0;}
-                                                          @foreach (Hardware hard in ListHardWareProActive)
-                                                          {
-                                                              if (hard.ID == h.RamID)
-                                                              {
-                                                                    <input  id="idRamProduct@(h.ID)" name="ok" value="@h.strRAM" type="text">
-                                                                  ram++;
-                                                                  break;
-                                                              }
-                                                          }
-                                                           @if (ram == 0)
-                                                           {
-                                                               <input  id="idRamProduct@(h.ID)" name="@h.RamID" value="@h.strRAM" type="text">                                                                                                            
-                                                            @Html.DropDownList("RAMList", ViewBag.ramList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlRam" + @h.ID, @style = "width: 250px;" })
-                                                           }
-                                                        </div>
-                                                    </div>  
-                                                    <div class="da-form-row">
-                                                        <label>Display</label>
-                                                        <div class="da-form-item">
-                                                           @* <span class="formNote">Tên thành phần</span>*@
-                                                            @{int display = 0;}
-                                                          @foreach (Hardware hard in ListHardWareProActive)
-                                                          {
-                                                              if (hard.ID == h.RamID)
-                                                              {
-                                                                    <input  id="idDisplayProduct@(h.ID)" name="ok" value="@h.strDisplay" type="text">
-                                                                  display++;
-                                                                  break;
-                                                              }
-                                                          }
-                                                           @if (display == 0)
-                                                           {
-                                                               <input  id="idDisplayProduct@(h.ID)" name="@h.DisplayID" value="@h.strDisplay" type="text">  
+                                                                            @Html.DropDownList("HDDList", ViewBag.hddList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlHDD" + @h.ID, @style = "width: 250px;" })
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <div class="da-form-row">
+                                                                    <label>Ram</label>
+                                                                    <div class="da-form-item">
+                                                                        @* <span class="formNote">Tên thành phần</span>*@
+                                                                        @{int ram = 0;}
+                                                                        @foreach (Hardware hard in ListHardWareProActive)
+                                                                        {
+                                                                            if (hard.ID == h.RamID)
+                                                                            {
+                                                                            <input disabled  id="idRamProduct@(h.ID)" name="ok" value="@h.strRAM" type="text">
+                                                                                ram++;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        @if (ram == 0)
+                                                                        {
+                                                                            <input  id="idRamProduct@(h.ID)" name="@h.RamID" value="@h.strRAM" type="text">                                                                                                            
+                                                                            @Html.DropDownList("RAMList", ViewBag.ramList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlRam" + @h.ID, @style = "width: 250px;" })
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <div class="da-form-row">
+                                                                    <label>Display</label>
+                                                                    <div class="da-form-item">
+                                                                        @* <span class="formNote">Tên thành phần</span>*@
+                                                                        @{int display = 0;}
+                                                                        @foreach (Hardware hard in ListHardWareProActive)
+                                                                        {
+                                                                            if (hard.ID == h.DisplayID)
+                                                                            {
+                                                                            <input  id="idDisplayProduct@(h.ID)" name="ok" value="@h.strDisplay" type="text">
+                                                                                display++;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        @if (display == 0)
+                                                                        {
+                                                                            <input  id="idDisplayProduct@(h.ID)" name="@h.DisplayID" value="@h.strDisplay" type="text">  
                                                                                                                                                                       
-                                                            @Html.DropDownList("DISPLAYList", ViewBag.displayList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlDisplay" + @h.ID, @style = "width: 250px;" })
-                                                           }
-                                                        </div>
-                                                    </div>        
-                                                     </div>                                                                                       
-                                                    <div class="da-button-row">
-                                                        <input onclick="EditHardware(@h.ID)" type="button" value="Lưu" class="da-button green">
+                                                                            @Html.DropDownList("DISPLAYList", ViewBag.displayList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlDisplay" + @h.ID, @style = "width: 250px;" })
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                                                                       
+                                                            <div class="da-button-row">
+                                                                <input onclick="EditHardware(@h.ID)" type="button" value="Lưu" class="da-button green">
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="da-form-row">
+                                                                <label>Chú ý:</label>
+                                                                <div class="da-form-item">
+                                                                    @* <span class="formNote">Tên thành phần</span>*@
+                                                                    <a style="color: red;" href="/Admin/TrainingProduct">Click vào đây để xử lý linh kiện còn thiếu của Laptop</a>
+                                                                </div>
+                                                            </div>
+                                                        }
                                                     </div>
-                                                    }
-                                                    else
-                                                    {
-                                                         <div class="da-form-row">
-                                                        <label>Chú ý:</label>
-                                                        <div class="da-form-item">
-                                                           @* <span class="formNote">Tên thành phần</span>*@
-                                                            <a style="color:red;" href ="/Admin/TrainingProduct">Click vào đây để xử lý linh kiện còn thiếu của Laptop</a>
-                                                        </div>
-                                                    </div>
-                                                    }
-                                                </div>
-                                                       
-                                            </form>
+
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
-                                  @*  <script type="text/javascript">
+                                        @*  <script type="text/javascript">
                                         var loai = $('#hiddenCodetype').val();
                                         $(document).ready(function () {
                                             $("#Hardware").autocomplete({
@@ -547,19 +548,19 @@
                                             });
                                         })
 </script>*@
-                                </div>
+                                    </div>
 
-                                <!----------------Popup------------------>
-                            </td>
-                            
-                        </tr>
+                                    <!----------------Popup------------------>
+                                </td>
+
+                            </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -602,7 +603,7 @@
             url: "/Admin/ConfirmNewLaptop/LoadTableAjax",
             data: postData,
             success: function(data){
-               $('#idTable').html(data);
+                $('#idTable').html(data);
             },
 
         });
@@ -641,7 +642,7 @@
                 data: postData,
                 success: function(data){
                     document.getElementById("IdTr"+id).style.display='none';
-                     LoadTableAjax();
+                    LoadTableAjax();
                    
                 },
 
@@ -659,47 +660,55 @@
         var IdDdlist =   $( "#"+stt ).val();
         if(IdDdlist!=0)
         {
-            document.getElementById("linhkien").style.display = 'none';
+            document.getElementById("linhkien"+stt).style.display = 'none';
+           // $('#linhkien1').hide();
         }else{
-            document.getElementById("linhkien").style.display = 'block';
+            document.getElementById("linhkien"+stt).style.display = 'block';
         }
     }
 
     //
     function EditHardware(stt){   
         var div = document.getElementById(stt+"_chzn");
-      //  var spans = div.getElementsByTagName("span");
-     //   var nameHardware =  spans[0].innerHTML;
+        //  var spans = div.getElementsByTagName("span");
+        //   var nameHardware =  spans[0].innerHTML;
         var IdHardware =   $( "#"+stt ).val();
+        var laptopname = document.getElementById("Laptopname"+stt).value;
 
         if(IdHardware =="0")
         {
-            
+            // id của CPU
             var nameCPU = document.getElementById("idCPUProduct"+stt).name;
+            // tên của CPU
+            var tenCPU = document.getElementById("idCPUProduct"+stt).value;
             var nameVGA = document.getElementById("idVGAProduct"+stt).name;
+            var tenVGA = document.getElementById("idVGAProduct"+stt).value;
             var nameHDD = document.getElementById("idHDDProduct"+stt).name;
+            var tenHDD = document.getElementById("idHDDProduct"+stt).value;
             var nameRam = document.getElementById("idRamProduct"+stt).name;
+            var tenRam = document.getElementById("idRamProduct"+stt).value;
             var nameDisplay = document.getElementById("idDisplayProduct"+stt).name;
-            var string = stt+'@@'+IdHardware;
+            var tenDisplay = document.getElementById("idDisplayProduct"+stt).value;
+            var string = stt+'@@'+IdHardware+'@@'+laptopname;
             if(nameCPU !="ok")
             {
-                string +='@@'+ nameCPU +'|' + document.getElementById("ddlCPU"+stt).value;
+                string +='@@'+ nameCPU +'|' + document.getElementById("ddlCPU"+stt).value + '|' + tenCPU;
             }
             if(nameVGA !="ok")
             {
-                string +='@@'+ nameVGA +'|' + document.getElementById("ddlVGA"+stt).value;
+                string +='@@'+ nameVGA +'|' + document.getElementById("ddlVGA"+stt).value+ '|' + tenVGA;
             }
             if(nameHDD !="ok")
             {
-                string +='@@'+ nameHDD +'|' + document.getElementById("ddlHDD"+stt).value;
+                string +='@@'+ nameHDD +'|' + document.getElementById("ddlHDD"+stt).value+ '|' + tenHDD;
             }
             if(nameRam !="ok")
             {
-                string +='@@'+ nameRam +'|' + document.getElementById("ddlRam"+stt).value;
+                string +='@@'+ nameRam +'|' + document.getElementById("ddlRam"+stt).value+ '|' + tenRam;
             }
             if(nameDisplay !="ok")
             {
-                string +='@@'+ nameDisplay +'|' + document.getElementById("ddlDisplay"+stt).value;
+                string +='@@'+ nameDisplay +'|' + document.getElementById("ddlDisplay"+stt).value+ '|' + tenDisplay;
             }
             var postData = {HardInfo: string };
             $.ajax({
@@ -715,7 +724,7 @@
 
         }else
         {
-            var string = stt+'@@'+IdHardware;
+            var string = stt+'@@'+IdHardware+'@@'+laptopname;
         
             var postData = {HardInfo: string };
             $.ajax({
@@ -732,164 +741,164 @@
     }
    
 </script>
-  <script>
-      (function ($) {
-          $(document).ready(function (e) {
-              // dialog popup
-              $("#da-ex-accordion, #da-ex-accordion-plain").accordion();
+<script>
+    (function ($) {
+        $(document).ready(function (e) {
+            // dialog popup
+            $("#da-ex-accordion, #da-ex-accordion-plain").accordion();
 
-              $("#da-ex-tabs, #da-ex-tabs-plain").tabs();
+            $("#da-ex-tabs, #da-ex-tabs-plain").tabs();
 
-              $("#da-ex-datepicker, #da-ex-datepicker-inline").datepicker({ showOtherMonths: true });
+            $("#da-ex-datepicker, #da-ex-datepicker-inline").datepicker({ showOtherMonths: true });
 
-              $("#da-ex-datepicker-week").datepicker({ showOtherMonths: true, showWeek: true });
+            $("#da-ex-datepicker-week").datepicker({ showOtherMonths: true, showWeek: true });
 
-              $("#da-ex-datepicker-months").datepicker({ showOtherMonths: true, numberOfMonths: 3 });
+            $("#da-ex-datepicker-months").datepicker({ showOtherMonths: true, numberOfMonths: 3 });
 
-              $("#da-ex-datetimepicker").datetimepicker();
+            $("#da-ex-datetimepicker").datetimepicker();
 
-              $("#da-ex-timepicker").timepicker({});
+            $("#da-ex-timepicker").timepicker({});
 
-              $(".da-ex-buttons").button();
+            $(".da-ex-buttons").button();
 
-              $("#da-ex-buttons-radio, #da-ex-buttons-checkbox").buttonset();
+            $("#da-ex-buttons-radio, #da-ex-buttons-checkbox").buttonset();
 
-              $("#da-ex-buttons-icon button:first").button({
-                  icons: {
-                      primary: "ui-icon-locked"
-                  },
-                  text: false
-              }).next().button({
-                  icons: {
-                      primary: "ui-icon-locked"
-                  }
-              }).next().button({
-                  icons: {
-                      primary: "ui-icon-gear",
-                      secondary: "ui-icon-triangle-1-s"
-                  }
-              }).next().button({
-                  icons: {
-                      primary: "ui-icon-gear",
-                      secondary: "ui-icon-triangle-1-s"
-                  },
-                  text: false
-              });
+            $("#da-ex-buttons-icon button:first").button({
+                icons: {
+                    primary: "ui-icon-locked"
+                },
+                text: false
+            }).next().button({
+                icons: {
+                    primary: "ui-icon-locked"
+                }
+            }).next().button({
+                icons: {
+                    primary: "ui-icon-gear",
+                    secondary: "ui-icon-triangle-1-s"
+                }
+            }).next().button({
+                icons: {
+                    primary: "ui-icon-gear",
+                    secondary: "ui-icon-triangle-1-s"
+                },
+                text: false
+            });
 
-              var availableTags = [
-                  "ActionScript",
-                  "AppleScript",
-                  "Asp",
-                  "BASIC",
-                  "C",
-                  "C++",
-                  "Clojure",
-                  "COBOL",
-                  "ColdFusion",
-                  "Erlang",
-                  "Fortran",
-                  "Groovy",
-                  "Haskell",
-                  "Java",
-                  "JavaScript",
-                  "Lisp",
-                  "Perl",
-                  "PHP",
-                  "Python",
-                  "Ruby",
-                  "Scala",
-                  "Scheme"
-              ];
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
 
-              $("#da-ex-autocomplete").autocomplete({
-                  source: availableTags
-              });
+            $("#da-ex-autocomplete").autocomplete({
+                source: availableTags
+            });
 
-              $("#da-ex-slider").slider();
+            $("#da-ex-slider").slider();
 
-              $("#da-ex-slider-range").slider({
-                  range: true,
-                  min: 0,
-                  max: 500,
-                  values: [75, 300],
-                  slide: function (event, ui) {
-                      $("#da-ex-slider-range-info .da-highlight").html("$" + ui.values[0] + " - $" + ui.values[1]);
-                  }
-              });
+            $("#da-ex-slider-range").slider({
+                range: true,
+                min: 0,
+                max: 500,
+                values: [75, 300],
+                slide: function (event, ui) {
+                    $("#da-ex-slider-range-info .da-highlight").html("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
 
-              $(".da-ex-color-slider").slider({
-                  range: "min",
-                  value: 45,
-                  min: 1,
-                  max: 100
-              });
+            $(".da-ex-color-slider").slider({
+                range: "min",
+                value: 45,
+                min: 1,
+                max: 100
+            });
 
-              $("#da-ex-slider-range-fixed").slider({
-                  range: "min",
-                  value: 37,
-                  min: 1,
-                  max: 700,
-                  slide: function (event, ui) {
-                      $("#da-ex-slider-range-fixed-info .da-highlight").html("$" + ui.value);
-                  }
-              });
+            $("#da-ex-slider-range-fixed").slider({
+                range: "min",
+                value: 37,
+                min: 1,
+                max: 700,
+                slide: function (event, ui) {
+                    $("#da-ex-slider-range-fixed-info .da-highlight").html("$" + ui.value);
+                }
+            });
 
-              $("#da-slider-equalizer > span").each(function () {
-                  var value = parseInt($(this).text(), 10);
+            $("#da-slider-equalizer > span").each(function () {
+                var value = parseInt($(this).text(), 10);
 
-                  $(this).empty().slider({
-                      value: value,
-                      range: "min",
-                      animate: true,
-                      orientation: "vertical"
-                  });
-              });
+                $(this).empty().slider({
+                    value: value,
+                    range: "min",
+                    animate: true,
+                    orientation: "vertical"
+                });
+            });
 
-              $(".da-ex-color-pb, #da-ex-pb, #da-ex-pba").each(function () {
-                  $(this).progressbar({
-                      value: 25 + Math.floor(Math.random() * 50)
-                  });
-              });
+            $(".da-ex-color-pb, #da-ex-pb, #da-ex-pba").each(function () {
+                $(this).progressbar({
+                    value: 25 + Math.floor(Math.random() * 50)
+                });
+            });
 
-              $("#da-ex-pba-trigger").bind('click', function (e) {
-                  $(this).parent().next("#da-ex-pba").progressbar('value', 20 + Math.floor(Math.random() * 80));
-                  e.preventDefault();
-              });
+            $("#da-ex-pba-trigger").bind('click', function (e) {
+                $(this).parent().next("#da-ex-pba").progressbar('value', 20 + Math.floor(Math.random() * 80));
+                e.preventDefault();
+            });
 
-              $("#da-ex-dialog-div").dialog({
-                  autoOpen: false,
-                  title: "Chọn log file bạn muốn ghi lại, để sau đó có thể tiếp tục xử lý.",
-                  modal: true,
-                  width: "550",
-                  buttons: [{
-                      text: "Đóng",
-                      click: function () {
-                          $(this).dialog("close");
-                      }
-                  }]
-              });
-
-
+            $("#da-ex-dialog-div").dialog({
+                autoOpen: false,
+                title: "Chọn log file bạn muốn ghi lại, để sau đó có thể tiếp tục xử lý.",
+                modal: true,
+                width: "550",
+                buttons: [{
+                    text: "Đóng",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                }]
+            });
 
 
-              $("#da-ex-dialog").bind("click", function (event) {
-                  $("#da-ex-dialog-div").dialog("option", { modal: false }).dialog("open");
-                  event.preventDefault();
-              });
-              $("#da-ex-dialog-modal").bind("click", function (event) {
-                  $("#da-ex-dialog-div").dialog("option", { modal: true }).dialog("open");
-                  event.preventDefault();
-              });
-              $("#da-ex-dialog-form").bind("click", function (event) {
-                  $("#da-ex-dialog-form-div").dialog("option", { modal: true }).dialog("open");
-                  event.preventDefault();
-              });
-              //  Growl Notifications 
-              if ($.jGrowl) {
 
-                  $("#da-ex-growl-2").bind("click", function (event) {
-                      $.jGrowl("Con cò bé bé", { header: "Nhắc nhở!", position: "bottom-right" });
-                  });
-              }
-          });
-      })(jQuery); 		</script>
+
+            $("#da-ex-dialog").bind("click", function (event) {
+                $("#da-ex-dialog-div").dialog("option", { modal: false }).dialog("open");
+                event.preventDefault();
+            });
+            $("#da-ex-dialog-modal").bind("click", function (event) {
+                $("#da-ex-dialog-div").dialog("option", { modal: true }).dialog("open");
+                event.preventDefault();
+            });
+            $("#da-ex-dialog-form").bind("click", function (event) {
+                $("#da-ex-dialog-form-div").dialog("option", { modal: true }).dialog("open");
+                event.preventDefault();
+            });
+            //  Growl Notifications 
+            if ($.jGrowl) {
+
+                $("#da-ex-growl-2").bind("click", function (event) {
+                    $.jGrowl("Con cò bé bé", { header: "Nhắc nhở!", position: "bottom-right" });
+                });
+            }
+        });
+    })(jQuery); 		</script>
