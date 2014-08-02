@@ -829,9 +829,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     int errorCount = 0;
                     // trùng CPU 1 
                     int c1 = 0;
-                    for (int x = 0; x < listCPU.Count; x++)
+                    var DictionaryC1 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "C" select a);
+                    List<Dictionary> listDicC1 = DictionaryC1.ToList();
+                    for (int x = 0; x < listDicC1.Count; x++)
                     {
-                        if (listpro[i].CPU.Trim().Equals(listCPU[x].Name.Trim()))
+                        if (listpro[i].CPU.Trim().Equals(listDicC1[x].Name.Trim()))
                         {
                             c1++;
                             break;
@@ -854,9 +856,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
                     // trùng VGA 2
                     int v2 = 0;
-                    for (int x = 0; x < listVGA.Count; x++)
+                    var DictionaryV2 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "V" select a);
+                    List<Dictionary> listDicV2 = DictionaryV2.ToList();
+                    for (int x = 0; x < listDicV2.Count; x++)
                     {
-                        if (listpro[i].VGA.Trim().Equals(listVGA[x].Name.Trim()))
+                        if (listpro[i].VGA.Trim().Equals(listDicV2[x].Name.Trim()))
                         {
                             v2++;
                             break;
@@ -877,9 +881,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     }
                     // trùng HDD 3
                     int h3 = 0;
-                    for (int x = 0; x < listHDD.Count; x++)
+                    var DictionaryH3 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "H" select a);
+                    List<Dictionary> listDicH3 = DictionaryH3.ToList();
+                    for (int x = 0; x < listDicH3.Count; x++)
                     {
-                        if (listpro[i].HDD.Trim().Equals(listHDD[x].Name.Trim()))
+                        if (listpro[i].HDD.Trim().Equals(listDicH3[x].Name.Trim()))
                         {
                             h3++;
                             break;
@@ -900,9 +906,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     }
                     // trùng Display 4
                     int d4 = 0;
-                    for (int x = 0; x < listDisplay.Count; x++)
+                    var DictionaryD4 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "D" select a);
+                    List<Dictionary> listDicD4 = DictionaryD4.ToList();
+                    for (int x = 0; x < listDicD4.Count; x++)
                     {
-                        if (listpro[i].Display.Trim().Equals(listDisplay[x].Name.Trim()))
+                        if (listpro[i].Display.Trim().Equals(listDicD4[x].Name.Trim()))
                         {
                             d4++;
                             break;
@@ -924,9 +932,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     }
                     // trùng Ram
                     int r5 = 0;
-                    for (int x = 0; x < listRam.Count; x++)
+                    var DictionaryR5 = (from a in db.Dictionaries where a.Hardware.CodetypeID == "R" select a);
+                    List<Dictionary> listDicR5 = DictionaryR5.ToList();
+                    for (int x = 0; x < listDicR5.Count; x++)
                     {
-                        if (listpro[i].RAM.Trim().Equals(listRam[x].Name.Trim()))
+                        if (listpro[i].RAM.Trim().Equals(listDicR5[x].Name.Trim()))
                         {
                             r5++;
                             break;
