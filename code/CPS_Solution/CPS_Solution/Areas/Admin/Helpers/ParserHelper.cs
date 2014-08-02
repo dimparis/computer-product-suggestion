@@ -363,72 +363,78 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 ram = doc.DocumentNode.SelectSingleNode(ramXpath);
                 display = doc.DocumentNode.SelectSingleNode(displayXpath);
             }
-            if (cpu != null && vga != null && hdd != null &&
-                display != null && ram != null && name != null)
+            // check name Node
+            if (name != null)
             {
-                //Check null
-                if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
-                    !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
-                    !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
-                {
-                    data.Name = name.InnerText;
-                    data.CPU = cpu.InnerText;
-                    data.VGA = vga.InnerText;
-
-                    //Modifed for take Price
-                    if (priceXpath != null)
-                    {
-                        if (price != null)
-                        {
-                            data.Price = price.InnerText;
-                        }
-                        else
-                        {
-                            data.Price = "0";
-                        }
-                    }
-                    else
-                    {
-                        data.Price = "0";
-                    }
-                    // modify xpath for lazada
-                    if (host.Contains("lazada.vn"))
-                    {
-                        string patter = "RAM |/|,|-| HDD ";
-                        Regex reg = new Regex(patter);
-                        if (ram.InnerText.Contains(",") || ram.InnerText.Contains("/") || ram.InnerText.Contains("-"))
-                        {
-                            string[] spltRAMString = reg.Split(ram.InnerText);
-                            data.RAM = spltRAMString[1];
-                        }
-                        else
-                        {
-                            data.RAM = ram.InnerText;
-                        }
-                        if (hdd.InnerText.Contains(",") || hdd.InnerText.Contains("/") || hdd.InnerText.Contains("-"))
-                        {
-                            string[] spltHDDString = reg.Split(hdd.InnerText);
-                            data.HDD = spltHDDString[3];
-                        }
-                        else
-                        {
-                            data.HDD = hdd.InnerText;
-                        }
-                        imageXpath = "//*[@id='productZoom']";
-                    }
-                    else
-                    {
-                        data.HDD = hdd.InnerText;
-                        data.RAM = ram.InnerText;
-                    }
-                    data.Display = display.InnerText;
-                    data.Image = ImageHelper.TakePath(host, doc, imageXpath);
-                    if (String.IsNullOrEmpty(data.Image))
-                    {
-                        data.Image = ImageHelper.TakePath(host, doc, imageXpath);
-                    }
-                }
+                data.Name = name.InnerText;
             }
+            else
+            {
+                data.Name = "Chưa xác định";
+            }
+            //check price Node
+            if (price != null)
+            {
+                data.Price = price.InnerText;
+            }
+            else
+            {
+                data.Price = "Chưa xác định";
+            }
+
+
+            //check cpu Node
+            if (cpu != null)
+            {
+                data.CPU = cpu.InnerText;
+            }
+            else
+            {
+                data.CPU = "Chưa xác định";
+            }
+            //check vga Node
+            if (vga != null)
+            {
+                data.VGA = vga.InnerText;
+            }
+            else
+            {
+                data.VGA = "Chưa xác định";
+            }
+            //check ram Node
+            if (ram != null)
+            {
+                data.RAM = ram.InnerText;
+            }
+            else
+            {
+                data.RAM = "Chưa xác định";
+            }
+            // check HDD Node
+            if (hdd != null)
+            {
+                data.HDD = hdd.InnerText;
+            }
+            else
+            {
+                data.HDD = "Chưa xác định";
+            }
+            //check Display Node
+            if (display != null)
+            {
+                data.Display = display.InnerText;
+            }
+            else
+            {
+                data.Display = "Chưa xác định";
+            }
+            // modify xpath for lazada Images
+            if (host.Contains("lazada.vn"))
+            {
+                imageXpath = "//*[@id='productZoom']";
+            }
+            // Take image 
+            data.Image = ImageHelper.TakePath(host, doc, imageXpath);
             return data;
         }
         public static ProductData MatchingProductDataPreview(string host, HtmlDocument doc, string nameXpath, string priceXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
@@ -440,7 +446,6 @@ namespace CPS_Solution.Areas.Admin.Helpers
             HtmlNode hdd = null;
             HtmlNode ram = null;
             HtmlNode display = null;
-            HtmlNode image = null;
             HtmlNode price = null;
             // modify xpath for vienthong a 
             if (host.Contains("vienthonga.vn"))
@@ -483,75 +488,78 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 ram = doc.DocumentNode.SelectSingleNode(ramXpath);
                 display = doc.DocumentNode.SelectSingleNode(displayXpath);
             }
-
-            if (cpu != null && vga != null && hdd != null &&
-               display != null && ram != null && name != null)
+            // check name Node
+            if (name != null)
             {
-                //Check null
-                if (!String.IsNullOrEmpty(name.InnerText) && !String.IsNullOrEmpty(cpu.InnerText) &&
-                    !String.IsNullOrEmpty(vga.InnerText) && !String.IsNullOrEmpty(hdd.InnerText) &&
-                    !String.IsNullOrEmpty(ram.InnerText) && !String.IsNullOrEmpty(display.InnerText))
-                {
-                    data.Name = name.InnerText;
-                    data.CPU = cpu.InnerText;
-                    data.VGA = vga.InnerText;
-
-                    //Modifed for take Price
-                    if (priceXpath != null)
-                    {
-                        if (price != null)
-                        {
-                            data.Price = price.InnerText;
-                        }
-                        else
-                        {
-                            data.Price = "0";
-                        }
-                    }
-                    else
-                    {
-                        data.Price = "0";
-                    }
-                    // modify xpath for lazada
-                    if (host.Contains("lazada.vn"))
-                    {
-                        string patter = "RAM |/|,|-| HDD ";
-                        Regex reg = new Regex(patter);
-                        if (ram.InnerText.Contains(",") || ram.InnerText.Contains("/") || ram.InnerText.Contains("-"))
-                        {
-                            string[] spltRAMString = reg.Split(ram.InnerText);
-                            data.RAM = spltRAMString[1];
-                        }
-                        else
-                        {
-                            data.RAM = ram.InnerText;
-                        }
-                        if (hdd.InnerText.Contains(",") || hdd.InnerText.Contains("/") || hdd.InnerText.Contains("-"))
-                        {
-                            string[] spltHDDString = reg.Split(hdd.InnerText);
-                            data.HDD = spltHDDString[3];
-                        }
-                        else
-                        {
-                            data.HDD = hdd.InnerText;
-                        }
-
-
-                        imageXpath = "//*[@id='productZoom']";
-                    }
-                    else
-                    {
-                        data.HDD = hdd.InnerText;
-                        data.RAM = ram.InnerText;
-                    }
-                    data.Display = display.InnerText;
-                    data.Image = ImageHelper.TakePathPreview(host, doc, imageXpath);
-                    if (String.IsNullOrEmpty(data.Image))
-                    {
-                        data.Image = ImageHelper.TakePathPreview(host, doc, imageXpath);
-                    }
-                }
+                data.Name = name.InnerText;
             }
+            else
+            {
+                data.Name = "Chưa xác định";
+            }
+            //check price Node
+            if (price != null)
+            {
+                data.Price = price.InnerText;
+            }
+            else
+            {
+                data.Price = "Chưa xác định";
+            }
+
+
+            //check cpu Node
+            if (cpu != null)
+            {
+                data.CPU = cpu.InnerText;
+            }
+            else
+            {
+                data.CPU = "Chưa xác định";
+            }
+            //check vga Node
+            if (vga != null)
+            {
+                data.VGA = vga.InnerText;
+            }
+            else
+            {
+                data.VGA = "Chưa xác định";
+            }
+            //check ram Node
+            if (ram != null)
+            {
+                data.RAM = ram.InnerText;
+            }
+            else
+            {
+                data.RAM = "Chưa xác định";
+            }
+            // check HDD Node
+            if (hdd != null)
+            {
+                data.HDD = hdd.InnerText;
+            }
+            else
+            {
+                data.HDD = "Chưa xác định";
+            }
+            //check Display Node
+            if (display != null)
+            {
+                data.Display = display.InnerText;
+            }
+            else
+            {
+                data.Display = "Chưa xác định";
+            }
+            // modify xpath for lazada Images
+            if (host.Contains("lazada.vn"))
+            {
+                imageXpath = "//*[@id='productZoom']";
+            }
+            // Take image 
+            data.Image = ImageHelper.TakePathPreview(host, doc, imageXpath);
             return data;
         }
 
@@ -693,7 +701,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         //Add table product
                         var prod = new Product
                         {
-                            Description = "Fill me ",
+                            Description = "Chưa cập nhật ",
                             ImageURL = data.Image,
                             TotalWeightPoint = 0,
                             IsActive = null,
@@ -728,7 +736,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         var allBrands = context.Brands.ToList();
                         foreach (var item in allBrands)
                         {
-                            if (model.ParseProductLink.ToUpper().Contains(item.BrandName.ToUpper())) 
+                            if (model.ParseProductLink.ToUpper().Contains(item.BrandName.ToUpper()))
                             {
                                 brand = item.ID;
                             }
@@ -736,7 +744,8 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             {
                                 brand = 3;
                             }
-                            else {
+                            else
+                            {
                                 brand = 12;
                             }
                         }
