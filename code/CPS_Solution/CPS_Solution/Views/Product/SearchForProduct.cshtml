@@ -6,7 +6,7 @@
 
 @section navigator
 {
-   @* <div id="top-image" class="top-image3">
+    @* <div id="top-image" class="top-image3">
         <div class="container">
             <div id="top-image-caption">
                 <h2 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">tìm sản phẩm</h2>
@@ -28,14 +28,12 @@
 }
 
 <style>
-    .tabs-left
-    {
+    .tabs-left {
         position: fixed;
         padding: 28px 28px 0px 28px;
-         
-        top: 70px; 
-        left: 500px; 
-        z-index: 4; 
+        top: 70px;
+        left: 500px;
+        z-index: 4;
         background-image: url(../Template/stylish.holobest.com/images/title.png);
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
@@ -43,9 +41,9 @@
 </style>
 <div class="tabbable tabs-left">
     <ul class="nav nav-tabs" data-tabs="tabs">
-        <li class="active"><a href="#searchByName" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo tên</strong></a>
+        <li class=""><a href="#searchByName" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo tên</strong></a>
         </li>
-        <li class=""><a href="#searchByPrice" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo giá</strong></a>
+        <li class="active"><a href="#searchByPrice" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo giá</strong></a>
         </li>
     </ul>
     <div class="tab-content">
@@ -62,78 +60,81 @@
             {
                 @Html.DropDownList("brands", ViewBag.ListBrands as List<SelectListItem>, new { @style = "width:100px;height:40px" })
                 @Html.DropDownList("prices", ViewBag.ListPrices as List<SelectListItem>, new { @style = "width:225px;height:40px" })
-                <button type="submit" style="width: 126px; margin-left: -5px; z-index: 4">Tìm kiếm</button>               
+                <button type="submit" style="width: 125px; margin-left: -5px; z-index: 4">Tìm kiếm</button>               
             }
         </div>
     </div>
 </div>
 <div id="page-wrap">
-<div class="main-content">
-    <div class="container">
-        <div class="row" style="margin-top:120px;">
-            @if (Model.Any())
-            {
-                <div id="loadItemcontainer" style="margin-top: 60px">
-                    @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
-                </div>
-            }
-            else
-            {
-                <div class="page-element gray-element" style="margin-top:20px; margin-bottom:40px; border-radius:10px;">
-                    <div class="container element-container standard-element">
-                        <div class="row">
-                            <div class="span6 element-image-left fadeLeft animated fadeInLeft" style="visibility: visible;">
-                                <img class="standard-element-image" src="~/Template/stylish.holobest.com/images/element-image1.png" alt="standard-element-image" style="width: 600px; height: 430px">
-                            </div>
+    <div class="main-content">
+        <div class="container">
+            <div class="row" style="margin-top: 120px;">
+                @if (Model.Any())
+                {
+                    <div id="loadItemcontainer" style="margin-top: 60px">
+                        @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
+                    </div>
+                }
+                else
+                {
+                    <div class="page-element gray-element" style="margin-top: 20px; margin-bottom: 40px; border-radius: 10px;">
+                        <div class="container element-container standard-element">
+                            <div class="row">
+                                <div class="span6 element-image-left fadeLeft animated fadeInLeft" style="visibility: visible;">
+                                    <img class="standard-element-image" src="~/Template/stylish.holobest.com/images/element-image1.png" alt="standard-element-image" style="width: 600px; height: 430px">
+                                </div>
 
-                            <div class="span6 fadeRight animated fadeInRight" style="visibility: visible; width: 520px">
-                                <h3>Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp với từ khóa của bạn.</h3>
-                                <ul class="list unstyled custom-list-small">
-                                    <li><i class="icon-ok"></i>
-                                        <p>Hãy thử lại với những cách sau:</p>
-                                    </li>
-                                </ul>
-                                <ul class="list unstyled custom-list-small">
-                                    <li><i class="icon-ok"></i>
-                                        <p>Kiểm tra lại <strong>từ khóa</strong> có thể bạn đã gõ sai <strong><u>(Ví dụ: Asus3500 = As3500)</u></strong> </p>
-                                    </li>
-                                </ul>
-                                <ul class="list unstyled custom-list-small">
-                                    <li><i class="icon-ok"></i>
-                                        <p>Dùng từ khóa <strong>ngắn gọn</strong> và <strong>đơn giản</strong> hơn.</p>
-                                    </li>
-                                </ul>
-                                <ul class="list unstyled custom-list-small">
-                                    <li><i class="icon-ok"></i>
-                                        <p><strong>Vẫn không tìm thấy</strong> sản phẩm bạn muốn. Xin hãy <strong>cung cấp</strong> cho chúng tôi thông tin về sản phẩm.</p>
-                                    </li>
-                                </ul>
-                                <ul class="list unstyled custom-list-small">
-                                    <li><i class="icon-ok"></i>
-                                        <p>Chúng tôi sẽ <strong>liên lạc</strong> với bạn và <strong>thông báo</strong> về tình trạng sản phẩm này.</p>
-                                    </li>
-                                </ul>
-                                <ul class="list unstyled custom-list-small">
-                                    <li><i class="icon-ok"></i>
-                                        <p>Click vào <a href="@Url.Action("SearchForProduct", "Product")"><span style="color: blue;"><strong>đây</strong></span></a> để thử lại.</p>
-                                    </li>
-                                </ul>
-                                <div class="stylish-button">
-                                    <a href="@Url.Action("Recommend", "Product")"><i class="icon-thumbs-up"></i>Gửi Đề xuất</a>
+                                <div class="span6 fadeRight animated fadeInRight" style="visibility: visible; width: 520px">
+                                    <h3>Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp với từ khóa của bạn.</h3>
+                                    <ul class="list unstyled custom-list-small">
+                                        <li><i class="icon-ok"></i>
+                                            <p>Hãy thử lại với những cách sau:</p>
+                                        </li>
+                                    </ul>
+                                    <ul class="list unstyled custom-list-small">
+                                        <li><i class="icon-ok"></i>
+                                            <p>Kiểm tra lại <strong>từ khóa</strong> có thể bạn đã gõ sai <strong><u>(Ví dụ: Asus3500 = As3500)</u></strong> </p>
+                                        </li>
+                                    </ul>
+                                    <ul class="list unstyled custom-list-small">
+                                        <li><i class="icon-ok"></i>
+                                            <p>Dùng từ khóa <strong>ngắn gọn</strong> và <strong>đơn giản</strong> hơn.</p>
+                                        </li>
+                                    </ul>
+                                    <ul class="list unstyled custom-list-small">
+                                        <li><i class="icon-ok"></i>
+                                            <p><strong>Vẫn không tìm thấy</strong> sản phẩm bạn muốn. Xin hãy <strong>cung cấp</strong> cho chúng tôi thông tin về sản phẩm.</p>
+                                        </li>
+                                    </ul>
+                                    <ul class="list unstyled custom-list-small">
+                                        <li><i class="icon-ok"></i>
+                                            <p>Chúng tôi sẽ <strong>liên lạc</strong> với bạn và <strong>thông báo</strong> về tình trạng sản phẩm này.</p>
+                                        </li>
+                                    </ul>
+                                    <ul class="list unstyled custom-list-small">
+                                        <li><i class="icon-ok"></i>
+                                            <p>Click vào <a href="@Url.Action("SearchForProduct", "Product")"><span style="color: blue;"><strong>đây</strong></span></a> để thử lại.</p>
+                                        </li>
+                                    </ul>
+                                    <div class="stylish-button">
+                                        <a href="@Url.Action("Recommend", "Product")"><i class="icon-thumbs-up"></i>Gửi Đề xuất</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div> 
-            }
+                    </div> 
+                }
 
-        </div>
-        <div id="loadingDiv" style="display: none; margin-right: auto; margin-left: auto; margin-bottom: 20px; width: 55px; height: 55px">
-            <img alt="Loading" src="@Url.Content("~/Images/loading.gif")" />
+            </div>
+            <div id="clickButton" class="stylish-button" style="background-color: #7DBB18; margin-left:46% ;margin-bottom: 20px;">
+                <a onclick="clickHere()">Xem thêm</a>
+            </div>
+            <div id="loadingDiv" style="display: none; margin-right: auto; margin-left: auto; margin-bottom: 20px; width: 55px; height: 55px">
+                <img alt="Loading" src="@Url.Content("~/Images/loading.gif")" />
+            </div>
         </div>
     </div>
 </div>
-    </div>
 @*<div class="page-element gray-element">
     <div class="tabbable  tabs-left" style="margin-left: 300px">
         <ul class="nav nav-tabs" data-tabs="tabs">
@@ -229,7 +230,7 @@
 </div>*@
 
 @*Compare cart*@
-<div id="compare_panel" style="display: block; z-index:2">
+<div id="compare_panel" style="display: block; z-index: 2">
     <h3>Các sản phẩm sẽ so sánh<a class="compare-close"></a></h3>
     <ul></ul>
     <label class="compare-button">
@@ -249,8 +250,27 @@
     var BlockNumber = 2;  //Infinate Scroll starts from second block
     var NoMoreData = false;
     var inProgress = false;
+    function clickHere() {
+        if (!NoMoreData && !inProgress) {
 
-    $(window).scroll(function () {
+            inProgress = true;
+            $("#loadingDiv").show();
+            $("#clickButton").hide();
+            $.post("@Url.Action("InfinateScrollSearchByName", "Product")", { "BlockNumber": BlockNumber, "searchValue": $('#productName').val() },
+                    function (data) {
+                        BlockNumber = BlockNumber + 1;
+                        NoMoreData = data.NoMoreData;
+                        if (!NoMoreData)
+                        {
+                            $("#clickButton").show();
+                        }
+                        $("#loadItemcontainer").append(data.HTMLString);
+                        $("#loadingDiv").hide();
+                        inProgress = false;
+                    });
+        }
+    }
+    @*$(window).scroll(function () {
         if ($(window).scrollTop() == $(document).height() -
         $(window).height() && !NoMoreData && !inProgress) {
 
@@ -266,5 +286,5 @@
                         inProgress = false;
                     });
         }
-    });
+    });*@
 </script>

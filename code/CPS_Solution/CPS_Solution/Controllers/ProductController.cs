@@ -32,36 +32,22 @@ namespace CPS_Solution.Controllers
         public ActionResult SearchForProduct()
         {
             DataManager manager = new DataManager();
-            int BlockSize = 4;
-            var products = manager.GetProducts(1, BlockSize);
+            int BlockSize = 10;
+            var products = manager.GetProducts(1, BlockSize).OrderBy(x=>x.TotalWeightPoint).ToList();
             LoadDropDownList();
             return View(products);
         }
         [HttpPost]
         public ActionResult SearchForProduct(string productName)
         {
-            DataManager manager = new DataManager();
-            int BlockSize = 4;
-           // var products = manager.GetProducts(1, BlockSize);
-            var products = db.Products.Where(x => x.IsActive == true);
-            var listP = new List<Product>();
             LoadDropDownList();
-            if (!String.IsNullOrEmpty(productName))
-            {
-                foreach (var p in products)
-                {
-                    if (p.Name.ToUpper().Contains(productName.ToUpper()))
-                    {
-                        listP.Add(p);
-                    }
-                }
-                return View(listP); ;
+            DataManager manager = new DataManager();
+            int BlockSize = 8;
 
-            }
-            return View(listP);
+            var products = manager.GetProductsByName(1, BlockSize,productName).ToList();
+            return View(products);
         }
-
-         [HttpPost]
+        [HttpPost]
         public ActionResult SearchByPriceAndBrand(string brands, string prices)
         {
             int brandInt = 13;// load tat ca  cac thuong hieu
@@ -80,9 +66,15 @@ namespace CPS_Solution.Controllers
                 brandInt = 13;
                 priceInt = 8;
             }
-
-            var products = ListOfProductLoad(1, priceInt, brandInt);
-            return View(products);
+            var listOFProducts = new List<Product>();
+            var brandLaptop = db.Brands.FirstOrDefault(x => x.ID == brandInt);
+            var manager = new DataManager();
+            int BlockSize = 8;
+            if (brandLaptop != null)
+            {
+                listOFProducts = manager.GetProductsByPrice(1, BlockSize, brandInt, priceInt);
+            }
+            return View(listOFProducts);
 
         }
 
@@ -111,6 +103,10 @@ namespace CPS_Solution.Controllers
             if (products.Count() >=2)
             {
                 var idList = products.Select(item => item.ID).ToList();
+                if (idList.Count == 2) 
+                {
+                    return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = -1 });
+                }
                 return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = idList[2] });
             }          
             return View(products);
@@ -387,31 +383,14 @@ namespace CPS_Solution.Controllers
                 return sw.GetStringBuilder().ToString();
             }
         }
-        
-        [HttpPost]
-        public ActionResult InfinateScroll(int BlockNumber)
-        {
-            //////////////// THis line of code only for demo. Needs to be removed ////
-            System.Threading.Thread.Sleep(800);
-            //////////////////////////////////////////////////////////////////////////
-            int BlockSize = 4;
-            var manager = new DataManager();
-            var products = manager.GetProducts(BlockNumber, BlockSize);
-            var jsonModel = new DataManager.JsonModel
-                                {
-                                    NoMoreData = products.Count < BlockSize,
-                                    HTMLString = RenderPartialViewToString("ProductList", products)
-                                };
-            return Json(jsonModel);
-        }
-        
+                
         [HttpPost]
         public ActionResult InfinateScrollSearchByName(int BlockNumber, string searchValue)
         {
             //////////////// THis line of code only for demo. Needs to be removed ////
             System.Threading.Thread.Sleep(800);
             //////////////////////////////////////////////////////////////////////////
-            int BlockSize = 4;
+            int BlockSize = 8;
             var manager = new DataManager();
             var products = manager.GetProductsByName(BlockNumber, BlockSize, searchValue);
             var jsonModel = new DataManager.JsonModel
@@ -516,18 +495,5 @@ namespace CPS_Solution.Controllers
             ViewBag.ListPrices = CreateDropDownBoxPrive();
         }
         
-        private List<Product> ListOfProductLoad(int BlockNumber, int value, int brandID)
-        {
-            var listOFProducts = new List<Product>();
-            var brandLaptop = db.Brands.FirstOrDefault(x => x.ID == brandID);
-            var manager = new DataManager();
-            int BlockSize = 4;
-            if (brandLaptop != null)
-            {
-                var products = manager.GetProductsByPrice(BlockNumber, BlockSize, brandID, value);
-                listOFProducts = products;
-            }
-            return listOFProducts;
-        }
     }
 }

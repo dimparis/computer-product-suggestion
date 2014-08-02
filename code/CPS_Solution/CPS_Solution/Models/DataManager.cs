@@ -210,7 +210,7 @@ namespace CPS_Solution.Models
                 listProducts.Add(product);
             }
 
-            return listProducts;
+            return listProducts.OrderBy(x=>x.TotalWeightPoint).ToList();
         }
         public List<Product> ListOfTop3ProductbyPrice(int brandID, int value)
         {
