@@ -70,7 +70,7 @@
     <!----------------------------- Lên datatable Plugin------------------------------------------>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script>
+ @*   <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script> *@
     <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 }
@@ -474,7 +474,7 @@
                                                                         {
                                                                             if (hard.ID == h.DisplayID)
                                                                             {
-                                                                            <input  id="idDisplayProduct@(h.ID)" name="ok" value="@h.strDisplay" type="text">
+                                                                            <input disabled  id="idDisplayProduct@(h.ID)" name="ok" value="@h.strDisplay" type="text">
                                                                                 display++;
                                                                                 break;
                                                                             }
