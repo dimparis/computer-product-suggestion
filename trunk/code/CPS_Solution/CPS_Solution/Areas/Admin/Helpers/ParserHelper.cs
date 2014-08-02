@@ -68,7 +68,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 CorrectLink(link, ParseProductLink, "href");
                 //Save file path
                 //Remove all script
-                if (ParseProductLink.Contains("thietbiso.com") || ParseProductLink.Contains("nguyenkim.com"))
+                if (ParseProductLink.Contains("thietbiso.com") || ParseProductLink.Contains("nguyenkim.com") || ParseProductLink.Contains("viettelstore.vn"))
                 {
                     document.DocumentNode.Descendants().Where(x => x.Name == "script").ToList().ForEach(x => x.Remove());
                 }
@@ -325,10 +325,17 @@ namespace CPS_Solution.Areas.Admin.Helpers
             // modify xpath for vienthong a 
             if (host.Contains("vienthonga.vn"))
             {
-                string[] seperator = { "/form" };
-                string take2stString = nameXpath.Split(seperator, StringSplitOptions.RemoveEmptyEntries)[1];
-                string final = "//form" + take2stString.Replace("/", "//");
-                name = doc.DocumentNode.SelectSingleNode(final);
+                if (nameXpath.Contains("form"))
+                {
+                    string[] seperator = { "/form" };
+                    string take2stString = nameXpath.Split(seperator, StringSplitOptions.RemoveEmptyEntries)[1];
+                    string final = "//form" + take2stString.Replace("/", "//");
+                    name = doc.DocumentNode.SelectSingleNode(final);
+                }
+                else
+                {
+                    name = doc.DocumentNode.SelectSingleNode(nameXpath);
+                }
             }
             else
             {
@@ -450,10 +457,18 @@ namespace CPS_Solution.Areas.Admin.Helpers
             // modify xpath for vienthong a 
             if (host.Contains("vienthonga.vn"))
             {
-                string[] seperator = { "/form" };
-                string take2stString = nameXpath.Split(seperator, StringSplitOptions.RemoveEmptyEntries)[1];
-                string final = "//form" + take2stString.Replace("/", "//");
-                name = doc.DocumentNode.SelectSingleNode(final);
+                if (nameXpath.Contains("form"))
+                {
+                    string[] seperator = { "/form" };
+                    string take2stString = nameXpath.Split(seperator, StringSplitOptions.RemoveEmptyEntries)[1];
+                    string final = "//form" + take2stString.Replace("/", "//");
+                    name = doc.DocumentNode.SelectSingleNode(final);
+                }
+                else
+                {
+                    name = doc.DocumentNode.SelectSingleNode(nameXpath);
+                }
+
             }
             else
             {
