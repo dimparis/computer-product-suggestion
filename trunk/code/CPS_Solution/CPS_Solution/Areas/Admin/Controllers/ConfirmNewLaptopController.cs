@@ -364,7 +364,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 // đổi tên laptop.
                 var product = db.Products.Where(x => x.ID.Equals(numstt)).SingleOrDefault();
                 product.Name = newName;
+                int id12 = product.ID;
                 db.SaveChanges();
+                var aliasPro = db.AliasProducts.Where(x => x.ProductID.Equals(id12)).ToList();
+                foreach (AliasProduct ali in aliasPro)
+                {
+                    ali.Name = newName;
+                    db.SaveChanges();
+                }
                 for (int i = 3; i < info.Length; i++)
                 {
                     String[] list = info[i].ToString().Split('|');

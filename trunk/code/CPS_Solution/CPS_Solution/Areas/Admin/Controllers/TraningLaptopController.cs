@@ -3820,7 +3820,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 string newpath = "Images/I/" + name + exts;
                 return newpath;
             }catch(Exception ex){
-                return url;
+                return   "Images/I/default.jpg";
             }
         }
 
