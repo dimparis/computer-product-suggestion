@@ -191,76 +191,35 @@
                                 </div>
                             </div>
                         }
-                        <div class="item">
+                        <div class="item" title="Liên hệ">
                             <a class="link icon_mail" href="@Url.Action("Contact", "Account")">
                                 <div class="item_content">
-                                    <h2>liên hệ</h2>
+                                    <h2>Liên hệ</h2>
                                 </div>
                             </a>
                         </div>
-                        <div class="item">
+                        <div class="item" title="Đề xuất">
                             <a class="link icon_help" href="@Url.Action("Recommend", "Product")">
                                 <div class="item_content">
                                     <h2>Đề xuất</h2>
                                 </div>
                             </a>
                         </div>
-                        <div class="item">
+                        <div class="item" title="Tìm kiếm sản phẩm">
                             <a class="link icon_find" href="@Url.Action("SearchForProduct", "Product")">
                                 <div class="item_content">
                                     <h2>Tìm kiếm</h2>
                                 </div>
                             </a>
                         </div>
-                        <div class="item">
+                        <div class="item" title="Trang chủ-Giới thiệu">
                             <a class="link icon_home" href="@Url.Action("Index", "Home")">
                                 <div class="item_content">
                                     <h2>Trang chủ</h2>
                                 </div>
                             </a>
                         </div>
-                    </div>
-
-                    <script>
-                        $('.item').hover(
-                            function () {
-                                var $this = $(this);
-                                expand($this);
-                            },
-                            function () {
-                                var $this = $(this);
-                                collapse($this);
-                            }
-                        );
-                        function expand($elem) {
-                            var angle = 0;
-                            var t = setInterval(function () {
-                                if (angle == 1440) {
-                                    clearInterval(t);
-                                    return;
-                                }
-                                angle += 40;
-                                //$('.link', $elem).stop().animate({ rotate: '+=-40deg' }, 0);
-                            }, 10);
-                            $elem.stop().animate({ width: '200px' }, 400)
-                            .find('.item_content').fadeIn(400, function () {
-                                $(this).find('p').stop(true, true).fadeIn(600);
-                            });
-                        }
-                        function collapse($elem) {
-                            var angle = 1440;
-                            var t = setInterval(function () {
-                                if (angle == 0) {
-                                    clearInterval(t);
-                                    return;
-                                }
-                                angle -= 40;
-                                //$('.link', $elem).stop().animate({ rotate: '+=40deg' }, 0);
-                            }, 10);
-                            $elem.stop().animate({ width: '52px' }, 400)
-                            .find('.item_content').stop(true, true).fadeOut().find('p').stop(true, true).fadeOut();
-                        }
-                    </script>
+                    </div>                   
                 </nav>
             </div>
         </div>

@@ -407,7 +407,7 @@ namespace CPS_Solution.Controllers
             //////////////// THis line of code only for demo. Needs to be removed ////
             System.Threading.Thread.Sleep(800);
             //////////////////////////////////////////////////////////////////////////
-            int BlockSize = 4;
+            int BlockSize = 8;
             var manager = new DataManager();
             var products = manager.GetProductsByPrice(BlockNumber, BlockSize, brandID, priceID);
             var jsonModel = new DataManager.JsonModel
