@@ -6,17 +6,9 @@
 
 @section headScript
 {
-    <!-- CSS Reset -->
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/reset.css")" media="screen" />
-    <!--  Fluid Grid System -->
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/fluid.css")" media="screen" />
-    <!-- Theme Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.theme.css")" media="screen" />
-    <!--  Main Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/dandelion.css")" media="screen" />
-    <!-- Demo Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/demo.css")" media="screen" />
-
+    <link href="~/Areas/Admin/Dandelion/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Dandelion/jquery-ui.structure.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Dandelion/jquery-ui.theme.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
@@ -46,7 +38,7 @@
     <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
 
     <!-- DataTables Plugin -->
-    <script type="text/javascript" src="~/AreaAdmin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/AreaAdmin/Dandelion/plugins/datatables/jquery.dataTables.js"></script>
     <!-- Demo JavaScript Files -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
@@ -502,7 +494,7 @@
             </div>
         </div>
     </div>
-    <div id="previewParser" style="z-index:200 !important">
+    <div id="previewParser" style="z-index: 200 !important">
     </div>
     <div class="grid_4">
         <iframe id="webDiv" src="@Url.Content("~/Areas/Admin/SavedPages/ProductTmp.html")" width="1043" height="600" style="background-color:#ffffff"></iframe>

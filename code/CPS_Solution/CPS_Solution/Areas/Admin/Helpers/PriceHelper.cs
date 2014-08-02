@@ -9,6 +9,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
     {
         public static double ConvertPrice(string price)
         {
+            double tmp = 0;
             string result = "";
             int count = 0;
             foreach (char c in price)
@@ -23,7 +24,14 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     break;
                 }
             }
-            double tmp = Double.Parse(result);
+            try
+            {
+                 tmp = Double.Parse(result);
+            }
+            catch (Exception ex) 
+            {
+                tmp = 0;
+            }
             return tmp;
         }
     }
