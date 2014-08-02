@@ -534,6 +534,7 @@ div#da-header
 	div#da-header #da-header-bottom
 	{
 		background:url(../../images/header-bottom.png) repeat-x left top;
+		height:100px;
 	}
 
 		/* (5.2.1) Search
