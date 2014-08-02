@@ -366,7 +366,7 @@
             var trongso = document.getElementById("TrongSo" + i).value;
             var string = i + "|" + trongso;
             var postData = { trongsolinhkien: string };
-            if (trongso > 0) {
+            if (trongso > 0 && trongso < 100) {
                 $.ajax({
                     type: "POST",
                     url: "/Admin/FillWeightHardWare/UpdateTrongso",
@@ -377,7 +377,7 @@
                 });
             }
             else {
-                alert("Trọng số sản phẩm phải lớn hơn 0");
+                alert("Trọng số sản phẩm phải lớn hơn 0 và nhỏ hơn 100");
             }
         }//close function
     </script>
