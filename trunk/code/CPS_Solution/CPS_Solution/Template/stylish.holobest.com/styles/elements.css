@@ -521,7 +521,6 @@ a.rss-icon:hover { background-color: #F79638 !important; }
 .lower-header .pricing-table-price {
     font-size: 40px;
     font-weight: bold;
-    line-height: 40px;
     vertical-align: top;
     margin-bottom: 5px;
 }
