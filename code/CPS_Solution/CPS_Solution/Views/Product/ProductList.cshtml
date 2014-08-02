@@ -1,19 +1,24 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
+@using CPS_Solution.Models;
+@{
+    var dataManager = new DataManager();
+    int limit = 50;
+}
 @foreach (var item in Model)
 {
-    <div class="isotope-item post span6" style="background-color:rgba(255, 255, 255, 0.75);">
+    <div class="isotope-item post span6" style="background-color: rgba(255, 255, 255, 0.75);">
         <div class="row">
             <div class="span3">
                 <div class="thumbnail post-media">
                     <img src="~/@item.ImageURL" style="border-radius:5px; height:103%; margin-top:15px"/>
                     <div class="thumbnail-hover">
                         <div class="post-date">
-                            <h3 style="color: white;">~Thông tin chi tiết~</h3>
-                            <h4 style="color: white;overflow-wrap:break-word;" title="@item.strCPU">-CPU : @item.strCPU</h4>
-                            <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strVGA">-VGA : @item.strVGA</h4>
-                            <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strRAM">-RAM : @item.strRAM</h4>
-                            <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strHDD">-HDD : @item.strHDD</h4>
-                            <h4 style="color: white;overflow-wrap:break-word;"title=" @item.strDisplay">-Display : @item.strDisplay</h4>
+                            <h3 style="color: white; text-align: center; text-decoration: underline">--Thông tin chi tiết--</h3>
+                            <h5 style="color: white;" title="@item.strCPU">-CPU : @dataManager.Truncate(@item.strCPU, limit)</h5>
+                            <h5 style="color: white;"title=" @item.strVGA">-VGA : @dataManager.Truncate(@item.strVGA, limit)</h5>
+                            <h5 style="color: white;"title=" @item.strRAM">-RAM : @dataManager.Truncate(@item.strRAM, limit)</h5>
+                            <h5 style="color: white;"title=" @item.strHDD">-HDD : @dataManager.Truncate(@item.strHDD, limit)</h5>
+                            <h5 style="color: white;"title=" @item.strDisplay">-Display : @dataManager.Truncate(@item.strDisplay, limit)</h5>
                         </div>
                     </div>
                 </div>
@@ -28,7 +33,7 @@
 
             <div class="span3">
                 <div class="post-content">
-                    <div class="post-title" style="width:260px; margin-top:15px;">
+                    <div class="post-title" style="width: 260px; margin-top: 15px;">
                         <h3>
                             <i class="icon-bookmark post-title-icon"></i>
                             <span class="product-name" title="@item.Name" style="overflow-wrap:break-word; height:100px;">@item.Name</span>
@@ -37,7 +42,7 @@
 
                     <div class="post-info clearfix">
                         <div class="post-date">
-                            <label style="color:#f00; font-weight:bold; font-size:23px; margin-bottom:0; padding:2px">
+                            <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0; padding: 2px">
                                 @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
                             </label>
                         </div>
@@ -46,13 +51,19 @@
                     <div style="clear: both"></div>
 
                     <div class="post-excerpt">
-                        <p>
-                            Donec magna nunc, vestibulum
-                                at erat ac, mollis varius nunc. Maecenas nec hendrerit nunc. Integer interdum neque lorem, eget mattis dui vehicula at.
-                        </p>
+
+                        @if (!String.IsNullOrEmpty(item.Description))
+                        {
+                            <p>@dataManager.Truncate(@item.Description, 200)  </p>
+                        }
+                        else
+                        {
+                            <p>Chưa cập nhật.  </p>
+                        }
+
                     </div>
 
-                    <div style="height:50px;">
+                    <div style="height: 50px;">
                         <div class="stylish-button" style="background-color: #7DBB18">
                             <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
                         </div>
@@ -61,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
