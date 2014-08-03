@@ -14,7 +14,7 @@ namespace CPS_Solution.Controllers
         //
         // GET: /HighLight/
         private DataManager dataManager = new DataManager();
-        private const int takeItem = 6;
+        private const int takeItem = 4;
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
         public ActionResult Index()
         {         
@@ -34,8 +34,7 @@ namespace CPS_Solution.Controllers
         {
             List<int> idList = new List<int>();
             List<Product> ListOfProducts = new List<Product>();
-            using (var context = new CPS_SolutionEntities()) 
-            {
+
                 var mostRatingProducts = context.RatingProducts.OrderByDescending(x => x.Point).ToList().Take(takeItem);
                 foreach (var item in mostRatingProducts) 
                 {
@@ -46,26 +45,21 @@ namespace CPS_Solution.Controllers
                     var product = context.Products.FirstOrDefault(x => x.ID == i);
                     ListOfProducts.Add(product);
                 }
-            }
             return ListOfProducts;
         }
         public List<Product> MostTotalWeight(List<Product> products, int takeItem)
         {
             List<int> idList = new List<int>();
             List<Product> ListOfProducts = new List<Product>();
-            using (var context = new CPS_SolutionEntities())
-            {
                 var productsByTotalWeight = products.OrderByDescending(x => x.TotalWeightPoint).ToList().Take(takeItem);
                 ListOfProducts = productsByTotalWeight.ToList();
-            }
+
             return ListOfProducts;
         }
         public List<Product> MostView(int takeItem)
         {
             List<int> idList = new List<int>();
             List<Product> ListOfProducts = new List<Product>();
-            using (var context = new CPS_SolutionEntities())
-            {
                 var mostViewProducts = context.MostViewProducts.OrderByDescending(x => x.ViewTime).ToList().Take(takeItem);
                 foreach (var item in mostViewProducts)
                 {
@@ -76,27 +70,21 @@ namespace CPS_Solution.Controllers
                     var product = context.Products.FirstOrDefault(x => x.ID == i);
                     ListOfProducts.Add(product);
                 }
-            }
             return ListOfProducts;
         }
         public List<Product> MostNew(List<Product> products, int takeItem)
         {
             List<int> idList = new List<int>();
             List<Product> ListOfProducts = new List<Product>();
-            using (var context = new CPS_SolutionEntities())
-            {
                 var newProducts = products.OrderByDescending(x => x.ID).ToList().Take(takeItem);
                 ListOfProducts = newProducts.ToList();
-            }
             return ListOfProducts;
         }
         public List<Product> MostCompare(int takeItem)
         {
             List<int> idList = new List<int>();
             List<Product> ListOfProducts = new List<Product>();
-            using (var context = new CPS_SolutionEntities())
-            {
-                var mostCompareProducts = context.HistoryDetails.Select(x => new { x.ProductID}).GroupBy(x => x.ProductID).OrderByDescending(x => x.Count()).ToList();
+                var mostCompareProducts = context.HistoryDetails.Select(x => new { x.ProductID}).GroupBy(x => x.ProductID).OrderByDescending(x => x.Count()).ToList().Take(4);
                 foreach (var item in mostCompareProducts)
                 {
                     idList.Add(item.First().ProductID);
@@ -106,7 +94,6 @@ namespace CPS_Solution.Controllers
                     var product = context.Products.FirstOrDefault(x => x.ID == i);
                     ListOfProducts.Add(product);
                 }
-            }
             return ListOfProducts;
         }
     }

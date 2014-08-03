@@ -3,5 +3,10 @@
     ViewBag.Title = " Sản phẩm nổi bật";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-
-<h2>Index</h2>
+<div id="page-wrap">
+    <div class="main-content">
+        <div class="container">
+            @Html.Partial("_LoadHighlightList", Model));       
+        </div>
+    </div>
+</div>

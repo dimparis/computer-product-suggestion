@@ -3723,6 +3723,7 @@
     <Content Include="Views\Product\ThanksForRecommend.cshtml" />
     <Content Include="Views\Product\SearchByPriceAndBrandTop3.cshtml" />
     <Content Include="Views\HighLight\Index.cshtml" />
+    <Content Include="Views\HighLight\_LoadHighlightList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Dandelion\plugins\elfinder\files\.tmb\" />

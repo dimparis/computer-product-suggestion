@@ -226,6 +226,26 @@ namespace CPS_Solution.Controllers
             ViewBag.pointLogin = pointLogint;
             ViewBag.point = point;
             //lấy rating của product trong db ra
+
+            // insert vao bang most view 
+
+            var viewProduct = db.MostViewProducts.FirstOrDefault(x => x.ProductID == id);
+            if (viewProduct != null)
+            {
+                viewProduct.ViewTime += 1;
+                db.SaveChanges();
+            }
+            else 
+            {
+                var viewItem = new MostViewProduct()
+                {
+                    ProductID = id,
+                    ViewTime = 1
+                };
+                db.MostViewProducts.Add(viewItem);
+                db.SaveChanges();
+            }
+
             return View(product);
         }
 

@@ -393,8 +393,8 @@
                 <p>@Model.Description</p>
             </div>
             <div class="span8" style="border-style: solid; padding: 20px;">
-                @if (@Model.AliasProducts.Count > 0)
-                {               
+                @if (@Model.AliasProducts.Any())
+                {             
                     @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x => x.IsActive = true && x.IsMain == false && x.ProductID == Model.ID));
                 }
             </div>
@@ -409,7 +409,6 @@
                         @Html.Action("SamePriceProduct", "Product", new { id = Model.ID })
                     </div>
                 </div>
-
                 <div class="tabs-widget widget" style="height: 100%">
                     <div class="" style="width:100%">
                         <ul class="nav nav-pills ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
