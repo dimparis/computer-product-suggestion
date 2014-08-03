@@ -34,6 +34,7 @@ namespace CPS_Solution.EntityFramework
         public DbSet<History> Histories { get; set; }
         public DbSet<HistoryDetail> HistoryDetails { get; set; }
         public DbSet<LogFile> LogFiles { get; set; }
+        public DbSet<MostViewProduct> MostViewProducts { get; set; }
         public DbSet<ParseAttribute> ParseAttributes { get; set; }
         public DbSet<ParseInfo> ParseInfoes { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -42,5 +43,6 @@ namespace CPS_Solution.EntityFramework
         public DbSet<RecommendProduct> RecommendProducts { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Store> Stores { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

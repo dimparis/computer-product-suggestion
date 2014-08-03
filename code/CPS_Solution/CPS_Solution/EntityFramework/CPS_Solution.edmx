@@ -15,6 +15,7 @@
           <EntitySet Name="History" EntityType="CPS_SolutionModel.Store.History" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="HistoryDetail" EntityType="CPS_SolutionModel.Store.HistoryDetail" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LogFile" EntityType="CPS_SolutionModel.Store.LogFile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MostViewProduct" EntityType="CPS_SolutionModel.Store.MostViewProduct" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ParseAttribute" EntityType="CPS_SolutionModel.Store.ParseAttribute" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ParseInfo" EntityType="CPS_SolutionModel.Store.ParseInfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Product" EntityType="CPS_SolutionModel.Store.Product" store:Type="Tables" Schema="dbo" />
@@ -23,6 +24,7 @@
           <EntitySet Name="RecommendProduct" EntityType="CPS_SolutionModel.Store.RecommendProduct" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Role" EntityType="CPS_SolutionModel.Store.Role" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Store" EntityType="CPS_SolutionModel.Store.Store" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="CPS_SolutionModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Account_Role" Association="CPS_SolutionModel.Store.FK_Account_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
@@ -58,6 +60,10 @@
           <AssociationSet Name="FK_HistoryDetail_Product" Association="CPS_SolutionModel.Store.FK_HistoryDetail_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="HistoryDetail" EntitySet="HistoryDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MostViewProduct_Product" Association="CPS_SolutionModel.Store.FK_MostViewProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="MostViewProduct" EntitySet="MostViewProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_ParseAttribute_Codetype" Association="CPS_SolutionModel.Store.FK_ParseAttribute_Codetype">
             <End Role="Codetype" EntitySet="Codetype" />
@@ -168,6 +174,14 @@
           <Property Name="CreatedTime" Type="datetime" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="MostViewProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ViewTime" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ParseAttribute">
           <Key>
             <PropertyRef Name="ID" />
@@ -202,7 +216,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="nchar" MaxLength="2000" />
-          <Property Name="ImageURL" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImageURL" Type="nvarchar" MaxLength="2000" />
           <Property Name="TotalWeightPoint" Type="float" Nullable="false" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
@@ -255,6 +269,16 @@
           <Property Name="StoreUrl" Type="nvarchar" MaxLength="200" />
           <Property Name="LogoImage" Type="nvarchar" MaxLength="200" />
           <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Account_Role">
           <End Role="Role" Type="CPS_SolutionModel.Store.Role" Multiplicity="1" />
@@ -364,6 +388,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MostViewProduct_Product">
+          <End Role="Product" Type="CPS_SolutionModel.Store.Product" Multiplicity="1" />
+          <End Role="MostViewProduct" Type="CPS_SolutionModel.Store.MostViewProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MostViewProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ParseAttribute_Codetype">
           <End Role="Codetype" Type="CPS_SolutionModel.Store.Codetype" Multiplicity="1" />
           <End Role="ParseAttribute" Type="CPS_SolutionModel.Store.ParseAttribute" Multiplicity="*" />
@@ -451,6 +487,7 @@
           <EntitySet Name="Histories" EntityType="CPS_SolutionModel.History" />
           <EntitySet Name="HistoryDetails" EntityType="CPS_SolutionModel.HistoryDetail" />
           <EntitySet Name="LogFiles" EntityType="CPS_SolutionModel.LogFile" />
+          <EntitySet Name="MostViewProducts" EntityType="CPS_SolutionModel.MostViewProduct" />
           <EntitySet Name="ParseAttributes" EntityType="CPS_SolutionModel.ParseAttribute" />
           <EntitySet Name="ParseInfoes" EntityType="CPS_SolutionModel.ParseInfo" />
           <EntitySet Name="Products" EntityType="CPS_SolutionModel.Product" />
@@ -459,6 +496,7 @@
           <EntitySet Name="RecommendProducts" EntityType="CPS_SolutionModel.RecommendProduct" />
           <EntitySet Name="Roles" EntityType="CPS_SolutionModel.Role" />
           <EntitySet Name="Stores" EntityType="CPS_SolutionModel.Store" />
+          <EntitySet Name="sysdiagrams" EntityType="CPS_SolutionModel.sysdiagram" />
           <AssociationSet Name="FK_Account_Role" Association="CPS_SolutionModel.FK_Account_Role">
             <End Role="Role" EntitySet="Roles" />
             <End Role="Account" EntitySet="Accounts" />
@@ -510,6 +548,10 @@
           <AssociationSet Name="FK_HistoryDetail_Product" Association="CPS_SolutionModel.FK_HistoryDetail_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="HistoryDetail" EntitySet="HistoryDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MostViewProduct_Product" Association="CPS_SolutionModel.FK_MostViewProduct_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="MostViewProduct" EntitySet="MostViewProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductAttribute_Product" Association="CPS_SolutionModel.FK_ProductAttribute_Product">
             <End Role="Product" EntitySet="Products" />
@@ -622,6 +664,15 @@
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="MostViewProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ViewTime" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="CPS_SolutionModel.FK_MostViewProduct_Product" FromRole="MostViewProduct" ToRole="Product" />
+        </EntityType>
         <EntityType Name="ParseAttribute">
           <Key>
             <PropertyRef Name="ID" />
@@ -657,11 +708,12 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="true" />
-          <Property Name="ImageURL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ImageURL" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
           <Property Name="TotalWeightPoint" Type="Double" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="AliasProducts" Relationship="CPS_SolutionModel.FK_AliasProduct_Product" FromRole="Product" ToRole="AliasProduct" />
           <NavigationProperty Name="HistoryDetails" Relationship="CPS_SolutionModel.FK_HistoryDetail_Product" FromRole="Product" ToRole="HistoryDetail" />
+          <NavigationProperty Name="MostViewProducts" Relationship="CPS_SolutionModel.FK_MostViewProduct_Product" FromRole="Product" ToRole="MostViewProduct" />
           <NavigationProperty Name="ProductAttributes" Relationship="CPS_SolutionModel.FK_ProductAttribute_Product" FromRole="Product" ToRole="ProductAttribute" />
           <NavigationProperty Name="RatingProducts" Relationship="CPS_SolutionModel.FK_RatingProduct_Product" FromRole="Product" ToRole="RatingProduct" />
         </EntityType>
@@ -721,6 +773,16 @@
           <Property Name="LogoImage" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="AliasProducts" Relationship="CPS_SolutionModel.FK_AliasProduct_Store" FromRole="Store" ToRole="AliasProduct" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Account_Role">
           <End Role="Role" Type="CPS_SolutionModel.Role" Multiplicity="1" />
@@ -878,6 +940,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MostViewProduct_Product">
+          <End Role="Product" Type="CPS_SolutionModel.Product" Multiplicity="1" />
+          <End Role="MostViewProduct" Type="CPS_SolutionModel.MostViewProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MostViewProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductAttribute_Product">
           <End Role="Product" Type="CPS_SolutionModel.Product" Multiplicity="1" />
           <End Role="ProductAttribute" Type="CPS_SolutionModel.ProductAttribute" Multiplicity="*" />
@@ -1001,6 +1075,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MostViewProducts">
+            <EntityTypeMapping TypeName="CPS_SolutionModel.MostViewProduct">
+              <MappingFragment StoreEntitySet="MostViewProduct">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ViewTime" ColumnName="ViewTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ParseAttributes">
             <EntityTypeMapping TypeName="CPS_SolutionModel.ParseAttribute">
               <MappingFragment StoreEntitySet="ParseAttribute">
@@ -1094,6 +1177,17 @@
                 <ScalarProperty Name="StoreUrl" ColumnName="StoreUrl" />
                 <ScalarProperty Name="LogoImage" ColumnName="LogoImage" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CPS_SolutionModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

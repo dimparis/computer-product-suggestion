@@ -4,24 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="28ebf912815e4c48b871067e9211a606" Name="Diagram1">
-        <EntityTypeShape EntityType="CPS_SolutionModel.Account" Width="1.5" PointX="1.5" PointY="17" IsExpanded="true" />
+      <Diagram DiagramId="5e2b355fe4494b3696170eb74480838b" Name="Diagram1">
+        <EntityTypeShape EntityType="CPS_SolutionModel.Account" Width="1.5" PointX="1.5" PointY="19" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.AliasProduct" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.Brand" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.Codetype" Width="1.5" PointX="1.5" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.Dictionary" Width="1.5" PointX="6" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.Hardware" Width="1.5" PointX="3.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPS_SolutionModel.History" Width="1.5" PointX="3.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPS_SolutionModel.History" Width="1.5" PointX="3.75" PointY="19.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.HistoryDetail" Width="1.5" PointX="6" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPS_SolutionModel.LogFile" Width="1.5" PointX="8.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPS_SolutionModel.LogFile" Width="1.5" PointX="8.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPS_SolutionModel.MostViewProduct" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.ParseAttribute" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPS_SolutionModel.ParseInfo" Width="1.5" PointX="8.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPS_SolutionModel.Product" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPS_SolutionModel.ParseInfo" Width="1.5" PointX="8.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPS_SolutionModel.Product" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.ProductAttribute" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.RatingProduct" Width="1.5" PointX="6" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPS_SolutionModel.RecommendProduct" Width="1.5" PointX="3.75" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPS_SolutionModel.Role" Width="1.5" PointX="1.5" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPS_SolutionModel.RecommendProduct" Width="1.5" PointX="3.75" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPS_SolutionModel.Role" Width="1.5" PointX="1.5" PointY="22.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CPS_SolutionModel.Store" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPS_SolutionModel.sysdiagram" Width="1.5" PointX="8.75" PointY="8.125" IsExpanded="true" />
         <AssociationConnector Association="CPS_SolutionModel.FK_Account_Role" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_History_Account" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_RatingProduct_Account" ManuallyRouted="false" />
@@ -35,6 +37,7 @@
         <AssociationConnector Association="CPS_SolutionModel.FK_ProductAttribute_AttributeDictionary" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_HistoryDetail_History" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_HistoryDetail_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="CPS_SolutionModel.FK_MostViewProduct_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_ProductAttribute_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CPS_SolutionModel.FK_RatingProduct_Product" ManuallyRouted="false" />
       </Diagram>

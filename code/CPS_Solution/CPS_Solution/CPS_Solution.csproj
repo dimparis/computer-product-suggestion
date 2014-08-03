@@ -217,6 +217,7 @@
     <Compile Include="CommonClass\JsonContentNegotiator.cs" />
     <Compile Include="CommonClass\MyAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HighLightController.cs" />
     <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\HistoryDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -265,6 +266,9 @@
     <Compile Include="EntityFramework\LogFile.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\MostViewProduct.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\ParseAttribute.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
@@ -289,6 +293,9 @@
     <Compile Include="EntityFramework\Store.cs">
       <DependentUpon>CPS_Solution.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\sysdiagram.cs">
+      <DependentUpon>CPS_Solution.tt</DependentUpon>
+    </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -298,6 +305,7 @@
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\DataManager.cs" />
+    <Compile Include="Models\HighlightModel.cs" />
     <Compile Include="Models\HistoryDetailViewModel.cs" />
     <Compile Include="Models\RecommendViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -3714,6 +3722,7 @@
     <Content Include="Views\Product\SearchByPriceAndBrand.cshtml" />
     <Content Include="Views\Product\ThanksForRecommend.cshtml" />
     <Content Include="Views\Product\SearchByPriceAndBrandTop3.cshtml" />
+    <Content Include="Views\HighLight\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Dandelion\plugins\elfinder\files\.tmb\" />
