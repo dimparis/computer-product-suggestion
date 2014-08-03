@@ -31,14 +31,71 @@ $(function () {
             var p1 = sessionStorage.getItem(sessionStorage.key(0))
             var p2 = sessionStorage.getItem(sessionStorage.key(2))
             sessionStorage.clear();
-            window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=-1');
+            /// Sang modifiy for Viet
+            var createform = document.createElement('form'); // Create New Element form
+            createform.setAttribute("action", "/Product/Compare"); // Setting action Attribute on form
+            createform.setAttribute("method", "post"); // Setting method Attribute on form
+
+            var input1 = document.createElement('input'); // Create input field for name
+            input1.setAttribute("type", "hidden");
+            input1.setAttribute("id", "p1");
+            input1.setAttribute("name", "p1");
+            input1.setAttribute("value", Number(p1));
+            createform.appendChild(input1);
+
+            var input2 = document.createElement('input'); // Create input field for name
+            input2.setAttribute("id", "p2");
+            input2.setAttribute("name", "p2");
+            input2.setAttribute("type", "hidden");
+            input2.setAttribute("value",  Number(p2));
+            createform.appendChild(input2);
+
+            var input3 = document.createElement('input'); // Create input field for name
+            input3.setAttribute("type", "hidden");
+            input3.setAttribute("id", "p3");
+            input3.setAttribute("name", "p3");
+            input3.setAttribute("value", -1);
+            createform.appendChild(input3);
+
+            createform.submit();
+            ///
+
+            //window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=-1');
         } else {
             var p1 = sessionStorage.getItem(sessionStorage.key(0))
             var p2 = sessionStorage.getItem(sessionStorage.key(2))
             var p3 = sessionStorage.getItem(sessionStorage.key(4))
             sessionStorage.clear();
             //Khi danh sach co du 3 san pham
-            window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=' + p3);
+            /// Sang modifiy for Viet
+            var createform = document.createElement('form'); // Create New Element form
+            createform.setAttribute("action", "/Product/Compare"); // Setting action Attribute on form
+            createform.setAttribute("method", "post"); // Setting method Attribute on form
+
+            var input1 = document.createElement('input'); // Create input field for name
+            input1.setAttribute("type", "hidden");
+            input1.setAttribute("id", "p1");
+            input1.setAttribute("name", "p1");
+            input1.setAttribute("value", Number(p1));
+            createform.appendChild(input1);
+
+            var input2 = document.createElement('input'); // Create input field for name
+            input2.setAttribute("id", "p2");
+            input2.setAttribute("name", "p2");
+            input2.setAttribute("type", "hidden");
+            input2.setAttribute("value", Number(p2));
+            createform.appendChild(input2);
+
+            var input3 = document.createElement('input'); // Create input field for name
+            input3.setAttribute("type", "hidden");
+            input3.setAttribute("id", "p3");
+            input3.setAttribute("name", "p3");
+            input3.setAttribute("value", Number(p3));
+            createform.appendChild(input3);
+
+            createform.submit();
+
+            //window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=' + p3);
         }
 
     });
@@ -57,14 +114,73 @@ $('.compare-button').on('click', function () {
         var p1 = sessionStorage.getItem(sessionStorage.key(0))
         var p2 = sessionStorage.getItem(sessionStorage.key(1))
         sessionStorage.clear();
-        window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=-1');
+
+        /// Sang modifiy for Viet
+        var createform = document.createElement('form'); // Create New Element form
+        createform.setAttribute("action", "/Product/Compare"); // Setting action Attribute on form
+        createform.setAttribute("method", "post"); // Setting method Attribute on form
+
+        var input1 = document.createElement('input'); // Create input field for name
+        input1.setAttribute("type", "hidden");
+        input1.setAttribute("id", "p1");
+        input1.setAttribute("name", "p1");
+        input1.setAttribute("value", Number(p1));
+        createform.appendChild(input1);
+
+        var input2 = document.createElement('input'); // Create input field for name
+        input2.setAttribute("id", "p2");
+        input2.setAttribute("name", "p2");
+        input2.setAttribute("type", "hidden");
+        input2.setAttribute("value", Number(p2));
+        createform.appendChild(input2);
+
+        var input3 = document.createElement('input'); // Create input field for name
+        input3.setAttribute("type", "hidden");
+        input3.setAttribute("id", "p3");
+        input3.setAttribute("name", "p3");
+        input3.setAttribute("value", -1);
+        createform.appendChild(input3);
+
+        createform.submit();
+
+        //window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=-1');
     } else {
         var p1 = sessionStorage.getItem(sessionStorage.key(0))
         var p2 = sessionStorage.getItem(sessionStorage.key(1))
         var p3 = sessionStorage.getItem(sessionStorage.key(2))
         sessionStorage.clear();
         //Khi danh sach co du 3 san pham
-        window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=' + p3);
+
+        /// Sang modifiy for Viet
+        var createform = document.createElement('form'); // Create New Element form
+        createform.setAttribute("action", "/Product/Compare"); // Setting action Attribute on form
+        createform.setAttribute("method", "post"); // Setting method Attribute on form
+
+        var input1 = document.createElement('input'); // Create input field for name
+        input1.setAttribute("type", "hidden");
+        input1.setAttribute("id", "p1");
+        input1.setAttribute("name", "p1");
+        input1.setAttribute("value", Number(p1));
+        createform.appendChild(input1);
+
+        var input2 = document.createElement('input'); // Create input field for name
+        input2.setAttribute("id", "p2");
+        input2.setAttribute("name", "p2");
+        input2.setAttribute("type", "hidden");
+        input2.setAttribute("value", Number(p2));
+        createform.appendChild(input2);
+
+        var input3 = document.createElement('input'); // Create input field for name
+        input3.setAttribute("type", "hidden");
+        input3.setAttribute("id", "p3");
+        input3.setAttribute("name", "p3");
+        input3.setAttribute("value", Number(p3));
+        createform.appendChild(input3);
+
+        createform.submit();
+
+
+        //window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=' + p3);
     }
 
 });
