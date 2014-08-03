@@ -1,0 +1,356 @@
+﻿@model CPS_Solution.Models.HighlightModel
+@using CPS_Solution.Models;
+@{
+    var dataManager = new DataManager();
+    int intName = 50;
+    int intDes = 300;
+    int limit = 50;
+}
+@if (Model.mostbyTotalPointProducts.Any())
+{
+    <div class="page-element gray-element">
+        <div class="container">
+            <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm tốt nhất</h1>
+            <div class="members-wrapper">
+                <div class="row">
+                    @foreach (var item in Model.mostbyTotalPointProducts)
+                    {  
+                        <div class="span3">
+                            <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
+                                <div class="member-photo thumbnail">
+                                    <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
+
+                                    <div class="thumbnail-hover">
+                                        <div class="post-date">
+                                            <h3 style="color: white; text-align: center; text-decoration: underline">--Thông tin chi tiết--</h3>
+                                            <h5 style="color: white;" title="@item.strCPU">-CPU : @dataManager.Truncate(@item.strCPU, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strVGA">-VGA : @dataManager.Truncate(@item.strVGA, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strRAM">-RAM : @dataManager.Truncate(@item.strRAM, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strHDD">-HDD : @dataManager.Truncate(@item.strHDD, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strDisplay">-Display : @dataManager.Truncate(@item.strDisplay, limit)</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="member-info">
+                                    <div class="member-role">
+                                        <p class="member-name" style="height: 50px; word-break: break-all">@dataManager.Truncate(@item.Name, intName)</p>
+                                        <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0; padding: 2px">
+                                            Giá : @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
+                                        </label>
+                                    </div>
+
+                                    <div class="member-bio">
+                                        @if (@item.Description != null)
+                                        {
+                                            <p>
+                                                @dataManager.Truncate(@item.Description, intDes)
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                    
+                                            <p>
+                                                Chưa cập nhật.
+                                            </p>
+                                        }
+                                    </div>
+
+                                    <div class="member-social-icons clearfix">
+                                        <div style="height: 50px;">
+                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                                <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
+                                            </div>
+                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                                <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.mostbyCompareProducts.Any())
+{
+    <div class="page-element gray-element">
+        <div class="container">
+            <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm được so sánh nhiều nhất</h1>
+            <div class="members-wrapper">
+                <div class="row">
+                    @foreach (var item in Model.mostbyCompareProducts)
+                    {  
+                        <div class="span3">
+                            <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
+                                <div class="member-photo thumbnail">
+                                    <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
+
+                                    <div class="thumbnail-hover">
+                                        <div class="post-date">
+                                            <h3 style="color: white; text-align: center; text-decoration: underline">--Thông tin chi tiết--</h3>
+                                            <h5 style="color: white;" title="@item.strCPU">-CPU : @dataManager.Truncate(@item.strCPU, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strVGA">-VGA : @dataManager.Truncate(@item.strVGA, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strRAM">-RAM : @dataManager.Truncate(@item.strRAM, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strHDD">-HDD : @dataManager.Truncate(@item.strHDD, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strDisplay">-Display : @dataManager.Truncate(@item.strDisplay, limit)</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="member-info">
+                                    <div class="member-role">
+                                        <p class="member-name" style="height: 50px; word-break: break-all">@dataManager.Truncate(@item.Name, intName)</p>
+                                        <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0; padding: 2px">
+                                            Giá : @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
+                                        </label>
+                                    </div>
+
+                                    <div class="member-bio">
+                                        @if (@item.Description != null)
+                                        {
+                                            <p>
+                                                @dataManager.Truncate(@item.Description, intDes)
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                    
+                                            <p>
+                                                Chưa cập nhật.
+                                            </p>
+                                        }
+                                    </div>
+
+                                    <div class="member-social-icons clearfix">
+                                        <div style="height: 50px;">
+                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                                <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
+                                            </div>
+                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                                <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.mostbyViewProducts.Any())
+{
+    <div class="page-element gray-element">
+        <div class="container">
+            <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm được tìm kiếm nhiều nhất</h1>
+            <div class="members-wrapper">
+                <div class="row">
+                    @foreach (var item in Model.mostbyViewProducts)
+                    {  
+                        <div class="span3">
+                            <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
+                                <div class="member-photo thumbnail">
+                                    <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
+
+                                    <div class="thumbnail-hover">
+                                        <div class="post-date">
+                                            <h3 style="color: white; text-align: center; text-decoration: underline">--Thông tin chi tiết--</h3>
+                                            <h5 style="color: white;" title="@item.strCPU">-CPU : @dataManager.Truncate(@item.strCPU, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strVGA">-VGA : @dataManager.Truncate(@item.strVGA, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strRAM">-RAM : @dataManager.Truncate(@item.strRAM, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strHDD">-HDD : @dataManager.Truncate(@item.strHDD, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strDisplay">-Display : @dataManager.Truncate(@item.strDisplay, limit)</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="member-info">
+                                    <div class="member-role">
+                                        <p class="member-name" style="height: 50px; word-break: break-all">@dataManager.Truncate(@item.Name, intName)</p>
+                                        <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0; padding: 2px">
+                                            Giá : @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
+                                        </label>
+                                    </div>
+
+                                    <div class="member-bio">
+                                        @if (@item.Description != null)
+                                        {
+                                            <p>
+                                                @dataManager.Truncate(@item.Description, intDes)
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                    
+                                            <p>
+                                                Chưa cập nhật.
+                                            </p>
+                                        }
+                                    </div>
+
+                                    <div class="member-social-icons clearfix">
+                                        <div style="height: 50px;">
+                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                                <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
+                                            </div>
+                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                                <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.mostbyRatingProducts.Any())
+{
+    <div class="page-element gray-element">
+        <div class="container">
+            <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm được đánh giá nhiều nhất</h1>
+            <div class="members-wrapper">
+                <div class="row">
+                    @foreach (var item in Model.mostbyRatingProducts)
+                    {  
+                        <div class="span3">
+                            <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
+                                <div class="member-photo thumbnail">
+                                    <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
+
+                                    <div class="thumbnail-hover">
+                                        <div class="post-date">
+                                            <h3 style="color: white; text-align: center; text-decoration: underline">--Thông tin chi tiết--</h3>
+                                            <h5 style="color: white;" title="@item.strCPU">-CPU : @dataManager.Truncate(@item.strCPU, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strVGA">-VGA : @dataManager.Truncate(@item.strVGA, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strRAM">-RAM : @dataManager.Truncate(@item.strRAM, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strHDD">-HDD : @dataManager.Truncate(@item.strHDD, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strDisplay">-Display : @dataManager.Truncate(@item.strDisplay, limit)</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="member-info">
+                                    <div class="member-role">
+                                        <p class="member-name" style="height: 50px; word-break: break-all">@dataManager.Truncate(@item.Name, intName)</p>
+                                        <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0; padding: 2px">
+                                            Giá : @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
+                                        </label>
+                                    </div>
+
+                                    <div class="member-bio">
+                                        @if (@item.Description != null)
+                                        {
+                                            <p>
+                                                @dataManager.Truncate(@item.Description, intDes)
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                    
+                                            <p>
+                                                Chưa cập nhật.
+                                            </p>
+                                        }
+                                    </div>
+
+                                    <div class="member-social-icons clearfix">
+                                        <div style="height: 50px;">
+                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                                <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
+                                            </div>
+                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                                <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.mostbyNewProducts.Any())
+{
+    <div class="page-element gray-element">
+        <div class="container">
+           <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm mới nhất</h1>
+            <div class="members-wrapper">
+                <div class="row">
+                    @foreach (var item in Model.mostbyNewProducts)
+                    {  
+                        <div class="span3">
+                            <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
+                                <div class="member-photo thumbnail">
+                                    <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
+
+                                    <div class="thumbnail-hover">
+                                        <div class="post-date">
+                                            <h3 style="color: white; text-align: center; text-decoration: underline">--Thông tin chi tiết--</h3>
+                                            <h5 style="color: white;" title="@item.strCPU">-CPU : @dataManager.Truncate(@item.strCPU, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strVGA">-VGA : @dataManager.Truncate(@item.strVGA, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strRAM">-RAM : @dataManager.Truncate(@item.strRAM, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strHDD">-HDD : @dataManager.Truncate(@item.strHDD, limit)</h5>
+                                            <h5 style="color: white;"title=" @item.strDisplay">-Display : @dataManager.Truncate(@item.strDisplay, limit)</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="member-info">
+                                    <div class="member-role">
+                                        <p class="member-name" style="height: 50px; word-break: break-all">@dataManager.Truncate(@item.Name, intName)</p>
+                                        <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0; padding: 2px">
+                                            Giá : @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
+                                        </label>
+                                    </div>
+
+                                    <div class="member-bio">
+                                        @if (@item.Description != null)
+                                        {
+                                            <p>
+                                                @dataManager.Truncate(@item.Description, intDes)
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                    
+                                            <p>
+                                                Chưa cập nhật.
+                                            </p>
+                                        }
+                                    </div>
+
+                                    <div class="member-social-icons clearfix">
+                                        <div style="height: 50px;">
+                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                                <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
+                                            </div>
+                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                                <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
