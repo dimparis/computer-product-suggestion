@@ -98,8 +98,8 @@ namespace CPS_Solution.Controllers
             }
 
             var products = _dataManager.ListOfTop3ProductbyPrice(brandInt, priceInt).OrderByDescending(x=>x.TotalWeightPoint).Take(3);
-            Session["brandInt"] = brandInt;
-            Session["priceInt"] = priceInt;
+            TempData["brandInt"] = brandInt;
+            TempData["priceInt"] = priceInt;
             if (products.Count() >=2)
             {
                 var idList = products.Select(item => item.ID).ToList();
@@ -165,7 +165,7 @@ namespace CPS_Solution.Controllers
 
             return View(bestProducts);
         }
-
+        [HttpPost]
         public ActionResult CompareDetail(int p1, int p2, int p3)
         {
             int[] vals = new int[] { p1, p2, p3 };
