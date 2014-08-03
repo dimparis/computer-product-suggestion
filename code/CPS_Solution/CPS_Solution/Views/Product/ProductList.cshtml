@@ -54,11 +54,11 @@
 
                         @if (!String.IsNullOrEmpty(item.Description))
                         {
-                            <p>@dataManager.Truncate(@item.Description, 200)  </p>
+                            <p style="height:60px;word-break:break-all">@dataManager.Truncate(@item.Description, 200)  </p>
                         }
                         else
                         {
-                            <p>Chưa cập nhật.  </p>
+                            <p style="height:60px">Chưa cập nhật.  </p>
                         }
 
                     </div>

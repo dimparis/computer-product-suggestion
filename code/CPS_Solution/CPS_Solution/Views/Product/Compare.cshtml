@@ -53,27 +53,86 @@
 <div class="page-element gray-element">
     <div class="container">
         <div class="pricing-tables-wrapper clearfix">
-            <div class="pricing-table" style="margin-top: 33%;">
+            <div class="pricing-table" style="margin-right: 0px">
                 <div class="pricing-table-header">
+                    <div class="upper-header">
+                                                    <h4 style="height:100px;overflow-wrap:break-word" style="color:#fff; text-decoration:underline"><strong>Thành phần cấu hình</strong></h4>
+                        <img src="~/Images/best-choice-label.jpg" style="height: 244px" />
+                        <div style="height: 50px">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="stylish-button" style="background-color: #F87912; margin-top: 10px">
+                                    <a href="javascript:void(0)" onclick="clicktoDetail()" style="text-decoration: underline">So sánh chi tiết</a>
+                                </div>
+                                if (TempData["brandInt"] != null && TempData["priceInt"] != null)
+                                {
+                                    string brand = TempData["brandInt"].ToString();
+                                    string price = TempData["priceInt"].ToString();
+                                <div class="stylish-button" style="background-color: #F87912">
+                                    <a onclick="moveHere()" style="text-decoration: underline">Xem thêm</a>
+                                </div>
+                                    using (Html.BeginForm("SearchByPriceAndBrand", "Product", FormMethod.Post, new { id = "formSearch" }))
+                                    {           
+                                <input type="hidden" id="brands" name="brands" value="@brand" />
+                                <input type="hidden" id="prices" name="prices" value="@price" />     
+                                    }
+                                <script>
+                                    function moveHere() {
+                                        $('#formSearch').submit();
+                                    }
+                                </script>
+                                }
+                                if (Model.Count() > 2)
+                                {
+                                    using (Html.BeginForm("CompareDetail", "Product", FormMethod.Post, new { id = "formDetail" }))
+                                    {           
+                                <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(1).ID" />
+                                <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(0).ID" />
+                                <input type="hidden" id="p3" name="p3" value="@Model.ElementAt(2).ID" />
+                                    }
+                                <script>
+                                    function clicktoDetail() {
+                                        $('#formDetail').submit();
+                                    }
+                                </script>
+                                }
+                                else
+                                {
+                                    int i = -1;
+                                    using (Html.BeginForm("CompareDetail", "Product", FormMethod.Post, new { id = "formDetail" }))
+                                    {           
+                                <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(0).ID" />
+                                <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(1).ID" />
+                                <input type="hidden" id="p3" name="p2" value="@i" />
+                                    }
+                                <script>
+                                    function clicktoDetail() {
+                                        $('#formDetail').submit();
+                                    }
+                                </script>
+                                }
+                            }
+                        </div>
+                    </div>
                     <div class="lower-header">
                         <p class="pricing-table-price">Tổng điểm</p>
                     </div>
                 </div>
                 <div class="pricing-table-content">
                     <div class="table-row odd">
-                        <p>CPU</p>
+                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">CPU</strong></p>
                     </div>
                     <div class="table-row even">
-                        <p>VGA</p>
+                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">VGA</strong></p>
                     </div>
                     <div class="table-row odd">
-                        <p>RAM</p>
+                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">RAM</strong></p>
                     </div>
                     <div class="table-row even">
-                        <p>HDD</p>
+                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">HDD</strong></p>
                     </div>
                     <div class="table-row odd">
-                        <p>Display</p>
+                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">Display</strong></p>
                     </div>
                 </div>
             </div>
@@ -87,8 +146,8 @@
                 <div class="pricing-table highlighted-table">
                     <div class="pricing-table-header">
                         <div class="upper-header">
-                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h4>
-                            <img src="~/Images/I/default.jpg" style="margin-bottom: 50px;" />
+                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank" style="color:#fff; text-decoration:underline"><strong>@Html.DisplayFor(modelItem => item.Name)</strong></a></h4>
+                            <img src="~/@item.ImageURL" style="margin-bottom: 50px;width:299px;height:244px"  />
                         </div>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -128,8 +187,8 @@
                 <div class="pricing-table">
                     <div class="pricing-table-header">
                         <div class="upper-header">
-                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a></h4>
-                            <img src="~/Images/I/default.jpg" style="margin-bottom: 50px;" />
+                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank" style="color:#fff; text-decoration:underline"><strong>@Html.DisplayFor(modelItem => item.Name)</strong></a></h4>
+                            <img src="~/@item.ImageURL" style="margin-bottom: 50px;width:299px;height:244px" />
                         </div>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -171,65 +230,6 @@
 
     </div>
     <div class="row">
-        <br />
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="stylish-button" style="background-color: #F87912; margin-left: 550px;">
-                <a href="javascript:void(0)" onclick="clicktoDetail()">So sánh chi tiết</a>
-            </div>
-            
-            if (Model.Count() > 2)
-            {
-                using (Html.BeginForm("CompareDetail", "Product", FormMethod.Post, new { id = "formDetail" }))
-                {           
-            <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(1).ID" />
-            <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(0).ID" />
-            <input type="hidden" id="p3" name="p3" value="@Model.ElementAt(2).ID" />
-                }
-            <script>
-                function clicktoDetail() {
-                    $('#formDetail').submit();
-                }
-            </script>
-            }
-            else
-            {
-                int i = -1;
-                using (Html.BeginForm("CompareDetail", "Product", FormMethod.Post, new { id = "formDetail" }))
-                {           
-            <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(0).ID" />
-            <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(1).ID" />
-            <input type="hidden" id="p3" name="p2" value="@i" />
-                }
-            <script>
-                function clicktoDetail() {
-                    $('#formDetail').submit();
-                }
-            </script>
-            }
-
-
-        }
-        @if (Session["brandInt"] != null && Session["priceInt"] != null)
-        {
-            string brand = Session["brandInt"].ToString();
-            string price = Session["priceInt"].ToString();
-            <div class="stylish-button" style="background-color: #F87912">
-                <a onclick="moveHere()">Xem thêm sản phẩm</a>
-            </div>
-            using (Html.BeginForm("SearchByPriceAndBrand", "Product", FormMethod.Post, new { id = "formSearch" }))
-            {           
-            <input type="hidden" id="brands" name="brands" value="@brand" />
-            <input type="hidden" id="prices" name="prices" value="@price" />
-     
-            }
-            <script>
-                function moveHere() {
-                    $('#formSearch').submit();
-                }
-            </script>
-        }
-        <br />
         <br />
         <div class="span6" style="margin-left: 390px;">
             <div class="accordion fadeRight ui-accordion ui-widget ui-helper-reset animated fadeInRight" role="tablist" style="visibility: visible;">
