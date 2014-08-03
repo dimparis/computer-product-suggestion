@@ -6,9 +6,13 @@
 
 @section headScript
 {
-    <link href="~/Areas/Admin/Dandelion/jquery-ui.css" rel="stylesheet" />
+       <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+@*    <link href="~/Areas/Admin/Dandelion/jquery-ui.css" rel="stylesheet" />
     <link href="~/Areas/Admin/Dandelion/jquery-ui.structure.css" rel="stylesheet" />
-    <link href="~/Areas/Admin/Dandelion/jquery-ui.theme.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Dandelion/jquery-ui.theme.css" rel="stylesheet" />*@
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
@@ -49,10 +53,7 @@
     <!----------------------------- Lên datatable Plugin------------------------------------------>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
-     <!-- jQuery JavaScript File -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
-    <!-- jQuery-UI JavaScript Files -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+  
   @*  <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script> *@
     <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
@@ -295,7 +296,7 @@
             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Sản phẩm đề xuất</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
-            <a href="@Url.Action("CreateProductParser", "Recommend")" style="font-size:20px;font-style:italic;text-decoration:underline">Xử lý đề xuất</a>
+            <a href="@Url.Action("CreateProductParser", "Recommend")" style="font-size:20px;font-style:italic;text-decoration:underline">Xử lý đề xuất<a>
         </li>
     </ul>
 }
