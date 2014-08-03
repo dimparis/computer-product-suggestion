@@ -1,0 +1,358 @@
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<RatingPro> listRating = ViewBag.listRating;
+}
+
+@section headScript
+{
+    <!-- iOS webapp icons -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.theme.css" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+    <!-- Plugin Files -->
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.icons.js"></script>
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.core.js"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
+
+    <!--  Demo JavaScript Files popup Ui Popup 
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
+    <!-- jGrowl Plugin   -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
+
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+    <!----------------------------- Lên datatable Plugin------------------------------------------>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>    
+}
+@section sidebar
+{
+    <!-- Main Navigation -->
+    <div id="da-main-nav" class="da-button-container">
+        <ul>
+            <li>
+                <a href="#">
+
+                    <span class="da-nav-count">1</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/home.png")" alt="Trang chủ" />
+                    </span>
+                    <strong>Hệ thống</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("ConfigureSystem", "System")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/setting.png")" alt="" />
+                            <strong>Cấu hình hệ thống</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-count">2</span>
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/graph.png")" alt="Charts" />
+                    </span>
+                    <strong>Thống kê</strong>
+                </a>
+                <ul class="">
+                    <li style="background-color: #a6d037;"> 
+                        <a href="/admin/ViewRating">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/rating.png")" alt="" />
+                            <strong>Đánh giá</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="@Url.Action("HistoryCompare", "StatisticProduct")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/topsearch.png")" alt="" />
+                            <strong>Lịch sử</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Nav Notification -->
+                    <span class="da-nav-count">3</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/documents_1.png")" alt="Charts" />
+                    </span>
+                    <strong>Dữ liệu</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="/Admin/importexcelLap">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
+                            <strong>Nhập Laptop từ Excel</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="/Admin/importexcel">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
+                            <strong>Nhập linh kiện từ Excel</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="/admin/TraningLaptop">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xử lý Laptop trùng</strong>
+                        </a>
+                    </li>
+                     <li>
+
+                        <a href="/Admin/TrainingProduct">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xử lý linh kiện trùng</strong>
+                        </a>
+                    </li>
+                     <li>
+
+                        <a href="/Admin/ConfirmNewLaptop">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xác nhận laptop mới</strong>
+                        </a>
+                           </li>
+                           <li>
+                         <a href="/Admin/ConfirmNewHardware">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xác nhận linh kiện mới</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="@Url.Action("CreateProductParser", "Recommend")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/arrow.png")" alt="" />
+                            <strong>Sản phẩm đề xuất</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="closed">
+                <a href="@Url.Action("Index", "Product")">
+                    <span class="da-nav-count">2</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/day_calendar.png")" alt="Calendar" />
+                    </span>
+                    <strong>Quản lí sản phẩm</strong>
+                </a>
+                <ul>
+                    <li >
+                        <a href="@Url.Action("CreateProductTest", "Product")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/add.png")" alt="" />
+                            <strong>Tạo mới sản phẩm</strong>
+                        </a>
+
+                    </li>
+                    <li >
+
+                        <a href="@Url.Action("Index", "Product")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Danh sách sản phẩm</strong>
+                        </a>
+                    </li>
+                     <li >
+
+                        <a href="@Url.Action("Index", "ViewFeedback")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Xem góp ý sản phẩm</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-count">2</span>
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/file_cabinet.png")" alt="File Handling" />
+                    </span>
+                    <strong>Quản lí từ điển</strong>
+                </a>
+                <ul >
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/alias.png")" alt="" />
+                            <strong>Tạo mới trường</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/dic2.png")" alt="" />
+                            <strong>Danh sách các trường</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/settings.png")" alt="" />
+                    </span>
+                    <strong>Quản lí trọng số</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("Index", "FillWeightHardWare")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/manager.png")" alt="" />
+                            <strong>Danh sách trọng số</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="da-nav-count">5</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/cog_4.png")" alt="" />
+                    </span>
+                    <strong>Parser</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("CreateParser", "Parser")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser linh kiện</strong>
+                        </a>
+                    </li>
+
+                    <li >
+                        <a href="@Url.Action("Index", "Parser")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser linh kiện</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Recommend")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "LogFile")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/log.png")" alt="" />
+                            <strong>Danh sách log file</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+}
+@section mainHeader
+{
+     <ul>
+        <li style="margin-right: 5px"><a style="cursor: default;font-size:27px;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Xem đánh giá</strong></a></li>
+        <li style="margin-right: 5px; font-weight: bold">>></li>
+        <li class="active">
+            <a href="@Url.Action("Index", "ViewRating")" style="font-size:20px;font-style:italic;text-decoration:underline">Sản phẩm được đánh giá</a>
+        </li>
+    </ul>
+}
+@section footScript
+{
+}
+<div class="clear"></div>
+<div class="grid_4">
+    <div id="loadtable">
+        <div class="da-panel collapsible">
+            <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="images/icons/black/16/list.png" alt="">
+                    Danh sách sản phẩm đã được đánh giá.
+                </span>
+
+                <span class="da-panel-toggler"></span>
+            </div>
+            <div class="da-panel-content">
+                <div id="da-ex-datatable-default_wrapper" class="dataTables_wrapper" role="grid">
+
+
+                    <table id="da-ex-datatable-default" class="da-table dataTable" aria-describedby="da-ex-datatable-default_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 196px;">STT</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width:  464px;">Tên Laptop</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 200px;">Điểm đánh giá</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 169px;">Số lượt đánh giá</th>            
+                            </tr>
+                        </thead>
+
+                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            @if (listRating != null)
+                            {
+                                foreach (RatingPro ra in listRating)
+                                {
+                                <tr id="idtr" class="odd">
+                                    <td class=" sorting_1">@ra.id</td>
+                                    <td class=" sorting_1">@ra.productname</td>
+                                    <td class=" ">@ra.PointRaing/20</td>
+                                    <td class=" ">@ra.timeRaing</td>                                                  
+                                </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
