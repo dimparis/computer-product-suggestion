@@ -18,6 +18,7 @@ namespace CPS_Solution.EntityFramework
         {
             this.AliasProducts = new HashSet<AliasProduct>();
             this.HistoryDetails = new HashSet<HistoryDetail>();
+            this.MostViewProducts = new HashSet<MostViewProduct>();
             this.ProductAttributes = new HashSet<ProductAttribute>();
             this.RatingProducts = new HashSet<RatingProduct>();
         }
@@ -30,6 +31,7 @@ namespace CPS_Solution.EntityFramework
     
         public virtual ICollection<AliasProduct> AliasProducts { get; set; }
         public virtual ICollection<HistoryDetail> HistoryDetails { get; set; }
+        public virtual ICollection<MostViewProduct> MostViewProducts { get; set; }
         public virtual ICollection<ProductAttribute> ProductAttributes { get; set; }
         public virtual ICollection<RatingProduct> RatingProducts { get; set; }
     }

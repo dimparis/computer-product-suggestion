@@ -444,6 +444,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             data.Image = ImageHelper.TakePath(host, doc, imageXpath);
             return data;
         }
+        [ValidateInput(false)]
         public static ProductData MatchingProductDataPreview(string host, HtmlDocument doc, string nameXpath, string priceXpath, string imageXpath, string cpuXpath, string vgaXpath, string hddXpath, string ramXpath, string displayXpath)
         {
             var data = new ProductData();
@@ -527,6 +528,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             if (cpu != null)
             {
                 data.CPU = cpu.InnerText;
+               
             }
             else
             {
