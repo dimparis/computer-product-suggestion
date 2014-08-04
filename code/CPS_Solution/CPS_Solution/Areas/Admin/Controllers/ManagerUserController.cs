@@ -11,9 +11,11 @@ using LinqToExcel.Query;
 using CPS_Solution.Areas.Admin.Helpers;
 using System.Net;
 using System.Globalization;
+using CPS_Solution.CommonClass;
 
 namespace CPS_Solution.Areas.Admin.Controllers
 {
+    [MyAuthorize(Roles = "Admin")]
     public class ManagerUserController : Controller
     {
         //

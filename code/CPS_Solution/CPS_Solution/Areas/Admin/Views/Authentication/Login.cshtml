@@ -8,39 +8,85 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>Paper Stack</title>
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/css/login.css")" />
+    <title>CPS Solution | @ViewBag.Title</title>
+    <link href="~/Content/login/login.css" rel="stylesheet" />
+    <script src="~/Content/login/modernizr.custom.63321.js"></script>
+    <style>
+        body {
+            background: #e1c192 url("/Content/login/images/wood_pattern.jpg");
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <section id="content">
-            @using (Html.BeginForm("Login", "Authentication", new { ViewBag.ReturnUrl }, FormMethod.Post))
+    <div class="container">Mật khẩu
+
+        <header>
+
+            <img src="~/Template/stylish.holobest.com/images/logo-4.png" />
+
+        </header>
+
+        <section class="main">
+
+            @using (Html.BeginForm("Login", "Authentication", new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-2" }))
             {
                 
-                <h1>Đăng nhập</h1>
-                <div>
+                <div style="text-align: center">
+                    <h1><span class="log-in">CPS </span>- <span class="sign-up">Đăng nhập</span></h1>
+                </div>
+                <p style="margin-left: 15px">
                     @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(false)
-                </div>
-                <div>
+                    @Html.ValidationSummary(false, null, new { @style = "margin-left: 15px;margin-top:5px" })
+                </p>
+                <p class="float">
+                    <label for="login"><i class="icon-user"></i>Tài khoản</label>
                     @Html.TextBoxFor(x => x.UserName, new { id = "username", placeholder = "Tài khoản ", required = "" })
-                </div>
-                <div>
-                    @Html.TextBoxFor(x => x.Password, new { id = "password", placeholder = "Mật khẩu", required = "" })
-                </div>
-                <div>
-                    <input type="submit" value="Đăng nhập" />
-                    <a href="#">Lost your password?</a>
-                    <a href="#">Register</a>
-                </div>
+                </p>
+                <p class="float">
+                    <label for="password"><i class="icon-lock"></i>Mật khẩu</label>
+                    @Html.TextBoxFor(x => x.Password, new { id = "password", placeholder = "Mật khẩu", required = "", @class = "showpassword" })
+                </p>
+                <p class="clearfix">
+                    <input type="submit" name="submit" value="Đăng nhập" style="width: 307px; background: #34a5cf; color: #fff">
+                </p>
+                <div style="margin-top: 15px">@Html.CheckBoxFor(x => x.RememberMe, new { @style = "margin-left:15px" }) Remember me ?</div>
+              
             }
-            <div class="button">
-                <a href="#">Download source file</a>
-            </div>
-            <!-- button -->
         </section>
         <!-- content -->
     </div>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".showpassword").each(function (index, input) {
+                var $input = $(input);
+                $("<p class='opt'/>").append(
+                    $("<input type='checkbox' class='showpasswordcheckbox' id='showPassword' />").click(function () {
+                        var change = $(this).is(":checked") ? "text" : "password";
+                        var rep = $("<input placeholder='Password' type='" + change + "' />")
+                            .attr("id", $input.attr("id"))
+                            .attr("name", $input.attr("name"))
+                            .attr('class', $input.attr('class'))
+                            .val($input.val())
+                            .insertBefore($input);
+                        $input.remove();
+                        $input = rep;
+                    })
+                ).append($("<label for='showPassword'/>").text("Show password")).insertAfter($input.parent());
+            });
+
+            $('#showPassword').click(function () {
+                if ($("#showPassword").is(":checked")) {
+                    $('.icon-lock').addClass('icon-unlock');
+                    $('.icon-unlock').removeClass('icon-lock');
+                } else {
+                    $('.icon-unlock').addClass('icon-lock');
+                    $('.icon-lock').removeClass('icon-unlock');
+                }
+            });
+        });
+		</script>
     <!-- container -->
 </body>
 </html>

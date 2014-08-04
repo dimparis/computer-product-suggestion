@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using CPS_Solution.CommonClass;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
-     [MyAuthorize(Roles = "staff")]
+     [MyAuthorize(Roles = "Staff")]
     public class ParserController : Controller
     {
          private CPS_SolutionEntities context = new CPS_SolutionEntities();
