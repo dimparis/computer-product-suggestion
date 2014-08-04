@@ -340,7 +340,18 @@
     <Content Include="Areas\Admin\Dandelion\css\dandelion.theme.css" />
     <Content Include="Areas\Admin\Dandelion\css\demo.css" />
     <Content Include="Areas\Admin\Dandelion\css\fluid.css" />
-    <Content Include="Areas\Admin\Dandelion\css\login.css" />
+    <Content Include="Content\font\fontawesome-webfont.svg" />
+    <Content Include="Content\login\images\bg.jpg" />
+    <Content Include="Content\login\images\bg2.jpg" />
+    <Content Include="Content\login\images\bg3.jpg" />
+    <Content Include="Content\login\images\blurred.jpg" />
+    <Content Include="Content\login\images\noise.png" />
+    <Content Include="Content\login\images\wood_pattern.jpg" />
+    <Content Include="Content\login\jquery.placeholder.min.js" />
+    <Content Include="Content\login\login.css" />
+    <Content Include="Content\login\demo.css" />
+    <Content Include="Content\login\font-awesome.css" />
+    <Content Include="Content\login\modernizr.custom.63321.js" />
     <Content Include="Areas\Admin\Dandelion\css\reset.css" />
     <Content Include="Areas\Admin\Dandelion\gallery\1.JPG" />
     <Content Include="Areas\Admin\Dandelion\gallery\10.JPG" />
@@ -384,6 +395,7 @@
     <Content Include="Areas\Admin\Dandelion\images\bg\mozaic.png" />
     <Content Include="Areas\Admin\Dandelion\images\bg\roof.png" />
     <Content Include="Areas\Admin\Dandelion\images\bg\stripes.png" />
+    <Content Include="Areas\Admin\Dandelion\images\bg\wood_pattern.jpg" />
     <Content Include="Areas\Admin\Dandelion\images\breadcrumb-arrow.png" />
     <Content Include="Areas\Admin\Dandelion\images\button-gradient.png" />
     <Content Include="Areas\Admin\Dandelion\images\circular-stat-back.png" />
@@ -3306,6 +3318,10 @@
       <DependentUpon>CPS_Solution.edmx</DependentUpon>
       <LastGenOutput>CPS_Solution.cs</LastGenOutput>
     </Content>
+    <Content Include="Content\login\images\.DS_Store" />
+    <Content Include="Content\font\fontawesome-webfont.eot" />
+    <Content Include="Content\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\font\fontawesome-webfont.woff" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -3463,9 +3479,12 @@
     <Content Include="Template\stylish.holobest.com\home-basic.html" />
     <Content Include="Template\stylish.holobest.com\home-creative.html" />
     <Content Include="Template\stylish.holobest.com\images\author-image.png" />
+    <Content Include="Template\stylish.holobest.com\images\banner.png" />
+    <Content Include="Template\stylish.holobest.com\images\bg-wood.jpg" />
     <Content Include="Template\stylish.holobest.com\images\blog-thumbnail.png" />
     <Content Include="Template\stylish.holobest.com\images\blog-thumbnail02.png" />
     <Content Include="Template\stylish.holobest.com\images\blog-thumbnail03.png" />
+    <Content Include="Template\stylish.holobest.com\images\body-linen.jpg" />
     <Content Include="Template\stylish.holobest.com\images\brand01.png" />
     <Content Include="Template\stylish.holobest.com\images\brand02.png" />
     <Content Include="Template\stylish.holobest.com\images\brand03.png" />
@@ -3475,10 +3494,12 @@
     <Content Include="Template\stylish.holobest.com\images\carousel-img02.png" />
     <Content Include="Template\stylish.holobest.com\images\carousel-img03.png" />
     <Content Include="Template\stylish.holobest.com\images\carousel-img04.png" />
+    <Content Include="Template\stylish.holobest.com\images\compare-button.png" />
     <Content Include="Template\stylish.holobest.com\images\element-bg-image1.png" />
     <Content Include="Template\stylish.holobest.com\images\element-bg-image2.png" />
     <Content Include="Template\stylish.holobest.com\images\element-image1.png" />
     <Content Include="Template\stylish.holobest.com\images\element-image2.png" />
+    <Content Include="Template\stylish.holobest.com\images\email.png" />
     <Content Include="Template\stylish.holobest.com\images\favicon.png" />
     <Content Include="Template\stylish.holobest.com\images\find.png" />
     <Content Include="Template\stylish.holobest.com\images\font-awesome.png" />
@@ -3490,12 +3511,26 @@
     <Content Include="Template\stylish.holobest.com\images\gallery06.png" />
     <Content Include="Template\stylish.holobest.com\images\gallery07.png" />
     <Content Include="Template\stylish.holobest.com\images\gallery08.png" />
+    <Content Include="Template\stylish.holobest.com\images\guest.png" />
     <Content Include="Template\stylish.holobest.com\images\header-image.png" />
     <Content Include="Template\stylish.holobest.com\images\header-image2.png" />
     <Content Include="Template\stylish.holobest.com\images\header-image3.png" />
     <Content Include="Template\stylish.holobest.com\images\header-image4.png" />
+    <Content Include="Template\stylish.holobest.com\images\header.jpg" />
     <Content Include="Template\stylish.holobest.com\images\help.png" />
     <Content Include="Template\stylish.holobest.com\images\home.png" />
+    <Content Include="Template\stylish.holobest.com\images\intel.jpg" />
+    <Content Include="Template\stylish.holobest.com\images\intel2.jpg" />
+    <Content Include="Template\stylish.holobest.com\images\intel3.jpg" />
+    <Content Include="Template\stylish.holobest.com\images\keyboard.jpg" />
+    <Content Include="Template\stylish.holobest.com\images\linen-black.jpg" />
+    <Content Include="Template\stylish.holobest.com\images\linen-blue.jpg" />
+    <Content Include="Template\stylish.holobest.com\images\linen-dark-grey.jpg" />
+    <Content Include="Template\stylish.holobest.com\images\linen-grey.jpg" />
+    <Content Include="Template\stylish.holobest.com\images\logo-1.png" />
+    <Content Include="Template\stylish.holobest.com\images\logo-2.png" />
+    <Content Include="Template\stylish.holobest.com\images\logo-3.png" />
+    <Content Include="Template\stylish.holobest.com\images\logo-4.png" />
     <Content Include="Template\stylish.holobest.com\images\mail.png" />
     <Content Include="Template\stylish.holobest.com\images\member-photo1.png" />
     <Content Include="Template\stylish.holobest.com\images\member-photo2.png" />
