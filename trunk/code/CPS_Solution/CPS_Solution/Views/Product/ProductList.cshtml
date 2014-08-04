@@ -54,7 +54,7 @@
 
                         @if (!String.IsNullOrEmpty(item.Description))
                         {
-                            <p style="height:60px;word-break:break-all">@dataManager.Truncate(@item.Description, 200)  </p>
+                            <p style="height:60px;word-break:break-word; width:95%">@dataManager.Truncate(@item.Description, 150)  </p>
                         }
                         else
                         {
