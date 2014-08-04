@@ -42,9 +42,10 @@
 
 .ui-widget-header
 {
+    font-size:16px;
 	border:1px solid #bfbfbf;
-	background:url(../../images/default-header.png) repeat-x left top #eeeeee;
-	color:#444444;
+	background:url(../../images/bg/new.jpg) repeat-x left top #eeeeee;
+	color:#fff;
 	font-weight:bold;
 }
 

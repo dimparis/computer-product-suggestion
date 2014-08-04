@@ -1,52 +1,69 @@
-﻿@using CPS_Solution.CommonClass
-@model IEnumerable<CPS_Solution.EntityFramework.ParseAttribute>
-
+﻿@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
 @{
-    ViewBag.Title = "Danh sách các Parser";
+    ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<ProductNotFound> listPro = ViewBag.listPro;
 }
+
 @section headScript
 {
+    <!-- iOS webapp icons -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.theme.css" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
     <!-- jQuery JavaScript File -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js")"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
     <!-- jQuery-UI JavaScript Files -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js")"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+    <!-- Plugin Files -->
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
     <!-- Placeholder Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.placeholder.js")"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
     <!-- Mousewheel Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js")"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
     <!-- Scrollbar Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js")"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
     <!-- Tooltips Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js")"></script>
-
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css")" media="screen" />
-    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css")" />
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.icons.js"></script>
     <!-- Core JavaScript Files -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.core.js"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
 
-    <script type="text/javascript">
-        $(function () {
-            $(".da-button").click(function () {
-                // Get the id from the link
-                var recordToSet = $(this).attr("data-id");
+    <!--  Demo JavaScript Files popup Ui Popup 
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
+    <!-- jGrowl Plugin   -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
 
-                if (recordToSet != '') {
-
-                    // Perform the ajax post
-                    $.post("/Parser/SetActive", { "id": recordToSet },
-                        function (data) {
-                            location.reload();
-                        });
-                }
-            });
-
-        });
-    </script>
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+    <!----------------------------- Lên datatable Plugin------------------------------------------>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>    
 }
-
 @section sidebar
 {
     <!-- Main Navigation -->
@@ -157,7 +174,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="active">
                 <a href="@Url.Action("Index", "Product")">
                     <span class="da-nav-count">2</span>
                     <!-- Icon Container -->
@@ -166,15 +183,15 @@
                     </span>
                     <strong>Quản lí sản phẩm</strong>
                 </a>
-                <ul class="closed">
-                    <li>
+                <ul>
+                    <li >
                         <a href="@Url.Action("CreateProductTest", "Product")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/add.png")" alt="" />
                             <strong>Tạo mới sản phẩm</strong>
                         </a>
 
                     </li>
-                    <li>
+                    <li >
 
                         <a href="@Url.Action("Index", "Product")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -188,7 +205,7 @@
                             <strong>Xem góp ý sản phẩm</strong>
                         </a>
                     </li>
-                      <li>
+                      <li  style="background-color: #a6d037;">
                         <a href="@Url.Action("Index", "ViewSearchNotFound")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/topsearch.png")" alt="" />
                             <strong>Lịch sử tìm kiếm</strong>
@@ -196,18 +213,18 @@
                     </li>
                 </ul>
             </li>
-            
+           
             <li>
                 <a href="#">
+                      <span class="da-nav-count">1</span>
                     <!-- Icon Container -->
-                    <span class="da-nav-count">1</span>
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/settings.png")" alt="" />
                     </span>
                     <strong>Quản lí trọng số</strong>
                 </a>
                 <ul class="closed">
-                   <li>
+                    <li>
                         <a href="@Url.Action("Index", "FillWeightHardWare")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/manager.png")" alt="" />
                             <strong>Danh sách trọng số</strong>
@@ -215,7 +232,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="active">
+            <li>
                 <a href="#">
                     <span class="da-nav-count">4</span>
                     <!-- Icon Container -->
@@ -224,7 +241,7 @@
                     </span>
                     <strong>Parser</strong>
                 </a>
-                <ul>
+                <ul class="closed">
                     <li>
                         <a href="@Url.Action("CreateParser", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
@@ -232,13 +249,13 @@
                         </a>
                     </li>
 
-                    <li style="background-color: #a6d037;">
+                    <li >
                         <a href="@Url.Action("Index", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
                         </a>
                     </li>
-                    @*<li >
+                  @*  <li>
                         <a href="#">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
                             <strong>Tạo parser sản phẩm</strong>
@@ -263,153 +280,66 @@
 }
 @section mainHeader
 {
-    <ul>
+     <ul>
         <li style="margin-right: 5px"><a style="cursor: default;font-size:27px;">
-            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Parser</strong></a></li>
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Góp ý khách hàng</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
-            <a href="@Url.Action("Index", "Parser")" style="font-size:20px;font-style:italic;text-decoration:underline">Danh sách các parser</a>
+            <a href="@Url.Action("Index", "ViewFeedback")" style="font-size:20px;font-style:italic;text-decoration:underline">Danh sách góp ý</a>
         </li>
     </ul>
 }
-
 @section footScript
 {
-    <!-- DataTables Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js")"></script>
-
-    <!-- Demo JavaScript Files -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.tables.js")"></script>
 }
-<div class="grid_1 ">
-    <div class="da-panel-widget">
-        <ul class="da-summary-stat">
-            <li>
-                <a href="#">
-                    <span class="da-summary-icon" style="background-color: #656565;">
-                        <img src="~/Areas/Admin/Dandelion/images/icons/white/32/cog_4.png" alt="">
-                    </span>
-                    <span class="da-summary-text">
-                        <span class="value up">Danh sách</span>
-                        <span class="label">Tất cả parsers</span>
-                    </span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
+<div class="clear"></div>
 <div class="grid_4">
+    <div id="loadtable">
+        <div class="da-panel collapsible">
+            <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="images/icons/black/16/list.png" alt="">
+                    Từ khóa khách hàng tìm kiếm nhưng không thấy sản phẩm.
+                </span>
 
-    <div class="da-panel-content">
-        @if (TempData["create"] != null)
-        {
-            <div class="da-message success">
-                Parser mới đã được thêm vào hệ thống.
+                <span class="da-panel-toggler"></span>
             </div>
-        }
-        @if (TempData["edit"] != null)
-        {
-            string statusMessage = TempData["edit"].ToString();
-            if (statusMessage == "success")
-            {
-            <div class="da-message success">
-                Parser đã được cập nhật thành công.
-            </div>
-            }
-            else if (statusMessage == "failed")
-            {
-            <div class="da-message error">
-                Cập nhật parser thất bại. Xin vui lòng thử lại.
-            </div>
-            }
-        }
-    </div>
-</div>
-<br />
-<br />
-<div class="grid_4">
-    <div class="da-panel collapsible">
-        <div class="da-panel-header">
-            <span class="da-panel-title">
-                <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/16/list.png")" alt="" />
-                Danh sách các parser  
-            </span>
-            @using (Html.BeginForm("ParseData", "Parser"))
-            {
-                if (ConstantManager.IsParserRunning)
-                {
-                <input type="submit" value="Parser đang chạy" disabled="disabled" class="da-button blue" style="position: absolute; right: 75px; top: 15px; width: 120px" />
-                }
-                else
-                {
-                <input type="submit" value="Chạy parser" class="da-button blue" style="position: absolute; right: 75px; top: 15px; width: 120px" />
-                           
-                }
-            }
+            <div class="da-panel-content">
+                <div id="da-ex-datatable-default_wrapper" class="dataTables_wrapper" role="grid">
 
-        </div>
-        <div class="da-panel-content">
-            <table id="da-ex-datatable-numberpaging" class="da-table">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Tên Thành Phần</th>
-                        <th>Đường Dẫn</th>
-                        <th>Thao Tác</th>
-                        <th>Trạng Thái</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        int counter = 1;
-                        foreach (var item in Model)
-                        {
-                            string att = item.CodetypeID;
-                            bool status = item.IsActive;
-                        <tr>
-                            <td>@counter</td>
-                            @if (att.Equals("C"))
-                            { 
-                                <td>CPU</td>
-                            }
-                            else if (att.Equals("H"))
+
+                    <table id="da-ex-datatable-default" class="da-table dataTable" aria-describedby="da-ex-datatable-default_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 196px;">STT</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 464px;">Từ khóa được tìm kiếm</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 200px;">Số lượt</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 369px;">Thời gian</th>
+            @*                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 133px;">Xóa</th>*@
+                            </tr>
+                        </thead>
+
+                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            @if (listPro != null)
                             {
-                                <td>HDD</td>
+                                foreach (ProductNotFound fb in listPro)
+                                {
+                                <tr id="idtr@(fb.id)" class="odd">
+                                    <td class=" sorting_1">@fb.id</td>
+                                    <td class=" sorting_1">@fb.NamePro</td>
+                                    <td class=" ">@fb.Time</td>
+                                    <td class=" ">@fb.Date</td>
+                                @*   <td class=" ">
+                                  <a onclick="xoafeedback(@fb.id)">
+                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
+                                    Xóa</a></td>*@                               
+                                </tr>
+                                }
                             }
-                            else if (att.Equals("V"))
-                            {
-                                <td>VGA</td>
-                            }
-                            else if (att.Equals("D"))
-                            {
-                                <td>DISPLAY</td>
-                            }
-                            else if (att.Equals("R"))
-                            {
-                                <td>RAM</td>
-                            }
-                            <td>@item.ParseAttributelink</td>
-                            <td>
-                                @Html.ActionLink("Chỉnh sửa", "EditParser", new { id = item.ID })
-                            </td>
-                            @if (status)
-                            {
-                                <td>
-                                    <input type="submit" value="Hoạt động" class="da-button blue" style="width:120px" data-id="@item.ID"/>
-                                </td>  
-                            }
-                            else
-                            {
-                                <td>
-                                    <input type="submit" value="Không hoạt động" class="da-button red"  data-id="@item.ID"/>
-                                </td>  
-                            }
-                        </tr>
-                            counter++;
-                        } 
-                    }
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
