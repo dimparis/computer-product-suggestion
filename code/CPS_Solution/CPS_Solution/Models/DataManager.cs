@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CPS_Solution.EntityFramework;
+using CPS_Solution.CommonClass;
+using System.IO;
 namespace CPS_Solution.Models
 {
     public class DataManager
@@ -31,9 +33,12 @@ namespace CPS_Solution.Models
             if (searchValue != null)
             {
                 var filter = temp.Where(x => x.Name.ToUpper().Contains(searchValue.ToUpper()));
-                int count = filter.Count();
                 var products = filter.Where(x => x.IsActive == true).OrderBy(x => x.ID).Skip(startIndex).Take(BlockSize).ToList();
-                int c = products.Count();
+                if (!filter.Any()) 
+                {
+                    WriteToNoResultFile(searchValue);
+                //write to log file
+                }
                 return products;
             }
             else
@@ -366,6 +371,30 @@ namespace CPS_Solution.Models
                 output += "...";
             }
             return output;
+        }
+        public void WriteToNoResultFile(string value)
+        {
+            List<string> data = ReadDataFromNoResultFile();
+            string path = ConstantManager.NoResultFilePath;
+            string content = DateTime.Now.ToShortDateString() +" - "+ DateTime.Now.ToShortTimeString() + " | Từ khóa: " + value;
+            using (StreamWriter writer = System.IO.File.AppendText(path))
+            {
+                writer.WriteLine(content);
+            }
+        }
+        private static List<string> ReadDataFromNoResultFile()
+        {
+            string path = ConstantManager.NoResultFilePath;
+            var result = new List<string>();
+            string line;
+
+            var reader = new StreamReader(path);
+            while ((line = reader.ReadLine()) != null)
+            {
+                result.Add(line);
+            }
+            reader.Close();
+            return result;
         }
     }
 }
