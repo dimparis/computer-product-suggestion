@@ -4,6 +4,7 @@
     $('#loadItemcontainer').on('click', '.addToCompare', function () {
         var id = this.attributes['product-id'].value;
         var name = this.attributes['product-name'].value;
+        var img = this.attributes['product-img'].value;
 
         if (sessionStorage.length < 6) {
             sessionStorage.setItem("'product-" + id, id);
@@ -14,8 +15,14 @@
             alert("Danh sách không được nhiều hơn 3 sản phẩm.");
             return false;
         }
+        //Hieu ung add to list
+        jQuery(".img-" + id).effect("transfer", { to: ".icon-shopping-cart", className: "ui-effects-transfer" }, 1200);
         $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
         checkCart();
+        //$(".ui-effects-transfer:last").css("background-image", "url(../" + img + ")");
+        //$(".ui-effects-transfer:last").css("height", "100");
+        //$(".ui-effects-transfer:last").css("width", "100");
+        //jQuery(".post-media").effect("shake");
     });
 
     $('.compare-button').on('click', function () {
