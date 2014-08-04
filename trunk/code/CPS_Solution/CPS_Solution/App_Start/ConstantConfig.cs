@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CPS_Solution.CommonClass;
+using CPS_Solution.EntityFramework;
 namespace CPS_Solution.App_Start
 {
     public static class ConstantConfig
     {
+        public static CPS_SolutionEntities context = new CPS_SolutionEntities();
         public static void Register(HttpServerUtility server) 
         {
             ConstantManager.LogPath = server.MapPath("~/Areas/Admin/LogFiles/");
@@ -18,6 +20,7 @@ namespace CPS_Solution.App_Start
             ConstantManager.IsParserRunning = false;
             ConstantManager.IsRecommendRunning = false;
             ConstantManager.IsUpdateRunning = false;
+            ConstantManager.TotalPoint = 1;
         }
     }
 }

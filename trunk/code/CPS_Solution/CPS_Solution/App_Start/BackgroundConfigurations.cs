@@ -69,5 +69,17 @@ namespace CPS_Solution.App_Start
 
             scheduler.ScheduleJob(job, trigger);
         }
+        public static void CalculateBestPoint()
+        {
+            IJobDetail job = JobBuilder.Create<AutoTakeBestProduct>().WithIdentity("AutoTakeBestProduct", "Job").Build();
+
+            ITrigger trigger = TriggerBuilder.Create().WithIdentity("AutoTakeBestProductTrigger", "Trigger")
+                .StartNow()
+                .WithSchedule(SimpleScheduleBuilder.RepeatHourlyForever(5))
+                .Build();
+            parserTrigger = trigger;
+
+            scheduler.ScheduleJob(job, trigger);
+        }
     }
 }

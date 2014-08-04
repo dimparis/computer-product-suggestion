@@ -32,6 +32,7 @@ namespace CPS_Solution
 
             //Do schedules
             BackgroundConfigurations.StartScheduler();
+            BackgroundConfigurations.CalculateBestPoint();
             BackgroundConfigurations.ScheduleSendMail();
             BackgroundConfigurations.ScheduleUpdatePrice();
             BackgroundConfigurations.ScheduleParser();
