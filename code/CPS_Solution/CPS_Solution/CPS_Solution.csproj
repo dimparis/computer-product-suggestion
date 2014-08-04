@@ -210,6 +210,7 @@
     <Compile Include="Areas\Admin\Models\ShowInfoRepository .cs" />
     <Compile Include="CommonClass\AutoParseJob.cs" />
     <Compile Include="CommonClass\AutoSendMail.cs" />
+    <Compile Include="CommonClass\AutoTakeBestProduct.cs" />
     <Compile Include="CommonClass\AutoUpdatePrice.cs" />
     <Compile Include="CommonClass\ConstantManager.cs" />
     <Compile Include="CommonClass\CustomMembershipProvider.cs" />

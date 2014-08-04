@@ -16,10 +16,11 @@ namespace CPS_Solution.CommonClass
         public static bool IsParserRunning { get; set; }
         public static bool IsUpdateRunning { get; set; }
         public static bool IsRecommendRunning { get; set; }
+        public static int TotalPoint { get; set; }
     }
     public enum SystemRole { 
         Admin = 1,
         Staff = 2,
         Member  = 3,
-    }
+    }    
 }
