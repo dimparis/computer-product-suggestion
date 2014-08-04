@@ -9,9 +9,11 @@ using System.IO;
 using LinqToExcel;
 using LinqToExcel.Query;
 using CPS_Solution.Areas.Admin.Helpers;
+using CPS_Solution.CommonClass;
 
 namespace CPS_Solution.Areas.Admin.Controllers
 {
+    [MyAuthorize(Roles = "staff")]
     public class TrainingProductController : Controller
     {
         CPS_SolutionEntities db = new CPS_SolutionEntities();
@@ -319,7 +321,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
                     if (duplicateProduct.Count >= 2)
                     {
-                     
+
                         listduplicatenew.Add(duplicateProduct);
                         check++;
                     }
@@ -648,7 +650,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 for (int j = 0; j < listduplicatenew[i].Count; j++)
                 {
                     // nếu phát hiện list nào có chứa giá trị tách trả về
-                    if (tachdup[1].Equals(listduplicatenew[i][j].stt)&&tachdup[2].Equals(listduplicatenew[i][1].stt))
+                    if (tachdup[1].Equals(listduplicatenew[i][j].stt) && tachdup[2].Equals(listduplicatenew[i][1].stt))
                     {
 
                         Hardware p = new Hardware();
@@ -693,12 +695,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         //foreach (Codetype codety in Listcodetype)
                         //{
                         //    codety.Name.Equals(listduplicatenew[i][1].loai);
-                            p.CodetypeID = listduplicatenew[i][1].loai;
+                        p.CodetypeID = listduplicatenew[i][1].loai;
                         //    break;
                         //}
                         p.WeightCriteraPoint = Convert.ToInt32(listduplicatenew[i][1].trongso);
                         // nếu có trọng số rồi thì cho isactive = true
-                        if (Convert.ToInt32(listduplicatenew[i][1].trongso)>0)
+                        if (Convert.ToInt32(listduplicatenew[i][1].trongso) > 0)
                         {
                             p.IsActive = true;
                         }
@@ -929,7 +931,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 ViewBag.Listduptraning = LoadThanhPhanTrungDB();
             }
-          
+
             return View();
         }
 

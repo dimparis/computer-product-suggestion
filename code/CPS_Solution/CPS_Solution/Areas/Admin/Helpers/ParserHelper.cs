@@ -342,7 +342,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 name = doc.DocumentNode.SelectSingleNode(nameXpath);
             }
 
-            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn") || host.Contains("thietbiso.com"))
+            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn") || host.Contains("thietbiso.com") || host.Contains("trananh.vn"))
             {
                 if (priceXpath != null)
                 {
@@ -476,7 +476,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 name = doc.DocumentNode.SelectSingleNode(nameXpath);
             }
 
-            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn") || host.Contains("thietbiso.com"))
+            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn") || host.Contains("thietbiso.com") ||host.Contains("trananh.vn"))
             {
                 if (priceXpath != null)
                 {

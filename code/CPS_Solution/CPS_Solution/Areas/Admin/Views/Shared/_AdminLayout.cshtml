@@ -61,11 +61,11 @@
                             <div id="da-user-info">
                                 Welcome, @User.Identity.Name
                                 @{
-                                    if (User.IsInRole("Admin"))
+                                    if (User.IsInRole("admin"))
                                     {
                                     <span class="da-user-title">Administrator</span>
                                     }
-                                    else if (User.IsInRole("Staff"))
+                                    else if (User.IsInRole("staff"))
                                     {
                                     <span class="da-user-title">Staff</span>
                                     }

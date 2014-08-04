@@ -9,6 +9,7 @@ using CPS_Solution.EntityFramework;
 using CPS_Solution.CommonClass;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
+    [Authorize]
     public class SystemController : Controller
     {
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
@@ -20,21 +21,22 @@ namespace CPS_Solution.Areas.Admin.Controllers
         /// <returns></returns>
         public RedirectToRouteResult WelcomeAreasAdmin()
         {
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("member"))
             {
-                return RedirectToAction("Index", "ManagerUser");
+                return RedirectToAction("SearchForProduct", "Product");
             }
-            else if (User.IsInRole("Staff"))
+            if (User.IsInRole("staff"))
             {
                 var recommendProducts = context.RecommendProducts.Where(x => x.IsMailSent == false &&
                 x.IsReceive == true && x.IsApprove == true).ToList();
                 AutoSendMail auto = new AutoSendMail();
                 auto.AutoSendMailforUser(recommendProducts);
-                return RedirectToAction("ConfigureSystem", "System");
+                return RedirectToAction("Index", "TrainingProduct");
             }
-            else if (User.IsInRole("Member"))
+            if (User.IsInRole("admin"))
             {
-                return RedirectToAction("SearchForProduct", "Product");
+
+                return RedirectToAction("Index", "ManagerUser");
             }
             return null;
         }

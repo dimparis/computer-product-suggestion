@@ -3287,7 +3287,6 @@
     <Content Include="Areas\Admin\Views\ConfirmNewLaptop\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ConfirmNewLaptop\LoadTableAjax.cshtml" />
     <Content Include="Areas\Admin\Views\ConfirmNewHardware\LoadTableAjax.cshtml" />
-    <Content Include="Areas\Admin\Views\ManagerUser\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ManagerUser\loadTableAgain.cshtml" />
     <Content Include="Areas\Admin\Views\ViewFeedback\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ImportExcel\showInfo1.cshtml" />
@@ -3322,6 +3321,7 @@
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
+    <Content Include="Areas\Admin\Views\ManagerUser\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />

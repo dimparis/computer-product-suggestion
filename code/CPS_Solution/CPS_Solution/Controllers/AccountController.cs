@@ -96,7 +96,7 @@ namespace CPS_Solution.Controllers
                     accountHelper.CreateAccount(model);
                     WebSecurity.Login(model.UserName, model.Password);
                     Session["Username"] = model.UserName;
-                    return RedirectToAction("Index", "Product");
+                    return RedirectToAction("SearchForProduct", "Product");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -148,7 +148,7 @@ namespace CPS_Solution.Controllers
             }
             else if (Session["Role"].ToString() == "member")
             {
-                return RedirectToAction("SearchProduct", "Product");
+                return RedirectToAction("SearchForProduct", "Product");
             }
             else
             {

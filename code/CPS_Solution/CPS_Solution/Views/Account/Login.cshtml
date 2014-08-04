@@ -13,13 +13,13 @@
     <div class="container">
         <div class="top-left" style="padding: 60px; color: white">
             <div>
-                Bạn chưa có tài khoản? <a style="color:blue" class="highlight" href="@Url.Action("Register", "Account")" Title="Đến trang đăng ký">Đăng ký ngay!</a>
+                Bạn chưa có tài khoản? <a style="color:#fff" class="highlight" href="@Url.Action("Register", "Account")" Title="Đến trang đăng ký">Đăng ký ngay!</a>
             </div>
         </div>
 
         <div class="container fadeDown" style="padding-top: 10px; padding-bottom: 110px">
             <div class="span5">
-                @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+                @using (Html.BeginForm("LogOn","Account",new { ReturnUrl = ViewBag.ReturnUrl }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, null ,new { @class="bg-white-input" })
