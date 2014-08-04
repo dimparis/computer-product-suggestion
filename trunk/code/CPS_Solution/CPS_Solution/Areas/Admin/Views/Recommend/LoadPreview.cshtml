@@ -1,4 +1,9 @@
 ﻿@model CPS_Solution.Areas.Admin.Models.ProductData
+@using CPS_Solution.Models;
+@{
+    DataManager data = new DataManager();
+    int takeItem = 47;
+}
 <!----------------Popup sửa sản phẩm đúng----------->
 <div class="da-panel">
     <div class="grid_2" style="width: 300px; margin-top: 7%">
@@ -25,28 +30,28 @@
             <table class="da-table da-detail-view" style="width: 100%">
                 <tbody>
                     <tr class="odd">
-                        <th style="width: 30px !important">Tên</th>
-                        <td>@Model.Name</td>
+                        <th width: 30%>Tên</th>
+                        <td>@data.Truncate(@Model.Name,takeItem)</td>
                     </tr>
                     <tr class="even">
                         <th>Giá</th>
-                        <td>@Model.Price</td>
+                        <td>@data.Truncate(@Model.Price,takeItem)</td>
                     </tr>
                     <tr class="odd">
                         <th>CPU</th>
-                        <td>@Model.CPU</td>
+                        <td>@data.Truncate(@Model.CPU,takeItem)</td>
                     </tr>
                     <tr class="even">
                         <th>VGA</th>
-                        <td>@Model.VGA</td>
+                        <td>@data.Truncate(@Model.VGA,takeItem)</td>
                     </tr>
                     <tr class="odd">
                         <th>RAM</th>
-                        <td>@Model.RAM</td>
+                        <td>@data.Truncate(@Model.RAM,takeItem)</td>
                     </tr>
                     <tr class="even">
                         <th>HDD</th>
-                        <td>@Model.HDD</td>
+                        <td>@data.Truncate(@Model.HDD,takeItem)</td>
                     </tr>
                     <tr class="odd">
                         <th>Display</th>
