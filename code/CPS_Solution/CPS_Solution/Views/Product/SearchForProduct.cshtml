@@ -4,37 +4,6 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<style>
-    .tabs-left {
-        padding: 10px 10px 5px 10px;
-        width: 53%;
-        margin: 0 auto 0 auto;
-        background-image: url(../Template/stylish.holobest.com/images/title.png);
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        border-left-style:groove;
-        border-right-style:groove;
-        border-bottom-style:groove;
-    }
-    .tabbable:after {
-        clear: none;
-    }
-
-    .hide-icon {
-        margin: 0 auto 0 auto;
-        background-image: url(../Template/stylish.holobest.com/images/title.png);
-        width:30px;
-        border-left-style:groove;
-        border-right-style:groove;
-        border-bottom-style:groove;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-    .ui-effects-transfer { 
-        border: 1px dotted white; 
-    }
-</style>
-
 <div class="main-content" style="position:fixed; height:auto; width:100%; z-index: 3">
     <div class="container">
         <div class="tabbable tabs-left">
@@ -160,70 +129,4 @@
             checkSession();
         }
     });
-</script>
-<script type="text/javascript">
-    var BlockNumber = 2;  //Infinate Scroll starts from second block
-    var NoMoreData = false;
-    var inProgress = false;
-    function clickHere() {
-        if (!NoMoreData && !inProgress) {
-
-            inProgress = true;
-            $("#loadingDiv").show();
-            $("#clickButton").hide();
-            $.post("@Url.Action("InfinateScrollSearchByName", "Product")", { "BlockNumber": BlockNumber, "searchValue": $('#productName').val() },
-                    function (data) {
-                        BlockNumber = BlockNumber + 1;
-                        NoMoreData = data.NoMoreData;
-                        if (!NoMoreData)
-                        {
-                            $("#clickButton").show();
-                        }
-                        $("#loadItemcontainer").append(data.HTMLString);
-                        $("#loadingDiv").hide();
-                        inProgress = false;
-                    });
-        }
-    }
-    @*$(window).scroll(function () {
-        if ($(window).scrollTop() == $(document).height() -
-        $(window).height() && !NoMoreData && !inProgress) {
-
-            inProgress = true;
-            $("#loadingDiv").show();
-
-            $.post("@Url.Action("InfinateScrollSearchByName", "Product")", { "BlockNumber": BlockNumber, "searchValue": $('#productName').val() },
-                    function (data) {
-                        BlockNumber = BlockNumber + 1;
-                        NoMoreData = data.NoMoreData;
-                        $("#loadItemcontainer").append(data.HTMLString);
-                        $("#loadingDiv").hide();
-                        inProgress = false;
-                    });
-        }
-    });*@
-
-    $(window).scroll(function () {
-        $(".tabbable").slideUp(500);
-        $(".hide-icon").show();
-    });
-
-    $(".container").on("mouseover", ".hide-icon", function () {
-        if ($(".tabbable").css("display") == "none") {
-            $(".tabbable").slideDown(500);
-            $(".hide-icon").hide();
-        } else {
-            $(".tabbable").slideUp(500);
-        }
-    });
-
-    $(".list-cart").mouseover(function () {
-        $("#compare_panel").show("slide");
-        $(".list-cart").hide();
-    })
-
-    $("#compare_panel").mouseleave(function () {
-        $("#compare_panel").hide("toggle");
-        $(".list-cart").show();
-    })
 </script>

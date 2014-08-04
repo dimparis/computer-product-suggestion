@@ -3,41 +3,37 @@
     ViewBag.Title = "Tìm kiếm theo giá";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-<style>
-    .tabs-left {
-        position: fixed;
-        padding: 28px 28px 0px 28px;
-        top: 70px;
-        left: 500px;
-        z-index: 4;
-        background-image: url(../Template/stylish.holobest.com/images/title.png);
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-</style>
-<div class="tabbable tabs-left">
-    <ul class="nav nav-tabs" data-tabs="tabs">
-        <li class=""><a href="#searchByName" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo tên</strong></a>
-        </li>
-        <li class="active"><a href="#searchByPrice" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo giá</strong></a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane fade in active" id="searchByName">
-            @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
-            {
-                @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
-                <button type="submit">Tìm kiếm</button>               
+<div class="main-content" style="position:fixed; height:auto; width:100%; z-index: 3">
+    <div class="container">
+        <div class="tabbable tabs-left">
+            <ul class="nav nav-tabs" data-tabs="tabs">
+                <li class="active"><a href="#searchByName" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo tên</strong></a>
+                </li>
+                <li class=""><a href="#searchByPrice" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo giá</strong></a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="searchByName">
+                    @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
+                    {
+                        @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
+                        <button type="submit">Tìm kiếm</button>               
             }
-        </div>
-        <div class="tab-pane fade" id="searchByPrice">
+                </div>
+                <div class="tab-pane fade" id="searchByPrice">
 
-            @using (Html.BeginForm("SearchByPriceAndBrandTop3", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
-            {
-                @Html.DropDownList("brands", ViewBag.ListBrands as List<SelectListItem>, new { @style = "width:100px;height:40px" })
-                @Html.DropDownList("prices", ViewBag.ListPrices as List<SelectListItem>, new { @style = "width:225px;height:40px" })
-                <button type="submit" style="width: 125px; margin-left: -5px; z-index: 4">Tìm kiếm</button>               
+                    @using (Html.BeginForm("SearchByPriceAndBrandTop3", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
+                    {
+                        @Html.DropDownList("brands", ViewBag.ListBrands as List<SelectListItem>, new { @style = "width:100px;height:40px" })
+                        @Html.DropDownList("prices", ViewBag.ListPrices as List<SelectListItem>, new { @style = "width:225px;height:40px" })
+                        <button type="submit" style="width: 125px; margin-left: -5px; z-index: 4">Tìm kiếm</button>               
             }
+                </div>
+            </div>
+        </div>
+
+        <div class="hide-icon" style="display:none">
+            <center><i class="icon-chevron-sign-down"></i></center>
         </div>
     </div>
 </div>
