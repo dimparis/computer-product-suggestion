@@ -37,211 +37,215 @@
         cursor: move;
     }
 </style>
+<div id="page-wrap">
 
-<div class="page-element gray-element">
-    <div class="container">
-        <div class="pricing-tables-wrapper clearfix">
-            <div class="pricing-table" style="margin-right: 0px">
-                <div class="pricing-table-header">
-                    <div class="upper-header">
-                                                    <h4 style="height:100px;overflow-wrap:break-word" style="color:#fff; text-decoration:underline"><strong>Thành phần cấu hình</strong></h4>
-                        <img src="~/Images/best-choice-label.jpg" style="height: 244px" />
-                        <div style="height: 50px">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <div class="stylish-button" style="background-color: #F87912; margin-top: 10px">
-                                    <a href="javascript:void(0)" onclick="clicktoDetail()" style="text-decoration: underline">So sánh chi tiết</a>
-                                </div>
+    <div class="page-element" style="background-color:rgba(255, 255, 255, 0.80)">
+        <div class="container">
+            <div class="pricing-tables-wrapper clearfix">
+                <div class="pricing-table" style="margin-right: 0px">
+                    <div class="pricing-table-header">
+                        <div class="upper-header">
+                            <h4 style="height: 100px; overflow-wrap: break-word" style="color: #fff; text-decoration: underline"><strong>Thành phần cấu hình</strong></h4>
+                            <img src="~/Images/best-choice-label.jpg" style="height: 244px" />
+                            <div style="height: 50px">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <div class="stylish-button" style="background-color: #F87912; margin-top: 10px">
+                                        <a href="javascript:void(0)" onclick="clicktoDetail()" style="text-decoration: underline">So sánh chi tiết</a>
+                                    </div>
                                 if (TempData["brandInt"] != null && TempData["priceInt"] != null)
                                 {
                                     string brand = TempData["brandInt"].ToString();
                                     string price = TempData["priceInt"].ToString();
-                                <div class="stylish-button" style="background-color: #F87912">
-                                    <a onclick="moveHere()" style="text-decoration: underline">Xem thêm</a>
-                                </div>
+                                    <div class="stylish-button" style="background-color: #F87912">
+                                        <a onclick="moveHere()" style="text-decoration: underline">Xem thêm</a>
+                                    </div>
                                     using (Html.BeginForm("SearchByPriceAndBrand", "Product", FormMethod.Post, new { id = "formSearch" }))
                                     {           
-                                <input type="hidden" id="brands" name="brands" value="@brand" />
-                                <input type="hidden" id="prices" name="prices" value="@price" />     
+                                    <input type="hidden" id="brands" name="brands" value="@brand" />
+                                    <input type="hidden" id="prices" name="prices" value="@price" />     
                                     }
-                                <script>
-                                    function moveHere() {
-                                        $('#formSearch').submit();
-                                    }
-                                </script>
+                                    <script>
+                                        function moveHere() {
+                                            $('#formSearch').submit();
+                                        }
+                                    </script>
                                 }
                                 if (Model.Count() > 2)
                                 {
                                     using (Html.BeginForm("CompareDetail", "Product", FormMethod.Post, new { id = "formDetail" }))
                                     {           
-                                <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(1).ID" />
-                                <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(0).ID" />
-                                <input type="hidden" id="p3" name="p3" value="@Model.ElementAt(2).ID" />
+                                    <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(1).ID" />
+                                    <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(0).ID" />
+                                    <input type="hidden" id="p3" name="p3" value="@Model.ElementAt(2).ID" />
                                     }
-                                <script>
-                                    function clicktoDetail() {
-                                        $('#formDetail').submit();
-                                    }
-                                </script>
+                                    <script>
+                                        function clicktoDetail() {
+                                            $('#formDetail').submit();
+                                        }
+                                    </script>
                                 }
                                 else
                                 {
                                     int i = -1;
                                     using (Html.BeginForm("CompareDetail", "Product", FormMethod.Post, new { id = "formDetail" }))
                                     {           
-                                <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(0).ID" />
-                                <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(1).ID" />
-                                <input type="hidden" id="p3" name="p2" value="@i" />
+                                    <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(0).ID" />
+                                    <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(1).ID" />
+                                    <input type="hidden" id="p3" name="p2" value="@i" />
                                     }
-                                <script>
-                                    function clicktoDetail() {
-                                        $('#formDetail').submit();
-                                    }
-                                </script>
+                                    <script>
+                                        function clicktoDetail() {
+                                            $('#formDetail').submit();
+                                        }
+                                    </script>
                                 }
                             }
+                            </div>
+                        </div>
+                        <div class="lower-header">
+                            <p class="pricing-table-price">Tổng điểm</p>
                         </div>
                     </div>
-                    <div class="lower-header">
-                        <p class="pricing-table-price">Tổng điểm</p>
-                    </div>
-                </div>
-                <div class="pricing-table-content">
-                    <div class="table-row odd">
-                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">CPU</strong></p>
-                    </div>
-                    <div class="table-row even">
-                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">VGA</strong></p>
-                    </div>
-                    <div class="table-row odd">
-                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">RAM</strong></p>
-                    </div>
-                    <div class="table-row even">
-                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">HDD</strong></p>
-                    </div>
-                    <div class="table-row odd">
-                        <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">Display</strong></p>
-                    </div>
-                </div>
-            </div>
-
-
-            @{ int bestProductID = Model.ElementAt(1).ID; }
-            @foreach (var item in Model)
-            {
-                if (item.ID == bestProductID)
-                {
-                <div class="pricing-table highlighted-table">
-                    <div class="pricing-table-header">
-                        <div class="upper-header">
-                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank" style="color:#fff; text-decoration:underline"><strong>@Html.DisplayFor(modelItem => item.Name)</strong></a></h4>
-                            <img src="~/@item.ImageURL" style="margin-bottom: 50px;width:299px;height:244px"  />
-                        </div>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div class="lower-header">
-                                <p class="pricing-table-price">@item.TotalWeightPoint</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="lower-header">
-                                <p class="pricing-table-price"></p>
-                            </div>
-                        }
-                    </div>
-
                     <div class="pricing-table-content">
                         <div class="table-row odd">
-                            <p>@item.strCPU</p>
+                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">CPU</strong></p>
                         </div>
                         <div class="table-row even">
-                            <p>@item.strVGA</p>
+                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">VGA</strong></p>
                         </div>
                         <div class="table-row odd">
-                            <p>@item.strRAM</p>
+                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">RAM</strong></p>
                         </div>
                         <div class="table-row even">
-                            <p>@item.strHDD</p>
+                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">HDD</strong></p>
                         </div>
                         <div class="table-row odd">
-                            <p>@item.strDisplay</p>
+                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">Display</strong></p>
                         </div>
                     </div>
                 </div>
+
+
+                @{ int bestProductID = Model.ElementAt(1).ID; }
+                @foreach (var item in Model)
+                {
+                    if (item.ID == bestProductID)
+                    {
+                    <div class="pricing-table highlighted-table">
+                        <div class="pricing-table-header">
+                            <div class="upper-header">
+                                <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank" style="color:#fff; text-decoration:underline"><strong>@Html.DisplayFor(modelItem => item.Name)</strong></a></h4>
+                                <img src="~/@item.ImageURL" style="margin-bottom: 50px;width:299px;height:244px"  />
+                            </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="lower-header">
+                                    <p class="pricing-table-price">@item.TotalWeightPoint</p>
+                                </div>
+                        }
+                            else
+                            {
+                                <div class="lower-header">
+                                    <p class="pricing-table-price"></p>
+                                </div>
+                        }
+                        </div>
+
+                        <div class="pricing-table-content">
+                            <div class="table-row odd">
+                                <p>@item.strCPU</p>
+                            </div>
+                            <div class="table-row even">
+                                <p>@item.strVGA</p>
+                            </div>
+                            <div class="table-row odd">
+                                <p>@item.strRAM</p>
+                            </div>
+                            <div class="table-row even">
+                                <p>@item.strHDD</p>
+                            </div>
+                            <div class="table-row odd">
+                                <p>@item.strDisplay</p>
+                            </div>
+                        </div>
+                    </div>
                 }
                 else
                 {
-                <div class="pricing-table">
-                    <div class="pricing-table-header">
-                        <div class="upper-header">
-                            <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank" style="color:#fff; text-decoration:underline"><strong>@Html.DisplayFor(modelItem => item.Name)</strong></a></h4>
-                            <img src="~/@item.ImageURL" style="margin-bottom: 50px;width:299px;height:244px" />
-                        </div>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div class="lower-header">
-                                <p class="pricing-table-price">@item.TotalWeightPoint</p>
+                    <div class="pricing-table">
+                        <div class="pricing-table-header">
+                            <div class="upper-header">
+                                <h4 style="height:100px;overflow-wrap:break-word" title="@item.Name" class="product_id" id="@item.ID"><a href="/Product/Details?ID=@item.ID" target="_blank" style="color:#fff; text-decoration:underline"><strong>@Html.DisplayFor(modelItem => item.Name)</strong></a></h4>
+                                <img src="~/@item.ImageURL" style="margin-bottom: 50px;width:299px;height:244px" />
                             </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="lower-header">
+                                    <p class="pricing-table-price">@item.TotalWeightPoint</p>
+                                </div>
                         }
-                        else
-                        {
-                            <div class="lower-header">
-                                <p class="pricing-table-price"></p>
-                            </div>
+                            else
+                            {
+                                <div class="lower-header">
+                                    <p class="pricing-table-price"></p>
+                                </div>
                         }
 
+                        </div>
+                        <div class="pricing-table-content">
+                            <div class="table-row odd">
+                                <p style="">@item.strCPU</p>
+                            </div>
+                            <div class="table-row even">
+                                <p>@item.strVGA</p>
+                            </div>
+                            <div class="table-row odd">
+                                <p>@item.strRAM</p>
+                            </div>
+                            <div class="table-row even">
+                                <p>@item.strHDD</p>
+                            </div>
+                            <div class="table-row odd">
+                                <p>@item.strDisplay</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pricing-table-content">
-                        <div class="table-row odd">
-                            <p style="">@item.strCPU</p>
-                        </div>
-                        <div class="table-row even">
-                            <p>@item.strVGA</p>
-                        </div>
-                        <div class="table-row odd">
-                            <p>@item.strRAM</p>
-                        </div>
-                        <div class="table-row even">
-                            <p>@item.strHDD</p>
-                        </div>
-                        <div class="table-row odd">
-                            <p>@item.strDisplay</p>
-                        </div>
-                    </div>
-                </div>
                 }
             }
+            </div>
+
+
+
         </div>
+        <div class="row">
+            <br />
+            <div class="span6" style="margin-left: 390px;">
+                <div class="accordion fadeRight ui-accordion ui-widget ui-helper-reset animated fadeInRight" role="tablist" style="visibility: visible;">
 
-
-
-    </div>
-    <div class="row">
-        <br />
-        <div class="span6" style="margin-left: 390px;">
-            <div class="accordion fadeRight ui-accordion ui-widget ui-helper-reset animated fadeInRight" role="tablist" style="visibility: visible;">
-
-                <h5 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" role="tab" id="ui-accordion-2-header-0" aria-controls="ui-accordion-2-panel-0" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span><i class="icon-plus-sign"></i>Góp ý và báo lỗi sản phẩm</h5>
-                <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-2-panel-0" aria-labelledby="ui-accordion-2-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
-                    <label for="name">Tiêu đề *</label>
-                    <input type="text" id="TenFeedback" name="name" class="stylish-text-input span5" value="">
-                    <label for="website">Nội dung góp ý*</label>
-                    <textarea name="comment" id="NoidungFeedback" class="stylish-textarea contact-textarea span5" maxlength="4000"></textarea>
-                    <div class="row">
-                        <div class="span6">
-                            <div class="stylish-button">
-                                <input type="submit" onclick="Feedback()" name="submit" value="Gửi Phản Hồi">
+                    <h5 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" role="tab" id="ui-accordion-2-header-0" aria-controls="ui-accordion-2-panel-0" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span><i class="icon-plus-sign"></i>Góp ý và báo lỗi sản phẩm</h5>
+                    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-2-panel-0" aria-labelledby="ui-accordion-2-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+                        <label for="name">Tiêu đề *</label>
+                        <input type="text" id="TenFeedback" name="name" class="stylish-text-input span5" value="">
+                        <label for="website">Nội dung góp ý*</label>
+                        <textarea name="comment" id="NoidungFeedback" class="stylish-textarea contact-textarea span5" maxlength="4000"></textarea>
+                        <div class="row">
+                            <div class="span6">
+                                <div class="stylish-button">
+                                    <input type="submit" onclick="Feedback()" name="submit" value="Gửi Phản Hồi">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 
-
 </div>
+
 
 <script>
     function Feedback() {
