@@ -191,7 +191,7 @@ namespace CPS_Solution.Controllers
             {
                 return HttpNotFound();
             }
-            product.AliasProducts = db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == false).ToList();
+            product.AliasProducts = db.AliasProducts.Where(x => x.ProductID==id && x.IsActive == true && x.IsMain == false).ToList();
             // lấy point Rating của product
             double point = 0;
             double allpoint = 0;
