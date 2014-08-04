@@ -6,12 +6,27 @@
 
 <style>
     .tabs-left {
-        padding: 28px 28px 0px 28px;
-        width: 56%;
+        padding: 10px 10px 5px 10px;
+        width: 53%;
         margin: 0 auto 0 auto;
         background-image: url(../Template/stylish.holobest.com/images/title.png);
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
+        border-left-style:groove;
+        border-right-style:groove;
+        border-bottom-style:groove;
+    }
+    .tabbable:after {
+        clear: none;
+    }
+
+    .hide-icon {
+        margin: 0 auto 0 auto;
+        background-image: url(../Template/stylish.holobest.com/images/title.png);
+        width:30px;
+        border-left-style:groove;
+        border-right-style:groove;
+        border-bottom-style:groove;
     }
 </style>
 
@@ -44,6 +59,9 @@
             </div>
         </div>
 
+        <div class="hide-icon" style="display:none">
+            <center><i class="icon-chevron-sign-down"></i></center>
+        </div>
     </div>
 </div>
 
@@ -52,7 +70,7 @@
         <div class="container">
             @if (Model.Any())
             {
-                <div class="row" style="margin-top: 120px;">
+                <div class="row" style="margin-top: 70px;">
                     <div id="loadItemcontainer" style="margin-top: 60px">
                         @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
                     </div>
@@ -118,99 +136,6 @@
         </div>
     </div>
 </div>
-@*<div class="page-element gray-element">
-    <div class="tabbable  tabs-left" style="margin-left: 300px">
-        <ul class="nav nav-tabs" data-tabs="tabs">
-            <li class="active"><a href="#searchByName" data-toggle="tab" style="background: #d83c3c; font-size: larger; font-weight: 500; color: #fff"><strong>Tìm kiếm theo tên</strong></a>
-            </li>
-            <li class=""><a href="#searchByPrice" data-toggle="tab" style="background: #d83c3c; font-size: larger; font-weight: 500; color: #fff"><strong>Tìm kiếm theo giá</strong></a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade in active" id="searchByName">
-                @using (Html.BeginForm("SearchForProduct", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
-                {
-                    @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
-                    <button type="submit">Tìm kiếm</button>               
-                }
-            </div>
-            <div class="tab-pane fade" id="searchByPrice">
-
-                @using (Html.BeginForm("SearchByPriceAndBrand", "Product", FormMethod.Post, new { @class = "form-wrapper cf", @style = "margin-left:0px;margin-top:15px" }))
-                {
-                    @Html.DropDownList("brands", ViewBag.ListBrands as List<SelectListItem>, new { @style="width:100px;height:40px"})
-                    @Html.DropDownList("prices", ViewBag.ListPrices as List<SelectListItem>,new { @style="width:225px;height:40px" })
-                    <button type="submit" style="width:126px;margin-left:-5px;">Tìm kiếm</button>               
-                }
-
-            </div>
-        </div>
-    </div>
-
-    @if (Model.Count() > 0)
-    {
-        <div id="loadItemcontainer" class="container">
-            @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
-        </div>
-        <div id="loadingDiv" style="text-align: center; display: none; margin-left: 580px; margin-bottom: 20px; height: 32px; width: 32px">
-            <img alt="Loading" src="@Url.Content("~/Images/112.gif")" />
-        </div>
-
-    }
-    else
-    {
-        <div class="row">
-
-            <div class="page-element standard-element-container-1">
-                <div class="container element-container standard-element">
-                    <div class="row">
-                        <div class="span6 element-image-left fadeLeft animated fadeInLeft" style="visibility: visible;">
-                            <img class="standard-element-image" src="~/Template/stylish.holobest.com/images/element-image1.png" alt="standard-element-image" style="width: 600px; height: 467px">
-                        </div>
-
-                        <div class="span6 fadeRight animated fadeInRight" style="visibility: visible; width: 520px">
-                            <h3>Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp với từ khóa của bạn.</h3>
-                            <ul class="list unstyled custom-list-small">
-                                <li><i class="icon-ok"></i>
-                                    <p>Hãy thử lại với những cách sau:</p>
-                                </li>
-                            </ul>
-                            <ul class="list unstyled custom-list-small">
-                                <li><i class="icon-ok"></i>
-                                    <p>Kiểm tra lại <strong>từ khóa</strong> có thể bạn đã gõ sai <strong><u>(Ví dụ: Asus3500 = As3500)</u></strong> </p>
-                                </li>
-                            </ul>
-                            <ul class="list unstyled custom-list-small">
-                                <li><i class="icon-ok"></i>
-                                    <p>Dùng từ khóa <strong>ngắn gọn</strong> và <strong>đơn giản</strong> hơn.</p>
-                                </li>
-                            </ul>
-                            <ul class="list unstyled custom-list-small">
-                                <li><i class="icon-ok"></i>
-                                    <p><strong>Vẫn không tìm thấy</strong> sản phẩm bạn muốn. Xin hãy <strong>cung cấp</strong> cho chúng tôi thông tin về sản phẩm.</p>
-                                </li>
-                            </ul>
-                            <ul class="list unstyled custom-list-small">
-                                <li><i class="icon-ok"></i>
-                                    <p>Chúng tôi sẽ <strong>liên lạc</strong> với bạn và <strong>thông báo</strong> về tình trạng sản phẩm này.</p>
-                                </li>
-                            </ul>
-                            <ul class="list unstyled custom-list-small">
-                                <li><i class="icon-ok"></i>
-                                    <p>Click vào <a href="@Url.Action("SearchForProduct", "Product")"><span style="color: blue;"><strong>đây</strong></span></a> để thử lại.</p>
-                                </li>
-                            </ul>
-                            <div class="stylish-button">
-                                <a href="@Url.Action("Recommend", "Product")"><i class="icon-thumbs-up"></i>Gửi Đề xuất</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
-    }
-
-</div>*@
 
 @*Compare cart*@
 <div id="compare_panel" style="display: block; z-index: 3">
@@ -270,4 +195,22 @@
                     });
         }
     });*@
+
+    $(window).scroll(function () {
+        ////$(".hide-icon").stop().fadeOut(500).fadeIn(500);
+        //$(".tabbable").stop().fadeOut(100).fadeIn(1000);
+        //console.log("scrolled");
+        $(".tabbable").slideUp(500);
+        $(".hide-icon").show();
+    });
+
+    $(".container").on("click", ".hide-icon", function () {
+        if ($(".tabbable").css("display") == "none") {
+            $(".tabbable").slideDown(500);
+            $(".hide-icon").hide();
+        } else {
+            $(".tabbable").slideUp(500);
+        }
+        
+    })
 </script>
