@@ -6,7 +6,35 @@
 <div class="main-content">
     <div class="container">
         <div class="row">
-            @if (Model.Any())
+            @if (Model.Count() >= 2)
+            {
+                if (Model.Count() > 2)
+                {
+                    using (Html.BeginForm("Compare", "Product", FormMethod.Post, new { id = "formCompare" }))
+                    {           
+                <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(1).ID" />
+                <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(0).ID" />
+                <input type="hidden" id="p3" name="p3" value="@Model.ElementAt(2).ID" />
+                    }
+                <script>
+                        $('#formCompare').submit();
+                </script>
+                }
+                else
+                {
+                    int i = -1;
+                    using (Html.BeginForm("Compare", "Product", FormMethod.Post, new { id = "formCompare" }))
+                    {           
+                <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(0).ID" />
+                <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(1).ID" />
+                <input type="hidden" id="p3" name="p2" value="@i" />
+                    }
+                <script>
+                        $('#formCompare').submit();
+                </script>
+                }
+            }
+            else if ((Model.Count() == 1))
             {
                 <div class="page-element standard-element-container-1">
                     <div class="container element-container standard-element">
@@ -18,7 +46,9 @@
                             <div class="span6 fadeRight animated fadeInRight" style="visibility: visible; width: 520px">
                                 @foreach (var item in Model)
                                 {
-                                    <h3><center>Chúng tôi chỉ tìm thấy một kết quả phù hợp với điều kiện của bạn.</center></h3>
+                                    <h3>
+                                        <center>Chúng tôi chỉ tìm thấy một kết quả phù hợp với điều kiện của bạn.</center>
+                                    </h3>
                                 
                                     <div class="isotope-item post span6" style="background-color: rgba(255, 255, 255, 0.75); margin-left: 0px">
                                         <div class="row">

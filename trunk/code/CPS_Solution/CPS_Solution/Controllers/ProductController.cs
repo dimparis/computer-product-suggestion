@@ -100,19 +100,11 @@ namespace CPS_Solution.Controllers
             var products = _dataManager.ListOfTop3ProductbyPrice(brandInt, priceInt).OrderByDescending(x=>x.TotalWeightPoint).Take(3);
             TempData["brandInt"] = brandInt;
             TempData["priceInt"] = priceInt;
-            if (products.Count() >=2)
-            {
-                var idList = products.Select(item => item.ID).ToList();
-                if (idList.Count == 2) 
-                {
-                    return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = -1 });
-                }
-                return RedirectToAction("Compare", "Product", new { p1 = idList[0], p2 = idList[1], p3 = idList[2] });
-            }          
+                 
             return View(products);
 
         }
-
+          [HttpPost]
         public ActionResult Compare(int p1, int p2, int p3)
         {
             int[] vals = new int[] { p1, p2, p3 };
