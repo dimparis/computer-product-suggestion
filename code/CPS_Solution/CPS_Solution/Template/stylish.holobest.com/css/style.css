@@ -145,17 +145,11 @@
 
 
 /*Viet - Compare Cart*/
-.compare-show {
-    position: fixed;
-    top: 100px;
-    right: 400px;
-    background-color:red;
-}
 #compare_panel {
     position: fixed;
     right: 0;
-    top: 100px;
-    width: 400px;
+    top: 20%;
+    width: 330px;
     text-decoration: none;
     z-index: 200;
     border: 1px solid #0078be;
@@ -179,6 +173,7 @@
 
     #compare_panel .compare-remove {
         float: right;
+        margin-left: -10px;
         color: #f40;
         cursor: pointer;
     }
@@ -186,7 +181,7 @@
     #compare_panel .compare-close {
         float: right;
         margin-right: -6px;
-        background-image: url('http://ii.alatest.com/css/common/nb_close.gif');
+        background-image: url('../images/nb_close.gif');
         height: 19px;
         width: 19px;
         cursor: pointer;
@@ -197,7 +192,7 @@
         float: right;
         padding-left: 10px;
         height: 23px;
-        background: transparent url('http://ii.alatest.com/css/category/compare-button.png') 0 0;
+        background: transparent url('../images/compare-button.png') 0 0;
         cursor: pointer;
     }
 
