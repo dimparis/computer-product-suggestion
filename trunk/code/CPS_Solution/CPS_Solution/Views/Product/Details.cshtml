@@ -1,5 +1,5 @@
 ﻿@model CPS_Solution.EntityFramework.Product
-
+@using CPS_Solution.EntityFramework;
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -371,21 +371,21 @@
                                     {
                                         <div id="here" data-average="@point" data-id="6"></div>
                                 }
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="span8">
-                    <h3 style="overflow-wrap: break-word;">
-                        <strong>Mô tả sản phẩm</strong>
-                    </h3>
-                    <p>@Model.Description</p>
-                </div>
-                <div class="span8" style="border-style: solid; padding: 20px;">
-                    @if (@Model.AliasProducts.Any())
-                    {             
-                        @Html.Partial("TakeAliasProduct", Model.AliasProducts.Where(x => x.IsActive = true && x.IsMain == false && x.ProductID == Model.ID));
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="span8">
+                <h3 style="overflow-wrap: break-word;">
+                    <strong>Mô tả sản phẩm</strong>
+                </h3>
+                <p>@Model.Description</p>
+            </div>
+            <div class="span8" style="border-style: solid; padding: 20px;">
+                @if (@Model.AliasProducts.Any())
+                {             
+                    @Html.Partial("TakeAliasProduct",@Model.AliasProducts);
                 }
                 </div>
             </div>

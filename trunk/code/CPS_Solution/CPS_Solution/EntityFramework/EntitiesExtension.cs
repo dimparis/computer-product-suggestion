@@ -27,7 +27,7 @@ namespace CPS_Solution.EntityFramework
         private int _hddScore;
         private int _displayScore;
         private int _sellPlace;
-
+        private List<AliasProduct> _otherPlaceSameProduct;
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
 
         public String URL
@@ -418,6 +418,5 @@ namespace CPS_Solution.EntityFramework
                 this._price = value;
             }
         }
-
     }
 }
