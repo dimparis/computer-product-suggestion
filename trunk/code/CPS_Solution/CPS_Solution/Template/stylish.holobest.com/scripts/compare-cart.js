@@ -1,7 +1,4 @@
-﻿
-var arr_product = [];
-
-$(function () {
+﻿$(function () {
 
     //Add product to compare cart
     $('#loadItemcontainer').on('click', '.addToCompare', function () {
@@ -19,7 +16,6 @@ $(function () {
         }
         $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
         checkCart();
-
     });
 
     $('.compare-button').on('click', function () {
@@ -98,10 +94,6 @@ $(function () {
             //window.location.replace('Compare?p1=' + p1 + '&p2=' + p2 + '&p3=' + p3);
         }
 
-    });
-
-    $('.compare-close').on('click', function () {
-        $("#compare_panel").toggle("slide", { direction: "right" }, 1000);
     });
 });
 
@@ -200,16 +192,18 @@ function removeProduct(x) {
 
 function checkCart() {
     if ($("#compare_panel ul").html() != "") {
-        $("#compare_panel").show();
+        $("#compare_panel").show("slide").delay(1000);
+        $("#compare_panel").hide("toggle");
+        $(".list-cart").fadeIn(300);
     } else {
-        $("#compare_panel").hide();
+        $("#compare_panel").hide("slide");
+        $(".list-cart").fadeIn(300);
     }
 };
 
 function checkSession() {
     if (sessionStorage.length == 0) {
         $("#compare_panel").hide();
-
     } else {
         for (var i = 0; i < sessionStorage.length; i++) {
             var id = sessionStorage.getItem(sessionStorage.key(i));
@@ -217,18 +211,9 @@ function checkSession() {
             i++;
             $(".addToCompare[product-id='" + id + "']").hide();
             $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
-
         }
+        checkCart();
     }
-};
-
-function runEffect(id) {
-    var options = {
-        to: "#compare_panel",
-        className: "ui-effects-transfer",
-    };
-
-    $("#"+id).effect("transfer", options, 1000);
 };
 
 
