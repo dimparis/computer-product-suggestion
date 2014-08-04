@@ -18,7 +18,7 @@ namespace CPS_Solution.Controllers
         private CPS_SolutionEntities db = new CPS_SolutionEntities();
         private readonly DataManager _dataManager = new DataManager();
         private string email = "";
-    
+
         //public ActionResult Index()
         //{
         //    DataManager manager = new DataManager();
@@ -28,12 +28,12 @@ namespace CPS_Solution.Controllers
 
         //    return View(products);
         //}
-        
+
         public ActionResult SearchForProduct()
         {
             DataManager manager = new DataManager();
             int BlockSize = 10;
-            var products = manager.GetProducts(1, BlockSize).OrderBy(x=>x.TotalWeightPoint).ToList();
+            var products = manager.GetProducts(1, BlockSize).OrderBy(x => x.TotalWeightPoint).ToList();
             LoadDropDownList();
             return View(products);
         }
@@ -44,7 +44,7 @@ namespace CPS_Solution.Controllers
             DataManager manager = new DataManager();
             int BlockSize = 8;
 
-            var products = manager.GetProductsByName(1, BlockSize,productName).ToList();
+            var products = manager.GetProductsByName(1, BlockSize, productName).ToList();
             return View(products);
         }
         [HttpPost]
@@ -97,14 +97,14 @@ namespace CPS_Solution.Controllers
                 priceInt = 8;
             }
 
-            var products = _dataManager.ListOfTop3ProductbyPrice(brandInt, priceInt).OrderByDescending(x=>x.TotalWeightPoint).Take(3);
+            var products = _dataManager.ListOfTop3ProductbyPrice(brandInt, priceInt).OrderByDescending(x => x.TotalWeightPoint).Take(3);
             TempData["brandInt"] = brandInt;
             TempData["priceInt"] = priceInt;
-                 
+
             return View(products);
 
         }
-          [HttpPost]
+        [HttpPost]
         public ActionResult Compare(int p1, int p2, int p3)
         {
             int[] vals = new int[] { p1, p2, p3 };
@@ -115,7 +115,8 @@ namespace CPS_Solution.Controllers
 
             var bestProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
 
-            if (p3 != -1) {
+            if (p3 != -1)
+            {
                 //Diem san pham 1
                 bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
                                                    (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
@@ -134,7 +135,9 @@ namespace CPS_Solution.Controllers
                 db.Entry(bestProducts[2]).State = EntityState.Modified;
                 db.SaveChanges();
 
-            } else {
+            }
+            else
+            {
                 //Diem san pham 1
                 bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
                                                    (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
@@ -183,7 +186,7 @@ namespace CPS_Solution.Controllers
             {
                 return HttpNotFound();
             }
-            product.AliasProducts = db.AliasProducts.Where(x => x.ProductID==id && x.IsActive == true && x.IsMain == false).ToList();
+            product.AliasProducts = db.AliasProducts.Where(x => x.ProductID == id && x.IsActive == true && x.IsMain == false).ToList();
             // lấy point Rating của product
             double point = 0;
             double allpoint = 0;
@@ -227,7 +230,7 @@ namespace CPS_Solution.Controllers
                 viewProduct.ViewTime += 1;
                 db.SaveChanges();
             }
-            else 
+            else
             {
                 var viewItem = new MostViewProduct()
                 {
@@ -265,27 +268,27 @@ namespace CPS_Solution.Controllers
         public ActionResult Recommend(RecommendProduct recommendproduct)
         {
             recommendproduct.RecommendTime = DateTime.Now;
-           
+
             recommendproduct.IsApprove = null;
             recommendproduct.IsTrue = false;
-            if(User.Identity.IsAuthenticated ==true)
+            if (User.Identity.IsAuthenticated == true)
             {
-                recommendproduct.Username = User.Identity.Name;  
+                recommendproduct.Username = User.Identity.Name;
             }
             else
             {
-                    recommendproduct.Username = "Guest";
+                recommendproduct.Username = "Guest";
             }
             db.RecommendProducts.Add(recommendproduct);
             db.SaveChanges();
-            return RedirectToAction("ThanksForRecommend");;
+            return RedirectToAction("ThanksForRecommend"); ;
         }
-        
-        public ActionResult ThanksForRecommend() 
+
+        public ActionResult ThanksForRecommend()
         {
             return View();
         }
-        
+
         public JsonResult checkLink(string link)
         {
             System.Threading.Thread.Sleep(1500);
@@ -294,21 +297,21 @@ namespace CPS_Solution.Controllers
             {
                 if (User.Identity.IsAuthenticated == true)
                 {
-                   var account = db.Accounts.Select(x => new { x.Username,x.Email}).Where(x => x.Username == User.Identity.Name).FirstOrDefault();
-                   return Json(account.Email);
+                    var account = db.Accounts.Select(x => new { x.Username, x.Email }).Where(x => x.Username == User.Identity.Name).FirstOrDefault();
+                    return Json(account.Email);
                 }
-                else 
+                else
                 {
                     return Json(2);
                 }
-                
+
             }
             else
             {
                 return Json(0);
             }
         }
-        
+
         private bool IsUrl(string URL)
         {
             //Load website
@@ -327,7 +330,7 @@ namespace CPS_Solution.Controllers
             }
             return false;
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
@@ -376,7 +379,7 @@ namespace CPS_Solution.Controllers
         {
             return PartialView(model);
         }
-        
+
         protected string RenderPartialViewToString(string viewName, object model)
         {
             if (string.IsNullOrEmpty(viewName))
@@ -395,7 +398,7 @@ namespace CPS_Solution.Controllers
                 return sw.GetStringBuilder().ToString();
             }
         }
-                
+
         [HttpPost]
         public ActionResult InfinateScrollSearchByName(int BlockNumber, string searchValue)
         {
@@ -412,7 +415,7 @@ namespace CPS_Solution.Controllers
                                 };
             return Json(jsonModel);
         }
-        
+
         [HttpPost]
         public ActionResult InfinateScrollSearchByPrice(int BlockNumber, int brandID, int priceID)
         {
@@ -472,7 +475,7 @@ namespace CPS_Solution.Controllers
 
             return PartialView(top3SameProduct);
         }
-       
+
         private List<SelectListItem> CreateDropDownBoxPrive()
         {
             List<SelectListItem> ListPrice = new List<SelectListItem>();
@@ -488,7 +491,7 @@ namespace CPS_Solution.Controllers
             ListPrice.Add(value5); ListPrice.Add(value6); ListPrice.Add(value7); ListPrice.Add(value8);
             return ListPrice;
         }
-        
+
         private void LoadDropDownList()
         {
             List<SelectListItem> ListBrand = new List<SelectListItem>();
@@ -506,6 +509,6 @@ namespace CPS_Solution.Controllers
             ViewBag.ListBrands = ListBrand;
             ViewBag.ListPrices = CreateDropDownBoxPrive();
         }
-        
+      
     }
 }
