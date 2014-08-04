@@ -10,7 +10,7 @@
         <div class="row">
             <div class="span3">
                 <div class="thumbnail post-media">
-                    <img src="~/@item.ImageURL" style="border-radius:5px; height:103%; margin-top:15px"/>
+                    <img class="img-@item.ID" src="~/@item.ImageURL" style="border-radius:5px; height:103%; margin-top:15px"/>
                     <div class="thumbnail-hover">
                         <div class="post-date">
                             <h3 style="color: white; text-align: center; text-decoration: underline">--Thông tin chi tiết--</h3>
@@ -68,7 +68,7 @@
                             <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
                         </div>
                         <div class="stylish-button" style="background-color: #7DBB18">
-                            <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
+                            <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name" product-img="@item.ImageURL">+ so sánh</a>
                         </div>
                     </div>
                 </div>
