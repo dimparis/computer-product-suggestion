@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
-
+@using CPS_Solution.Models;
 @{
+    DataManager data = new DataManager();
+    int takeItem = 52;
     foreach (var item in Model)
     {
     <div class="media tab-row">
@@ -8,8 +10,9 @@
             <img src="/@item.ImageURL" alt="@item.Name" style="width:60px;height:60px">
         </a>
         <div class="media-body">
+            
             <a href="@Url.Action("Details", "Product", new { id = item.ID })">
-                <p class="tab-row-title">@item.Name</p>
+                <p class="tab-row-title">@data.Truncate(@item.Name,takeItem)</p>
             </a>
             <p class="tab-row-date"><strong>@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)</strong></p>
             <p>(Có <strong>@item.SellPlacers</strong> nơi bán )</p>

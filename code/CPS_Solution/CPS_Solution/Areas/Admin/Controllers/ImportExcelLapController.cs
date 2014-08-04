@@ -3869,23 +3869,22 @@ namespace CPS_Solution.Areas.Admin.Controllers
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public string urlImageServer(string url)
+        public  string urlImageServer(string url)
         {
-            try
-            {
-                //string url = "http://laptopno1.com/images/Products/129930991376352255.jpg";
-                string exts = Path.GetExtension(url);
-                string strRealname = Path.GetFileName(url);
-                string name = url.Replace('/', 'a');
-                name = name.Replace(':', 'b');
-                System.Net.WebClient wc = new System.Net.WebClient();
-                string path = Path.Combine(Server.MapPath("~/Images/I"), name + exts);
-                wc.DownloadFile(url, path);
-                string newpath = "Images/I/" + name + exts;
-                return newpath;
-            }catch(Exception ex){
-                return "Images/I/default.jpg";
-            }
+                string now = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+                string filename = "Laptop" + now;
+                return  CPS_Solution.Areas.Admin.Helpers.ImageHelper.DownloadImage(url, filename);
+                ////string url = "http://laptopno1.com/images/Products/129930991376352255.jpg";
+                //string exts = Path.GetExtension(url);
+                //string strRealname = Path.GetFileName(url);
+                //string name = url.Replace('/', 'a');
+                //name = name.Replace(':', 'b');
+                //name = name.Replace('%', 'b');
+                //System.Net.WebClient wc = new System.Net.WebClient();
+                //string path = Path.Combine(Server.MapPath("~/Images/I"), name + exts);
+                //wc.DownloadFile(url, path);
+                //string newpath = "Images/I/" + name + exts;
+                //return newpath;
         }
 
         /// <summary>

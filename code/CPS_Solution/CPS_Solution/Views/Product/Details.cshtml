@@ -1,10 +1,13 @@
 ﻿@model CPS_Solution.EntityFramework.Product
 @using CPS_Solution.EntityFramework;
+@using CPS_Solution.Models;
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
     double point = ViewBag.point;
     double pointLogin = ViewBag.pointLogin;
+    DataManager data = new DataManager();
+    int takeItem = 47;
 }
 
 <link rel="stylesheet" type="text/css" href="@Url.Content("~/Areas/Admin/Rating/css/jRating.jquery.css")" media="screen" />
@@ -341,23 +344,23 @@
                             <tr></tr>
                             <tr>
                                 <td style="width: 25%">CPU</td>
-                                <td style="width: 100%">@Model.strCPU</td>
+                                <td style="width: 100%">@data.Truncate(@Model.strCPU,takeItem)</td>
                             </tr>
                             <tr>
                                 <td>RAM</td>
-                                <td>@Model.strRAM</td>
+                                <td>@data.Truncate(@Model.strRAM,takeItem)</td>
                             </tr>
                             <tr>
                                 <td>Đĩa cứng</td>
-                                <td>@Model.strHDD</td>
+                                <td>@data.Truncate(@Model.strHDD,takeItem)</td>
                             </tr>
                             <tr>
                                 <td>Đồ họa</td>
-                                <td>@Model.strVGA</td>
+                                <td>@data.Truncate(@Model.strVGA,takeItem)</td>
                             </tr>
                             <tr>
                                 <td>Màn hình</td>
-                                <td>@Model.strDisplay</td>
+                                <td>@data.Truncate(@Model.strDisplay,takeItem)</td>
                             </tr>
                             <tr>
                                 <td>Đánh giá</td>
