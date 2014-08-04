@@ -20,7 +20,7 @@
                         $('#formCompare').submit();
                 </script>
                 }
-                else
+                else if (Model.Count() ==2)
                 {
                     int i = -1;
                     using (Html.BeginForm("Compare", "Product", FormMethod.Post, new { id = "formCompare" }))

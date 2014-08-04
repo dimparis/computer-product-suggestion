@@ -90,9 +90,9 @@
                                     int i = -1;
                                     using (Html.BeginForm("CompareDetail", "Product", FormMethod.Post, new { id = "formDetail" }))
                                     {           
-                                    <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(0).ID" />
-                                    <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(1).ID" />
-                                    <input type="hidden" id="p3" name="p2" value="@i" />
+                                <input type="hidden" id="p1" name="p1" value="@Model.ElementAt(0).ID" />
+                                <input type="hidden" id="p2" name="p2" value="@Model.ElementAt(1).ID" />
+                                <input type="hidden" id="p3" name="p3" value="@i" />
                                     }
                                     <script>
                                         function clicktoDetail() {

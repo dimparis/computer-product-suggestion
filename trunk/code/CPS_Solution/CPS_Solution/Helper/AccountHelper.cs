@@ -19,12 +19,19 @@ namespace CPS_Solution.Helper
                 {
                     throw new MembershipCreateUserException(MembershipCreateStatus.DuplicateUserName);
                 }
+                // Duplicate email
+                var email = context.Accounts.FirstOrDefault(x => x.Email == model.Email);
+                if(email !=null)
+                {
+                    throw new MembershipCreateUserException(MembershipCreateStatus.DuplicateEmail);
+                }
 
                 var newUser = new Account
                 {
                     Username = model.UserName,
                     Password = model.Password,
                     RoleID = model.RoleId,
+                    Email = model.Email,
                     IsActive = true
                 };
                 context.Accounts.Add(newUser);

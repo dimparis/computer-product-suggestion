@@ -10,12 +10,11 @@ using LinqToExcel;
 using LinqToExcel.Query;
 using CPS_Solution.Areas.Admin.Helpers;
 using System.Net;
-using System.Globalization;
 using CPS_Solution.CommonClass;
 
 namespace CPS_Solution.Areas.Admin.Controllers
 {
-    [MyAuthorize(Roles = "Admin")]
+    [MyAuthorize(Roles = "admin")]
     public class ManagerUserController : Controller
     {
         //
@@ -23,7 +22,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         CPS_SolutionEntities db = new CPS_SolutionEntities();
         public ActionResult Index()
         {
-            var listUser = db.Accounts.ToList();
+            var listUser = db.Accounts.Where(x => x.IsActive == true).ToList();
             List<Account> user = listUser;
 
             var listRole = db.Roles.ToList();
@@ -31,7 +30,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             ViewBag.listRole = role;
             ViewBag.listUser = user;
-            return View();
+            return View(listUser);
         }
 
 
