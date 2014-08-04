@@ -41,7 +41,7 @@
 <div id="page-wrap">
     <div class="main-content">
         <div class="container">
-            <div class="row" style="margin-top: 120px;">
+            <div class="row" style="margin-top: 70px;">
                 @if (Model.Any())
                 {
                     <div id="loadItemcontainer" style="margin-top: 60px">
@@ -112,13 +112,15 @@
 
 
 @*Compare cart*@
-<div id="compare_panel" style="display: block;">
-    <h3>Các sản phẩm sẽ so sánh<a class="compare-close"></a></h3>
+<p class="list-cart stylish-button" style="border-top-left-radius:5px; border-bottom-left-radius:5px; position:fixed; top:200px; right:0px; color:white; padding:6px 6px 6px 10px; background-color: #FF3333"><i class="icon-shopping-cart"></i></p>
+<div id="compare_panel" >
+    <h4><strong>Danh sách sản phẩm</strong></h4>
     <ul></ul>
     <label class="compare-button">
         <span>So sánh</span>
     </label>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         if ($("#compare_panel ul").html() != "") {
@@ -128,47 +130,4 @@
 
         }
     });
-</script>
-<script type="text/javascript">
-    var BlockNumber = 2;  //Infinate Scroll starts from second block
-    var NoMoreData = false;
-    var inProgress = false;
-    var a = $('#brands').val();
-    var b = $('#prices').val();
-    function clickHere() {
-        if (!NoMoreData && !inProgress) {
-
-            inProgress = true;
-            $("#loadingDiv").show();
-            $("#clickButton").hide();
-            $.post("@Url.Action("InfinateScrollSearchByPrice", "Product")", { "BlockNumber": BlockNumber, "brandID": Number($('#brands').val()), "priceID": Number($('#prices').val()) },
-                    function (data) {
-                        BlockNumber = BlockNumber + 1;
-                        NoMoreData = data.NoMoreData;
-                        if (!NoMoreData) {
-                            $("#clickButton").show();
-                        }
-                        $("#loadItemcontainer").append(data.HTMLString);
-                        $("#loadingDiv").hide();
-                        inProgress = false;
-                    });
-        }
-    }
-    @*$(window).scroll(function () {
-        if ($(window).scrollTop() == $(document).height() -
-        $(window).height() && !NoMoreData && !inProgress) {
-
-            inProgress = true;
-            $("#loadingDiv").show();
-
-            $.post("@Url.Action("InfinateScrollSearchByName", "Product")", { "BlockNumber": BlockNumber, "searchValue": $('#productName').val() },
-                    function (data) {
-                        BlockNumber = BlockNumber + 1;
-                        NoMoreData = data.NoMoreData;
-                        $("#loadItemcontainer").append(data.HTMLString);
-                        $("#loadingDiv").hide();
-                        inProgress = false;
-                    });
-        }
-    });*@
 </script>
