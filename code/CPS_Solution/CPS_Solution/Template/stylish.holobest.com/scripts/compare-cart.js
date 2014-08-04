@@ -16,7 +16,7 @@
             return false;
         }
         //Hieu ung add to list
-        jQuery(".img-" + id).effect("transfer", { to: ".icon-shopping-cart", className: "ui-effects-transfer" }, 1200);
+        jQuery(".img-" + id).effect("transfer", { to: ".icon-shopping-cart", className: "ui-effects-transfer" }, 1000);
         $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
         checkCart();
         //$(".ui-effects-transfer:last").css("background-image", "url(../" + img + ")");
