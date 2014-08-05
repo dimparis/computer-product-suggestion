@@ -153,12 +153,14 @@ namespace CPS_Solution.Controllers
 
             }
 
-            //Move down the first
-            var temp = bestProducts[0];
-            bestProducts[0] = bestProducts[1];
-            bestProducts[1] = temp;
+            var sortProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
 
-            return View(bestProducts);
+            //Move down the first
+            var temp = sortProducts[0];
+            sortProducts[0] = sortProducts[1];
+            sortProducts[1] = temp;
+
+            return View(sortProducts);
         }
         [HttpPost]
         public ActionResult CompareDetail(int p1, int p2, int p3)
