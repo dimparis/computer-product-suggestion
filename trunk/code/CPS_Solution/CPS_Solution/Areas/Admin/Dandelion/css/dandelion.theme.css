@@ -1,10 +1,10 @@
 body
 {
-	background-image:url(../images/bg/intel.jpg);
-    background-size:cover;
+	background-image:url(../images/bg/wood_pattern.jpg);
+    background-repeat: repeat;
 }
 
 div#da-header #da-header-top
 {
-	background-image:url(../images/bg/wood.png);
+	background-image:url(../Template/stylish.holobest.com/images/bg-wood.jpg);
 }

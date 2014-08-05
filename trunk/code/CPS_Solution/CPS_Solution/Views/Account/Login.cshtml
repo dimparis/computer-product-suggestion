@@ -19,7 +19,7 @@
 
         <div class="container fadeDown" style="padding-top: 10px; padding-bottom: 110px">
             <div class="span5">
-                @using (Html.BeginForm("LogOn","Account",new { ReturnUrl = ViewBag.ReturnUrl }))
+                @using (Html.BeginForm("Login","Account",new { ReturnUrl = ViewBag.ReturnUrl }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, null ,new { @class="bg-white-input" })

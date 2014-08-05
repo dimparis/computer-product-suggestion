@@ -416,27 +416,32 @@ namespace CPS_Solution.Areas.Admin.Controllers
              [HttpPost]
         public string HuyboHard(string stringid)
         {
-            int id = Convert.ToInt32(stringid);
-            var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
-            var ProAtt = db.ProductAttributes.Where(x => x.AttributeID == id).ToList();
-
-            if (ProAtt != null)
+            try
             {
-                foreach(ProductAttribute pro in ProAtt)
+                int id = Convert.ToInt32(stringid);
+                var hardware = db.Hardwares.FirstOrDefault(x => x.ID == id && x.IsActive == null);
+                var ProAtt = db.ProductAttributes.Where(x => x.AttributeID == id).ToList();
+
+                if (ProAtt != null)
                 {
-                    pro.IsActive = null;
+                    foreach (ProductAttribute pro in ProAtt)
+                    {
+                        pro.IsActive = null;
+                    }
                 }
-            }
 
-            if (hardware.IsActive == null)
+                if (hardware.IsActive == null)
+                {
+
+                    hardware.IsActive = false;
+
+                    db.SaveChanges();
+
+
+
+                }
+            }catch(Exception ex)
             {
-
-                hardware.IsActive = false;
-
-                db.SaveChanges();
-
-
-
             }
             // Display the confirmation message       
             return "";
