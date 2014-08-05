@@ -135,7 +135,7 @@
 <body>
     <header>
         <div id="header-container" class="navbar-fixed-top header-small">
-            <div class="tmp">
+            <div class="tmp" style="width:95%; margin-left:auto; margin-right:auto">
                 <div id="logo"  class="animated fadeLeft">
                     <h1>
                         <a href="#">
@@ -157,10 +157,10 @@
                                     <a data-toggle="dropdown" href="#">
                                         <i style="font-size: 20px; color:black" class="icon-gear"></i>
                                     </a>
-                                    <ul class="dropdown-menu" style="top: 20px; right: -55px; left: 100px;">
+                                    <ul class="dropdown-menu" style="top: 20px; right: 10px;">
                                         <li></li>
                                         <li>
-                                            <a href="javascript:void(0)"><i class="icon-h-sign"></i>  Lịch sử so sánh</a>
+                                            <a href="@Url.Action("CompareHistory", "History")"><i class="icon-h-sign"></i>  Lịch sử so sánh</a>
                                         </li>
                                         <li>
                                             <a href="@Url.Action("LogOff", "Account")"><i class="icon-signout"></i>  Đăng xuất</a>
