@@ -19,11 +19,26 @@ namespace CPS_Solution.Areas.Admin.Controllers
         CPS_SolutionEntities db = new CPS_SolutionEntities();
         public ActionResult Index()
         {
+            //Lấy những product có isactive = null
             List<Product> listproconfirm = ProductNotConfirm();
+
+            // lấy id có trong txt để kiểm tra có trùng ko
+            List<string> listProductId = new List<string>();
+            List<List<ProductMap>> listTxtTrung = LoadThanhPhanTrungDB();
+
+            foreach (List<ProductMap> list in listTxtTrung)
+            {
+                for(int i=0; i<list.Count; i++)
+                {
+                    listProductId.Add(list[1].productid);
+                }
+            }
+            ViewBag.listProductId = listProductId;
+
+
             ViewBag.listproconfirm = listproconfirm;
             List<Hardware> ListHardWarePro = new List<Hardware>();
-            #region lấy hết những hardware của các product chưa confirm có isactive = true
-         
+            #region lấy hết những hardware của các product chưa confirm có isactive = true      
             List<int> listid = new List<int>();
             foreach (Product p in listproconfirm)
             {
@@ -511,6 +526,72 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // Display the confirmation message       
             return "";
         }
+
+         //Load thành phần trùng với database từ txt
+         public List<List<ProductMap>> LoadThanhPhanTrungDB()
+         {  // Thành phần trùng với thành phần trong database
+             #region load sản phẩm trùng từ txt LapDataTraning
+             string path = Server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
+             List<List<ProductMap>> Listduptraning = new List<List<ProductMap>>();
+             List<String> listID = new List<String>();
+             if (System.IO.File.Exists(path))
+             {
+                 int h = 999;
+                 string[] lines = System.IO.File.ReadAllLines(path);
+
+
+
+
+
+
+                 int sttp = 0;
+                 for (int i = 0; i < lines.Length; i++)
+                 {
+                     if (!String.IsNullOrWhiteSpace(lines[i].Trim()))
+                     {
+                         h++;
+                         List<ProductMap> duppro = new List<ProductMap>();
+                         string[] seperators = { "~", "#" };
+                         // tách ra làm 3 phần tử.
+                         String[] line = lines[i].Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+                         // cho id vào list ID
+                         string productId = line[0];
+                         // tên sản phẩm đã có trong database
+                         string[] produc1 = line[1].Split('|');
+                         ProductMap p1 = new ProductMap();
+                         p1.stt = produc1[3];
+                         p1.ten = produc1[0];
+                         p1.loai = produc1[1];
+                         p1.trongso = produc1[2];
+                         p1.productid = line[0];
+                         duppro.Add(p1);
+                         // tên product bị trùng với product đã có trong database
+                         string[] produc2 = line[2].Split('|');
+                         ProductMap p2 = new ProductMap();
+                         p2.stt = sttp.ToString() + 'z';
+                         sttp++;
+                         p2.ten = produc2[0];
+                         p2.loai = produc1[1];
+
+                         if (produc2[2].Equals(""))
+                         {
+                             p2.trongso = "0";
+                         }
+                         else
+                         {
+                             p2.trongso = produc2[2];
+                         }
+                         p2.productid = line[0];
+                         duppro.Add(p2);
+
+                         Listduptraning.Add(duppro);
+
+                     }
+                 }
+             }
+             #endregion
+             return Listduptraning;
+         }
         
     }
 }
