@@ -20,3 +20,16 @@
         <span>So sánh</span>
     </label>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#compare_panel ul").html() != "") {
+            return false;
+        } else {
+            checkSession();
+        }
+    });
+</script>
+
+@*Modified cart list for this page - vietht*@
+<script src="~/Template/stylish.holobest.com/scripts/modified-cart.js"></script>
