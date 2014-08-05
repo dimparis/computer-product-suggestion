@@ -8,14 +8,14 @@
 }
 @if (Model.mostbyTotalPointProducts.Any())
 {
-    <div class="page-element gray-element">
+    <div class="page-element">
         <div class="container">
             <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm tốt nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyTotalPointProducts)
                     {  
-                        <div class="span3">
+                        <div class="span3" style="background-color:rgba(255, 255, 255, 0.75)">
                             <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
                                 <div class="member-photo thumbnail">
                                     <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
@@ -58,10 +58,10 @@
 
                                     <div class="member-social-icons clearfix">
                                         <div style="height: 50px;">
-                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                            <div class="stylish-button" style="background-color: #666699">
                                                 <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
                                             </div>
-                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                            <div class="stylish-button" style="background-color: #666699; margin-left: 45px">
                                                 <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
                                             </div>
                                         </div>
@@ -77,14 +77,14 @@
 }
 @if (Model.mostbyCompareProducts.Any())
 {
-    <div class="page-element gray-element">
+    <div class="page-element">
         <div class="container">
             <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm được so sánh nhiều nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyCompareProducts)
                     {  
-                        <div class="span3">
+                        <div class="span3" style="background-color:rgba(255, 255, 255, 0.75)">
                             <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
                                 <div class="member-photo thumbnail">
                                     <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
@@ -127,10 +127,10 @@
 
                                     <div class="member-social-icons clearfix">
                                         <div style="height: 50px;">
-                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                            <div class="stylish-button" style="background-color: #666699">
                                                 <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
                                             </div>
-                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                            <div class="stylish-button" style="background-color: #666699; margin-left: 45px">
                                                 <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
                                             </div>
                                         </div>
@@ -146,14 +146,14 @@
 }
 @if (Model.mostbyViewProducts.Any())
 {
-    <div class="page-element gray-element">
+    <div class="page-element">
         <div class="container">
             <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm được tìm kiếm nhiều nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyViewProducts)
                     {  
-                        <div class="span3">
+                        <div class="span3" style="background-color:rgba(255, 255, 255, 0.75)">
                             <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
                                 <div class="member-photo thumbnail">
                                     <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
@@ -196,10 +196,10 @@
 
                                     <div class="member-social-icons clearfix">
                                         <div style="height: 50px;">
-                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                            <div class="stylish-button" style="background-color: #666699">
                                                 <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
                                             </div>
-                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                            <div class="stylish-button" style="background-color: #666699; margin-left: 45px">
                                                 <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
                                             </div>
                                         </div>
@@ -215,14 +215,14 @@
 }
 @if (Model.mostbyRatingProducts.Any())
 {
-    <div class="page-element gray-element">
+    <div class="page-element">
         <div class="container">
             <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm được đánh giá nhiều nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyRatingProducts)
                     {  
-                        <div class="span3">
+                        <div class="span3" style="background-color:rgba(255, 255, 255, 0.75)">
                             <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
                                 <div class="member-photo thumbnail">
                                     <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
@@ -265,10 +265,10 @@
 
                                     <div class="member-social-icons clearfix">
                                         <div style="height: 50px;">
-                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                            <div class="stylish-button" style="background-color: #666699">
                                                 <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
                                             </div>
-                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                            <div class="stylish-button" style="background-color: #666699; margin-left: 45px">
                                                 <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
                                             </div>
                                         </div>
@@ -284,14 +284,14 @@
 }
 @if (Model.mostbyNewProducts.Any())
 {
-    <div class="page-element gray-element">
+    <div class="page-element">
         <div class="container">
            <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm mới nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyNewProducts)
                     {  
-                        <div class="span3">
+                        <div class="span3" style="background-color:rgba(255, 255, 255, 0.75)">
                             <div class="member fadeDown animated fadeInDown" style="visibility: visible;">
                                 <div class="member-photo thumbnail">
                                     <img src="~/@item.ImageURL" alt="member image" style="width:270px;height:230px ">
@@ -334,10 +334,10 @@
 
                                     <div class="member-social-icons clearfix">
                                         <div style="height: 50px;">
-                                            <div class="stylish-button" style="background-color: #7DBB18">
+                                            <div class="stylish-button" style="background-color: #666699">
                                                 <a href="/Product/Details?ID=@item.ID" target="_blank">chi tiết</a>
                                             </div>
-                                            <div class="stylish-button" style="background-color: #7DBB18; margin-left: 45px">
+                                            <div class="stylish-button" style="background-color: #666699; margin-left: 45px">
                                                 <a href="javascript:void(0);" class="addToCompare" product-id="@item.ID" product-name="@item.Name">+ so sánh</a>
                                             </div>
                                         </div>
