@@ -18,7 +18,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
         public ActionResult Index()
         {
-            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == false);
+            var recommendProduct = context.RecommendProducts.Where(x => x.IsApprove == null && x.IsTrue == false).OrderByDescending(x=>x.RecommendTime);
 
             return View(recommendProduct);
         }
