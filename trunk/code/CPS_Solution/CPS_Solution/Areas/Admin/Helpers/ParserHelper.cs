@@ -748,7 +748,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             context.SaveChanges();
                             StoreID = newStore.ID;
                         }
-                        //Add alias product
+    
                         int brand = 13;
                         var allBrands = context.Brands.ToList();
                         foreach (var item in allBrands)
@@ -766,6 +766,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 brand = 12;
                             }
                         }
+
                         prod.AliasProducts.Add(new AliasProduct()
                                         {
                                             Name = data.Name,
@@ -829,7 +830,11 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 if (goodMatch.Count == 1)
                                 {
                                     // Match well with only 1 product, take it
-                                    pId = goodMatch[0];
+                                    var checkTrueItem = context.Hardwares.FirstOrDefault(x => x.IsActive == true);
+                                    if(checkTrueItem != null)
+                                    {
+                                     pId = goodMatch[0];
+                                    }                                  
                                 }
                                 else if (goodMatch.Count > 1)
                                 {

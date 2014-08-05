@@ -42,7 +42,7 @@
                 </p>
                 <p class="float">
                     <label for="password"><i class="icon-lock"></i>Mật khẩu</label>
-                    @Html.TextBoxFor(x => x.Password, new { type = "password", placeholder = "Mật khẩu", required = "", @class = "showpassword" })
+                    @Html.PasswordFor(x => x.Password, new { type = "password", placeholder = "Mật khẩu", required = "", @class = "showpassword" })
                 </p>
                 <p class="clearfix">
                     <input type="submit" name="submit" value="Đăng nhập" style="width: 307px; background: #34a5cf; color: #fff">
