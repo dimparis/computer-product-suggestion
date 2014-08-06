@@ -3,7 +3,20 @@
     ViewBag.Title = "Tìm theo nhãn hiệu và giá";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-<div class="main-content" style="position:fixed; height:auto; width:100%; z-index: 3">
+<style>
+    .ui-autocomplete {
+        max-height: 200px;
+        overflow-y: auto;
+        background: #fff;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+    }
+
+    * html .ui-autocomplete {
+        height: 100px;
+    }
+</style>
+<div class="main-content" style="position: fixed; height: auto; width: 100%; z-index: 3">
     <div class="container">
         <div class="tabbable tabs-left">
             <ul class="nav nav-tabs" data-tabs="tabs">
@@ -18,7 +31,7 @@
                     {
                         @Html.TextBox("productName", ViewBag.CurrentFilter as string, new { placeholder = "Từ khóa..." })
                         <button type="submit">Tìm kiếm</button>               
-            }
+                    }
                 </div>
                 <div class="tab-pane fade" id="searchByPrice">
 
@@ -27,12 +40,12 @@
                         @Html.DropDownList("brands", ViewBag.ListBrands as List<SelectListItem>, new { @style = "width:100px;height:40px" })
                         @Html.DropDownList("prices", ViewBag.ListPrices as List<SelectListItem>, new { @style = "width:225px;height:40px" })
                         <button type="submit" style="width: 125px; margin-left: -5px; z-index: 4">Tìm kiếm</button>               
-            }
+                    }
                 </div>
             </div>
         </div>
 
-        <div class="hide-icon" style="display:none">
+        <div class="hide-icon" style="display: none">
             <center><i class="icon-chevron-sign-down"></i></center>
         </div>
     </div>
@@ -99,7 +112,7 @@
                 }
 
             </div>
-            <div id="clickButton" class="stylish-button" style="background-color: #7DBB18; margin-left:46% ;margin-bottom: 20px;">
+            <div id="clickButton" class="stylish-button" style="background-color: #7DBB18; margin-left: 46%; margin-bottom: 20px;">
                 <a onclick="clickHere()">Xem thêm</a>
             </div>
             <div id="loadingDiv" style="display: none; margin-right: auto; margin-left: auto; margin-bottom: 20px; width: 55px; height: 55px">
@@ -112,8 +125,8 @@
 
 
 @*Compare cart*@
-<p class="list-cart stylish-button" style="border-top-left-radius:5px; border-bottom-left-radius:5px; position:fixed; top:200px; right:0px; color:white; padding:6px 6px 6px 10px; background-color: #FF3333"><i class="icon-shopping-cart"></i></p>
-<div id="compare_panel" >
+<p class="list-cart stylish-button" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px; position: fixed; top: 200px; right: 0px; color: white; padding: 6px 6px 6px 10px; background-color: #FF3333"><i class="icon-shopping-cart"></i></p>
+<div id="compare_panel">
     <h4><strong>Danh sách sản phẩm</strong></h4>
     <ul></ul>
     <label class="compare-button">
@@ -130,4 +143,27 @@
 
         }
     });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#productName").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Product/SuggestProductName",
+                    type: "POST",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
 </script>

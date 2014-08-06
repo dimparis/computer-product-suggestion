@@ -96,7 +96,7 @@ namespace CPS_Solution.Controllers
                     accountHelper.CreateAccount(model);
                     WebSecurity.Login(model.UserName, model.Password);
                     Session["Username"] = model.UserName;
-                    return RedirectToAction("SearchForProduct", "Product");
+                    return RedirectToAction("Index", "HighLight");
                 }
                 catch (MembershipCreateUserException e)
                 {

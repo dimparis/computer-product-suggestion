@@ -511,6 +511,13 @@ namespace CPS_Solution.Controllers
             ViewBag.ListBrands = ListBrand;
             ViewBag.ListPrices = CreateDropDownBoxPrive();
         }
-      
+
+        public JsonResult SuggestProductName(string term)
+        {
+            var result = (from r in db.AliasProducts
+                          where r.Name.ToLower().Contains(term.ToLower()) && r.IsActive == true && r.IsMain ==true && r.Product.IsActive ==true
+                          select new { r.Name }).Distinct();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }
