@@ -20,7 +20,7 @@ namespace CPS_Solution.CommonClass
         public void SendEmail(string address, string subject, string lapName, string productID)
         {
             string email = "latopsuggestion@gmail.com"; string password = "latopsuggestion1";
-            string message = "Laptop " + lapName + " mà bạn gợi ý cho hệ thống hiện đã được chúng tôi cập nhập" +
+            string message = "Laptop " + lapName + ":" + " mà bạn gợi ý cho hệ thống hiện đã được chúng tôi cập nhập" +
                 "\n Xin hãy vào địa chỉ để xem tại " + "http://localhost:28758/Product/Details?ID=" + productID;
 
             var loginInfo = new NetworkCredential(email, password);
