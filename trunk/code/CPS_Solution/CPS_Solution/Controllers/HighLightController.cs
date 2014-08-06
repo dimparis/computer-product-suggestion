@@ -16,8 +16,41 @@ namespace CPS_Solution.Controllers
         private DataManager dataManager = new DataManager();
         private const int takeItem = 4;
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
+        private void LoadDropDownList()
+        {
+            List<SelectListItem> ListBrand = new List<SelectListItem>();
+            var brands = context.Brands.ToList();
+            List<Product> ListOfProduct = new List<Product>();
+            foreach (var item in brands)
+            {
+                SelectListItem avaiableItem = new SelectListItem
+                {
+                    Text = item.BrandName,
+                    Value = item.ID.ToString(),
+                };
+                ListBrand.Add(avaiableItem);
+            }
+            ViewBag.ListBrands = ListBrand;
+            ViewBag.ListPrices = CreateDropDownBoxPrive();
+        }
+        private List<SelectListItem> CreateDropDownBoxPrive()
+        {
+            List<SelectListItem> ListPrice = new List<SelectListItem>();
+            SelectListItem value1 = new SelectListItem { Text = " Dưới 8 triệu", Value = "1" };
+            SelectListItem value2 = new SelectListItem { Text = " 8 triệu - 10 triệu ", Value = "2" };
+            SelectListItem value3 = new SelectListItem { Text = " 10 triệu - 13 triệu ", Value = "3" };
+            SelectListItem value4 = new SelectListItem { Text = " 13 triệu - 16 triệu ", Value = "4" };
+            SelectListItem value5 = new SelectListItem { Text = " 16 triệu - 20 triệu ", Value = "5" };
+            SelectListItem value6 = new SelectListItem { Text = " 20 triệu - 25triệu ", Value = "6" };
+            SelectListItem value7 = new SelectListItem { Text = " Trên 25 triệu", Value = "7" };
+            SelectListItem value8 = new SelectListItem { Text = " Tất Cả", Value = "8" };
+            ListPrice.Add(value1); ListPrice.Add(value2); ListPrice.Add(value3); ListPrice.Add(value4);
+            ListPrice.Add(value5); ListPrice.Add(value6); ListPrice.Add(value7); ListPrice.Add(value8);
+            return ListPrice;
+        }
         public ActionResult Index()
-        {         
+        {
+            LoadDropDownList();
             // All Product
             var products = dataManager.Check5AttributeLoad(context.Products.Where(x => x.IsActive == true).ToList());
             // Highlight Model 
