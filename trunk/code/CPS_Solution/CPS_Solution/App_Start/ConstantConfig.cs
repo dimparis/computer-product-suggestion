@@ -22,6 +22,11 @@ namespace CPS_Solution.App_Start
             ConstantManager.IsRecommendRunning = false;
             ConstantManager.IsUpdateRunning = false;
             ConstantManager.TotalPoint = 1;
+            ConstantManager.CPUPoint = 1;
+            ConstantManager.VGAPoint = 1;
+            ConstantManager.RAMPoint = 1;
+            ConstantManager.HDDPoint = 1;
+            ConstantManager.DISPLAYPoint = 1;
         }
     }
 }

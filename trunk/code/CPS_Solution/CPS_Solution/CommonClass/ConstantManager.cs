@@ -18,6 +18,12 @@ namespace CPS_Solution.CommonClass
         public static bool IsUpdateRunning { get; set; }
         public static bool IsRecommendRunning { get; set; }
         public static int TotalPoint { get; set; }
+
+        public static int CPUPoint { get; set; }
+        public static int VGAPoint { get; set; }
+        public static int RAMPoint { get; set; }
+        public static int HDDPoint { get; set; }
+        public static int DISPLAYPoint { get; set; }
     }
     public enum SystemRole { 
         Admin = 1,
