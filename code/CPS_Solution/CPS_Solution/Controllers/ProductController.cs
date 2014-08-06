@@ -11,6 +11,7 @@ using HtmlAgilityPack;
 using System.IO;
 using CPS_Solution.Models;
 using CPS_Solution.CommonClass;
+
 namespace CPS_Solution.Controllers
 {
     public class ProductController : Controller
@@ -19,6 +20,12 @@ namespace CPS_Solution.Controllers
         private readonly DataManager _dataManager = new DataManager();
         private string email = "";
 
+        private int bestCPU = ConstantManager.CPUPoint;
+        private int bestVGA = ConstantManager.VGAPoint;
+        private int bestRAM = ConstantManager.RAMPoint;
+        private int bestHDD = ConstantManager.HDDPoint;
+        private int bestDisplay = ConstantManager.DISPLAYPoint;
+       
         //public ActionResult Index()
         //{
         //    DataManager manager = new DataManager();
@@ -104,6 +111,9 @@ namespace CPS_Solution.Controllers
             return View(products);
 
         }
+
+        
+
         [HttpPost]
         public ActionResult Compare(int p1, int p2, int p3)
         {
@@ -159,6 +169,12 @@ namespace CPS_Solution.Controllers
             var temp = sortProducts[0];
             sortProducts[0] = sortProducts[1];
             sortProducts[1] = temp;
+
+            Console.WriteLine(bestCPU);
+            Console.WriteLine(bestVGA);
+            Console.WriteLine(bestRAM);
+            Console.WriteLine(bestHDD);
+            Console.WriteLine(bestDisplay);
 
             return View(sortProducts);
         }
