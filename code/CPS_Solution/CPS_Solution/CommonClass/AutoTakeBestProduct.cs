@@ -24,6 +24,12 @@ namespace CPS_Solution.CommonClass
             var HDD = context.Hardwares.Where(x => x.CodetypeID == "H").OrderByDescending(x => x.WeightCriteraPoint).FirstOrDefault();
             var Display = context.Hardwares.Where(x => x.CodetypeID == "D").OrderByDescending(x => x.WeightCriteraPoint).FirstOrDefault();
 
+            ConstantManager.CPUPoint = (int)CPU.WeightCriteraPoint;
+            ConstantManager.VGAPoint = (int)VGA.WeightCriteraPoint;
+            ConstantManager.RAMPoint = (int)RAM.WeightCriteraPoint;
+            ConstantManager.HDDPoint = (int)HDD.WeightCriteraPoint;
+            ConstantManager.DISPLAYPoint = (int)Display.WeightCriteraPoint;
+
             double main = 6 * (CPU.WeightCriteraPoint + VGA.WeightCriteraPoint);
             double alias = 4 * (RAM.WeightCriteraPoint + HDD.WeightCriteraPoint + Display.WeightCriteraPoint);
             double result = (main + alias) / 10;
