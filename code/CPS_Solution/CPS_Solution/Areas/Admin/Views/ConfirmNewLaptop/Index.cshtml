@@ -187,7 +187,7 @@
             </li>
             <li>
                 <a href="@Url.Action("Index", "Product")">
-                    <span class="da-nav-count">4</span>
+                    <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/day_calendar.png")" alt="Calendar" />
@@ -222,6 +222,13 @@
                             <strong>Lịch sử tìm kiếm</strong>
                         </a>
                     </li>
+                    <li>
+                        <a href="@Url.Action("Index", "ManagerStore")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/color/asterisk_orange.png")" alt="" />
+                            <strong>Quản lý cửa hàng</strong>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
             <li>
@@ -480,15 +487,18 @@
                                                             foreach(string idStr in listProductId)
                                                             {
                                                                 if(h.ID.ToString().Equals(idStr.Trim()))
-                                                                {       check++;
-                                                                <div class="da-form-row">
+                                                                {       check++;                                                  
+                                                                }
+                                                            }
+                                                            if(check>0)
+                                                            {
+                                                                  <div class="da-form-row">
                                                                 <label>Chú ý:</label>
                                                                 <div class="da-form-item">
                                                                     @* <span class="formNote">Tên thành phần</span>*@
-                                                                    <a style="color: red;" href="/Admin/TrainingProduct">Click vào đây để xử lý linh kiện còn thiếu của Laptop</a>
+                                                                    <a style="color: red;" href="/Admin/TrainingProduct">Click vào đây để xử lý @check linh kiện còn thiếu của Laptop</a>
                                                                 </div>
                                                                 </div>
-                                                                }
                                                             }
                                                             if(check==0)
                                                             {
@@ -496,10 +506,9 @@
                                                                 <label>Chú ý:</label>
                                                                 <div class="da-form-item">
                                                                     @* <span class="formNote">Tên thành phần</span>*@
-                                                                    <a style="color: red;">Sản phẩm bị thiếu thông tin xin hãy hủy bỏ</a>
+                                                                    <a style="color: red;">Sản phẩm bị thiếu thông tin khi parse xin hãy hủy bỏ</a>
                                                                 </div>
-                                                                </div>
-                                                                
+                                                                </div>                                                 
                                                             }
                                                         }
                                                     </div>

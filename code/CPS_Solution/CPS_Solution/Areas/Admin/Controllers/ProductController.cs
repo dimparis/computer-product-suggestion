@@ -175,9 +175,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 if (file != null && file.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    fileName = DateTime.Now.ToString("yyyyMMdd-HHmmss") +fileName;
+                    var path = Path.Combine(Server.MapPath("~/Images/StoreLogo/"), fileName);
                     file.SaveAs(path);
-                    model.ImageURL = path;
+                    model.ImageURL = "Images/StoreLogo/" + fileName;
                 }
             }
             //Add item product
@@ -185,6 +186,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 Price = model.Price,
                 IsActive = true,
+                ImageURL = model.ImageURL,
                 URL = model.Parselink,
                 Description = model.Description,
                 TotalWeightPoint = 0,
