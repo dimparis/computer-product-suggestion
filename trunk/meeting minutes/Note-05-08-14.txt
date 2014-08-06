@@ -3,9 +3,9 @@
 # Trường hợp member đề xuất
 	- Check gửi mail > Gửi mail khi training xong
 	- Không check gửi mail > Gửi notify
-# Trang quản lý đề xuất: Đảo vị trí của đề xuất mới nhất
-# Trang search của user: Implement chức năng giống autocomplete khi gõ search
-# Thêm module thêm store cho 1 product
-# Suy nghĩ cải tiến bảng store trong db để hạn chế trùng lắp dữ liệu.
+Xog# Trang quản lý đề xuất: Đảo vị trí của đề xuất mới nhất
+Xog# Trang search của user: Implement chức năng giống autocomplete khi gõ search
+Xog# Thêm module thêm store cho 1 product
+Remove# Suy nghĩ cải tiến bảng store trong db để hạn chế trùng lắp dữ liệu.
 
 ## Thứ 5 chuẩn bị slide
