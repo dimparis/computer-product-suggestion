@@ -8,6 +8,8 @@ using CPS_Solution.Areas.Admin.Models;
 using System.IO;
 using CPS_Solution.CommonClass;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
+using System.Net;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     [Authorize(Roles = "staff")]
@@ -322,6 +324,26 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             string name = product.Name;
 
+
+            //Lấy tên phụ sản phẩm
+            var listAlias = context.AliasProducts.Where(x=> x.ProductID == id && x.IsMain == false).ToList();
+            ViewBag.listAlias = listAlias;
+            var completeAlias = new List<SelectListItem>();
+            foreach (var a in listAlias)
+            {
+                var item = new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.ID.ToString()
+                };
+                completeAlias.Add(item);
+            }
+            ViewBag.completeAlias = completeAlias;
+
+            // Lấy store 
+            var listStore = context.Stores.ToList();
+
+            ViewBag.listStore = listStore;
             return View(product);
 
         }
@@ -394,6 +416,232 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             return Json("NoneData", JsonRequestBehavior.AllowGet);
         }
-        
+
+        // tạo mới 1 alias
+        public string CreateNewAlias(string newAliasname)
+        {
+            String[] info = newAliasname.ToString().Split('|');
+
+            string aliasName = info[0].Trim();
+            string url = info[1].Trim();
+            string price = info[2].Trim();
+            string storeid = info[3];
+            string brandid = info[4];
+            string lapid = info[5];
+
+            if (IsUrl(url) == false)
+            {
+                return "NotUrl";
+            }
+            else
+            {
+                AliasProduct ali = new AliasProduct();
+                ali.ProductID = Convert.ToInt32(lapid);
+                ali.Name = aliasName;
+                ali.URL = url;
+                ali.Price = Convert.ToDouble(price);
+                ali.StoreID = Convert.ToInt32(storeid);
+                ali.BrandID = Convert.ToInt32(brandid);
+                ali.UpdateTime = DateTime.Now;
+                ali.IsMain = false;
+                ali.IsActive = true;
+                context.AliasProducts.Add(ali);
+                context.SaveChanges();
+                TempData["CreateNewAlias"] = "success";
+                return "";
+            }
+        }
+
+        // update 1 alias
+        public string UpdateNewAlias(string newAliasname)
+        {
+            String[] info = newAliasname.ToString().Split('|');
+
+            string aliasName = info[0].Trim();
+            string url = info[1].Trim();
+            string price = info[2].Trim();
+            string storeid = info[3];
+            int id = Convert.ToInt32(info[4]);
+
+            if (IsUrl(url) == false)
+            {
+                return "NotUrl";
+            }
+            else
+            {
+                var ali = context.AliasProducts.Where(x=> x.ID == id).FirstOrDefault();
+                ali.Name = aliasName;
+                ali.URL = url;
+                ali.Price = Convert.ToDouble(price);
+                ali.StoreID = Convert.ToInt32(storeid);
+                ali.UpdateTime = DateTime.Now;
+                context.SaveChanges();
+                TempData["UpdateNewAlias"] = "success";
+                return "";
+            }
+        }
+
+        public ActionResult loadPopupAjac(string idN)
+        {
+            int id = Convert.ToInt32(idN);
+            var product = context.Products.Where(x => x.ID == id).FirstOrDefault();
+            TempData["id"] = id;
+
+            // Load CPU list
+            var cpus = context.Hardwares.Where(x => x.CodetypeID == "C")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var cpuList = new List<SelectListItem>();
+            foreach (var cpu in cpus)
+            {
+                var item = new SelectListItem
+                {
+                    Text = cpu.Name,
+                    Value = cpu.ID.ToString()
+                };
+                cpuList.Add(item);
+            }
+            ViewBag.cpuList = cpuList;
+
+            // Load VGA list
+            var vgas = context.Hardwares.Where(x => x.CodetypeID == "V")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var vgaList = new List<SelectListItem>();
+            foreach (var vga in vgas)
+            {
+                var item = new SelectListItem
+                {
+                    Text = vga.Name,
+                    Value = vga.ID.ToString()
+                };
+                vgaList.Add(item);
+            }
+            ViewBag.vgaList = vgaList;
+
+            // Load HDD list
+            var hdds = context.Hardwares.Where(x => x.CodetypeID == "H")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var hddList = new List<SelectListItem>();
+            foreach (var hdd in hdds)
+            {
+                var item = new SelectListItem
+                {
+                    Text = hdd.Name,
+                    Value = hdd.ID.ToString()
+                };
+                hddList.Add(item);
+            }
+            ViewBag.hddList = hddList;
+
+
+            // Load Ram list
+            var rams = context.Hardwares.Where(x => x.CodetypeID == "R")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var ramList = new List<SelectListItem>();
+            foreach (var ram in rams)
+            {
+                var item = new SelectListItem
+                {
+                    Text = ram.Name,
+                    Value = ram.ID.ToString()
+                };
+                ramList.Add(item);
+            }
+            ViewBag.ramList = ramList;
+
+            // Load Display list
+            var displays = context.Hardwares.Where(x => x.CodetypeID == "D")
+                .OrderBy(x => x.Name)
+                .ToList();
+            var displayList = new List<SelectListItem>();
+            foreach (var display in displays)
+            {
+                var item = new SelectListItem
+                {
+                    Text = display.Name,
+                    Value = display.ID.ToString()
+                };
+                displayList.Add(item);
+            }
+            ViewBag.displayList = displayList;
+
+            string name = product.Name;
+
+
+            //Lấy tên phụ sản phẩm
+            var listAlias = context.AliasProducts.Where(x => x.ProductID == id && x.IsMain == false).ToList();
+            ViewBag.listAlias = listAlias;
+            var completeAlias = new List<SelectListItem>();
+            foreach (var a in listAlias)
+            {
+                var item = new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.ID.ToString()
+                };
+                completeAlias.Add(item);
+            }
+            ViewBag.completeAlias = completeAlias;
+
+            // Lấy store 
+            var listStore = context.Stores.ToList();
+
+            ViewBag.listStore = listStore;
+            return View(product);
+        }
+
+        /// <summary>
+        /// Kiểm tra url có tồn tại không.
+        /// </summary>
+        /// <param name="URL"></param>
+        /// <returns></returns>
+        #region Kiểm tra url  có tồn tại không.
+        bool IsUrl(string URL)
+        {
+            //Load website
+            try
+            {
+                var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
+                var document = web.Load(URL);
+                if (web.StatusCode == HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return false;
+            //HttpWebResponse response = null;
+            //if (URL.Equals(""))
+            //{
+            //    return false;
+            //}
+            //var request = (HttpWebRequest)WebRequest.Create(URL);
+            //request.Method = "HEAD";         
+            //try
+            //{               
+            //    response = (HttpWebResponse)request.GetResponse();
+            //    return true;
+            //}
+            //catch (WebException ex)
+            //{
+            //    /* A WebException will be thrown if the status of the response is not `200 OK` */
+            //    return false;
+            //}
+            //finally
+            //{
+            //    // Don't forget to close your response.
+            //    if (response != null)
+            //    {
+            //        response.Close();
+            //    }
+            //}
+        }
+        #endregion
     }
 }
