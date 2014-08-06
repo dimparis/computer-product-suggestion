@@ -132,7 +132,7 @@
             </li>
             <li class="active">
                 <a href="@Url.Action("Index", "Product")">
-                    <span class="da-nav-count">4</span>
+                    <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/day_calendar.png")" alt="Calendar" />
@@ -167,6 +167,13 @@
                             <strong>Lịch sử tìm kiếm</strong>
                         </a>
                     </li>
+                    <li>
+                        <a href="@Url.Action("Index", "ManagerStore")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/color/asterisk_orange.png")" alt="" />
+                            <strong>Quản lý cửa hàng</strong>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
             
@@ -311,7 +318,7 @@
                 <div class="da-form-row " style="width: 50%; float: left">
                     <label>Hình sản phẩm</label>
                     <div class="da-form-item large">
-                        <span class="formNote">Hệ thống sẽ <strong>tự động </strong>tải ảnh mặt định khi trường rỗng.</span>
+                        <span class="formNote">Hệ thống sẽ <strong>tự động </strong>tải ảnh mặc định khi trường rỗng.</span>
                         <input type="file" name="file" class="da-custom-file" accept="image/*" />
                     </div>
 
