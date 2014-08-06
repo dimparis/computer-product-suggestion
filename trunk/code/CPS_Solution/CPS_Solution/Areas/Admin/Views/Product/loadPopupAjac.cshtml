@@ -1,0 +1,102 @@
+﻿@model CPS_Solution.EntityFramework.Product
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    Layout = null;
+    List<Store> listStore = ViewBag.listStore;
+    List<AliasProduct> listAli = ViewBag.listAlias;
+}
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.theme.css" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+      <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+    <!-- Chosen Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
+    <!-- Demo JavaScript Files -->
+
+ <div class="da-panel">
+                                                <div class="da-panel-content">
+                                                    <form id="da-ex-validate6" class="da-form" style="padding-top: 23px;" novalidate="novalidate">
+                                                        <fieldset class="da-form-inline">
+                                                            <legend>Sửa tên phụ sản phẩm</legend>
+                                                            <div class="da-form-row">
+                                                                <label>Chọn tên phụ muôn sửa<span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <span class="formNote">.</span>
+                                                                      @Html.DropDownList("CPUList", ViewBag.completeAlias as List<SelectListItem>, new { @onchange = "Changeinfo(this)", @class = "chzn-select", id = "IdAliasNameup1", @style = "width: 300px;" })
+                                                                </div>
+                                                            </div>
+                                                            <div id ="changeId">
+                                                            <div class="da-form-row">
+                                                                <label>Tên phụ sản phẩm<span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <span class="formNote">Tên phải từ 5 tới 100 ký tự</span>   
+                                                                       <input type="text" name="password" value="@listAli[0].Name" id="IdAliasNameup">                                                                                                       
+                                                                </div>
+                                                            </div>
+                                                            <div class="da-form-row">
+                                                                <label>Đường dẫn chứa tên phụ sản phẩm<span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <span class="formNote">Đường dẫn phải tồn tại</span>                                                         
+                                                                    <textarea style="height:80px" id="IdLinkAliasNameUp" rows="3"> @listAli[0].URL</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="da-form-row">
+                                                                <span class="formNote"></span>
+                                                                <label>Giá <span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <span class="formNote">Phải là số nguyên</span>
+                                                                  @{
+                                                                        
+                                                                        String price = String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @listAli[0].Price);
+                                                                        price = price.Replace('.',',');
+                                                                        price = price.TrimEnd('₫');
+                                                                        price =  price.Trim();
+                                                                        price = price.TrimEnd('0');
+                                                                        price = price.TrimEnd('0');
+                                                                        price = price.TrimEnd(',');
+                                                                        }                                                                                                                         
+                                                                    <input type="text" onload="PriceLoad()" name="password"  value="@price" id="IdPriceAliasNameUp">
+                                                                </div>
+                                                            </div>                                                          
+                                                            <div class="da-form-row">
+                                                                <label>Cửa Hàng<span class="required">*</span></label>
+                                                                <div class="da-form-item large">
+                                                                    <select id="IdStoreAliasNameUp">
+                                                                        @foreach(Store s in listStore)
+                                                                        {
+                                                                         <option value="@s.ID">@s.StoreName</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                                 @foreach(AliasProduct ali in listAli)
+                                                                        {
+                                                                          <input hidden  type="text" name="password" value="@ali.Name" id="IdName+@ali.ID">
+                                                                          <input hidden  type="text" name="password" value="@ali.Price" id="IdPrice+@ali.ID">
+                                                                          <input hidden  type="text" name="password" value="@ali.URL" id="IdURL+@ali.ID">
+                                                                         <input hidden type="text" name="password" value="@ali.StoreID" id="IdStore+@ali.ID">  
+                                                                        }
+                                                            
+                                                            </div>
+                                                                </div>
+                                                        </fieldset>
+                                                        <div class="da-button-row">
+                                                            <input type="button" value="Cập Nhập" onclick="UpdateNewAlias()"   class="da-button green">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
