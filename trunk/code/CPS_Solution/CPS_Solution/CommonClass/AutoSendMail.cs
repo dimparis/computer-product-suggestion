@@ -41,7 +41,7 @@ namespace CPS_Solution.CommonClass
             }
             catch (Exception ex)
             {
-               //donothing.
+                //donothing.
             }
         }
         public void AutoSendMailforUser(List<RecommendProduct> rcmProducts)
@@ -67,7 +67,7 @@ namespace CPS_Solution.CommonClass
                                 }
                             }
                         }
-                    }                   
+                    }
                 }
                 if (havepointCount >= 5)
                 {
@@ -81,6 +81,36 @@ namespace CPS_Solution.CommonClass
                 if (itemRecommendMailSent != null) itemRecommendMailSent.IsMailSent = true;
             }
             db.SaveChanges();
+        }
+        public void AutoSendMailforProduct(RecommendProduct rcmProduct)
+        {
+            int havepointCount = 0;
+            var aliasProducts = db.AliasProducts.FirstOrDefault(x => x.IsActive == true && x.IsMain == true && rcmProduct.Parselink.Contains(x.URL));
+            if (aliasProducts != null)
+            {
+                var countElement = db.ProductAttributes.Where(x => x.ProductID == aliasProducts.ProductID).ToList();
+                if (countElement.Count() >= 5)
+                {
+                    foreach (var itemCount in countElement)
+                    {
+                        var itemHardware = db.Hardwares.FirstOrDefault(x => x.ID == itemCount.AttributeID);
+                        if (itemHardware != null)
+                        {
+                            if (itemHardware.WeightCriteraPoint > 0)
+                            {
+                                havepointCount++;
+                            }
+                        }
+                    }
+                }
+            }
+            if (havepointCount >= 5)
+            {
+                Task.Factory.StartNew(() => SendEmail(rcmProduct.Email, "CPS- Đề xuất sản phẩm", aliasProducts.Name, aliasProducts.ProductID.ToString()));
+                var itemRecommendMailSent = db.RecommendProducts.FirstOrDefault(x => x.ID == rcmProduct.ID);
+                if (itemRecommendMailSent != null) itemRecommendMailSent.IsMailSent = true;
+                db.SaveChanges();
+            }
         }
     }
 }

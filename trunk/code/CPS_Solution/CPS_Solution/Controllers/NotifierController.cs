@@ -45,12 +45,16 @@ namespace CPS_Solution.Controllers
                                         products.Add(newItem);
                                         a.IsSeen = true;
                                         context.SaveChanges();
+                                        if (item.IsReceive == true && item.IsMailSent == false) 
+                                        {
+                                            AutoSendMail sendMail = new AutoSendMail();
+                                            Task.Factory.StartNew(() => sendMail.AutoSendMailforProduct(item));
+                                        }
                                     }
                                 }
                             }
                         }
-                        AutoSendMail sendMail = new AutoSendMail();
-                        Task.Factory.StartNew(() => sendMail.AutoSendMailforUser(approveRecommendProduct));
+
                         return Json(products.Select(product => new { name = product.Name, id = product.ProductID }).ToList(), JsonRequestBehavior.AllowGet);
                     }
                 }
