@@ -35,14 +35,17 @@ namespace CPS_Solution.Controllers
                         foreach (var item in approveRecommendProduct)
                         {
                             var newItem = context.AliasProducts.Where(x => x.URL.Contains(item.Parselink) && x.IsActive == true && x.IsMain == true).FirstOrDefault();
-                            var newProductAttribute = context.ProductAttributes.Where(x => x.ProductID == newItem.ProductID).ToList();
                             if (newItem != null)
                             {
-                                if (newProductAttribute.Count() >= 5)
+                                var newProductAttribute = context.ProductAttributes.Where(x => x.ProductID == newItem.ProductID).ToList();
+                                if (newItem != null)
                                 {
-                                    products.Add(newItem);
-                                    a.IsSeen = true;
-                                    context.SaveChanges();
+                                    if (newProductAttribute.Count() >= 5)
+                                    {
+                                        products.Add(newItem);
+                                        a.IsSeen = true;
+                                        context.SaveChanges();
+                                    }
                                 }
                             }
                         }
