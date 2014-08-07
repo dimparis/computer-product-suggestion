@@ -1,0 +1,6 @@
+﻿Note ngày 07.08.14
+===============
+# So sánh: format số điểm
+# Confirm laptop + linh kiện: phản biện chỗ hiện số linh kiện, laptop chưa xác nhận
+# Thêm một màn hình thêm product khi staff có link mà không cần nhận đề xuất từ user
+# 
