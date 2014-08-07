@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
-
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Models;
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
+    DataManager data = new DataManager();
+    int takeItem = 47;
 }
 
 <style type="text/css">
@@ -154,19 +157,19 @@
 
                         <div class="pricing-table-content">
                             <div class="table-row odd">
-                                <p>@item.strCPU</p>
+                                <p>@data.Truncate(@item.strCPU,takeItem)</p>
                             </div>
                             <div class="table-row even">
-                                <p>@item.strVGA</p>
+                                <p>@data.Truncate(@item.strVGA,takeItem)</p>
                             </div>
                             <div class="table-row odd">
-                                <p>@item.strRAM</p>
+                                <p>@data.Truncate(@item.strRAM,takeItem)</p>
                             </div>
                             <div class="table-row even">
-                                <p>@item.strHDD</p>
+                                <p>@data.Truncate(@item.strHDD,takeItem)</p>
                             </div>
                             <div class="table-row odd">
-                                <p>@item.strDisplay</p>
+                                <p>@data.Truncate(@item.strDisplay,takeItem)</p>
                             </div>
                         </div>
                     </div>
@@ -196,19 +199,19 @@
                         </div>
                         <div class="pricing-table-content">
                             <div class="table-row odd">
-                                <p style="">@item.strCPU</p>
+                                <p style="">@data.Truncate(@item.strCPU,takeItem)</p>
                             </div>
                             <div class="table-row even">
-                                <p>@item.strVGA</p>
+                                <p>@data.Truncate(@item.strVGA,takeItem)</p>
                             </div>
                             <div class="table-row odd">
-                                <p>@item.strRAM</p>
+                                <p>@data.Truncate(@item.strRAM,takeItem)</p>
                             </div>
                             <div class="table-row even">
-                                <p>@item.strHDD</p>
+                                <p>@data.Truncate(@item.strHDD,takeItem)</p>
                             </div>
                             <div class="table-row odd">
-                                <p>@item.strDisplay</p>
+                                <p>@data.Truncate(@item.strDisplay,takeItem)</p>
                             </div>
                         </div>
                     </div>

@@ -12,23 +12,54 @@ namespace CPS_Solution.Areas.Admin.Controllers
         //
         // GET: /Admin/ProductShow/
 
-        public ActionResult Index()
+        public ActionResult Index(int id1)
         {
-            var alias = context.AliasProducts.Where(x => x.IsMain==true && x.IsActive==true).ToList();
-            var listId =  new List<int>();
-            foreach (var a in alias) 
-            {
-                int id = a.ProductID;
-                listId.Add(id);                
-            }
-            List<Product> listPro= new List<Product>();
-            foreach (var id in listId) 
-            {
-                var pro = context.Products.Where(x => x.ID == id).FirstOrDefault();
-                listPro.Add(pro);
-            }
-            return View(listPro);
+
+            var listAlias = context.AliasProducts.Where(x => x.ProductID == id1 && x.IsMain == false).ToList();
+            ViewBag.listAlias = listAlias; 
+
+            //var alias = context.AliasProducts.Where(x => x.IsMain==true && x.IsActive==true).ToList();
+            //var listId =  new List<int>();
+            //foreach (var a in alias) 
+            //{
+            //    int id = a.ProductID;
+            //    listId.Add(id);                
+            //}
+            //List<Product> listPro= new List<Product>();
+            //foreach (var id in listId) 
+            //{
+            //    var pro = context.Products.Where(x => x.ID == id).FirstOrDefault();
+            //    listPro.Add(pro);
+            //}
+            //return View(listPro);
+            return View();
         }
+         [HttpPost]
+        public String ActiveAlias(string id)
+        {
+            int AliD = Convert.ToInt32(id);
+
+            var listAlias = context.AliasProducts.Where(x => x.ID == AliD).SingleOrDefault();
+
+            if (listAlias.IsActive == true)
+            {
+                listAlias.IsActive = false;
+                context.SaveChanges();
+                return "no";
+            }
+            else
+            {
+                listAlias.IsActive = true;
+                context.SaveChanges();
+                return "ok";
+            }
+         
+
+           
+        }
+
+
+
         public ActionResult EditProduct(int id)
         {
             var product = context.AliasProducts.FirstOrDefault(p => p.ProductID == id);
@@ -52,6 +83,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             return View(product);
         }
+
+    
+
+
+
+
         [HttpPost]
         public RedirectToRouteResult EditProductName(int MainAliasID)
         {
