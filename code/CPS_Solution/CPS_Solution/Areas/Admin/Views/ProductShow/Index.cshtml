@@ -1,9 +1,11 @@
 ﻿@using CPS_Solution.CommonClass
 @model IEnumerable<CPS_Solution.EntityFramework.Product>
-
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<AliasProduct> listAlias = ViewBag.listAlias;
 }
 @section headScript
 {
@@ -46,11 +48,11 @@
 
                 if (recordToSet != '') {
 
-                    // Perform the ajax post
-                    $.post("/Parser/SetActive", { "id": recordToSet },
-                        function (data) {
-                            location.reload();
-                        });
+                    //// Perform the ajax post
+                    //$.post("/Parser/SetActive", { "id": recordToSet },
+                    //    function (data) {
+                    //        location.reload();
+                    //    });
                 }
             });
 
@@ -324,7 +326,7 @@
     <div class="da-panel collapsible">
         <div class="da-panel-header">
             <span class="da-panel-title">
-                <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/list.png")" alt="" />
+                <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/16/list.png")" alt="" />
                 Danh sách các sản phẩm  
             </span>
 
@@ -334,37 +336,32 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên Sản Phẩm</th>
-                        <th>Mô tả</th>
-                        <th>Giá sản phẩm</th>
-                        <th>Tổng điểm</th>
+                        <th>Tên Phụ</th>
+                        <th>Cửa Hàng</th>
                         <th>Trạng Thái</th>
                     </tr>
                 </thead>
                 <tbody>
                     @{
                         int counter = 1;
-                        foreach (var item in Model)
+                        foreach (AliasProduct item in listAlias)
                         {
-                            bool status = item.IsActive.Value;
+                         //  bool status = item.IsActive.Value;
                         <tr>
                             <td>@counter</td>
                             <td>@item.Name</td>
-                            <td>@item.Description</td>
-                            <td>@item.Price</td>
-                            <td>
-                                @Html.ActionLink("Chỉnh sửa", "EditProduct", new { id = item.ID })
-                            </td>
-                            @if (status)
+                            <td>@item.Store.StoreName</td>
+                          
+                            @if (item.IsActive == true)
                             {
-                                <td>
-                                    <input type="submit" value="Hoạt động" class="da-button green" style="width:120px" data-id="@item.ID"/>
+                                <td >
+                                    <input id ="IdActive@(item.ID)" type="submit"  value="Hoạt động" class="da-button green" onclick="ActiveAlias(@item.ID)" style="width:120px" data-id="@item.ID"/>
                                 </td>  
                             }
                             else
                             {
-                                <td>
-                                    <input type="submit" value="Không hoạt động" class="da-button red"  data-id="@item.ID"/>
+                                <td >
+                                    <input type="submit" id ="IdActive@(item.ID)"  value="Không hoạt động" class="da-button red" onclick="ActiveAlias(@item.ID)" style="width:120px"  data-id="@item.ID"/>
                                 </td>  
                             }
                         </tr>
@@ -376,3 +373,28 @@
         </div>
     </div>
 </div>
+<script>
+
+    ///  Active or deactive user
+    function ActiveAlias(id) {
+        var postData = {id: id};
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ProductShow/ActiveAlias",
+            data: postData,
+            success: function (data) {  
+                if(data =="ok")
+                {
+                    document.getElementById("IdActive"+id).value="Hoạt động";
+                    document.getElementById("IdActive"+id).className="da-button green";
+                   
+                }else{
+                    document.getElementById("IdActive"+id).value="Không hoạt động";
+                    document.getElementById("IdActive"+id).className="da-button red";
+                }
+            },
+
+        });
+
+    }
+</script>

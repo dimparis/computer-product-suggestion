@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
-
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Models;
 @{
     ViewBag.Title = "Kết quả so sánh chi tiết";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
+    DataManager data = new DataManager();
+    int takeItem = 47;
 }
 
 <style type="text/css">
