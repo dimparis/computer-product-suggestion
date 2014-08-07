@@ -29,20 +29,20 @@ function validateStep(index, fset) {
     currentStep = getStep(fset.attr("data-step-id"));
     if (typeof fset != "undefined") {
         switch (fset.attr("data-name")) {
-            case "type":
-                displayType = $('input[type="radio"]:checked', fset).val();
-                if (displayType == "table") {
-                    $tile.prop("disabled", true);
-                } else {
-                    $tile.prop("disabled", false);
-                }
-                return true;
-            case "divInfo":
-                if (displayType == "grid" && $tile.val() == "") {
-                    alert("Phải chọn khung thông tin");
-                    return false;
-                }
-                return true;
+            //case "type":
+            //    displayType = $('input[type="radio"]:checked', fset).val();
+            //    if (displayType == "table") {
+            //        $tile.prop("disabled", true);
+            //    } else {
+            //        $tile.prop("disabled", false);
+            //    }
+            //    return true;
+            //case "divInfo":
+            //    if (displayType == "grid" && $tile.val() == "") {
+            //        alert("Phải chọn khung thông tin");
+            //        return false;
+            //    }
+            //    return true;
             case "productName":
                 if ($productName.val() == "") {
                     alert("Phải chọn tên sản phẩm");
@@ -175,8 +175,7 @@ function getPath(clickedNode, root) {
         }
         if ($url.val().indexOf("www.nguyenkim.com") != -1) {
             //do nothing to take absolute path
-        } else
-        {
+        } else {
             if (node.id !== "") {
                 foundId = true;
                 break;
@@ -217,37 +216,33 @@ function getPath(clickedNode, root) {
 }
 
 function setTextBoxXpathValue(expression) {
-    if (currentStep == 2) {
+    if (currentStep == 1) {
         $productName.val(expression);
-    } else if (currentStep == 1) {
-        $tile.val(expression);
-    } else if (currentStep == 3) {
+    }
+        //} else if (currentStep == 1) {
+        //    $tile.val(expression);
+        //} 
+    else if (currentStep == 2) {
         $price.val(expression);
-    } else if (currentStep == 4) {
+    } else if (currentStep == 3) {
         $image.val(expression);
-    } else if (currentStep == 5) {
+    } else if (currentStep == 4) {
         $cpu.val(expression);
-    } else if (currentStep == 6) {
+    } else if (currentStep == 5) {
         $vga.val(expression);
-    } else if (currentStep == 7) {
+    } else if (currentStep == 6) {
         $hdd.val(expression);
-    } else if (currentStep == 8) {
+    } else if (currentStep == 7) {
         $ram.val(expression);
-    } else if (currentStep == 9) {
+    } else if (currentStep == 8) {
         $display.val(expression);
     }
 }
 
 function getXPath(event) {
     event.preventDefault();
-    if (currentStep == 10) {
-        getPaging(event);
-        return;
-    }
-    if (displayType == "table" && currentStep != 1) {
+    if ( currentStep != 10) {
         getTabularPath(event);
-    } else if (displayType == "grid") {
-        getGridPath(event);
     }
 }
 
