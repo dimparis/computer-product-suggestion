@@ -327,8 +327,9 @@
                                 foreach (Hardware hard in ListHardNoPoint)
                                 {
                                     i++;
-                                <tr id ="idTR@(hard.ID)" class="odd">
-                                    <td class=" sorting_1">@hard.ID</td>
+                                    <tr id ="idTR@(hard.ID)" class="odd">
+                                    <td hidden class=" sorting_1">@hard.ID</td>
+                                    <td class="">@i</td>
                                     <td class=" ">@hard.Name</td>
                                     <td class=" ">@hard.Codetype.Name</td>
                                     <td class=" ">
@@ -355,7 +356,7 @@
             var trongso = document.getElementById("TrongSo" + i).value;
             var string = i + "|" + trongso;
             var postData = { trongsolinhkien: string };
-            if (trongso > 0 && trongso < 100) {
+            if (trongso > 0 && trongso < 100000) {
                 $.ajax({
                     type: "POST",
                     url: "/Admin/FillWeightHardWare/UpdateTrongso",

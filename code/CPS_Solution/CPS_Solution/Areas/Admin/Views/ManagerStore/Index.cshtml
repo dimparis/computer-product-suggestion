@@ -316,8 +316,9 @@
                 </span>
             </div>---->
             <div class="da-panel-content">
-
-                <form id="da-ex-validate4" class="da-form" method="post" action="ManagerStore/CreateNewStore" enctype="multipart/form-data" style="padding-top: 23px;" novalidate="novalidate">
+               @using (Html.BeginForm("CreateNewStore", "ManagerStore", FormMethod.Post, new { @enctype = "multipart/form-data", @style = "padding-top: 23px;", @novalidate = "novalidate", @class = "da-form", id = "da-ex-validate4" }))
+               {
+                     @*  <form id="da-ex-validate4" class="da-form" method="post" action="ManagerStore/CreateNewStore" enctype="multipart/form-data" style="padding-top: 23px;" novalidate="novalidate">*@
                     <fieldset class="da-form-inline">
                         <legend>Thông tin cửa hàng</legend>
                         <div class="da-form-row">
@@ -348,7 +349,9 @@
                     <div class="da-button-row">
                         <input type="button" value="Tạo mới cửa hàng" onclick="CreateNewStore()" class="da-button green">
                     </div>
-                </form>
+            @*    </form>*@
+               }
+              
             </div>
 
         </div>
@@ -358,7 +361,7 @@
         <div class="da-panel collapsible">
             <div class="da-panel-header">
                 <span class="da-panel-title">
-                    <img src="~/Areas/Admin/Dandelion/images/icons/white/16/list.png" alt="">
+                    <img src="/Areas/Admin/Dandelion/images/icons/white/16/list.png" alt="">
                     Danh sách cửa hàng
                 </span>
 
@@ -379,12 +382,12 @@
                         </thead>
 
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
-                           @{ int i =0;}
+                           @{ int i = 0;}
                             @foreach (Store sto in listStore)
                             {
-                                if(sto.ID>1)
+                                if (sto.ID > 1)
                                 {
-                                i++;
+                                    i++;
                                 <tr class="odd">
                                     <td class=" sorting_1">@sto.StoreName</td>
                                     <td class=" ">@sto.StoreUrl</td>
@@ -434,7 +437,9 @@
                                                                         @if (sto.LogoImage.Trim().Equals("default"))
                                                                         {
                                                                            <img src ="/images/StoreLogo/Laptop_logo.gif" style="padding:1px; border-style:solid; border-width:1px; width:250px; height:60px;"/> 
-                                                                        }else{
+                                                                        }
+                                                                        else
+                                                                        {
                                                                             <img src ="/@sto.LogoImage" style="padding:1px; border-style:solid; border-width:1px; width:250px; height:60px;"/>
                                                                         }
                                                                           
@@ -456,7 +461,7 @@
                                         <!----------------Popup------------------>
                                     </td>
                                 </tr>
-                            }
+                                }
                             }
                         </tbody>
                     </table>
