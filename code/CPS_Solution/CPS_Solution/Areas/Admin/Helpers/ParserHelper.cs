@@ -805,7 +805,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             int pId = -1;
                             bool wholeMatch = false;
 
-                            foreach (var alias in context.Dictionaries)
+                            foreach (var alias in context.Dictionaries.Where(x=>x.Hardware.IsActive ==true))
                             {
                                 if (attribute.Key == alias.Name)
                                 {
@@ -830,11 +830,8 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 if (goodMatch.Count == 1)
                                 {
                                     // Match well with only 1 product, take it
-                                    var checkTrueItem = context.Hardwares.FirstOrDefault(x => x.IsActive == true);
-                                    if(checkTrueItem != null)
-                                    {
                                      pId = goodMatch[0];
-                                    }                                  
+                                
                                 }
                                 else if (goodMatch.Count > 1)
                                 {
