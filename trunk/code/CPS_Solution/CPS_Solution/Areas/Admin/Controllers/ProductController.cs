@@ -191,7 +191,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 Description = model.Description,
                 TotalWeightPoint = 0,
             };
-            product.AliasProducts.Add(new AliasProduct() { Name = model.Name, IsMain = true });
+            product.AliasProducts.Add(new AliasProduct() { Name = model.Name, IsMain = true,IsActive=true,Price=model.Price,URL = model.Parselink,UpdateTime =DateTime.Now,StoreID =1 });
             context.Products.Add(product);
             context.SaveChanges();
             //Add item product Attribute
@@ -214,6 +214,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                {
                    ProductID = product.ID,
                    AttributeID = item,
+                   IsActive = true
                };
                 context.ProductAttributes.Add(productAtt);
             }
