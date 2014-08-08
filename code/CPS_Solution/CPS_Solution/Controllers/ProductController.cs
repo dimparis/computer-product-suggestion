@@ -20,11 +20,12 @@ namespace CPS_Solution.Controllers
         private readonly DataManager _dataManager = new DataManager();
         private string email = "";
 
-        private int bestCPU = ConstantManager.CPUPoint;
-        private int bestVGA = ConstantManager.VGAPoint;
-        private int bestRAM = ConstantManager.RAMPoint;
-        private int bestHDD = ConstantManager.HDDPoint;
-        private int bestDisplay = ConstantManager.DISPLAYPoint;
+        private double bestCPU = 100/ConstantManager.CPUPoint;
+        private double bestVGA = 100/ConstantManager.VGAPoint;
+        private double bestRAM = 100/ConstantManager.RAMPoint;
+        private double bestHDD = 100/ConstantManager.HDDPoint;
+        private double bestDisplay = 100/ConstantManager.DISPLAYPoint;
+        private double bestScore = ConstantManager.TotalPoint;
        
         //public ActionResult Index()
         //{
@@ -127,38 +128,52 @@ namespace CPS_Solution.Controllers
 
             if (p3 != -1)
             {
+                
                 //Diem san pham 1
-                bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
-                                                   (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
-                db.Entry(bestProducts[0]).State = EntityState.Modified;
-                db.SaveChanges();
+                //bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
+                //                                   (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
+                //db.Entry(bestProducts[0]).State = EntityState.Modified;
+                //db.SaveChanges();
+                bestProducts[0].TotalWeightPoint = (double)((bestCPU * bestProducts[0].cpuScore + bestVGA * bestProducts[0].vgaScore) * 6 +
+                                                            (bestHDD * bestProducts[0].hddScore + bestRAM * bestProducts[0].ramScore + bestDisplay * bestProducts[0].displayScore) * 4);
 
                 //Diem san pham 2
-                bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
-                                                   (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
-                db.Entry(bestProducts[1]).State = EntityState.Modified;
-                db.SaveChanges();
+                //bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
+                //                                   (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
+                //db.Entry(bestProducts[1]).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                bestProducts[1].TotalWeightPoint = (double)((bestCPU * bestProducts[1].cpuScore + bestVGA * bestProducts[1].vgaScore) * 6 +
+                                                            (bestHDD * bestProducts[1].hddScore + bestRAM * bestProducts[1].ramScore + bestDisplay * bestProducts[1].displayScore) * 4);
 
                 //Diem san pham 3
-                bestProducts[2].TotalWeightPoint = (bestProducts[2].cpuScore + bestProducts[2].vgaScore) * 6 +
-                                                   (bestProducts[2].ramScore + bestProducts[2].hddScore + bestProducts[2].displayScore);
-                db.Entry(bestProducts[2]).State = EntityState.Modified;
-                db.SaveChanges();
+                //bestProducts[2].TotalWeightPoint = (bestProducts[2].cpuScore + bestProducts[2].vgaScore) * 6 +
+                //                                   (bestProducts[2].ramScore + bestProducts[2].hddScore + bestProducts[2].displayScore);
+                //db.Entry(bestProducts[2]).State = EntityState.Modified;
+                //db.SaveChanges();
+                bestProducts[2].TotalWeightPoint = (double)((bestCPU * bestProducts[2].cpuScore + bestVGA * bestProducts[2].vgaScore) * 6 +
+                                                            (bestHDD * bestProducts[2].hddScore + bestRAM * bestProducts[2].ramScore + bestDisplay * bestProducts[2].displayScore) * 4);
 
             }
             else
             {
-                //Diem san pham 1
-                bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
-                                                   (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
-                db.Entry(bestProducts[0]).State = EntityState.Modified;
-                db.SaveChanges();
+                ////Diem san pham 1
+                //bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
+                //                                   (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
+                //db.Entry(bestProducts[0]).State = EntityState.Modified;
+                //db.SaveChanges();
 
-                //Diem san pham 2
-                bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
-                                                   (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
-                db.Entry(bestProducts[1]).State = EntityState.Modified;
-                db.SaveChanges();
+                ////Diem san pham 2
+                //bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
+                //                                   (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
+                //db.Entry(bestProducts[1]).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                bestProducts[0].TotalWeightPoint = (double)((bestCPU * bestProducts[0].cpuScore + bestVGA * bestProducts[0].vgaScore) * 6 +
+                                                            (bestHDD * bestProducts[0].hddScore + bestRAM * bestProducts[0].ramScore + bestDisplay * bestProducts[0].displayScore) * 4);
+
+                bestProducts[1].TotalWeightPoint = (double)((bestCPU * bestProducts[1].cpuScore + bestVGA * bestProducts[1].vgaScore) * 6 +
+                                                            (bestHDD * bestProducts[1].hddScore + bestRAM * bestProducts[1].ramScore + bestDisplay * bestProducts[1].displayScore) * 4);
 
 
             }
@@ -170,11 +185,7 @@ namespace CPS_Solution.Controllers
             sortProducts[0] = sortProducts[1];
             sortProducts[1] = temp;
 
-            Console.WriteLine(bestCPU);
-            Console.WriteLine(bestVGA);
-            Console.WriteLine(bestRAM);
-            Console.WriteLine(bestHDD);
-            Console.WriteLine(bestDisplay);
+            
 
             return View(sortProducts);
         }
