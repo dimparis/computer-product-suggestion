@@ -27,17 +27,30 @@ namespace CPS_Solution.Models
         }
         public List<Product> GetProductsByName(int BlockNumber, int BlockSize, string searchValue)
         {
+            DataManager dataManager = new DataManager();
             int startIndex = (BlockNumber - 1) * BlockSize;
             var temp =
-               new DataManager().Check5AttributeLoad(context.Products.Where(x => x.IsActive == true).ToList());
+               dataManager.Check5AttributeLoad(context.Products.Where(x => x.IsActive == true).ToList());
+            List<Product> ListOfNone = new List<Product>();
             if (searchValue != null)
             {
                 var filter = temp.Where(x => x.Name.ToUpper().Contains(searchValue.ToUpper()));
                 var products = filter.Where(x => x.IsActive == true).OrderBy(x => x.ID).Skip(startIndex).Take(BlockSize).ToList();
-                if (!filter.Any()) 
+                if (products.Any())
+                {
+                    return products;
+                }
+                else if (!products.Any())
+                {
+                    var listNone = context.AliasProducts.Where(x => x.IsActive == true && x.IsMain ==false).OrderBy(x=>x.ProductID).ToList();
+                    var filterNone = listNone.Where(x => x.Name.ToUpper().Contains(searchValue.ToUpper())).ToList();
+                    ListOfNone = dataManager.Check5AttributeLoadAnotherName(filterNone).OrderBy(x => x.ID).Skip(startIndex).Take(BlockSize).ToList();
+                    return ListOfNone;
+                }
+                if (!ListOfNone.Any())
                 {
                     WriteToNoResultFile(searchValue);
-                //write to log file
+                    //write to log file
                 }
                 return products;
             }
@@ -215,7 +228,29 @@ namespace CPS_Solution.Models
                 listProducts.Add(product);
             }
 
-            return listProducts.OrderBy(x=>x.TotalWeightPoint).ToList();
+            return listProducts.OrderBy(x => x.TotalWeightPoint).ToList();
+        }
+        public List<Product> Check5AttributeLoadAnotherName(List<AliasProduct> products)
+        {
+            var listOfValuableId = new List<int>();
+            foreach (var item in products)
+            {
+                if (products.Any())
+                {
+                    var countElement = context.ProductAttributes.Where(x => x.ProductID == item.ProductID).ToList();
+                    if (countElement.Count() >= 5)
+                    {
+                        listOfValuableId.Add(item.ProductID);
+                    }
+                }
+            }
+            var listProducts = new List<Product>();
+            foreach (var i in listOfValuableId.Distinct())
+            {
+                var product = context.Products.FirstOrDefault(x => x.ID == i);
+                listProducts.Add(product);
+            }
+            return listProducts.OrderBy(x => x.TotalWeightPoint).ToList();
         }
         public List<Product> ListOfTop3ProductbyPrice(int brandID, int value)
         {
@@ -376,7 +411,7 @@ namespace CPS_Solution.Models
         {
             List<string> data = ReadDataFromNoResultFile();
             string path = ConstantManager.NoResultFilePath;
-            string content = DateTime.Now.ToShortDateString() +" - "+ DateTime.Now.ToShortTimeString() + " | Từ khóa: " + value;
+            string content = DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToShortTimeString() + " | Từ khóa: " + value;
             using (StreamWriter writer = System.IO.File.AppendText(path))
             {
                 writer.WriteLine(content);

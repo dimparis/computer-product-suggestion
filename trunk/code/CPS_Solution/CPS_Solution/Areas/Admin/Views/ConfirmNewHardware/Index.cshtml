@@ -291,9 +291,8 @@
                             <tr role="row">
                                 <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">ID</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên Thành phần</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Loại</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Trọng số</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Lap chứa thành phần</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 40px;">Loại</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 250px;">Lap chứa thành phần</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">Lựa chọn</th>
                            
                             </tr>
@@ -316,9 +315,6 @@
                                         <label style="width: 100px;" id="hiddenCodetype">@h.CodetypeHardware</label>
 
                                     </td>
-
-                                    <td class=" ">
-                                        <label style="width: 100px;">@h.WeightHardware</label></td>
                                     <td class=" ">
                                         <label style="width: 100px;">@h.NameProduct</label></td>
                                     <td style="width: 21%" class=" ">
@@ -329,7 +325,7 @@
                                         <!----------------Popup sửa sản phẩm đúng----------->
                                         <div id="Edit-@h.IdHardware-Popup-div" style="display: none;">
                                             <div class="da-panel">
-                                                <div class="da-panel-content">
+                                                <div class="da-panel-content" style="background:url(../Areas/Admin/Dandelion/images/bg/wood_pattern.jpg);">
                                                     <form class="da-form">
                                                         <div class="da-form-inline">
                                                             <div hidden class="da-form-row">
@@ -350,7 +346,7 @@
                                                             @if (h.CodetypeHardware == "CPU")
                                                             {
                                                                 <div class="da-form-row">
-                                                                    <label>Bộ Nhớ</label>
+                                                                    <label>Vi xử lý</label>
                                                                     <div class="da-form-item">
                                                                         <span class="formNote">Danh sách các CPU</span>
                                                                         @Html.DropDownList("CPUList", ViewBag.cpuList as List<SelectListItem>, new { @class = "chzn-select", id = @h.IdHardware, @style = "width: 250px;" })
@@ -390,7 +386,7 @@
                                                             else if (h.CodetypeHardware == "DISPLAY")
                                                             {
                                                                 <div class="da-form-row">
-                                                                    <span class="formNote">Danh sách các loại màn hình</span>
+                                                                    <label>Màn hình</label>
                                                                     <div class="da-form-item">
                                                                         <span class="formNote">Danh sách các Display</span>
                                                                         @Html.DropDownList("DISPLAYList", ViewBag.displayList as List<SelectListItem>, new { @class = "chzn-select", id = @h.IdHardware, @style = "width: 250px;" })
