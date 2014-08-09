@@ -197,7 +197,7 @@
                             <strong>Xem góp ý sản phẩm</strong>
                         </a>
                     </li>
-                      <li>
+                    <li>
                         <a href="@Url.Action("Index", "ViewSearchNotFound")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/topsearch.png")" alt="" />
                             <strong>Lịch sử tìm kiếm</strong>
@@ -212,10 +212,10 @@
 
                 </ul>
             </li>
-            
+
             <li>
                 <a href="#">
-                       <span class="da-nav-count">1</span>
+                    <span class="da-nav-count">1</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/settings.png")" alt="" />
@@ -253,7 +253,7 @@
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Parser linh kiện</strong>
                         </a>
-                    </li>                   
+                    </li>
                     <li>
                         <a href="@Url.Action("Index", "Recommend")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -344,12 +344,13 @@
             {
                 if (CPS_Solution.CommonClass.ConstantManager.IsUpdateRunning)
                 {
-                <input type="submit" value="Giá đang được cập nhật" disabled="disabled" class="da-button red" style="position: absolute; right: 75px; top: 15px; width: 120px" />
+                <input type="submit" value="Giá đang được cập nhật" disabled="disabled" class="da-button red" style="position: absolute; right: 75px; top: 15px; width: 180px" />
+   
                 }
                 else
                 {
-                <input type="submit" value="Cập nhật giá" class="da-button blue" style="position: absolute; right: 75px; top: 15px; width: 120px" />
-                           
+                <input type="submit" value="Cập nhật giá" class="da-button blue" style="position: absolute; right: 230px; top: 15px; width: 120px" />
+                @Html.DropDownList("StoreList", ViewBag.storeList as List<SelectListItem>, new { @class = "chzn-select", id = "StoreList",style="position: absolute;right:75px; top: 15px;height:27px" })        
                 }
             }
         </div>

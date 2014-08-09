@@ -476,7 +476,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 name = doc.DocumentNode.SelectSingleNode(nameXpath);
             }
 
-            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn") || host.Contains("thietbiso.com") ||host.Contains("trananh.vn"))
+            if (host.Contains("www.nguyenkim.com") || host.Contains("www.dienmaythienhoa.vn") || host.Contains("thietbiso.com") || host.Contains("trananh.vn"))
             {
                 if (priceXpath != null)
                 {
@@ -528,7 +528,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             if (cpu != null)
             {
                 data.CPU = cpu.InnerText;
-               
+
             }
             else
             {
@@ -748,7 +748,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             context.SaveChanges();
                             StoreID = newStore.ID;
                         }
-    
+
                         int brand = 13;
                         var allBrands = context.Brands.ToList();
                         foreach (var item in allBrands)
@@ -805,7 +805,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             int pId = -1;
                             bool wholeMatch = false;
 
-                            foreach (var alias in context.Dictionaries.Where(x=>x.Hardware.IsActive ==true))
+                            foreach (var alias in context.Dictionaries.Where(x => x.Hardware.IsActive == true))
                             {
                                 if (attribute.Key == alias.Name)
                                 {
@@ -830,8 +830,8 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 if (goodMatch.Count == 1)
                                 {
                                     // Match well with only 1 product, take it
-                                     pId = goodMatch[0];
-                                
+                                    pId = goodMatch[0];
+
                                 }
                                 else if (goodMatch.Count > 1)
                                 {
@@ -1020,6 +1020,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
             using (var context = new CPS_SolutionEntities())
             {
                 var parseinfo = context.ParseInfoes.Where(p => p.IsActive && p.Parselink.Contains(host)).FirstOrDefault();
+                parseinfo.Parselink = parserLink;
                 var data = GetProductData(web, parseinfo);
                 UpdatePriceToDb(id, data);
             }
@@ -1029,13 +1030,16 @@ namespace CPS_Solution.Areas.Admin.Helpers
             ConstantManager.IsUpdateRunning = true;
             //Convert Price
             double valPrice = 0;
-            if (!String.IsNullOrEmpty(data.Price))
+            if (data != null)
             {
-                valPrice = PriceHelper.ConvertPrice(data.Price);
-            }
-            else
-            {
-                valPrice = 0;
+                if (!String.IsNullOrEmpty(data.Price))
+                {
+                    valPrice = PriceHelper.ConvertPrice(data.Price);
+                }
+                else
+                {
+                    valPrice = 0;
+                }
             }
             using (var context = new CPS_SolutionEntities())
             {
