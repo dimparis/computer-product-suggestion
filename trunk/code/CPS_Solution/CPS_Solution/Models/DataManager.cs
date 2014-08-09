@@ -219,6 +219,7 @@ namespace CPS_Solution.Models
                 if (havepointCount >= 5)
                 {
                     listOfValuableId.Add(item.ID);
+                    havepointCount = 0;
                 }
             }
             var listProducts = new List<Product>();
@@ -241,6 +242,39 @@ namespace CPS_Solution.Models
                     if (countElement.Count() >= 5)
                     {
                         listOfValuableId.Add(item.ProductID);
+                    }
+                }
+            }
+            var listProducts = new List<Product>();
+            foreach (var i in listOfValuableId.Distinct())
+            {
+                var product = context.Products.FirstOrDefault(x => x.ID == i);
+                listProducts.Add(product);
+            }
+            return listProducts.OrderBy(x => x.TotalWeightPoint).ToList();
+        }
+        public List<Product> Check5AttributeLoadTrueName(List<AliasProduct> products)
+        {
+            var listOfValuableId = new List<int>();
+            foreach (var item in products)
+            {
+                int havePoint = 0;
+                if (products.Any())
+                {
+                    var countElement = context.ProductAttributes.Where(x => x.ProductID == item.ProductID).ToList();
+                    if (countElement.Count() >= 5)
+                    {
+                        foreach (var countItem in countElement) 
+                        {
+                            if (countItem.Hardware.WeightCriteraPoint > 0) 
+                            {
+                                havePoint++;
+                            }
+                        }
+                        if (havePoint >= 5) 
+                        {
+                            listOfValuableId.Add(item.ProductID);
+                        } 
                     }
                 }
             }
