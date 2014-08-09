@@ -21,6 +21,28 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var product = context.Products.ToList();
+            // Load Store list
+            var stores = context.Stores.Where(x => x.IsActive == true)
+                .OrderBy(x => x.StoreName)
+                .ToList();
+            var storeList = new List<SelectListItem>();
+            foreach (var s in stores)
+            {
+                var item = new SelectListItem
+                {
+                    Text = s.StoreName,
+                    Value = s.ID.ToString()
+                };
+                storeList.Add(item);
+            }
+            var itemAll = new SelectListItem
+            {
+                Text = "Tất cả",
+                Value = "1000",
+                Selected = true
+            };
+            storeList.Add(itemAll);
+            ViewBag.storeList = storeList;
             return View(product);
         }
         //[HttpPost, ActionName("setStatus")]
@@ -201,7 +223,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 if (file != null && file.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    fileName = DateTime.Now.ToString("yyyyMMdd-HHmmss") +fileName;
+                    fileName = DateTime.Now.ToString("yyyyMMdd-HHmmss") + fileName;
                     var path = Path.Combine(Server.MapPath("~/Images/StoreLogo/"), fileName);
                     file.SaveAs(path);
                     model.ImageURL = "Images/StoreLogo/" + fileName;
@@ -217,7 +239,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 Description = model.Description,
                 TotalWeightPoint = 0,
             };
-            product.AliasProducts.Add(new AliasProduct() { Name = model.Name, IsMain = true,IsActive=true,Price=model.Price,URL = model.Parselink,UpdateTime =DateTime.Now,StoreID = model.StoreId,BrandID = model.BrandId });
+            product.AliasProducts.Add(new AliasProduct() { Name = model.Name, IsMain = true, IsActive = true, Price = model.Price, URL = model.Parselink, UpdateTime = DateTime.Now, StoreID = model.StoreId, BrandID = model.BrandId });
             context.Products.Add(product);
             context.SaveChanges();
             //Add item product Attribute
@@ -354,7 +376,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             //Lấy tên phụ sản phẩm
-            var listAlias = context.AliasProducts.Where(x=> x.ProductID == id && x.IsMain == false).ToList();
+            var listAlias = context.AliasProducts.Where(x => x.ProductID == id && x.IsMain == false).ToList();
             ViewBag.listAlias = listAlias;
             var completeAlias = new List<SelectListItem>();
             foreach (var a in listAlias)
@@ -419,13 +441,26 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public RedirectToRouteResult UpdatePrice()
+        public RedirectToRouteResult UpdatePrice(string StoreList)
         {
-            // Auto Parser Product
-            var parseInfoes = context.ParseInfoes.Where(x => x.IsActive == true).OrderBy(x => x.Parselink).ToList();
-            var aliasproduct = context.AliasProducts.Where(x => x.IsActive == true).ToList();
-            AutoUpdatePrice job = new AutoUpdatePrice();
-            Task.Factory.StartNew(() => job.AutoUpdatePriceTask(aliasproduct, parseInfoes));
+            int id = Int32.Parse(StoreList);
+            var store = context.Stores.Where(x => x.ID == id && x.IsActive ==true).FirstOrDefault();
+            if (id != 1000 && store !=null)
+            {
+                // Auto Parser Product
+                var parseInfoes = context.ParseInfoes.Where(x => x.IsActive == true && x.Parselink.Contains(store.StoreUrl)).ToList();
+                var aliasproduct = context.AliasProducts.Where(x => x.IsActive == true && x.URL.Contains(store.StoreUrl)).ToList();
+                AutoUpdatePrice job = new AutoUpdatePrice();
+                Task.Factory.StartNew(() => job.AutoUpdatePriceTask(aliasproduct, parseInfoes));
+            }
+            else
+            {
+                // Auto Parser Product
+                var parseInfoes = context.ParseInfoes.Where(x => x.IsActive == true).OrderBy(x => x.Parselink).ToList();
+                var aliasproduct = context.AliasProducts.Where(x => x.IsActive == true).ToList();
+                AutoUpdatePrice job = new AutoUpdatePrice();
+                Task.Factory.StartNew(() => job.AutoUpdatePriceTask(aliasproduct, parseInfoes));
+            }
             return RedirectToAction("Index");
         }
         public ActionResult TakeSummary()
@@ -438,7 +473,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             ShowInfoRepository show = new ShowInfoRepository();
             ShowInfo info = show.GetNewInfo();
-            if (info != null) 
+            if (info != null)
             {
                 return Json(info, JsonRequestBehavior.AllowGet);
             }
@@ -497,7 +532,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             else
             {
-                var ali = context.AliasProducts.Where(x=> x.ID == id).FirstOrDefault();
+                var ali = context.AliasProducts.Where(x => x.ID == id).FirstOrDefault();
                 ali.Name = aliasName;
                 ali.URL = url;
                 ali.Price = Convert.ToDouble(price);

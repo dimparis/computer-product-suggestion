@@ -23,16 +23,20 @@ namespace CPS_Solution.CommonClass
         }
         public void AutoUpdatePriceTask(List<AliasProduct> aliasproduct, List<ParseInfo> parseInfoes)
         {
+            string patter = "://|/";
+            Regex reg = new Regex(patter);
+            ConstantManager.IsUpdateRunning = true;
             foreach (var info in parseInfoes)
             {
                 foreach (var alias in aliasproduct)
                 {
-                    if (alias.URL.Contains(info.Parselink))
+                    if (alias.URL.Contains(reg.Split(info.Parselink)[1]))
                     {
                         ParserHelper.UpdatePriceParser(alias.ID, alias.URL);
                     }
                 }
             }
+            ConstantManager.IsUpdateRunning = false;
         }
     }
 }
