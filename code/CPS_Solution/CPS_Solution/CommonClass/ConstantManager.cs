@@ -24,6 +24,7 @@ namespace CPS_Solution.CommonClass
         public static int RAMPoint { get; set; }
         public static int HDDPoint { get; set; }
         public static int DISPLAYPoint { get; set; }
+        public static int BestScore { get; set; }
     }
     public enum SystemRole { 
         Admin = 1,

@@ -17,5 +17,7 @@ namespace CPS_Solution.Areas.Admin.Models
         public int HddId { get; set; }
         public int VgaId { get; set; }
         public int DisplayId { get; set; }
+        public int BrandId { get; set; }
+        public int StoreId { get; set; }
     }
 }

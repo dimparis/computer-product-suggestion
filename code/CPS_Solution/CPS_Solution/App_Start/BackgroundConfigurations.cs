@@ -63,7 +63,7 @@ namespace CPS_Solution.App_Start
 
             ITrigger trigger = TriggerBuilder.Create().WithIdentity("AutoSendMailTrigger", "Trigger")
                 .StartNow()
-                .WithSchedule(SimpleScheduleBuilder.RepeatMinutelyForever(5))
+                .WithSchedule(SimpleScheduleBuilder.RepeatMinutelyForever(1))
                 .Build();
             parserTrigger = trigger;
 
