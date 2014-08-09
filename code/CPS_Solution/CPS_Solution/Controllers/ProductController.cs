@@ -543,8 +543,10 @@ namespace CPS_Solution.Controllers
 
         public JsonResult SuggestProductName(string term)
         {
-            var result = (from r in db.AliasProducts
-                          where r.Name.ToLower().Contains(term.ToLower()) && r.IsActive == true && r.IsMain ==true && r.Product.IsActive ==true
+
+            var filter = _dataManager.Check5AttributeLoadTrueName(db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == true && x.Product.IsActive == true).ToList());
+            var result = (from r in filter
+                          where r.Name.ToLower().Contains(term.ToLower()) 
                           select new { r.Name }).Distinct();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
