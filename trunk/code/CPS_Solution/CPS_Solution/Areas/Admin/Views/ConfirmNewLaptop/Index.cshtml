@@ -358,18 +358,18 @@
                                             <div class="da-panel-content">
                                                 <form class="da-form">
                                                     <div class="da-form-inline">
-                                                        <div class="da-form-row">
-                                                            <label>Tên Laptop</label>
+                                                        <div class="da-form-row" style="padding-left:16px;padding-top:8px;padding-bottom:8px;text-align:center">
+                                                            <label style="font-size:20px;text-decoration:underline;font-weight:bolder">Tên Laptop</label>
                                                             <div class="da-form-item">
-                                                                <input name="idNameHard@(h.ID)" id="Laptopname@(h.ID)" value="@h.Name"  type="text"></br>
+                                                                <input name="idNameHard@(h.ID)" id="Laptopname@(h.ID)" value="@h.Name"  type="text" style="width:264px"><br/>
                                                               @Html.DropDownList("ProductList", ViewBag.ProductList as List<SelectListItem>, new { @onchange = "HideHardware(this)", @class = "chzn-select", id = @h.ID, @style = "width: 250px;" })
                                                             </div>
                                                         </div>
                                                         @if (h.CpuID != 0 && h.VgaID != 0 && h.HddID != 0 && h.RamID != 0 && h.DisplayID != 0)
                                                         {
                                                             <div id="linhkien@(h.ID)">
-                                                                <div class="da-form-row">
-                                                                    <label>CPU</label>
+                                                                <div class="da-form-row"style="padding-left:16px;padding-top:8px;padding-bottom:8px;text-align:center">
+                                                                    <label style="font-size:16px;text-decoration:underline;font-weight:bolder">CPU</label>
                                                                     <div class="da-form-item">
                                                                         @* <span class="formNote">Tên thành phần</span>*@
                                                                         @{int cpu = 0;}
@@ -377,20 +377,20 @@
                                                                         {
                                                                             if (hard.ID == h.CpuID)
                                                                             {
-                                                                            <input disabled  id="idCPUProduct@(h.ID)" name="ok" value="@h.strCPU" type="text">                                                       
+                                                                            <input disabled  id="idCPUProduct@(h.ID)" name="ok" value="@h.strCPU" type="text"  style="width:264px">                                                       
                                                                                 cpu++;
                                                                                 break;
                                                                             }
                                                                         }
                                                                         @if (cpu == 0)
                                                                         {
-                                                                            <input  id="idCPUProduct@(h.ID)" name="@h.CpuID" value="@h.strCPU" type="text">
+                                                                            <input  id="idCPUProduct@(h.ID)" name="@h.CpuID" value="@h.strCPU" type="text"  style="width:264px">
                                                                             @Html.DropDownList("CPUList", ViewBag.cpuList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlCPU" + @h.ID, @style = "width: 250px;" })
                                                                         }
                                                                     </div>
                                                                 </div>
-                                                                <div class="da-form-row">
-                                                                    <label>VGA</label>
+                                                                <div class="da-form-row" style="padding-left:16px;padding-top:8px;padding-bottom:8px;text-align:center">
+                                                                    <label style="font-size:16px;text-decoration:underline;font-weight:bolder">VGA</label>
                                                                     <div class="da-form-item">
                                                                         @* <span class="formNote">Tên thành phần</span>*@
                                                                         @{int vga = 0;}
@@ -398,21 +398,21 @@
                                                                         {
                                                                             if (hard.ID == h.VgaID)
                                                                             {
-                                                                            <input disabled  id="idVGAProduct@(h.ID)" name="ok" value="@h.strVGA" type="text">
+                                                                            <input disabled  id="idVGAProduct@(h.ID)" name="ok" value="@h.strVGA" type="text"  style="width:264px">
                                                                                 vga++;
                                                                                 break;
                                                                             }
                                                                         }
                                                                         @if (vga == 0)
                                                                         {
-                                                                            <input  id="idVGAProduct@(h.ID)" name="@h.VgaID" value="@h.strVGA" type="text">
+                                                                            <input  id="idVGAProduct@(h.ID)" name="@h.VgaID" value="@h.strVGA" type="text"  style="width:264px">
                                                                 
                                                                             @Html.DropDownList("VGAList", ViewBag.vgaList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlVGA" + @h.ID, @style = "width: 250px;" })
                                                                         }
                                                                     </div>
                                                                 </div>
-                                                                <div class="da-form-row">
-                                                                    <label>HDD</label>
+                                                                <div class="da-form-row" style="padding-left:16px;padding-top:8px;padding-bottom:8px;text-align:center">
+                                                                    <label style="font-size:16px;text-decoration:underline;font-weight:bolder">HDD</label>
                                                                     <div class="da-form-item">
                                                                         @* <span class="formNote">Tên thành phần</span>*@
                                                                         @{int hdd = 0;}
@@ -420,22 +420,22 @@
                                                                         {
                                                                             if (hard.ID == h.HddID)
                                                                             {
-                                                                            <input disabled  id="idHDDProduct@(h.ID)" name="ok" value="@h.strHDD" type="text">
+                                                                            <input disabled  id="idHDDProduct@(h.ID)" name="ok" value="@h.strHDD" type="text"  style="width:264px">
                                                                                 hdd++;
                                                                                 break;
                                                                             }
                                                                         }
                                                                         @if (hdd == 0)
                                                                         {
-                                                                            <input  id="idHDDProduct@(h.ID)" name="@h.HddID" value="@h.strHDD" type="text">
+                                                                            <input  id="idHDDProduct@(h.ID)" name="@h.HddID" value="@h.strHDD" type="text"  style="width:264px">
                                                                
                                                                             @Html.DropDownList("HDDList", ViewBag.hddList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlHDD" + @h.ID, @style = "width: 250px;" })
                                                                         }
                                                                     </div>
                                                                 </div>
-                                                                <div class="da-form-row">
-                                                                    <label>Ram</label>
-                                                                    <div class="da-form-item">
+                                                                <div class="da-form-row" style="padding-left:16px;padding-top:8px;padding-bottom:8px;text-align:center">
+                                                                    <label style="font-size:16px;text-decoration:underline;font-weight:bolder">Ram</label>
+                                                                    <div class="da-form-item large">
                                                                         @* <span class="formNote">Tên thành phần</span>*@
                                                                         @{int ram = 0;}
                                                                         @foreach (Hardware hard in ListHardWareProActive)
@@ -449,13 +449,13 @@
                                                                         }
                                                                         @if (ram == 0)
                                                                         {
-                                                                            <input  id="idRamProduct@(h.ID)" name="@h.RamID" value="@h.strRAM" type="text">                                                                                                            
+                                                                            <input  id="idRamProduct@(h.ID)" name="@h.RamID" value="@h.strRAM" type="text" style="width:264px">                                                                                                            
                                                                             @Html.DropDownList("RAMList", ViewBag.ramList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlRam" + @h.ID, @style = "width: 250px;" })
                                                                         }
                                                                     </div>
                                                                 </div>
-                                                                <div class="da-form-row">
-                                                                    <label>Display</label>
+                                                                <div class="da-form-row" style="padding-left:16px;padding-top:8px;padding-bottom:8px;text-align:center">
+                                                                    <label style="font-size:16px;text-decoration:underline;font-weight:bolder">Display</label>
                                                                     <div class="da-form-item">
                                                                         @* <span class="formNote">Tên thành phần</span>*@
                                                                         @{int display = 0;}
@@ -463,14 +463,14 @@
                                                                         {
                                                                             if (hard.ID == h.DisplayID)
                                                                             {
-                                                                            <input disabled  id="idDisplayProduct@(h.ID)" name="ok" value="@h.strDisplay" type="text">
+                                                                            <input disabled  id="idDisplayProduct@(h.ID)" name="ok" value="@h.strDisplay" type="text" style="width:264px">
                                                                                 display++;
                                                                                 break;
                                                                             }
                                                                         }
                                                                         @if (display == 0)
                                                                         {
-                                                                            <input  id="idDisplayProduct@(h.ID)" name="@h.DisplayID" value="@h.strDisplay" type="text">  
+                                                                            <input  id="idDisplayProduct@(h.ID)" name="@h.DisplayID" value="@h.strDisplay" type="text" style="width:264px">  
                                                                                                                                                                       
                                                                             @Html.DropDownList("DISPLAYList", ViewBag.displayList as List<SelectListItem>, new { @class = "chzn-select", id = "ddlDisplay" + @h.ID, @style = "width: 250px;" })
                                                                         }
@@ -493,7 +493,7 @@
                                                             if(check>0)
                                                             {
                                                                   <div class="da-form-row">
-                                                                <label>Chú ý:</label>
+                                                                <label style="font-size:16px;text-decoration:underline;font-weight:bolder">Chú ý:</label>
                                                                 <div class="da-form-item">
                                                                     @* <span class="formNote">Tên thành phần</span>*@
                                                                     <a style="color: red;" href="/Admin/TrainingProduct">Click vào đây để xử lý linh kiện còn thiếu của Laptop</a>
