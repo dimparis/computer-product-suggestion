@@ -238,7 +238,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
             // TO DO HERE 
             return RedirectToAction("Index");
         }
-
         public ActionResult EditProduct(int id)
         {
             var product = context.Products.Where(x => x.ID == id).FirstOrDefault();
