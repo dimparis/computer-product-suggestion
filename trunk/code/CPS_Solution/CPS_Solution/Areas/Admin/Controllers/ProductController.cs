@@ -161,7 +161,33 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             ViewBag.displayList = displayList;
 
+            // Load Store
+            var Stores = context.Stores.OrderBy(x => x.StoreName).ToList();
+            var StoreList = new List<SelectListItem>();
+            foreach (var store in Stores)
+            {
+                var item = new SelectListItem
+                {
+                    Text = store.StoreName,
+                    Value = store.ID.ToString()
+                };
+                StoreList.Add(item);
+            }
+            ViewBag.StoreList = StoreList;
 
+            // Load Brand
+            var Brands = context.Brands.OrderBy(x => x.BrandName).ToList();
+            var BrandList = new List<SelectListItem>();
+            foreach (var brand in Brands)
+            {
+                var item = new SelectListItem
+                {
+                    Text = brand.BrandName,
+                    Value = brand.ID.ToString()
+                };
+                BrandList.Add(item);
+            }
+            ViewBag.BrandList = BrandList;
 
             return View("CreateProductTest");
         }
@@ -191,7 +217,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 Description = model.Description,
                 TotalWeightPoint = 0,
             };
-            product.AliasProducts.Add(new AliasProduct() { Name = model.Name, IsMain = true,IsActive=true,Price=model.Price,URL = model.Parselink,UpdateTime =DateTime.Now,StoreID =1 });
+            product.AliasProducts.Add(new AliasProduct() { Name = model.Name, IsMain = true,IsActive=true,Price=model.Price,URL = model.Parselink,UpdateTime =DateTime.Now,StoreID = model.StoreId,BrandID = model.BrandId });
             context.Products.Add(product);
             context.SaveChanges();
             //Add item product Attribute

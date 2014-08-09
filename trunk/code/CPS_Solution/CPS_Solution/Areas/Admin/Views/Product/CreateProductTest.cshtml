@@ -332,12 +332,18 @@
                 </div>
                 <div class="clear"></div>
                                     
-                                                                      
-                <div class="da-form-row " style="width: 50%; float: left">
-                    <label>Tên gọi khác</label>
+                     <div class="da-form-row " style="width: 25%; float: left">
+                    <label>Cửa hàng</label>
                     <div class="da-form-item large">
+                      @Html.DropDownListFor(x => x.StoreId , ViewBag.StoreList as List<SelectListItem>, new { @class = "chzn-select" })
                     </div>
-                </div>
+                </div>                                                      
+                     <div class="da-form-row " style="width: 25%; float: left">
+                    <label>Hãng</label>
+                    <div class="da-form-item large">
+                       @Html.DropDownListFor(x => x.BrandId, ViewBag.BrandList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>  
                 <div class="da-form-row " style="width: 50%; float: right">
                     <label>Màn hình</label>
                     <div class="da-form-item large">

@@ -5,6 +5,7 @@ using System.Web;
 using Quartz;
 using CPS_Solution.EntityFramework;
 using System.Xml.Linq;
+using System.Data;
 namespace CPS_Solution.CommonClass
 {
     public class AutoTakeBestProduct : IJob
@@ -29,6 +30,19 @@ namespace CPS_Solution.CommonClass
             ConstantManager.RAMPoint = (int)RAM.WeightCriteraPoint;
             ConstantManager.HDDPoint = (int)HDD.WeightCriteraPoint;
             ConstantManager.DISPLAYPoint = (int)Display.WeightCriteraPoint;
+
+            var products = (from p in context.Products
+                           select p).ToList();
+
+            foreach (var i in products) {
+                i.TotalWeightPoint = (i.cpuScore + i.vgaScore) * 6 + (i.ramScore + i.hddScore + i.displayScore) * 4;
+                context.Entry(i).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+
+            var bestProduct = context.Products.OrderByDescending(x => x.TotalWeightPoint).FirstOrDefault();
+            ConstantManager.BestScore = (int)bestProduct.TotalWeightPoint;
+            
 
             double main = 6 * (CPU.WeightCriteraPoint + VGA.WeightCriteraPoint);
             double alias = 4 * (RAM.WeightCriteraPoint + HDD.WeightCriteraPoint + Display.WeightCriteraPoint);

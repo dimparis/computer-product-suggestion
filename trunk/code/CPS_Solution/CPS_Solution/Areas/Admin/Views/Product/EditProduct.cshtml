@@ -1,4 +1,4 @@
-﻿@model CPS_Solution.EntityFramework.Product
+﻿    @model CPS_Solution.EntityFramework.Product
 @using CPS_Solution.EntityFramework;
 @using CPS_Solution.Areas.Admin.Models;
 @{
@@ -479,7 +479,7 @@
                                                                 <label>Chọn tên phụ muôn sửa<span class="required">*</span></label>
                                                                 <div class="da-form-item large">
                                                                     <span class="formNote">.</span>
-                                                                      @Html.DropDownList("CPUList", ViewBag.completeAlias as List<SelectListItem>, new { @onchange = "Changeinfo(this)", @class = "chzn-select", id = "IdAliasNameup1", @style = "width: 300px;" })
+                                                                      @Html.DropDownList("CPUList", ViewBag.completeAlias as List<SelectListItem>, new { @onchange = "Changeinfo(this)", @class = "chzn-select", @style = "width: 300px;" })
                                                                 </div>
                                                             </div>
                                                             <div id ="changeId">
