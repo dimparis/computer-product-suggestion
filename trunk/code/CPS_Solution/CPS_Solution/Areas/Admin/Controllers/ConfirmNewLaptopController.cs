@@ -89,7 +89,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = pro.Name,
+                    Text = pro.Name.Replace("-", " "),
                     Value = pro.ID.ToString()
                 };
                 ProductList.Add(item);
@@ -107,7 +107,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = cpu.Name,
+                    Text = cpu.Name.Replace("-", " "),
                     Value = cpu.ID.ToString()
                 };
                 cpuList.Add(item);
@@ -124,7 +124,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = vga.Name,
+                    Text = vga.Name.Replace("-", " "),
                     Value = vga.ID.ToString()
                 };
                 vgaList.Add(item);
@@ -141,7 +141,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = hdd.Name,
+                    Text = hdd.Name.Replace("-", " "),
                     Value = hdd.ID.ToString()
                 };
                 hddList.Add(item);
@@ -159,7 +159,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = ram.Name,
+                    Text = ram.Name.Replace("-", " "),
                     Value = ram.ID.ToString()
                 };
                 ramList.Add(item);
@@ -176,7 +176,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = display.Name,
+                    Text = display.Name.Replace("-", " "),
                     Value = display.ID.ToString()
                 };
                 displayList.Add(item);
@@ -267,7 +267,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = cpu.Name,
+                    Text = cpu.Name.Replace("-", " "),
                     Value = cpu.ID.ToString()
                 };
                 cpuList.Add(item);
@@ -284,7 +284,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = vga.Name,
+                    Text = vga.Name.Replace("-", " "),
                     Value = vga.ID.ToString()
                 };
                 vgaList.Add(item);
@@ -301,7 +301,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = hdd.Name,
+                    Text = hdd.Name.Replace("-", " "),
                     Value = hdd.ID.ToString()
                 };
                 hddList.Add(item);
@@ -319,7 +319,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = ram.Name,
+                    Text = ram.Name.Replace("-", " "),
                     Value = ram.ID.ToString()
                 };
                 ramList.Add(item);
@@ -336,7 +336,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = display.Name,
+                    Text = display.Name.Replace("-", " "),
                     Value = display.ID.ToString()
                 };
                 displayList.Add(item);
