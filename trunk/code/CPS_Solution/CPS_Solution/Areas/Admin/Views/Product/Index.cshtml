@@ -361,7 +361,7 @@
                         <th>STT</th>
                         <th>Tên Sản Phẩm</th>
                         <th>Giá Sản Phẩm</th>
-                        <th>Tổng Điểm</th>
+                        <th>Đường dẫn</th>
                         <th>Thao Tác</th>
                         <th>Trạng Thái</th>
                     </tr>
@@ -373,21 +373,15 @@
                         foreach (var item in Model)
                         {
 
-                            if (item.IsActive.HasValue)
-                            {
-                                if (item.IsActive.Value == true)
-                                {
-                                    status = item.IsActive.Value;
-                                }
-                            }
+          
                             
                         <tr>
                             <td>@counter</td>
                             <td>@item.Name</td>
                             <td>@item.Price</td>
-                            <td>@item.TotalWeightPoint</td>
+                            <td><a href="@item.URL">Xem đường dẫn</a></td>
                             <td>@Html.ActionLink("Chỉnh sửa", "EditProduct", new { id = item.ID })</td>
-                            @if (status)
+                            @if ((bool)item.IsActive)
                             {
                                 <td>
                                     <input type="submit" value="Hoạt động" class="da-button green" style="width:120px" data-id="@item.ID"/>
