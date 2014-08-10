@@ -181,6 +181,7 @@
     </Compile>
     <Compile Include="Areas\Admin\Controllers\ImportExcelLapController.cs" />
     <Compile Include="Areas\Admin\Controllers\LogFileController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManagerStoreController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagerUserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
@@ -192,6 +193,8 @@
     <Compile Include="Areas\Admin\Controllers\TrainingProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\TraningLaptopController.cs" />
     <Compile Include="Areas\Admin\Controllers\ViewFeedbackController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ViewRatingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ViewSearchNotFoundController.cs" />
     <Compile Include="Areas\Admin\Helpers\CompareStringHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ConfigureHelper.cs" />
     <Compile Include="Areas\Admin\Helpers\ImageHelper.cs" />
@@ -207,7 +210,9 @@
     <Compile Include="Areas\Admin\Models\ParseCreator.cs" />
     <Compile Include="Areas\Admin\Models\ProductCreateAttribute.cs" />
     <Compile Include="Areas\Admin\Models\ProductMap.cs" />
+    <Compile Include="Areas\Admin\Models\ProductNotFound.cs" />
     <Compile Include="Areas\Admin\Models\ProductParserCreator.cs" />
+    <Compile Include="Areas\Admin\Models\RatingPro.cs" />
     <Compile Include="Areas\Admin\Models\ShowInfoRepository .cs" />
     <Compile Include="CommonClass\AutoParseJob.cs" />
     <Compile Include="CommonClass\AutoSendMail.cs" />
@@ -3327,6 +3332,9 @@
     <Content Include="Areas\Admin\Views\ProductParserAdmin\EditProductParserAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\ProductParserAdmin\CreateProductParserAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Recommend\CreateRecommend.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagerStore\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagerStore\loadTableAgain.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\loadPopupAjac.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
