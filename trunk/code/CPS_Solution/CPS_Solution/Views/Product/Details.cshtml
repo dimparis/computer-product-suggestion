@@ -388,7 +388,7 @@
             <div class="span8" style="border-style: solid; padding: 20px;">
                 @if (@Model.AliasProducts.Any())
                 {             
-                    @Html.Partial("TakeAliasProduct",@Model.AliasProducts);
+                    @Html.Partial("TakeAliasProduct",@Model.AliasProducts.Where(x=>x.IsMain == false && x.IsActive == true).ToList());
                 }
                 </div>
             </div>

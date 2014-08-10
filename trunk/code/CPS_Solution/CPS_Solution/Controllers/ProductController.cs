@@ -212,12 +212,12 @@ namespace CPS_Solution.Controllers
 
         public ActionResult Details(int id)
         {
-            Product product = db.Products.Find(id);
+            Product product = db.Products.FirstOrDefault(x=>x.ID ==id);
             if (product == null)
             {
                 return HttpNotFound();
             }
-            product.AliasProducts = db.AliasProducts.Where(x => x.ProductID == id && x.IsActive == true && x.IsMain == false).ToList();
+            List<AliasProduct> listOfAlias = new List<AliasProduct>();
             // lấy point Rating của product
             double point = 0;
             double allpoint = 0;
