@@ -1,0 +1,471 @@
+﻿@model CPS_Solution.EntityFramework.ParseInfo
+@{
+    ViewBag.Title = "Chỉnh sửa Parser sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section headScript
+{
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+    <!-- Plugin Files -->
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.icons.js"></script>
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.core.js"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.validation.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.dashboard.js")"></script>
+
+    <!-- Validation Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/validate/jquery.validate.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.circularstat.min.js")"></script>
+
+
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js")"></script>
+}
+@section sidebar
+{
+    <!-- Main Navigation -->
+    <div id="da-main-nav" class="da-button-container">
+        <ul>
+            <li>
+                <a href="#">
+
+                    <span class="da-nav-count">1</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/home.png")" alt="Trang chủ" />
+                    </span>
+                    <strong>Hệ thống</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("ConfigureSystem", "System")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/setting.png")" alt="" />
+                            <strong>Cấu hình hệ thống</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-count">2</span>
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/graph.png")" alt="Charts" />
+                    </span>
+                    <strong>Thống kê</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="/admin/ViewRating">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/rating.png")" alt="" />
+                            <strong>Đánh giá</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="@Url.Action("HistoryCompare", "StatisticProduct")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/topsearch.png")" alt="" />
+                            <strong>Lịch sử</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <!-- Nav Notification -->
+                    <span class="da-nav-count">7</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/documents_1.png")" alt="Charts" />
+                    </span>
+                    <strong>Dữ liệu</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="/Admin/importexcelLap">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
+                            <strong>Nhập Laptop từ Excel</strong>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="/Admin/importexcel">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
+                            <strong>Nhập linh kiện từ Excel</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="/admin/TraningLaptop">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xử lý Laptop trùng</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="/Admin/TrainingProduct">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xử lý linh kiện trùng</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="/Admin/ConfirmNewLaptop">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xác nhận laptop mới</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/ConfirmNewHardware">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
+                            <strong>Xác nhận linh kiện mới</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="@Url.Action("CreateProductParser", "Recommend")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/arrow.png")" alt="" />
+                            <strong>Sản phẩm đề xuất</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Product")">
+                    <span class="da-nav-count">5</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/day_calendar.png")" alt="Calendar" />
+                    </span>
+                    <strong>Quản lí sản phẩm</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("CreateProductTest", "Product")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/add.png")" alt="" />
+                            <strong>Tạo mới sản phẩm</strong>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="@Url.Action("Index", "Product")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Danh sách sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="@Url.Action("Index", "ViewFeedback")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Xem góp ý sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "ViewSearchNotFound")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/topsearch.png")" alt="" />
+                            <strong>Lịch sử tìm kiếm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "ManagerStore")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/color/asterisk_orange.png")" alt="" />
+                            <strong>Quản lý cửa hàng</strong>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <!-- Icon Container -->
+                    <span class="da-nav-count">1</span>
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/settings.png")" alt="" />
+                    </span>
+                    <strong>Quản lí trọng số</strong>
+                </a>
+                <ul class="closed">
+                    <li>
+                        <a href="@Url.Action("Index", "FillWeightHardWare")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/manager.png")" alt="" />
+                            <strong>Danh sách trọng số</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <span class="da-nav-count">4</span>
+                    <!-- Icon Container -->
+                    <span class="da-nav-icon">
+                        <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/cog_4.png")" alt="" />
+                    </span>
+                    <strong>Parser</strong>
+                </a>
+                <ul>
+                    <li style="background-color: #a6d037;">
+                        <a href="@Url.Action("CreateParser", "Parser")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser linh kiện</strong>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "Parser")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser linh kiện</strong>
+                        </a>
+                    </li>
+                    @*  <li >
+                        <a href="#">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
+                            <strong>Tạo parser sản phẩm</strong>
+                        </a>
+                    </li>*@
+                    <li>
+                        <a href="@Url.Action("Index", "Recommend")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Parser sản phẩm</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "LogFile")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/log.png")" alt="" />
+                            <strong>Danh sách log file</strong>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+}
+@section mainHeader
+{
+    <ul>
+        <li style="margin-right: 5px"><a style="cursor: default; font-size: 27px;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Parser</strong></a></li>
+        <li style="margin-right: 5px; font-weight: bold">>></li>
+        <li class="active">
+            <a href="@Url.Action("EditProductParserAdmin", "ProductParserAdmin")" style="font-size:20px;font-style:italic;text-decoration:underline">Tạo Parser sản phẩm</a>
+        </li>
+    </ul>
+}
+
+
+@section footScript
+{
+    <!-- Wizard Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Scripts/getXPathProduct.js")"></script>
+}
+<!-- Content Area -->
+<div class="grid_4">
+    <div class="da-panel">
+        <div class="da-panel-header">
+            <span class="da-panel-title">
+                <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/16/list.png")" alt="">
+                Địa chỉ website cần parse
+            </span>
+        </div>
+        <div class="da-panel-content">
+            @using (Html.BeginForm("LoadWebProduct", "ProductParserAdmin", FormMethod.Post, new { @class = "da-form" }))
+            {
+                <div id="da-ex-val1-error" class="da-message error" style="display: none;"></div>
+                <div class="da-form-inline">
+                    <div class="da-form-row">
+                        <label>Link cần lấy<span class="required">*</span></label>
+                        <div class="da-form-item large">
+                            @Html.TextBoxFor(x => x.Parselink, new { placeholder = "Nhập link cần parse", id = "linkPreview", Value = TempData["link"], required = "required" })
+                        </div>
+                    </div>
+                </div>
+                <div class="da-button-row">
+                    <input type="submit" value="Cập nhật" class="da-button green" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@if (TempData["link"] != null)
+{ 
+    <div class="grid_4">
+        <div class="da-panel">
+            <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="@Url.Content("~/Areas/Admin/Dandelion/Areas/Admin/Dandelion/images/icons/color/wand.png")" alt="" />
+                    Các bước tạo parser sản phẩm
+                </span>
+
+            </div>
+            <div class="da-panel-content">
+                @using (Html.BeginForm("EditProductParserAdmin", "ProductParserAdmin", FormMethod.Post, new { id = "Parseform", @class = "da-form" }))
+                {
+                    <input type="hidden" name="Parselink" value="@TempData["link"]"/>     								
+                    <fieldset class="da-form-inline" data-name="divInfo" data-step-id="1">
+                        <legend>Bắt đầu</legend>
+                        <div class="da-form-row">
+                            <h1>Hãy hoàn thành tiến trình để rút trích dữ liệu.</h1>
+                        </div>
+                    </fieldset>    									
+                    <fieldset class="da-form-inline" data-name="productName" data-step-id="2">
+                        <legend>Tên SP</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới tên sản phẩm <span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.Name, new { id = "xpathProductName" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="price" data-step-id="3">
+                        <legend>Giá SP</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới giá sản phẩm <span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.PriceXPath, new { id = "xpathPrice" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="image" data-step-id="4">
+                        <legend>Ảnh SP</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới ảnh sản phẩm <span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.ImageXpath, new { id = "xpathImage" })
+                            </div>
+                        </div>
+                    </fieldset>				
+                    <fieldset class="da-form-inline" data-name="cpu" data-step-id="5">
+                        <legend>CPU</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới CPU</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.CPUXPath, new { id = "xpathCPU" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="vga" data-step-id="6">
+                        <legend>VGA</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới VGA</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.VGAXPath, new { id = "xpathVGA" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="hdd" data-step-id="7">
+                        <legend>HDD</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới Dung lượng đĩa cứng</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.HDDXPath, new { id = "xpathHDD" })
+                            </div>
+                        </div>
+                    </fieldset>
+                                            
+                    <fieldset class="da-form-inline" data-name="ram" data-step-id="8">
+                        <legend>RAM</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới Bộ nhớ</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.RAMXPath, new { id = "xpathRAM" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="display" data-step-id="9">
+                        <legend>Display</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới Màn hình</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.DisplayXPath, new { id = "xpathDisplay" })
+                            </div>
+                        </div>
+                    </fieldset>         
+										
+                    <fieldset class="da-form-inline" data-name="finish" data-step-id="10">
+                        <legend>Xác nhận</legend>
+                        <div class="da-form-row">
+                            <h1>Bạn chắc chắc với những gì đã chọn? </h1>
+                            <h1>Bạn có thể bấm vào nút xem trước để thấy được chi tiết  của sản phầm sẽ được parse.</h1>
+                            <input type="button" id="previewbtn" class="da-button blue" value="Xem Trước" />
+                        </div>
+                    </fieldset>
+                }
+            </div>
+        </div>
+    </div>
+    <div id="previewParser" style="z-index: 200 !important">
+    </div>
+    <div class="grid_4">
+        <iframe id="webDiv" src="@Url.Content("~/Areas/Admin/SavedPages/ProductTmp.html")" width="1043" height="600" style="background-color:#ffffff"></iframe>
+    </div> 
+}
+<script>
+    //Xem trước sản phẩm
+    var $productName = $('#xpathProductName');
+    var $price = $('#xpathPrice');
+    var $cpu = $('#xpathCPU');
+    var $hdd = $('#xpathHDD');
+    var $vga = $('#xpathVGA');
+    var $ram = $('#xpathRAM');
+    var $image = $('#xpathImage');
+    var $display = $('#xpathDisplay');
+    var $parseLink = $('#linkPreview');
+    $(document).on('click', '#previewbtn', function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadPreview", "Recommend")',
+            data: {
+                parseLink: $parseLink.val(),
+                name: $productName.val(),
+                price: $price.val(),
+                hdd: $hdd.val(),
+                vga: $vga.val(),
+                ram: $ram.val(),
+                cpu: $cpu.val(),
+                display: $display.val(),
+                image: $image.val(),
+            },
+            success: function (result) {
+                $('#previewParser').html(result);
+                $("#previewParser").dialog({
+                    autoOpen: false,
+                    title: "Xem trước các thành phần",
+                    width: "800",
+                    modal: true,
+                    draggable: false
+                    //buttons: [{
+                    //    text: "Đóng", 
+                    //    click: function() {
+                    //        $( this ).dialog( "close" );
+                    //    }}]
+                });
+                $("#previewParser").dialog("option", { modal: true }).dialog("open");
+                event.preventDefault();
+            }
+        })
+    })
+</script>
+
