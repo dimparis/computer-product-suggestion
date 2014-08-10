@@ -284,31 +284,7 @@
 @section footScript
 {
 }
-<div class="grid_4">
-    <div class="da-panel-content">
-        @if (TempData["CreateNewAlias"] != null)
-        {
-            <div class="da-message success">
-               Tên phụ mới đã được thêm thành công!
-            </div>
-        }
-        @if (TempData["CreateNewAlias"] != null)
-        {
-            string statusMessage = TempData["edit"].ToString();
-            if (statusMessage == "success")
-            {
-            <div class="da-message success">
-               Sửa thông tin tên phụ thành công!
-            </div>
-            }
-            else if (statusMessage == "failed")
-            {
-            <div class="da-message error">
-                Cập nhật parser thất bại. Xin vui lòng thử lại.
-            </div>
-            }
-        }
-    </div>
+<div class="grid_4">   
 </div>
 <div class="grid_4">
     <div class="da-panel">
@@ -469,6 +445,8 @@
                                         <!----------------Popup------------------>
 
       <!----------------Popup Sửa tên phụ----------->
+    @if (listAli.Count>0)
+    {
                                         <div id="Update-Store-Popup-div" style="display: none;">
                                             <div class="da-panel">
                                                 <div class="da-panel-content">
@@ -476,7 +454,7 @@
                                                         <fieldset class="da-form-inline">
                                                             <legend>Sửa tên phụ sản phẩm</legend>
                                                             <div class="da-form-row">
-                                                                <label>Chọn tên phụ muôn sửa<span class="required">*</span></label>
+                                                                <label>Chọn tên phụ muốn sửa<span class="required">*</span></label>
                                                                 <div class="da-form-item large">
                                                                     <span class="formNote">.</span>
                                                                       @Html.DropDownList("CPUList", ViewBag.completeAlias as List<SelectListItem>, new { @onchange = "Changeinfo(this)", @class = "chzn-select", @style = "width: 300px;" })
@@ -487,6 +465,7 @@
                                                                 <label>Tên phụ sản phẩm<span class="required">*</span></label>
                                                                 <div class="da-form-item large">
                                                                     <span class="formNote">Tên phải từ 5 tới 100 ký tự</span>   
+                                                                    <input hidden type="text" name="nothing" value="@listAli[0].ID" id="IdAliasNameup1"> 
                                                                        <input type="text" name="password" value="@listAli[0].Name" id="IdAliasNameup">                                                                                                       
                                                                 </div>
                                                             </div>
@@ -543,6 +522,7 @@
                                                 </div>
                                             </div>
                                         </div>
+    
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -550,6 +530,7 @@
     });
 
 </script>
+    }
                                         <!----------------Popup------------------>
 </div>
 <script>
@@ -606,6 +587,7 @@
      document.getElementById('IdLinkAliasNameUp').value =  document.getElementById('IdURL+'+stt).value;
      document.getElementById('IdPriceAliasNameUp').value = document.getElementById('IdPrice+' + stt).value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
      document.getElementById('IdStoreAliasNameUp').value = document.getElementById('IdStore+' + stt).value;
+     document.getElementById('IdAliasNameup1').value = stt;
     }
 
 
@@ -683,9 +665,9 @@
                 success: function (data) {
                     if (data == "NotUrl") {
                         document.getElementById("IdLinkAliasNameUp").style.borderColor = 'red';
-                    } else {                  
+                    } else {                                        
+                        loadPopupAjac();
                         $("#Update-Store-Popup-div").dialog("close");
-                        loadPopupAjac();                      
                     }
 
                 },
@@ -743,6 +725,7 @@
                         document.getElementById("IdAliasName").value ="";
                         document.getElementById("IdLinkAliasName").value = "";
                         document.getElementById("IdPriceAliasName").value = "";
+                        location.reload();
                     }
 
                 },

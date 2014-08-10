@@ -376,7 +376,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             //Lấy tên phụ sản phẩm
-            var listAlias = context.AliasProducts.Where(x => x.ProductID == id && x.IsMain == false).ToList();
+            var listAlias = context.AliasProducts.Where(x => x.ProductID == id && x.IsMain == false && x.IsActive== true).ToList();
             ViewBag.listAlias = listAlias;
             var completeAlias = new List<SelectListItem>();
             foreach (var a in listAlias)

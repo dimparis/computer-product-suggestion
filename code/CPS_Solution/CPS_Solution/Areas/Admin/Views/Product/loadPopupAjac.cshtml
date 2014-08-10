@@ -34,10 +34,10 @@
                                                         <fieldset class="da-form-inline">
                                                             <legend>Sửa tên phụ sản phẩm</legend>
                                                             <div class="da-form-row">
-                                                                <label>Chọn tên phụ muôn sửa<span class="required">*</span></label>
+                                                                <label>Chọn tên phụ muốn sửa<span class="required">*</span></label>
                                                                 <div class="da-form-item large">
                                                                     <span class="formNote">.</span>
-                                                                      @Html.DropDownList("CPUList", ViewBag.completeAlias as List<SelectListItem>, new { @onchange = "Changeinfo(this)", @class = "chzn-select", id = "IdAliasNameup1", @style = "width: 300px;" })
+                                                                      @Html.DropDownList("CPUList", ViewBag.completeAlias as List<SelectListItem>, new { @onchange = "Changeinfo(this)", @class = "chzn-select", @style = "width: 300px;" })
                                                                 </div>
                                                             </div>
                                                             <div id ="changeId">
@@ -45,6 +45,7 @@
                                                                 <label>Tên phụ sản phẩm<span class="required">*</span></label>
                                                                 <div class="da-form-item large">
                                                                     <span class="formNote">Tên phải từ 5 tới 100 ký tự</span>   
+                                                                    <input hidden type="text" name="nothing" value="@listAli[0].ID" id="IdAliasNameup1"> 
                                                                        <input type="text" name="password" value="@listAli[0].Name" id="IdAliasNameup">                                                                                                       
                                                                 </div>
                                                             </div>
@@ -59,8 +60,8 @@
                                                                 <span class="formNote"></span>
                                                                 <label>Giá <span class="required">*</span></label>
                                                                 <div class="da-form-item large">
-                                                                    <span class="formNote">Phải là số nguyên</span>
-                                                                  @{
+                                                                    <span class="formNote">Phải là số nguyên</span>    
+                                                                    @{
                                                                         
                                                                         String price = String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @listAli[0].Price);
                                                                         price = price.Replace('.',',');
@@ -77,7 +78,7 @@
                                                                 <label>Cửa Hàng<span class="required">*</span></label>
                                                                 <div class="da-form-item large">
                                                                     <select id="IdStoreAliasNameUp">
-                                                                        @foreach(Store s in listStore)
+                                                                        @foreach (Store s in listStore)
                                                                         {
                                                                          <option value="@s.ID">@s.StoreName</option>
                                                                         }
