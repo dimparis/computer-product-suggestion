@@ -20,7 +20,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
         public ActionResult Index()
         {
-            var product = context.Products.ToList();
+            var product = context.Products.Where(x => x.IsActive.HasValue).ToList();
             // Load Store list
             var stores = context.Stores.Where(x => x.IsActive == true)
                 .OrderBy(x => x.StoreName)
@@ -82,15 +82,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 if (product.IsActive.HasValue)
                 {
-                    product.IsActive = false;
-                    statusFlag = false;
+                    if (product.IsActive.Value == true)
+                    {
+                        product.IsActive = false;
+                        statusFlag = false;
+                    }
+                    else
+                    {
+                        product.IsActive = true;
+                        statusFlag = true;
+                    }
+                    context.SaveChanges();
                 }
-                else
-                {
-                    product.IsActive = true;
-                    statusFlag = true;
-                }
-                context.SaveChanges();
+
             }
 
             // Display the confirmation message
@@ -376,7 +380,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             //Lấy tên phụ sản phẩm
-            var listAlias = context.AliasProducts.Where(x => x.ProductID == id && x.IsMain == false && x.IsActive== true).ToList();
+            var listAlias = context.AliasProducts.Where(x => x.ProductID == id && x.IsMain == false && x.IsActive == true).ToList();
             ViewBag.listAlias = listAlias;
             var completeAlias = new List<SelectListItem>();
             foreach (var a in listAlias)
@@ -444,8 +448,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public RedirectToRouteResult UpdatePrice(string StoreList)
         {
             int id = Int32.Parse(StoreList);
-            var store = context.Stores.Where(x => x.ID == id && x.IsActive ==true).FirstOrDefault();
-            if (id != 1000 && store !=null)
+            var store = context.Stores.Where(x => x.ID == id && x.IsActive == true).FirstOrDefault();
+            if (id != 1000 && store != null)
             {
                 // Auto Parser Product
                 var parseInfoes = context.ParseInfoes.Where(x => x.IsActive == true && x.Parselink.Contains(store.StoreUrl)).ToList();
