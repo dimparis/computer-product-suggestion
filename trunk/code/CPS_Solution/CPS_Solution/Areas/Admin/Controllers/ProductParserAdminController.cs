@@ -31,7 +31,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
             TempData["link"] = ParseProductLink;
             return RedirectToAction("CreateProductParserAdmin");
         }
-
+        [HttpPost]
+        public RedirectToRouteResult LoadWebProductEdit(string Parselink)
+        {
+            HtmlNode.ElementsFlags.Remove("form");
+            ParserHelper.LoadWebProduct(Parselink);
+            TempData["link"] = Parselink;
+            return RedirectToAction("CreateProductParserAdmin");
+        }
         public ActionResult CreateProductParserAdmin()
         {
             return View("~/Areas/Admin/Views/ProductParserAdmin/CreateProductParserAdmin.cshtml");

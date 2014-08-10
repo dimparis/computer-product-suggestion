@@ -126,6 +126,22 @@ namespace CPS_Solution.Areas.Admin.Helpers
                     string Imageurl = node.Attributes["src"].Value;
                     return Imageurl;
                 }
+                if (node.Attributes["data-original"] != null)
+                {
+                    string tmp = node.Attributes["data-original"].Value;
+                    if (tmp.StartsWith("/"))
+                    {
+                        tmp = host + tmp;
+                        node.Attributes["src"].Value = tmp;
+                    }
+                    else if (tmp.StartsWith("im") || tmp.StartsWith("up"))
+                    {
+                        tmp = host + "/" + tmp;
+                        node.Attributes["data-original"].Value = tmp;
+                    }
+                    string Imageurl = node.Attributes["data-original"].Value;
+                    return Imageurl;
+                }
             }
             return ConstantManager.DefaultImage;
         }
