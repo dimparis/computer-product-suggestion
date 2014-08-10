@@ -291,7 +291,7 @@
             </span>
         </div>
         <div class="da-panel-content">
-            @using (Html.BeginForm("LoadWebProduct", "ProductParserAdmin", FormMethod.Post, new { @class = "da-form" }))
+            @using (Html.BeginForm("LoadWebProductEdit", "ProductParserAdmin", FormMethod.Post, new { @class = "da-form" }))
             {
                 <div id="da-ex-val1-error" class="da-message error" style="display: none;"></div>
                 <div class="da-form-inline">
@@ -299,6 +299,7 @@
                         <label>Link cần lấy<span class="required">*</span></label>
                         <div class="da-form-item large">
                             @Html.TextBoxFor(x => x.Parselink, new { placeholder = "Nhập link cần parse", id = "linkPreview", Value = TempData["link"], required = "required" })
+       
                         </div>
                     </div>
                 </div>

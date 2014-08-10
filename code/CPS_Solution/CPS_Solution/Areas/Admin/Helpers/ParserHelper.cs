@@ -1036,10 +1036,6 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 {
                     valPrice = PriceHelper.ConvertPrice(data.Price);
                 }
-                else
-                {
-                    valPrice = 0;
-                }
             }
             using (var context = new CPS_SolutionEntities())
             {

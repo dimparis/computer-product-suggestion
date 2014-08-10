@@ -217,7 +217,6 @@ namespace CPS_Solution.Controllers
             {
                 return HttpNotFound();
             }
-            List<AliasProduct> listOfAlias = new List<AliasProduct>();
             // lấy point Rating của product
             double point = 0;
             double allpoint = 0;
