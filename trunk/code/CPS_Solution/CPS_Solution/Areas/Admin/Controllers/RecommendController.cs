@@ -9,6 +9,7 @@ using CPS_Solution.Areas.Admin.Helpers;
 using System.Threading.Tasks;
 using CPS_Solution.CommonClass;
 using HtmlAgilityPack;
+using System.Net;
 namespace CPS_Solution.Areas.Admin.Controllers
 {
     public class RecommendController : Controller
@@ -285,6 +286,62 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 LoadPreview(parseLink, name, price, hdd, vga, ram, cpu, display, image);
             }
             return PartialView();
+        }
+        public ActionResult CreateRecommend() 
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateRecommend(string link) 
+        {
+            var rmd = new RecommendProduct
+            {
+                Email = "iv250509@gmail.com",
+                IsApprove = null,
+                IsMailSent = false,
+                IsReceive = false,
+                IsSeen = false,
+                IsTrue = false,
+                Parselink = link,
+                RecommendTime = DateTime.Now,
+                Username = "staff",
+            };
+            context.RecommendProducts.Add(rmd);
+            context.SaveChanges();
+            TempData["link"] = link;
+            return View();
+        }
+        public JsonResult checkLink(string link)
+        {
+            System.Threading.Thread.Sleep(1500);
+            //string name = form["link"];
+            if (IsUrl(link))
+            {
+                    return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+        }
+
+        private bool IsUrl(string URL)
+        {
+            //Load website
+            try
+            {
+                var web = new HtmlWeb { UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0" };
+                var document = web.Load(URL);
+                if (web.StatusCode == HttpStatusCode.OK)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return false;
         }
     }
 }

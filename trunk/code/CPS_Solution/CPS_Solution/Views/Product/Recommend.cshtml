@@ -86,14 +86,14 @@
                     //Product url
                     <div class="form-group stylish-input ">
                         <h4>Đường dẫn sản phẩm</h4>
-                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link", @style = "height:40px;width:300px", @onchange = "LinkCheck()" })
+                        @Html.TextBoxFor(model => model.Parselink, new { @class = "form-control", id = "link", @style = "height:40px;width:300px", @onblur = "LinkCheck()" })
                         @Html.ValidationMessageFor(model => model.Parselink)
                         <div id="status"></div>
                     </div>
                     //Product name
                     <div class="form-group stylish-input">
                         <h4>Email</h4>
-                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", @style = "height:40px;width:300px", @onchange = "checkEmail()", @disabled = "disabled" })
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", @style = "height:40px;width:300px", @onblur = "checkEmail()", @disabled = "disabled" })
 
                         @Html.ValidationMessageFor(model => model.Email)
                         <div id="statusEmail"></div>

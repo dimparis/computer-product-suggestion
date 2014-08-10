@@ -3326,6 +3326,7 @@
     <Content Include="Areas\Admin\Views\ProductParserAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductParserAdmin\EditProductParserAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\ProductParserAdmin\CreateProductParserAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommend\CreateRecommend.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
