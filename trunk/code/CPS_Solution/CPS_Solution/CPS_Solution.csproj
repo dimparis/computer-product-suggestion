@@ -184,6 +184,7 @@
     <Compile Include="Areas\Admin\Controllers\ManagerUserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductParserAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductShowController.cs" />
     <Compile Include="Areas\Admin\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Admin\Controllers\SystemController.cs" />
@@ -3322,6 +3323,9 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Areas\Admin\Views\ManagerUser\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductParserAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductParserAdmin\EditProductParserAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductParserAdmin\CreateProductParserAdmin.cshtml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
