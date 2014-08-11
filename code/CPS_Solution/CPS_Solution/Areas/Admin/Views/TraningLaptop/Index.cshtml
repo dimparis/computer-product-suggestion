@@ -178,7 +178,7 @@
             <li class="active">
                 <a href="#">
                     <!-- Nav Notification -->
-                    <span class="da-nav-count">7</span>
+                    <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/documents_1.png")" alt="Charts" />
@@ -214,19 +214,7 @@
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
-                     <li>
-
-                        <a href="/Admin/ConfirmNewLaptop">
-                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
-                            <strong>Xác nhận laptop mới</strong>
-                        </a>
-                           </li>
-                           <li>
-                         <a href="/Admin/ConfirmNewHardware">
-                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
-                            <strong>Xác nhận linh kiện mới</strong>
-                        </a>
-                    </li>
+                   
                     <li>
 
                         <a href="@Url.Action("CreateProductParser", "Recommend")">
@@ -487,7 +475,7 @@
                                             <td class=" "><label style="width: 100px;">@p.Display</label></td>
                                             <td class=" "><label style="width: 100px;">@p.RAM</label></td>
                                             <td class=" "><label style="width: 100px;">@p.Price</label></td>
-                                            <td class=" "><label style="width: 100px;">@p.Url</label></td>
+                                            <td class=" "><label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem đường dẫn</u></i></a></label></td>
                                             <td class=" ">
                                                 <input name="sttproduct" type="hidden"  value="@p.stt" />
                                                 <a onclick="xoasanphamdung(@p.stt)">
@@ -671,7 +659,7 @@
                                         <td class=" ">@p.Display</td>
                                         <td class=" ">@p.RAM</td>
                                         <td class=" ">@p.Price</td>
-                                        <td class=" ">@p.Url</td>
+                                        <td class=" "><label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem đường dẫn</u></i></a></label></td>
                                     </tr> 
                                                             
                                 }
@@ -1039,7 +1027,7 @@
                                         <td class=" ">@p.Display</td>
                                         <td class=" ">@p.RAM</td>
                                         <td class=" ">@p.Price</td>
-                                        <td class=" ">@p.Url</td>
+                                        <td class=" "><label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem đường dẫn</u></i></a></label></td>
                                         <td class="da-icon-column">
 
                                             <!-- Nếu là sản phẩm đầu tiên thì check radio-->

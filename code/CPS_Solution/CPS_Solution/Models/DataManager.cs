@@ -45,13 +45,13 @@ namespace CPS_Solution.Models
                     var listNone = context.AliasProducts.Where(x => x.IsActive == true && x.IsMain ==false).OrderBy(x=>x.ProductID).ToList();
                     var filterNone = listNone.Where(x => x.Name.ToUpper().Contains(searchValue.ToUpper())).ToList();
                     ListOfNone = dataManager.Check5AttributeLoadAnotherName(filterNone).OrderBy(x => x.ID).Skip(startIndex).Take(BlockSize).ToList();
+                    if (!ListOfNone.Any())
+                    {
+                        WriteToNoResultFile(searchValue);
+                        //write to log file
+                    }
                     return ListOfNone;
-                }
-                if (!ListOfNone.Any())
-                {
-                    WriteToNoResultFile(searchValue);
-                    //write to log file
-                }
+                }               
                 return products;
             }
             else
