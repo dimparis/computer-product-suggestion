@@ -726,6 +726,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                             ProductAttribute proatt = new ProductAttribute();
                             proatt.AttributeID = idinsert;
                             proatt.ProductID = Convert.ToInt32(listduplicatenew[i][0].productid);
+                            proatt.IsActive = true;
                             db.ProductAttributes.Add(proatt);
                             db.SaveChanges();
 
@@ -940,9 +941,9 @@ namespace CPS_Solution.Areas.Admin.Controllers
         /// </summary>
         /// <param name="showInfo"></param>
         /// <returns></returns>
-        public ActionResult showInfo1(string showInfo)
+        public ActionResult showInfo1(string showinfo)
         {
-            if (showInfo.Equals("ok"))
+            if (showinfo.Equals("ok"))
             {
                 ViewBag.ListdupProduct = (List<List<ProductMap>>)Session["ListdupProduct"];
                 ViewBag.Listduptraning = (List<List<ProductMap>>)Session["ListduptraningProduct"];

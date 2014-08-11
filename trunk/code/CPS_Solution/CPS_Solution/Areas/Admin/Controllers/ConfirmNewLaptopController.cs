@@ -194,11 +194,26 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
         public ActionResult LoadTableAjax()
         {
+            //Lấy những product có isactive = null
             List<Product> listproconfirm = ProductNotConfirm();
+
+            // lấy id có trong txt để kiểm tra có trùng ko
+            List<string> listProductId = new List<string>();
+            List<List<ProductMap>> listTxtTrung = LoadThanhPhanTrungDB();
+
+            foreach (List<ProductMap> list in listTxtTrung)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    listProductId.Add(list[1].productid);
+                }
+            }
+            ViewBag.listProductId = listProductId;
+
+
             ViewBag.listproconfirm = listproconfirm;
             List<Hardware> ListHardWarePro = new List<Hardware>();
             #region lấy hết những hardware của các product chưa confirm có isactive = true
-
             List<int> listid = new List<int>();
             foreach (Product p in listproconfirm)
             {
@@ -249,7 +264,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = pro.Name,
+                    Text = pro.Name.Replace("-", " "),
                     Value = pro.ID.ToString()
                 };
                 ProductList.Add(item);
@@ -342,7 +357,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 displayList.Add(item);
             }
             ViewBag.displayList = displayList;
-
             return View();
         }
         public string MappingLaptop(String HardInfo)

@@ -173,7 +173,7 @@
             <li class="active">
                 <a href="#">
                     <!-- Nav Notification -->
-                    <span class="da-nav-count">7</span>
+                    <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/documents_1.png")" alt="Charts" />
@@ -209,19 +209,7 @@
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
-                     <li>
-
-                        <a href="/Admin/ConfirmNewLaptop">
-                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
-                            <strong>Xác nhận laptop mới</strong>
-                        </a>
-                           </li>
-                           <li>
-                         <a href="/Admin/ConfirmNewHardware">
-                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
-                            <strong>Xác nhận linh kiện mới</strong>
-                        </a>
-                    </li>
+                     
                     <li>
 
                         <a href="@Url.Action("CreateProductParser", "Recommend")">
@@ -463,10 +451,10 @@
                                     <img src="~/Areas/Admin/Dandelion/images/icons/color/accept.png" alt="">Lưu</a></li>
                             <!----------------Popup-----------
                                  <button id="da-ex-dialog-modal" style="display: none;" class="da-button blue">Modal UI Dialog</button>------->
-                            <div class="da-panel-content with-padding">
+                            <div class="da-panel-content with-padding" >
                                 <div style="text-align: center">
                                 </div>
-                                <div id="da-ex-dialog-div" style="display: none;">
+                                <div style="background: url(../Areas/Admin/Dandelion/images/bg/wood_pattern.jpg);" id="da-ex-dialog-div" style="display: none;">
                                     <input class="uniform" id="IdDuplicateLog" style="zoom: 1.8;" checked type="checkbox" name="sports[]">
                                     <label>
                                         <img src="/Areas/Admin/Dandelion/images/message-warning.png" alt="">Danh sách sản phẩm trùng</label>
@@ -837,7 +825,7 @@
                                             <td class=" ">
                                                 <label style="width: 100px;">@p.Price</label></td>
                                             <td class=" ">
-                                                <label style="width: 100px;">@p.Url</label></td>
+                                                <label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem đường dẫn</u></i></a></label></td>
                                             <td class=" ">
                                                 <input name="sttproduct" type="hidden"  value="@p.stt" />
                                                 <a onclick="xoasanphamdung(@p.stt)">
@@ -856,7 +844,7 @@
                                                                         </span>
                                     
                                                                     </div>*@
-                                                        <div class="da-panel-content">
+                                                        <div class="da-panel-content" style="background: url(../Areas/Admin/Dandelion/images/bg/wood_pattern.jpg);">
                                                             <form class="da-form">
                                                                 <div class="da-form-inline">
                                                                     <div class="da-form-row">
@@ -1304,7 +1292,7 @@
                                         <td class=" ">@p.Display</td>
                                         <td class=" ">@p.RAM</td>
                                         <td class=" ">@p.Price</td>
-                                        <td class=" ">@p.Url</td>
+                                        <td class=" "><label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem đường dẫn</u></i></a></label></td>
                                         <td class="da-icon-column">
 
                                             <!-- Nếu là sản phẩm đầu tiên thì check radio-->
@@ -1396,7 +1384,7 @@
                                         <td class=" ">@p.Display</td>
                                         <td class=" ">@p.RAM</td>
                                         <td class=" ">@p.Price</td>
-                                        <td class=" ">@p.Url</td>
+                                        <td class=" "><label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem đường dẫn</u></i></a></label></td>
                                     </tr> 
                                                             
                                 }

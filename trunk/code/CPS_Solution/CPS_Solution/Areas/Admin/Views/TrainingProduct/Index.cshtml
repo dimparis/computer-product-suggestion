@@ -124,7 +124,7 @@
             <li class="active">
                 <a href="#">
                     <!-- Nav Notification -->
-                    <span class="da-nav-count">7</span>
+                    <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/documents_1.png")" alt="Charts" />
@@ -160,19 +160,7 @@
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
-                     <li>
-
-                        <a href="/Admin/ConfirmNewLaptop">
-                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
-                            <strong>Xác nhận laptop mới</strong>
-                        </a>
-                           </li>
-                           <li>
-                         <a href="/Admin/ConfirmNewHardware">
-                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
-                            <strong>Xác nhận linh kiện mới</strong>
-                        </a>
-                    </li>
+                   
                     <li>
 
                         <a href="@Url.Action("CreateProductParser", "Recommend")">
@@ -555,7 +543,7 @@
                 var postData = {showinfo: string };
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/TraningProduct/showInfo1",
+                    url: "/Admin/TrainingProduct/showInfo1",
                     data: postData,
                     success: function(data){
                         $('#showInfo').html(data);
