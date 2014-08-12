@@ -6,17 +6,22 @@ using Quartz;
 using CPS_Solution.EntityFramework;
 using System.Xml.Linq;
 using System.Data;
+using System.Data.Entity;
+
 namespace CPS_Solution.CommonClass
 {
     public class AutoTakeBestProduct : IJob
     {
         private readonly string xmlFilePath = ConstantManager.ConfigPath;
         private CPS_SolutionEntities context = new CPS_SolutionEntities();
+
         public void Execute(IJobExecutionContext context)
         {
-            int result = (int)TakeBestProductPoint();
-            ConstantManager.TotalPoint = result;
+            
+            double result = TakeBestProductPoint();
+            ConstantManager.BestProduct = result;
         }
+
         public double TakeBestProductPoint()
         {
             var CPU = context.Hardwares.Where(x => x.CodetypeID == "C").OrderByDescending(x => x.WeightCriteraPoint).FirstOrDefault();
@@ -25,29 +30,30 @@ namespace CPS_Solution.CommonClass
             var HDD = context.Hardwares.Where(x => x.CodetypeID == "H").OrderByDescending(x => x.WeightCriteraPoint).FirstOrDefault();
             var Display = context.Hardwares.Where(x => x.CodetypeID == "D").OrderByDescending(x => x.WeightCriteraPoint).FirstOrDefault();
 
-            ConstantManager.CPUPoint = (int)CPU.WeightCriteraPoint;
-            ConstantManager.VGAPoint = (int)VGA.WeightCriteraPoint;
-            ConstantManager.RAMPoint = (int)RAM.WeightCriteraPoint;
-            ConstantManager.HDDPoint = (int)HDD.WeightCriteraPoint;
-            ConstantManager.DISPLAYPoint = (int)Display.WeightCriteraPoint;
+           
+            ConstantManager.RatioCPUPoint = 100 / CPU.WeightCriteraPoint;
+            ConstantManager.RatioVGAPoint = 100 / VGA.WeightCriteraPoint;
+            ConstantManager.RatioRAMPoint = 100 / RAM.WeightCriteraPoint;
+            ConstantManager.RatioHDDPoint = 100 / HDD.WeightCriteraPoint;
+            ConstantManager.RatioDisplayPoint = 100 / Display.WeightCriteraPoint;
+
 
             var products = (from p in context.Products
                            select p).ToList();
-
-            foreach (var i in products) {
-                i.TotalWeightPoint = (i.cpuScore + i.vgaScore) * 6 + (i.ramScore + i.hddScore + i.displayScore) * 4;
-                context.Entry(i).State = EntityState.Modified;
-                context.SaveChanges();
+            
+            foreach (var i in products){
+                if(i.TotalWeightPoint.Equals(0)){
+                    var priorScore = i.cpuScore * ConstantManager.RatioCPUPoint + i.vgaScore * ConstantManager.RatioVGAPoint;
+                    var normalScore = i.ramScore * ConstantManager.RatioRAMPoint + i.hddScore * ConstantManager.RatioHDDPoint + i.displayScore * ConstantManager.RatioDisplayPoint;
+                    i.TotalWeightPoint = (priorScore * 0.6 + normalScore * 0.4) / 5;
+                    context.Entry(i).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
             }
 
             var bestProduct = context.Products.OrderByDescending(x => x.TotalWeightPoint).FirstOrDefault();
-            ConstantManager.BestScore = (int)bestProduct.TotalWeightPoint;
-            
 
-            double main = 6 * (CPU.WeightCriteraPoint + VGA.WeightCriteraPoint);
-            double alias = 4 * (RAM.WeightCriteraPoint + HDD.WeightCriteraPoint + Display.WeightCriteraPoint);
-            double result = (main + alias) / 10;
-            return result;
+            return bestProduct.TotalWeightPoint;
         }
     }
 }
