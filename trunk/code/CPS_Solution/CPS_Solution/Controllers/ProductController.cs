@@ -19,12 +19,13 @@ namespace CPS_Solution.Controllers
         private CPS_SolutionEntities db = new CPS_SolutionEntities();
         private readonly DataManager _dataManager = new DataManager();
         private string email = "";
-        private double bestCPU = (double)100/ConstantManager.CPUPoint;
-        private double bestVGA = (double)100 / ConstantManager.VGAPoint;
-        private double bestRAM = (double)100 / ConstantManager.RAMPoint;
-        private double bestHDD = (double)100 / ConstantManager.HDDPoint;
-        private double bestDisplay = (double)100 / ConstantManager.DISPLAYPoint;
-        private double bestScore = (double)100 / ConstantManager.BestScore;
+ 		private double bestCPU = 100/ConstantManager.CPUPoint;
+        private double bestVGA = 100/ConstantManager.VGAPoint;
+        private double bestRAM = 100/ConstantManager.RAMPoint;
+        private double bestHDD = 100/ConstantManager.HDDPoint;
+        private double bestDisplay = 100/ConstantManager.DISPLAYPoint;
+        private double bestScore = ConstantManager.TotalPoint;
+        private double BestRatioScore = 100 / ConstantManager.BestProduct;
        
         //public ActionResult Index()
         //{
@@ -112,7 +113,25 @@ namespace CPS_Solution.Controllers
 
         }
 
-        
+        public int GetPriceSocre (double price){
+            int priceScore = 0;
+            if (price < _8M){
+                priceScore = 0;
+            } else if (price > _8M && price < _10M) {
+                priceScore = 0;
+            } else if (price > _10M && price < _13M) {
+                priceScore = 0;
+            } else if (price > _13M && price < _16M) {
+                priceScore = 0;
+            } else if (price > _16M && price < _20M) {
+                priceScore = 0;
+            } else if (price > _20M && price < _25M) {
+                priceScore = 0;
+            } else if (price > _25M) {
+                priceScore = 0;
+            } 
+            return priceScore;
+        }
 
         [HttpPost]
         public ActionResult Compare(int p1, int p2, int p3)
@@ -123,73 +142,18 @@ namespace CPS_Solution.Controllers
                            select p;
             products = products.Where(c => vals.Contains(c.ID));
 
-            var bestProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
+            var listProduct = products.ToList();            
 
-            if (p3 != -1)
-            {
+            if (p3 == -1){
+                listProduct[0].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
+                listProduct[1].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
                 
-                //Diem san pham 1
-                bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
-                                                   (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
-                db.Entry(bestProducts[0]).State = EntityState.Modified;
-                db.SaveChanges();
-                //bestProducts[0].TotalWeightPoint = ((bestCPU * bestProducts[0].cpuScore + bestVGA * bestProducts[0].vgaScore) * 6 +
-                //                                            (bestHDD * bestProducts[0].hddScore + bestRAM * bestProducts[0].ramScore + bestDisplay * bestProducts[0].displayScore) * 4) * bestScore *100;
-                
-
-                //Diem san pham 2
-                bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
-                                                   (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
-                db.Entry(bestProducts[1]).State = EntityState.Modified;
-                db.SaveChanges();
-
-                //bestProducts[1].TotalWeightPoint = ((bestCPU * bestProducts[1].cpuScore + bestVGA * bestProducts[1].vgaScore) * 6 +
-                                                            //(bestHDD * bestProducts[1].hddScore + bestRAM * bestProducts[1].ramScore + bestDisplay * bestProducts[1].displayScore) * 4) * bestScore * 100;
-                
-
-                //Diem san pham 3
-                bestProducts[2].TotalWeightPoint = (bestProducts[2].cpuScore + bestProducts[2].vgaScore) * 6 +
-                                                   (bestProducts[2].ramScore + bestProducts[2].hddScore + bestProducts[2].displayScore);
-                db.Entry(bestProducts[2]).State = EntityState.Modified;
-                db.SaveChanges();
-                //bestProducts[2].TotalWeightPoint = ((bestCPU * bestProducts[2].cpuScore + bestVGA * bestProducts[2].vgaScore) * 6 +
-                //                                            (bestHDD * bestProducts[2].hddScore + bestRAM * bestProducts[2].ramScore + bestDisplay * bestProducts[2].displayScore) * 4) * bestScore * 100;
-                
+            } else {
+                listProduct[0].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
+                listProduct[1].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
+                listProduct[2].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[2].TotalWeightPoint), 2);
             }
-            else
-            {
-                ////Diem san pham 1
-                bestProducts[0].TotalWeightPoint = (bestProducts[0].cpuScore + bestProducts[0].vgaScore) * 6 +
-                                                   (bestProducts[0].ramScore + bestProducts[0].hddScore + bestProducts[0].displayScore);
-                db.Entry(bestProducts[0]).State = EntityState.Modified;
-                db.SaveChanges();
-
-                ////Diem san pham 2
-                bestProducts[1].TotalWeightPoint = (bestProducts[1].cpuScore + bestProducts[1].vgaScore) * 6 +
-                                                   (bestProducts[1].ramScore + bestProducts[1].hddScore + bestProducts[1].displayScore);
-                db.Entry(bestProducts[1]).State = EntityState.Modified;
-                db.SaveChanges();
-
-                //bestProducts[0].TotalWeightPoint = ((bestCPU * bestProducts[0].cpuScore + bestVGA * bestProducts[0].vgaScore) * 6 +
-                //                                            (bestHDD * bestProducts[0].hddScore + bestRAM * bestProducts[0].ramScore + bestDisplay * bestProducts[0].displayScore) * 4) * bestScore * 100;
-                
-
-                //bestProducts[1].TotalWeightPoint = ((bestCPU * bestProducts[1].cpuScore + bestVGA * bestProducts[1].vgaScore) * 6 +
-                //                                            (bestHDD * bestProducts[1].hddScore + bestRAM * bestProducts[1].ramScore + bestDisplay * bestProducts[1].displayScore) * 4) * bestScore * 100;
-                
-
-            }
-
-            var sortProducts = products.OrderByDescending(p => p.TotalWeightPoint).ToList();
-
-            //Move down the first
-            var temp = sortProducts[0];
-            sortProducts[0] = sortProducts[1];
-            sortProducts[1] = temp;
-
-            
-
-            return View(sortProducts);
+            return View(listProduct);
         }
         [HttpPost]
         public ActionResult CompareDetail(int p1, int p2, int p3)
