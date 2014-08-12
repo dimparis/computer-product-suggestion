@@ -113,26 +113,6 @@ namespace CPS_Solution.Controllers
 
         }
 
-        public int GetPriceSocre (double price){
-            int priceScore = 0;
-            if (price < _8M){
-                priceScore = 0;
-            } else if (price > _8M && price < _10M) {
-                priceScore = 0;
-            } else if (price > _10M && price < _13M) {
-                priceScore = 0;
-            } else if (price > _13M && price < _16M) {
-                priceScore = 0;
-            } else if (price > _16M && price < _20M) {
-                priceScore = 0;
-            } else if (price > _20M && price < _25M) {
-                priceScore = 0;
-            } else if (price > _25M) {
-                priceScore = 0;
-            } 
-            return priceScore;
-        }
-
         [HttpPost]
         public ActionResult Compare(int p1, int p2, int p3)
         {
