@@ -17,13 +17,13 @@ namespace CPS_Solution.CommonClass
         public static bool IsParserRunning { get; set; }
         public static bool IsUpdateRunning { get; set; }
         public static bool IsRecommendRunning { get; set; }
-        public static int TotalPoint { get; set; }
-
-        public static int CPUPoint { get; set; }
-        public static int VGAPoint { get; set; }
-        public static int RAMPoint { get; set; }
-        public static int HDDPoint { get; set; }
-        public static int DISPLAYPoint { get; set; }
+        
+        public static double RatioCPUPoint { get; set; }
+        public static double RatioVGAPoint { get; set; }
+        public static double RatioRAMPoint { get; set; }
+        public static double RatioHDDPoint { get; set; }
+        public static double RatioDisplayPoint { get; set; }
+        public static double BestProduct { get; set; }
         public static int BestScore { get; set; }
     }
     public enum SystemRole { 
