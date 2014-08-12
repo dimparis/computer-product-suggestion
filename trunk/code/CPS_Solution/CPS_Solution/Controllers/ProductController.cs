@@ -19,12 +19,12 @@ namespace CPS_Solution.Controllers
         private CPS_SolutionEntities db = new CPS_SolutionEntities();
         private readonly DataManager _dataManager = new DataManager();
         private string email = "";
- 		private double bestCPU = 100/ConstantManager.CPUPoint;
-        private double bestVGA = 100/ConstantManager.VGAPoint;
-        private double bestRAM = 100/ConstantManager.RAMPoint;
-        private double bestHDD = 100/ConstantManager.HDDPoint;
-        private double bestDisplay = 100/ConstantManager.DISPLAYPoint;
-        private double bestScore = ConstantManager.TotalPoint;
+        private double bestCPU = 100 / ConstantManager.RatioCPUPoint;
+        private double bestVGA = 100/ConstantManager.RatioVGAPoint;
+        private double bestRAM = 100/ConstantManager.RatioRAMPoint;
+        private double bestHDD = 100/ConstantManager.RatioHDDPoint;
+        private double bestDisplay = 100/ConstantManager.RatioDisplayPoint;
+        private double bestScore = ConstantManager.BestScore;
         private double BestRatioScore = 100 / ConstantManager.BestProduct;
        
         //public ActionResult Index()
