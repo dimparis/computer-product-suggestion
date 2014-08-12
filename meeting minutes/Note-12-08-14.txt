@@ -1,0 +1,11 @@
+﻿=== 12-08
+# Thuyết trình
+	- Phần đặt trường hợp: Nói ngắn gọn, dễ hiểu
+	- Lấy hình sản phẩm thì cần có nhiều loại khác nhau
+	- Thêm hình minh họa: Current problem VN
+
+	- Chia slide ra nhiều slide
+	- Sửa màu 
+	- Làm bài toán ví dụ cho so sánh
+	- Xếp lại thứ tự slide
+	- Thêm future plan
