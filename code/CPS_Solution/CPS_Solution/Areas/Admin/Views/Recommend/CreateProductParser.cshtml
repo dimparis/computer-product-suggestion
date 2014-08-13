@@ -57,6 +57,17 @@
     @*  <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script> *@
     <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <style>
+        .modalOverlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            z-index:3000;
+            background-color: rgba(0,0,0,0.5); /* black semi-transparent */
+        }
+    </style>
 }
 @section sidebar
 {
@@ -144,7 +155,7 @@
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
-                    
+
                     <li style="background-color: #a6d037;">
 
                         <a href="@Url.Action("CreateProductParser", "Recommend")">
@@ -282,7 +293,7 @@
 @section footScript
 {
     <!-- Wizard Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Scripts/getXPathProduct.js")"></script>
     <script type="text/javascript">
         var existed = @TempData["existed"] ;
@@ -313,13 +324,17 @@
                 $ram.val("@Html.Raw(info.RAMXPath)");
                 $display.val("@Html.Raw(info.DisplayXPath)");      
                 $('#Parseform').submit();
+                $("body").append('<div class="modalOverlay">');
+                $('#imageLoad').show("normal");
             } 
                   
         }
     </script>
 }
 <!-- Content Area -->
-
+ <div id="imageLoad" style="display:block;position:absolute;margin-left:46%;margin-top:15%;z-index:3005" >
+     <img src="@Url.Content("~/Areas/Admin/Dandelion/images/loading.gif")"/>
+ </div>
 <div class="grid_4">
     <div class="da-panel">
         <div class="da-panel-header">
@@ -366,7 +381,7 @@
                     <fieldset class="da-form-inline" data-name="divInfo" data-step-id="0">
                         <legend>Bắt đầu</legend>
                         <div class="da-form-row">
-                           <h1>Hãy hoàn thành tiến trình để rút trích dữ liệu.</h1>
+                            <h1>Hãy hoàn thành tiến trình để rút trích dữ liệu.</h1>
                         </div>
                     </fieldset>    									
                     <fieldset class="da-form-inline" data-name="productName" data-step-id="1">

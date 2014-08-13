@@ -327,18 +327,6 @@
             @using (Html.BeginForm("UpdateConfigureSystem", "System", FormMethod.Post, new { @class = "da-form" }))
             {       
                 <div class="da-form-row ">
-                    <label>Số lần đề xuất của người dùng trong 1 ngày</label>
-                    <div class="da-form-item large">
-                        @Html.TextBoxFor(x => x.LimitRequestPerDay)
-                    </div>
-                </div>
-                <div class="da-form-row ">
-                    <label>Số điểm của sản phẩm tốt nhất</label>
-                    <div class="da-form-item large">
-                        @Html.TextBoxFor(x => x.TotalPoint)
-                    </div>
-                </div>
-                <div class="da-form-row ">
                     <label>Thời gian chạy parser mỗi ngày</label>
                     <div class="da-form-item">
                         @Html.TextBoxFor(x => x.ParseTime, new { id = "da-ex-timepicker", @onchange = "validateHhMm(this);" })

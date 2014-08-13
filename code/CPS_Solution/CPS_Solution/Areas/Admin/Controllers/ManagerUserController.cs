@@ -14,7 +14,7 @@ using CPS_Solution.CommonClass;
 
 namespace CPS_Solution.Areas.Admin.Controllers
 {
-    [MyAuthorize(Roles = "admin")]
+    [Authorize(Roles="staff")]
     public class ManagerUserController : Controller
     {
         //
