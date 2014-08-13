@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Dandelion Admin v1.0 - Wizard Form JS
  *
  * This file is part of Dandelion Admin, an Admin template build for sale at ThemeForest.
@@ -29,10 +29,10 @@
 			buttonContainerClass: 'da-button-row', 
 			nextButtonClass: 'da-button red', 
 			prevButtonClass: 'da-button gray left', 
-			submitButtonClass: 'da-button green btnSubmitSang', 
-			nextButtonLabel: 'Next', 
-			prevButtonLabel: 'Prev', 
-			submitButtonLabel: 'Submit', 
+			submitButtonClass: 'da-button green', 
+			nextButtonLabel: 'Sau', 
+			prevButtonLabel: 'Trước', 
+			submitButtonLabel: 'Xác nhận', 
 			forwardOnly: true, 
 			onLeaveStep: null, 
 			onShowStep: null, 
@@ -189,7 +189,8 @@
 					event.preventDefault();
 				}), 
 				$submitButton = $button.clone().val(this.config.submitButtonLabel).addClass(this.config.submitButtonClass).bind('click', function(event) {
-					self.submitForm();
+				    self.submitForm();
+				    $("body").append('<div class="modalOverlay"><img src ="~/Areas/Admin/Dandelion/images/gif-load.gif">');
 					event.preventDefault();
 				});
 			
