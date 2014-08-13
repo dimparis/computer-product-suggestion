@@ -316,11 +316,24 @@
         var attr01 = $('.topAttr')[0];
         var attr02 = $('.topAttr')[1];
 
+        var cpuScore = $('#scoreCPU');
+        var vgaScore = $('#scoreVGA');
+        var ramScore = $('#scoreRAM');
+        var hddScore = $('#scoreHDD');
+        var displayScore = $('#scoreDisplay');
+
         //Lay diem tung san 
         if (products.length == 3) {
             //Lay diem phan cung uu tien
             var pro01_attr01 = attr01.getElementsByTagName('span')[1].innerHTML;
             var pro01_attr02 = attr02.getElementsByTagName('span')[1].innerHTML;
+
+            //Lay diem cac phan cung san pham 1
+            var pro01_cpu = cpuScore.getElementsByTagName('span')[1].innerHTML;
+            var pro01_vga = cpuScore.getElementsByTagName('span')[1].innerHTML;
+            var pro01_ramm = cpuScore.getElementsByTagName('span')[1].innerHTML;
+            var pro01_hdd = cpuScore.getElementsByTagName('span')[1].innerHTML;
+            var pro01_display = cpuScore.getElementsByTagName('span')[1].innerHTML;
             //Lay ID san pham 1
             var pro01_attr03 = attr02.getElementsByTagName('td')[3].innerHTML;
 
@@ -349,9 +362,9 @@
             var pro02_attr03 = attr02.getElementsByTagName('td')[6].innerHTML;
         }
         //Tinh diem cac tieu chi uu tien
-        var pro01_score = parseFloat(pro01_attr01) + parseFloat(pro01_attr02);
-        var pro02_score = parseFloat(pro02_attr01) + parseFloat(pro02_attr02);
-        var pro03_score = parseFloat(pro03_attr01) + parseFloat(pro03_attr02);
+        var pro01_score = Number(pro01_attr01) + Number(pro01_attr02);
+        var pro02_score = Number(pro02_attr01) + Number(pro02_attr02);
+        var pro03_score = Number(pro03_attr01) + Number(pro03_attr02);
         console.log(pro01_score, pro02_score, pro03_score)
 
         //Tim max diem uu tien cua cac san pham
