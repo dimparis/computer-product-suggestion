@@ -59,7 +59,7 @@
                 $(".price-ratio-" + p3ID).css("background-color", "#F87912")
             }
         }
-        $(".product-price-required-" + p1ID).text(p1Ratio-bestRatio);
+        $(".product-price-required-" + p1ID).text(p1Ratio - bestRatio);
         $(".product-price-required-" + p2ID).text(p2Ratio - bestRatio);
         $(".product-price-required-" + p3ID).text(p3Ratio - bestRatio);
     });

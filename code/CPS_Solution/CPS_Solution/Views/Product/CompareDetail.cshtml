@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.Product>
 @using CPS_Solution.EntityFramework;
 @using CPS_Solution.Models;
+@using CPS_Solution.CommonClass;
 @{
     ViewBag.Title = "Kết quả so sánh chi tiết";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -132,7 +133,9 @@
 
             @*Chia thanh phan*@
             <div class="stylish-light-separator" style="margin-top:2%; margin-bottom:2%"></div>
-
+            <div class="hidden">
+                <p class="best-score">@Math.Round((100/ConstantManager.BestScore), 4)</p>
+            </div>
             @*Bang so sanh*@
             <ul class="sortable-with-handles">
                 @*Ten san pham*@
@@ -148,7 +151,7 @@
                 </li>
 
                 @*Thong tin CPU*@
-                <li draggable="true" id="scoreCPU">
+                <li draggable="true" id="scoreCPU" class="normalAttr">
                     <table class="table">
                         <tr>
                             <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
@@ -158,8 +161,8 @@
                                 <strong>Chip xử lý (CPU)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU)</td>
-                                <td class="hidden"><span class="cpuScore">@item.cpuScore</span></td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU) / @item.cpuScore</td>
+                                <td class="hidden"><span>@Math.Round((item.cpuScore * ConstantManager.RatioCPUPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
                         </tr>
@@ -167,7 +170,7 @@
                 </li>
 
                 @*Thong tin VGA*@
-                <li draggable="true" id="scoreVGA">
+                <li draggable="true" id="scoreVGA" class="normalAttr">
                     <table class="table">
                         <tr>
                             <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
@@ -177,8 +180,8 @@
                                 <strong>Card màn hình (VGA)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA)</td>
-                                <td class="hidden"><span class="cpuScore">@item.vgaScore</span></td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA) / @item.vgaScore</td>
+                                <td class="hidden"><span>@Math.Round((item.vgaScore * ConstantManager.RatioVGAPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
                         </tr>
@@ -186,7 +189,7 @@
                 </li>
 
                 @*Thong tin RAM*@
-                <li draggable="true" id="scoreRAM">
+                <li draggable="true" id="scoreRAM" class="normalAttr">
                     <table class="table">
                         <tr>
                             <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
@@ -196,8 +199,8 @@
                                 <strong>Bộ nhớ đệm (RAM)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM)</td>
-                                <td class="hidden"><span class="cpuScore">@item.ramScore</span></td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM) / @item.ramScore</td>
+                                <td class="hidden"><span>@Math.Round((item.ramScore * ConstantManager.RatioRAMPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
                         </tr>
@@ -205,7 +208,7 @@
                 </li>
 
                 @*Thong tin HDD*@
-                <li draggable="true" id="scoreHDD">
+                <li draggable="true" id="scoreHDD" class="normalAttr">
                     <table class="table">
                         <tr>
                             <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
@@ -215,8 +218,8 @@
                                 <strong>Ổ cứng (HDD)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD)</td>
-                                <td class="hidden"><span class="cpuScore">@item.hddScore</span></td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD) / @item.hddScore</td>
+                                <td class="hidden"><span>@Math.Round((item.hddScore * ConstantManager.RatioHDDPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
                         </tr>
@@ -224,7 +227,7 @@
                 </li>
 
                 @*Thong tin Display*@
-                <li draggable="true" id="scoreDisplay">
+                <li draggable="true" id="scoreDisplay" class="normalAttr">
                     <table class="table">
                         <tr>
                             <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
@@ -234,8 +237,8 @@
                                 <strong>Độ phân giải (Sreen Solution)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strDisplay)</td>
-                                <td class="hidden"><span class="cpuScore">@item.displayScore</span></td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strDisplay) / @item.displayScore</td>
+                                <td class="hidden"><span>@Math.Round((item.displayScore * ConstantManager.RatioDisplayPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
                         </tr>
@@ -284,88 +287,115 @@
         var scoreDisplay = $('#scoreDisplay').index();
 
         if (scoreCPU == 1 || scoreCPU == 2) {
+            $('#scoreCPU').removeClass('normalAttr');
             $('#scoreCPU').addClass('topAttr');
         } else {
             $('#scoreCPU').removeClass('topAttr');
+            $('#scoreCPU').addClass('normalAttr');
         }
         if (scoreVGA == 1 || scoreVGA == 2) {
+            $('#scoreVGA').removeClass('normalAttr');
             $('#scoreVGA').addClass('topAttr');
         } else {
             $('#scoreVGA').removeClass('topAttr');
+            $('#scoreVGA').addClass('normalAttr');
         }
         if (scoreRAM == 1 || scoreRAM == 2) {
+            $('#scoreRAM').removeClass('normalAttr');
             $('#scoreRAM').addClass('topAttr');
         } else {
             $('#scoreRAM').removeClass('topAttr');
+            $('#scoreRAM').addClass('normalAttr');
         }
         if (scoreHDD == 1 || scoreHDD == 2) {
+            $('#scoreHDD').removeClass('normalAttr');
             $('#scoreHDD').addClass('topAttr');
         } else {
             $('#scoreHDD').removeClass('topAttr');
+            $('#scoreHDD').addClass('normalAttr');
         }
         if (scoreDisplay == 1 || scoreDisplay == 2) {
+            $('#scoreDisplay').removeClass('normalAttr');
             $('#scoreDisplay').addClass('topAttr');
         } else {
             $('#scoreDisplay').removeClass('topAttr');
+            $('#scoreDisplay').addClass('normalAttr');
         }
     }
 
     function calc() {
+        var bestScore = $('.best-score')[0].innerHTML;
         //Lay vi tri phan cung uu tien cua cac san pham
         var products = $('.product-name');
         var attr01 = $('.topAttr')[0];
         var attr02 = $('.topAttr')[1];
-
-        var cpuScore = $('#scoreCPU');
-        var vgaScore = $('#scoreVGA');
-        var ramScore = $('#scoreRAM');
-        var hddScore = $('#scoreHDD');
-        var displayScore = $('#scoreDisplay');
-
+        var attr03 = $('.normalAttr')[0];
+        var attr04 = $('.normalAttr')[1];
+        var attr05 = $('.normalAttr')[2];
+        
         //Lay diem tung san 
         if (products.length == 3) {
-            //Lay diem phan cung uu tien
+            //Lay diem phan cung san pham 1
             var pro01_attr01 = attr01.getElementsByTagName('span')[1].innerHTML;
             var pro01_attr02 = attr02.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr03 = attr03.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr04 = attr04.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr05 = attr05.getElementsByTagName('span')[1].innerHTML;
 
-            //Lay diem cac phan cung san pham 1
-            var pro01_cpu = cpuScore.getElementsByTagName('span')[1].innerHTML;
-            var pro01_vga = cpuScore.getElementsByTagName('span')[1].innerHTML;
-            var pro01_ramm = cpuScore.getElementsByTagName('span')[1].innerHTML;
-            var pro01_hdd = cpuScore.getElementsByTagName('span')[1].innerHTML;
-            var pro01_display = cpuScore.getElementsByTagName('span')[1].innerHTML;
+            //Lay diem phan cung san pham 2
+            var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr02 = attr02.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr03 = attr03.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr04 = attr04.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr05 = attr05.getElementsByTagName('span')[2].innerHTML;
+
+            //Lay diem phan cung san pham 3
+            var pro03_attr01 = attr01.getElementsByTagName('span')[3].innerHTML;
+            var pro03_attr02 = attr02.getElementsByTagName('span')[3].innerHTML;
+            var pro03_attr03 = attr03.getElementsByTagName('span')[3].innerHTML;
+            var pro03_attr04 = attr04.getElementsByTagName('span')[3].innerHTML;
+            var pro03_attr05 = attr05.getElementsByTagName('span')[3].innerHTML;
+
+            //Lay ID san pham 1
+            var pro01_id = attr02.getElementsByTagName('td')[3].innerHTML;
+
+            //Lay ID san pham 2
+            var pro02_id = attr02.getElementsByTagName('td')[6].innerHTML;
+
+            //Lay ID san pham 3
+            var pro03_id = attr02.getElementsByTagName('td')[9].innerHTML;
+        } else {
+            //Lay diem phan cung san pham 1
+            var pro01_attr01 = attr01.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr02 = attr02.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr03 = attr03.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr04 = attr04.getElementsByTagName('span')[1].innerHTML;
+            var pro01_attr05 = attr05.getElementsByTagName('span')[1].innerHTML;
+
+            //Lay diem phan cung san pham 2
+            var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr02 = attr02.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr03 = attr03.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr04 = attr04.getElementsByTagName('span')[2].innerHTML;
+            var pro02_attr05 = attr05.getElementsByTagName('span')[2].innerHTML;
+
             //Lay ID san pham 1
             var pro01_attr03 = attr02.getElementsByTagName('td')[3].innerHTML;
 
-            //Lay diem phan cung uu tien
-            var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML;
-            var pro02_attr02 = attr02.getElementsByTagName('span')[2].innerHTML;
-            //Lay ID san pham 2
-            var pro02_attr03 = attr02.getElementsByTagName('td')[6].innerHTML;
-
-            //Lay diem phan cung uu tien
-            var pro03_attr01 = attr01.getElementsByTagName('span')[3].innerHTML;
-            var pro03_attr02 = attr02.getElementsByTagName('span')[3].innerHTML;
-            //Lay ID san pham 3
-            var pro03_attr03 = attr02.getElementsByTagName('td')[9].innerHTML;
-        } else {
-            //Lay diem phan cung uu tien
-            var pro01_attr01 = attr01.getElementsByTagName('span')[1].innerHTML;
-            var pro01_attr02 = attr02.getElementsByTagName('span')[1].innerHTML;
-            //:ay ID san pham 1
-            var pro01_attr03 = attr02.getElementsByTagName('td')[3].innerHTML;
-
-            //Lay diem phan cung uu tien
-            var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML;
-            var pro02_attr02 = attr02.getElementsByTagName('span')[2].innerHTML;
             //Lay ID san pham 2
             var pro02_attr03 = attr02.getElementsByTagName('td')[6].innerHTML;
         }
         //Tinh diem cac tieu chi uu tien
-        var pro01_score = Number(pro01_attr01) + Number(pro01_attr02);
-        var pro02_score = Number(pro02_attr01) + Number(pro02_attr02);
-        var pro03_score = Number(pro03_attr01) + Number(pro03_attr02);
-        console.log(pro01_score, pro02_score, pro03_score)
+        console.log(pro01_attr01);
+        console.log(pro01_attr02);
+        console.log(pro01_attr03);
+        console.log(pro01_attr04);
+        console.log(pro01_attr05);
+
+        var pro01_score = Number(bestScore) * (((Number(pro01_attr01) + Number(pro01_attr02)) * 0.6 + (Number(pro01_attr03) + Number(pro01_attr04) + Number(pro01_attr05)) * 0.4) / 5)
+        var pro02_score = Number(bestScore) * (((Number(pro02_attr01) + Number(pro02_attr02)) * 0.6 + (Number(pro02_attr03) + Number(pro02_attr04) + Number(pro02_attr05)) * 0.4) / 5)
+        var pro03_score = Number(bestScore) * (((Number(pro03_attr01) + Number(pro03_attr02)) * 0.6 + (Number(pro03_attr03) + Number(pro03_attr04) + Number(pro03_attr05)) * 0.4) / 5)
+
 
         //Tim max diem uu tien cua cac san pham
         var max = pro01_score;
@@ -373,59 +403,59 @@
             max = pro02_score
         if (pro03_score > max)
             max = pro03_score;
-
+            
         //Highlight san pham co diem uu tien max
         if (max == pro01_score) {
             //Doi thanh class winner
-            $('.' + pro01_attr03).removeClass('product-css');
-            $('.' + pro01_attr03).addClass("winner", 1000, "easeOutSine");
+            $('.' + pro01_id).removeClass('product-css');
+            $('.' + pro01_id).addClass("winner", 1000, "easeOutSine");
 
             //In diem uu tien
-            $('.total_score_' + pro01_attr03).text(pro01_score);
-            $('.total_score_' + pro02_attr03).text(pro02_score);
-            $('.total_score_' + pro03_attr03).text(pro03_score);
+            $('.total_score_' + pro01_id).text(pro01_score);
+            $('.total_score_' + pro02_id).text(pro02_score);
+            $('.total_score_' + pro03_id).text(pro03_score);
 
             //Xoa class winner
-            $('.' + pro02_attr03).removeClass('winner');
-            $('.' + pro03_attr03).removeClass('winner');
+            $('.' + pro02_id).removeClass('winner');
+            $('.' + pro03_id).removeClass('winner');
 
             //Them lai class product
-            $('.' + pro02_attr03).addClass("product-css", 1000, "easeOutSine");
-            $('.' + pro03_attr03).addClass("product-css", 1000, "easeOutSine");
+            $('.' + pro02_id).addClass("product-css", 1000, "easeOutSine");
+            $('.' + pro03_id).addClass("product-css", 1000, "easeOutSine");
         } else if (max == pro02_score) {
             //Doi thanh class winner
-            $('.' + pro02_attr03).removeClass('product-css');
-            $('.' + pro02_attr03).addClass("winner", 1000, "easeOutSine");
+            $('.' + pro02_id).removeClass('product-css');
+            $('.' + pro02_id).addClass("winner", 1000, "easeOutSine");
 
             //In diem uu tien
-            $('.total_score_' + pro01_attr03).text(pro01_score);
-            $('.total_score_' + pro02_attr03).text(pro02_score);
-            $('.total_score_' + pro03_attr03).text(pro03_score);
+            $('.total_score_' + pro01_id).text(pro01_score);
+            $('.total_score_' + pro02_id).text(pro02_score);
+            $('.total_score_' + pro03_id).text(pro03_score);
 
             //Xoa class winner
-            $('.' + pro01_attr03).removeClass('winner');
-            $('.' + pro03_attr03).removeClass('winner');
+            $('.' + pro01_id).removeClass('winner');
+            $('.' + pro03_id).removeClass('winner');
 
             //Them lai class product
-            $('.' + pro01_attr03).addClass("product-css", 1000, "easeOutSine");
-            $('.' + pro03_attr03).addClass("product-css", 1000, "easeOutSine");
+            $('.' + pro01_id).addClass("product-css", 1000, "easeOutSine");
+            $('.' + pro03_id).addClass("product-css", 1000, "easeOutSine");
         } else if (max == pro03_score) {
             //Doi thanh class winner
-            $('.' + pro03_attr03).removeClass('product-css');
-            $('.' + pro03_attr03).addClass("winner", 1000, "easeOutSine");
+            $('.' + pro03_id).removeClass('product-css');
+            $('.' + pro03_id).addClass("winner", 1000, "easeOutSine");
 
             //In diem uu tien
-            $('.total_score_' + pro01_attr03).text(pro01_score);
-            $('.total_score_' + pro02_attr03).text(pro02_score);
-            $('.total_score_' + pro03_attr03).text(pro03_score);
+            $('.total_score_' + pro01_id).text(pro01_score);
+            $('.total_score_' + pro02_id).text(pro02_score);
+            $('.total_score_' + pro03_id).text(pro03_score);
 
             //Xoa class winner
-            $('.' + pro01_attr03).removeClass('winner');
-            $('.' + pro02_attr03).removeClass('winner');
+            $('.' + pro01_id).removeClass('winner');
+            $('.' + pro02_id).removeClass('winner');
 
             //Them lai class product
-            $('.' + pro01_attr03).addClass("product-css", 1000, "easeOutSine");
-            $('.' + pro02_attr03).addClass("product-css", 1000, "easeOutSine");
+            $('.' + pro01_id).addClass("product-css", 1000, "easeOutSine");
+            $('.' + pro02_id).addClass("product-css", 1000, "easeOutSine");
         }
     }
 </script>
