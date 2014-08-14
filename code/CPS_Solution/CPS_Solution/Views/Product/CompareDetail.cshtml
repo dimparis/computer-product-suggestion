@@ -161,7 +161,7 @@
                                 <strong>Chip xử lý (CPU)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU) / @item.cpuScore</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU)</td>
                                 <td class="hidden"><span>@Math.Round((item.cpuScore * ConstantManager.RatioCPUPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
@@ -180,7 +180,7 @@
                                 <strong>Card màn hình (VGA)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA) / @item.vgaScore</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA)</td>
                                 <td class="hidden"><span>@Math.Round((item.vgaScore * ConstantManager.RatioVGAPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
@@ -199,7 +199,7 @@
                                 <strong>Bộ nhớ đệm (RAM)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM) / @item.ramScore</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM)</td>
                                 <td class="hidden"><span>@Math.Round((item.ramScore * ConstantManager.RatioRAMPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
@@ -218,7 +218,7 @@
                                 <strong>Ổ cứng (HDD)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD) / @item.hddScore</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD)</td>
                                 <td class="hidden"><span>@Math.Round((item.hddScore * ConstantManager.RatioHDDPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }
@@ -237,7 +237,7 @@
                                 <strong>Độ phân giải (Sreen Solution)</strong>
                             </td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strDisplay) / @item.displayScore</td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strDisplay)</td>
                                 <td class="hidden"><span>@Math.Round((item.displayScore * ConstantManager.RatioDisplayPoint), 4)</span></td>
                                 <td class="hidden">@item.ID</td>
                             }

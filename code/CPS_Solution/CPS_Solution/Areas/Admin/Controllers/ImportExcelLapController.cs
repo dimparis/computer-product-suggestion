@@ -3796,10 +3796,11 @@ namespace CPS_Solution.Areas.Admin.Controllers
         #region Kiểm tra url image có tồn tại không.
         bool IsImageUrl(string URL)
         {
-            var req = (HttpWebRequest)HttpWebRequest.Create(URL);
-            req.Method = "HEAD";
+           
             try
             {
+                var req = (HttpWebRequest)HttpWebRequest.Create(URL);
+                req.Method = "HEAD";
                 using (var resp = req.GetResponse())
                 {
                     return resp.ContentType.ToLower(CultureInfo.InvariantCulture)

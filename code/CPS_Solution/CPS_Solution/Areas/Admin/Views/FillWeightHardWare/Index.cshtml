@@ -146,7 +146,7 @@
                    
                     <li>
 
-                        <a href="@Url.Action("CreateProductParser", "Recommend")">
+                        <a href="@Url.Action("Createrecommend", "Recommend")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/arrow.png")" alt="" />
                             <strong>Sản phẩm đề xuất</strong>
                         </a>
@@ -345,6 +345,7 @@
             var string = i + "|" + trongso;
             var postData = { trongsolinhkien: string };
             if (trongso > 0 && trongso < 100000) {
+                if (confirm("Bạn có chắc chắn muốn cập nhập điểm cho linh kiện này?")) {
                 $.ajax({
                     type: "POST",
                     url: "/Admin/FillWeightHardWare/UpdateTrongso",
@@ -353,6 +354,9 @@
                         document.getElementById("idTR" + i).style.display = 'none';
                     },
                 });
+                } else {
+
+                }
             }
             else {
                 alert("Trọng số sản phẩm phải lớn hơn 0 và nhỏ hơn 100");
