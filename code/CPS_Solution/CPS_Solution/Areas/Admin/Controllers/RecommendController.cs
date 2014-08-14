@@ -92,7 +92,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             TempData["createbyRecommendProduct"] = "success";
 
-            System.Threading.Thread.Sleep(30000);
+            System.Threading.Thread.Sleep(5000);
 
             return RedirectToAction("Index");
         }

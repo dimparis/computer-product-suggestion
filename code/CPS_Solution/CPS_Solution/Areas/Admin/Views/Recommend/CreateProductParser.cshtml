@@ -300,7 +300,7 @@
         var recommendId = @TempData["idRecommendProduct"];
         if (existed) {
             if (confirm("Parser đã tồn tại, bạn có muốn sử dụng lại không ?") == true) {
-                     @{
+                @{
                          CPS_Solution.EntityFramework.ParseInfo info = (CPS_Solution.EntityFramework.ParseInfo)TempData["parseInfo"];
                          if (info == null)
                          {
@@ -324,16 +324,22 @@
                 $ram.val("@Html.Raw(info.RAMXPath)");
                 $display.val("@Html.Raw(info.DisplayXPath)");      
                 $('#Parseform').submit();
-                $("body").append('<div class="modalOverlay">');
-                $('#imageLoad').show("normal");
+                $("body").append('#imageLoad');
+            }else
+            {
+                $('#imageLoad').hide('slow');
             } 
                   
+        }
+        function BindImage()
+        {
+            $('#imageLoad').show();
         }
     </script>
 }
 <!-- Content Area -->
- <div id="imageLoad" style="display:block;position:absolute;margin-left:46%;margin-top:15%;z-index:3005" >
-     <img src="@Url.Content("~/Areas/Admin/Dandelion/images/loading.gif")"/>
+ <div id="imageLoad" class="modalOverlay">
+     <img src="@Url.Content("~/Areas/Admin/Dandelion/images/processing.gif")" style="display:block;position:absolute;margin-left:46%;margin-top:20%;z-index:3005"/>
  </div>
 <div class="grid_4">
     <div class="da-panel">
@@ -373,8 +379,9 @@
                 </span>
 
             </div>
+
             <div class="da-panel-content">
-                @using (Html.BeginForm("CreateProductParser", "Recommend", FormMethod.Post, new { id = "Parseform", @class = "da-form" }))
+                @using (Html.BeginForm("CreateProductParser", "Recommend", FormMethod.Post, new { id = "Parseform", @class = "da-form", @onsubmit = "BindImage()" }))
                 {
                     <input type="hidden" name="ParseProductLink" value="@TempData["link"]"/> 
                     <input type="hidden" name="RecommendProductId" value="@TempData["idRecommendProduct"]"/>     								
