@@ -13,7 +13,6 @@
  * Licensed under the MIT license
  *
  */
-
 ;(function( $, window, document, undefined ) {
 	// our plugin constructor
 	var daWizard = function( elem, options ) {
@@ -190,7 +189,6 @@
 				}), 
 				$submitButton = $button.clone().val(this.config.submitButtonLabel).addClass(this.config.submitButtonClass).bind('click', function(event) {
 				    self.submitForm();
-				    $("body").append('<div class="modalOverlay"><img src ="~/Areas/Admin/Dandelion/images/gif-load.gif">');
 					event.preventDefault();
 				});
 			
