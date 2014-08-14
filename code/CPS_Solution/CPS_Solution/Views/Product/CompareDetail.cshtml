@@ -392,9 +392,9 @@
         console.log(pro01_attr04);
         console.log(pro01_attr05);
 
-        var pro01_score = Math.round((bestScore) * (((Number(pro01_attr01) + Number(pro01_attr02)) * 0.6 + (Number(pro01_attr03) + Number(pro01_attr04) + Number(pro01_attr05)) * 0.4) / 5))
-        var pro02_score = Math.round(Number(bestScore) * (((Number(pro02_attr01) + Number(pro02_attr02)) * 0.6 + (Number(pro02_attr03) + Number(pro02_attr04) + Number(pro02_attr05)) * 0.4) / 5))
-        var pro03_score = Math.round(Number(bestScore) * (((Number(pro03_attr01) + Number(pro03_attr02)) * 0.6 + (Number(pro03_attr03) + Number(pro03_attr04) + Number(pro03_attr05)) * 0.4) / 5))
+        var pro01_score = Math.round(Number(bestScore) * (((Number(pro01_attr01) + Number(pro01_attr02)) * 0.6 + (Number(pro01_attr03) + Number(pro01_attr04) + Number(pro01_attr05)) * 0.4) / 5 * 100)) / 100
+        var pro02_score = Math.round(Number(bestScore) * (((Number(pro02_attr01) + Number(pro02_attr02)) * 0.6 + (Number(pro02_attr03) + Number(pro02_attr04) + Number(pro02_attr05)) * 0.4) / 5 * 100)) / 100
+        var pro03_score = Math.round(Number(bestScore) * (((Number(pro03_attr01) + Number(pro03_attr02)) * 0.6 + (Number(pro03_attr03) + Number(pro03_attr04) + Number(pro03_attr05)) * 0.4) / 5 * 100)) / 100
 
 
         //Tim max diem uu tien cua cac san pham
