@@ -23,8 +23,7 @@ namespace CPS_Solution.CommonClass
         public static double RatioRAMPoint { get; set; }
         public static double RatioHDDPoint { get; set; }
         public static double RatioDisplayPoint { get; set; }
-        public static double BestProduct { get; set; }
-        public static int BestScore { get; set; }
+        public static double BestScore { get; set; }
     }
     public enum SystemRole { 
         Admin = 1,

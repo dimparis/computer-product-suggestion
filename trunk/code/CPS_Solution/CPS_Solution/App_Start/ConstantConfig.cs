@@ -27,7 +27,7 @@ namespace CPS_Solution.App_Start
             ConstantManager.RatioRAMPoint = 1;
             ConstantManager.RatioHDDPoint = 1;
             ConstantManager.RatioDisplayPoint = 1;
-            ConstantManager.BestProduct = 1;
+            ConstantManager.BestScore = 1;
         }
     }
 }

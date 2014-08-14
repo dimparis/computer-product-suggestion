@@ -19,7 +19,7 @@ namespace CPS_Solution.CommonClass
         {
             
             double result = TakeBestProductPoint();
-            ConstantManager.BestProduct = result;
+            ConstantManager.BestScore = result;
         }
 
         public double TakeBestProductPoint()
