@@ -4,8 +4,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-<h2>Chỉnh sửa parser</h2>
 @section headScript
 {
     <!-- CSS Reset -->
@@ -265,7 +263,6 @@
 }
 <!-- Content Area -->
 
-<h1>Tạo Parser </h1>
 <div class="grid_4">
     <div class="da-panel">
         <div class="da-panel-header">
@@ -282,7 +279,7 @@
                     <div class="da-form-row">
                         <label>Link cần lấy<span class="required">*</span></label>
                         <div class="da-form-item large">
-                            @Html.TextBoxFor(x => x.ParseAttributelink, new { placeholder = "Nhập link cần parse", Value = TempData["link"] })
+                            @Html.TextBoxFor(x => x.ParseAttributelink, new { id="linkAttribute",placeholder = "Nhập link cần parse", Value = TempData["link"] })
                         </div>
                     </div>
                 </div>

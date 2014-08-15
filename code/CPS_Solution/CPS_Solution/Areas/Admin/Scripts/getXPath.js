@@ -141,7 +141,7 @@ function getPath(clickedNode, root) {
         if (node === root) {
             break;
         }
-        if ($url.val().indexOf("cpuboss.com") != -1 || $url.val().indexOf("gpuboss.com") != -1 || $url.val().indexOf("benchmark.net") != -1 || $url.val().indexOf("primatelabs.com")) {
+        if ($url.val().indexOf("cpuboss.com") != -1 || $url.val().indexOf("gpuboss.com") != -1 || $url.val().indexOf("benchmark.net") != -1 || $url.val().indexOf("primatelabs.com") != -1) {
             //do nothing to take absolute path
         } else {
             if (node.id !== "") {
