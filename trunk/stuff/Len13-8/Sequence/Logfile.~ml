@@ -90,7 +90,7 @@
 <XPD:ATTR name="Height" type="integer">400</XPD:ATTR>
 <XPD:REF name="Model">Ez5Eqdp2PUyri3kGU2xyTwAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="LabelView" guid="cFZKMao6zUusMiXRHEeipwAA">
-<XPD:ATTR name="Text" type="string">Logfile</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Write log file</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="FrameTypeLabel" type="LabelView" guid="E9qp+2f8BUis1EqGxSOiYwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
@@ -501,7 +501,7 @@
 </XPD:OBJ>
 <XPD:ATTR name="#OwnedFrames" type="integer">1</XPD:ATTR>
 <XPD:OBJ name="OwnedFrames[0]" type="UMLFrame" guid="Ez5Eqdp2PUyri3kGU2xyTwAA">
-<XPD:ATTR name="Name" type="string">Logfile</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Write log file</XPD:ATTR>
 <XPD:ATTR name="FrameKind" type="string">sd</XPD:ATTR>
 <XPD:REF name="InteractionInstanceSet">5A8OT4T5bkeuIp/bI56A6gAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">1</XPD:ATTR>
