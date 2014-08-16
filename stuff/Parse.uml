@@ -1436,7 +1436,7 @@
 <XPD:ATTR name="Left" type="integer">46</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">56</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">70</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">373</XPD:ATTR>
 <XPD:REF name="Model">AMoIj6cxFkWia5hAaUaQMgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="sOUnzxkkqE61a6uHOSg9RwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="RMXQXigBpkSHfWVgLXaPzQAA">
@@ -1460,7 +1460,7 @@
 <XPD:ATTR name="Left" type="integer">166</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">56</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">70</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">357</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">381</XPD:ATTR>
 <XPD:REF name="Model">nfQlPUFcBEeM7afrivAiHgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="uWoWl6MvWkSPjwS0zmF8VwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="ap7HeINX8EOBwZafC7t8YQAA">
@@ -1631,7 +1631,7 @@
 <XPD:ATTR name="Left" type="integer">194</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">152</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">49</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">265</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedViews[9]" type="UMLSeqStimulusView" guid="t45+mYoQN06hP+r/DQqDJAAA">
@@ -2009,7 +2009,7 @@
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="6gn/L3bKjUyNDfFOPpBp6wAA">
 <XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">12 : forward()</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">12 : return</XPD:ATTR>
 <XPD:REF name="Model">TygrykVABESBUmzjOqZSgAAA</XPD:REF>
 <XPD:REF name="HostEdge">+cxuZg2bZUWvka6o2W1Y6wAA</XPD:REF>
 </XPD:OBJ>
@@ -2028,6 +2028,7 @@
 <XPD:REF name="HostEdge">+cxuZg2bZUWvka6o2W1Y6wAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="APxAkjJPo0O44L3/zxmNtwAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">194</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">344</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
@@ -2229,10 +2230,10 @@
 <XPD:REF name="Views[3]">3EHGjwp+C0OqrvJyqBLTVQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingStimuli[11]" type="UMLStimulus" guid="TygrykVABESBUmzjOqZSgAAA">
-<XPD:ATTR name="Name" type="string">forward</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">return</XPD:ATTR>
 <XPD:REF name="Sender">fZW1ql17qU2OX5FdSnN9nwAA</XPD:REF>
 <XPD:REF name="Receiver">nfQlPUFcBEeM7afrivAiHgAA</XPD:REF>
-<XPD:OBJ name="Action" type="UMLCallAction" guid="pU2Odz3x5U+zT1qqJ/EY3wAA">
+<XPD:OBJ name="Action" type="UMLReturnAction" guid="IISu+DCWekKO0fROmfYvYQAA">
 <XPD:REF name="Stimulus">TygrykVABESBUmzjOqZSgAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:REF name="InteractionInstanceSet">8CM/xNv5eEyfdj+goSqkUwAA</XPD:REF>
