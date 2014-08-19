@@ -10,20 +10,9 @@
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
     <!-- jQuery-UI JavaScript Files -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
-    @*    <link href="~/Areas/Admin/Dandelion/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Areas/Admin/Dandelion/jquery-ui.structure.css" rel="stylesheet" />
-    <link href="~/Areas/Admin/Dandelion/jquery-ui.theme.css" rel="stylesheet" />*@
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
     <!-- Plugin Files -->
-    <!-- FileInput Plugin -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
-    <!-- Placeholder Plugin -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
-    <!-- Mousewheel Plugin -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
-    <!-- Scrollbar Plugin -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
     <!-- Tooltips Plugin -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
@@ -35,20 +24,7 @@
     <!-- Customizer JavaScript File (remove if not needed) -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
 
-    <!--  Demo JavaScript Files popup Ui Popup 
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
-    <!-- jGrowl Plugin   -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
-    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
-
-    <!-- DataTables Plugin -->
-    <script type="text/javascript" src="~/AreaAdmin/Dandelion/plugins/datatables/jquery.dataTables.js"></script>
-    <!-- Demo JavaScript Files -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
-    <!-- Chosen Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
-    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
 
     <!----------------------------- Lên datatable Plugin------------------------------------------>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
@@ -68,6 +44,12 @@
             background-color: rgba(0,0,0,0.5); /* black semi-transparent */
         }
     </style>
+    <script>
+        function BindImage()
+        {
+            $('#imageLoad').show();
+        }
+    </script>
 }
 @section sidebar
 {
@@ -288,10 +270,9 @@
         </li>
     </ul>
 }
-
-
 @section footScript
 {
+
     <!-- Wizard Plugin -->
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Scripts/getXPathProduct.js")"></script>
@@ -328,21 +309,16 @@
                 $hdd.val("@Html.Raw(info.HDDXPath)");
                 $ram.val("@Html.Raw(info.RAMXPath)");
                 $display.val("@Html.Raw(info.DisplayXPath)");      
-                $('#Parseform').submit();
-              
+                $('#Parseform').submit(); 
             }else
             {
                 $('#imageLoad').hide('slow');
             }          
-        } 
-        function BindImage()
-        {
-            $('#imageLoad').show();
-        }
+        }      
     </script>
 }
 <!-- Content Area -->
-<div id="imageLoad" class="modalOverlay" style="display:none">
+<div id="imageLoad" class="modalOverlay" style="display: none">
     <img src="@Url.Content("~/Areas/Admin/Dandelion/images/processing.gif")" style="display:block;position:absolute;margin-left:46%;margin-top:20%;z-index:3005"/>
 </div>
 <div class="grid_4">
@@ -356,8 +332,7 @@
         <div class="da-panel-content">
             @using (Html.BeginForm("LoadWebProduct", "Recommend", FormMethod.Post, new { @class = "da-form" }))
             {
-                var model = @Model;
-                <div id="da-ex-val1-error" class="da-message error" style="display: none;"></div>
+                <div id="da-ex-val1-error" class="da-message error" style="display: none"></div>
                 <div class="da-form-inline">
                     <div class="da-form-row">
                         <label>Link cần lấy<span class="required">*</span></label>
@@ -371,17 +346,15 @@
     </div>
 </div>
 
-
 @if (TempData["link"] != null)
 { 
     <div class="grid_4">
         <div class="da-panel">
             <div class="da-panel-header">
                 <span class="da-panel-title">
-                    <img src="@Url.Content("~/Areas/Admin/Dandelion/Areas/Admin/Dandelion/images/icons/color/wand.png")" alt="" />
+                    <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/color/wand.png")" alt="" />
                     Các bước tạo parser
                 </span>
-
             </div>
 
             <div class="da-panel-content">
@@ -485,8 +458,7 @@
     </div>
     <div class="grid_4">
         <iframe id="webDiv" src="@Url.Content("~/Areas/Admin/SavedPages/ProductTmp.html")" width="1043" height="600" style="background-color:#ffffff"></iframe>
-    </div>       
-            
+    </div>                 
 }
 <script>
     //Xem trước sản phẩm
@@ -521,12 +493,7 @@
                     title: "Xem trước các thành phần", 
                     width: "800", 
                     modal: true  ,
-                    draggable: false
-                    //buttons: [{
-                    //    text: "Đóng", 
-                    //    click: function() {
-                    //        $( this ).dialog( "close" );
-                    //    }}]
+                    draggable: false    
                 });
                 $("#previewParser").dialog("option", {modal: true}).dialog("open");
                 event.preventDefault();
