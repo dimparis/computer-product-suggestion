@@ -794,7 +794,8 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         listofAttributes.Add(hdd);
                         listofAttributes.Add(vga);
                         listofAttributes.Add(display);
-
+                        int count = 0;
+                           
                         //add 5 attribute for 1 product
                         foreach (var attribute in listofAttributes)
                         {
@@ -804,13 +805,31 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             var averageMatch = new List<int>();
                             int pId = -1;
                             bool wholeMatch = false;
+                            string codeType = "C";
+                            if (count == 1) 
+                            {
+                                codeType = "V";
+                            }
+                            else if (count == 2) 
+                            {
+                                codeType = "H";
+                            }
+                            else if (count == 3)
+                            {
+                                codeType = "R";
+                            }
+                            else if (count == 4)
+                            {
+                                codeType = "D";
+                            }
 
-                            foreach (var alias in context.Dictionaries.Where(x => x.Hardware.IsActive == true))
+                            foreach (var alias in context.Dictionaries.Where(x => x.Hardware.IsActive == true && x.Hardware.CodetypeID.Equals(codeType)))
                             {
                                 if (attribute.Key == alias.Name)
                                 {
                                     wholeMatch = true;
                                     pId = alias.AttributeDicID;
+                                    count++;
                                     break;
                                 }
                                 double matchPercent = CompareStringHelper.CompareString(attribute.Key, alias.Name);
@@ -824,6 +843,7 @@ namespace CPS_Solution.Areas.Admin.Helpers
                                 {
                                     averageMatch.Add(alias.AttributeDicID);
                                 }
+
                             }
                             if (!wholeMatch)
                             {
