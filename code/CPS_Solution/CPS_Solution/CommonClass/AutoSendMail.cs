@@ -20,14 +20,23 @@ namespace CPS_Solution.CommonClass
         public void SendEmail(string address, string subject, string lapName, string productID)
         {
             string email = "latopsuggestion@gmail.com"; string password = "latopsuggestion1";
-            string message = "Laptop " + lapName + ":" + " mà bạn gợi ý cho hệ thống hiện đã được chúng tôi cập nhập" +
-                "\n Xin hãy vào địa chỉ để xem tại " + "http://localhost:28758/Product/Details?ID=" + productID;
+
+            string header = "<img style='margin-left:25%' src='http://upanh.biz/images/2014/08/18/logo-4.png'/><br>" +
+                            "Xin chào " + "<strong><i>Anh/Chị</i></strong>" + ",<br><br>";
+            string content = "Laptop " + "<strong>" + lapName + "</strong>" + " mà bạn đề xuất đã được chúng tôi cập nhật vào hệ thống.<br>" +
+                             "Bạn có thể xem thông tin chi tiết của sản phẩm này tại địa chỉ: " +
+                             "<url>http://localhost:28758/Product/Details?ID=" + productID + "</url><br>" +
+                             "Xin cảm ơn và chúc bạn nhiều sức khỏe!<br>" +
+                             "<p style='margin-left:50%'>Trân Trọng</p>" +
+                             "<p style='margin-left:50%'>CPS Solution</p>";
+
+            string message = "<font size='3.5'>" + header + content + "</font>";
 
             var loginInfo = new NetworkCredential(email, password);
             var msg = new MailMessage();
             var smtpClient = new SmtpClient("smtp.gmail.com", 587);
 
-            msg.From = new MailAddress(email);
+            msg.From = new MailAddress(email, "CPS Solution");
             msg.To.Add(new MailAddress(address));
             msg.Subject = subject;
             msg.Body = message;
@@ -71,7 +80,7 @@ namespace CPS_Solution.CommonClass
                 }
                 if (havepointCount >= 5)
                 {
-                    Task.Factory.StartNew(() => SendEmail(item.Email, "CPS- Đề xuất sản phẩm", aliasProducts.Name, aliasProducts.ProductID.ToString()));
+                    Task.Factory.StartNew(() => SendEmail(item.Email, "Laptop mà bạn đề xuất đã được cập nhật", aliasProducts.Name, aliasProducts.ProductID.ToString()));
                     mailSent.Add(item.ID);
                 }
             }
@@ -106,7 +115,7 @@ namespace CPS_Solution.CommonClass
             }
             if (havepointCount >= 5)
             {
-                Task.Factory.StartNew(() => SendEmail(rcmProduct.Email, "CPS- Đề xuất sản phẩm", aliasProducts.Name, aliasProducts.ProductID.ToString()));
+                Task.Factory.StartNew(() => SendEmail(rcmProduct.Email, "Laptop mà bạn đề xuất đã được cập nhật", aliasProducts.Name, aliasProducts.ProductID.ToString()));
                 var itemRecommendMailSent = db.RecommendProducts.FirstOrDefault(x => x.ID == rcmProduct.ID);
                 if (itemRecommendMailSent != null) itemRecommendMailSent.IsMailSent = true;
                 db.SaveChanges();
