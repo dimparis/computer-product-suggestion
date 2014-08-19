@@ -65,12 +65,12 @@
 <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
   <!-------------------------------------------------------------------------------------------> 
 @{countlist = countlist+1-1;}
-                <!------------------------------------------------------------------------------------------->
+              <!------------------------------------------------------------------------------------------->
                 <div class="da-panel collapsible">
                     <div class="da-panel-header">
                         <span class="da-panel-title">
                             <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
-                            Danh sách để lưu vào cơ sở dữ liệu
+                            Danh sách sản phẩm đúng
                         </span>
 
                         <span class="da-panel-toggler"></span>
@@ -84,11 +84,11 @@
                                     <tr role="row">
                                         <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">STT</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
-                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
-                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
-                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 80px;">Địa chỉ ảnh</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 120px;">CPU</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 120px;">VGA</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
-                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 80px;">Màn hình</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Giá</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Địa chỉ bán</th>
@@ -103,20 +103,29 @@
                                         foreach (LapData p in list)
                                         {
                                         <tr class="odd">
+
                                             <td class=" sorting_1">@p.stt </td>
-                                            <td class=" ">@p.Name</td>
-                                            <td class=" "><a style="width: 100px;" target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
-                                            <td class=" ">@p.CPU</td>
-                                            <td class=" ">@p.VGA</td>
-                                            <td class=" ">@p.HDD</td>
-                                            <td class=" ">@p.Display</td>
-                                            <td class=" ">@p.RAM</td>
-                                            <td class=" ">@p.Price</td>
-                                            <td class=" "><label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem đường dẫn</u></i></a></label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.Name</label></td>
+                                            <td class=" "><a " target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.CPU</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.VGA</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.HDD</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.Display</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;">@p.RAM</label></td>
+                                            <td class=" ">
+                                                <label style="width: 80px;">@p.Price</label></td>
+                                            <td class=" ">
+                                                <label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem</u></i></a></label></td>
                                             <td class=" ">
                                                 <input name="sttproduct" type="hidden"  value="@p.stt" />
                                                 <a onclick="xoasanphamdung(@p.stt)">
-                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
+                                                    <img src="/Areas/Admin/Dandelion/images/icons/color/cross.png">
                                                     Xóa</a>
                                                 <a onclick="showPopupEdit(@p.stt)">
                                                     <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
@@ -131,7 +140,7 @@
                                                                         </span>
                                     
                                                                     </div>*@
-                                                        <div class="da-panel-content">
+                                                        <div class="da-panel-content" style="background: url(../Areas/Admin/Dandelion/images/bg/wood_pattern.jpg);">
                                                             <form class="da-form">
                                                                 <div class="da-form-inline">
                                                                     <div class="da-form-row">
@@ -211,6 +220,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <!----------------Popup------------------>
                                             </td>
                                         </tr>

@@ -108,7 +108,23 @@
     <!----------------------------- Lên datatable Plugin------------------------------------------>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
-    <style></style>
+      <style>
+        .modalOverlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            z-index: 3000;
+            background-color: rgba(0,0,0,0.5); /* black semi-transparent */
+        }
+    </style>
+    <script>
+        function BindImage()
+        {
+            $('#imageLoad').show();
+        }
+    </script>
 }
 @section sidebar
 {
@@ -329,6 +345,9 @@
 {
 }
 <!----------------------------------------------- Content Area --------------------------------------------->
+<div id="imageLoad" class="modalOverlay" style="display: none">
+    <img src="@Url.Content("~/Areas/Admin/Dandelion/images/processing.gif")" style="display:block;position:absolute;margin-left:46%;margin-top:20%;z-index:3005"/>
+</div>
 <div class="clear"></div>
 <div class="grid_4">
     <div class="da-panel" style="margin-left: 200px; width: 50%">
@@ -777,11 +796,11 @@
                                     <tr role="row">
                                         <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 40px;">STT</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
-                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
-                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
-                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 80px;">Địa chỉ ảnh</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 120px;">CPU</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 120px;">VGA</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
-                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
+                                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 80px;">Màn hình</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Giá</th>
                                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Địa chỉ bán</th>
@@ -800,7 +819,7 @@
                                             <td class=" sorting_1">@p.stt </td>
                                             <td class=" ">
                                                 <label style="width: 100px;">@p.Name</label></td>
-                                            <td class=" "><a style="width: 100px;" target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
+                                            <td class=" "><a " target="_blank" href="@p.Imagelink"><i><u>Xem ảnh</u></i></a></td>
                                             <td class=" ">
                                                 <label style="width: 100px;">@p.CPU</label></td>
                                             <td class=" ">
@@ -812,13 +831,13 @@
                                             <td class=" ">
                                                 <label style="width: 100px;">@p.RAM</label></td>
                                             <td class=" ">
-                                                <label style="width: 100px;">@p.Price</label></td>
+                                                <label style="width: 80px;">@p.Price</label></td>
                                             <td class=" ">
-                                                <label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem đường dẫn</u></i></a></label></td>
+                                                <label style="width: 100px;"><a style="width: 100px;" target="_blank" href="@p.Url"><i><u>Xem</u></i></a></label></td>
                                             <td class=" ">
                                                 <input name="sttproduct" type="hidden"  value="@p.stt" />
                                                 <a onclick="xoasanphamdung(@p.stt)">
-                                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
+                                                    <img src="/Areas/Admin/Dandelion/images/icons/color/cross.png">
                                                     Xóa</a>
                                                 <a onclick="showPopupEdit(@p.stt)">
                                                     <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
@@ -978,7 +997,7 @@
                                             }
                                         </ul>
                 </div>
-                <div class="da-panel collapsible" style="overflow:scroll;width:1204px">
+                <div class="da-panel collapsible" style="overflow:scroll;width:100%">
                     <div class="da-panel-header">
                         <span class="da-panel-title">
                             <img src="~/Areas/Admin/Dandelion/images/icons/black/16/list.png" alt="">
@@ -1021,14 +1040,14 @@
                                             if (loiName[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idName_@p.stt" cols="10%" rows="2" style="border-color:red"> @p.Name</textarea></td>
+                                                <textarea id="idName_@p.stt" cols="25%" rows="3" style="border-color:red"> @p.Name</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idName_@p.stt"  cols="10%" rows="2"> @p.Name</textarea></td> 
+                                                <textarea id="idName_@p.stt"  cols="25%" rows="3"> @p.Name</textarea></td> 
                                         }
                                         @if (checkName > 0)
                                         {
@@ -1041,14 +1060,14 @@
                                             if (loiImageLink[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idImageLink_@p.stt" cols="10%" rows="2" style="border-color:red"> @p.Imagelink</textarea></td>
+                                                <textarea id="idImageLink_@p.stt" cols="30%" rows="3" style="border-color:red"> @p.Imagelink</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idImageLink_@p.stt" cols="10%" rows="2">@p.Imagelink</textarea>
+                                                <textarea id="idImageLink_@p.stt" cols="30%" rows="3">@p.Imagelink</textarea>
                                             </td> 
                                         }
                                         @if (checkName > 0)
@@ -1063,14 +1082,14 @@
                                             if (loiCPU[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idCPU_@p.stt"  cols="10%" rows="2" style="border-color:red"> @p.CPU</textarea></td>
+                                                <textarea id="idCPU_@p.stt"  cols="20%" rows="3" style="border-color:red"> @p.CPU</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idCPU_@p.stt"  cols="10%" rows="2"> @p.CPU</textarea></td>
+                                                <textarea id="idCPU_@p.stt"  cols="20%" rows="3"> @p.CPU</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -1083,14 +1102,14 @@
                                             if (loiVGA[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idVGA_@p.stt" cols="10%" rows="2" style="border-color:red"> @p.VGA</textarea></td>
+                                                <textarea id="idVGA_@p.stt" cols="20%" rows="3" style="border-color:red"> @p.VGA</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idVGA_@p.stt"  cols="10%" rows="2"> @p.VGA</textarea></td>
+                                                <textarea id="idVGA_@p.stt"  cols="20%" rows="3"> @p.VGA</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -1104,14 +1123,14 @@
                                             if (loiHDD[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idHDD_@p.stt" cols="5%" rows="2" style="border-color:red"> @p.HDD</textarea></td>
+                                                <textarea id="idHDD_@p.stt" cols="15%" rows="3" style="border-color:red"> @p.HDD</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idHDD_@p.stt" cols="5%" rows="2"> @p.HDD</textarea></td>
+                                                <textarea id="idHDD_@p.stt" cols="15%" rows="3"> @p.HDD</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -1124,14 +1143,14 @@
                                             if (loiDisplay[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idDisplay_@p.stt" cols="5%" rows="2" style="border-color:red"> @p.Display</textarea></td>
+                                                <textarea id="idDisplay_@p.stt" cols="15%" rows="3" style="border-color:red"> @p.Display</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idDisplay_@p.stt" cols="5%" rows="2"> @p.Display</textarea></td>
+                                                <textarea id="idDisplay_@p.stt" cols="15%" rows="3"> @p.Display</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -1144,14 +1163,14 @@
                                             if (loiRam[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idRam_@p.stt" cols="5%" rows="2" style="border-color:red"> @p.RAM</textarea></td>
+                                                <textarea id="idRam_@p.stt" cols="15%" rows="3" style="border-color:red"> @p.RAM</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idRam_@p.stt" cols="5%" rows="2"> @p.RAM</textarea></td>
+                                                <textarea id="idRam_@p.stt" cols="15%" rows="3"> @p.RAM</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -1164,14 +1183,14 @@
                                             if (loiPrice[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idPrice_@p.stt" cols="5%" rows="2" style="border-color:red"> @p.Price</textarea></td>
+                                                <textarea id="idPrice_@p.stt" cols="15%" rows="3" style="border-color:red"> @p.Price</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idPrice_@p.stt" cols="5%" rows="2"> @p.Price</textarea></td>
+                                                <textarea id="idPrice_@p.stt" cols="15%" rows="3"> @p.Price</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -1184,14 +1203,14 @@
                                             if (loiURL[i].Equals(j.ToString()))
                                             {
                                             <td class=" ">
-                                                <textarea id="idURL_@p.stt" cols="10%" rows="2" style="border-color:red"> @p.Url</textarea></td>
+                                                <textarea id="idURL_@p.stt" cols="20%" rows="3" style="border-color:red"> @p.Url</textarea></td>
                                                 checkName++;
                                             }
                                         }
                                         @if (checkName < 1)
                                         {
                                             <td class=" ">
-                                                <textarea id="idURL_@p.stt" cols="10%" rows="2"> @p.Url</textarea></td>
+                                                <textarea id="idURL_@p.stt" cols="20%" rows="3"> @p.Url</textarea></td>
                                         }
                                         @if (checkName > 0)
                                         {
@@ -1252,9 +1271,9 @@
                                     <th class="checkbox-column"  id="checkboxAllTable_@(i)">
                                         <input id="checkAll"  style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 80px;">Địa chỉ ảnh</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 120px;">CPU</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 120px;">VGA</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
@@ -1346,9 +1365,9 @@
                                     <th class="checkbox-column"  id="checkboxAllTable_@(i)">
                                         <input id="checkAll"  checked="checked" disabled style="zoom:1.3;" onclick="checkboxAllTable(@(i))" type="checkbox"></th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 180px;">Tên máy</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Địa chỉ ảnh</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">CPU</th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">VGA</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 80px;">Địa chỉ ảnh</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 120px;">CPU</th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 120px;">VGA</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 50px;">HDD</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Màn hình</th>
                                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-numberpaging" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 40px;">Ram</th>
@@ -1412,6 +1431,7 @@
             if(fsize>2){
                 $.jGrowl("File không được lớn hơn 2Mb", {header: "Nhắc nhở!", position: "bottom-right"});
             }else{
+                BindImage();
                 document.getElementById("da-ex-vali").submit();
             }
         }else{
@@ -1472,6 +1492,7 @@
             val += "@@no";
         }
         var postData = { checkval: val };
+        BindImage();
         if(x >0){
             $.ajax({
                 type: "POST",

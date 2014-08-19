@@ -103,7 +103,23 @@
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
 
-
+      <style>
+        .modalOverlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            z-index: 3000;
+            background-color: rgba(0,0,0,0.5); /* black semi-transparent */
+        }
+    </style>
+    <script>
+        function BindImage()
+        {
+            $('#imageLoad').show();
+        }
+    </script>
 
 }
 @section sidebar
@@ -333,6 +349,9 @@
 
 }
 <!----------------------------------------------- Content Area --------------------------------------------->
+<div id="imageLoad" class="modalOverlay" style="display: none">
+    <img src="@Url.Content("~/Areas/Admin/Dandelion/images/processing.gif")" style="display:block;position:absolute;margin-left:46%;margin-top:20%;z-index:3005"/>
+</div>
 <!------------->
 <div class="clear"></div>
 <div class="grid_4">
@@ -990,6 +1009,7 @@
                         if(fsize>2){
                             $.jGrowl("File không được lớn hơn 2Mb", {header: "Nhắc nhở!", position: "bottom-right"});
                         }else{
+                            BindImage();
                             document.getElementById("da-ex-vali").submit();
                         }
                     }else{
@@ -1046,6 +1066,7 @@
                 }else{
                     val += "@@no";
                 }
+                BindImage();
                 var postData = { checkval: val };
                 if(x >0){
 
