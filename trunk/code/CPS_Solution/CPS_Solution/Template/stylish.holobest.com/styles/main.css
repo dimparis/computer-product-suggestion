@@ -988,7 +988,8 @@ iframe {
 
 .post-excerpt {
     line-height: 18px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    padding-right: 15px;
 }
 
 .post-media.thumbnail, .post-media iframe, .post-media {
