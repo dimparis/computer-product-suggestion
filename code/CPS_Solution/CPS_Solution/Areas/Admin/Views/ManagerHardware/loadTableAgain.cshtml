@@ -1,0 +1,159 @@
+﻿@model IEnumerable<CPS_Solution.EntityFramework.Account>
+@using CPS_Solution.Controllers;
+@using CPS_Solution.EntityFramework;
+@using CPS_Solution.Areas.Admin.Models;
+@{
+    Layout = null;
+    List<Hardware> listHardware = ViewBag.listHardware;
+    List<Codetype> listCodetype = ViewBag.listCodetype;
+}
+ <!-- iOS webapp icons -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-retina.png" />
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/reset.css" media="screen" />
+    <!--  Fluid Grid System -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/fluid.css" media="screen" />
+    <!-- Theme Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.theme.css" media="screen" />
+    <!--  Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/dandelion.css" media="screen" />
+    <!-- Demo Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/css/demo.css" media="screen" />
+    <!-- jQuery JavaScript File -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
+    <!-- jQuery-UI JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
+    <!-- Plugin Files -->
+    <!-- FileInput Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
+    <!-- Placeholder Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.placeholder.js"></script>
+    <!-- Mousewheel Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.mousewheel.min.js"></script>
+    <!-- Scrollbar Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.tinyscrollbar.min.js"></script>
+    <!-- Tooltips Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/tipsy/jquery.tipsy-min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/tipsy/tipsy.css" />
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.icons.js"></script>
+    <!-- Core JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.core.js"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
+
+    <!--  Demo JavaScript Files popup Ui Popup 
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
+    <!-- jGrowl Plugin   -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
+
+    <!-- DataTables Plugin -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- Demo JavaScript Files -->
+    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
+    <!----------------------------- Lên datatable Plugin------------------------------------------>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
+        <div class="da-panel collapsible">
+            <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="/Areas/Admin/Dandelion/images/icons/white/16/list.png" alt="">
+                    Danh sách cửa hàng
+                </span>
+
+                <span class="da-panel-toggler"></span>
+            </div>
+            <div class="da-panel-content">
+                <div id="da-ex-datatable-default_wrapper" class="dataTables_wrapper" role="grid">
+
+
+                    <table id="da-ex-datatable-default" class="da-table dataTable" aria-describedby="da-ex-datatable-default_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">STT</th>
+                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 300px;">Tên Hardware</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 190px;">Loại</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 169px;">Trọng số</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 169px;">Kích Hoạt</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 133px;">Thực hiện</th>
+                            </tr>
+                        </thead>
+
+                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+                           @{ int i = 0;}
+                            @foreach (Hardware hard in listHardware)
+                            {
+                               
+                                    i++;
+                                <tr class="odd">
+                                    <td class=" sorting_1">@i</td>
+                                    <td class=" sorting_1">@hard.Name</td>
+                                    <td class=" ">@hard.Codetype.Name</td>
+                                     <td class=" ">@hard.WeightCriteraPoint</td>
+                                    <td class=" ">
+                                        @if (@hard.IsActive != true)
+                                        {                                     
+                                            <input type="button" onclick="ActiveHardware(@hard.ID)" value="Không hoạt động" class="da-button red" >
+                                        }
+                                        else
+                                        {
+                                            <input type="button" onclick="ActiveHardware(@hard.ID)" value="Hoạt động" class="da-button blue" style="width:120px" data-id="5">
+                                        }
+                                    </td>
+                                    <td class=" ">
+                                        <a onclick="showPopupEdit(@hard.ID)">
+                                            <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
+                                            Sửa
+                                        </a>
+
+                                        <!----------------Popup sửa tài khoản----------->
+                                        <div id="Edit-@(hard.ID)-Popup-div" style="display: none;">
+                                            <div class="da-panel">
+                                                <div class="da-panel-content" style="background: url(../Areas/Admin/Dandelion/images/bg/wood_pattern.jpg);">
+                                                    <form id="da-ex-validate@(hard.ID)" class="da-form" method="post" action="ManagerStore/EditStore" enctype="multipart/form-data"  style="padding-top: 23px;" novalidate="novalidate">
+                                                        <fieldset class="da-form-inline">
+                                                                <legend>Thông tin cửa hàng</legend>
+                                                                <div class="da-form-row">
+                                                                    <label>Tên cửa hàng<span class="required">*</span></label>
+                                                                    <div class="da-form-item large">
+                                                                        <span  class="formNote">Không được để trống</span>
+                                                                        <input type="text"  value="@hard.Name" name="idStoreNameUp" id="idStoreNameUp@(hard.ID)">
+                                                                          <input type="text"  hidden value="@hard.ID" name="idStore">
+                                                                      
+                                                                    </div>
+                                                                </div>
+                                                                <div class="da-form-row">
+                                                                    <label>Địa chỉ web<span class="required">*</span></label>
+                                                                    <div class="da-form-item large">
+                                                                        <span class="formNote">Không được để trống</span>
+                                                                        <input type="text" name="idStoreUrlUp" value="@hard.Name" id="idStoreUrlUp@(hard.ID)">
+                                                                    </div>
+                                                                </div>
+                                                                              
+                                                            </fieldset>
+
+                                                        <div class="da-button-row">
+                                                            <input type="button" value="Update" onclick="EditStore(@hard.ID)"  class="da-button green">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!----------------Popup------------------>
+                                    </td>
+                                </tr>
+                                }
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    

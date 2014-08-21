@@ -155,7 +155,7 @@
             </li>
             <li>
                 <a href="@Url.Action("Index", "Product")">
-                    <span class="da-nav-count">5</span>
+                    <span class="da-nav-count">6</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/day_calendar.png")" alt="Calendar" />
@@ -196,7 +196,13 @@
                             <strong>Quản lý cửa hàng</strong>
                         </a>
                     </li>
+                    <li>
 
+                        <a href="@Url.Action("Index", "ManagerHardware")">
+                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
+                            <strong>Quản lý linh kiện</strong>
+                        </a>
+                    </li>
                 </ul>
             </li>
            
@@ -290,6 +296,8 @@
                     <img src="~/Areas/Admin/Dandelion/images/icons/white/16/list.png" alt="">
                    Danh sách linh kiện đúng chưa có trọng số
                 </span>
+                       
+                   <input type="button" value="Cập Nhập Tất Cả" class="da-button blue" onclick="UpdateAll(@ListHardNoPoint.Count)" style="position: absolute; right: 75px; top: 15px; width: 180px">
 
                 <span class="da-panel-toggler"></span>
             </div>
@@ -300,7 +308,7 @@
                     <table id="da-ex-datatable-default" class="da-table dataTable" aria-describedby="da-ex-datatable-default_info">
                         <thead>
                             <tr role="row">
-                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 196px;">ID</th>
+                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 196px;">STT</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 290px;">Tên Linh Kiện</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 264px;">Loại</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 169px;">Trọng số</th>
@@ -312,11 +320,19 @@
                             @if (ListHardNoPoint != null)
                             {
                                 int i = 0;
+                                
                                 foreach (Hardware hard in ListHardNoPoint)
                                 {
                                     i++;
+                                   
+                                          
+      
                                     <tr id ="idTR@(hard.ID)" class="odd">
-                                    <td hidden class=" sorting_1">@hard.ID</td>
+                                           <td hidden class="checked">
+                                 <input id ="ID@(i-1)" hidden style="width: 19px;" value="@hard.ID" type="text"> 
+                                                 
+                                               </td>
+                                    <td  hidden class=" sorting_1"><label >@hard.ID</label></td>
                                     <td class="">@i</td>
                                     <td class=" ">@hard.Name</td>
                                     <td class=" ">@hard.Codetype.Name</td>
@@ -339,6 +355,33 @@
         </div>
     </div>
     <script>
+
+        function UpdateAll(stt) {
+            var val = "";
+            for(var i =0; i<stt; i++ )
+            {
+                var   HardID= document.getElementById("ID"+i).value ;
+                var   TrongSo = document.getElementById("TrongSo" + HardID).value;
+                val += HardID +"|" +TrongSo + "@@";
+            }
+
+              
+            if (confirm("Bạn có chắc chắn muốn lưu sản phẩm này?")) {
+                var postData = { stringpro: val };
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/FillWeightHardWare/UpdateAll",
+                    data: postData,
+                    success: function (data) {
+                        location.reload();
+                    },
+
+                });
+            } else {
+
+            }
+        }
+
         ///  Active or deactive user
         function UpdateTrongso(i) {
             var trongso = document.getElementById("TrongSo" + i).value;
