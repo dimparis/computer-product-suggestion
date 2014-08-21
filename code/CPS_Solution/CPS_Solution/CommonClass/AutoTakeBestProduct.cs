@@ -42,13 +42,11 @@ namespace CPS_Solution.CommonClass
                            select p).ToList();
             
             foreach (var i in products){
-                if(i.TotalWeightPoint.Equals(0)){
-                    var priorScore = i.cpuScore * ConstantManager.RatioCPUPoint + i.vgaScore * ConstantManager.RatioVGAPoint;
-                    var normalScore = i.ramScore * ConstantManager.RatioRAMPoint + i.hddScore * ConstantManager.RatioHDDPoint + i.displayScore * ConstantManager.RatioDisplayPoint;
-                    i.TotalWeightPoint = (priorScore * 0.6 + normalScore * 0.4) / 5;
-                    context.Entry(i).State = EntityState.Modified;
-                    context.SaveChanges();
-                }
+                var priorScore = i.cpuScore * ConstantManager.RatioCPUPoint + i.vgaScore * ConstantManager.RatioVGAPoint;
+                var normalScore = i.ramScore * ConstantManager.RatioRAMPoint + i.hddScore * ConstantManager.RatioHDDPoint + i.displayScore * ConstantManager.RatioDisplayPoint;
+                i.TotalWeightPoint = (priorScore * 0.6 + normalScore * 0.4) / 5;
+                context.Entry(i).State = EntityState.Modified;
+                context.SaveChanges();
             }
 
             var bestProduct = context.Products.OrderByDescending(x => x.TotalWeightPoint).FirstOrDefault();
