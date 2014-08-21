@@ -114,12 +114,17 @@ namespace CPS_Solution.Controllers
 
             var products = from p in db.Products
                            select p;
+
             products = products.Where(c => vals.Contains(c.ID));
 
-            var listProduct = products.ToList();            
+            var listProduct = products.ToList();
+            
 
             if (p3 == -1){
                 listProduct[0].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
+                var minPrice = db.AliasProducts.Where(c => c.ProductID.Equals(p1)).OrderBy(c => c.Price).FirstOrDefault();
+                var maxPrice = db.AliasProducts.Where(c => c.ProductID.Equals(p1)).OrderByDescending(c => c.Price).FirstOrDefault();
+              
                 listProduct[1].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
                 
             } else {
