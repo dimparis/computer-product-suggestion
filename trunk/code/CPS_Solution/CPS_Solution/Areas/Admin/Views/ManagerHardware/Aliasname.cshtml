@@ -1,12 +1,12 @@
-﻿@using CPS_Solution.Controllers;
+﻿@model IEnumerable<CPS_Solution.EntityFramework.Account>
+@using CPS_Solution.Controllers;
 @using CPS_Solution.EntityFramework;
 @using CPS_Solution.Areas.Admin.Models;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Aliasname";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    List<feedbackinfo> listfeedback = ViewBag.listfeedback;
+    List<Dictionary> listDictionary = ViewBag.listDictionary;
 }
-
 @section headScript
 {
     <!-- iOS webapp icons -->
@@ -62,11 +62,11 @@
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
     <!----------------------------- Lên datatable Plugin------------------------------------------>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>    
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
 }
 @section sidebar
 {
-    <!-- Main Navigation -->
+   <!-- Main Navigation -->
     <div id="da-main-nav" class="da-button-container">
         <ul>
             <li>
@@ -151,8 +151,7 @@
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
-                    </li>
-                    
+                    </li>                  
                     <li>
 
                         <a href="@Url.Action("Createrecommend", "Recommend")">
@@ -179,14 +178,14 @@
                         </a>
 
                     </li>
-                    <li >
+                    <li>
 
                         <a href="@Url.Action("Index", "Product")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
                             <strong>Danh sách sản phẩm</strong>
                         </a>
                     </li>
-                     <li style="background-color: #a6d037;">
+                     <li>
 
                         <a href="@Url.Action("Index", "ViewFeedback")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -199,13 +198,13 @@
                             <strong>Lịch sử tìm kiếm</strong>
                         </a>
                     </li>
-                    <li>
+                     <li >
                         <a href="@Url.Action("Index", "ManagerStore")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/color/asterisk_orange.png")" alt="" />
                             <strong>Quản lý cửa hàng</strong>
                         </a>
                     </li>
-                       <li>
+                      <li style="background-color: #a6d037;">
 
                         <a href="@Url.Action("Index", "ManagerHardware")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -214,11 +213,11 @@
                     </li>
                 </ul>
             </li>
-           
+            
             <li>
                 <a href="#">
-                      <span class="da-nav-count">1</span>
                     <!-- Icon Container -->
+                      <span class="da-nav-count">1</span>
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/settings.png")" alt="" />
                     </span>
@@ -256,7 +255,7 @@
                             <strong>Parser linh kiện</strong>
                         </a>
                     </li>
-                  @*  <li>
+                    @*<li>
                         <a href="#">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
                             <strong>Tạo parser sản phẩm</strong>
@@ -281,12 +280,12 @@
 }
 @section mainHeader
 {
-     <ul>
-        <li style="margin-right: 5px"><a style="cursor: default;font-size:27px;">
-            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Góp ý khách hàng</strong></a></li>
+    <ul>
+        <li style="margin-right: 5px"><a style="cursor: default; font-size: 27px;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Quản lý linh kiện</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
-            <a href="@Url.Action("Index", "ViewFeedback")" style="font-size:20px;font-style:italic;text-decoration:underline">Danh sách góp ý</a>
+            <a href="@Url.Action("Index", "ManagerHardware")" style="font-size:20px;font-style:italic;text-decoration:underline">Danh sách linh kiện</a>
         </li>
     </ul>
 }
@@ -296,12 +295,60 @@
 
 <div class="clear"></div>
 <div class="grid_4">
+
+    <a onclick="showPopupCreate()" class="da-button blue">
+        <img src="~/Areas/Admin/Dandelion/images/icons/color/add.png" alt="">
+        Tạo mới tên phụ
+    </a>
+    <!----------------Popup Tạo tài khoản mới----------->
+    <div id="Create-Popup-div" style="display: none;">
+        <div class="da-panel">
+            <!-----    <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="images/icons/color/text_signature.png" alt="">
+                    Simple Registration Form
+                </span>
+            </div>---->
+            <div class="da-panel-content">
+               @*@using (Html.BeginForm("CreateNewAliasHardware", "ManagerHardware", FormMethod.Post, new { @enctype = "multipart/form-data", @style = "padding-top: 23px;", @novalidate = "novalidate", @class = "da-form", id = "da-ex-validate4" }))
+               {*@
+                       <form id="da-ex-validate4" class="da-form" method="post" action="/ManagerHardware/CreateNewAliasHardware" enctype="multipart/form-data" style="padding-top: 23px;" novalidate="novalidate">
+                    <fieldset class="da-form-inline">
+                        <legend>Thông tin tên phụ</legend>
+                        <div class="da-form-row">
+                            <label>Tên chính của hardware<span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                <span id="" class="formNote">Không được để trống</span>
+                                <input type="text" disabled value="@listDictionary[0].Hardware.Name" name="idHardwareName" id="idHardwareName">
+                                 <input type="text" hidden  value="@listDictionary[0].AttributeDicID" name="IdHardware" id="">
+                            </div>
+                        </div> 
+                        <div class="da-form-row">
+                            <label>Tên phụ của hardware<span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                <span id="" class="formNote">Không được để trống</span>
+                                <input type="text"  value="" name="idHardwareAliasName" id="idHardwareAliasName">
+                            </div>
+                        </div>                                                                       
+                    </fieldset>
+
+                    <div class="da-button-row">
+                        <input type="button" value="Tạo mới" onclick="CreateNewAliasHardware()" class="da-button green">
+                    </div>
+               </form>
+               
+              
+            </div>
+
+        </div>
+    </div>
+    <!----------------Popup------------------>
     <div id="loadtable">
         <div class="da-panel collapsible">
             <div class="da-panel-header">
                 <span class="da-panel-title">
-                    <img src="~/Areas/Admin/Dandelion/images/icons/white/16/list.png" alt="">
-                    Thông tin phản hồi từ khách hàng.
+                    <img src="/Areas/Admin/Dandelion/images/icons/white/16/list.png" alt="">
+                    Danh sách hardware
                 </span>
 
                 <span class="da-panel-toggler"></span>
@@ -313,31 +360,66 @@
                     <table id="da-ex-datatable-default" class="da-table dataTable" aria-describedby="da-ex-datatable-default_info">
                         <thead>
                             <tr role="row">
-                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 196px;">STT</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: auto;">Tên Laptop</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 464px;">Nội dung</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 169px;">Ngày</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 133px;">Xóa</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 60px;">STT</th>
+                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 300px;">Tên phụ Hardware</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 169px;">Kích Hoạt</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="da-ex-datatable-default" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 133px;">Thực hiện</th>
                             </tr>
                         </thead>
 
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
-                            @if (listfeedback != null)
+                           @{ int i = 0;}
+                            @foreach (Dictionary dic in listDictionary)
                             {
-                                foreach (feedbackinfo fb in listfeedback)
-                                {
-                                <tr id="idtr@(fb.id)" class="odd">
-                                    <td class=" sorting_1">@fb.id</td>
-                                    <td class=" sorting_1">@fb.tenLaptop</td>
-                                    <td class=" ">@fb.noidung</td>
-                                    <td class=" ">@fb.ngaythang</td>
-                                   <td class=" ">
-                                  <a onclick="xoafeedback(@fb.id)">
-                                    <img src="~/Areas/Admin/Dandelion/images/icons/color/cross.png">
-                                    Xóa</a></td>                               
-                                </tr>
+                               
+                                    i++;
+                                <tr class="odd">
+                                    <td class=" sorting_1">@i</td>
+                                    <td class=" sorting_1">@dic.Name</td>
+                                    <td class=" ">
+                                        @if (@dic.IsActive != true)
+                                        {                                     
+                                            <input type="button" id ="Active@(dic.ID)" onclick="ActiveAlias(@dic.ID)" value="Không hoạt động" class="da-button red" style="width:120px" >
+                                        }
+                                        else
+                                        {
+                                            <input type="button" id ="Active@(dic.ID)" onclick="ActiveAlias(@dic.ID)" value="Hoạt động" class="da-button blue" style="width:120px" data-id="5">
+                                        }
+                                    </td>
+                                    <td class=" ">
+                                        <a onclick="showPopupEdit(@dic.ID)">
+                                            <img src="~/Areas/Admin/Dandelion/images/icons/color/pencil.png">
+                                            Sửa
+                                        </a>                                       
+                                        <!----------------Popup sửa tài khoản----------->
+                                        <div id="Edit-@(dic.ID)-Popup-div" style="display: none;">
+                                            <div class="da-panel">
+                                                <div class="da-panel-content" style="background: url(../Areas/Admin/Dandelion/images/bg/wood_pattern.jpg);">
+                                                    <form id="da-ex-validate@(dic.ID)" class="da-form" method="post" action="/ManagerHardware/EditAliasHardware" enctype="multipart/form-data"  style="padding-top: 23px;" novalidate="novalidate">
+                                                        <fieldset class="da-form-inline">
+                                                                <legend>Thông tin hardware</legend>
+                                                                <div class="da-form-row">
+                                                                    <label>Tên hardware<span class="required">*</span></label>
+                                                                    <div class="da-form-item large">
+                                                                        <span  class="formNote">Không được để trống</span>
+                                                                        <input type="text"  value="@dic.Name" name="idHardwareNameUp" id="idHardwareNameUp@(dic.ID)">  
+                                                                         <input type="text" hidden  value="@dic.ID" name="idHardwareAlias">  
+                                                                         <input type="text" hidden  value="@dic.AttributeDicID" name="idHardware">                                                                                 
+                                                                    </div>
+                                                                </div>                                                                                                                       
+                                                            </fieldset>
+                                                        <div class="da-button-row">
+                                                            <input type="button" value="Update" onclick="EditAliasHardware(@dic.ID)"  class="da-button green">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!----------------Popup------------------>
+                                    </td>
+                                </tr>                            
                                 }
-                            }
+                            
                         </tbody>
                     </table>
                 </div>
@@ -347,29 +429,11 @@
 </div>
 <!-----------------------------------------javascript -------------------------------------->
 <script>
-    function xoafeedback(i) {
-        var postData = { id: i };
-        if (confirm("Bạn có chắc chắn muốn xóa feedback này?")) {
-            $.ajax({
-                type: "POST",
-                url: "/Admin/ViewFeedback/deleteFeedBack",
-                data: postData,
-                success: function (data) {
-                    document.getElementById("idtr" + i).style.display = 'none';
-                },
-
-            });
-        } else {
-                                               
-    }
-     
-    }
-
     //Hiện popup để tạo tài khoản.
     function showPopupCreate() {
         $("#Create-Popup-div").dialog({
             autoOpen: false,
-            title: "Tạo một tài khoản mới!",
+            title: "Tạo tên phụ!",
             width: "600",
             modal: true
             //buttons: [{
@@ -388,7 +452,7 @@
           
         $("#Edit-"+i+"-Popup-div").dialog({
             autoOpen: false,
-            title: "Sửa thông tin tài khoản!",
+            title: "Sửa tên phụ!",
             width: "600",
             modal: true
             //buttons: [{
@@ -404,192 +468,59 @@
     }
 
  
-    //reset xóa trắng tạo tài khoản
-    function resetCreateAccount() {
-        document.getElementById("usernameCre").val = "";
-        document.getElementById("pass1Cre").val = "";
-        document.getElementById("pass2Cre").val = "";
-        document.getElementById("emailCre").val = "";
-    }
+   
 
-    // Tạo một tài khoản
-    function CreateNewAccount() {
-        var userName = document.getElementById("usernameCre").value;
-        var pass1 = document.getElementById("pass1Cre").value;
-        var pass2 = document.getElementById("pass2Cre").value;
-        var email = document.getElementById("emailCre").value;
-        var role = document.getElementById("roleCre").value;
-        var info = userName + '|' + pass1 + '|' + email + '|' + role;
-
-
+    // Tạo một cửa hàng
+    function CreateNewAliasHardware() {
+        var Name = document.getElementById("idHardwareAliasName").value;
         var count = 0;
         // kiểm tra tên
-        if (userName.length < 5 || userName.length > 100) {
-            document.getElementById("usernameCre").style.borderColor = 'red';
+        if (Name.length < 1 || Name.length > 200) {
+            document.getElementById("idHardwareAliasName").style.borderColor = 'red';
             count++;
         } else {
-            document.getElementById("usernameCre").style.borderColor = "";
-        }
-
-        // kiểm tra mật khẩu 1
-        if (pass1.length < 5 || pass1.length > 100 ||pass1 =="") {
-            document.getElementById("pass1Cre").style.borderColor = 'red';
-            count++;
-        } else {
-            document.getElementById("pass1Cre").style.borderColor = "";
-        }
-
-        // kiểm tra mật khẩu 2
-        if (pass2.length < 5 || pass2.length > 100) {
-            document.getElementById("pass2Cre").style.borderColor = 'red';
-            count++;
-        } else {
-            document.getElementById("pass2Cre").style.borderColor = "";
-        }
-
-        // kiểm tra mật khẩu 2 có trùng với mật khẩu 1
-        if (pass1!=pass2||pass1=="") {
-            document.getElementById("pass2Cre").style.borderColor = 'red';
-            document.getElementById("pass1Cre").style.borderColor = 'red';
-            count++;
-        } else {
-            document.getElementById("pass2Cre").style.borderColor = "";
-            document.getElementById("pass1Cre").style.borderColor = "";
-        }
-
-        // kiểm tra email
-        var reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
-        if (reg.test(email)){
-            document.getElementById("emailCre").style.borderColor = "";
-            document.getElementById("emailCre").style.borderColor = "";
-        }
-        else{
-            document.getElementById("emailCre").style.borderColor = 'red';
-            document.getElementById("emailCre").style.borderColor = 'red';
-            count++;
-        } 
-
+            document.getElementById("idHardwareAliasName").style.borderColor = "";
+        }          
         if (count == 0) {
-
-            var postData = {newAccountinfo: info };
-            $.ajax({
-                type: "POST",
-                url: "/Admin/ManagerUser/CreateNewAccount",
-                data: postData,
-                success: function (data) {                   
-                    if(data == "existed")
-                    {   
-                        document.getElementById("usernamexited").innerHTML = 'Tên tài khoản đã tồn tại.';
-                        document.getElementById("usernameCre").style.borderColor = 'red';
-                    }else{
-                        $("#Create-Popup-div").dialog("close");
-                        loadTableAgain();
-                    }
-                    
-                },
-
-            });
+            $('#da-ex-validate4').submit();
         }
     }
 
 
 
     // Sửa thông tin tài khoản
-    function EditAccount(i) {
-        var userName = document.getElementById("usernameEdit"+i).value;
-        var pass1 = document.getElementById("pass1Edit"+i).value;
-        var pass2 = document.getElementById("pass2Edit"+i).value;
-        var email = document.getElementById("emailEdit"+i).value;
-        var role = document.getElementById("roleEdit"+i).value;
-        var info = userName + '|' + pass1 + '|' + email + '|' + role;
-
-
+    function EditAliasHardware(i) {
+        var Name = document.getElementById("idHardwareNameUp"+i).value;         
         var count = 0;
         // kiểm tra tên
-        if (userName.length < 5 || userName.length > 100) {
-            document.getElementById("usernameEdit"+i).style.borderColor = 'red';
+        if (Name.length < 1 || Name.length > 200) {
+            document.getElementById("idHardwareNameUp"+i).style.borderColor = 'red';
             count++;
         } else {
-            document.getElementById("usernameEdit"+i).style.borderColor = "";
+            document.getElementById("idHardwareNameUp"+i).style.borderColor = "";
         }
-
-        // kiểm tra mật khẩu 1
-        if (pass1.length < 5 || pass1.length > 100 ||pass1 =="") {
-            document.getElementById("pass1Edit"+i).style.borderColor = 'red';
-            count++;
-        } else {
-            document.getElementById("pass1Edit"+i).style.borderColor = "";
-        }
-
-        // kiểm tra mật khẩu 2
-        if (pass2.length < 5 || pass2.length > 100) {
-            document.getElementById("pass2Edit"+i).style.borderColor = 'red';
-            count++;
-        } else {
-            document.getElementById("pass2Edit"+i).style.borderColor = "";
-        }
-
-        // kiểm tra mật khẩu 2 có trùng với mật khẩu 1
-        if (pass1!=pass2||pass1=="") {
-            document.getElementById("pass2Edit"+i).style.borderColor = 'red';
-            document.getElementById("pass1Edit"+i).style.borderColor = 'red';
-            count++;
-        } else {
-            document.getElementById("pass2Edit"+i).style.borderColor = "";
-            document.getElementById("pass1Edit"+i).style.borderColor = "";
-        }
-
-        // kiểm tra email
-        var reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
-        if (reg.test(email)){
-            document.getElementById("emailEdit"+i).style.borderColor = "";
-            document.getElementById("emailEdit"+i).style.borderColor = "";
-        }
-        else{
-            document.getElementById("emailEdit"+i).style.borderColor = 'red';
-            document.getElementById("emailEdit"+i).style.borderColor = 'red';
-            count++;
-        } 
-
         if (count == 0) {
-
-            var postData = {Accountinfo: info };
-            $.ajax({
-                type: "POST",
-                url: "/Admin/ManagerUser/UpdateUser",
-                data: postData,
-                success: function (data) {                   
-                    if(data == "existed")
-                    {   
-                        document.getElementById("usernamexited").innerHTML = 'Tên tài khoản đã tồn tại.';
-                        document.getElementById("usernameCre").style.borderColor = 'red';
-                    }else{
-                        $("#Edit-"+i+"-Popup-div").dialog("close");
-                        loadTableAgain();
-                    }
-                    
-                },
-
-            });
+            $('#da-ex-validate'+i).submit();
         }
     }
 
     ///  Active or deactive user
-    function ActiveUser(i) {
-        var username = document.getElementById("usernameActive"+i).value;
-        var postData = {username: username };
+    function ActiveAlias(id) {
+        var postData = {id: id};
         $.ajax({
             type: "POST",
-            url: "/Admin/ManagerUser/ActiveUser",
+            url: "/Admin/ManagerHardware/ActiveAlias",
             data: postData,
-            success: function (data) {
-                if(data=="admin")
+            success: function (data) {  
+                if(data =="true")
                 {
-                    alert("Bạn không thể cho một tài khoản admin ngừng hoạt động!");
+                    document.getElementById("Active"+id).className = "da-button blue" ;
+                    document.getElementById("Active"+id).value = "Hoạt động" ;
+                }else{
+                    document.getElementById("Active"+id).className = "da-button red" ;
+                    document.getElementById("Active"+id).value = "Ngừng hoạt động" ;
                 }
-                else{
-                    loadTableAgain();
-                }
+               
             },
 
         });
@@ -597,17 +528,17 @@
     }
 
 
-    // load lại table
-    function loadTableAgain() {         
-        $.ajax({
-            type: "POST",
-            url: "/Admin/ManagerUser/loadTableAgain",
-            success: function (data) {
-                       
-                $('#loadtable').html(data);
-            },
-        });         
-    }
+    //// load lại table
+    //function loadTableAgain() {         
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Admin/ManagerHardware/loadTableAgain",
+    //        success: function (data) {                      
+    //            $('#loadtable').html(data);
+    //            $("#Create-Popup-div").dialog("option", { modal: true }).dialog("close");
+    //        },
+    //    });         
+    //}
 
       
 
@@ -615,8 +546,7 @@
 <!---------------------Popup--------------------------------- Stick---------------------------------------->
 <!---  <button id="da-ex-growl-2" class="da-button green">Growl with Header</button> --->
 <style>
-    div.jGrowl.bottom-right
-    {
+    div.jGrowl.bottom-right {
         top: 10%;
         right: 30%;
     }
@@ -665,86 +595,6 @@
                 text: false
             });
 
-            var availableTags = [
-                "ActionScript",
-                "AppleScript",
-                "Asp",
-                "BASIC",
-                "C",
-                "C++",
-                "Clojure",
-                "COBOL",
-                "ColdFusion",
-                "Erlang",
-                "Fortran",
-                "Groovy",
-                "Haskell",
-                "Java",
-                "JavaScript",
-                "Lisp",
-                "Perl",
-                "PHP",
-                "Python",
-                "Ruby",
-                "Scala",
-                "Scheme"
-            ];
-
-            $("#da-ex-autocomplete").autocomplete({
-                source: availableTags
-            });
-
-            $("#da-ex-slider").slider();
-
-            $("#da-ex-slider-range").slider({
-                range: true,
-                min: 0,
-                max: 500,
-                values: [75, 300],
-                slide: function (event, ui) {
-                    $("#da-ex-slider-range-info .da-highlight").html("$" + ui.values[0] + " - $" + ui.values[1]);
-                }
-            });
-
-            $(".da-ex-color-slider").slider({
-                range: "min",
-                value: 45,
-                min: 1,
-                max: 100
-            });
-
-            $("#da-ex-slider-range-fixed").slider({
-                range: "min",
-                value: 37,
-                min: 1,
-                max: 700,
-                slide: function (event, ui) {
-                    $("#da-ex-slider-range-fixed-info .da-highlight").html("$" + ui.value);
-                }
-            });
-
-            $("#da-slider-equalizer > span").each(function () {
-                var value = parseInt($(this).text(), 10);
-
-                $(this).empty().slider({
-                    value: value,
-                    range: "min",
-                    animate: true,
-                    orientation: "vertical"
-                });
-            });
-
-            $(".da-ex-color-pb, #da-ex-pb, #da-ex-pba").each(function () {
-                $(this).progressbar({
-                    value: 25 + Math.floor(Math.random() * 50)
-                });
-            });
-
-            $("#da-ex-pba-trigger").bind('click', function (e) {
-                $(this).parent().next("#da-ex-pba").progressbar('value', 20 + Math.floor(Math.random() * 80));
-                e.preventDefault();
-            });
-
             $("#da-ex-dialog-div").dialog({
                 autoOpen: false,
                 title: "Chọn log file bạn muốn ghi lại, để sau đó có thể tiếp tục xử lý.",
@@ -782,4 +632,3 @@
             }
         });
     })(jQuery); 		</script>
-

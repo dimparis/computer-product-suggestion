@@ -383,6 +383,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 foreach (AliasProduct ali in aliasPro)
                 {
                     ali.ProductID = Convert.ToInt32(newstt);
+                    ali.IsMain = false;
                     ali.Name = newName;
                     db.SaveChanges();
                 }
