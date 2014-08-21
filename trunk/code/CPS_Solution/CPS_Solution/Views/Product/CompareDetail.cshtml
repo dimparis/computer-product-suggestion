@@ -244,16 +244,47 @@
                         </tr>
                     </table>
                 </li>
+                
                 <li class="disabled">
                     <table class="table">
                         <tr>
                             <td class="test"; style="width:20%; text-align:center; vertical-align:middle"><p style="font-size:16px; color:#FFFFFF">TỔNG ĐIỂM ƯU TIÊN</p></td>
                             @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" class="product-css"><p class="total_score_@item.ID" style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF"></p></td>
+                                <td style="width:25%; text-align:center; vertical-align:middle" class="product-css">
+                                    <p class="total_score_@item.ID" style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF">
+                                    </p>
+                                    <p style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF">
+                                        <span style="hidden">@{var minPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
+                                        <span style="hidden">@{var maxPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
+                                        @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))
+                                        <span>~</span>
+                                        @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))
+                                    </p>
+                                </td>
                             }
                         </tr>
                     </table>
                 </li>
+
+                @*<li class="disabled">
+                    <table class="table">
+                        <tr>
+                            <td class="test" ; style="width:20%; text-align:center; vertical-align:middle"><p style="font-size:16px; color:#FFFFFF">GIÁ TRỊ 1 ĐIỂM</p></td>
+                            @foreach (var item in Model)
+                            {
+                                <td style="width:25%; text-align:center; vertical-align:middle" class="product-css">
+                                    <p style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF">
+                                        <span style="hidden">@{var minPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
+                                        <span style="hidden">@{var maxPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
+                                        @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))
+                                        <span>~</span>
+                                        @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))
+                                    </p>
+                                </td>
+                            }
+                        </tr>
+                    </table>
+                </li>*@
             </ul>
         </div>
 </div> 

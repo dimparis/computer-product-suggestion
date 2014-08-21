@@ -157,7 +157,11 @@
                                     </p>
                                 </div>
                                 <div class="upper-header price-ratio-@item.ID" style="color:#fff; font-size:20px; font-style:italic; padding:5px 0 5px 0">
-                                    @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round((item.Price / item.TotalWeightPoint) / 1000)) * 1000))
+                                    <span style="hidden">@{var minPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
+                                    <span style="hidden">@{var maxPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
+                                    @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))
+                                    <span>~</span>
+                                    @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))
                                 </div>
                                 <div class="upper-header product-price-ratio product-price-ratio-@item.ID hidden">@Math.Round((Math.Round((item.Price / item.TotalWeightPoint) / 1000)) * 1000)</div>                              
                             }
@@ -169,7 +173,7 @@
                                     </p>
                                 </div>
                                 <div class="upper-header price-ratio-@item.ID hidden"></div>
-                                <div class="upper-header product-price-ratio product-price-ratio-@item.ID hidden">@Math.Round((Math.Round((item.Price / item.TotalWeightPoint) / 1000)) * 1000)</div>  
+                                <div class="upper-header product-price-ratio product-price-ratio-@item.ID hidden">@Math.Round((Math.Round((item.Price / item.TotalWeightPoint) / 1000)) * 1000)</div> 
                             }
                         </div>
                         <div class="pricing-table-content">
