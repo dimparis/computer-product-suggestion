@@ -164,11 +164,11 @@
                         <div class="item3">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <span class="dropdown" style="font-weight: bolder; color: black; width: 250px;">Xin chào, @User.Identity.Name
+                                <span class="dropdown" style="font-weight: bolder; color: black; width: 280px;">Xin chào, @User.Identity.Name
                                     <a data-toggle="dropdown" href="#">
                                         <i style="font-size: 20px; color: black" class="icon-gear"></i>
                                     </a>
-                                    <ul id="newLoadNotication" class="dropdown-menu" style="top: 20px; right: 10px;">
+                                    <ul id="newLoadNotication" class="dropdown-menu" style="top: 20px; right: 10px; padding: 10px; border-radius: 10px;">
                                         <li class="divider"></li>
                                         <li class="dropdown-header" style="color: #0088cc"><strong style="text-decoration: underline">Tài khoản</strong> </li>
                                         <li>
@@ -457,14 +457,14 @@
                         var logOff = '@Url.Action("LogOff", "Account")';
                         target2.empty();
                         target2.append("<li class="+'divider'+"></li><li class="+"dropdown-header"+" style=" + "color:#0088cc" + "><strong style="+'text-decoration:underline'+">Tài khoản</strong> </li>"
-                            + "<li><a href=" + compareHidtory + "><i class="+'icon-h-sign'+"></i>Lịch sử so sánh</a>" + "</li><li><a href=" + logOff + "><i class="+'icon-signout'+"></i>Đăng xuất</a>"
+                            + "<li><a href=" + compareHidtory + "><i class="+'icon-h-sign'+"></i>Lịch sử so sánh</a>" + "</li><li><a href=" + logOff + "><i class="+'icon-signout'+"></i>Đăng xuất  </a>"
                             + "</li><li class="+'divider' + "></li>"+ "<li class="+'dropdown-header'+" style=" + 'color:#0088cc' + "><strong style="+'text-decoration:underline'+">Thông báo</strong></li>");
                         if (data != "NoneData" && data.length > 0) {
                             for (var i = 0; i < data.length; i++) {
                                 var item = data[i];
 
                                 var url = '@Url.Action("Details", "Product")?id=' + item.id;
-                                target2.append("<li><a href=" + url + ">" + item.name + " đã được cập nhật.</a></li> ");
+                                target2.append("<li><p style='word-wrap: break-word;'><a style='color:black;' href=" + url + ">" + item.name + " đã được cập nhật.</a></p></li> ");
                                 // $('#notifiers').after("<li><a href=" + url + ">" + item.name + "đã được cập nhật.</a></li> ");
                             }
                         }
