@@ -319,6 +319,9 @@
             </div>
             }
         }
+         <div id ="successAlias" class="da-message success" style="display:none">
+              Tên chính đã được cập nhập.
+            </div>
     </div>
 </div>
 <br />
@@ -340,6 +343,7 @@
                         <th>Tên Phụ</th>
                         <th>Cửa Hàng</th>
                         <th>Trạng Thái</th>
+                        <th>Tên chính</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -363,6 +367,19 @@
                             {
                                 <td >
                                     <input type="submit" id ="IdActive@(item.ID)"  value="Không hoạt động" class="da-button red" onclick="ActiveAlias(@item.ID)" style="width:120px"  data-id="@item.ID"/>
+                                </td>  
+                            }
+
+                              @if (item.IsMain == true)
+                            {
+                                <td >
+                                   <input class="rdio" type="radio" name="mainName" onclick="mainName(@item.ID)" checked value="">
+                                </td>  
+                            }
+                            else
+                            {
+                                <td >
+                                     <input class="rdio" type="radio" name="mainName" onclick="mainName(@item.ID)" value="">
                                 </td>  
                             }
                         </tr>
@@ -397,5 +414,27 @@
 
         });
 
+    }  
+
+    $(document).ready(function(){
+        $("input[type='radio'][name='mainName']").click(function(e){
+            if(!confirm('Bạn có chắc muốn thay đổi tên chính của sản phẩm?')){ e.preventDefault(); mainName(id);}
+        });
+    });
+
+    function mainName(id)
+    {
+       
+            var postData = {id: id};
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ProductShow/mainName",
+                data: postData,
+                success: function (data) {         
+                    $('#successAlias').show();
+                },
+
+            });
+        
     }
 </script>
