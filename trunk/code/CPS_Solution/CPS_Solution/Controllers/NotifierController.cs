@@ -26,13 +26,13 @@ namespace CPS_Solution.Controllers
             var account = context.Accounts.Select(x => new { x.Username }).Where(x => x.Username == username).FirstOrDefault();
             if (account != null)
             {
-                var approveRecommendProduct = context.RecommendProducts.Where(x => x.Username == username && x.IsSeen == false && x.IsApprove == true).ToList();
+                var approveRecommendProduct = context.RecommendProducts.Where(x => x.Username == username && x.IsSeen == false && x.IsApprove == true ).ToList();
                 List<AliasProduct> products = new List<AliasProduct>();
                     if (approveRecommendProduct.Count > 0)
                     {
                         foreach (var item in approveRecommendProduct)
                         {
-                            var newItem = context.AliasProducts.Where(x => x.URL.Contains(item.Parselink) && x.IsActive == true).FirstOrDefault();
+                            var newItem = context.AliasProducts.Where(x => x.URL.Contains(item.Parselink) && x.IsActive == true && x.IsMain == true).FirstOrDefault();
                             if (newItem != null)
                             {
                                 var newProductAttribute = context.ProductAttributes.Where(x => x.ProductID == newItem.ProductID).ToList();
@@ -46,12 +46,14 @@ namespace CPS_Solution.Controllers
                                         if (item.IsReceive == true && item.IsMailSent == false)
                                         {
                                             AutoSendMail sendMail = new AutoSendMail();
-                                            Task.Factory.StartNew(() => sendMail.AutoSendMailforProduct(item));
+                                            Task.Factory.StartNew(() => sendMail.AutoSendMailforProduct(item));  
                                         }
+                                        
                                     }
                                 }
                             }
                         }
+                        System.Threading.Thread.Sleep(1000);
                         return Json(products.Select(product => new { name = product.Name, id = product.ProductID }).ToList(), JsonRequestBehavior.AllowGet);
                     }
             }
