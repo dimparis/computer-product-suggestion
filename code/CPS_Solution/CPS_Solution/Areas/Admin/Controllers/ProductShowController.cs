@@ -15,7 +15,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public ActionResult Index(int id1)
         {
 
-            var listAlias = context.AliasProducts.Where(x => x.ProductID == id1 && x.IsMain == false).ToList();
+            var listAlias = context.AliasProducts.Where(x => x.ProductID == id1 && x.IsActive == true).ToList();
             ViewBag.listAlias = listAlias; 
 
             //var alias = context.AliasProducts.Where(x => x.IsMain==true && x.IsActive==true).ToList();
@@ -58,6 +58,27 @@ namespace CPS_Solution.Areas.Admin.Controllers
            
         }
 
+         [HttpPost]
+         public String mainName(string id)
+         {
+             int AliD = Convert.ToInt32(id);
+
+             var Alias = context.AliasProducts.Where(x => x.ID == AliD).SingleOrDefault();
+
+             int productId = Alias.ProductID;
+
+             var listName = context.AliasProducts.Where(x => x.ProductID == productId).ToList();
+
+             foreach (AliasProduct name in listName)
+             {
+                 name.IsMain = false;
+                 context.SaveChanges();
+             }            
+                 Alias.IsMain = true;
+                 context.SaveChanges();
+                 return "ok";
+
+         }
 
 
         public ActionResult EditProduct(int id)
