@@ -4050,8 +4050,6 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs > li,
 .nav-pills > li {
   float: left;
-  background-color: #d83c3c;
-  border-radius:3px;
 }
 
 .nav-tabs > li > a,

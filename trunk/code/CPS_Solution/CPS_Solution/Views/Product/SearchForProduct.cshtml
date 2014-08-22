@@ -14,11 +14,12 @@
  * html .ui-autocomplete {
   height: 100px;
  }
+
  </style>
 <div class="main-content" style="position:fixed; height:auto; width:100%; z-index: 3">
     <div class="container">
         <div class="tabbable tabs-left">
-            <ul class="nav nav-tabs" data-tabs="tabs">
+            <ul class="nav cps-tabs" data-tabs="tabs">
                 <li class="active"><a href="#searchByName" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo tên</strong></a>
                 </li>
                 <li class=""><a href="#searchByPrice" data-toggle="tab" style="font-size: larger; font-weight: 500; color: #fff; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif"><strong>Tìm theo giá</strong></a>
@@ -60,7 +61,7 @@
                         @{Html.RenderAction("ProductList", "Product", new { Model = Model });}
                     </div>
                 </div>
-                <div id="clickButton" class="stylish-button" style="background-color: #7DBB18; margin-left: 46%; margin-bottom: 35px;">
+                <div id="clickButton" class="stylish-button" style="background-color: #666699; margin-left: 46%; margin-bottom: 35px;">
                     <a onclick="clickHere()">Xem thêm</a>
                 </div>
                 <div id="loadingDiv" style="display: none; margin-right: auto; margin-left: auto; margin-bottom: 35px; width: 55px; height: 55px">
