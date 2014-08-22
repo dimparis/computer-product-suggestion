@@ -28,24 +28,22 @@ namespace CPS_Solution.Controllers
             {
                 var approveRecommendProduct = context.RecommendProducts.Where(x => x.Username == username && x.IsSeen == false && x.IsApprove == true).ToList();
                 List<AliasProduct> products = new List<AliasProduct>();
-                foreach (var a in approveRecommendProduct)
-                {
                     if (approveRecommendProduct.Count > 0)
                     {
                         foreach (var item in approveRecommendProduct)
                         {
-                            var newItem = context.AliasProducts.Where(x => x.URL.Contains(item.Parselink) && x.IsActive == true && x.IsMain == true).FirstOrDefault();
+                            var newItem = context.AliasProducts.Where(x => x.URL.Contains(item.Parselink) && x.IsActive == true).FirstOrDefault();
                             if (newItem != null)
                             {
                                 var newProductAttribute = context.ProductAttributes.Where(x => x.ProductID == newItem.ProductID).ToList();
-                                if (newItem != null)
+                                if (newProductAttribute != null)
                                 {
                                     if (newProductAttribute.Count() >= 5)
                                     {
                                         products.Add(newItem);
-                                        a.IsSeen = true;
+                                        item.IsSeen = true;
                                         context.SaveChanges();
-                                        if (item.IsReceive == true && item.IsMailSent == false) 
+                                        if (item.IsReceive == true && item.IsMailSent == false)
                                         {
                                             AutoSendMail sendMail = new AutoSendMail();
                                             Task.Factory.StartNew(() => sendMail.AutoSendMailforProduct(item));
@@ -54,11 +52,8 @@ namespace CPS_Solution.Controllers
                                 }
                             }
                         }
-
                         return Json(products.Select(product => new { name = product.Name, id = product.ProductID }).ToList(), JsonRequestBehavior.AllowGet);
                     }
-                }
-
             }
             return Json("NoneData", JsonRequestBehavior.AllowGet);
         }
