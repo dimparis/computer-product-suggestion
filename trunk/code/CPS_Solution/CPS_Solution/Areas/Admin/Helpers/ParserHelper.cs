@@ -799,16 +799,17 @@ namespace CPS_Solution.Areas.Admin.Helpers
                         //add 5 attribute for 1 product
                         foreach (var attribute in listofAttributes)
                         {
-
+                         
                             ////Check good match 
                             var goodMatch = new List<int>();
                             var averageMatch = new List<int>();
                             int pId = -1;
                             bool wholeMatch = false;
                             string codeType = "C";
+                        
                             if (count == 1) 
                             {
-                                codeType = "V";
+                                codeType = "R";
                             }
                             else if (count == 2) 
                             {
@@ -816,20 +817,20 @@ namespace CPS_Solution.Areas.Admin.Helpers
                             }
                             else if (count == 3)
                             {
-                                codeType = "R";
+                                codeType = "V";
                             }
                             else if (count == 4)
                             {
                                 codeType = "D";
                             }
-
+                            count++;
                             foreach (var alias in context.Dictionaries.Where(x => x.Hardware.IsActive == true && x.Hardware.CodetypeID.Equals(codeType)))
                             {
                                 if (attribute.Key == alias.Name)
                                 {
                                     wholeMatch = true;
                                     pId = alias.AttributeDicID;
-                                    count++;
+                                   
                                     break;
                                 }
                                 double matchPercent = CompareStringHelper.CompareString(attribute.Key, alias.Name);
