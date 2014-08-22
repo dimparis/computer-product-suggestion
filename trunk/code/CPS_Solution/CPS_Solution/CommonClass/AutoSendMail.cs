@@ -59,7 +59,7 @@ namespace CPS_Solution.CommonClass
             foreach (var item in rcmProducts)
             {
                 int havepointCount = 0;
-                var aliasProducts = db.AliasProducts.FirstOrDefault(x => x.IsActive == true && x.IsMain == true && item.Parselink.Contains(x.URL));
+                var aliasProducts = db.AliasProducts.FirstOrDefault(x => x.IsActive == true && item.Parselink.Contains(x.URL));
                 if (aliasProducts != null)
                 {
                     var countElement = db.ProductAttributes.Where(x => x.ProductID == aliasProducts.ProductID).ToList();
@@ -94,7 +94,7 @@ namespace CPS_Solution.CommonClass
         public void AutoSendMailforProduct(RecommendProduct rcmProduct)
         {
             int havepointCount = 0;
-            var aliasProducts = db.AliasProducts.FirstOrDefault(x => x.IsActive == true && x.IsMain == true && rcmProduct.Parselink.Contains(x.URL));
+            var aliasProducts = db.AliasProducts.FirstOrDefault(x => x.IsActive == true && rcmProduct.Parselink.Contains(x.URL));
             if (aliasProducts != null)
             {
                 var countElement = db.ProductAttributes.Where(x => x.ProductID == aliasProducts.ProductID).ToList();
