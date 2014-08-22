@@ -10,7 +10,7 @@
 {
     <div class="page-element">
         <div class="container">
-            <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm tốt nhất</h1>
+            <h1 class="stylish-button" style=" margin-bottom: 3%; background-color: #666699; height: 10%; width: 100%; text-align: center; text-decoration: underline; font-size: 30px; background-color: #666699; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Top 4 Sản phẩm tốt nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyTotalPointProducts)
@@ -43,7 +43,7 @@
                                     <div class="member-bio">
                                         @if (@item.Description != null)
                                         {
-                                            <p style="height:148px; word-break:break-all; word-wrap:break-word;">
+                                            <p style="height:148px; word-break:break-all; word-wrap:break-word; background-color:rgba(0, 0, 0, 0.5); padding: 5px; color:white">
                                                 @dataManager.Truncate(@item.Description, intDes)
                                             </p>
                                         }
@@ -79,7 +79,7 @@
 {
     <div class="page-element">
         <div class="container">
-            <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm được so sánh nhiều nhất</h1>
+            <h1 class="stylish-button" style=" margin-bottom: 3%; background-color: #666699; height: 10%; width: 100%; text-align: center; text-decoration: underline; font-size: 30px; background-color: #666699; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Top 4 Sản phẩm được so sánh nhiều nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyCompareProducts)
@@ -112,7 +112,7 @@
                                      <div class="member-bio">
                                         @if (@item.Description != null)
                                         {
-                                            <p style="height:148px; word-break:break-all; word-wrap:break-word;">
+                                            <p style="height: 148px; word-break: break-all; word-wrap: break-word; background-color: rgba(0, 0, 0, 0.5); padding: 5px; color: white">
                                                 @dataManager.Truncate(@item.Description, intDes)
                                             </p>
                                         }
@@ -148,7 +148,7 @@
 {
     <div class="page-element">
         <div class="container">
-            <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm được tìm kiếm nhiều nhất</h1>
+            <h1 class="stylish-button" style=" margin-bottom: 3%; background-color: #666699; height: 10%; width: 100%; text-align: center; text-decoration: underline; font-size: 30px; background-color: #666699; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Top 4 Sản phẩm được tìm kiếm nhiều nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyViewProducts)
@@ -181,7 +181,7 @@
                                      <div class="member-bio">
                                         @if (@item.Description != null)
                                         {
-                                            <p style="height:148px; word-break:break-all; word-wrap:break-word;">
+                                            <p style="height: 148px; word-break: break-all; word-wrap: break-word; background-color: rgba(0, 0, 0, 0.5); padding: 5px; color: white; ">
                                                 @dataManager.Truncate(@item.Description, intDes)
                                             </p>
                                         }
@@ -217,7 +217,7 @@
 {
     <div class="page-element">
         <div class="container">
-            <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm được đánh giá nhiều nhất</h1>
+            <h1 class="stylish-button" style=" margin-bottom: 3%; background-color: #666699; height: 10%; width: 100%; text-align: center; text-decoration: underline; font-size: 30px; background-color: #666699; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Top 4 Sản phẩm được đánh giá nhiều nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyRatingProducts)
@@ -250,7 +250,7 @@
                                      <div class="member-bio">
                                         @if (@item.Description != null)
                                         {
-                                            <p style="height:148px; word-break:break-all; word-wrap:break-word;">
+                                            <p style="height: 148px; word-break: break-all; word-wrap: break-word; background-color: rgba(0, 0, 0, 0.5); padding: 5px; color: white">
                                                 @dataManager.Truncate(@item.Description, intDes)
                                             </p>
                                         }
@@ -286,7 +286,7 @@
 {
     <div class="page-element">
         <div class="container">
-           <h1 class="stylish-button" style=" margin-bottom:3%;background-color: #666699; height:10%; width:100%;text-align:center;text-decoration:underline;font-size:30px;background-color: #666699">Top 4 Sản phẩm mới nhất</h1>
+           <h1 class="stylish-button" style=" margin-bottom: 3%; background-color: #666699; height: 10%; width: 100%; text-align: center; text-decoration: underline; font-size: 30px; background-color: #666699; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Top 4 Sản phẩm mới nhất</h1>
             <div class="members-wrapper">
                 <div class="row">
                     @foreach (var item in Model.mostbyNewProducts)
@@ -319,7 +319,7 @@
                                      <div class="member-bio">
                                         @if (@item.Description != null)
                                         {
-                                            <p style="height:148px; word-break:break-all; word-wrap:break-word;">
+                                            <p style="height: 148px; word-break: break-all; word-wrap: break-word; background-color: rgba(0, 0, 0, 0.5); padding: 5px; color: white; ">
                                                 @dataManager.Truncate(@item.Description, intDes)
                                             </p>
                                         }

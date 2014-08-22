@@ -146,6 +146,107 @@
     background-color: #EEBE2C;
 }
 
+.cps-tabs:before,
+.cps-pills:before,
+.cps-tabs:after,
+.cps-pills:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.cps-tabs:after,
+.cps-pills:after {
+  clear: both;
+}
+
+.cps-tabs > li,
+.cps-pills > li {
+  float: left;
+  background-color: #ea9393;
+}
+
+.cps-tabs > li > a,
+.cps-pills > li > a {
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: 2px;
+  line-height: 14px;
+}
+
+.cps-tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+.cps-tabs > li {
+  margin-bottom: -1px;
+}
+
+.cps-tabs > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 20px;
+  border: 1px solid transparent;
+  -webkit-border-radius: 4px 4px 0 0;
+     -moz-border-radius: 4px 4px 0 0;
+          border-radius: 4px 4px 0 0;
+}
+
+.cps-tabs > li > a:hover,
+.cps-tabs > li > a:focus {
+  border-color: #eeeeee #eeeeee #dddddd;
+}
+
+.cps-tabs > .active > a,
+.cps-tabs > .active > a:hover,
+.cps-tabs > .active > a:focus {
+  color: #555555;
+  cursor: default;
+  background-color: #d83c3c;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+
+
+
+
+.tabs-left > .cps-tabs > li,
+.tabs-right > .cps-tabs > li {
+  float: none;
+}
+
+.tabs-left > .cps-tabs > li > a,
+.tabs-right > .cps-tabs > li > a {
+  min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+
+.tabs-left > .cps-tabs {
+  float: left;
+  margin-right: 19px;
+  border-right: 1px solid #ddd;
+}
+
+.tabs-left > .cps-tabs > li > a {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+     -moz-border-radius: 4px 0 0 4px;
+          border-radius: 4px 0 0 4px;
+}
+
+.tabs-left > .cps-tabs > li > a:hover,
+.tabs-left > .cps-tabs > li > a:focus {
+  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+}
+
+.tabs-left > .cps-tabs .active > a,
+.tabs-left > .cps-tabs .active > a:hover,
+.tabs-left > .cps-tabs .active > a:focus {
+  border-color: #ddd transparent #ddd #ddd;
+  *border-right-color: #ffffff;
+}
+
 /*.services-row {
     margin: 0 0 5px 0;
 }*/

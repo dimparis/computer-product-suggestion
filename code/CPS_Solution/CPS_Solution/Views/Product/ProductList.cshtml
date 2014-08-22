@@ -53,7 +53,7 @@
 
                         @if (!String.IsNullOrEmpty(item.Description))
                         {
-                            <p style="height: 60px; word-break: break-word; width: 95%">@dataManager.Truncate(@item.Description, 150)  </p>
+                            <p style="height: 100px; word-break: break-word; width: 95%; background-color:rgba(0, 0, 0, 0.50); color:white; padding:5px;">@dataManager.Truncate(@item.Description, 150)  </p>
                         }
                         else
                         {
