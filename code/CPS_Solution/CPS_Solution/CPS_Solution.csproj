@@ -214,6 +214,7 @@
     <Compile Include="Areas\Admin\Models\ProductParserCreator.cs" />
     <Compile Include="Areas\Admin\Models\RatingPro.cs" />
     <Compile Include="Areas\Admin\Models\ShowInfoRepository .cs" />
+    <Compile Include="CommonClass\AutoCalculatePoint.cs" />
     <Compile Include="CommonClass\AutoParseJob.cs" />
     <Compile Include="CommonClass\AutoSendMail.cs" />
     <Compile Include="CommonClass\AutoTakeBestProduct.cs" />

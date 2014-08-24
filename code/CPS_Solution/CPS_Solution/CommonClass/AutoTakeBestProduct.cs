@@ -17,7 +17,7 @@ namespace CPS_Solution.CommonClass
 
         public void Execute(IJobExecutionContext context)
         {
-            
+
             double result = TakeBestProductPoint();
             ConstantManager.BestScore = result;
         }
@@ -30,27 +30,13 @@ namespace CPS_Solution.CommonClass
             var HDD = context.Hardwares.Where(x => x.CodetypeID == "H").OrderByDescending(x => x.WeightCriteraPoint).FirstOrDefault();
             var Display = context.Hardwares.Where(x => x.CodetypeID == "D").OrderByDescending(x => x.WeightCriteraPoint).FirstOrDefault();
 
-           
+
             ConstantManager.RatioCPUPoint = 100 / CPU.WeightCriteraPoint;
             ConstantManager.RatioVGAPoint = 100 / VGA.WeightCriteraPoint;
             ConstantManager.RatioRAMPoint = 100 / RAM.WeightCriteraPoint;
             ConstantManager.RatioHDDPoint = 100 / HDD.WeightCriteraPoint;
             ConstantManager.RatioDisplayPoint = 100 / Display.WeightCriteraPoint;
-
-
-            var products = (from p in context.Products
-                           select p).ToList();
-            
-            foreach (var i in products){
-                var priorScore = i.cpuScore * ConstantManager.RatioCPUPoint + i.vgaScore * ConstantManager.RatioVGAPoint;
-                var normalScore = i.ramScore * ConstantManager.RatioRAMPoint + i.hddScore * ConstantManager.RatioHDDPoint + i.displayScore * ConstantManager.RatioDisplayPoint;
-                i.TotalWeightPoint = (priorScore * 0.6 + normalScore * 0.4) / 5;
-                context.Entry(i).State = EntityState.Modified;
-                context.SaveChanges();
-            }
-
             var bestProduct = context.Products.OrderByDescending(x => x.TotalWeightPoint).FirstOrDefault();
-
             return bestProduct.TotalWeightPoint;
         }
     }
