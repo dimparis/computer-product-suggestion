@@ -36,6 +36,7 @@ namespace CPS_Solution
             BackgroundConfigurations.ScheduleSendMail();
             BackgroundConfigurations.ScheduleUpdatePrice();
             BackgroundConfigurations.ScheduleParser();
+            BackgroundConfigurations.CalculatePoint();
         }
     }
 }

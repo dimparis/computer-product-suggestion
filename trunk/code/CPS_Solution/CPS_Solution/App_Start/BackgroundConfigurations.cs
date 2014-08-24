@@ -81,5 +81,15 @@ namespace CPS_Solution.App_Start
 
             scheduler.ScheduleJob(job, trigger);
         }
+        public static void CalculatePoint()
+        {
+            IJobDetail job = JobBuilder.Create<AutoCalculatePoint>().WithIdentity("AutoCalculatePoint", "Job").Build();
+            ITrigger trigger = TriggerBuilder.Create().WithIdentity("AutoCalculatePointTrigger", "Trigger")
+                .StartNow()
+                .WithSchedule(SimpleScheduleBuilder.RepeatSecondlyForever(15))
+                .Build();
+            parserTrigger = trigger;
+            scheduler.ScheduleJob(job, trigger);
+        }
     }
 }
