@@ -114,13 +114,45 @@ namespace CPS_Solution.Controllers
 
             var products = from p in db.Products
                            select p;
+            var histories = from h in db.Histories
+                            select h;
+            var listHistory = histories.ToList();
 
+            var historyDetails = from d in db.HistoryDetails
+                                 select d;
+            var listHistoryDetail = historyDetails.ToList();
+
+            ///
+            
+            ///
+           
             products = products.Where(c => vals.Contains(c.ID));
 
             var listProduct = products.ToList();
             
 
             if (p3 == -1){
+                int[] lp = new int[] { p1, p2 };
+                if (ModelState.IsValid)
+                {
+                    var now = DateTime.Now.Date;
+                    var newHistory = new History();
+                    newHistory.Username = User.Identity.Name;
+                    newHistory.CompareTime = now;
+                    db.Histories.Add(newHistory);
+                    foreach (var product in lp)
+                    {
+
+
+                        var newHisDetail = new HistoryDetail();
+                        newHisDetail.History = newHistory;
+                        newHisDetail.ProductID = product;
+                        newHisDetail.isWinner = false;
+                        db.HistoryDetails.Add(newHisDetail);
+                        db.SaveChanges();
+                    }
+
+                }
                 listProduct[0].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
                 var minPrice = db.AliasProducts.Where(c => c.ProductID.Equals(p1)).OrderBy(c => c.Price).FirstOrDefault();
                 var maxPrice = db.AliasProducts.Where(c => c.ProductID.Equals(p1)).OrderByDescending(c => c.Price).FirstOrDefault();
@@ -128,6 +160,27 @@ namespace CPS_Solution.Controllers
                 listProduct[1].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
                 
             } else {
+                int[] lp = new int[] { p1, p2 , p3};
+                if (ModelState.IsValid)
+                {
+                    var now = DateTime.Now.Date;
+                    var newHistory = new History();
+                    newHistory.Username = User.Identity.Name;
+                    newHistory.CompareTime = now;
+                    db.Histories.Add(newHistory);
+                    foreach (var product in lp)
+                    {
+
+
+                        var newHisDetail = new HistoryDetail();
+                        newHisDetail.History = newHistory;
+                        newHisDetail.ProductID = product;
+                        newHisDetail.isWinner = false;
+                        db.HistoryDetails.Add(newHisDetail);
+                        db.SaveChanges();
+                    }
+
+                }
                 listProduct[0].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
                 listProduct[1].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
                 listProduct[2].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[2].TotalWeightPoint), 2);

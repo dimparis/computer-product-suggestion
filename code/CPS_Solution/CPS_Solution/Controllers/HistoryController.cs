@@ -21,14 +21,18 @@ namespace CPS_Solution.Controllers
             //page = 1;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            DateTime minusThirty = DateTime.Today.AddDays(-30);
-            DateTime minusZero = DateTime.Today.AddDays(0);
-            var history = from item in db.Histories
-                          where item.CompareTime >= minusThirty && item.CompareTime <= minusZero && item.Username.Equals(User.Identity.Name)
-                          select item;
-            history = history.OrderByDescending(item => item.CompareTime);
 
-            return View(history.ToPagedList(pageNumber, pageSize));
+            var histories = db.Histories.Include(h => h.Account);
+            histories = histories.OrderByDescending(x => x.CompareTime);
+
+            //DateTime minusThirty = DateTime.Today.AddDays(-30);
+            //DateTime minusZero = DateTime.Today.AddDays(0);
+            //var history = from item in db.Histories
+            //              where item.CompareTime >= minusThirty && item.CompareTime <= minusZero && item.Username.Equals(User.Identity.Name)
+            //              select item;
+            //history = history.OrderByDescending(item => item.CompareTime);
+
+            return View(histories.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult CompareHistoryDetail(int? id)
