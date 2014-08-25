@@ -37,7 +37,7 @@ namespace CPS_Solution.Controllers
                     {
                         countAtt = 0;
                         // take rcmd
-                        var newItem = context.AliasProducts.Where(x => x.URL.Contains(item.Parselink) && x.IsActive == true && x.IsMain==true).FirstOrDefault();
+                        var newItem = context.AliasProducts.Where(x => x.URL.Contains(item.Parselink) && x.IsActive == true).FirstOrDefault();
                         if (newItem != null)
                         {
                             //check if confirmed
@@ -67,6 +67,7 @@ namespace CPS_Solution.Controllers
                                             {
                                                 AutoSendMail sendMail = new AutoSendMail();
                                                 Task.Factory.StartNew(() => sendMail.AutoSendMailforProduct(item));
+                                                return Json(products.Select(product => new { name = product.Name, id = product.ProductID }).ToList(), JsonRequestBehavior.AllowGet);
                                             }
                                         }
                                     }

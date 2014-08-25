@@ -1,20 +1,15 @@
-﻿@{
-    ViewBag.Title = "Thêm đề xuất";
+﻿@model CPS_Solution.Areas.Admin.Models.ProductParserCreator
+@{
+    ViewBag.Title = "Tạo Parser sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
 @section headScript
 {
     <!-- jQuery JavaScript File -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery-1.7.2.min.js"></script>
     <!-- jQuery-UI JavaScript Files -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery-ui-1.8.20.min.js"></script>
-    @*    <link href="~/Areas/Admin/Dandelion/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Areas/Admin/Dandelion/jquery-ui.structure.css" rel="stylesheet" />
-    <link href="~/Areas/Admin/Dandelion/jquery-ui.theme.css" rel="stylesheet" />*@
     <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Dandelion/jui/css/jquery.ui.all.css" media="screen" />
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.timepicker.min.js"></script>
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/jui/js/jquery.ui.touch-punch.min.js"></script>
     <!-- Plugin Files -->
     <!-- FileInput Plugin -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/jquery.fileinput.js"></script>
@@ -34,28 +29,36 @@
     <!-- Customizer JavaScript File (remove if not needed) -->
     <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js"></script>
 
-    <!--  Demo JavaScript Files popup Ui Popup 
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.ui.js"></script>-->
-    <!-- jGrowl Plugin   -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.min.js"></script>
-    <link rel="stylesheet" href="~/Areas/Admin/Dandelion/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.validation.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.dashboard.js")"></script>
 
-    <!-- DataTables Plugin -->
-    <script type="text/javascript" src="~/AreaAdmin/Dandelion/plugins/datatables/jquery.dataTables.js"></script>
-    <!-- Demo JavaScript Files -->
-    <script type="text/javascript" src="~/Areas/Admin/Dandelion/js/demo/demo.tables.js"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/demo/demo.form.js")"></script>
-    <!-- Chosen Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.jquery.js")"></script>
-    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Dandelion/plugins/chosen/chosen.css")" media="screen" />
+    <!-- Validation Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/plugins/validate/jquery.validate.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.circularstat.min.js")"></script>
 
-    <!----------------------------- Lên datatable Plugin------------------------------------------>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.debouncedresize.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/jquery.metadata.js")"></script>
 
-    @*  <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script> *@
-    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.core.js")"></script>
+    <!-- Customizer JavaScript File (remove if not needed) -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/dandelion.customizer.js")"></script>
+        <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <style>
+        .modalOverlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            z-index: 3000;
+            background-color: rgba(0,0,0,0.5); /* black semi-transparent */
+        }
+    </style>
+    <script>
+        function BindImage()
+        {
+            $('#imageLoad').show();
+        }
+    </script>
 }
 @section sidebar
 {
@@ -64,6 +67,7 @@
         <ul>
             <li>
                 <a href="#">
+
                     <span class="da-nav-count">1</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
@@ -95,6 +99,7 @@
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/rating.png")" alt="" />
                             <strong>Đánh giá</strong>
                         </a>
+
                     </li>
                     <li>
                         <a href="@Url.Action("HistoryCompare", "StatisticProduct")">
@@ -104,17 +109,17 @@
                     </li>
                 </ul>
             </li>
-            <li class="active">
+            <li>
                 <a href="#">
                     <!-- Nav Notification -->
-                    <span class="da-nav-count">7</span>
+                    <span class="da-nav-count">5</span>
                     <!-- Icon Container -->
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/documents_1.png")" alt="Charts" />
                     </span>
                     <strong>Dữ liệu</strong>
                 </a>
-                <ul>
+                <ul class="closed">
                     <li>
                         <a href="/Admin/importexcelLap">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/excel.png")" alt="" />
@@ -143,20 +148,8 @@
                             <strong>Xử lý linh kiện trùng</strong>
                         </a>
                     </li>
+                   
                     <li>
-
-                        <a href="/Admin/ConfirmNewLaptop">
-                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
-                            <strong>Xác nhận laptop mới</strong>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/Admin/ConfirmNewHardware">
-                            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/duplicate.png")" alt="" />
-                            <strong>Xác nhận linh kiện mới</strong>
-                        </a>
-                    </li>
-                    <li style="background-color: #a6d037;">
 
                         <a href="@Url.Action("Createrecommend", "Recommend")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/arrow.png")" alt="" />
@@ -208,7 +201,7 @@
                             <strong>Quản lý cửa hàng</strong>
                         </a>
                     </li>
-                       <li>
+                    <li>
 
                         <a href="@Url.Action("Index", "ManagerHardware")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -220,8 +213,8 @@
 
             <li>
                 <a href="#">
-                    <span class="da-nav-count">1</span>
                     <!-- Icon Container -->
+                    <span class="da-nav-count">1</span>
                     <span class="da-nav-icon">
                         <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/white/32/settings.png")" alt="" />
                     </span>
@@ -236,7 +229,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="active">
                 <a href="#">
                     <span class="da-nav-count">4</span>
                     <!-- Icon Container -->
@@ -245,8 +238,8 @@
                     </span>
                     <strong>Parser</strong>
                 </a>
-                <ul class="closed">
-                    <li>
+                <ul>
+                    <li style="background-color: #a6d037;">
                         <a href="@Url.Action("CreateParser", "Parser")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
                             <strong>Tạo parser linh kiện</strong>
@@ -259,7 +252,7 @@
                             <strong>Parser linh kiện</strong>
                         </a>
                     </li>
-                    @*<li>
+                    @*  <li >
                         <a href="#">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/new.png")" alt="" />
                             <strong>Tạo parser sản phẩm</strong>
@@ -281,16 +274,15 @@
             </li>
         </ul>
     </div>
-
 }
 @section mainHeader
 {
     <ul>
-        <li style="margin-right: 5px"><a style="cursor: default; font-size: 23px;">
-            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Đề cử</strong></a></li>
+        <li style="margin-right: 5px"><a style="cursor: default; font-size: 27px;">
+            <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/black/16/home.png")" alt=""><strong>Parser</strong></a></li>
         <li style="margin-right: 5px; font-weight: bold">>></li>
         <li class="active">
-            <a href="@Url.Action("CreateRecommend", "Recommend")" style="font-size:20px;font-style:italic;text-decoration:underline">Xử lý đề xuất</a>
+            <a href="@Url.Action("CreateProductParserAdmin", "ProductParserAdmin")" style="font-size:20px;font-style:italic;text-decoration:underline">Tạo Parser sản phẩm</a>
         </li>
     </ul>
 }
@@ -298,19 +290,55 @@
 
 @section footScript
 {
-    <!-- Wizard Plugin -->
-    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.min.js")"></script>
+     <!-- Wizard Plugin -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Dandelion/js/core/plugins/dandelion.wizard.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Scripts/getXPathProduct.js")"></script>
+    <script>
+        var existed = @TempData["existed"] ;
+        var recommendId = @TempData["idRecommendProduct"];
+        if (!existed){
+            alert("here");
+            $('#imageLoad').hide();
+        }
+        if (existed) {
+            if (confirm("Parser đã tồn tại, bạn có muốn sử dụng lại không ?") == true) {
+                $('#imageLoad').show();
+                @{
+                    CPS_Solution.EntityFramework.ParseInfo info = (CPS_Solution.EntityFramework.ParseInfo)TempData["parseInfo"];
+                    if (info == null)
+                    {
+                        return;
+                    }
+                         }
+                var $productName = $('#xpathProductName');
+                var $price = $('#xpathPrice');
+                var $cpu = $('#xpathCPU');
+                var $hdd = $('#xpathHDD');
+                var $vga = $('#xpathVGA');
+                var $ram = $('#xpathRAM');
+                var $image = $('#xpathImage');
+                var $display = $('#xpathDisplay');
+                $productName.val("@Html.Raw(info.Name)");
+                $image.val("@Html.Raw(info.ImageXpath)");
+                $price.val("@Html.Raw(info.PriceXPath)");
+                $cpu.val("@Html.Raw(info.CPUXPath)");
+                $vga.val("@Html.Raw(info.VGAXPath)");
+                $hdd.val("@Html.Raw(info.HDDXPath)");
+                $ram.val("@Html.Raw(info.RAMXPath)");
+                $display.val("@Html.Raw(info.DisplayXPath)");      
+                $('#Parseform').submit(); 
+            }else
+            {
+                $('#imageLoad').hide('slow');
+            }          
+        }      
+    </script>
 }
 <!-- Content Area -->
-
+<div id="imageLoad" class="modalOverlay" style="display: none">
+    <img src="@Url.Content("~/Areas/Admin/Dandelion/images/processing.gif")" style="display:block;position:absolute;margin-left:35%;margin-top:10%;z-index:3005;border-width:20px;border-radius:50px;border-style:solid"/>
+</div>
 <div class="grid_4">
-    @if (TempData["link"] != null)
-    {
-        <div class="da-message success">
-          Đề xuất thành công.
-        </div>
-    }
     <div class="da-panel">
         <div class="da-panel-header">
             <span class="da-panel-title">
@@ -321,40 +349,179 @@
         <div class="da-panel-content">
             @using (Html.BeginForm("CreateRecommend", "Recommend", FormMethod.Post, new { @class = "da-form" }))
             {
-                var model = @Model;
                 <div id="da-ex-val1-error" class="da-message error" style="display: none;"></div>
                 <div class="da-form-inline">
                     <div class="da-form-row">
                         <label>Link cần lấy<span class="required">*</span></label>
-                        <div class="da-form-item small">
-                            @Html.TextBox("link", null, new { placeholder = "Nhập link cần đề xuất", id = "link", required = "required", @onblur = "LinkCheck()" })
-                            <div id="status"></div>
-                            <br/>
-                            <input type="submit" id="btnSubmit" disabled="disabled" value="Đề xuất" class="da-button blue" style="width: 20%" />
+                        <div class="da-form-item large">
+                            @Html.TextBoxFor(x => x.ParseProductLink, new { placeholder = "Nhập link cần parse", id = "linkPreview", Value = TempData["link"], required = "required" })
                         </div>
                     </div>
+                </div>
+                <div class="da-button-row">
+                    <input type="submit" value="Cập nhật" class="da-button green" />
                 </div>
             }
         </div>
     </div>
 </div>
+@if (TempData["link"] != null)
+{ 
+    <div class="grid_4">
+        <div class="da-panel">
+            <div class="da-panel-header">
+                <span class="da-panel-title">
+                    <img src="@Url.Content("~/Areas/Admin/Dandelion/Areas/Admin/Dandelion/images/icons/color/wand.png")" alt="" />
+                    Các bước tạo parser sản phẩm
+                </span>
+
+            </div>
+            <div class="da-panel-content">
+                @using (Html.BeginForm("CreateProductParser", "Recommend", FormMethod.Post, new { id = "Parseform", @class = "da-form" }))
+                {
+                    <input type="hidden" name="ParseProductLink" value="@TempData["link"]"/>     								
+                    <fieldset class="da-form-inline" data-name="divInfo" data-step-id="0">
+                        <legend>Bắt đầu</legend>
+                        <div class="da-form-row">
+                            <h1>Hãy hoàn thành tiến trình để rút trích dữ liệu.</h1>
+                        </div>
+                    </fieldset>    									
+                    <fieldset class="da-form-inline" data-name="productName" data-step-id="1">
+                        <legend>Tên SP</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới tên sản phẩm <span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.ProductNameXpath, new { id = "xpathProductName" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="price" data-step-id="2">
+                        <legend>Giá SP</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới giá sản phẩm <span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.PriceXpath, new { id = "xpathPrice" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="image" data-step-id="3">
+                        <legend>Ảnh SP</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới ảnh sản phẩm <span class="required">*</span></label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.ImageXpath, new { id = "xpathImage" })
+                            </div>
+                        </div>
+                    </fieldset>				
+                    <fieldset class="da-form-inline" data-name="cpu" data-step-id="4">
+                        <legend>CPU</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới CPU</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.CPUXpath, new { id = "xpathCPU" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="vga" data-step-id="5">
+                        <legend>VGA</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới VGA</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.VGAXpath, new { id = "xpathVGA" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="hdd" data-step-id="6">
+                        <legend>HDD</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới Dung lượng đĩa cứng</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.HDDXpath, new { id = "xpathHDD" })
+                            </div>
+                        </div>
+                    </fieldset>
+                                            
+                    <fieldset class="da-form-inline" data-name="ram" data-step-id="7">
+                        <legend>RAM</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới Bộ nhớ</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.RAMXpath, new { id = "xpathRAM" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="da-form-inline" data-name="display" data-step-id="8">
+                        <legend>Display</legend>
+                        <div class="da-form-row">
+                            <label>Xpath tới Màn hình</label>
+                            <div class="da-form-item large">
+                                @Html.TextBoxFor(x => x.DisplayXpath, new { id = "xpathDisplay" })
+                            </div>
+                        </div>
+                    </fieldset>         
+										
+                    <fieldset class="da-form-inline" data-name="finish" data-step-id="9">
+                        <legend>Xác nhận</legend>
+                        <div class="da-form-row">
+                            <h1>Bạn chắc chắc với những gì đã chọn? </h1>
+                            <h1>Bạn có thể bấm vào nút xem trước để thấy được chi tiết  của sản phầm sẽ được parse.</h1>
+                            <input type="button" id="previewbtn" class="da-button blue" value="Xem Trước" />
+                        </div>
+                    </fieldset>
+                }
+            </div>
+        </div>
+    </div>
+    <div id="previewParser" style="z-index: 200 !important">
+    </div>
+    <div class="grid_4">
+        <iframe id="webDiv" src="@Url.Content("~/Areas/Admin/SavedPages/ProductTmp.html")" width="1043" height="600" style="background-color:#ffffff"></iframe>
+    </div> 
+}
 <script>
-    function LinkCheck() {
-        document.getElementById("btnSubmit").disabled = true;
-        $("#status").html("<img src='@Url.Content("~/Images/I/loading.gif")' width='25px'" +
-                    "height='25px' style='width:25px;height:25px'/><span style='color:green'>  Đang kiểm tra....</span>");
-        $.post("/Admin/Recommend/checkLink",
-        { link: $("#link").val() },
-        function (data) {
-            if (data != 0) {
-                $("#status").html("<img src='@Url.Content("~/Images/I/good.gif")' width='25px'" + "height='25px'style='width:25px;height:25px'/><span style='color:green'>Đường dẫn có thực.</span>");
-                $("#link").css('background-color', '');
-                document.getElementById("btnSubmit").disabled = false;
-            } else {
-                $("#status").html("<img src='@Url.Content("~/Images/I/bad.gif")' width='25px'" + "height='25px' style='width:25px;height:25px'/><span style='color:red'>Đường dẫn không có thực.</span>");
-                $("#link").css('background-color', '#e97878');
-                document.getElementById("btnSubmit").disabled = true;
+    //Xem trước sản phẩm
+    var $productName = $('#xpathProductName');
+    var $price = $('#xpathPrice');
+    var $cpu = $('#xpathCPU');
+    var $hdd = $('#xpathHDD');
+    var $vga = $('#xpathVGA');
+    var $ram = $('#xpathRAM');
+    var $image = $('#xpathImage');
+    var $display = $('#xpathDisplay');
+    var $parseLink = $('#linkPreview');
+    $(document).on('click', '#previewbtn', function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadPreview", "Recommend")',
+            data: {
+                parseLink: $parseLink.val(),
+                name: $productName.val(),
+                price: $price.val(),
+                hdd: $hdd.val(),
+                vga: $vga.val(),
+                ram: $ram.val(),
+                cpu: $cpu.val(),
+                display: $display.val(),
+                image: $image.val(),
+            },
+            success: function (result) {
+                $('#previewParser').html(result);
+                $("#previewParser").dialog({
+                    autoOpen: false,
+                    title: "Xem trước các thành phần",
+                    width: "800",
+                    modal: true,
+                    draggable: false
+                    //buttons: [{
+                    //    text: "Đóng", 
+                    //    click: function() {
+                    //        $( this ).dialog( "close" );
+                    //    }}]
+                });
+                $("#previewParser").dialog("option", { modal: true }).dialog("open");
+                event.preventDefault();
             }
-        });
-    }
+        })
+    })
 </script>
+

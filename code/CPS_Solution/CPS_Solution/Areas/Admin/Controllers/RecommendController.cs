@@ -48,7 +48,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             var uri = new Uri(model.ParseProductLink);
             string host = uri.GetLeftPart(UriPartial.Authority);
-            var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Contains(host));
+            var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Contains(host) && info.IsActive==true);
             if (parseInfo == null)
             {
                 var productInfo = new ParseInfo
@@ -292,24 +292,39 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateRecommend(string link) 
+        public ActionResult CreateRecommend(string ParseProductLink) 
         {
             var rmd = new RecommendProduct
             {
                 Email = "iv250509@gmail.com",
-                IsApprove = null,
+                IsApprove = true,
                 IsMailSent = false,
                 IsReceive = false,
                 IsSeen = false,
                 IsTrue = false,
-                Parselink = link,
+                Parselink = ParseProductLink,
                 RecommendTime = DateTime.Now,
                 Username = "staff",
             };
             context.RecommendProducts.Add(rmd);
             context.SaveChanges();
-            TempData["link"] = link;
-            return View();
+
+            HtmlNode.ElementsFlags.Remove("form");
+            ParserHelper.LoadWebProduct(ParseProductLink);
+            TempData["existed"] = "false";
+            var uri = new Uri(ParseProductLink);
+            string host = uri.GetLeftPart(UriPartial.Authority);
+            var parseInfo = context.ParseInfoes.FirstOrDefault(info => info.Parselink.Contains(host));
+            if (parseInfo != null)
+            {
+                TempData["existed"] = "true";
+                TempData["parseInfo"] = parseInfo;
+            }
+
+            TempData["link"] = ParseProductLink;
+            TempData["idRecommendProduct"] = rmd.ID;
+            return RedirectToAction("CreateProductParser");
+
         }
         public JsonResult checkLink(string link)
         {
