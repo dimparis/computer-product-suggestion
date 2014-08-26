@@ -17,7 +17,7 @@ namespace CPS_Solution.App_Start
             ConstantManager.TrainingFilePath = server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
             ConstantManager.TrainingFilePathForProduct = server.MapPath("~/UploadedExcelFiles/ProductNameTraining.txt");
             ConstantManager.NoResultFilePath = server.MapPath("~/Areas/Admin/LogFiles/NoResult/result.txt");
-            ConstantManager.DefaultImage = server.MapPath("~/images/I/default.jpg");
+            ConstantManager.DefaultImage = server.MapPath("images/I/default.jpg");
             ConstantManager.IsParserRunning = false;
             ConstantManager.IsRecommendRunning = false;
             ConstantManager.IsUpdateRunning = false;
