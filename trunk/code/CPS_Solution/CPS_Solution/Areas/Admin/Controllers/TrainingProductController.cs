@@ -666,21 +666,34 @@ namespace CPS_Solution.Areas.Admin.Controllers
                         }
 
                         //lấy product trong database ra chỉ lấy Codetype bằng loai kiểm tra xem có trong database chưa @@.
-                        List<Hardware> listproindatabase = new List<Hardware>();
+                        List<Dictionary> listproindatabase = new List<Dictionary>();
                         String loai = listduplicatenew[i][1].loai;
-                        var resource = (from x in db.Hardwares where x.CodetypeID.Equals(loai) select x);
+                        var resource = (from x in db.Dictionaries where x.Hardware.CodetypeID.Equals(loai) select x);
                         listproindatabase = resource.ToList();
                         int count = 0;
+                        int existId = 0;
                         for (int t = 0; t < listproindatabase.Count; t++)
                         {
                             if (listproindatabase[t].Name.Equals(p.Name))
                             {
-                                count++;
+                                existId = listproindatabase[t].AttributeDicID;
+                                count++ ;
                             }
                         }
 
                         if (count > 0)
                         {
+                            //lấy id vừa mới insert cho vào bảng ProductAttibute------------------------------------------
+                            if (!listduplicatenew[i][0].productid.Equals("0"))
+                            {                               
+                                ProductAttribute proatt = new ProductAttribute();
+                                proatt.AttributeID = existId;
+                                proatt.ProductID = Convert.ToInt32(listduplicatenew[i][0].productid);
+                                proatt.IsActive = true;
+                                db.ProductAttributes.Add(proatt);
+                                db.SaveChanges();
+
+                            }
                             listduplicatenew.RemoveAt(i);
                             Session["ListduptraningProduct"] = listduplicatenew;
                             dem++;

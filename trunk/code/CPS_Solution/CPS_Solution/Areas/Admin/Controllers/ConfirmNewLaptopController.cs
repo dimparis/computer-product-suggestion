@@ -82,7 +82,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             };
           
             // lấy product có isactive = true để autocomplete
-            var ProductTrue = db.Products.Where(x => x.IsActive == true).ToList();
+            var ProductTrue = db.AliasProducts.Where(x => x.Product.IsActive == true).ToList();
             var ProductList = new List<SelectListItem>();
             ProductList.Add(itemdefault);
             foreach (var pro in ProductTrue)
@@ -90,7 +90,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = pro.Name.Replace("-", " "),
-                    Value = pro.ID.ToString()
+                    Value = pro.ProductID.ToString()
                 };
                 ProductList.Add(item);
             }
@@ -98,7 +98,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
           
             // Load CPU list
-            var cpus = db.Hardwares.Where(x => x.CodetypeID == "C" && x.IsActive == true)
+            var cpus = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "C" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var cpuList = new List<SelectListItem>();
@@ -108,14 +108,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = cpu.Name.Replace("-", " "),
-                    Value = cpu.ID.ToString()
+                    Value = cpu.AttributeDicID.ToString()
                 };
                 cpuList.Add(item);
             }
             ViewBag.cpuList = cpuList;
 
             // Load VGA list
-            var vgas = db.Hardwares.Where(x => x.CodetypeID == "V" && x.IsActive == true)
+            var vgas = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "V" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var vgaList = new List<SelectListItem>();
@@ -125,14 +125,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = vga.Name.Replace("-", " "),
-                    Value = vga.ID.ToString()
+                    Value = vga.AttributeDicID.ToString()
                 };
                 vgaList.Add(item);
             }
             ViewBag.vgaList = vgaList;
 
             // Load HDD list
-            var hdds = db.Hardwares.Where(x => x.CodetypeID == "H" && x.IsActive == true)
+            var hdds = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "H" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var hddList = new List<SelectListItem>();
@@ -142,7 +142,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = hdd.Name.Replace("-", " "),
-                    Value = hdd.ID.ToString()
+                    Value = hdd.AttributeDicID.ToString()
                 };
                 hddList.Add(item);
             }
@@ -150,7 +150,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             // Load Ram list
-            var rams = db.Hardwares.Where(x => x.CodetypeID == "R" && x.IsActive == true)
+            var rams = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "R" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var ramList = new List<SelectListItem>();
@@ -160,14 +160,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = ram.Name.Replace("-", " "),
-                    Value = ram.ID.ToString()
+                    Value = ram.AttributeDicID.ToString()
                 };
                 ramList.Add(item);
             }
             ViewBag.ramList = ramList;
 
             // Load Display list
-            var displays = db.Hardwares.Where(x => x.CodetypeID == "D" && x.IsActive == true)
+            var displays = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "D" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var displayList = new List<SelectListItem>();
@@ -177,7 +177,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = display.Name.Replace("-", " "),
-                    Value = display.ID.ToString()
+                    Value = display.AttributeDicID.ToString()
                 };
                 displayList.Add(item);
             }
@@ -257,7 +257,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             };
 
             // lấy product có isactive = true để autocomplete
-            var ProductTrue = db.Products.Where(x => x.IsActive == true).ToList();
+            var ProductTrue = db.AliasProducts.Where(x => x.Product.IsActive == true).ToList();
             var ProductList = new List<SelectListItem>();
             ProductList.Add(itemdefault);
             foreach (var pro in ProductTrue)
@@ -265,7 +265,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = pro.Name.Replace("-", " "),
-                    Value = pro.ID.ToString()
+                    Value = pro.ProductID.ToString()
                 };
                 ProductList.Add(item);
             }
@@ -273,7 +273,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             // Load CPU list
-            var cpus = db.Hardwares.Where(x => x.CodetypeID == "C" && x.IsActive == true)
+            var cpus = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "C" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var cpuList = new List<SelectListItem>();
@@ -283,14 +283,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = cpu.Name.Replace("-", " "),
-                    Value = cpu.ID.ToString()
+                    Value = cpu.AttributeDicID.ToString()
                 };
                 cpuList.Add(item);
             }
             ViewBag.cpuList = cpuList;
 
             // Load VGA list
-            var vgas = db.Hardwares.Where(x => x.CodetypeID == "V" && x.IsActive == true)
+            var vgas = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "V" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var vgaList = new List<SelectListItem>();
@@ -300,14 +300,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = vga.Name.Replace("-", " "),
-                    Value = vga.ID.ToString()
+                    Value = vga.AttributeDicID.ToString()
                 };
                 vgaList.Add(item);
             }
             ViewBag.vgaList = vgaList;
 
             // Load HDD list
-            var hdds = db.Hardwares.Where(x => x.CodetypeID == "H" && x.IsActive == true)
+            var hdds = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "H" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var hddList = new List<SelectListItem>();
@@ -317,7 +317,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = hdd.Name.Replace("-", " "),
-                    Value = hdd.ID.ToString()
+                    Value = hdd.AttributeDicID.ToString()
                 };
                 hddList.Add(item);
             }
@@ -325,7 +325,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             // Load Ram list
-            var rams = db.Hardwares.Where(x => x.CodetypeID == "R" && x.IsActive == true)
+            var rams = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "R" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var ramList = new List<SelectListItem>();
@@ -335,14 +335,14 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = ram.Name.Replace("-", " "),
-                    Value = ram.ID.ToString()
+                    Value = ram.AttributeDicID.ToString()
                 };
                 ramList.Add(item);
             }
             ViewBag.ramList = ramList;
 
             // Load Display list
-            var displays = db.Hardwares.Where(x => x.CodetypeID == "D" && x.IsActive == true)
+            var displays = db.Dictionaries.Where(x => x.Hardware.CodetypeID == "D" && x.Hardware.IsActive == true && x.IsActive == true)
                 .OrderBy(x => x.Name)
                 .ToList();
             var displayList = new List<SelectListItem>();
@@ -352,7 +352,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 var item = new SelectListItem
                 {
                     Text = display.Name.Replace("-", " "),
-                    Value = display.ID.ToString()
+                    Value = display.AttributeDicID.ToString()
                 };
                 displayList.Add(item);
             }
