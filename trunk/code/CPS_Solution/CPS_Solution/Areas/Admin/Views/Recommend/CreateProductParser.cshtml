@@ -190,7 +190,7 @@
                             <strong>Quản lý cửa hàng</strong>
                         </a>
                     </li>
-                       <li>
+                    <li>
 
                         <a href="@Url.Action("Index", "ManagerHardware")">
                             <img src="@Url.Content("~/Areas/Admin/Dandelion/images/icons/news/list.png")" alt="" />
@@ -379,6 +379,7 @@
                         <div class="da-form-row">
                             <label>Xpath tới tên sản phẩm <span class="required">*</span></label>
                             <div class="da-form-item large">
+                                <span class="formNote">(<span class="required">*</span>)  Bắt buộc</span>
                                 @Html.TextBoxFor(x => x.ProductNameXpath, new { id = "xpathProductName" })
                             </div>
                         </div>
@@ -386,7 +387,7 @@
                     <fieldset class="da-form-inline" data-name="price" data-step-id="2">
                         <legend>Giá SP</legend>
                         <div class="da-form-row">
-                            <label>Xpath tới giá sản phẩm <span class="required">*</span></label>
+                            <label>Xpath tới giá sản phẩm</label>
                             <div class="da-form-item large">
                                 @Html.TextBoxFor(x => x.PriceXpath, new { id = "xpathPrice" })
                             </div>
@@ -404,8 +405,9 @@
                     <fieldset class="da-form-inline" data-name="cpu" data-step-id="4">
                         <legend>CPU</legend>
                         <div class="da-form-row">
-                            <label>Xpath tới CPU</label>
+                            <label>Xpath tới CPU <span class="required">*</span></label>
                             <div class="da-form-item large">
+                                <span class="formNote">(<span class="required">*</span>)  Bắt buộc</span>
                                 @Html.TextBoxFor(x => x.CPUXpath, new { id = "xpathCPU" })
                             </div>
                         </div>
@@ -413,8 +415,9 @@
                     <fieldset class="da-form-inline" data-name="vga" data-step-id="5">
                         <legend>VGA</legend>
                         <div class="da-form-row">
-                            <label>Xpath tới VGA</label>
+                            <label>Xpath tới VGA <span class="required">*</span></label>
                             <div class="da-form-item large">
+                                <span class="formNote">(<span class="required">*</span>)  Bắt buộc</span>
                                 @Html.TextBoxFor(x => x.VGAXpath, new { id = "xpathVGA" })
                             </div>
                         </div>
@@ -422,8 +425,9 @@
                     <fieldset class="da-form-inline" data-name="hdd" data-step-id="6">
                         <legend>HDD</legend>
                         <div class="da-form-row">
-                            <label>Xpath tới Dung lượng đĩa cứng</label>
+                            <label>Xpath tới Dung lượng đĩa cứng <span class="required">*</span></label>
                             <div class="da-form-item large">
+                                <span class="formNote">(<span class="required">*</span>)  Bắt buộc</span>
                                 @Html.TextBoxFor(x => x.HDDXpath, new { id = "xpathHDD" })
                             </div>
                         </div>
@@ -432,8 +436,9 @@
                     <fieldset class="da-form-inline" data-name="ram" data-step-id="7">
                         <legend>RAM</legend>
                         <div class="da-form-row">
-                            <label>Xpath tới Bộ nhớ</label>
+                            <label>Xpath tới Bộ nhớ <span class="required">*</span></label>
                             <div class="da-form-item large">
+                                <span class="formNote">(<span class="required">*</span>)  Bắt buộc</span>
                                 @Html.TextBoxFor(x => x.RAMXpath, new { id = "xpathRAM" })
                             </div>
                         </div>
@@ -441,8 +446,9 @@
                     <fieldset class="da-form-inline" data-name="display" data-step-id="8">
                         <legend>Display</legend>
                         <div class="da-form-row">
-                            <label>Xpath tới Màn hình</label>
+                            <label>Xpath tới Màn hình <span class="required">*</span></label>
                             <div class="da-form-item large">
+                                <span class="formNote">(<span class="required">*</span>)  Bắt buộc</span>
                                 @Html.TextBoxFor(x => x.DisplayXpath, new { id = "xpathDisplay" })
                             </div>
                         </div>
