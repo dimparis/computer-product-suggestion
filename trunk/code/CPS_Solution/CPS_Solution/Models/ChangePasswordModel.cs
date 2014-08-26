@@ -11,6 +11,10 @@ namespace CPS_Solution.Models
         [Display(Name = "Tên đăng nhập")]
         public string Username { get; set; }
 
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
         [Display(Name = "Mật khẩu cũ")]
         [DataType(DataType.Password)]
         public string Password { get; set; }

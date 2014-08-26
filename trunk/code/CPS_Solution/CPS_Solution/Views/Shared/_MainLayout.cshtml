@@ -460,13 +460,14 @@
                         var target2 = jQuery('#newLoadNotication');
                         var compareHidtory = '@Url.Action("CompareHistory", "History")';
                         var logOff = '@Url.Action("LogOff", "Account")';
+                        var account = '@Url.Action("ChangePassword", "Account")';
                         target2.empty();
                         target2.append("<li class="+'divider'+"></li>" +
                                        "<li class=" + "dropdown-header" + " style=" + "color:#0088cc" + ">" +
                                             "<strong style='text-decoration:underline'>Tài khoản</strong>" +
                                        "</li>" +
                                        "<li>" +
-                                       "<a href='Account/User'><i class='icon-user' /> Thông tin tài khoản</a>" +
+                                       "<a href=" + account +"><i class='icon-user' /> Thông tin tài khoản</a>" +
                                        "</li>" +
                                        "<li>" +
                                             "<a href=" + compareHidtory + "><i class='icon-h-sign'></i> Lịch sử so sánh</a>" +
