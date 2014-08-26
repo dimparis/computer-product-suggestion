@@ -181,28 +181,27 @@
     @*<div id="page-wrap">
             @RenderBody()
         </div>*@
-    <div id="page-wrap">
-        <div class="main-content" style="margin-top:70px;">
-            <div class="container">
-                <div class="row">
-                    <div class="span3 fadeLeft">
-                        <div class="blog-categories-widget widget">
-                            <h5>Thông Tin Tài Khoản</h5>
-                            <div class="dotted-separator"></div>
-                            <div class="blog-category">
-                                <i class="icon-angle-right" />
-                                <p>Lịch sử so sánh</p>
-                            </div>
-                            <div class="dotted-separator"></div>
-                            <div class="blog-category">
-                                <i class="icon-angle-right" />
-                                <p>Thay đổi mật khẩu</p>
-                            </div>
+    <div class="main-content" style="margin-top:70px;">
+        <div class="container">
+            <div class="row" style="margin-top: 20px;">
+                <div class="span3 sidebar row gray-element fadeLeft">
+                    <div class="blog-categories-widget widget">
+                        <h5>Thông Tin Tài Khoản</h5>
+                        <div class="dotted-separator"></div>
+                        <div class="blog-category">
+                            <i class="icon-angle-right"></i>
+                            <a href="/Account/ChangePassword">Thay đổi mật khẩu</a>
                         </div>
+                        <div class="dotted-separator"></div>
+                        <div class="blog-category">
+                            <i class="icon-angle-right"></i>
+                            <a href="/History/CompareHistory">Lịch sử so sánh</a>
+                        </div>
+                        <div class="dotted-separator"></div>
                     </div>
-                    <div class="span9 fadeRight">
-                        @RenderBody()
-                    </div>
+                </div>
+                <div class="span9 gray-element fadeRight">
+                    @RenderBody()
                 </div>
             </div>
         </div>
@@ -348,45 +347,45 @@
     @if (User.Identity.Name != null)
     {
         <script>
-            LoadNotification();
-            $("#noticator").dialog({
-                autoOpen: false,
-                show: {
-                    effect: "blind",
-                    duration: 1000
-                },
-                hide: {
-                    effect: "explode",
-                    duration: 1000
-                },
-                position: {
-                    my: "right center",
-                    at: "right bottom-600",
-                    of: window
-                },
-                height: 150,
-                width: 350,
-                modal: false,
-                closeText: 'fail',
-                resizable: false,
-            });
+    LoadNotification();
+    $("#noticator").dialog({
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 1000
+        },
+        hide: {
+            effect: "explode",
+            duration: 1000
+        },
+        position: {
+            my: "right center",
+            at: "right bottom-600",
+            of: window
+        },
+        height: 150,
+        width: 350,
+        modal: false,
+        closeText: 'fail',
+        resizable: false,
+    });
 
-            setInterval(function () {
-                $.ajax({
-                    url: "/Notifier/GetNotify",
-                    type: "POST",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ username: "@User.Identity.Name" }),
-                    success: function (data) {
+    setInterval(function () {
+        $.ajax({
+            url: "/Notifier/GetNotify",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ username: "@User.Identity.Name" }),
+            success: function (data) {
 
-                        if (data != "NoneData" && data.length > 0) {
-                            var target = jQuery("#noticator");
-                            target.empty();
-                            for (var i = 0; i < data.length; i++) {
-                                var item = data[i];
+                if (data != "NoneData" && data.length > 0) {
+                    var target = jQuery("#noticator");
+                    target.empty();
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
 
-                                var url = '@Url.Action("Details", "Product")?id=' + item.id;
+                        var url = '@Url.Action("Details", "Product")?id=' + item.id;
                                 target.append("<p> Sản phẩm <a href=" + url + " style=" + 'color:blue;text-decoration:underline' + ">" + item.name + "</a> bạn đề xuất đã được cập nhật.  </p>");
                                 jQuery("#noticator").dialog("open");
                             }
@@ -411,16 +410,20 @@
                         var target2 = jQuery('#newLoadNotication');
                         var compareHidtory = '@Url.Action("CompareHistory", "History")';
                         var logOff = '@Url.Action("LogOff", "Account")';
+                        var account = '@Url.Action("ChangePassword", "Account")';
                         target2.empty();
-                        target2.append("<li class=" + 'divider' + "></li>" +
+                        target2.append("<li class="+'divider'+"></li>" +
                                        "<li class=" + "dropdown-header" + " style=" + "color:#0088cc" + ">" +
                                             "<strong style='text-decoration:underline'>Tài khoản</strong>" +
                                        "</li>" +
                                        "<li>" +
-                                            "<a href=" + compareHidtory + "><i class='icon-h-sign'></i>Lịch sử so sánh</a>" +
+                                       "<a href=" + account +"><i class='icon-user' /> Thông tin tài khoản</a>" +
                                        "</li>" +
                                        "<li>" +
-                                            "<a href=" + logOff + "><i class=" + 'icon-signout' + "></i>Đăng xuất  </a></li>" +
+                                            "<a href=" + compareHidtory + "><i class='icon-h-sign'></i> Lịch sử so sánh</a>" +
+                                       "</li>" +
+                                       "<li>" +
+                                            "<a href=" + logOff + "><i class=" + 'icon-signout' + "></i> Đăng xuất  </a></li>" +
                                        "<li class=" + 'divider' + "></li>" +
                                        "<li class=" + 'dropdown-header' + " style=" + 'color:#0088cc' + ">" +
                                             "<strong style=" + 'text-decoration:underline' + ">Thông báo</strong>" +
@@ -439,7 +442,7 @@
 
                     }
                 });
-            }
+            }s
         </script>
     }
 </body>

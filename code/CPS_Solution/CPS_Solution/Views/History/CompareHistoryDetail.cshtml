@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CPS_Solution.EntityFramework.HistoryDetail>
 @{
     ViewBag.Title = "Chi tiết lịch sử so sánh";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    Layout = "~/Views/Shared/_UserPage.cshtml";
 }
 
 <link href="@Url.Content("~/Content/Order.css")" rel="stylesheet" type="text/css" />
@@ -11,34 +11,16 @@
 
 <div class="bgSizeCover">
     <div id="Contain" class="bgContainCover">
-        <div class="ProductDetail">
-            <div class="Tools">
-                <div class="Left">
-                    <ul class="SortTool">
-                        <li style=" background-color: #3399FF; color: white !important;">
-                            <a style="color:white" href="@Url.Action("SearchForProduct", "Product")">Trang chủ</a>
-                        </li>
-                        <li style="background-color: #3399FF; color: white !important;">
-                            <a style="color:white" href="@Url.Action("CompareHistory", "History")">Lịch sử giỏ hàng</a>
-                        </li>
-                        <li style="cursor: auto;">Chi tiết giỏ hàng
-                        </li>
-                    </ul>
-                </div>
-                <div class="clr"></div>
-            </div>
-        </div>
         
-        <div class="main-content" style="padding: 60px 20px 20px 20px; min-height: 700px;">
+        <div class="main-content" style="padding: 60px 20px 20px 20px;">
             
 
             <div>
-                <div class="ProductNameDetail" style="text-align:center">Giỏ sản phẩm trong ngày </div>
                 <table class="table table-bordered table-hover" style="background-color:white">
                     <thead>
                         <tr class="bg-header">
                             <th style="width: 40%;text-align:center">Tên sản phẩm</th>
-                            <th style="width: 30%;text-align:center">Winner</th>
+                            @*<th style="width: 30%;text-align:center">Wi</th>*@
                         </tr>
                     </thead>
                     <tbody>
@@ -48,9 +30,11 @@
             
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Product.Name)
+                                    <a href="/Product/Details?ID=@item.ProductID" target="_blank">
+                                        @Html.DisplayFor(modelItem => item.Product.Name)
+                                    </a>
                                 </td>
-                                <td style="text-align:center">
+                                @*<td style="text-align:center">
                                     @if (item.isWinner.Equals(true))
                                     {
                                         <span>True</span>
@@ -59,17 +43,7 @@
                                     { 
                                         <span>False</span>
                                     }
-                                </td>
-
-                                @*@foreach (var p in Model.Product.AliasProducts)
-                                {
-                                    if (p.ID == item.ProductID)
-                                    {
-                                    <td style="text-align:center">
-                                        @Html.DisplayFor(modelItem => p.Name)
-                                    </td>
-                                    }
-                                }*@
+                                </td>*@
                             </tr>
                         }
 

@@ -3,29 +3,18 @@
 
 @{
     ViewBag.Title = "Lịch sử so sánh";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    Layout = "~/Views/Shared/_UserPage.cshtml";
 }
 
-@section navigator
-{
-    <div id="top-image" class="top-image3">
-        <div class="container">
-            <div id="top-image-caption">
-                <h2 style="font-family:Tahoma, Geneva, sans-serif">Lịch sử so sánh</h2>
-            </div>
-        </div>
-    </div>
-}
-
-<div class="main-content" style="padding: 60px 20px 20px 20px; min-height: 700px;">
+<div class="main-content">
             <div>
-                <div class="ProductNameDetail" style="text-align:center">Lịch sử giỏ hàng 30 ngày gần nhất.</div>
+                <div class="ProductNameDetail" style="text-align:center">Lịch sử các so sánh gần nhất</div>
                 
                 <table class="table table-bordered table-hover" style="background-color:white">
                     <thead>
                         <tr class="bg-header">
-                            <th style="text-align:center">Ngày mua</th>
-                            <th style="text-align:center">Thao tác</th>
+                            <th style="text-align:center">Ngày So Sánh</th>
+                            <th style="text-align:center">Chi Tiết</th>
                         </tr>
                     </thead>
                     <tbody>
