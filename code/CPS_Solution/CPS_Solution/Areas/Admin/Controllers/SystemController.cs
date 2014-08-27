@@ -22,11 +22,18 @@ namespace CPS_Solution.Areas.Admin.Controllers
         {
             if (User.IsInRole("staff"))
             {
-                var recommendProducts = context.RecommendProducts.Where(x => x.IsMailSent == false &&
-                x.IsReceive == true && x.IsApprove == true).ToList();
-                AutoSendMail auto = new AutoSendMail();
-                auto.AutoSendMailforUser(recommendProducts);
-                return RedirectToAction("Index", "TrainingProduct");
+                if (User.Identity.Name.Equals("staff")) 
+                {
+                    var recommendProducts = context.RecommendProducts.Where(x => x.IsMailSent == false &&
+                  x.IsReceive == true && x.IsApprove == true).ToList();
+                    AutoSendMail auto = new AutoSendMail();
+                    auto.AutoSendMailforUser(recommendProducts);
+                    return RedirectToAction("Index", "TrainingProduct");
+                }else if (User.Identity.Name.Equals("admin"))
+                {
+                    return RedirectToAction("Index", "ManagerUser");
+                }
+              
             }
             if (User.IsInRole("Administrator"))
             {
