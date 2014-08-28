@@ -186,12 +186,24 @@ namespace CPS_Solution.Controllers
         public ActionResult CompareDetail(int p1, int p2, int p3)
         {
             int[] vals = new int[] { p1, p2, p3 };
-
             var products = from p in db.Products
                            select p;
             products = products.Where(c => vals.Contains(c.ID));
+            var listProduct = products.ToList();
 
-            return View(products);
+            if (p3 == -1)
+            {
+                
+                listProduct[0].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
+                listProduct[1].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
+            }
+            else
+            {
+                listProduct[0].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
+                listProduct[1].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
+                listProduct[2].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[2].TotalWeightPoint), 2);
+            }
+            return View(listProduct);
         }
 
         public ActionResult Details(int id)
