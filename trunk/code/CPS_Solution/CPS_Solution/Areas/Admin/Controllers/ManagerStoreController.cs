@@ -31,6 +31,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         /// tạo một store mới
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult CreateNewStore()
         {
             string logoUrl = "default";
