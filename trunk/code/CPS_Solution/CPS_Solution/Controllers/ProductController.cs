@@ -76,6 +76,8 @@ namespace CPS_Solution.Controllers
             {
                 listOFProducts = manager.GetProductsByPrice(1, BlockSize, brandInt, priceInt);
             }
+            TempData["brandInt"] = brands;
+            TempData["priceInt"] = prices;
             return View(listOFProducts);
 
         }
