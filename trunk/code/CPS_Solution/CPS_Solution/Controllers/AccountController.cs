@@ -112,6 +112,8 @@ namespace CPS_Solution.Controllers
         {
             var model = new ChangePasswordModel();
             model.Username = User.Identity.Name;
+            var user = context.Accounts.FirstOrDefault(x => x.Username.Contains(model.Username));
+            model.Email = user.Email;
             return View(model);
         }
 

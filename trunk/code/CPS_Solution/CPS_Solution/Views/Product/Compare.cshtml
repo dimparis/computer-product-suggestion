@@ -157,8 +157,8 @@
                                     </p>
                                 </div>
                                 <div class="upper-header price-ratio-@item.ID" style="color:#fff; font-size:20px; font-style:italic; padding:5px 0 5px 0">
-                                    <span style="hidden">@{var minPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
-                                    <span style="hidden">@{var maxPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
+                                    <span class="hidden">@{var minPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
+                                    <span class="hidden">@{var maxPrice = item.AliasProducts.OrderByDescending(x => x.Price).FirstOrDefault().Price;}</span>
                                     @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))
                                     <span>~</span>
                                     @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))
@@ -199,12 +199,13 @@
 
         </div>
         <div class="row">
-            <br />
-            <div class="span6" style="margin-left: 390px;">
-                <div class="accordion fadeRight ui-accordion ui-widget ui-helper-reset animated fadeInRight" role="tablist" style="visibility: visible;">
-
-                    <h5 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" role="tab" id="ui-accordion-2-header-0" aria-controls="ui-accordion-2-panel-0" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span><i class="icon-plus-sign"></i>Góp ý và báo lỗi sản phẩm</h5>
-                    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-2-panel-0" aria-labelledby="ui-accordion-2-header-0" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+            <div style="width:50%; margin: 10px auto">
+                <div class="accordion fadeRight ui-accordion ui-widget ui-helper-reset" role="tablist">
+                    <h5 class="ui-accordion-header ui-helper-reset ui-state-active ui-accordion-icons ui-corner-all" role="tab" id="ui-accordion-2-header-0" aria-controls="ui-accordion-2-panel-0" aria-selected="true" tabindex="-1">
+                        <i class="icon-plus-sign"></i>
+                        Góp ý và báo lỗi sản phẩm
+                    </h5>
+                    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-2-panel-0" aria-labelledby="ui-accordion-2-header-0" role="tabpanel" aria-expanded="true" aria-hidden="false">
                         <label for="name">Tiêu đề *</label>
                         <input type="text" id="TenFeedback" name="name" class="stylish-text-input span5" value="">
                         <label for="website">Nội dung góp ý*</label>
