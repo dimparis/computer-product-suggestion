@@ -112,9 +112,12 @@
                 }
 
             </div>
-            <div id="clickButton" class="stylish-button" style="background-color: #7DBB18; margin-left: 46%; margin-bottom: 20px;">
-                <a onclick="clickHere()">Xem thêm</a>
-            </div>
+            @if (TempData["brandInt"] != null && TempData["priceInt"] != null)
+            {
+                <div id="clickButton" class="stylish-button" style="background-color: #7DBB18; margin-left: 46%; margin-bottom: 20px;">
+                    <a onclick="clickHerebyPrice()">Xem thêm</a>
+                </div>
+            }
             <div id="loadingDiv" style="display: none; margin-right: auto; margin-left: auto; margin-bottom: 20px; width: 55px; height: 55px">
                 <img alt="Loading" src="@Url.Content("~/Images/loading.gif")" />
             </div>
@@ -167,3 +170,33 @@
         });
     })
 </script>
+@if (TempData["brandInt"] != null && TempData["priceInt"] != null)
+{
+    <script>
+        function clickHerebyPrice() {
+            if (!NoMoreData && !inProgress) {
+                inProgress = true;
+                $("#loadingDiv").show();
+                $("#clickButton").hide();
+                $.post(
+                        "InfinateScrollSearchByPrice",
+                        {
+                            'BlockNumber': BlockNumber,
+                            'brandID': Number(@TempData["brandInt"].ToString()),
+                          'priceID': Number(@TempData["priceInt"].ToString())
+                      },
+                        function (data) {
+                            BlockNumber = BlockNumber + 1;
+                            NoMoreData = data.NoMoreData;
+                            if (!NoMoreData) {
+                                $("#clickButton").show();
+                            }
+                            $("#loadItemcontainer").append(data.HTMLString);
+                            $("#loadingDiv").hide();
+                            inProgress = false;
+                        });
+          }
+      }
+    </script>
+}
+
