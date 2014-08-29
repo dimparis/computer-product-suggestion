@@ -707,7 +707,10 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 {
                     valPrice = 0;
                 }
-
+                if (data.Image.Contains("default.jpg")) 
+                {
+                    data.Image = "Images/I/default.jpg";
+                }
 
                 if (!String.IsNullOrEmpty(data.Name) && !String.IsNullOrEmpty(data.CPU) &&
                     !String.IsNullOrEmpty(data.HDD) && !String.IsNullOrEmpty(data.RAM) &&
