@@ -322,9 +322,20 @@
                 </div> 
                 <div class="clear"></div>
                 <div class="da-form-row " style="width: 50%; float: left">
-                    <label>Giá sản phẩm</label>
+                          @{
+                                                                        
+                            String price = String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price);
+                                                                        price = price.Replace('.',',');
+                                                                        price = price.TrimEnd('₫');
+                                                                        price =  price.Trim();
+                                                                        price = price.TrimEnd('0');
+                                                                        price = price.TrimEnd('0');
+                                                                        price = price.TrimEnd(',');
+                                                                        }   
+                    <label>Giá sản phẩm (VND)</label>
                     <div class="da-form-item large">
-                        @Html.TextBoxFor(x => x.Price)
+                          <input id ="idPri" type="text" onchange="changePrice()" value="@price"/>
+                        @Html.HiddenFor(x => x.Price, new {id= "idHidPri"})
                     </div>
                 </div>  
                 <div class="da-form-row " style="width: 50%; float: right">
@@ -411,7 +422,7 @@
                                                             </div>
                                                             <div class="da-form-row">
                                                                 <span class="formNote"></span>
-                                                                <label>Giá <span class="required">*</span></label>
+                                                                <label>Giá (VND) <span class="required">*</span></label>
                                                                 <div class="da-form-item large">
                                                                     <span class="formNote">Phải là số nguyên</span>
                                                                     <input type="text" onkeyup="CheckPriceCreate()" name="password" id="IdPriceAliasName">
@@ -472,7 +483,7 @@
                                                             </div>
                                                             <div class="da-form-row">
                                                                 <span class="formNote"></span>
-                                                                <label>Giá <span class="required">*</span></label>
+                                                                <label>Giá (VND)<span class="required">*</span></label>
                                                                 <div class="da-form-item large">
                                                                     <span class="formNote">Phải là số nguyên</span>    
                                                                     @{
@@ -528,7 +539,38 @@
                                         <!----------------Popup------------------>
 </div>
 <script>
-   
+    
+
+    $('#idPri').on('input', function (e) {
+        $(this).val(formatCurrency(this.value.replace(/[,$]/g, '')));
+    }).on('keypress', function (e) {
+        if (!$.isNumeric(String.fromCharCode(e.which))) e.preventDefault();
+    }).on('paste', function (e) {
+        var cb = e.originalEvent.clipboardData || window.clipboardData;
+        if (!$.isNumeric(cb.getData('text'))) e.preventDefault();
+    });
+    function formatCurrency(number) {
+        var n = number.split('').reverse().join("");
+        var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+        return n2.split('').reverse().join('');
+    }
+
+    function PriceLoad() {
+        alert("abc");
+        return _this.val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    }
+    $('#idPri').on('input', function (e) {
+        $(this).val(formatCurrency(this.value.replace(/[,$]/g, '')));
+    }).on('keypress', function (e) {
+        if (!$.isNumeric(String.fromCharCode(e.which))) e.preventDefault();
+    }).on('paste', function (e) {
+        var cb = e.originalEvent.clipboardData || window.clipboardData;
+        if (!$.isNumeric(cb.getData('text'))) e.preventDefault();
+    });
+
+
+
+
 
     $('#IdPriceAliasName').on('input', function (e) {
         $(this).val(formatCurrency(this.value.replace(/[,$]/g, '')));
@@ -557,6 +599,13 @@
         if (!$.isNumeric(cb.getData('text'))) e.preventDefault();
     });
    
+
+
+    function changePrice()
+    {
+        document.getElementById("idHidPri").value= document.getElementById("idPri").value;
+    }
+
 
  //Hiện popup để tạo tài khoản.
     function showPopupCreate() {

@@ -354,7 +354,7 @@
                     <tr>
                         <th>STT</th>
                         <th>Tên Sản Phẩm</th>
-                        <th>Giá Sản Phẩm</th>
+                        <th>Giá Sản Phẩm (VND)</th>
                         <th>Đường dẫn</th>
                         <th>Thao Tác</th>
                         <th>Trạng Thái</th>
@@ -372,7 +372,17 @@
                         <tr>
                             <td>@counter</td>
                             <td>@item.Name</td>
-                            <td>@item.Price</td>
+                              @{
+                                                                        
+                            String price = String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price);
+                                                                        price = price.Replace('.',',');
+                                                                        price = price.TrimEnd('₫');
+                                                                        price =  price.Trim();
+                                                                        price = price.TrimEnd('0');
+                                                                        price = price.TrimEnd('0');
+                                                                        price = price.TrimEnd(',');
+                                                                        }    
+                            <td>@price</td>
                             <td><a href="@item.URL">Xem đường dẫn</a></td>
                             <td>@Html.ActionLink("Chỉnh sửa", "EditProduct", new { id = item.ID })</td>
                             @if ((bool)item.IsActive)
