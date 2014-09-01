@@ -324,18 +324,18 @@
                 <div class="da-form-row " style="width: 50%; float: left">
                           @{
                                                                         
-                            String price = String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price);
-                                                                        price = price.Replace('.',',');
-                                                                        price = price.TrimEnd('₫');
-                                                                        price =  price.Trim();
-                                                                        price = price.TrimEnd('0');
-                                                                        price = price.TrimEnd('0');
-                                                                        price = price.TrimEnd(',');
+                String price = String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price);
+                price = price.Replace('.', ',');
+                price = price.TrimEnd('₫');
+                price = price.Trim();
+                price = price.TrimEnd('0');
+                price = price.TrimEnd('0');
+                price = price.TrimEnd(',');
                                                                         }   
                     <label>Giá sản phẩm (VND)</label>
                     <div class="da-form-item large">
                           <input id ="idPri" type="text" onchange="changePrice()" value="@price"/>
-                        @Html.HiddenFor(x => x.Price, new {id= "idHidPri"})
+                        @Html.HiddenFor(x => x.Price, new { id = "idHidPri" })
                     </div>
                 </div>  
                 <div class="da-form-row " style="width: 50%; float: right">
@@ -344,15 +344,44 @@
                         <span class="formNote">Danh sách các HDD</span>
                         @Html.DropDownListFor(x => x.HddID, ViewBag.hddList as List<SelectListItem>, new { @class = "chzn-select" })
                     </div>
-                </div>
-                <div class="clear"></div>
-                                    
-                <div class="da-form-row " style="width: 50%; float: left">
-                    <label>Hình sản phẩm</label>
+                </div>        
+                 <div class="clear"></div>
+                  <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Hãng</label>
                     <div class="da-form-item large">
-                        <input type="file" name="file" class="da-custom-file" value ="@Model.ImageURL"  accept="image/*"/>
+                        <span class="formNote">Danh sách các hãng</span>
+                        @Html.DropDownListFor(x => x.BrandID, ViewBag.brandList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>                  
+                  <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Cửa hàng</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các cửa hàng</span>
+                        @Html.DropDownListFor(x => x.StoreID, ViewBag.storeList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>         
+                              <div class="clear"></div>         
+                <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Ảnh sản phẩm</label>
+                    <div class="da-form-item large" style="text-align:center">
+           @*            //-----------image-Popup-div-----*@
+                        <a onclick="showPopupiamge()" ><strong>Xem hình ảnh sản phẩm</strong> </a>
+
+
+                       @* ----------------------------*@
+                         <!----------------Popup tạo tên phụ----------->
+                                        <div id="image-Popup-div" style="display: none;">
+                                            <div class="da-panel">
+                                                <div class="da-panel-content" style="background: url('/Areas/Admin/Dandelion/images/bg/wood_pattern.jpg');font-weight:bolder;font-size:15px">
+                                                  <img src="/@Model.ImageURL"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!----------------Popup------------------>
+@*                        ---------------------------------------*@
                     </div>
                 </div> 
+                
                 <div class="da-form-row " style="width: 50%; float: right">
                     <label>Card đồ họa</label>
                     <div class="da-form-item large">
@@ -360,10 +389,23 @@
                         @Html.DropDownListFor(x => x.VgaID, ViewBag.vgaList as List<SelectListItem>, new { @class = "chzn-select" })
                     </div>
                 </div>
-                <div class="clear"></div>
-                                    
-                                                                      
+                                                                 
+                     <div class="clear"></div> 
                 <div class="da-form-row " style="width: 50%; float: left">
+                    <label>Hình sản phẩm</label>
+                    <div class="da-form-item large">
+                        <input type="file" name="file" class="da-custom-file" value ="@Model.ImageURL"  accept="image/*"/>
+                    </div>
+                </div>                                                                   
+                <div class="da-form-row " style="width: 50%; float: right">
+                    <label>Màn hình</label>
+                    <div class="da-form-item large">
+                        <span class="formNote">Danh sách các loại màn hình</span>
+                        @Html.DropDownListFor(x => x.DisplayID, ViewBag.displayList as List<SelectListItem>, new { @class = "chzn-select" })
+                    </div>
+                </div>
+                 <div class="clear"></div>
+                 <div class="da-form-row " style="width: 100%; ">
                     <label>Tên gọi khác</label>
                     <div class="da-form-item large">
                         <button type="button" class="da-button blue"style="width:33%" onclick="showPopupCreate()"><strong>Thêm mới</strong> </button>
@@ -372,14 +414,6 @@
                     </div>
 
 
-                </div>
-                                                                        
-                <div class="da-form-row " style="width: 50%; float: right">
-                    <label>Màn hình</label>
-                    <div class="da-form-item large">
-                        <span class="formNote">Danh sách các loại màn hình</span>
-                        @Html.DropDownListFor(x => x.DisplayID, ViewBag.displayList as List<SelectListItem>, new { @class = "chzn-select" })
-                    </div>
                 </div>
                 <div class="clear"></div>
                 <div class="da-form-row">
@@ -432,7 +466,7 @@
                                                                 <label>Cửa Hàng<span class="required">*</span></label>
                                                                 <div class="da-form-item large">
                                                                     <select id="IdStoreAliasName">
-                                                                        @foreach(Store s in listStore)
+                                                                        @foreach (Store s in listStore)
                                                                         {
                                                                          <option value="@s.ID">@s.StoreName</option>
                                                                         }
@@ -450,7 +484,7 @@
                                         <!----------------Popup------------------>
 
       <!----------------Popup Sửa tên phụ----------->
-    @if (listAli.Count>0)
+    @if (listAli.Count > 0)
     {
                                         <div id="Update-Store-Popup-div" style="display: none;">
                                             <div class="da-panel">
@@ -488,13 +522,13 @@
                                                                     <span class="formNote">Phải là số nguyên</span>    
                                                                     @{
                                                                         
-                                                                        String price = String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @listAli[0].Price);
-                                                                        price = price.Replace('.',',');
-                                                                        price = price.TrimEnd('₫');
-                                                                        price =  price.Trim();
-                                                                        price = price.TrimEnd('0');
-                                                                        price = price.TrimEnd('0');
-                                                                        price = price.TrimEnd(',');
+        String price = String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @listAli[0].Price);
+        price = price.Replace('.', ',');
+        price = price.TrimEnd('₫');
+        price = price.Trim();
+        price = price.TrimEnd('0');
+        price = price.TrimEnd('0');
+        price = price.TrimEnd(',');
                                                                         }                                                                                                                         
                                                                     <input type="text" onload="PriceLoad()" name="password"  value="@price" id="IdPriceAliasNameUp">
                                                                 </div>
@@ -509,13 +543,13 @@
                                                                         }
                                                                     </select>
                                                                 </div>
-                                                                 @foreach(AliasProduct ali in listAli)
-                                                                        {
+                                                                 @foreach (AliasProduct ali in listAli)
+                                                                 {
                                                                           <input hidden  type="text" name="password" value="@ali.Name" id="IdName+@ali.ID">
                                                                           <input hidden  type="text" name="password" value="@ali.Price" id="IdPrice+@ali.ID">
                                                                           <input hidden  type="text" name="password" value="@ali.URL" id="IdURL+@ali.ID">
                                                                          <input hidden type="text" name="password" value="@ali.StoreID" id="IdStore+@ali.ID">  
-                                                                        }
+                                                                 }
                                                             
                                                             </div>
                                                                 </div>
@@ -623,6 +657,25 @@
         $("#Create-Store-Popup-div").dialog("option", { modal: true }).dialog("open");
         event.preventDefault();
     }
+
+    
+    //Hiện popup để tạo tài khoản.
+    function showPopupiamge() {
+        $("#image-Popup-div").dialog({
+            autoOpen: false,
+            title: "Ảnh sản phẩm!",
+            width: "300",
+            modal: true
+            //buttons: [{
+            //    text: "Đóng", 
+            //    click: function() {
+            //        $( this ).dialog( "close" );
+            //    }}]
+        });
+        $("#image-Popup-div").dialog("option", { modal: true }).dialog("open");
+        event.preventDefault();
+    }
+
     // change info popup Update dropdownlist onchange
     function Changeinfo(_this) {
         var stt = _this.value;                                                                             
