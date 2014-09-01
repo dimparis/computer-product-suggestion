@@ -22,7 +22,7 @@
     });
 
     $('.compare-button').on('click', function () {
-        if (sessionStorage.length < 2) {
+        if (sessionStorage.length == 2) {
             //Danh sach it hon 2 san pham thi bao loi
             alert("Phải có ít nhất 2 sản phẩm để so sánh.");
         } else if (sessionStorage.length == 4) {
