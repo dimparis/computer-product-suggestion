@@ -1,1 +1,3 @@
-﻿
+256~2GB DDR3|R|2|1878#DDR3L (2 khe RAM)|R|0|0
+257~500GB 5400 rpm|H|500|1870#HDD, 500 GB|H|0|0
+257~Intel HD Graphics 5000|V|330|1572#Intel® HD Graphics, Share|V|0|0
