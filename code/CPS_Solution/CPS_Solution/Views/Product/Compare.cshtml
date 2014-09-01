@@ -227,6 +227,19 @@
 
 </div>
 
+<script>
+    $(function () {
+        $(document).ready(function () {
+            var pElement = $("h4");
+            for (var i = 1; i < pElement.length; i++) {
+                var pID = pElement[i].attributes['id'].value;
+                var pName = pElement[i].attributes['title'].value;
+                sessionStorage.setItem("'product-" + pID, pID);
+                sessionStorage.setItem("'product-" + pID + "-name", pName);
+            };
+        });
+    })
+</script>
 
 <script>
     function Feedback() {
@@ -250,6 +263,3 @@
 
     }
 </script>
-
-
-
