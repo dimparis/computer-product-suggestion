@@ -376,6 +376,40 @@ namespace CPS_Solution.Areas.Admin.Controllers
             }
             ViewBag.displayList = displayList;
 
+
+
+            // Load Brand list
+            var brands = context.Brands
+                .OrderBy(x => x.BrandName)
+                .ToList();
+            var brandList = new List<SelectListItem>();
+            foreach (var brand in brands)
+            {
+                var item = new SelectListItem
+                {
+                    Text = brand.BrandName,
+                    Value = brand.ID.ToString()
+                };
+                brandList.Add(item);
+            }
+            ViewBag.brandList = brandList;
+
+            // Load Store list
+            var stores = context.Stores
+                .OrderBy(x => x.StoreName)
+                .ToList();
+            var storeList = new List<SelectListItem>();
+            foreach (var store in stores)
+            {
+                var item = new SelectListItem
+                {
+                    Text = store.StoreName,
+                    Value = store.ID.ToString()
+                };
+                storeList.Add(item);
+            }
+            ViewBag.storeList = storeList;
+
             string name = product.Name;
 
 
@@ -412,6 +446,8 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 product.Description = model.Description;
                 product.URL = model.URL;
                 product.Price = model.Price;
+                product.BrandID = model.BrandID;
+                product.StoreID = model.StoreID;
                 //product.ImageURL = model.ImageURL;
                 var listOfAttribute = new List<int>();
                 listOfAttribute.Add(model.CpuID);

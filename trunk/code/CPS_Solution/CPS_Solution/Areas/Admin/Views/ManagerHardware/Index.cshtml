@@ -319,8 +319,8 @@
                         <div class="da-form-row">
                             <label>Tên hardware<span class="required">*</span></label>
                             <div class="da-form-item large">
-                                <span id="" class="formNote">Không được để trống</span>
-                                <input type="text"  name="idHardwareName" id="idHardwareName">
+                                <span id="IdThongBao" class="formNote">Không được để trống</span>
+                                <input type="text"  name="idHardwareName" id="idHardwareName" onchange="checkName()">
                             </div>
                         </div>
                         <div class="da-form-row">
@@ -345,7 +345,7 @@
                     </fieldset>
 
                     <div class="da-button-row">
-                        <input type="button" value="Tạo mới" onclick="CreateNewHardware()" class="da-button green">
+                        <input id="btnCreate" type="button" value="Tạo mới" onclick="CreateNewHardware()" class="da-button green">
                     </div>
             @*    </form>*@
                }
@@ -477,7 +477,7 @@
     function showPopupCreate() {
         $("#Create-Popup-div").dialog({
             autoOpen: false,
-            title: "Tạo mới một cửa hàng!",
+            title: "Tạo mới một hardware!",
             width: "600",
             modal: true
             //buttons: [{
@@ -596,6 +596,54 @@
 
     }
 
+
+    function checkName(){
+        var name = document.getElementById("idHardwareName").value;
+        var postData = {name: name};
+
+        var Name = document.getElementById("idHardwareName").value;
+        var TrongSo = document.getElementById("IdTrongSo").value;    
+        var Loai = document.getElementById("idLoai").value;   
+        var count = 0;
+        // kiểm tra tên
+        if (Name.length < 1 || Name.length > 200) {
+            document.getElementById("idHardwareName").style.borderColor = 'red';
+            count++;
+        } else {
+            document.getElementById("idHardwareName").style.borderColor = "";
+        }       
+        // kiểm tra trong so
+        myFunction(TrongSo);
+        function myFunction(TrongSo) {
+            val = parseFloat(TrongSo);
+            if (isNaN(val)) {
+                document.getElementById("IdTrongSo").style.borderColor = 'red';
+                count++;
+            } else {
+                document.getElementById("IdTrongSo").style.borderColor = "";
+            }
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Admin/ManagerHardware/checkName",
+            data: postData,
+            success: function (data) {              
+                if(data =="true")
+                {
+                    document.getElementById("btnCreate").disabled = true; 
+                    document.getElementById("IdThongBao").innerText= "Tên hardware đã tồn tại!";                   
+                    document.getElementById("IdThongBao").style.color = "red";
+                    
+                }else{
+                    document.getElementById("btnCreate").disabled = false ;
+                    document.getElementById("IdThongBao").innerText = "Không được để trống"; 
+                    document.getElementById("IdThongBao").style.color = "black";
+                }
+            },
+
+        });
+
+    }
 
     // load lại table
     function loadTableAgain() {         
