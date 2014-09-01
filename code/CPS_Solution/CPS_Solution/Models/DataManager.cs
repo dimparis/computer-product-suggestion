@@ -279,7 +279,7 @@ namespace CPS_Solution.Models
                 }
             }
             var listProducts = new List<Product>();
-            foreach (var i in listOfValuableId.Distinct())
+            foreach (var i in listOfValuableId)
             {
                 var product = context.Products.FirstOrDefault(x => x.ID == i);
                 listProducts.Add(product);

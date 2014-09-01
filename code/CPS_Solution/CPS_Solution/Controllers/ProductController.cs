@@ -539,8 +539,18 @@ namespace CPS_Solution.Controllers
         public JsonResult SuggestProductName(string term)
         {
 
-            var filter = _dataManager.Check5AttributeLoadTrueName(db.AliasProducts.Where(x => x.IsActive == true && x.IsMain == true && x.Product.IsActive == true).ToList());
-            var result = (from r in filter
+            var filter = _dataManager.Check5AttributeLoadTrueName(db.AliasProducts.Where(x => x.IsActive == true && x.IsMain !=null).OrderBy(x=>x.ProductID).ToList());
+            var listOfAliasProduct = new List<AliasProduct>();
+            List<int> idList = new List<int>();
+            foreach (var item in filter) 
+            {
+                foreach (var name in item.AliasProducts.Where(x => x.IsActive == true && x.IsMain != null)) 
+                {
+                    var alias = db.AliasProducts.FirstOrDefault(x => x.ID == name.ID);
+                    listOfAliasProduct.Add(alias);
+                }
+            }
+            var result = (from r in listOfAliasProduct
                           where r.Name.ToLower().Contains(term.ToLower()) 
                           select new { r.Name }).Distinct();
             return Json(result, JsonRequestBehavior.AllowGet);
