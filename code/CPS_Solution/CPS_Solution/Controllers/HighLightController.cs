@@ -67,17 +67,16 @@ namespace CPS_Solution.Controllers
         {
             List<int> idList = new List<int>();
             List<Product> ListOfProducts = new List<Product>();
-
-                var mostRatingProducts = context.RatingProducts.OrderByDescending(x => x.Point).ToList().Take(takeItem);
-                foreach (var item in mostRatingProducts) 
-                {
-                    idList.Add(item.ProductID);
-                }
-                foreach (var i in idList)
-                {
-                    var product = context.Products.FirstOrDefault(x => x.ID == i);
-                    ListOfProducts.Add(product);
-                }
+            var mostCompareProducts = context.RatingProducts.Select(x => new { x.ProductID }).GroupBy(x => x.ProductID).OrderByDescending(x => x.Count()).ToList().Take(4);
+            foreach (var item in mostCompareProducts)
+            {
+                idList.Add(item.First().ProductID);
+            }
+            foreach (var i in idList)
+            {
+                var product = context.Products.FirstOrDefault(x => x.ID == i);
+                ListOfProducts.Add(product);
+            }
             return ListOfProducts;
         }
         public List<Product> MostTotalWeight(List<Product> products, int takeItem)
