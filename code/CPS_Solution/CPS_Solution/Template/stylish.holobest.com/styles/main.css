@@ -910,19 +910,19 @@ iframe {
 /***************************************************** Slider *********************************************************/
 /**********************************************************************************************************************/
 
-.rev-slider-wrapper {
-    position: relative;
-    max-height: 700px !important;
-    padding: 0;
-    overflow: hidden;
+.rev-slider-wrapper{
+    position:relative;
+    max-height:700px !important;
+    padding:0;
+    overflow:hidden;
     width: auto !important;
 }
 
-.rev-slider {
-    max-height: 700px !important;
+.rev-slider{
+    max-height:700px !important;
     width: 100% !important;
-    position: relative;
-    overflow: hidden;
+    position:relative;
+    overflow:hidden;
 }
 
 .rev-slider-wrapper .caption {
@@ -941,37 +941,31 @@ iframe {
 .rev-slider-wrapper .black-medium {
     font-size: 48px;
     color: #000;
-    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .orange-big {
     font-size: 100px;
     color: #F87912;
-    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .black-small {
     font-size: 30px;
     color: #000;
-    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .green-big {
     font-size: 75px;
     color: #91C240;
-    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .violet-big {
     font-size: 100px;
     color: #7676A3;
-    font-family: "Times New Roman", Times, serif;
 }
 
 .rev-slider-wrapper .blue-big {
     font-size: 100px;
     color: #1AD0D1;
-    font-family: "Times New Roman", Times, serif;
 }
 
 /**********************************************************************************************************************/
