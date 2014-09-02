@@ -103,7 +103,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 IsActive = statusFlag
             };
             return Json(results);
-        }
+        }   
         public ActionResult CreateProductTest()
         {
             // Load CPU list
@@ -115,7 +115,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = cpu.Name,
+                    Text = cpu.Name.Replace("-", " "),
                     Value = cpu.ID.ToString()
                 };
                 cpuList.Add(item);
@@ -131,7 +131,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = vga.Name,
+                    Text = vga.Name.Replace("-", " "),
                     Value = vga.ID.ToString()
                 };
                 vgaList.Add(item);
@@ -188,7 +188,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.displayList = displayList;
 
             // Load Store
-            var Stores = context.Stores.OrderBy(x => x.StoreName).ToList();
+            var Stores = context.Stores.Where(x=>x.IsActive==true).OrderBy(x => x.StoreName).ToList();
             var StoreList = new List<SelectListItem>();
             foreach (var store in Stores)
             {
@@ -211,7 +211,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     Text = brand.BrandName,
                     Value = brand.ID.ToString()
                 };
-                BrandList.Add(item);
+                if (!item.Text.Equals("Tất cả")) 
+                {
+                    BrandList.Add(item);
+                }
             }
             ViewBag.BrandList = BrandList;
 
@@ -227,10 +230,10 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 if (file != null && file.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    fileName = DateTime.Now.ToString("yyyyMMdd-HHmmss") + fileName;
-                    var path = Path.Combine(Server.MapPath("~/Images/StoreLogo/"), fileName);
+                    fileName = DateTime.Now.ToString("yyyyMMdd-HHmmss")+fileName;
+                    var path = Path.Combine(Server.MapPath("~/Images/I/"), fileName);
                     file.SaveAs(path);
-                    model.ImageURL = "Images/StoreLogo/" + fileName;
+                    model.ImageURL = "Images/I/" + fileName;
                 }
             }
             //Add item product
@@ -270,21 +273,6 @@ namespace CPS_Solution.Areas.Admin.Controllers
                };
                 context.ProductAttributes.Add(productAtt);
             }
-            // Take list of point
-            double total = 0;
-            var attList = new List<Hardware>();
-            foreach (var item in idList)
-            {
-                var attributes = context.Hardwares.Where(x => x.ID == item).ToList();
-                attList.AddRange(attributes);
-            }
-            foreach (var att in attList)
-            {
-                total += att.WeightCriteraPoint;
-            }
-            // Add total point
-            var pro = context.Products.Where(x => x.ID == product.ID).FirstOrDefault();
-            pro.TotalWeightPoint = total;
             TempData["create"] = "Success";
             context.SaveChanges();
             // TO DO HERE 
@@ -304,7 +292,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = cpu.Name,
+                    Text = cpu.Name.Replace("-", " "),
                     Value = cpu.ID.ToString()
                 };
                 cpuList.Add(item);
@@ -320,7 +308,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             {
                 var item = new SelectListItem
                 {
-                    Text = vga.Name,
+                    Text = vga.Name.Replace("-", " "),
                     Value = vga.ID.ToString()
                 };
                 vgaList.Add(item);
@@ -380,8 +368,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
             // Load Brand list
             var brands = context.Brands
-                .OrderBy(x => x.BrandName)
-                .ToList();
+                .OrderBy(x=>x.BrandName).ToList();
             var brandList = new List<SelectListItem>();
             foreach (var brand in brands)
             {
@@ -390,13 +377,16 @@ namespace CPS_Solution.Areas.Admin.Controllers
                     Text = brand.BrandName,
                     Value = brand.ID.ToString()
                 };
-                brandList.Add(item);
+                if (!item.Text.Equals("Tất cả")) 
+                {
+                    brandList.Add(item);
+                }
             }
             ViewBag.brandList = brandList;
 
             // Load Store list
             var stores = context.Stores
-                .OrderBy(x => x.StoreName)
+                .Where(x=>x.IsActive==true).OrderBy(x => x.StoreName)
                 .ToList();
             var storeList = new List<SelectListItem>();
             foreach (var store in stores)
@@ -439,16 +429,34 @@ namespace CPS_Solution.Areas.Admin.Controllers
         [HttpPost]
         public RedirectToRouteResult EditProduct(Product model)
         {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files[0];
+                
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    fileName = DateTime.Now.ToString("yyyyMMdd-HHmmss") + fileName;
+                    var path = Path.Combine(Server.MapPath("~/Images/I/"), fileName);
+                    file.SaveAs(path);
+                    model.ImageURL = "Images/I/" + fileName;
+                }
+            }
             var product = context.Products.Where(x => x.ID == model.ID).FirstOrDefault();
             string message = "";
             if (product != null)
             {
                 product.Description = model.Description;
                 product.URL = model.URL;
-                product.Price = model.Price;
-                product.BrandID = model.BrandID;
-                product.StoreID = model.StoreID;
-                //product.ImageURL = model.ImageURL;
+                product.AliasProducts.FirstOrDefault(x => x.ProductID == product.ID).Price = model.Price;
+                product.AliasProducts.FirstOrDefault(x => x.ProductID == product.ID).StoreID = model.StoreID;
+                product.AliasProducts.FirstOrDefault(x => x.ProductID == product.ID).BrandID = model.BrandID;
+                if (model.ImageURL != null) 
+                {
+                    product.ImageURL = model.ImageURL;
+                }
+                product.Name = model.Name;
+
                 var listOfAttribute = new List<int>();
                 listOfAttribute.Add(model.CpuID);
                 listOfAttribute.Add(model.HddID);
@@ -457,19 +465,12 @@ namespace CPS_Solution.Areas.Admin.Controllers
                 listOfAttribute.Add(model.DisplayID);
 
                 var atts = context.ProductAttributes.Where(x => x.ProductID == model.ID).ToList();
-                foreach (var att in atts)
-                {
+                int i = 0;
                     foreach (var item in listOfAttribute)
                     {
-                        att.AttributeID = item;
-                        context.SaveChanges();
-                        listOfAttribute.Remove(item);
-                        break;
+                        atts.ElementAt(i).AttributeID = item;
+                        i++;
                     }
-
-                    continue;
-                }
-
                 context.SaveChanges();
                 message = "success";
             }
