@@ -257,7 +257,7 @@
                                         <span style="hidden">@{var minPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
                                         <span style="hidden">@{var maxPrice = item.AliasProducts.OrderByDescending(x => x.Price).FirstOrDefault().Price;}</span>
                                         @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
-                                        @String.Format("{0:0,0}", Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))
+                                        @String.Format("{0:0,0}", Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000)) ₫
                                         <span>~</span>
                                         @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
                                         @String.Format("{0:0,0}", Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))
