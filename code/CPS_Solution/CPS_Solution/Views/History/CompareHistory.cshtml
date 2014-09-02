@@ -1,48 +1,38 @@
-﻿@model PagedList.IPagedList<CPS_Solution.EntityFramework.History>
-@using PagedList.Mvc;
+﻿@model IEnumerable<CPS_Solution.EntityFramework.History>
+@using CPS_Solution.Models;
 
 @{
     ViewBag.Title = "Lịch sử so sánh";
     Layout = "~/Views/Shared/_UserPage.cshtml";
 }
 
+@{
+    var dataManager = new DataManager();
+    int limit = 40;
+}
+
 <div class="main-content">
-            <div>
-                <div class="ProductNameDetail" style="text-align:center">Lịch sử các so sánh gần nhất</div>
-                
-                <table class="table table-bordered table-hover" style="background-color:white">
-                    <thead>
-                        <tr class="bg-header">
-                            <th style="text-align:center">Ngày So Sánh</th>
-                            <th style="text-align:center">Chi Tiết</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach (var item in Model)
-                        {
-            
-                            <tr>
-                                <td style="text-align:center">
-                                    @{
-                            var historyID = item.ID;
-                            var compareTime = item.CompareTime;
-                            string comparetimeFormat = String.Format("{0:dd/MM/yyyy}", compareTime);
-            
-                                    }
-                                    @comparetimeFormat
-                                </td>
-
-                                <td style="text-align:center">
-                                    <a href="@Url.Action("CompareHistoryDetail", "History", new { id = @historyID })">Chi tiết
-                                    </a>
-
-                                </td>
-                            </tr>
-                        }
-
-                    </tbody>
-                </table>
-                @Html.PagedListPager(Model, page => Url.Action("CompareHistory", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    <div class="span7 left-element">
+        @foreach (var item in Model)
+        { 
+            <div class="accordion fadeLeft">
+                <h5><i class="icon-plus-sign"></i>@item.CompareTime</h5>
+                <div>
+                    @foreach (var detail in item.HistoryDetails) { 
+                        <div class="span2">
+                            <img src="~/@detail.Product.ImageURL" />
+                            <center>@dataManager.Truncate(@detail.Product.Name, limit)</center>
+                            <p class="product-score">@detail.Product.TotalWeightPoint</p>
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
+        }
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var score = $(".product-score");
+
+    });
+</script>
