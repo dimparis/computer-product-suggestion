@@ -266,7 +266,7 @@
                 <div class="da-form-row " style="width: 50%; float: left">
                     <label>Tên Sản Phẩm</label>
                     <div class="da-form-item large">
-                        @Html.TextBoxFor(x => x.Name)
+                        @Html.TextBoxFor(x => x.Name, new {id="idName" })
                     </div>
                 </div>
                                      
@@ -282,7 +282,7 @@
                 <div class="da-form-row " style="width: 50%; float: left">
                     <label>Link liên quan</label>
                     <div class="da-form-item large">
-                        @Html.TextBoxFor(x => x.Parselink)
+                        @Html.TextBoxFor(x => x.Parselink, new {id="idLink" })
                     </div>
                 </div>   
                 <div class="da-form-row " style="width: 50%; float: right">
@@ -295,8 +295,12 @@
                 <div class="clear"></div>
                 <div class="da-form-row " style="width: 50%; float: left">
                     <label>Giá sản phẩm</label>
-                    <div class="da-form-item large">
-                        @Html.TextBoxFor(x => x.Price)
+                    <div class="da-form-item large"> 
+                           @{
+                string price = "";
+                           }                 
+                         <input id ="idPri" type="text" onchange="changePrice()" value="@price"/>
+                        @Html.HiddenFor(x => x.Price, new { id = "idHidPri",value="@price" })
                     </div>
                 </div>  
                 <div class="da-form-row " style="width: 50%; float: right">
@@ -354,7 +358,7 @@
                 </div>
                 <div class="da-button-row">
                     <input type="reset" value="Reset" class="da-button gray left" />
-                    <input type="submit" value="Submit" class="da-button blue" />
+                    <input type="submit" value="Submit" class="da-button blue" id="createbutton"/>
                 </div>
             }
 
@@ -362,3 +366,66 @@
     </div>
 </div>
 
+<script>
+    $('#idName').blur(function () {
+        if ($('#idName').val() == "") {
+            document.getElementById("idName").style.borderColor = "red";
+        } else {
+            document.getElementById("idName").style.borderColor = "";
+        }
+
+        if ($('#idName').val() != "" && $('#idLink').val() != "" && $('#idPri').val() != "") {
+            document.getElementById("createbutton").disabled = false;
+        } else {
+            document.getElementById("createbutton").disabled = true;
+        }
+    });
+
+    $('#idLink').blur(function () {
+        if ($('#idLink').val() == "") {
+            document.getElementById("idLink").style.borderColor = "red";
+        } else {
+            document.getElementById("idLink").style.borderColor = "";
+        }
+
+        if ($('#idName').val() != "" && $('#idLink').val() != "" && $('#idPri').val() != "") {
+            document.getElementById("createbutton").disabled = false;
+        } else {
+            document.getElementById("createbutton").disabled = true;
+        }
+    });  
+    $('#idPri').on('input', function (e) {
+        $(this).val(formatCurrency(this.value.replace(/[,$]/g, '')));
+        document.getElementById("idHidPri").value = document.getElementById("idPri").value;
+        if ($('#idName').val() != "" && $('#idLink').val() != "" && $('#idPri').val() != "") {
+            document.getElementById("createbutton").disabled = false;
+        } else {
+            document.getElementById("createbutton").disabled = true;
+        }
+    }).on('keypress', function (e) {
+        if (!$.isNumeric(String.fromCharCode(e.which))) e.preventDefault();
+    }).on('paste', function (e) {
+        var cb = e.originalEvent.clipboardData || window.clipboardData;
+        if (!$.isNumeric(cb.getData('text'))) e.preventDefault();
+    });
+    function formatCurrency(number) {
+        var n = number.split('').reverse().join("");
+        var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+        return n2.split('').reverse().join('');
+    }
+
+    function PriceLoad() {
+        return _this.val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    }
+    $('#idPri').on('input', function (e) {
+        $(this).val(formatCurrency(this.value.replace(/[,$]/g, '')));
+    }).on('keypress', function (e) {
+        if (!$.isNumeric(String.fromCharCode(e.which))) e.preventDefault();
+    }).on('paste', function (e) {
+        var cb = e.originalEvent.clipboardData || window.clipboardData;
+        if (!$.isNumeric(cb.getData('text'))) e.preventDefault();
+    });
+
+
+
+</script>

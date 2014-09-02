@@ -186,5 +186,19 @@ namespace CPS_Solution.Areas.Admin.Controllers
             return "";
           
         }
+
+        public string checkName(string name)
+        {
+            var listdic = db.Dictionaries.ToList();
+            
+            foreach(Dictionary dic in listdic)
+            {
+                if (dic.Name.Equals(name))
+                {
+                    return "true";
+                }
+            }
+            return "false";
+        }
     }
 }
