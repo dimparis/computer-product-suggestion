@@ -322,7 +322,8 @@
                     <div class="post-info clearfix" style="border: none">
                         <div class="post-date">
                             <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0">
-                                Giá:@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price)
+                                @*Giá:@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Model.Price)*@
+                                Giá: @String.Format("{0:0,0}", Model.Price) ₫
                             </label>
                         </div>
                         <div class="stylish-button" style="background-color: #00CCCC; margin-top: 10px">

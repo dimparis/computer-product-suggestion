@@ -13,7 +13,12 @@
             <a href="@Url.Action("Details", "Product", new { id = item.ID })">
                 <p class="tab-row-title">@data.Truncate(@item.Name,takeItem)</p>
             </a>
-            <p class="tab-row-date"><strong>@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)</strong></p>
+            <p class="tab-row-date">
+                <strong>
+                    @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)*@
+                    @String.Format("{0:0,0}", item.Price) ₫
+                </strong>
+            </p>
             <p>(Có <strong>@item.SellPlacers</strong> nơi bán )</p>
         </div>
     </div>
