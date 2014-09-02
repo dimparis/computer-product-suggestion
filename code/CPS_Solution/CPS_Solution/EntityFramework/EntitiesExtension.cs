@@ -56,7 +56,7 @@ namespace CPS_Solution.EntityFramework
             {
                 if (AliasProducts != null && AliasProducts.Count > 0)
                 {
-                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value && ali.IsActive ==true);
+                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value && ali.IsActive == true);
                     if (mainAlias != null)
                     {
                         return mainAlias.Name;
@@ -171,51 +171,38 @@ namespace CPS_Solution.EntityFramework
             set { this._displayId = value; }
         }
 
-        public int BrandID 
+        public int BrandID
         {
             get
             {
-                if (AliasProducts != null && AliasProducts.Count > 0)
+                var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value && ali.IsActive == true && ali.ProductID == ID);
+                if (mainAlias != null)
                 {
-                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value && ali.IsActive == true);
-                    if (mainAlias != null)
-                    {
-                        return mainAlias.BrandID.Value;
-                    }
+                    return mainAlias.BrandID.Value;
                 }
                 return _brandId;
             }
-            set
-            {
-                this._brandId = value;
-            }
+            set { this._brandId = value; }
         }
-
         public int StoreID
         {
             get
             {
-                if (AliasProducts != null && AliasProducts.Count > 0)
+                var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value && ali.IsActive == true && ali.ProductID == ID);
+                if (mainAlias != null)
                 {
-                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value && ali.IsActive == true);
-                    if (mainAlias != null)
-                    {
-                        return mainAlias.StoreID.Value;
-                    }
+                    return mainAlias.StoreID.Value;
                 }
                 return _storeId;
             }
-            set
-            {
-                this._storeId = value;
-            }
+            set { this._storeId = value; }
         }
 
-        public int SellPlacers 
+        public int SellPlacers
         {
-            get 
+            get
             {
-                var productAlias = AliasProducts.Where(x => x.ProductID == ID && x.IsActive==true).ToList();
+                var productAlias = AliasProducts.Where(x => x.ProductID == ID && x.IsActive == true).ToList();
                 return productAlias.Count;
             }
             set { this._sellPlace = value; }
@@ -416,9 +403,8 @@ namespace CPS_Solution.EntityFramework
         {
             get
             {
-                if (AliasProducts != null && AliasProducts.Count > 0)
-                {
-                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value);
+
+                    var mainAlias = AliasProducts.FirstOrDefault(ali => ali.IsMain.Value && ali.ProductID==ID);
                     if (mainAlias != null)
                     {
                         if (mainAlias.Price.HasValue)
@@ -430,7 +416,6 @@ namespace CPS_Solution.EntityFramework
                             return 0;
                         }
                     }
-                }
                 return _price;
             }
             set
