@@ -100,176 +100,221 @@
 
 <div id="page-wrap">
     <div class="main-content">
-        <div class="container">  
-            <div class="page-element gray-element">
         <div class="container">
-            @*Tin nhan*@
-            <div class="span5" style="margin-left:10%">
-                <div class="message-box info-message-box clearfix  fadeDown">
-                    <div class="message-icon-box">
-                        <i class="icon-info"></i>
+            <div class="page-element gray-element">
+                <div class="container">
+                    @*Tin nhan*@
+                    <div class="span5" style="margin-left:10%">
+                        <div class="message-box info-message-box clearfix  fadeDown">
+                            <div class="message-icon-box">
+                                <i class="icon-info"></i>
+                            </div>
+                            <div class="message-container">
+                                <p style="margin-top:8px; font-size:15px; color:rgb(0, 0, 0)">
+                                    Kéo thả để thay đổi vị trí các thành phần cấu hình.
+                                    Hệ thống sẽ đề xuất sản phẩm theo tiêu chí ưu tiên của bạn.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="message-container">
-                        <p style="margin-top:8px; font-size:15px; color:rgb(0, 0, 0)">
-                            Kéo thả để thay đổi vị trí các thành phần cấu hình. 
-                            Hệ thống sẽ đề xuất sản phẩm theo tiêu chí ưu tiên của bạn.
-                        </p>
+                    <div class="span5">
+                        <div class="message-box info-message-box clearfix fadeDown">
+                            <div class="message-icon-box">
+                                <i class="icon-info"></i>
+                            </div>
+                            <div class="message-container">
+                                <p style="margin-top:8px; font-size:15px; color:rgb(0, 0, 0)">
+                                    Những thành phần ưu tiên sẽ được phủ <span class="topAttrr" style="opacity:0.7; font-weight:bold">nền xanh</span>.
+                                    Hãy sắp xếp các thành phần ưu tiên theo tiêu chí của bạn.
+                                </p>
+                            </div>
+                        </div>
                     </div>
+
+                    @*Chia thanh phan*@
+                    <div class="stylish-light-separator" style="margin-top:2%; margin-bottom:2%"></div>
+                    <div class="hidden">
+                        <p class="best-score">@Math.Round((100 / ConstantManager.BestScore), 4)</p>
+                    </div>
+                    @*Bang so sanh*@
+                    <ul class="sortable-with-handles">
+                        @*Ten san pham*@
+                        <li class="disabled">
+                            <table class="table">
+                                <tr>
+                                    <td class="test" ; style="width:20%; text-align:center; vertical-align:middle"><img src="~/Template/Images/title.png" /></td>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td style="width:25%; text-align:center; vertical-align:middle" class="product-name @item.ID product-css"><span style="font-weight:bold; text-shadow:1px 0 1.6em #FFFFFF"><a href="/Product/Details?ID=@item.ID" target="_blank" style="color:#fff;text-decoration:underline">@Html.DisplayFor(modelItem => item.Name)</a></span></td>
+                                    }
+                                </tr>
+                            </table>
+                        </li>
+
+                        @*Thong tin CPU*@
+                        <li draggable="true" id="scoreCPU" class="normalAttr">
+                            <table class="table">
+                                <tr>
+                                    <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
+                                        <span class="pull-left">
+                                            <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
+                                        </span>
+                                        <strong>Chip xử lý (CPU)</strong>
+                                    </td>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU)</td>
+                                        <td class="hidden"><span>@Math.Round((item.cpuScore * ConstantManager.RatioCPUPoint), 4)</span></td>
+                                        <td class="hidden">@item.ID</td>
+                                    }
+                                </tr>
+                            </table>
+                        </li>
+
+                        @*Thong tin VGA*@
+                        <li draggable="true" id="scoreVGA" class="normalAttr">
+                            <table class="table">
+                                <tr>
+                                    <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
+                                        <span class="pull-left">
+                                            <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
+                                        </span>
+                                        <strong>Card màn hình (VGA)</strong>
+                                    </td>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA)</td>
+                                        <td class="hidden"><span>@Math.Round((item.vgaScore * ConstantManager.RatioVGAPoint), 4)</span></td>
+                                        <td class="hidden">@item.ID</td>
+                                    }
+                                </tr>
+                            </table>
+                        </li>
+
+                        @*Thong tin RAM*@
+                        <li draggable="true" id="scoreRAM" class="normalAttr">
+                            <table class="table">
+                                <tr>
+                                    <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
+                                        <span class="pull-left">
+                                            <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
+                                        </span>
+                                        <strong>Bộ nhớ đệm (RAM)</strong>
+                                    </td>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM)</td>
+                                        <td class="hidden"><span>@Math.Round((item.ramScore * ConstantManager.RatioRAMPoint), 4)</span></td>
+                                        <td class="hidden">@item.ID</td>
+                                    }
+                                </tr>
+                            </table>
+                        </li>
+
+                        @*Thong tin HDD*@
+                        <li draggable="true" id="scoreHDD" class="normalAttr">
+                            <table class="table">
+                                <tr>
+                                    <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
+                                        <span class="pull-left">
+                                            <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
+                                        </span>
+                                        <strong>Ổ cứng (HDD)</strong>
+                                    </td>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD)</td>
+                                        <td class="hidden"><span>@Math.Round((item.hddScore * ConstantManager.RatioHDDPoint), 4)</span></td>
+                                        <td class="hidden">@item.ID</td>
+                                    }
+                                </tr>
+                            </table>
+                        </li>
+
+                        @*Thong tin Display*@
+                        <li draggable="true" id="scoreDisplay" class="normalAttr">
+                            <table class="table">
+                                <tr>
+                                    <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
+                                        <span class="pull-left">
+                                            <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
+                                        </span>
+                                        <strong>Độ phân giải (Sreen Solution)</strong>
+                                    </td>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strDisplay)</td>
+                                        <td class="hidden"><span>@Math.Round((item.displayScore * ConstantManager.RatioDisplayPoint), 4)</span></td>
+                                        <td class="hidden">@item.ID</td>
+                                    }
+                                </tr>
+                            </table>
+                        </li>
+                        <li class="disabled" id="minPrice">
+                            <table class="table hidden">
+                                <tr>
+                                    <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
+                                        <strong>Min Price</strong>
+                                    </td>
+                                    @foreach (var item in Model)
+                                    {
+                                        var minPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;
+                                        <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">
+                                            <span>@minPrice</span>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    }
+                                </tr>
+                            </table>
+                        </li>
+
+                        <li class="disabled" id="maxPrice">
+                            <table class="table hidden">
+                                <tr>
+                                    <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
+                                        <strong>Min Price</strong>
+                                    </td>
+                                    @foreach (var item in Model)
+                                    {
+                                        var maxPrice = item.AliasProducts.OrderByDescending(x => x.Price).FirstOrDefault().Price;
+                                        <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">
+                                            <span>@maxPrice</span>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    }
+                                </tr>
+                            </table>
+                        </li>
+
+                        <li class="disabled">
+                            <table class="table">
+                                <tr>
+                                    <td class="test" style="width:20%; text-align:center; vertical-align:middle"><p style="font-size:16px; color:#FFFFFF">TỔNG ĐIỂM ƯU TIÊN</p></td>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td style="width:25%; text-align:center; vertical-align:middle" class="product-css">
+                                            <p class="total_score_@item.ID" style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF">
+                                            </p>
+                                            <p class="price_ratio_@item.ID" style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF">
+                                                @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
+                                                @*@String.Format("{0:0,0}", Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000)) ₫*@
+                                                <span class="min_ratio_@item.ID"></span>
+                                                <span>~</span>
+                                                <span class="max_ratio_@item.ID"></span>
+                                                @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
+                                                @*@String.Format("{0:0,0}", Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000)) ₫*@
+
+                                            </p>
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="span5">
-                <div class="message-box info-message-box clearfix fadeDown">
-                    <div class="message-icon-box">
-                        <i class="icon-info"></i>
-                    </div>
-                    <div class="message-container">
-                        <p style="margin-top:8px; font-size:15px; color:rgb(0, 0, 0)">
-                            Những thành phần ưu tiên sẽ được phủ <span class="topAttrr" style="opacity:0.7; font-weight:bold">nền xanh</span>. 
-                            Hãy sắp xếp các thành phần ưu tiên theo tiêu chí của bạn.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            @*Chia thanh phan*@
-            <div class="stylish-light-separator" style="margin-top:2%; margin-bottom:2%"></div>
-            <div class="hidden">
-                <p class="best-score">@Math.Round((100/ConstantManager.BestScore), 4)</p>
-            </div>
-            @*Bang so sanh*@
-            <ul class="sortable-with-handles">
-                @*Ten san pham*@
-                <li class="disabled">
-                    <table class="table">
-                        <tr>
-                            <td class="test"; style="width:20%; text-align:center; vertical-align:middle"><img src="~/Template/Images/title.png" /></td>
-                            @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" class="product-name @item.ID product-css"><span style="font-weight:bold; text-shadow:1px 0 1.6em #FFFFFF"><a href="/Product/Details?ID=@item.ID" target="_blank" style="color:#fff;text-decoration:underline">@Html.DisplayFor(modelItem => item.Name)</a></span></td>
-                            }
-                        </tr>
-                    </table>
-                </li>
-
-                @*Thong tin CPU*@
-                <li draggable="true" id="scoreCPU" class="normalAttr">
-                    <table class="table">
-                        <tr>
-                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
-                                <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
-                                </span>
-                                <strong>Chip xử lý (CPU)</strong>
-                            </td>
-                            @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strCPU)</td>
-                                <td class="hidden"><span>@Math.Round((item.cpuScore * ConstantManager.RatioCPUPoint), 4)</span></td>
-                                <td class="hidden">@item.ID</td>
-                            }
-                        </tr>
-                    </table>
-                </li>
-
-                @*Thong tin VGA*@
-                <li draggable="true" id="scoreVGA" class="normalAttr">
-                    <table class="table">
-                        <tr>
-                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
-                                <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
-                                </span>
-                                <strong>Card màn hình (VGA)</strong>
-                            </td>
-                            @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strVGA)</td>
-                                <td class="hidden"><span>@Math.Round((item.vgaScore * ConstantManager.RatioVGAPoint), 4)</span></td>
-                                <td class="hidden">@item.ID</td>
-                            }
-                        </tr>
-                    </table>
-                </li>
-
-                @*Thong tin RAM*@
-                <li draggable="true" id="scoreRAM" class="normalAttr">
-                    <table class="table">
-                        <tr>
-                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
-                                <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
-                                </span>
-                                <strong>Bộ nhớ đệm (RAM)</strong>
-                            </td>
-                            @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strRAM)</td>
-                                <td class="hidden"><span>@Math.Round((item.ramScore * ConstantManager.RatioRAMPoint), 4)</span></td>
-                                <td class="hidden">@item.ID</td>
-                            }
-                        </tr>
-                    </table>
-                </li>
-
-                @*Thong tin HDD*@
-                <li draggable="true" id="scoreHDD" class="normalAttr">
-                    <table class="table">
-                        <tr>
-                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
-                                <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
-                                </span>
-                                <strong>Ổ cứng (HDD)</strong>
-                            </td>
-                            @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strHDD)</td>
-                                <td class="hidden"><span>@Math.Round((item.hddScore * ConstantManager.RatioHDDPoint), 4)</span></td>
-                                <td class="hidden">@item.ID</td>
-                            }
-                        </tr>
-                    </table>
-                </li>
-
-                @*Thong tin Display*@
-                <li draggable="true" id="scoreDisplay" class="normalAttr">
-                    <table class="table">
-                        <tr>
-                            <td style="width:20%; vertical-align:middle; border-right: solid; border-width:1px; border-right-color:black;" class="handle">
-                                <span class="pull-left">
-                                    <img src="~/Template/GFashion/img/order.png" style="margin-right:10px; width:15px; height:15px;">
-                                </span>
-                                <strong>Độ phân giải (Sreen Solution)</strong>
-                            </td>
-                            @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">@Html.DisplayFor(modelItem => item.strDisplay)</td>
-                                <td class="hidden"><span>@Math.Round((item.displayScore * ConstantManager.RatioDisplayPoint), 4)</span></td>
-                                <td class="hidden">@item.ID</td>
-                            }
-                        </tr>
-                    </table>
-                </li>
-                
-                <li class="disabled">
-                    <table class="table">
-                        <tr>
-                            <td class="test" style="width:20%; text-align:center; vertical-align:middle"><p style="font-size:16px; color:#FFFFFF">TỔNG ĐIỂM ƯU TIÊN</p></td>
-                            @foreach (var item in Model) {
-                                <td style="width:25%; text-align:center; vertical-align:middle" class="product-css">
-                                    <p class="total_score_@item.ID" style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF">
-                                    </p>
-                                    <p style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF">
-                                        <span style="hidden">@{var minPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
-                                        <span style="hidden">@{var maxPrice = item.AliasProducts.OrderByDescending(x => x.Price).FirstOrDefault().Price;}</span>
-                                        @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
-                                        @String.Format("{0:0,0}", Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000)) ₫
-                                        <span>~</span>
-                                        @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
-                                        @String.Format("{0:0,0}", Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))
-                                    </p>
-                                </td>
-                            }
-                        </tr>
-                    </table>
-                </li>
-            </ul>
-        </div>
-</div> 
         </div>
     </div>
 </div>
@@ -298,6 +343,8 @@
         var scoreRAM = $('#scoreRAM').index();
         var scoreHDD = $('#scoreHDD').index();
         var scoreDisplay = $('#scoreDisplay').index();
+        var minPrice = $('#minPrce').index();
+        var maxPrice = $('#maxPrice').index();
 
         if (scoreCPU == 1 || scoreCPU == 2) {
             $('#scoreCPU').removeClass('normalAttr');
@@ -354,6 +401,9 @@
             var pro01_attr03 = attr03.getElementsByTagName('span')[1].innerHTML;
             var pro01_attr04 = attr04.getElementsByTagName('span')[1].innerHTML;
             var pro01_attr05 = attr05.getElementsByTagName('span')[1].innerHTML;
+            //Lay min/max price
+            var pro01_min_price = minPrice.getElementsByTagName('span')[0].innerHTML;
+            var pro01_max_price = maxPrice.getElementsByTagName('span')[0].innerHTML;
 
             //Lay diem phan cung san pham 2
             var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML;
@@ -361,6 +411,9 @@
             var pro02_attr03 = attr03.getElementsByTagName('span')[2].innerHTML;
             var pro02_attr04 = attr04.getElementsByTagName('span')[2].innerHTML;
             var pro02_attr05 = attr05.getElementsByTagName('span')[2].innerHTML;
+            //Lay min/max price
+            var pro02_min_price = minPrice.getElementsByTagName('span')[1].innerHTML;
+            var pro02_max_price = maxPrice.getElementsByTagName('span')[1].innerHTML;
 
             //Lay diem phan cung san pham 3
             var pro03_attr01 = attr01.getElementsByTagName('span')[3].innerHTML;
@@ -368,6 +421,9 @@
             var pro03_attr03 = attr03.getElementsByTagName('span')[3].innerHTML;
             var pro03_attr04 = attr04.getElementsByTagName('span')[3].innerHTML;
             var pro03_attr05 = attr05.getElementsByTagName('span')[3].innerHTML;
+            //Lay min/max price
+            var pro03_min_price = minPrice.getElementsByTagName('span')[2].innerHTML;
+            var pro03_max_price = maxPrice.getElementsByTagName('span')[2].innerHTML;
 
             //Lay ID san pham 1
             var pro01_id = attr02.getElementsByTagName('td')[3].innerHTML;
@@ -384,6 +440,9 @@
             var pro01_attr03 = attr03.getElementsByTagName('span')[1].innerHTML;
             var pro01_attr04 = attr04.getElementsByTagName('span')[1].innerHTML;
             var pro01_attr05 = attr05.getElementsByTagName('span')[1].innerHTML;
+            //Lay min/max price
+            var pro01_min_price = minPrice.getElementsByTagName('span')[0].innerHTML;
+            var pro01_max_price = maxPrice.getElementsByTagName('span')[0].innerHTML;
 
             //Lay diem phan cung san pham 2
             var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML;
@@ -391,6 +450,9 @@
             var pro02_attr03 = attr03.getElementsByTagName('span')[2].innerHTML;
             var pro02_attr04 = attr04.getElementsByTagName('span')[2].innerHTML;
             var pro02_attr05 = attr05.getElementsByTagName('span')[2].innerHTML;
+            //Lay min/max price
+            var pro02_min_price = minPrice.getElementsByTagName('span')[1].innerHTML;
+            var pro02_max_price = maxPrice.getElementsByTagName('span')[1].innerHTML;
 
             //Lay ID san pham 1
             var pro01_attr03 = attr02.getElementsByTagName('td')[3].innerHTML;
@@ -398,17 +460,18 @@
             //Lay ID san pham 2
             var pro02_attr03 = attr02.getElementsByTagName('td')[6].innerHTML;
         }
-        //Tinh diem cac tieu chi uu tien
-        console.log(pro01_attr01);
-        console.log(pro01_attr02);
-        console.log(pro01_attr03);
-        console.log(pro01_attr04);
-        console.log(pro01_attr05);
 
-        var pro01_score = Math.round(Number(bestScore) * (((Number(pro01_attr01) + Number(pro01_attr02)) * 0.6 + (Number(pro01_attr03) + Number(pro01_attr04) + Number(pro01_attr05)) * 0.4) / 5 * 100)) / 100
-        var pro02_score = Math.round(Number(bestScore) * (((Number(pro02_attr01) + Number(pro02_attr02)) * 0.6 + (Number(pro02_attr03) + Number(pro02_attr04) + Number(pro02_attr05)) * 0.4) / 5 * 100)) / 100
-        var pro03_score = Math.round(Number(bestScore) * (((Number(pro03_attr01) + Number(pro03_attr02)) * 0.6 + (Number(pro03_attr03) + Number(pro03_attr04) + Number(pro03_attr05)) * 0.4) / 5 * 100)) / 100
+        var pro01_score = Math.round(Number(bestScore) * (((Number(pro01_attr01) + Number(pro01_attr02)) * 0.6 + (Number(pro01_attr03) + Number(pro01_attr04) + Number(pro01_attr05)) * 0.4) / 5 * 100)) / 100;
+        var pro02_score = Math.round(Number(bestScore) * (((Number(pro02_attr01) + Number(pro02_attr02)) * 0.6 + (Number(pro02_attr03) + Number(pro02_attr04) + Number(pro02_attr05)) * 0.4) / 5 * 100)) / 100;
+        var pro03_score = Math.round(Number(bestScore) * (((Number(pro03_attr01) + Number(pro03_attr02)) * 0.6 + (Number(pro03_attr03) + Number(pro03_attr04) + Number(pro03_attr05)) * 0.4) / 5 * 100)) / 100;
 
+        var pro01_min_ratio = Math.round(pro01_min_price / pro01_score);
+        var pro02_min_ratio = Math.round(pro02_min_price / pro02_score);
+        var pro03_min_ratio = Math.round(pro03_min_price / pro03_score);
+
+        var pro01_max_ratio = Math.round(pro01_max_price / pro01_score);
+        var pro02_max_ratio = Math.round(pro02_max_price / pro02_score);
+        var pro03_max_ratio = Math.round(pro03_max_price / pro03_score);
 
         //Tim max diem uu tien cua cac san pham
         var max = pro01_score;
@@ -423,11 +486,6 @@
             $('.' + pro01_id).removeClass('product-css');
             $('.' + pro01_id).addClass("winner", 1000, "easeOutSine");
 
-            //In diem uu tien
-            $('.total_score_' + pro01_id).text(pro01_score);
-            $('.total_score_' + pro02_id).text(pro02_score);
-            $('.total_score_' + pro03_id).text(pro03_score);
-
             //Xoa class winner
             $('.' + pro02_id).removeClass('winner');
             $('.' + pro03_id).removeClass('winner');
@@ -439,11 +497,6 @@
             //Doi thanh class winner
             $('.' + pro02_id).removeClass('product-css');
             $('.' + pro02_id).addClass("winner", 1000, "easeOutSine");
-
-            //In diem uu tien
-            $('.total_score_' + pro01_id).text(pro01_score);
-            $('.total_score_' + pro02_id).text(pro02_score);
-            $('.total_score_' + pro03_id).text(pro03_score);
 
             //Xoa class winner
             $('.' + pro01_id).removeClass('winner');
@@ -457,11 +510,6 @@
             $('.' + pro03_id).removeClass('product-css');
             $('.' + pro03_id).addClass("winner", 1000, "easeOutSine");
 
-            //In diem uu tien
-            $('.total_score_' + pro01_id).text(pro01_score);
-            $('.total_score_' + pro02_id).text(pro02_score);
-            $('.total_score_' + pro03_id).text(pro03_score);
-
             //Xoa class winner
             $('.' + pro01_id).removeClass('winner');
             $('.' + pro02_id).removeClass('winner');
@@ -470,6 +518,28 @@
             $('.' + pro01_id).addClass("product-css", 1000, "easeOutSine");
             $('.' + pro02_id).addClass("product-css", 1000, "easeOutSine");
         }
+        //In diem uu tien
+        $('.total_score_' + pro01_id).text(pro01_score);
+        $('.total_score_' + pro02_id).text(pro02_score);
+        $('.total_score_' + pro03_id).text(pro03_score);
+
+        Number.prototype.formatMoney = function (c, d, t) {
+            var n = this,
+                c = isNaN(c = Math.abs(c)) ? 2 : c,
+                d = d == undefined ? "." : d,
+                t = t == undefined ? "," : t,
+                s = n < 0 ? "-" : "",
+                i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+                j = (j = i.length) > 3 ? j % 3 : 0;
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+        };
+        //In ratio
+        $('.min_ratio_' + pro01_id).text(Number(pro01_min_ratio).formatMoney(0, '.', ',') + ' ₫');
+        $('.max_ratio_' + pro01_id).text(Number(pro01_max_ratio).formatMoney(0, '.', ',') + ' ₫');
+        $('.min_ratio_' + pro02_id).text(Number(pro02_min_ratio).formatMoney(0, '.', ',') + ' ₫');
+        $('.max_ratio_' + pro02_id).text(Number(pro02_max_ratio).formatMoney(0, '.', ',') + ' ₫');
+        $('.min_ratio_' + pro03_id).text(Number(pro03_min_ratio).formatMoney(0, '.', ',') + ' ₫');
+        $('.max_ratio_' + pro03_id).text(Number(pro03_max_ratio).formatMoney(0, '.', ',') + ' ₫');
     }
 </script>
 
