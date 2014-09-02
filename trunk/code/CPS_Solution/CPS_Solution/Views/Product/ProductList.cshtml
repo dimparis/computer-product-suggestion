@@ -42,7 +42,8 @@
                     <div class="post-info clearfix">
                         <div class="post-date">
                             <label style="color: #f00; font-weight: bold; font-size: 23px; margin-bottom: 0; padding: 2px">
-                                @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.Price)
+                                @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:0,0}", @item.Price)*@
+                                @String.Format("{0:0,0}", item.Price) ₫
                             </label>
                         </div>
                     </div>
