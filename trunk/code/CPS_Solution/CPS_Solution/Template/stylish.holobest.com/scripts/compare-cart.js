@@ -17,7 +17,7 @@
         }
         //Hieu ung add to list
         jQuery(".img-" + id).effect("transfer", { to: ".icon-shopping-cart", className: "ui-effects-transfer" }, 1000);
-        $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
+        $("#compare_panel ul").append('<li style="padding-right: 5px;" class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
         checkCart();
     });
 
@@ -133,7 +133,7 @@ function checkSession() {
             var name = sessionStorage.getItem(sessionStorage.key(i + 1));
             i++;
             $(".addToCompare[product-id='" + id + "']").hide();
-            $("#compare_panel ul").append('<li class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
+            $("#compare_panel ul").append('<li style="padding-right: 5px;" class="' + id + '">' + name + '<a class="compare-remove" onclick="removeProduct(' + id + ')">X</a></li>');
         }
         checkCart();
     }
