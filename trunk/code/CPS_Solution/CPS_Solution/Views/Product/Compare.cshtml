@@ -159,8 +159,11 @@
                                 <div class="upper-header price-ratio-@item.ID" style="color:#fff; font-size:20px; font-style:italic; padding:5px 0 5px 0">
                                     <span class="hidden">@{var minPrice = item.AliasProducts.OrderBy(x => x.Price).FirstOrDefault().Price;}</span>
                                     <span class="hidden">@{var maxPrice = item.AliasProducts.OrderByDescending(x => x.Price).FirstOrDefault().Price;}</span>
-                                    @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))
-                                    @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))
+                                    @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
+                                    @String.Format("{0:0,0}", Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000)) ₫
+                                    <span>~</span>
+                                    @String.Format("{0:0,0}", Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000)) ₫
+                                    @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
                                 </div>
                                 <div class="upper-header product-price-ratio product-price-ratio-@item.ID hidden">@Math.Round(((double)minPrice/item.TotalWeightPoint + (double)maxPrice/item.TotalWeightPoint)/2)</div>                              
                             }
