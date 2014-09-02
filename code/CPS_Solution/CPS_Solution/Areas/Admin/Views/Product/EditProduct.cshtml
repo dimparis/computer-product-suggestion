@@ -294,7 +294,7 @@
                 <div class="da-form-row " style="width: 50%; float: left">
                     <label>Tên Sản Phẩm</label>
                     <div class="da-form-item large">
-                        @Html.TextBoxFor(x => x.Name)
+                        @Html.TextBoxFor(x => x.Name, new {id="idName" })
                     </div>
                 </div>
                                      
@@ -310,7 +310,7 @@
                 <div class="da-form-row " style="width: 50%; float: left">
                     <label>Link liên quan</label>
                     <div class="da-form-item large">
-                        @Html.TextBoxFor(x => x.URL)
+                        @Html.TextBoxFor(x => x.URL, new {id="idLink" })
                     </div>
                 </div>   
                 <div class="da-form-row " style="width: 50%; float: right">
@@ -578,11 +578,42 @@
     <!----------------Popup------------------>
 </div>
 <script>
+    $('#idName').blur(function () {
+        if ($('#idName').val() == "") {
+            document.getElementById("idName").style.borderColor = "red";
+        } else {
+            document.getElementById("idName").style.borderColor = "";
+        }
 
+        if ($('#idName').val() != "" && $('#idLink').val() != "" && $('#idPri').val() != "") {
+            document.getElementById("createbutton").disabled = false;
+        } else {
+            document.getElementById("createbutton").disabled = true;
+        }
+    });
+
+    $('#idLink').blur(function () {
+        if ($('#idLink').val() == "") {
+            document.getElementById("idLink").style.borderColor = "red";
+        } else {
+            document.getElementById("idLink").style.borderColor = "";
+        }
+
+        if ($('#idName').val() != "" && $('#idLink').val() != "" && $('#idPri').val() != "") {
+            document.getElementById("createbutton").disabled = false;
+        } else {
+            document.getElementById("createbutton").disabled = true;
+        }
+    });
 
     $('#idPri').on('input', function (e) {
         $(this).val(formatCurrency(this.value.replace(/[,$]/g, '')));
         document.getElementById("idHidPri").value = document.getElementById("idPri").value;
+        if ($('#idName').val() != "" && $('#idLink').val() != "" && $('#idPri').val() != "") {
+            document.getElementById("createbutton").disabled = false;
+        } else {
+            document.getElementById("createbutton").disabled = true;
+        }
     }).on('keypress', function (e) {
         if (!$.isNumeric(String.fromCharCode(e.which))) e.preventDefault();
     }).on('paste', function (e) {
@@ -596,7 +627,6 @@
     }
 
     function PriceLoad() {
-        alert("abc");
         return _this.val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
     }
     $('#idPri').on('input', function (e) {
