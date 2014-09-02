@@ -10,20 +10,35 @@
     var dataManager = new DataManager();
     int limit = 40;
 }
+<style>
+    .cps-highligh {
+        border-style: solid;
+        border-color: red;
+    }
+</style>
 
 <div class="main-content">
     <div class="span7 left-element">
         @foreach (var item in Model)
         { 
             <div class="accordion fadeLeft">
-                <h5><i class="icon-plus-sign"></i>@item.CompareTime</h5>
+                <h5><i class="icon-plus-sign"></i>@item.CompareTime.ToShortDateString()</h5>
                 <div>
-                    @foreach (var detail in item.HistoryDetails) { 
-                        <div class="span2">
-                            <img src="~/@detail.Product.ImageURL" />
-                            <center>@dataManager.Truncate(@detail.Product.Name, limit)</center>
-                            <p class="product-score">@detail.Product.TotalWeightPoint</p>
-                        </div>
+                    @foreach (var detail in item.HistoryDetails)
+                    {
+                        if (detail.isWinner.Equals(true)) { 
+                            <div class="span2 cps-highligh">
+                                <img src="~/@detail.Product.ImageURL" />
+                                <center>@dataManager.Truncate(@detail.Product.Name, limit)</center>
+                                <p class="product-score">@detail.Product.TotalWeightPoint</p>
+                            </div>
+                        } else {
+                            <div class="span2">
+                                <img src="~/@detail.Product.ImageURL" />
+                                <center>@dataManager.Truncate(@detail.Product.Name, limit)</center>
+                                <p class="product-score">@detail.Product.TotalWeightPoint</p>
+                            </div>
+                        }
                     }
                 </div>
             </div>

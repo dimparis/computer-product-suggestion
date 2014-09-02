@@ -129,6 +129,11 @@ namespace CPS_Solution.Controllers
             var listProduct = products.ToList();
             
             if (p3 == -1){
+                var score_p1 = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
+                var score_p2 = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
+
+                var max = Math.Max(score_p1, score_p2);
+
                 if (User.Identity.IsAuthenticated) {
                     int[] lp = new int[] { p1, p2 };
                     if (ModelState.IsValid)
@@ -143,7 +148,14 @@ namespace CPS_Solution.Controllers
                             var newHisDetail = new HistoryDetail();
                             newHisDetail.History = newHistory;
                             newHisDetail.ProductID = product;
-                            newHisDetail.isWinner = false;
+                            if (takeScore(product).Equals(max))
+                            {
+                                newHisDetail.isWinner = true;
+                            }
+                            else
+                            {
+                                newHisDetail.isWinner = false;
+                            }
                             db.HistoryDetails.Add(newHisDetail);
                             db.SaveChanges();
                         }
@@ -153,6 +165,13 @@ namespace CPS_Solution.Controllers
                 listProduct[1].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
                 
             } else {
+                var score_p1 = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
+                var score_p2 = Math.Round((BestRatioScore * listProduct[1].TotalWeightPoint), 2);
+                var score_p3 = Math.Round((BestRatioScore * listProduct[2].TotalWeightPoint), 2);
+
+                var temp = Math.Max(score_p1, score_p2);
+                var max = Math.Max(temp, score_p3);
+
                 if (User.Identity.IsAuthenticated) {
                     int[] lp = new int[] { p1, p2, p3 };
                     if (ModelState.IsValid)
@@ -167,11 +186,14 @@ namespace CPS_Solution.Controllers
                             var newHisDetail = new HistoryDetail();
                             newHisDetail.History = newHistory;
                             newHisDetail.ProductID = product;
-                            newHisDetail.isWinner = false;
+                            if (takeScore(product).Equals(max)) {
+                                newHisDetail.isWinner = true;
+                            } else {
+                                newHisDetail.isWinner = false;
+                            }
                             db.HistoryDetails.Add(newHisDetail);
                             db.SaveChanges();
                         }
-
                     }
                 }
                 listProduct[0].TotalWeightPoint = Math.Round((BestRatioScore * listProduct[0].TotalWeightPoint), 2);
@@ -180,6 +202,14 @@ namespace CPS_Solution.Controllers
             }
             return View(listProduct);
         }
+
+        public double takeScore(int id){
+            var products = from p in db.Products
+                           select p;
+            products = products.Where(x => x.ID.Equals(id));
+            return Math.Round((BestRatioScore * products.FirstOrDefault().TotalWeightPoint), 2);
+        }
+
         [HttpPost]
         public ActionResult CompareDetail(int p1, int p2, int p3)
         {
