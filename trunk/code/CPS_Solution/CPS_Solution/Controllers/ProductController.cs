@@ -164,8 +164,6 @@ namespace CPS_Solution.Controllers
                         db.Histories.Add(newHistory);
                         foreach (var product in lp)
                         {
-
-
                             var newHisDetail = new HistoryDetail();
                             newHisDetail.History = newHistory;
                             newHisDetail.ProductID = product;
