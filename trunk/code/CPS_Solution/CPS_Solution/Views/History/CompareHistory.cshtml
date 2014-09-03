@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Lịch sử so sánh";
     Layout = "~/Views/Shared/_UserPage.cshtml";
+    TempData["History"] = "History";
 }
 
 @{
@@ -16,35 +17,39 @@
         border-color: #7DBB18;
         padding: 5px;
     }
+    .history-items {
+        height: 550px;
+        overflow: scroll;
+    }
 </style>
 
 <div class="main-content">
     <div class="span8 left-element">
-        <div class="accordion fadeLeft">
+        <div class="accordion fadeLeft history-items">
             @foreach (var item in Model)
             {
-                <h5><i class="icon-plus-sign"></i>@item.CompareTime.ToShortDateString()</h5>
+                <h5><i class="icon-plus-sign"></i>@item.CompareTime</h5>
                 <div>
                     <div class="span7">
                     @foreach (var detail in item.HistoryDetails)
                     {
                         if (detail.isWinner.Equals(true))
                         { 
-                            <div class="span2 cps-highligh">
-                                <img src="~/@detail.Product.ImageURL" />
+                            <div class="span2 cps-highligh" onClick="productDetail(@detail.ProductID)" style="cursor: pointer">
+                                <center><img src="~/@detail.Product.ImageURL" style="width: 100px; height: 100px"/></center>
                                 <center><strong>@dataManager.Truncate(@detail.Product.Name, limit)</strong></center>
                             </div>
                         }
                         else
                         {
-                            <div class="span2">
-                                <img src="~/@detail.Product.ImageURL" />
+                            <div class="span2" onClick="productDetail(@detail.ProductID)" style="cursor: pointer">
+                                <center><img src="~/@detail.Product.ImageURL" style="width: 100px; height: 100px"/></center>
                                 <center>@dataManager.Truncate(@detail.Product.Name, limit)</center>
                             </div>
                         }
                     }</div>
-                    <div class="span7">
-                        <div class="stylish-button" style="background-color: #666699; margin-left: 87%">
+                    <div class="span7" style="margin-top: 10px;">
+                        <div class="stylish-button" style="background-color: #7DBB18; margin-left: 87%; font-family: Verdana, Geneva, sans-serif">
                             <a href="#">chi tiết</a>
                             <div class="hidden">
                                 @foreach (var detail in item.HistoryDetails)
@@ -100,4 +105,10 @@
 
         createform.submit();
     });
+
+    function productDetail(id) {
+        var url = "../Product/Details?ID=" + id;
+        var detail = window.open(url, "_blank");
+        detail.focus();
+    }
 </script>

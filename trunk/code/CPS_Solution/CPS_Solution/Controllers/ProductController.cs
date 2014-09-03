@@ -136,9 +136,9 @@ namespace CPS_Solution.Controllers
 
                 if (User.Identity.IsAuthenticated) {
                     int[] lp = new int[] { p1, p2 };
-                    if (ModelState.IsValid)
+                    if (ModelState.IsValid && TempData["History"].Equals("Compare"))
                     {
-                        var now = DateTime.Now.Date;
+                        var now = DateTime.Now;
                         var newHistory = new History();
                         newHistory.Username = User.Identity.Name;
                         newHistory.CompareTime = now;
@@ -174,9 +174,9 @@ namespace CPS_Solution.Controllers
 
                 if (User.Identity.IsAuthenticated) {
                     int[] lp = new int[] { p1, p2, p3 };
-                    if (ModelState.IsValid)
+                    if (ModelState.IsValid && TempData["History"].Equals("Compare"))
                     {
-                        var now = DateTime.Now.Date;
+                        var now = DateTime.Now;
                         var newHistory = new History();
                         newHistory.Username = User.Identity.Name;
                         newHistory.CompareTime = now;
