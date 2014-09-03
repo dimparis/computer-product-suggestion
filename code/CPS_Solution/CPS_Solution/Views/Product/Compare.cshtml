@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
     DataManager data = new DataManager();
     int takeItem = 47;
+    TempData["History"] = "Compare";
 }
 
 <script src="~/Template/stylish.holobest.com/scripts/compare-products.js"></script>
@@ -202,8 +203,12 @@
 
         </div>
         <div class="row">
-            <div style="width:50%; margin: 10px auto">
+            <div style="width:50%; margin: 0px auto">
                 <div class="accordion fadeRight ui-accordion ui-widget ui-helper-reset" role="tablist">
+                    <h5 class="hidden" style="height: 0px;"><i class="icon-plus-sign"></i></h5>
+                        <div class="hidden" style="height: 0px;">
+                            <p></p>
+                        </div>
                     <h5 class="ui-accordion-header ui-helper-reset ui-state-active ui-accordion-icons ui-corner-all" role="tab" id="ui-accordion-2-header-0" aria-controls="ui-accordion-2-panel-0" aria-selected="true" tabindex="-1">
                         <i class="icon-plus-sign"></i>
                         Góp ý và báo lỗi sản phẩm
