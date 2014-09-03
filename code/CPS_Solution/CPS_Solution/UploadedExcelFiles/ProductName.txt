@@ -1,0 +1,5 @@
+Intel Core i7-4960HQ|C|10022#Intel Core i7-960|C|6630
+Intel Core i5-2500K|C|6220#Intel Core i5-2500|C|6220
+Intel Core i7-4940MX|C|9711#Intel Core i7-4910MQ|C|9851
+Intel HD Graphics 4200|V|1050#Intel HD Graphics 2500|V|330
+NVIDIA GeForce GT 550M|V|1040#NVIDIA GeForce GT 445M|V|1200
