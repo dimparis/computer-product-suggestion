@@ -1,0 +1,2 @@
+257~Intel HD Graphics 5000|V|330|1572#Intel® HD Graphics 4000|V|0|0
+258~500GB 5400 rpm|H|500|1870#HDD, 500 GB|H|0|0
