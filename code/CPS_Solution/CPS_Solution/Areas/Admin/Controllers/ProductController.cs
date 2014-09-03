@@ -107,7 +107,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
         public ActionResult CreateProductTest()
         {
             // Load CPU list
-            var cpus = context.Hardwares.Where(x => x.CodetypeID == "C")
+            var cpus = context.Hardwares.Where(x => x.CodetypeID == "C" && x.IsActive == true && x.WeightCriteraPoint>0)
                 .OrderBy(x => x.Name)
                 .ToList();
             var cpuList = new List<SelectListItem>();
@@ -123,7 +123,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.cpuList = cpuList;
 
             // Load VGA list
-            var vgas = context.Hardwares.Where(x => x.CodetypeID == "V")
+            var vgas = context.Hardwares.Where(x => x.CodetypeID == "V" && x.IsActive == true && x.WeightCriteraPoint > 0)
                 .OrderBy(x => x.Name)
                 .ToList();
             var vgaList = new List<SelectListItem>();
@@ -139,7 +139,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.vgaList = vgaList;
 
             // Load HDD list
-            var hdds = context.Hardwares.Where(x => x.CodetypeID == "H")
+            var hdds = context.Hardwares.Where(x => x.CodetypeID == "H" && x.IsActive == true && x.WeightCriteraPoint > 0)
                 .OrderBy(x => x.Name)
                 .ToList();
             var hddList = new List<SelectListItem>();
@@ -156,7 +156,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             // Load Ram list
-            var rams = context.Hardwares.Where(x => x.CodetypeID == "R")
+            var rams = context.Hardwares.Where(x => x.CodetypeID == "R" && x.IsActive == true && x.WeightCriteraPoint > 0)
                 .OrderBy(x => x.Name)
                 .ToList();
             var ramList = new List<SelectListItem>();
@@ -172,7 +172,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.ramList = ramList;
 
             // Load Display list
-            var displays = context.Hardwares.Where(x => x.CodetypeID == "D")
+            var displays = context.Hardwares.Where(x => x.CodetypeID == "D" && x.IsActive == true && x.WeightCriteraPoint > 0)
                 .OrderBy(x => x.Name)
                 .ToList();
             var displayList = new List<SelectListItem>();
@@ -284,7 +284,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             TempData["id"] = id;
 
             // Load CPU list
-            var cpus = context.Hardwares.Where(x => x.CodetypeID == "C")
+            var cpus = context.Hardwares.Where(x => x.CodetypeID == "C" && x.IsActive == true && x.WeightCriteraPoint > 0)
                 .OrderBy(x => x.Name)
                 .ToList();
             var cpuList = new List<SelectListItem>();
@@ -300,7 +300,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.cpuList = cpuList;
 
             // Load VGA list
-            var vgas = context.Hardwares.Where(x => x.CodetypeID == "V")
+            var vgas = context.Hardwares.Where(x => x.CodetypeID == "V" && x.IsActive == true && x.WeightCriteraPoint > 0)
                 .OrderBy(x => x.Name)
                 .ToList();
             var vgaList = new List<SelectListItem>();
@@ -316,7 +316,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.vgaList = vgaList;
 
             // Load HDD list
-            var hdds = context.Hardwares.Where(x => x.CodetypeID == "H")
+            var hdds = context.Hardwares.Where(x => x.CodetypeID == "H" && x.IsActive == true && x.WeightCriteraPoint > 0)
                 .OrderBy(x => x.Name)
                 .ToList();
             var hddList = new List<SelectListItem>();
@@ -333,7 +333,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
 
 
             // Load Ram list
-            var rams = context.Hardwares.Where(x => x.CodetypeID == "R")
+            var rams = context.Hardwares.Where(x => x.CodetypeID == "R" && x.IsActive == true && x.WeightCriteraPoint > 0) 
                 .OrderBy(x => x.Name)
                 .ToList();
             var ramList = new List<SelectListItem>();
@@ -349,7 +349,7 @@ namespace CPS_Solution.Areas.Admin.Controllers
             ViewBag.ramList = ramList;
 
             // Load Display list
-            var displays = context.Hardwares.Where(x => x.CodetypeID == "D")
+            var displays = context.Hardwares.Where(x => x.CodetypeID == "D" && x.IsActive == true && x.WeightCriteraPoint > 0)
                 .OrderBy(x => x.Name)
                 .ToList();
             var displayList = new List<SelectListItem>();
