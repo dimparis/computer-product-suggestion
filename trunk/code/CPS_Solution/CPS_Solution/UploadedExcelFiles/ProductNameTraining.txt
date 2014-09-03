@@ -1,3 +1,277 @@
-256~2GB DDR3|R|2|1878#DDR3L (2 khe RAM)|R|0|0
-257~500GB 5400 rpm|H|500|1870#HDD, 500 GB|H|0|0
-257~Intel HD Graphics 5000|V|330|1572#Intel® HD Graphics, Share|V|0|0
+0~Intel Core i7-4910MQ @ 2.90GHz|C|9851|1999#Intel Core i7-4810MQ @ 2.80GHz|C|8756|6z
+0~Intel Core i7-4800MQ|C|7070|1794#Intel Core i7-4800MQ @ 2.70GHz|C|8596|7z
+0~Intel Core i7-3820QM |C|6270|1866#Intel Core i7-3820QM @ 2.70GHz|C|8542|8z
+0~Intel Core i7-3740QM |C|6270|1802#Intel Core i7-3740QM @ 2.70GHz|C|8456|9z
+0~Intel Core i7-3720QM |C|6090|1606#Intel Core i7-3720QM @ 2.60GHz|C|8324|10z
+0~Intel Core i7-4910MQ @ 2.90GHz|C|9851|1999#Intel Core i7-4710MQ @ 2.50GHz|C|8148|11z
+0~Intel Core i7-4850HQ @ 2.30GHz|C|9304|2002#Intel Core i7-4750HQ @ 2.00GHz|C|8122|12z
+0~Intel Core i7-4850HQ @ 2.30GHz|C|9304|2002#Intel Core i7-4710HQ @ 2.50GHz|C|7969|13z
+0~Intel Core i7-4700HQ|C|7140|1929#Intel Core i7-4700HQ @ 2.40GHz|C|7959|14z
+0~Intel Core i7-4700MQ|C|6810|1798#Intel Core i7-4700MQ @ 2.40GHz|C|7896|15z
+0~Intel Core i7-4850HQ @ 2.30GHz|C|9304|2002#Intel Core i7-4712HQ @ 2.30GHz|C|7831|16z
+0~Intel Core i7-4712MQ|C|6730|1596#Intel Core i7-4712MQ @ 2.30GHz|C|7776|17z
+0~Intel Core i7-4702HQ|C|6640|1799#Intel Core i7-4702HQ @ 2.20GHz|C|7736|18z
+0~Intel Core i7-3630QM |C|5750|1811#Intel Core i7-3630QM @ 2.40GHz|C|7697|19z
+0~Intel Core i7-3610QM |C|5570|1619#Intel Core i7-3610QM @ 2.30GHz|C|7488|20z
+0~Intel Core i7-4702MQ|C|6640|1800#Intel Core i7-4702MQ @ 2.20GHz|C|7269|21z
+0~Intel Core i7-2960XM @ 2.70GHz|C|7414|2004#Intel Core i7-2920XM @ 2.50GHz|C|7066|22z
+0~Intel Core i7-3632QM|C|5400|1816#Intel Core i7-3632QM @ 2.20GHz|C|7000|23z
+0~Intel Core i7-3615QM @ 2.30GHz|C|7339|2005#Intel Core i7-3612QM @ 2.10GHz|C|6843|24z
+0~Intel Core i7-2860QM @ 2.50GHz|C|7223|2007#Intel Core i7-2760QM @ 2.40GHz|C|6818|25z
+0~Intel Core i7-2860QM @ 2.50GHz|C|7223|2007#Intel Core i7-2840QM @ 2.40GHz|C|6766|26z
+0~Intel Core i7-2860QM @ 2.50GHz|C|7223|2007#Intel Core i7-2820QM @ 2.30GHz|C|6685|27z
+0~Intel Core i7-3615QM @ 2.30GHz|C|7339|2005#Intel Core i7-3635QM @ 2.40GHz|C|6576|28z
+0~Intel Core i7-2720QM |C|4710|1819#Intel Core i7-2720QM @ 2.20GHz|C|6202|29z
+0~Intel Core i7-3612QE @ 2.10GHz|C|6665|2008#Intel Core i7-3610QE @ 2.30GHz|C|6198|30z
+0~Intel Core i7-2670QM |C|4710|1627#Intel Core i7-2670QM @ 2.20GHz|C|6015|31z
+0~Intel Core i7-2635QM @ 2.00GHz|C|5874|2009#Intel Core i7-2675QM @ 2.20GHz|C|5573|32z
+0~Intel Core i7-2635QM @ 2.00GHz|C|5874|2009#Intel Core i7-2630QM @ 2.00GHz|C|5570|33z
+0~Intel Core i7-2710QE @ 2.10GHz|C|5290|2010#Intel Core i7-2715QE @ 2.10GHz|C|5199|34z
+0~Intel Core i7-4910MQ @ 2.90GHz|C|9851|1999#Intel Core i7-4600M @ 2.90GHz|C|5071|35z
+0~Intel Core i7-3920XM @ 2.90GHz|C|9202|2003#Intel Core i7-3520M @ 2.90GHz|C|4552|36z
+0~Intel Core i5-4330M @ 2.80GHz|C|4752|2012#Intel Core i5-4300M @ 2.60GHz|C|4537|37z
+0~Intel Core i5-4288U @ 2.60GHz|C|4600|2014#Intel Core i5-4278U @ 2.60GHz|C|4446|38z
+0~Intel Core i5-4288U @ 2.60GHz|C|4600|2014#Intel Core i5-4210M @ 2.60GHz|C|4344|39z
+0~Intel Core i7-3612QE @ 2.10GHz|C|6665|2008#Intel Core i7-3687U @ 2.10GHz|C|4327|40z
+0~Intel Core i5-4330M @ 2.80GHz|C|4752|2012#Intel Core i5-3360M @ 2.80GHz|C|4290|41z
+0~Intel Core i5-4310M @ 2.70GHz|C|4672|2013#Intel Core i5-4310U @ 2.00GHz|C|4147|42z
+0~Intel Core i7-4600U @ 2.10GHz|C|4321|2015#Intel Core i7-4510U @ 2.00GHz|C|4020|43z
+0~Intel Core i5-3320M @ 2.60GHz|C|4015|2023#Intel Core i5-3230M @ 2.60GHz|C|3961|44z
+0~Intel Core i7-3667U @ 2.00GHz|C|3958|2025#Intel Core i7-3537U @ 2.00GHz|C|3892|45z
+0~Intel Core i7-4550U @ 1.50GHz|C|3932|2026#Intel Core i7-4500U @ 1.80GHz|C|3872|46z
+0~Intel Core i7-3920XM @ 2.90GHz|C|9202|2003#Intel Core i7 920XM @ 2.00GHz|C|3675|47z
+0~Intel Core i5-2510E @ 2.50GHz|C|3631|2032#Intel Core i5-2520M @ 2.50GHz|C|3536|48z
+0~Intel Core i7-3517U @ 1.90GHz|C|3706|2031#Intel Core i7-3517UE @ 1.70GHz|C|3449|49z
+0~AMD A10-5750M|C|2510|1664#AMD A10-5750M APU|C|3374|50z
+0~Intel Core i5-2435M @ 2.40GHz|C|3277|2047#Intel Core i5-2430M @ 2.40GHz|C|3266|51z
+0~Intel Core i5-3427U @ 1.80GHz|C|3600|2034#Intel Core i5-3337U @ 1.80GHz|C|3243|52z
+0~Intel Core i7 Q 740 @ 1.73GHz|C|3237|2048#Intel Core i7 Q 820 @ 1.73GHz|C|3202|53z
+0~AMD A10-4600M|C|2220|1667#AMD A10-4600M APU|C|3128|54z
+0~AMD A8-5550M APU|C|2986|2057#AMD A8-5557M APU|C|2899|55z
+0~Intel Core i7-2640M @ 2.80GHz|C|3975|2024#Intel Core i7 M 640 @ 2.80GHz|C|2897|56z
+0~Intel Core i3-4025U @ 1.90GHz|C|2929|2058#Intel Core i3-4030U @ 1.90GHz|C|2692|57z
+0~Intel Core i7 M 620 @ 2.67GHz|C|2744|2068#Intel Core i5 M 580 @ 2.67GHz|C|2690|58z
+0~AMD A8-4500M|C|2080|1669#AMD A8-4500M APU|C|2688|59z
+0~Intel Core i7 M 620 @ 2.67GHz|C|2744|2068#Intel Core i5 M 560 @ 2.67GHz|C|2642|60z
+0~Intel Core i3-2350M @ 2.30GHz|C|2644|2070#Intel Core i3-2348M @ 2.30GHz|C|2638|61z
+0~Intel Core i3-2350M @ 2.30GHz|C|2644|2070#Intel Core i3-2330M @ 2.20GHz|C|2544|62z
+0~AMD Phenom II X920 Quad-Core|C|2804|2064#AMD Phenom II N950 Quad-Core|C|2511|63z
+0~AMD Phenom II X920 Quad-Core|C|2804|2064#AMD Phenom II N970 Quad-Core|C|2510|64z
+0~Intel Core i3-4010U @ 1.70GHz|C|2495|2078#Intel Core i3-4005U @ 1.70GHz|C|2480|65z
+0~Intel Core i7-2617M @ 1.50GHz|C|2825|2062#Intel Core i7-2610UE @ 1.50GHz|C|2454|66z
+0~Intel Core i7 M 620 @ 2.67GHz|C|2744|2068#Intel Core i5 M 480 @ 2.67GHz|C|2453|67z
+0~AMD A8-3550MX APU|C|2794|2066#AMD A8-3510MX APU|C|2394|68z
+0~Intel Core i3-2328M @ 2.20GHz|C|2502|2075#Intel Core i3-2332M @ 2.20GHz|C|2382|69z
+0~Intel Core i5 540M @ 2.53GHz|C|2407|2081#Intel Core i5 M 460 @ 2.53GHz|C|2370|70z
+0~AMD A8-3550MX APU|C|2794|2066#AMD A8-3530MX APU|C|2320|71z
+0~AMD Phenom II X920 Quad-Core|C|2804|2064#AMD Phenom II N930 Quad-Core|C|2306|72z
+0~Intel Core i7 M 620 @ 2.67GHz|C|2744|2068#Intel Core i3 M 390 @ 2.67GHz|C|2305|73z
+0~Intel Core i3-3217U @ 1.80GHz|C|2299|2085#Intel Core i3-3217UE @ 1.60GHz|C|2228|74z
+0~Intel Pentium 3550M @ 2.30GHz|C|2214|2090#Intel Pentium 2030M @ 2.50GHz|C|2195|75z
+0~AMD A8-5545M APU|C|2548|2073#AMD A8-4555M APU|C|2179|76z
+0~AMD A6-3430MX APU|C|2200|2091#AMD A6-3410MX APU|C|2113|77z
+0~Intel Core i5 520M @ 2.40GHz|C|2382|2082#Intel Core i5 M 450 @ 2.40GHz|C|2104|78z
+0~AMD Phenom II X920 Quad-Core|C|2804|2064#AMD Phenom II P960 Quad-Core|C|2099|79z
+0~AMD A8-3520M APU|C|2268|2086#AMD A8-3500M APU|C|2061|80z
+0~Intel Pentium 2020M @ 2.40GHz|C|2322|2084#Intel Pentium B980 @ 2.40GHz|C|2042|81z
+0~Intel Core i3-2370M @ 2.40GHz|C|2793|2067#Intel Core i3 M 370 @ 2.40GHz|C|2038|82z
+0~Intel Core i3-2310E @ 2.10GHz|C|2407|2061#Intel Core i3-2312M @ 2.10GHz|C|2033|83z
+0~Intel Pentium 3550M @ 2.30GHz|C|2214|2090#Intel Pentium B970 @ 2.30GHz|C|1978|84z
+0~Intel Core2 Duo P9700 @ 2.80GHz|C|2009|2101#Intel Core2 Duo T9600 @ 2.80GHz|C|1975|85z
+0~AMD A6-3420M APU|C|2079|2099#AMD A6-3400M APU|C|1974|86z
+0~AMD A6-5350M APU|C|1962|2103#AMD A6-5357M APU|C|1933|87z
+0~AMD Phenom II X920 Quad-Core|C|2804|2064#AMD Phenom II P940 Quad-Core|C|1926|88z
+0~Intel Core i5 M 430 @ 2.27GHz|C|2110|2098#Intel Core i3 M 350 @ 2.27GHz|C|1910|89z
+0~AMD Phenom II N870 Triple-Core|C|1984|2102#AMD Phenom II N850 Triple-Core|C|1910|90z
+0~Intel Pentium N3530 @ 2.16GHz|C|1923|2105#Intel Pentium N3520 @ 2.16GHz|C|1895|91z
+0~AMD Phenom II N870 Triple-Core|C|1984|2102#AMD Phenom II N830 Triple-Core|C|1893|92z
+0~AMD Phenom II X620 Dual-Core|C|2258|2088#AMD Phenom II N660 Dual-Core|C|1859|93z
+0~Intel Core i3-2375M @ 1.50GHz|C|1847|2111#Intel Core i3-2377M @ 1.50GHz|C|1826|94z
+0~Intel Core2 Duo T9500 @ 2.60GHz|C|1824|2114#Intel Core2 Duo T9550 @ 2.66GHz|C|1803|95z
+0~Intel Core2 Extreme X9000 @ 2.80GHz|C|2011|2100#Intel Core2 Extreme X7800 @ 2.60GHz|C|1771|96z
+0~AMD Phenom II N870 Triple-Core|C|1984|2102#AMD Phenom II P860 Triple-Core|C|1758|97z
+0~AMD Phenom II N870 Triple-Core|C|1984|2102#AMD Phenom II P840 Triple-Core|C|1755|98z
+0~Intel Core2 Duo P9500 @ 2.53GHz|C|1830|2113#Intel Core2 Duo T9400 @ 2.53GHz|C|1753|99z
+0~Intel Pentium A1018 @ 2.10GHz|C|2153|2095#Intel Pentium B950 @ 2.10GHz|C|1718|100z
+0~Intel Core2 Duo P9600 @ 2.66GHz|C|1929|2104#Intel Core2 Duo P8800 @ 2.66GHz|C|1714|101z
+0~Intel Core2 Duo P9500 @ 2.53GHz|C|1830|2113#Intel Core2 Duo P9600 @ 2.53GHz|C|1710|102z
+0~Intel Core2 Duo T9500 @ 2.60GHz|C|1824|2114#Intel Core2 Duo T9300 @ 2.50GHz|C|1704|103z
+0~Intel Core i3-2367M @ 1.40GHz|C|1725|2118#Intel Core i3-2365M @ 1.40GHz|C|1691|104z
+0~AMD Phenom II X620 Dual-Core|C|1721|2088#AMD Phenom II N640 Dual-Core|C|1680|105z
+0~Intel Core2 Duo P9500 @ 2.53GHz|C|1830|2113#Intel Core2 Duo P8700 @ 2.53GHz|C|1667|106z
+0~Intel Core2 Duo T9500 @ 2.60GHz|C|1824|2114#Intel Core2 Duo T7800 @ 2.60GHz|C|1643|107z
+0~Intel Core i3-2350M @ 2.30GHz|C|2644|2070#Intel Core i3-2357M @ 1.30GHz|C|1630|108z
+0~Intel Pentium 3558U @ 1.70GHz|C|1839|2112#Intel Pentium 3556U @ 1.70GHz|C|1612|109z
+0~AMD Phenom II X620 Dual-Core|C|1721|2088#AMD Phenom II P650 Dual-Core|C|1581|110z
+0~AMD Turion II N550 Dual-Core|C|1689|2122#AMD Turion II N530 Dual-Core|C|1575|111z
+0~Intel Core i7 U 660 @ 1.33GHz|C|1893|2109#Intel Core i5 U 560 @ 1.33GHz|C|1568|112z
+0~Intel Core2 Duo P9400 @ 2.40GHz|C|1685|2124#Intel Core2 Duo P8600 @ 2.40GHz|C|1547|113z
+0~AMD Turion II N550 Dual-Core|C|1689|2122#AMD Turion II P560 Dual-Core|C|1534|114z
+0~Intel Celeron 2955U @ 1.40GHz|C|1555|2132#Intel Celeron 2957U @ 1.40GHz|C|1532|115z
+0~AMD Phenom II N870 Triple-Core|C|1984|2102#AMD Phenom II P820 Triple-Core|C|1530|116z
+0~Intel Celeron N2930 @ 1.83GHz|C|1710|2120#Intel Celeron B830 @ 1.80GHz|C|1522|117z
+0~AMD Turion II N550 Dual-Core|C|1689|2122#AMD Turion II P540 Dual-Core|C|1490|118z
+0~Intel Core2 Duo P9400 @ 2.40GHz|C|1685|2124#Intel Core2 Duo T8300 @ 2.40GHz|C|1476|119z
+0~Intel Core2 Duo P9300 @ 2.26GHz|C|1612|2128#Intel Core2 Duo P8400 @ 2.26GHz|C|1467|120z
+0~Intel Core i7 U 640 @ 1.20GHz|C|1717|2119#Intel Core i5 U 540 @ 1.20GHz|C|1458|121z
+0~Intel Core2 Duo P7550 @ 2.26GHz|C|1468|2136#Intel Core2 Duo P7570 @ 2.26GHz|C|1456|122z
+0~Intel Core2 Duo P9400 @ 2.40GHz|C|1685|2124#Intel Core2 Duo T7700 @ 2.40GHz|C|1446|123z
+0~AMD Turion II N550 Dual-Core|C|1689|2122#AMD Turion II Neo N54L Dual-Core|C|1419|124z
+0~AMD Turion II Ultra Dual-Core Mobile M640|C|1400|2127#AMD Turion II Dual-Core Mobile M540|C|1389|125z
+0~Intel Core2 Duo T6600 @ 2.20GHz|C|1412|2141#Intel Core2 Duo T6670 @ 2.20GHz|C|1389|126z
+0~Intel Pentium 3550M @ 2.30GHz|C|2214|2090#Intel Pentium T4500 @ 2.30GHz|C|1372|127z
+0~AMD Turion II N550 Dual-Core|C|1689|2122#AMD Turion II P520 Dual-Core|C|1360|128z
+0~Intel Core i7 U 640 @ 1.20GHz|C|1717|2119#Intel Core i5 U 430 @ 1.20GHz|C|1356|129z
+0~Intel Core i7 U 620 @ 1.07GHz|C|1443|2138#Intel Core i5 520UM @ 1.07GHz|C|1336|130z
+0~Intel Celeron 1007U @ 1.50GHz|C|1460|2137#Intel Celeron B800 @ 1.50GHz|C|1330|131z
+0~Intel Celeron 2955U @ 1.40GHz|C|1555|2132#Intel Celeron 877 @ 1.40GHz|C|1325|132z
+0~Intel Celeron 1007U @ 1.50GHz|C|1460|2137#Intel Celeron 887 @ 1.50GHz|C|1323|133z
+0~AMD A4-3330MX APU|C|1343|2143#AMD A4-3310MX APU|C|1305|134z
+0~Intel Pentium B940 @ 2.00GHz|C|1767|2117#Intel Pentium T4400 @ 2.20GHz|C|1301|135z
+0~Intel Core2 Duo T6500 @ 2.10GHz|C|1300|2150#Intel Core2 Duo T8100 @ 2.10GHz|C|1289|136z
+0~Intel Core2 Duo P7350 @ 2.00GHz|C|1322|2148#Intel Core2 Duo P7370 @ 2.00GHz|C|1278|137z
+0~Celeron Dual-Core T3500 @ 2.10GHz|C|1330|2147#Celeron Dual-Core T3300 @ 2.00GHz|C|1272|138z
+0~Intel Core2 Duo T6600 @ 2.20GHz|C|1412|2141#Intel Core2 Duo T7500 @ 2.20GHz|C|1272|139z
+0~Intel Celeron B815 @ 1.60GHz|C|1315|2142#Intel Celeron N2910 @ 1.60GHz|C|1272|140z
+0~Intel Core i7 U 660 @ 1.33GHz|C|1893|2109#Intel Core i5 U 470 @ 1.33GHz|C|1266|141z
+0~AMD Turion II Ultra Dual-Core Mobile M640|C|1400|2127#AMD Turion X2 Ultra Dual-Core Mobile ZM-87|C|1261|142z
+0~Intel Core2 Duo T6500 @ 2.10GHz|C|1300|2150#Intel Core2 Duo T6570 @ 2.10GHz|C|1257|143z
+0~Intel Pentium B960 @ 2.20GHz|C|1881|2110#Intel Pentium 3560Y @ 1.20GHz|C|1235|144z
+0~AMD A4-3305M APU|C|1272|2151#AMD A4-3300M APU|C|1234|145z
+0~AMD Turion II Ultra Dual-Core Mobile M640|C|1400|2127#AMD Turion X2 Ultra Dual-Core Mobile ZM-86|C|1212|146z
+0~AMD Turion II Ultra Dual-Core Mobile M640|C|1400|2127#AMD Turion X2 Ultra Dual-Core Mobile ZM-84|C|1212|147z
+0~AMD Turion II Dual-Core Mobile M520|C|1303|2144#AMD Turion X2 Dual-Core Mobile RM-77|C|1210|148z
+0~Intel Core i7 U 660 @ 1.33GHz|C|1893|2109#Intel Core i3 U 380 @ 1.33GHz|C|1205|149z
+0~Intel Core2 Duo T6400 @ 2.00GHz|C|1229|2154#Intel Core2 Duo T7300 @ 2.00GHz|C|1194|150z
+0~AMD Turion II Ultra Dual-Core Mobile M640|C|1400|2127#AMD Turion X2 Ultra Dual-Core Mobile ZM-85|C|1186|151z
+0~Intel Core2 Duo T6400 @ 2.00GHz|C|1229|2154#Intel Core2 Duo T7200 @ 2.00GHz|C|1184|152z
+0~AMD Turion II Dual-Core Mobile M520|C|1303|2144#AMD Turion X2 Dual-Core Mobile RM-75|C|1179|153z
+0~Intel Celeron B820 @ 1.70GHz|C|1471|2135#Intel Celeron 857 @ 1.20GHz|C|1168|154z
+0~Celeron Dual-Core T3500 @ 2.10GHz|C|1330|2147#Celeron Dual-Core T3100 @ 1.90GHz|C|1165|155z
+0~Intel Pentium B940 @ 2.00GHz|C|1767|2117#Intel Pentium T4200 @ 2.00GHz|C|1157|156z
+0~Intel Core i7 U 640 @ 1.20GHz|C|1717|2119#Intel Core i3 U 330 @ 1.20GHz|C|1135|157z
+0~AMD Turion II Ultra Dual-Core Mobile M640|C|1400|2127#AMD Turion X2 Ultra Dual-Core Mobile ZM-82|C|1134|158z
+0~Intel Core2 Duo T6400 @ 2.00GHz|C|1229|2154#Intel Core2 Duo T5800 @ 2.00GHz|C|1119|159z
+0~Intel Core2 Duo P7350 @ 2.00GHz|C|1322|2148#Intel Core2 Duo T7250 @ 2.00GHz|C|1103|160z
+0~Intel Core2 Duo L9300 @ 1.60GHz|C|1105|2166#Intel Core2 Duo U9600 @ 1.60GHz|C|1093|161z
+0~Intel Core2 Duo T5870 @ 2.00GHz|C|1115|2163#Intel Core2 Duo T5750 @ 2.00GHz|C|1085|162z
+0~AMD Turion II Dual-Core Mobile M520|C|1303|2144#AMD Turion X2 Dual-Core Mobile RM-72|C|1066|163z
+0~AMD Turion II Dual-Core Mobile M520|C|1303|2144#AMD Turion X2 Dual-Core Mobile RM-74|C|1053|164z
+0~Intel Core2 Duo T7600 @ 2.33GHz|C|1332|2146#Intel Core Duo T2700 @ 2.33GHz|C|1047|165z
+0~AMD Turion II Ultra Dual-Core Mobile M640|C|1400|2127#AMD Turion X2 Ultra Dual-Core Mobile ZM-80|C|1040|166z
+0~Intel Core2 Duo T5550 @ 1.83GHz|C|1044|2169#Intel Core2 Duo T5600 @ 1.83GHz|C|1035|167z
+0~Intel Core2 Duo P9400 @ 2.40GHz|C|1685|2124#Intel Core2 Duo U9400 @ 1.40GHz|C|992|168z
+0~Intel Celeron B840 @ 1.90GHz|C|1803|2115#Intel Celeron 847 @ 1.10GHz|C|982|169z
+0~Intel Atom Z3745 @ 1.33GHz|C|1069|2162#Intel Atom Z3735D @ 1.33GHz|C|973|170z
+0~Intel Core2 Duo T5670 @ 1.80GHz|C|1020|2172#Intel Core2 Duo L7700 @ 1.80GHz|C|968|171z
+0~AMD Turion II Neo K685 Dual-Core|C|1158|2160#AMD Turion II Neo N40L Dual-Core|C|964|172z
+0~AMD Turion 64 X2 Mobile TL-66|C|970|2164#AMD Turion 64 X2 Mobile TL-58|C|961|173z
+0~Intel Core2 Duo T7400 @ 2.16GHz|C|1249|2152#Intel Core Duo T2600 @ 2.16GHz|C|939|174z
+0~Intel Core2 Duo L9300 @ 1.60GHz|C|1105|2166#Intel Core2 Duo L7500 @ 1.60GHz|C|930|175z
+0~Intel Celeron N2920 @ 1.86GHz|C|1562|2131#Intel Celeron N2815 @ 1.86GHz|C|929|176z
+0~AMD Turion II Neo K685 Dual-Core|C|1158|2160#AMD Turion II Neo K625 Dual-Core|C|927|177z
+0~Intel Core2 Duo T5500 @ 1.66GHz|C|921|2177#Intel Core2 Duo T5450 @ 1.66GHz|C|891|178z
+0~Intel Core2 Duo T6400 @ 2.00GHz|C|1229|2154#Intel Core Duo T2500 @ 2.00GHz|C|890|179z
+0~Intel Core2 Duo L9300 @ 1.60GHz|C|1105|2166#Intel Core2 Duo U9300 @ 1.20GHz|C|869|180z
+0~AMD Turion 64 X2 Mobile TL-66|C|970|2164#AMD Turion 64 X2 Mobile TL-56|C|854|181z
+0~Intel Core2 Duo T5470 @ 1.60GHz|C|914|2178#Intel Core2 Duo T5200 @ 1.60GHz|C|834|182z
+0~Intel Core2 Duo P7350 @ 2.00GHz|C|1322|2148#Intel Core Duo T2450 @ 2.00GHz|C|824|183z
+0~Intel Core2 Duo U7300 @ 1.30GHz|C|911|2180#Intel Core2 Duo L7300 @ 1.40GHz|C|822|184z
+0~Intel Celeron B820 @ 1.70GHz|C|1471|2135#Intel Celeron B720 @ 1.70GHz|C|814|185z
+0~Intel Celeron SU2300 @ 1.20GHz|C|801|2188#Intel Celeron U3600 @ 1.20GHz|C|763|186z
+0~Intel Celeron B815 @ 1.60GHz|C|1315|2142#Intel Celeron N2806 @ 1.60GHz|C|762|187z
+0~AMD Turion 64 X2 Mobile TL-66|C|970|2164#AMD Turion 64 X2 Mobile TL-52|C|756|188z
+0~AMD Turion 64 X2 Mobile TL-66|C|970|2164#AMD Turion 64 X2 Mobile TL-50|C|753|189z
+0~Intel Core2 Duo T5500 @ 1.66GHz|C|921|2177#Intel Core Duo T2300 @ 1.66GHz|C|743|190z
+0~Intel Core Duo T2400 @ 1.83GHz|C|803|2187#Intel Core Duo L2500 @ 1.83GHz|C|728|191z
+0~AMD E-350|C|761|2192#AMD E-350 APU|C|727|192z
+0~Intel Celeron 867 @ 1.30GHz|C|1199|2156#Intel Celeron 925 @ 2.30GHz|C|722|193z
+0~Intel Core2 Duo T5500 @ 1.66GHz|C|921|2177#Intel Core Duo L2400 @ 1.66GHz|C|700|194z
+0~Intel Core2 Duo U7700 @ 1.33GHz|C|710|2197#Intel Core2 Duo L7200 @ 1.33GHz|C|684|195z
+0~Intel Core2 Duo T6600 @ 2.20GHz|C|1412|2141#Intel Core2 Duo U7600 @ 1.20GHz|C|666|196z
+0~Intel Celeron N2820 @ 2.13GHz|C|1009|2174#Intel Celeron 560 @ 2.13GHz|C|556|197z
+0~Intel Core2 Duo U7500 @ 1.06GHz|C|612|2207#Intel Core Duo U2400 @ 1.06GHz|C|551|198z
+0~AMD Turion 64 Mobile ML-42|C|591|2203#AMD Turion 64 Mobile MT-40|C|536|199z
+0~Intel Celeron N2810 @ 2.00GHz|C|820|2186#Intel Celeron 550 @ 2.00GHz|C|508|200z
+0~Mobile AMD Athlon XP|C|512|2212#Mobile AMD Athlon XP-M (LV)|C|508|201z
+0~Intel Celeron N2920 @ 1.86GHz|C|1562|2131#Intel Celeron 540 @ 1.86GHz|C|502|202z
+0~AMD Turion 64 Mobile MK-38|C|502|2218#AMD Turion 64 Mobile MT-37|C|484|203z
+0~Mobile AMD Athlon MP-M 2800+|C|496|2220#Mobile AMD Athlon XP-M (LV) 2800+|C|475|204z
+0~Mobile AMD Sempron 3800+|C|523|2215#Mobile AMD Sempron 3300+|C|462|205z
+0~Mobile AMD Sempron 3800+|C|523|2215#Mobile AMD Sempron 3400+|C|456|206z
+0~Intel Celeron 867 @ 1.30GHz|C|1199|2156#Intel Celeron 743 @ 1.30GHz|C|455|207z
+0~AMD Turion 64 Mobile MK-38|C|502|2218#AMD Turion 64 Mobile ML-37|C|450|208z
+0~Mobile AMD Sempron 3800+|C|523|2215#Mobile AMD Sempron 3600+|C|444|209z
+0~Mobile AMD Athlon MP-M 2800+|C|496|2220#Mobile AMD Athlon 64 2800+|C|440|210z
+0~Mobile AMD Athlon MP-M 2800+|C|496|2220#Mobile AMD Athlon XP-M 3100+|C|440|211z
+0~Mobile Intel Pentium 4 3.46GHz|C|478|2221#Mobile Intel Pentium 4 3.33GHz|C|439|212z
+0~AMD Turion 64 Mobile MK-38|C|450|2218#AMD Turion 64 Mobile ML-34|C|437|213z
+0~AMD Turion 64 Mobile MK-38|C|450|2218#AMD Turion 64 Mobile MT-32|C|424|214z
+0~Mobile AMD Athlon XP-M (LV) 3200+|C|487|2217#Mobile AMD Athlon 64 3200+|C|422|215z
+0~AMD Turion 64 Mobile MK-38|C|450|2218#AMD Turion 64 Mobile ML-32|C|420|216z
+0~Mobile AMD Sempron 3800+|C|523|2215#Mobile AMD Sempron 3100+|C|418|217z
+0~Intel Core2 Solo U3500 @ 1.40GHz|C|466|2224#Intel Core2 Solo U3300 @ 1.20GHz|C|415|218z
+0~AMD Turion 64 Mobile MT-28|C|419|2226#AMD Turion 64 Mobile MT-34|C|414|219z
+0~Mobile AMD Sempron 3800+|C|523|2215#Mobile AMD Sempron 3500+|C|413|220z
+0~Mobile AMD Sempron 3800+|C|523|2215#Mobile AMD Sempron 2600+|C|403|221z
+0~Intel Celeron SU2300 @ 1.20GHz|C|801|2188#Intel Celeron 723 @ 1.20GHz|C|402|222z
+0~Mobile AMD Sempron 3800+|C|523|2215#Mobile AMD Sempron 3000+|C|399|223z
+0~AMD Turion 64 Mobile MK-38|C|450|2218#AMD Turion 64 Mobile ML-30|C|398|224z
+0~Mobile AMD Athlon 64 4000+|C|450|2208#Mobile AMD Athlon 64 2700+|C|398|225z
+0~AMD Turion 64 Mobile MT-28|C|419|2226#AMD Turion 64 Mobile MT-30|C|398|226z
+0~Intel Celeron N2920 @ 1.86GHz|C|1562|2131#Intel Celeron M 440 @ 1.86GHz|C|393|227z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 2600+|C|391|228z
+0~AMD Turion 64 Mobile MT-28|C|419|2226#AMD Turion 64 Mobile ML-28|C|390|229z
+0~Mobile AMD Athlon 64 4000+|C|450|2208#Mobile AMD Athlon 4 2400+|C|379|230z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon MP-M 2000+|C|378|231z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 2200+|C|376|232z
+0~Mobile AMD Athlon XP|C|512|2212#Mobile AMD Athlon 2500+|C|370|233z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 2500+|C|369|234z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 3000+|C|365|235z
+0~Mobile AMD Athlon 64 4000+|C|450|2208#Mobile AMD Athlon 64 3700+|C|363|236z
+0~Mobile AMD Sempron 3800+|C|381|2215#Mobile AMD Sempron 3200+|C|349|237z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 2400+|C|344|238z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 1900+|C|342|239z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 1700+|C|323|240z
+0~Intel Atom N2600 @ 1.60GHz|C|538|2214#Intel Atom N2100 @ 1.60GHz|C|321|241z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 1800+|C|312|242z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 2000+|C|307|243z
+0~Mobile AMD Athlon XP-M (LV) 3200+|C|335|2217#Mobile AMD Athlon XP-M (LV) 1600+|C|296|244z
+0~Intel Atom N570 @ 1.66GHz|C|594|2210#Intel Atom N280 @ 1.66GHz|C|292|245z
+0~Intel Atom N570 @ 1.66GHz|C|594|2210#Intel Atom N455 @ 1.66GHz|C|290|246z
+0~Intel Atom N570 @ 1.66GHz|C|594|2210#Intel Atom N450 @ 1.66GHz|C|290|247z
+0~Mobile AMD Athlon XP-M (LV) 3200+|C|335|2217#Mobile AMD Athlon XP-M (LV) 1500+|C|288|248z
+0~Intel Atom N2600 @ 1.60GHz|C|538|2214#Intel Atom N270 @ 1.60GHz|C|282|249z
+0~Mobile Intel Pentium III - M 1133MHz|C|289|2240#Mobile Intel Pentium III - M 1200MHz|C|279|250z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|313|2236#Mobile Intel Pentium 4 2.30GHz|C|278|251z
+0~Intel Atom Z530 @ 1.60GHz|C|281|2242#Intel Atom E660 @ 1.30GHz|C|271|252z
+0~Intel Pentium III Mobile 1200MHz|C|274|2243#Intel Pentium III Mobile 1066MHz|C|268|253z
+0~Mobile AMD Athlon XP|C|314|2212#Mobile AMD Athlon 1400+|C|266|254z
+0~Mobile AMD Sempron 3800+|C|381|2215#Mobile AMD Sempron 2100+|C|265|255z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 1500+|C|261|256z
+0~Intel Core2 Solo U2200 @ 1.20GHz|C|311|2237#Intel Core Solo U1400 @ 1.20GHz|C|260|257z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 1600+|C|257|258z
+0~Mobile Intel Celeron 2.50GHz|C|281|2241#Mobile Intel Celeron 2.20GHz|C|253|259z
+0~Intel Atom N550 @ 1.50GHz|C|512|2216#Intel Atom Z670 @ 1.50GHz|C|252|260z
+0~Intel Pentium III Mobile 1200MHz|C|274|2243#Mobile Intel Pentium III - M 1000MHz|C|250|261z
+0~Mobile Intel Celeron 2.50GHz|C|281|2241#Mobile Intel Celeron 2.00GHz|C|241|262z
+0~Mobile Intel Celeron 2.50GHz|C|281|2241#Mobile Intel Celeron 2.40GHz|C|239|263z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|255|2236#Mobile Intel Pentium 4 - M 1.90GHz|C|232|264z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|255|2236#Mobile Intel Pentium 4 - M 1.80GHz|C|221|265z
+0~Intel Pentium III Mobile 1200MHz|C|245|2243#Intel Pentium III Mobile 933MHz|C|218|266z
+0~Intel Pentium III Mobile 1200MHz|C|245|2243#Intel Pentium III Mobile 866MHz|C|214|267z
+0~Mobile Intel Pentium III - M 1133MHz|C|226|2240#Mobile Intel Pentium III - M 866MHz|C|211|268z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|215|2236#Intel Pentium 4 Mobile 2.00GHz|C|211|269z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|215|2236#Intel Pentium 4 Mobile 1.90GHz|C|209|270z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|215|2236#Intel Pentium 4 Mobile 1.70GHz|C|208|271z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|199|2236#Intel Pentium 4 Mobile 1.50GHz|C|197|272z
+0~Intel Atom Z515 @ 1.20GHz|C|218|2245#Intel Atom Z510 @ 1.10GHz|C|194|273z
+0~Mobile Intel Celeron 2.50GHz|C|188|2241#Mobile Intel Celeron 1.60GHz|C|188|274z
+0~Mobile Intel Celeron 2.50GHz|C|188|2241#Mobile Intel Celeron 1.80GHz|C|186|275z
+0~Mobile AMD Athlon MP-M 2800+|C|398|2220#Mobile AMD Athlon XP-M 1400+|C|184|276z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|195|2236#Mobile Intel Pentium 4 - M 1.70GHz|C|182|277z
+0~Mobile Intel Celeron 2.50GHz|C|188|2241#Mobile Intel Celeron 1.70GHz|C|181|278z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|195|2236#Intel Pentium 4 Mobile 1.80GHz|C|175|279z
+0~Mobile Intel Celeron 2.50GHz|C|188|2241#Mobile Intel Celeron 1.20GHz|C|170|280z
+0~Mobile Intel Pentium 4 - M 2.60GHz|C|195|2236#Intel Pentium 4 Mobile 1.40GHz|C|149|281z
+0~Intel Pentium III Mobile 1200MHz|C|201|2243#Intel Pentium III Mobile 750MHz|C|103|282z
