@@ -13,41 +13,91 @@
 <style>
     .cps-highligh {
         border-style: solid;
-        border-color: red;
+        border-color: #7DBB18;
+        padding: 5px;
     }
 </style>
 
 <div class="main-content">
-    <div class="span7 left-element">
-        @foreach (var item in Model)
-        { 
-            <div class="accordion fadeLeft">
+    <div class="span8 left-element">
+        <div class="accordion fadeLeft">
+            @foreach (var item in Model)
+            {
                 <h5><i class="icon-plus-sign"></i>@item.CompareTime.ToShortDateString()</h5>
                 <div>
+                    <div class="span7">
                     @foreach (var detail in item.HistoryDetails)
                     {
-                        if (detail.isWinner.Equals(true)) { 
+                        if (detail.isWinner.Equals(true))
+                        { 
                             <div class="span2 cps-highligh">
                                 <img src="~/@detail.Product.ImageURL" />
-                                <center>@dataManager.Truncate(@detail.Product.Name, limit)</center>
-                                <p class="product-score">@detail.Product.TotalWeightPoint</p>
+                                <center><strong>@dataManager.Truncate(@detail.Product.Name, limit)</strong></center>
                             </div>
-                        } else {
+                        }
+                        else
+                        {
                             <div class="span2">
                                 <img src="~/@detail.Product.ImageURL" />
                                 <center>@dataManager.Truncate(@detail.Product.Name, limit)</center>
-                                <p class="product-score">@detail.Product.TotalWeightPoint</p>
                             </div>
                         }
-                    }
+                    }</div>
+                    <div class="span7">
+                        <div class="stylish-button" style="background-color: #666699; margin-left: 87%">
+                            <a href="#">chi tiết</a>
+                            <div class="hidden">
+                                @foreach (var detail in item.HistoryDetails)
+                                { 
+                                    <span>@detail.ProductID</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
 <script>
     $(document).ready(function () {
         var score = $(".product-score");
+    });
 
+    $('.stylish-button').on('click', function () {
+        var p01 = this.children[1].children[0].innerHTML;
+        var p02 = this.children[1].children[1].innerHTML;
+        if (this.children[1].children[2] == undefined) {
+            p03 = -1;
+        } else {
+            var p03 = this.children[1].children[2].innerHTML;
+        }
+
+        var createform = document.createElement('form'); // Create New Element form
+        createform.setAttribute("action", "/Product/Compare"); // Setting action Attribute on form
+        createform.setAttribute("method", "post"); // Setting method Attribute on form
+
+        var input1 = document.createElement('input'); // Create input field for name
+        input1.setAttribute("type", "hidden");
+        input1.setAttribute("id", "p1");
+        input1.setAttribute("name", "p1");
+        input1.setAttribute("value", Number(p01));
+        createform.appendChild(input1);
+
+        var input2 = document.createElement('input'); // Create input field for name
+        input2.setAttribute("id", "p2");
+        input2.setAttribute("name", "p2");
+        input2.setAttribute("type", "hidden");
+        input2.setAttribute("value", Number(p02));
+        createform.appendChild(input2);
+
+        var input3 = document.createElement('input'); // Create input field for name
+        input3.setAttribute("type", "hidden");
+        input3.setAttribute("id", "p3");
+        input3.setAttribute("name", "p3");
+        input3.setAttribute("value", Number(p03));
+        createform.appendChild(input3);
+
+        createform.submit();
     });
 </script>
