@@ -1066,9 +1066,12 @@ namespace CPS_Solution.Areas.Admin.Helpers
                 var alias = context.AliasProducts.Where(x => x.ID == productID).FirstOrDefault();
                 if (alias != null)
                 {
-                    alias.Price = valPrice;
-                    alias.UpdateTime = DateTime.Now;
-                    context.SaveChanges();
+                    if (valPrice != 0 && valPrice != alias.Price) 
+                    {
+                        alias.Price = valPrice;
+                        alias.UpdateTime = DateTime.Now;
+                        context.SaveChanges();
+                    }
                 }
                 ConstantManager.IsUpdateRunning = false;
             }
