@@ -409,6 +409,9 @@
             var pro01_min_price = minPrice.getElementsByTagName('span')[0].innerHTML;
             var pro01_max_price = maxPrice.getElementsByTagName('span')[0].innerHTML;
 
+           
+
+
             //Lay diem phan cung san pham 2
             var pro02_attr01 = attr01.getElementsByTagName('span')[2].innerHTML;
             var pro02_attr02 = attr02.getElementsByTagName('span')[2].innerHTML;
@@ -437,6 +440,107 @@
 
             //Lay ID san pham 3
             var pro03_id = attr02.getElementsByTagName('td')[9].innerHTML;
+
+            var pro01_score = Math.round(Number(bestScore) * (((Number(pro01_attr01) + Number(pro01_attr02)) * 0.6 + (Number(pro01_attr03) + Number(pro01_attr04) + Number(pro01_attr05)) * 0.4) / 5 * 100)) / 100;
+            var pro02_score = Math.round(Number(bestScore) * (((Number(pro02_attr01) + Number(pro02_attr02)) * 0.6 + (Number(pro02_attr03) + Number(pro02_attr04) + Number(pro02_attr05)) * 0.4) / 5 * 100)) / 100;
+            var pro03_score = Math.round(Number(bestScore) * (((Number(pro03_attr01) + Number(pro03_attr02)) * 0.6 + (Number(pro03_attr03) + Number(pro03_attr04) + Number(pro03_attr05)) * 0.4) / 5 * 100)) / 100;
+
+            var pro01_min_ratio = Math.round(pro01_min_price / pro01_score);
+            var pro02_min_ratio = Math.round(pro02_min_price / pro02_score);
+            var pro03_min_ratio = Math.round(pro03_min_price / pro03_score);
+
+            var pro01_max_ratio = Math.round(pro01_max_price / pro01_score);
+            var pro02_max_ratio = Math.round(pro02_max_price / pro02_score);
+            var pro03_max_ratio = Math.round(pro03_max_price / pro03_score);
+
+            //Tim max diem uu tien cua cac san pham
+            var max = pro01_score;
+            if (pro02_score > max)
+                max = pro02_score
+            if (pro03_score > max)
+                max = pro03_score;
+
+            //Highlight san pham co diem uu tien max
+            if (max == pro01_score) {
+                //Doi thanh class winner
+                $('.' + pro01_id).removeClass('product-css');
+                $('.' + pro01_id).addClass("winner", 1000, "easeOutSine");
+
+                //Xoa class winner
+                $('.' + pro02_id).removeClass('winner');
+                $('.' + pro03_id).removeClass('winner');
+
+                //Them lai class product
+                $('.' + pro02_id).addClass("product-css", 1000, "easeOutSine");
+                $('.' + pro03_id).addClass("product-css", 1000, "easeOutSine");
+            } else if (max == pro02_score) {
+                //Doi thanh class winner
+                $('.' + pro02_id).removeClass('product-css');
+                $('.' + pro02_id).addClass("winner", 1000, "easeOutSine");
+
+                //Xoa class winner
+                $('.' + pro01_id).removeClass('winner');
+                $('.' + pro03_id).removeClass('winner');
+
+                //Them lai class product
+                $('.' + pro01_id).addClass("product-css", 1000, "easeOutSine");
+                $('.' + pro03_id).addClass("product-css", 1000, "easeOutSine");
+            } else if (max == pro03_score) {
+                //Doi thanh class winner
+                $('.' + pro03_id).removeClass('product-css');
+                $('.' + pro03_id).addClass("winner", 1000, "easeOutSine");
+
+                //Xoa class winner
+                $('.' + pro01_id).removeClass('winner');
+                $('.' + pro02_id).removeClass('winner');
+
+                //Them lai class product
+                $('.' + pro01_id).addClass("product-css", 1000, "easeOutSine");
+                $('.' + pro02_id).addClass("product-css", 1000, "easeOutSine");
+            }
+            //In diem uu tien
+            $('.total_score_' + pro01_id).text(pro01_score);
+            $('.total_score_' + pro02_id).text(pro02_score);
+            $('.total_score_' + pro03_id).text(pro03_score);
+
+            Number.prototype.formatMoney = function (c, d, t) {
+                var n = this,
+                    c = isNaN(c = Math.abs(c)) ? 2 : c,
+                    d = d == undefined ? "." : d,
+                    t = t == undefined ? "," : t,
+                    s = n < 0 ? "-" : "",
+                    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+                    j = (j = i.length) > 3 ? j % 3 : 0;
+                return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+            };
+            //In ratio
+            $('.min_ratio_' + pro01_id).text(Number(Math.round(pro01_min_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+            $('.max_ratio_' + pro01_id).text(Number(Math.round(pro01_max_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+            $('.min_ratio_' + pro02_id).text(Number(Math.round(pro02_min_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+            $('.max_ratio_' + pro02_id).text(Number(Math.round(pro02_max_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+            $('.min_ratio_' + pro03_id).text(Number(Math.round(pro03_min_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+            $('.max_ratio_' + pro03_id).text(Number(Math.round(pro03_max_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+
+            //Khai bao trung binh gia
+            var p1_min_max = (Number)(pro01_min_ratio + pro01_max_ratio) / 2
+            var p2_min_max = (Number)(pro02_min_ratio + pro02_max_ratio) / 2
+            var p3_min_max = (Number)(pro03_min_ratio + pro03_max_ratio) / 2
+
+
+            var min = Math.min(p1_min_max, p2_min_max, p3_min_max);
+            if (p1_min_max == min) {
+                $(".price_ratio_" + pro01_id).addClass("best-price")
+                $(".price_ratio_" + pro02_id).removeClass("best-price")
+                $(".price_ratio_" + pro03_id).removeClass("best-price")
+            } else if (p2_min_max == min) {
+                $(".price_ratio_" + pro02_id).addClass("best-price")
+                $(".price_ratio_" + pro01_id).removeClass("best-price")
+                $(".price_ratio_" + pro03_id).removeClass("best-price")
+            } else if (p3_min_max == min) {
+                $(".price_ratio_" + pro03_id).addClass("best-price")
+                $(".price_ratio_" + pro01_id).removeClass("best-price")
+                $(".price_ratio_" + pro03_id).removeClass("best-price")
+            }
         } else {
             //Lay diem phan cung san pham 1
             var pro01_attr01 = attr01.getElementsByTagName('span')[1].innerHTML;
@@ -459,118 +563,89 @@
             var pro02_max_price = maxPrice.getElementsByTagName('span')[1].innerHTML;
 
             //Lay ID san pham 1
-            var pro01_attr03 = attr02.getElementsByTagName('td')[3].innerHTML;
+            var pro01_id = attr02.getElementsByTagName('td')[3].innerHTML;
 
             //Lay ID san pham 2
-            var pro02_attr03 = attr02.getElementsByTagName('td')[6].innerHTML;
+            var pro02_id = attr02.getElementsByTagName('td')[6].innerHTML;
+
+            var pro01_score = Math.round(Number(bestScore) * (((Number(pro01_attr01) + Number(pro01_attr02)) * 0.6 + (Number(pro01_attr03) + Number(pro01_attr04) + Number(pro01_attr05)) * 0.4) / 5 * 100)) / 100;
+            var pro02_score = Math.round(Number(bestScore) * (((Number(pro02_attr01) + Number(pro02_attr02)) * 0.6 + (Number(pro02_attr03) + Number(pro02_attr04) + Number(pro02_attr05)) * 0.4) / 5 * 100)) / 100;
+
+            var pro01_min_ratio = Math.round(pro01_min_price / pro01_score);
+            var pro02_min_ratio = Math.round(pro02_min_price / pro02_score);
+
+            var pro01_max_ratio = Math.round(pro01_max_price / pro01_score);
+            var pro02_max_ratio = Math.round(pro02_max_price / pro02_score);
+
+            //Tim max diem uu tien cua cac san pham
+            var max = pro01_score;
+            if (pro02_score > max)
+                max = pro02_score
+
+            //Highlight san pham co diem uu tien max
+            if (max == pro01_score) {
+                //Doi thanh class winner
+                $('.' + pro01_id).removeClass('product-css');
+                $('.' + pro01_id).addClass("winner", 1000, "easeOutSine");
+
+                //Xoa class winner
+                $('.' + pro02_id).removeClass('winner');
+
+                //Them lai class product
+                $('.' + pro02_id).addClass("product-css", 1000, "easeOutSine");
+            } else if (max == pro02_score) {
+                //Doi thanh class winner
+                $('.' + pro02_id).removeClass('product-css');
+                $('.' + pro02_id).addClass("winner", 1000, "easeOutSine");
+
+                //Xoa class winner
+                $('.' + pro01_id).removeClass('winner');
+
+                //Them lai class product
+                $('.' + pro01_id).addClass("product-css", 1000, "easeOutSine");
+            }
+            //In diem uu tien
+            $('.total_score_' + pro01_id).text(pro01_score);
+            $('.total_score_' + pro02_id).text(pro02_score);
+
+            Number.prototype.formatMoney = function (c, d, t) {
+                var n = this,
+                    c = isNaN(c = Math.abs(c)) ? 2 : c,
+                    d = d == undefined ? "." : d,
+                    t = t == undefined ? "," : t,
+                    s = n < 0 ? "-" : "",
+                    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+                    j = (j = i.length) > 3 ? j % 3 : 0;
+                return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+            };
+            //In ratio
+            $('.min_ratio_' + pro01_id).text(Number(Math.round(pro01_min_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+            $('.max_ratio_' + pro01_id).text(Number(Math.round(pro01_max_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+            $('.min_ratio_' + pro02_id).text(Number(Math.round(pro02_min_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+            $('.max_ratio_' + pro02_id).text(Number(Math.round(pro02_max_ratio / 1000) * 1000).formatMoney(0, '.', ',') + ' ₫');
+
+            //Khai bao trung binh gia
+            var p1_min_max = (Number)(pro01_min_ratio + pro01_max_ratio) / 2
+            var p2_min_max = (Number)(pro02_min_ratio + pro02_max_ratio) / 2
+
+            var min = Math.min(p1_min_max, p2_min_max);
+            if (p1_min_max == min) {
+                $(".price_ratio_" + pro01_id).addClass("best-price")
+                $(".price_ratio_" + pro02_id).removeClass("best-price")
+                $(".price_ratio_" + pro03_id).removeClass("best-price")
+            } else if (p2_min_max == min) {
+                $(".price_ratio_" + pro02_id).addClass("best-price")
+                $(".price_ratio_" + pro01_id).removeClass("best-price")
+                $(".price_ratio_" + pro03_id).removeClass("best-price")
+            }
         }
 
-        var pro01_score = Math.round(Number(bestScore) * (((Number(pro01_attr01) + Number(pro01_attr02)) * 0.6 + (Number(pro01_attr03) + Number(pro01_attr04) + Number(pro01_attr05)) * 0.4) / 5 * 100)) / 100;
-        var pro02_score = Math.round(Number(bestScore) * (((Number(pro02_attr01) + Number(pro02_attr02)) * 0.6 + (Number(pro02_attr03) + Number(pro02_attr04) + Number(pro02_attr05)) * 0.4) / 5 * 100)) / 100;
-        var pro03_score = Math.round(Number(bestScore) * (((Number(pro03_attr01) + Number(pro03_attr02)) * 0.6 + (Number(pro03_attr03) + Number(pro03_attr04) + Number(pro03_attr05)) * 0.4) / 5 * 100)) / 100;
-
-        var pro01_min_ratio = Math.round(pro01_min_price / pro01_score);
-        var pro02_min_ratio = Math.round(pro02_min_price / pro02_score);
-        var pro03_min_ratio = Math.round(pro03_min_price / pro03_score);
-
-        var pro01_max_ratio = Math.round(pro01_max_price / pro01_score);
-        var pro02_max_ratio = Math.round(pro02_max_price / pro02_score);
-        var pro03_max_ratio = Math.round(pro03_max_price / pro03_score);
-
-        //Tim max diem uu tien cua cac san pham
-        var max = pro01_score;
-        if (pro02_score > max)
-            max = pro02_score
-        if (pro03_score > max)
-            max = pro03_score;
-            
-        //Highlight san pham co diem uu tien max
-        if (max == pro01_score) {
-            //Doi thanh class winner
-            $('.' + pro01_id).removeClass('product-css');
-            $('.' + pro01_id).addClass("winner", 1000, "easeOutSine");
-
-            //Xoa class winner
-            $('.' + pro02_id).removeClass('winner');
-            $('.' + pro03_id).removeClass('winner');
-
-            //Them lai class product
-            $('.' + pro02_id).addClass("product-css", 1000, "easeOutSine");
-            $('.' + pro03_id).addClass("product-css", 1000, "easeOutSine");
-        } else if (max == pro02_score) {
-            //Doi thanh class winner
-            $('.' + pro02_id).removeClass('product-css');
-            $('.' + pro02_id).addClass("winner", 1000, "easeOutSine");
-
-            //Xoa class winner
-            $('.' + pro01_id).removeClass('winner');
-            $('.' + pro03_id).removeClass('winner');
-
-            //Them lai class product
-            $('.' + pro01_id).addClass("product-css", 1000, "easeOutSine");
-            $('.' + pro03_id).addClass("product-css", 1000, "easeOutSine");
-        } else if (max == pro03_score) {
-            //Doi thanh class winner
-            $('.' + pro03_id).removeClass('product-css');
-            $('.' + pro03_id).addClass("winner", 1000, "easeOutSine");
-
-            //Xoa class winner
-            $('.' + pro01_id).removeClass('winner');
-            $('.' + pro02_id).removeClass('winner');
-
-            //Them lai class product
-            $('.' + pro01_id).addClass("product-css", 1000, "easeOutSine");
-            $('.' + pro02_id).addClass("product-css", 1000, "easeOutSine");
-        }
-        //In diem uu tien
-        $('.total_score_' + pro01_id).text(pro01_score);
-        $('.total_score_' + pro02_id).text(pro02_score);
-        $('.total_score_' + pro03_id).text(pro03_score);
-
-        Number.prototype.formatMoney = function (c, d, t) {
-            var n = this,
-                c = isNaN(c = Math.abs(c)) ? 2 : c,
-                d = d == undefined ? "." : d,
-                t = t == undefined ? "," : t,
-                s = n < 0 ? "-" : "",
-                i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
-                j = (j = i.length) > 3 ? j % 3 : 0;
-            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-        };
-        //In ratio
-        $('.min_ratio_' + pro01_id).text(Number(Math.round(pro01_min_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
-        $('.max_ratio_' + pro01_id).text(Number(Math.round(pro01_max_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
-        $('.min_ratio_' + pro02_id).text(Number(Math.round(pro02_min_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
-        $('.max_ratio_' + pro02_id).text(Number(Math.round(pro02_max_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
-        $('.min_ratio_' + pro03_id).text(Number(Math.round(pro03_min_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
-        $('.max_ratio_' + pro03_id).text(Number(Math.round(pro03_max_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
-
-        //Khai bao trung binh gia
-        var p1_min_max = (Number)(pro01_min_ratio + pro01_max_ratio) / 2
-        var p2_min_max = (Number)(pro02_min_ratio + pro02_max_ratio) / 2
-        var p3_min_max = (Number)(pro03_min_ratio + pro03_max_ratio) / 2
-       
-        console.log(p1_min_max)
-        console.log(p2_min_max)
-        console.log(p3_min_max)
-
-        var min = Math.min(p1_min_max, p2_min_max, p3_min_max);
-        console.log(min)
-        if (p1_min_max == min) {
-            $(".price_ratio_" + pro01_id).addClass("best-price")
-            $(".price_ratio_" + pro02_id).removeClass("best-price")
-            $(".price_ratio_" + pro03_id).removeClass("best-price")
-        } else if (p2_min_max == min) {
-            $(".price_ratio_" + pro02_id).addClass("best-price")
-            $(".price_ratio_" + pro01_id).removeClass("best-price")
-            $(".price_ratio_" + pro03_id).removeClass("best-price")
-        } else if (p3_min_max == min) {
-            $(".price_ratio_" + pro03_id).addClass("best-price")
-            $(".price_ratio_" + pro01_id).removeClass("best-price")
-            $(".price_ratio_" + pro03_id).removeClass("best-price")
-        }
+        
         
     }
+    $(".icon_find").on("click", function () {
+        sessionStorage.clear();
+    });
 </script>
 
 
