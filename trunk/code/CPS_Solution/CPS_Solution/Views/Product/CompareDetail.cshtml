@@ -96,6 +96,10 @@
         text-align: center;
         vertical-align: middle;
     }
+
+    .best-price {
+        background-color: rgb(248, 121, 18);
+    }
 </style>
 
 <div id="page-wrap">
@@ -124,7 +128,7 @@
                             </div>
                             <div class="message-container">
                                 <p style="margin-top:8px; font-size:15px; color:rgb(0, 0, 0)">
-                                    Những thành phần ưu tiên sẽ được phủ <span class="topAttrr" style="opacity:0.7; font-weight:bold">nền xanh</span>.
+                                    Những thành phần ưu tiên sẽ được phủ <span style="font-weight:bold; font-family:Tahoma, Geneva, sans-serif; background-color: rgba(26, 88, 200, 0.70); color:white">nền xanh</span>.<br />
                                     Hãy sắp xếp các thành phần ưu tiên theo tiêu chí của bạn.
                                 </p>
                             </div>
@@ -281,13 +285,10 @@
                                         <td style="width:25%; text-align:center; vertical-align:middle" data-id="@item.ID">
                                             <span>@maxPrice</span>
                                         </td>
-                                        <td></td>
-                                        <td></td>
                                     }
                                 </tr>
                             </table>
                         </li>
-
                         <li class="disabled">
                             <table class="table">
                                 <tr>
@@ -297,15 +298,18 @@
                                         <td style="width:25%; text-align:center; vertical-align:middle" class="product-css">
                                             <p class="total_score_@item.ID" style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF">
                                             </p>
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td class="test" style="width:20%; text-align:center; vertical-align:middle"><p style="font-size:16px; color:#FFFFFF">GIÁ TRỊ MỖI ĐIỂM SẢN PHẨM</p></td>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td style="width:25%; text-align:center; vertical-align:middle" class="product-css">
                                             <p class="price_ratio_@item.ID" style="vertical-align:middle; font-size:20px; font-weight:bold; color:white; text-shadow:1px 0 1.6em #FFFFFF">
-                                                @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
-                                                @*@String.Format("{0:0,0}", Math.Round((Math.Round(((double)@minPrice / item.TotalWeightPoint) / 1000)) * 1000)) ₫*@
                                                 <span class="min_ratio_@item.ID"></span>
                                                 <span>~</span>
                                                 <span class="max_ratio_@item.ID"></span>
-                                                @*@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000))*@
-                                                @*@String.Format("{0:0,0}", Math.Round((Math.Round(((double)@maxPrice / item.TotalWeightPoint) / 1000)) * 1000)) ₫*@
-
                                             </p>
                                         </td>
                                     }
@@ -534,12 +538,38 @@
             return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
         };
         //In ratio
-        $('.min_ratio_' + pro01_id).text(Number(pro01_min_ratio).formatMoney(0, '.', ',') + ' ₫');
-        $('.max_ratio_' + pro01_id).text(Number(pro01_max_ratio).formatMoney(0, '.', ',') + ' ₫');
-        $('.min_ratio_' + pro02_id).text(Number(pro02_min_ratio).formatMoney(0, '.', ',') + ' ₫');
-        $('.max_ratio_' + pro02_id).text(Number(pro02_max_ratio).formatMoney(0, '.', ',') + ' ₫');
-        $('.min_ratio_' + pro03_id).text(Number(pro03_min_ratio).formatMoney(0, '.', ',') + ' ₫');
-        $('.max_ratio_' + pro03_id).text(Number(pro03_max_ratio).formatMoney(0, '.', ',') + ' ₫');
+        $('.min_ratio_' + pro01_id).text(Number(Math.round(pro01_min_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
+        $('.max_ratio_' + pro01_id).text(Number(Math.round(pro01_max_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
+        $('.min_ratio_' + pro02_id).text(Number(Math.round(pro02_min_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
+        $('.max_ratio_' + pro02_id).text(Number(Math.round(pro02_max_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
+        $('.min_ratio_' + pro03_id).text(Number(Math.round(pro03_min_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
+        $('.max_ratio_' + pro03_id).text(Number(Math.round(pro03_max_ratio/1000)*1000).formatMoney(0, '.', ',') + ' ₫');
+
+        //Khai bao trung binh gia
+        var p1_min_max = (Number)(pro01_min_ratio + pro01_max_ratio) / 2
+        var p2_min_max = (Number)(pro02_min_ratio + pro02_max_ratio) / 2
+        var p3_min_max = (Number)(pro03_min_ratio + pro03_max_ratio) / 2
+       
+        console.log(p1_min_max)
+        console.log(p2_min_max)
+        console.log(p3_min_max)
+
+        var min = Math.min(p1_min_max, p2_min_max, p3_min_max);
+        console.log(min)
+        if (p1_min_max == min) {
+            $(".price_ratio_" + pro01_id).addClass("best-price")
+            $(".price_ratio_" + pro02_id).removeClass("best-price")
+            $(".price_ratio_" + pro03_id).removeClass("best-price")
+        } else if (p2_min_max == min) {
+            $(".price_ratio_" + pro02_id).addClass("best-price")
+            $(".price_ratio_" + pro01_id).removeClass("best-price")
+            $(".price_ratio_" + pro03_id).removeClass("best-price")
+        } else if (p3_min_max == min) {
+            $(".price_ratio_" + pro03_id).addClass("best-price")
+            $(".price_ratio_" + pro01_id).removeClass("best-price")
+            $(".price_ratio_" + pro03_id).removeClass("best-price")
+        }
+        
     }
 </script>
 

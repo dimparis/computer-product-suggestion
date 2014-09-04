@@ -56,7 +56,7 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <div class="stylish-button" style="background-color: #F87912; margin-top: 10px">
-                                        <a href="javascript:void(0)" onclick="clicktoDetail()" style="text-decoration: underline; font-family: Tahoma, Geneva, sans-serif; font-size: 15px;">
+                                        <a href="javascript:void(0)" onclick="clicktoDetail()" style="text-decoration: underline; font-family: Tahoma, Geneva, sans-serif; font-size: 14px;">
                                             so sánh chi tiết
                                         </a>
                                     </div>
@@ -65,7 +65,7 @@
                                         string brand = TempData["brandInt"].ToString();
                                         string price = TempData["priceInt"].ToString();
                                     <div class="stylish-button" style="background-color: #F87912">
-                                        <a onclick="moveHere()" style="text-decoration: underline; font-family: Tahoma, Geneva, sans-serif; font-size: 15px;">Xem thêm</a>
+                                        <a onclick="moveHere()" style="text-decoration: underline; font-family: Tahoma, Geneva, sans-serif; font-size: 14px;">Xem thêm</a>
                                     </div>
                                         using (Html.BeginForm("SearchByPriceAndBrand", "Product", FormMethod.Post, new { id = "formSearch", target = "_blank"}))
                                         {           
@@ -89,6 +89,7 @@
                                     <script>
                                         function clicktoDetail() {
                                             $('#formDetail').submit();
+                                            sessionStorage.clear();
                                         }
                                     </script>
                                     }
@@ -115,7 +116,7 @@
                         </div>
                         @if (User.Identity.IsAuthenticated) { 
                             <div class="upper-header">
-                                <p class="pricing-table-price" style="font-weight:bold; font-family: Tahoma, Geneva, sans-serif; font-size: 20px; padding: 5px 0 5px 0">Giá Trị Của 1 Điểm</p>
+                                <p class="pricing-table-price" style="font-weight:bold; font-family: Tahoma, Geneva, sans-serif; font-size: 25px; padding: 5px 0 5px 0">Giá Trị Của 1 Điểm</p>
                             </div>
                         }
                         else { 
@@ -125,19 +126,19 @@
                     </div>
                     <div class="pricing-table-content">
                         <div class="table-row odd">
-                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">CPU</strong></p>
+                            <p><strong style="font-size: 13px; text-decoration: underline; font-family: Tahoma, Geneva, sans-serif;">Bộ xử lý (CPU)</strong></p>
                         </div>
                         <div class="table-row even">
-                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">VGA</strong></p>
+                            <p><strong style="font-size: 13px; text-decoration: underline; font-family: Tahoma, Geneva, sans-serif;">Card màn hình (VGA)</strong></p>
                         </div>
                         <div class="table-row odd">
-                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">RAM</strong></p>
+                            <p><strong style="font-size: 13px; text-decoration: underline; font-family: Tahoma, Geneva, sans-serif;">Bộ nhớ đệm (RAM)</strong></p>
                         </div>
                         <div class="table-row even">
-                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">HDD</strong></p>
+                            <p><strong style="font-size: 13px; text-decoration: underline; font-family: Tahoma, Geneva, sans-serif;">Ỗ cứng (HDD)</strong></p>
                         </div>
                         <div class="table-row odd">
-                            <p><strong style="font-size: 13px; font-style: italic; text-decoration: underline">Display</strong></p>
+                            <p><strong style="font-size: 13px; text-decoration: underline; font-family: Tahoma, Geneva, sans-serif;">Màn hình (Display)</strong></p>
                         </div>
                     </div>
                 </div>
@@ -172,8 +173,7 @@
                             {
                                 <div class="lower-header">
                                     <p class="pricing-table-price product-score" product-id="@item.ID">
-                                        
-
+                                        @item.TotalWeightPoint
                                     </p>
                                 </div>
                                 <div class="upper-header price-ratio-@item.ID hidden"></div>
@@ -204,16 +204,13 @@
         </div>
         <div class="row">
             <div style="width:50%; margin: 0px auto">
-                <div class="accordion fadeRight ui-accordion ui-widget ui-helper-reset" role="tablist">
+                <div class="accordion fadeRight">
                     <h5 class="hidden" style="height: 0px;"><i class="icon-plus-sign"></i></h5>
                         <div class="hidden" style="height: 0px;">
                             <p></p>
                         </div>
-                    <h5 class="ui-accordion-header ui-helper-reset ui-state-active ui-accordion-icons ui-corner-all" role="tab" id="ui-accordion-2-header-0" aria-controls="ui-accordion-2-panel-0" aria-selected="true" tabindex="-1">
-                        <i class="icon-plus-sign"></i>
-                        Góp ý và báo lỗi sản phẩm
-                    </h5>
-                    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-accordion-2-panel-0" aria-labelledby="ui-accordion-2-header-0" role="tabpanel" aria-expanded="true" aria-hidden="false">
+                    <h5>Góp ý và báo lỗi sản phẩm</h5>
+                    <div>
                         <label for="name">Tiêu đề *</label>
                         <input type="text" id="TenFeedback" name="name" class="stylish-text-input span5" value="">
                         <label for="website">Nội dung góp ý*</label>

@@ -18,17 +18,23 @@
         padding: 5px;
     }
     .history-items {
-        height: 550px;
+        height: 500px;
         overflow: scroll;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #fbd850;
     }
 </style>
 
 <div class="main-content">
     <div class="span8 left-element">
+        <div class="message-box info-message-box">
+            <center><strong>LỊCH SỬ CÁC SO SÁNH GẦN ĐÂY</strong></center>
+        </div>
         <div class="accordion fadeLeft history-items">
             @foreach (var item in Model)
             {
-                <h5><i class="icon-plus-sign"></i>@item.CompareTime</h5>
+                <h5>@item.CompareTime</h5>
                 <div>
                     <div class="span7">
                     @foreach (var detail in item.HistoryDetails)
@@ -49,8 +55,8 @@
                         }
                     }</div>
                     <div class="span7" style="margin-top: 10px;">
-                        <div class="stylish-button" style="background-color: #7DBB18; margin-left: 87%; font-family: Verdana, Geneva, sans-serif">
-                            <a href="#">chi tiết</a>
+                        <div class="stylish-button" style="background-color: #7DBB18; margin-left: 85%; font-family: Verdana, Geneva, sans-serif">
+                            <a href="javascript:void(0);">chi tiết</a>
                             <div class="hidden">
                                 @foreach (var detail in item.HistoryDetails)
                                 { 
@@ -104,6 +110,7 @@
         createform.appendChild(input3);
 
         createform.submit();
+        createform.target('_blank');
     });
 
     function productDetail(id) {
